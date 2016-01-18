@@ -141,7 +141,7 @@ Template.listsShow.events({
   },
 
   'click .js-edit-list': function(event, template) {
-    editList(this, template);
+    // editList(this, template);
   },
 
   'click .js-toggle-list-privacy': function(event, template) {

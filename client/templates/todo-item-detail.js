@@ -20,4 +20,9 @@ Template.todoItemDetail.helpers({
   comments: () => {
     return Comments.find().fetch()
   },
+  listName: function() {
+    if (this.todo) {
+      return Lists.findOne(this.todo.listId).name;
+    }
+  },
 })

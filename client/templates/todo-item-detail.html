@@ -2,6 +2,22 @@
   <div class="page todo-item ts-item-details">
     <div id="post-container" class="content-scrollable">
       <div class="wrapper-auth">
+        <nav class="js-title-nav">
+          {{#if editing}}
+            <form class="js-edit-form list-edit-form">
+              <input type="text" name="name" value="{{name}}">
+              <div class="nav-group right">
+                <a href="#" class="js-cancel nav-item"><span class="icon-close js-cancel" title="Cancel"></span></a>
+              </div>
+            </form>
+          {{else}}
+            <div class="nav-group">
+              <a href="#" class="js-menu nav-item"><span class="icon-list-unordered" title="Show menu"></span></a>
+              <a href="#" class="js-menu"> > {{ listName }}</a>
+            </div>
+          {{/if}}
+        </nav>
+
         <h1 class="title-auth">{{ this.todo.text }}</h1>
         <div class="ts-detail-author">
           <div style="ts-avatar-container">
