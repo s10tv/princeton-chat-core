@@ -1,0 +1,14 @@
+<template name="todosItem">
+  <div class="list-item {{checkedClass}} {{editingClass}}">
+    <label class="checkbox">
+      <input type="checkbox" checked="{{checked}}" name="checked">
+      <span class="checkbox-custom"></span>
+    </label>
+
+    <div class='textItem'>
+      <a href='/comments/{{ this._id }}'>{{ text }}</a>
+    </div>
+
+    <a class="js-delete-item delete-item" href="#"><span class="icon-trash"></span></a>
+  </div>
+</template>

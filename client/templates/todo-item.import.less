@@ -1,0 +1,144 @@
+.page.todo-item {
+  text-align: center;
+
+  .ts-comment-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+    overflow: hidden;
+
+    .input-symbol {
+
+      input {
+        padding-left: 1em;
+      }
+
+      line-height: 50px;
+      display: flex;
+      width: 100%;
+    }
+
+    .btn-primary {
+      line-height: 50px;
+      width: 100px;
+      display: flex;
+
+      @media screen and (min-width: 40em) {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100px;
+      }
+    }
+  }
+
+  .content-scrollable {
+    background: @color-tertiary;
+    margin-bottom: 50px;
+  }
+
+  .wrapper-auth {
+    padding-top: 4em;
+
+    @media screen and (min-width: 40em) {
+      margin: 0 auto;
+      // max-width: 480px;
+      width: 80%;
+    }
+
+    .title-auth {
+      .font-l1;
+      .type-light;
+      color: @color-ancillary;
+      margin-bottom: .75rem;
+    }
+
+    .subtitle-auth {
+      color: @color-medium-well;
+      margin: 0 15% 3rem;
+    }
+
+    .todo-detail-content {
+      padding: 1em 0em;
+      text-align: left;
+      overflow: visible;
+      overflow-x: hidden;
+
+      pre {
+        white-space: pre-wrap;       /* CSS 3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+      }
+
+
+    }
+
+    .ts-detail-author {
+      display: flex;
+    }
+
+    .ts-avatar-container {
+      display: flex;
+      line-height: 50px;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ts-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      padding: 10px;
+    }
+
+    .ts-author-name-container {
+      flex: 1;
+      line-height: 50px;
+      display: flex;
+      font-size: 12px;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .ts-author-name {
+      display: flex;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .ts-author-name-sub {
+      display: flex;
+      font-size: 10px;
+      line-height:15px;
+      color: #8F8F8F;
+    }
+
+    .list-errors {
+      margin-top: -2rem;
+      .list-item {
+        .title-caps;
+        background: @color-note;
+        color: @color-negative;
+        font-size: .625em; // 10px
+        margin-bottom: 1px;
+        padding: .7rem 0;
+      }
+    }
+  }
+
+  .link-auth-alt {
+    .font-s1;
+    .position(absolute, auto, 0, 1em, 0);
+    color: @color-medium;
+    display: inline-block;
+
+    @media screen and (min-width: 40em) {
+      bottom: 0;
+      margin-top: 1rem;
+      position: relative;
+    }
+  }
+}
