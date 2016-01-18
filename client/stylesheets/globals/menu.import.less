@@ -2,6 +2,12 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 
+  .logo {
+    padding: 20px 0px;
+    color: #ffffff;
+    font-size: 24px;
+  }
+
   .btns-group,
   .btns-group-vertical {
     margin: 2em auto 2em;
@@ -11,6 +17,10 @@
       .font-s1;
       padding-top: .5em;
       padding-bottom: .5em;
+    }
+
+    a {
+      box-shadow: #ffffff 0 0 0 1px inset;
     }
   }
 
@@ -44,7 +54,7 @@
       box-shadow: rgba(255,255,255,.15) 0 1px 0 0;
       display: block;
       line-height: 1.5em;
-      padding: .75em 2.5em;
+      padding: .75em 0.5em;
       position: relative;
     }
 
@@ -77,18 +87,19 @@
     }
 
     .list-todo {
-      color: rgba(255,255,255,.4);
+      color: rgba(255,255,255,.8);
 
       &:hover,
       &:active,
       &.active {
-        color: @color-empty;
+        background-color: @color-empty;
+        color: #F07621;
         .count-list { background: @color-primary; }
       }
 
       .cordova &:hover {
         // Prevent hover states from being noticeable on Cordova apps
-        color: rgba(255,255,255,.4);
+        color: rgba(255,255,255,.8);
       }
     }
   }
