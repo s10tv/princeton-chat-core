@@ -122,10 +122,10 @@ Template.appBody.helpers({
     return _.range(1900, currentYear + 1);
   },
   isYearSelected: function(year) {
-    return Meteor.user().classYear == year;
+    return Session.get('profile').classYear == year;
   },
   isClassTypeSelected: function(classType) {
-    return Meteor.user().classType === classType;
+    return Session.get('profile').classType === classType;
   }
 });
 
