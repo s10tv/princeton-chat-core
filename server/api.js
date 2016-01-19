@@ -9,6 +9,34 @@ class CurrentUser {
 }
 
 Meteor.methods({
+  // TODO: for future versions
+  // 'facebook/isActive': () => {
+  //   user = CurrentUser.get();
+  //   if (user.services.facebook) {
+  //     return true;
+  //   }
+  //
+  //   return false;
+  // },
+  //
+  // 'instagram/isActive': () => {
+  //   user = CurrentUser.get();
+  //   if (user.services.instagram) {
+  //     return true;
+  //   }
+  //
+  //   return false;
+  // },
+  //
+  // 'twitter/isActive': () => {
+  //   user = CurrentUser.get();
+  //   if (user.services.twitter) {
+  //     return true;
+  //   }
+  //
+  //   return false;
+  // },
+
   'profile/update': (profile) => {
     user = CurrentUser.get();
     Users.update(user._id, {

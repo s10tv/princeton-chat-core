@@ -44,8 +44,52 @@ Template.settings.helpers({
         break;
     }
     return user.classYear.replace(/^[0-9]{2}/, prefix);
-  }
-})
+  },
+  
+  // TODO: for future versions
+  // isFacebookIntegrated: function() {
+  //   Meteor.call('facebook/isActive', function(err, res) {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //
+  //     if (res) {
+  //       return 'facebook';
+  //     } else {
+  //       return '';
+  //     }
+  //   });
+  // },
+  //
+  // isInstagramIntegrated: function() {
+  //   Meteor.call('instagram/isActive', function(err, res) {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //
+  //     if (res) {
+  //       console.log('insta exists!!');
+  //       return 'instagram';
+  //     } else {
+  //       return '';
+  //     }
+  //   });
+  // },
+  //
+  // isTwitterIntegrated: function() {
+  //   Meteor.call('twitter/isActive', function(err, res) {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //
+  //     if (res) {
+  //       return 'twitter';
+  //     } else {
+  //       return '';
+  //     }
+  //   });
+  // }
+});
 
 Template.settings.events({
   'click #editProfile': function(e) {
