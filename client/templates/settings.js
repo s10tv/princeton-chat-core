@@ -50,6 +50,14 @@ Template.settings.helpers({
 Template.settings.events({
   'click #editProfile': function(e) {
     e.preventDefault();
+    const user = Meteor.user();
+    Session.set('profile', {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      classYear: user.classYear,
+      classType: user.classType,
+      info: user.info,
+    });
     $('#editProfileModal').modal('show');
   },
 

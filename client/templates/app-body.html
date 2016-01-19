@@ -77,43 +77,45 @@
   </div>
 
   <!-- Popup for editing profile -->
+  {{#with profile}}
   <div id="editProfileModal" class="modal fade ts-modal" tabIndex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="profileEditDismiss"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">Edit Profile</h4>
         </div>
         <div class="modal-body">
-          <form id="newPostForm">
+          <form id="editProfileForm">
             <div class="form-group">
               <label for="profile-info">First Name:</label>
-              <input type="text" class="form-control" id="profileFirstName" name="firstName" placeholder="First Name" />
+              <input type="text" class="form-control" id="profileFirstName" name="firstName" placeholder="First Name" value={{firstName}} maxlength="50"/>
             </div>
 
             <div class="form-group">
               <label for="profileLastName">Last Name:</label>
-              <input type="text" class="form-control" id="profileLastName" name="lastName" placeholder="Last Name" />
+              <input type="text" class="form-control" id="profileLastName" name="lastName" placeholder="Last Name" value={{lastName}} maxlength="50" />
             </div>
 
             <div class="form-group">
-              <label for="profileInfo">Info:</label>
-              <input type="text" class="form-control" id="profileInfo" name="Info" placeholder="Info" />
+              <label for="profileInfo">Info: (max. 150 characters)</label>
+              <input type="text" class="form-control" id="profileInfo" name="info" placeholder="Info" value={{info}} maxlength="150" />
             </div>
 
             <div class="form-group">
               <label for="profileClassYear">Class Year</label>
               <select class="form-control">
-                <option>1928</option>
-                <option>1929</option>
+                {{#each possibleYears}}
+                  <option selected={{isYearSelected this}}>{{ this }}</option>
+                {{/each}}
               </select>
             </div>
 
             <div class="form-group">
               <label for="profileClassType">Class Type:</label>
               <select class="form-control">
-                <option>Undergraduate</option>
-                <option>Graduate</option>
+                <option selected={{isClassTypeSelected 'undergrad'}}>Undergraduate</option>
+                <option selected={{isClassTypeSelected 'grad'}}>Graduate</option>
               </select>
             </div>
 
@@ -125,4 +127,5 @@
       </div>
     </div>
   </div>
+  {{/with}}
 </template>

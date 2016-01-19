@@ -22,7 +22,8 @@ Meteor.publish("userData", function () {
       avatar: 1,
       emailPreference: 1,
       classYear: 1,
-      classType: 1
+      classType: 1,
+      info: 1
     }});
   } else {
     this.ready();

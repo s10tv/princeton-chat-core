@@ -17,6 +17,7 @@ UserSchema = new SimpleSchema({
   username: { type: String, optional: true },
   services: { type: Object, optional: true, blackbox: true, defaultValue: {} },
   profile: { type: Object, optional: true, blackbox: true },
+  info: { type: String, optional: true, defaultValue: 'Go Tigers!', max: 150 },
 
   followingTopics: { type: [String], defaultValue: [] },
   followingPosts: { type: [String], defaultValue: [] },

@@ -56,6 +56,19 @@ Template.appBody.onRendered(function() {
       });
     }
   };
+
+  this.autorun(function() {
+    if (Meteor.userId()) {
+      const user = Meteor.user();
+      Session.set('profile', {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        classYear: user.classYear,
+        classType: user.classType,
+        info: user.info,
+      });
+    }
+  });
 });
 
 Template.appBody.helpers({
@@ -98,6 +111,21 @@ Template.appBody.helpers({
   },
   loggedIn: function() {
     return Meteor.user() != undefined;
+  },
+
+  // all profile editing related
+  profile: function() {
+    return Session.get('profile');
+  },
+  possibleYears: function() {
+    const currentYear = (new Date()).getFullYear();
+    return _.range(1900, currentYear + 1);
+  },
+  isYearSelected: function(year) {
+    return Meteor.user().classYear == year;
+  },
+  isClassTypeSelected: function(classType) {
+    return Meteor.user().classType === classType;
   }
 });
 
@@ -161,5 +189,9 @@ Template.appBody.events({
     list._id = Lists.insert(list);
 
     Router.go('listsShow', list);
+  },
+
+  'click #profileEditDismiss': function() {
+    Session.set('profile', {});
   }
 });
