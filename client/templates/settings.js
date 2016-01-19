@@ -26,6 +26,10 @@ Template.settings.helpers({
     })
 
     return sections;
+  },
+
+  isCurrentPrefChecked: function(pref) {
+    return Meteor.user().emailPreference === pref;
   }
 })
 
@@ -33,5 +37,10 @@ Template.settings.events({
   'click #logout': function() {
     Meteor.logout();
     Router.go('/signin');
+  },
+
+  'click .radio-notifications': function(event) {
+    var emailNotificationPref = event.currentTarget.value;
+    Meteor.call('emailPreference/update', emailNotificationPref);
   }
 })

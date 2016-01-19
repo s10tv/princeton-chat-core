@@ -61,6 +61,26 @@
             {{/each}}
           </div>
 
+          <h4>Notification Preferences</h4>
+          <div class="section">
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="radio">
+                  <input type="radio" name="notificationPrefs" class="radio-notifications" id="notificaitonPrefsAll" value="all" checked={{isCurrentPrefChecked 'all'}}> All
+                </label>
+              </div>
+              <div class="col-sm-4">
+                <label class="radio">
+                  <input type="radio" name="notificationPrefs" class="radio-notifications" id="notificationPrefsDigest" value="digest" checked={{isCurrentPrefChecked 'digest'}}> Get a daily digest
+                </label>
+              </div>
+              <div class="col-sm-4">
+                <label class="radio">
+                  <input type="radio" name="notificationPrefs" class="radio-notifications" id="notificationPrefsNone" value="none" checked={{isCurrentPrefChecked 'none'}}> Nothing
+                </label>
+              </div>
+            </div>
+          </div>
 
           <h4>Social</h4>
           <div class="row section">
