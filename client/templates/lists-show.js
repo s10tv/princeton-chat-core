@@ -100,10 +100,6 @@ var toggleListPrivacy = function(list) {
 };
 
 Template.listsShow.events({
-  'click #addPost': function() {
-    $('#addPostModal').modal('show');
-  },
-
   'click .js-cancel': function() {
     Session.set(EDITING_KEY, false);
   },

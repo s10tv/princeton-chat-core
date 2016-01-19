@@ -28,7 +28,11 @@
                           changes, we don't re-render the list contents }}
 
           <div class="list-item add-post">
-            <a class="textItem hvr-icon-forward" id="addPost">
+            <a  id="addPost"
+                class="textItem hvr-icon-forward"
+                data-toggle="modal"
+                data-target="#addPostModal"
+                data-topic-id="{{ this }}">
               <i class="ion-compose add-post-icon"></i>
               New Post
             </a>
@@ -38,14 +42,18 @@
             {{> todosItem}}
           {{else}}
             <div class="wrapper-message">
-              <div class="title-message">No tasks here</div>
-              <div class="subtitle-message">Add new tasks using the field above</div>
+              <div class="title-message">No Posts Yet</div>
+              <div class="subtitle-message">Add a new post by clicking
+                <a href='#'
+                  data-toggle="modal"
+                  data-topic-id="{{ this }}"
+                  data-target="#addPostModal"><i class="ion-compose"></i></a></div>
             </div>
           {{/each}}
         {{/with}}
       {{else}}
           <div class="wrapper-message">
-            <div class="title-message">Loading tasks...</div>
+            <div class="title-message">Loading ...</div>
           </div>
       {{/if}}
     </div>

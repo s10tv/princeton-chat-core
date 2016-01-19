@@ -33,11 +33,16 @@ Meteor.startup(function () {
 });
 
 Template.appBody.onRendered(function() {
-  $('#allTopics-select').select2({
-    placeholder: 'Choose topics',
-    multiple: true,
-    width: '100%',
-  })
+  $('#addPostModal').on('show.bs.modal', function(e) {
+    var topicId = $(e.relatedTarget).data('topic-id');
+    $(e.target).find('option[value="' + topicId + '"]').attr({ 'selected': true });
+
+    $('#allTopics-select').select2({
+      placeholder: 'Choose topics',
+      multiple: true,
+      width: '100%',
+    })
+  });
 
   this.find('#content-container')._uihooks = {
     insertElement: function(node, next) {

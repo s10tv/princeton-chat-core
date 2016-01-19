@@ -63,7 +63,7 @@
             <div class="form-group">
               <select id="allTopics-select" class="form-control">
                 {{#each lists }}
-                  <option value={{this._id}}>{{this.name}}</option>
+                  <option value={{this._id}} {{isSelcted}}>{{this.name}}</option>
                 {{/each }}
               </select>
             </div>
