@@ -29,7 +29,6 @@ Meteor.publishComposite('todos', function(listId) {
       check(listId, String);
 
       return Todos.find({ $or: [
-        { listId: listId },
         { listIds: listId },
       ]});
     },
@@ -37,7 +36,7 @@ Meteor.publishComposite('todos', function(listId) {
     children: [
       {
         find: function(todo) {
-          return Users.find({ id: todo.ownerId });
+          return Users.find({ _id: todo.ownerId });
         }
       }
     ]
