@@ -1,7 +1,7 @@
 <template name="todosItem">
   <div class="list-item {{checkedClass}} {{editingClass}}">
     <div class='textItem'>
-      <a href='/lists/{{this.listId}}/{{ this._id }}'>{{ text }}</a>
+      <a href='/lists/{{ currentListId }}/{{ this._id }}'>{{ title }}</a>
     </div>
 
     <a class="js-delete-item delete-item" href="#"><span class="icon-trash"></span></a>

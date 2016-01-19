@@ -42,7 +42,9 @@ Template.listsShow.helpers({
   },
 
   todos: function(listId) {
-    return Todos.find({listId: listId}, {sort: {createdAt : -1}});
+    return Todos.find({ $or: [
+      { listIds: listId },
+    ]}, {sort: {createdAt : -1}});
   }
 });
 
@@ -98,6 +100,10 @@ var toggleListPrivacy = function(list) {
 };
 
 Template.listsShow.events({
+  'click #addPost': function() {
+    $('#addPostModal').modal('show');
+  },
+
   'click .js-cancel': function() {
     Session.set(EDITING_KEY, false);
   },

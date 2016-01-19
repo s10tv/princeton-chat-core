@@ -33,6 +33,12 @@ Meteor.startup(function () {
 });
 
 Template.appBody.onRendered(function() {
+  $('#allTopics-select').select2({
+    placeholder: 'Choose topics',
+    multiple: true,
+    width: '100%',
+  })
+
   this.find('#content-container')._uihooks = {
     insertElement: function(node, next) {
       $(node)
@@ -96,6 +102,31 @@ Template.appBody.helpers({
 });
 
 Template.appBody.events({
+  'submit #newPostForm': function(event) {
+    event.preventDefault();
+    const postTitle = $(event.target).find('[name=postTitle]').val();
+    const postContent = $(event.target).find('[name=postContent]').val();
+    const postTopics = $("#allTopics-select").val();
+
+    if (postTopics.length == 0) {
+      console.log('you have to attach at least one topic');
+      return;
+    }
+
+    Meteor.call('post/insert', postTitle, postContent, postTopics, (err, postId) => {
+      $('.modal').modal('hide');
+
+      if (err) {
+        console.log(err);
+        return
+      }
+
+      Router.go(`/lists/${postTopics[0]}/${postId}`);
+    });
+
+    console.log(postTitle, postContent, postTopics);
+  },
+
   'click .js-menu': function() {
     Session.set(MENU_KEY, ! Session.get(MENU_KEY));
   },

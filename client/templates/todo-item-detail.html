@@ -2,7 +2,7 @@
   <div class="page lists-show-detail todo-item ts-item-details">
     <nav class="js-title-nav">
       {{#if editing}}
-        <form class="js-edit-form list-edit-form">
+        <form class="ts-form js-edit-form list-edit-form">
           <input type="text" name="name" value="{{name}}">
           <div class="nav-group right">
             <a href="#" class="js-cancel nav-item"><span class="icon-close js-cancel" title="Cancel"></span></a>
@@ -17,7 +17,7 @@
     </nav>
     <div id="post-container" class="content-scrollable">
       <div class="wrapper-auth">
-        <h1 class="title-auth">{{ this.todo.text }}</h1>
+        <h1 class="title-auth">{{ this.todo.title }}</h1>
         <div class="ts-detail-author">
           <div style="ts-avatar-container">
             <img class="ts-avatar" src="/img/qiming.jpg" />
@@ -32,10 +32,7 @@
           </div>
         </div>
         <div class="todo-detail-content">
-          <pre>There are 2 projects that you can look at to help you get started. The first project can be found in the example folder. This is a basic project that shows how you can consume material-ui components in your own project.
-
-The second project is the actual documentation site. This is a more complex project but will give examples of every component. Check out the docs folder for build instructions.
-          </pre>
+          <pre>{{ this.todo.content }}</pre>
 
           <div class="comments">
             {{#each comments}}
@@ -46,7 +43,7 @@ The second project is the actual documentation site. This is a more complex proj
       </div>
     </div>
 
-    <form class="ts-comment-form">
+    <form class="ts-form ts-comment-form">
       <div class="input-symbol">
         <input type="comment" name="comment" placeholder="Add comment ... " />
       </div>

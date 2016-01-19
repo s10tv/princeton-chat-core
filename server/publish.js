@@ -29,7 +29,10 @@ Meteor.publish("userData", function () {
 Meteor.publish('todos', function(listId) {
   check(listId, String);
 
-  return Todos.find({listId: listId});
+  return Todos.find({ $or: [
+    { listId: listId },
+    { listIds: listId },
+  ]});
 });
 
 Meteor.publish('comments', function(todoId) {

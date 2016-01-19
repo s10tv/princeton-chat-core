@@ -12,5 +12,10 @@ Lists.defaultName = function() {
   return nextName;
 };
 
-Todos = new Mongo.Collection('todos');
-Comments = new Mongo.Collection('comments');
+TopicSchema = new SimpleSchema({
+  displayName: { type: String },
+  parentTopicId: { type: String, optional: true },
+});
+
+this.Lists.attachBehaviour('timestampable');
+this.Lists.attachSchema(TopicSchema);
