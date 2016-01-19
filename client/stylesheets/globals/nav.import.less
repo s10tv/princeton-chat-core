@@ -1,6 +1,6 @@
 // Generic nav positioning and styles
 nav {
-  .position(absolute, 0, 0, auto, 0);
+  .position(absolute, 5px, 0, auto, 5px);
   .transform(translate3d(0,0,0));
   .transition( all 200ms ease-out );
   z-index: 10;
@@ -12,7 +12,7 @@ nav {
     height: 3rem;
     text-align: center;
     width: 3rem;
-    
+
     &:active { opacity: .5; }
 
     [class^="icon-"],
@@ -33,7 +33,7 @@ nav {
 }
 
 // Custom nav for lists-show
-.page.lists-show nav {
+.page.lists-show nav, .page.lists-show-detail nav {
   background-color: #ffffff;
   height: 5em;
 

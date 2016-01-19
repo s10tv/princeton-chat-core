@@ -3,8 +3,8 @@
 
     <div class="content-scrollable">
       <div class="wrapper-auth">
-        <h1 class="title-auth">Sign In.</h1>
-        <p class="subtitle-auth" >Signing in allows you to view private lists</p>
+        <h1 class="title-auth">Princeton Chat</h1>
+        <p class="subtitle-auth" >Welcome back, Tiger.</p>
 
         <form>
           {{#if errorMessages}}
@@ -16,20 +16,18 @@
           {{/if}}
 
           <div class="input-symbol {{errorClass 'email'}}">
-            <input type="email" name="email" placeholder="Your Email" />
-            <span class="icon-email" title="Your Email"></span>
+            <input type="email" name="email" placeholder="you@alumni.princeton.edu" />
+            <span class="icon-email" title="email@alumni.princeton.edu"></span>
           </div>
 
           <div class="input-symbol {{errorClass 'password'}}">
-            <input type="password" name="password" placeholder="Password" />
+            <input type="password" name="password" placeholder="password" />
             <span class="icon-lock" title="Password"></span>
           </div>
 
           <button type="submit" class="btn-primary">Sign in</button>
         </form>
       </div>
-
-      <a href="{{pathFor 'join'}}" class="link-auth-alt">Need an account? Join Now.</a>
     </div>
   </div>
 </template>

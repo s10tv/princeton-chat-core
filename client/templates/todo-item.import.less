@@ -2,8 +2,14 @@
   text-align: center;
 
   .js-title-nav {
+    height: 2em;
+
     a.backtrace {
       color: #F07621;
+    }
+
+    @media screen and (min-width: 40em) {
+      height: 0em;
     }
   }
 
@@ -18,6 +24,7 @@
     .input-symbol {
 
       input {
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         padding-left: 1em;
         border:none;
         border-top: 1px solid #e0e0ef;
@@ -42,10 +49,12 @@
   }
 
   .content-scrollable {
+    top: 2em;
     background: @color-tertiary;
     margin-bottom: 50px;
 
     @media screen and (max-width: 40em) {
+      top: 5em;
       margin-left: 1em;
       margin-right: 1em;
       width: 100px;
@@ -54,8 +63,6 @@
   }
 
   .wrapper-auth {
-    padding-top: 4em;
-
     @media screen and (min-width: 40em) {
       margin: 0 auto;
       // max-width: 480px;

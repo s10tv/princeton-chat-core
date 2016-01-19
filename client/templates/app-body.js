@@ -89,6 +89,9 @@ Template.appBody.helpers({
     } else {
       return true;
     }
+  },
+  loggedIn: function() {
+    return Meteor.user() != undefined;
   }
 });
 

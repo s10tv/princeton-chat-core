@@ -1,0 +1,139 @@
+.page.settings {
+  text-align: center;
+
+  .avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+
+  .profile-content {
+    text-align: left;
+    margin: 0px 20px;
+
+    .subtitle {
+      font-size: 14px;
+      color: #9E9E9E;
+    }
+
+    .section, p {
+      margin: 20px 0px;
+    }
+
+    h4 {
+      font-weight: 700;
+    }
+  }
+
+  .js-title-nav {
+    height: 1.5em;
+
+    @media screen and (min-width: 40em) {
+      height: 0em;
+    }
+  }
+
+  .link-service {
+    font-size: 24px;
+
+    @media screen and (max-width: 850px) {
+      margin-top: 5px;
+    }
+
+    .btn {
+      border-radius: 3px;
+      padding: 10px;
+      text-align: center;
+      width: 100%;
+      color: #ffffff;
+    }
+
+    .facebook {
+      background-color: #3b5998;
+    }
+
+    .twitter {
+      background-color: #55acee;
+    }
+  }
+
+  .content-scrollable { background: @color-tertiary; }
+
+  .wrapper-auth {
+    padding-bottom: 40px;
+
+    @media screen and (min-width: 40em) {
+      margin: 0 auto;
+      // max-width: 480px;
+      width: 80%;
+    }
+
+    .title-auth {
+      .font-l1;
+      .type-light;
+      color: @color-ancillary;
+      margin-bottom: .75rem;
+    }
+
+    .subtitle-auth {
+      margin: 0 15% 1.5rem;
+      color: #cccccc;
+
+      .subtitle {
+        color: @color-medium-well;
+      }
+
+      a {
+        color: #cccccc;
+        text-decoration: none;
+        padding-top: 5px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    form {
+      .input-symbol {
+        margin-bottom: 1px;
+        width: 100%;
+      }
+
+      .btn-primary {
+        margin: 1em 5% 0;
+        width: 90%;
+
+        @media screen and (min-width: 40em) {
+          margin-left: 0;
+          margin-right: 0;
+          width: 100%;
+        }
+      }
+    }
+    .list-errors {
+      margin-top: -2rem;
+      .list-item {
+        .title-caps;
+        background: @color-note;
+        color: @color-negative;
+        font-size: .625em; // 10px
+        margin-bottom: 1px;
+        padding: .7rem 0;
+      }
+    }
+  }
+
+  .link-auth-alt {
+    .font-s1;
+    .position(absolute, auto, 0, 1em, 0);
+    color: @color-medium;
+    display: inline-block;
+
+    @media screen and (min-width: 40em) {
+      bottom: 0;
+      margin-top: 1rem;
+      position: relative;
+    }
+  }
+}

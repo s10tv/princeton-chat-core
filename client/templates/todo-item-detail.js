@@ -25,4 +25,9 @@ Template.todoItemDetail.helpers({
       return Lists.findOne(this.todo.listId).name;
     }
   },
+  listId: function() {
+    if (this.todo) {
+      return this.todo.listId;
+    }
+  },
 })

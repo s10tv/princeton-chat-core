@@ -3,9 +3,27 @@
   -webkit-overflow-scrolling: touch;
 
   .logo {
-    padding: 20px 10px;
-    color: #ffffff;
-    font-size: 24px;
+
+    &:hover {
+      background-color: #ffffff;
+      a {
+        color: @princeton-orange;
+      }
+    }
+
+    a {
+      color: #ffffff;
+      font-size: 24px;
+      display: block;
+      line-height: 1.5em;
+      padding: 20px 10px;
+
+      .ts-settings {
+        float: right;
+        padding-top: 2px;
+        padding-right: 10px;
+      }
+    }
   }
 
   .btns-group,

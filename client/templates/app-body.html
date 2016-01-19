@@ -2,20 +2,24 @@
   <div id="container" class="{{menuOpen}} {{cordova}}">
 
     <section id="menu">
-      <div class="logo">
-        Princeton.Chat
-      </div>
-      <div class="list-todos">
-        {{#each lists}}
-          <a href="{{pathFor 'listsShow'}}" class="list-todo {{activeListClass}}" title="{{name}}">
-            {{#if userId}}
-              <span class="icon-lock"></span>
-            {{/if}}
-            {{name}}
+      {{#if loggedIn }}
+        <div class="logo">
+          <a href="/settings">
+            <span>Princeton.Chat</span>
+            <i class="ts-settings ion-ios-arrow-forward"></i>
           </a>
-        {{/each}}
-
-      </div>
+        </div>
+        <div class="list-todos">
+          {{#each lists}}
+            <a href="{{pathFor 'listsShow'}}" class="list-todo {{activeListClass}}" title="{{name}}">
+              {{#if userId}}
+                <span class="icon-lock"></span>
+              {{/if}}
+              {{name}}
+            </a>
+          {{/each}}
+        </div>
+      {{/if}}
     </section>
 
     {{#unless connected}}

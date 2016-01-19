@@ -1,0 +1,83 @@
+<template name="settings">
+  <div class="page lists-show-detail settings">
+
+    <nav class="js-title-nav">
+      <div class="nav-group">
+        <a href="#" class="js-menu nav-item"><span class="icon-list-unordered" title="Show menu"></span></a>
+      </div>
+    </nav>
+
+    <div class="content-scrollable">
+      <div class="wrapper-auth">
+        {{ #with currentUser }}
+          <h1 class="title-auth">
+            <img class="avatar" src="{{ this.avatar.url }}" />
+          </h1>
+          <h1 class="title-auth">
+            {{ this.firstName }} {{ this.lastName }}
+          </h1>
+          <p class="subtitle-auth" >
+            <span class="subtitle">{{ this.email.address }}</span><br />
+            <a href="#" id="editProfile">Edit Profile</a> | <a href="#" id="logout">Logout</a>
+          </p>
+        {{/with}}
+
+        <div class="profile-content">
+          <h4>Info</h4>
+          <p>
+            Undergrad in Computer Science, Class of 2012
+          </p>
+
+          <h4>My Bio</h4>
+          <p>
+            When I was 17 years old, I used to work and study for about 20 hours a day. I went to school, did my homework during breaks and managed a not-for-profit organization at night. At that time, working hard landed me countless national campaigns, opportunities to work with A-list organizations and a successful career. As I got older, I started thinking differently. I realized that working harder is not always the right path to success. Sometimes, working less can actually produce better results.
+          </p>
+
+          <h4>Topics I follow</h4>
+          <div class="subtitle">
+            You will receive an email notification whenever a question is tagged with this topic.
+          </div>
+          <div class="section">
+            {{#each expertiseSections}}
+              <div class="row">
+                <div class="six columns list-item checked">
+                  <label class="checkbox">
+                    <input type="checkbox" name="checked">
+                    <span class="checkbox-custom"></span>
+                  </label>
+
+                  {{ this.firstExpertise.name }}
+                </div>
+
+                <div class="six columns list-item checked">
+                  <label class="checkbox">
+                    <input type="checkbox" name="checked">
+                    <span class="checkbox-custom"></span>
+                  </label>
+
+                  {{ this.secondExpertise.name }}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+
+
+          <h4>Social</h4>
+          <div class="row section">
+            <div class='six columns link-service'>
+              <div class="btn facebook">
+                <i class="ion-social-facebook"></i>
+              </div>
+            </div>
+
+            <div class='six columns link-service'>
+              <div class="btn twitter">
+                <i class="ion-social-twitter"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
