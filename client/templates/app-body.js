@@ -115,7 +115,7 @@ Template.appBody.helpers({
     }
   },
   loggedIn: function() {
-    return Meteor.user() != undefined;
+    return Meteor.user() && Meteor.user().status == 'active'; // second check needed for onboarding
   },
 
   // all profile editing related

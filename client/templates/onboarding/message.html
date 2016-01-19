@@ -1,0 +1,99 @@
+<template name="message">
+  <!-- {{#if equals type 'welcome'}}
+    <span class="h1-regular-container"><h1> Hi, Tigercub. </h1></span>
+  {{/if}}
+  <div class="chat-msg system">
+    <div class="avatar-container"><img alt="avatar" src="{{user.avatar.url}}" class="avatar"/></div>
+    <div class="chat-msg-item-right-container">
+      <div class="chat-msg-username-container">
+        <p class="chat-msg-username"> {{user.firstName}} {{user.lastName}} </p>
+        <p class="chat-msg-username-time"> {{ msgTime }} </p>
+      </div>
+      {{#if equals type 'welcome'}}
+        {{> init }}
+      {{/if}}
+
+      {{#if equals type 'firstname'}}
+        {{> first_name }}
+      {{/if}}
+
+      {{#if equals type 'lastname'}}
+        {{> last_name }}
+      {{/if}}
+
+      {{#if equals type 'classyear'}}
+        {{> class_year }}
+      {{/if}}
+
+      {{#if equals type 'classtype'}}
+        {{> class_type }}
+      {{/if}}
+
+      {{#if equals type 'thanks'}}
+        {{> thanks}}
+      {{/if}}
+
+      {{#if equals type 'linkservice'}}
+        {{> link_services }}
+      {{/if}}
+
+      {{#if equals type 'share'}}
+        {{> share }}
+      {{/if}}
+
+      {{#if equals type 'raw'}}
+        {{> raw }}
+      {{/if}}
+    </div>
+  </div> -->
+  <div class="ts-detail-author">
+    <div style="ts-avatar-container">
+      <img class="ts-avatar onboarding-avatar" src="{{user.avatar.url}}" />
+    </div>
+    <div class="ts-author-name-container">
+      <div class="ts-author-name">
+        {{ user.firstName }} {{ user.lastName }}
+      </div>
+      <div class="ts-author-name-sub">
+        {{ msgTime }} | Computer Science | Class of '12
+      </div>
+    </div>
+  </div>
+  <div class="todo-detail-content">
+    {{#if equals type 'welcome'}}
+      {{> init }}
+    {{/if}}
+
+    {{#if equals type 'firstname'}}
+      {{> first_name }}
+    {{/if}}
+
+    {{#if equals type 'lastname'}}
+      {{> last_name }}
+    {{/if}}
+
+    {{#if equals type 'classyear'}}
+      {{> class_year }}
+    {{/if}}
+
+    {{#if equals type 'classtype'}}
+      {{> class_type }}
+    {{/if}}
+
+    {{#if equals type 'thanks'}}
+      {{> thanks}}
+    {{/if}}
+
+    {{#if equals type 'linkservice'}}
+      {{> link_services }}
+    {{/if}}
+
+    {{#if equals type 'share'}}
+      {{> share }}
+    {{/if}}
+
+    {{#if equals type 'raw'}}
+      {{> raw }}
+    {{/if}}
+  </div>
+</template>

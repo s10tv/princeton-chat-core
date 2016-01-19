@@ -23,7 +23,8 @@ Meteor.publish("userData", function () {
       emailPreference: 1,
       classYear: 1,
       classType: 1,
-      info: 1
+      info: 1,
+      status: 1
     }});
   } else {
     this.ready();
@@ -75,4 +76,12 @@ Meteor.publishComposite('comments', function(todoId) {
     ]
   }
 
+})
+
+Meteor.publish('onboardingMessages', function() {
+  if (this.userId) {
+    return Messages.find({ ownerId: this.userId })
+  } else {
+    this.ready();
+  }
 })

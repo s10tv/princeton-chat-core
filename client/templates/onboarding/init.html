@@ -1,0 +1,11 @@
+<template name="init">
+  <p class="chat-msg-content">
+    Welcome, Tigercub. Would you like to continue?
+  </p>
+  <div class="chat-msg-btn-container" style={{ noButtonDisplay }}>
+    {{#with buttonText}}
+      <button id='yes' class='btn-success'>{{ this }}</button>
+    {{/with}}
+    <button id='no' class='btn-danger'>No</button>
+  </div>
+</template>
