@@ -1,4 +1,4 @@
-Todos = new Mongo.Collection('todos');
+Todos = new Mongo.Collection('posts');
 
 PostSchema = new SimpleSchema({
   ownerId: { type: String },

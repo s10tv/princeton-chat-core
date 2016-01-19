@@ -1,4 +1,4 @@
-Lists = new Mongo.Collection('lists');
+Lists = new Mongo.Collection('topics');
 
 // Calculate a default name for a list in the form of 'List A'
 Lists.defaultName = function() {

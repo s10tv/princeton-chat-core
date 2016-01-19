@@ -15,7 +15,7 @@
               {{#if userId}}
                 <span class="icon-lock"></span>
               {{/if}}
-              {{name}}
+              {{displayName}}
             </a>
           {{/each}}
         </div>
@@ -63,7 +63,7 @@
             <div class="form-group">
               <select id="allTopics-select" class="form-control">
                 {{#each lists }}
-                  <option value={{this._id}} {{isSelcted}}>{{this.name}}</option>
+                  <option value={{this._id}} {{isSelcted}}>{{this.displayName }}</option>
                 {{/each }}
               </select>
             </div>
