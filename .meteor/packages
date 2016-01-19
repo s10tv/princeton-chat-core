@@ -22,3 +22,4 @@ iron:router@0.9.4
 accounts-password
 check
 pagebakers:ionicons
+fortawesome:fontawesome

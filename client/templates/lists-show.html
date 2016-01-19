@@ -1,5 +1,5 @@
 <template name="listsShow">
-  <div class="page lists-show">
+  <div class="page lists-show list-view">
     <nav class="js-title-nav">
       {{#if editing}}
         <form class="js-edit-form list-edit-form">
@@ -13,7 +13,10 @@
           <a href="#" class="js-menu nav-item"><span class="icon-list-unordered" title="Show menu"></span></a>
         </div>
 
-        <h1 class="js-edit-list title-page"><span class="title-wrapper">{{name}}</span></h1>
+        <h1 class="js-edit-list title-page">
+          <span class="title-wrapper">{{name}}</span>
+        </h1>
+
       {{/if}}
     </nav>
 
@@ -23,6 +26,14 @@
         {{#with _id}} {{! Establish new data context with only the '_id'
                           field. This way, when the 'incompleteCount' field
                           changes, we don't re-render the list contents }}
+
+          <div class="list-item add-post">
+            <a class="textItem hvr-icon-forward">
+              <i class="ion-compose add-post-icon"></i>
+              New Post
+            </a>
+          </div>
+
           {{#each todos this}}
             {{> todosItem}}
           {{else}}
