@@ -107,6 +107,12 @@ Template.appBody.helpers({
       return 'active';
     }
   },
+  headerClass: function() {
+    var current = Router.current();
+    if (current.route.name == 'settings') {
+      return 'active-header';
+    }
+  },
   connected: function() {
     if (Session.get(SHOW_CONNECTION_ISSUE_KEY)) {
       return Meteor.status().connected;

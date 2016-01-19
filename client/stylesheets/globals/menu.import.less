@@ -4,13 +4,6 @@
 
   .logo {
 
-    &:hover {
-      background-color: #ffffff;
-      a {
-        color: @princeton-orange;
-      }
-    }
-
     a {
       color: #ffffff;
       font-size: 24px;
@@ -22,6 +15,11 @@
         float: right;
         padding-top: 2px;
         padding-right: 10px;
+      }
+
+      &:hover, &.active-header {
+        background-color: #ffffff;
+        color: @princeton-orange;
       }
     }
   }
