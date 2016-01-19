@@ -47,5 +47,8 @@ Template.todoItemDetail.helpers({
   // with user in scope
   displayName: function() {
     return Users.displayName(this);
+  },
+  avatarUrl: function() {
+    return this.avatar.url;
   }
 })

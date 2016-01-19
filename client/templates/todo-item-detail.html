@@ -20,7 +20,9 @@
         <h1 class="title-auth">{{ this.todo.title }}</h1>
         <div class="ts-detail-author">
           <div style="ts-avatar-container">
-            <img class="ts-avatar" src="/img/qiming.jpg" />
+            {{#with owner}}
+              <img class="ts-avatar" src="{{avatarUrl}}" />
+            {{/with}}
           </div>
           <div class="ts-author-name-container">
             <div class="ts-author-name">
