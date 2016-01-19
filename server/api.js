@@ -9,6 +9,19 @@ class CurrentUser {
 }
 
 Meteor.methods({
+  'profile/update': (profile) => {
+    user = CurrentUser.get();
+    Users.update(user._id, {
+      $set: {
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        info: profile.info,
+        classYear: profile.classYear,
+        classType: profile.classType
+      }
+    });
+  },
+
   'emailPreference/update': (preference) => {
     user = CurrentUser.get()
     Users.update(user._id, { $set: {

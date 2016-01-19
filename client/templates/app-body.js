@@ -193,5 +193,32 @@ Template.appBody.events({
 
   'click #profileEditDismiss': function() {
     Session.set('profile', {});
+  },
+
+  'click #editProfileSubmit': function(event) {
+    event.preventDefault();
+    const firstName = $('#profileFirstName').val();
+    const lastName = $('#profileLastName').val();
+    const classYear = $('#profileClassYear').val();
+    const parsedClassType = () => {
+      switch($('#profileClassType').val()) {
+        case 'Undergraduate':
+          return 'undergrad';
+        case 'Graduate':
+          return 'grad';
+      }
+    };
+    const info = $('#profileInfo').val();
+    var updatedProfile = {
+      firstName, lastName, classYear, classType: parsedClassType(), info
+    };
+    Meteor.call('profile/update', updatedProfile, function(err) {
+      if (err) {
+        console.log(err);
+      }
+
+      Session.set('profile', updatedProfile);
+      $('#editProfileModal').modal('hide');
+    });
   }
 });
