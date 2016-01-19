@@ -88,8 +88,6 @@ Meteor.methods({
   },
 
   'comment/insert': (postId, commentText) => {
-    console.log(postId, commentText);
-
     check(postId, String);
     check(commentText, String);
 

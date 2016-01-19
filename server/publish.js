@@ -55,19 +55,22 @@ Meteor.publishComposite('comments', function(todoId) {
   return {
     find: function() {
       check(todoId, String);
-      return Comments.find({ postId: todoId });
-    },
+      return Todos.find({ _id: todoId })
 
+    },
     children: [
       {
-        find: function(comment) {
-          return Todos.find({ _id: comment.postId })
-        }
-      },
-      {
-        find: function(comment) {
-          return Users.find({ _id: comment.ownerId })
-        }
+        find: function(todo) {
+          return Comments.find({ postId: todoId })
+        },
+
+        children: [
+          {
+            find: function(comment) {
+              return Users.find({ _id: comment.ownerId })
+            }
+          }
+        ]
       }
     ]
   }

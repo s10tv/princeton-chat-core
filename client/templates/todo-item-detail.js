@@ -33,4 +33,19 @@ Template.todoItemDetail.helpers({
       return this.todo.listId;
     }
   },
+  displayTime: function() {
+    if (this.todo) {
+      return TimeDifferenceCalculator.calculate(new Date(), this.todo.createdAt) + ' ago';
+    }
+  },
+  owner: function() {
+    if (this.todo) {
+      return Users.findOne({ _id: this.todo.ownerId });
+    }
+  },
+
+  // with user in scope
+  displayName: function() {
+    return Users.displayName(this);
+  }
 })

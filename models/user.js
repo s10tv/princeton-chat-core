@@ -33,3 +33,7 @@ UserSchema = new SimpleSchema({
 
 this.Users.attachBehaviour('timestampable');
 this.Users.attachSchema(UserSchema);
+
+Users.displayName = (user) => {
+  return `${user.firstName} ${user.lastName}`
+}

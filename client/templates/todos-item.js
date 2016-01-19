@@ -11,6 +11,17 @@ Template.todosItem.helpers({
     const splitted = window.location.href.split('/');
     return splitted[splitted.length - 1];
   },
+  owner: function() {
+    return Users.findOne({ _id: this.ownerId })
+  },
+  displayTime: function() {
+    return TimeDifferenceCalculator.calculate(new Date(), this.createdAt) + ' ago';
+  },
+
+  // with user in scope
+  displayName: function() {
+    return Users.displayName(this);
+  },
 });
 
 Template.todosItem.events({

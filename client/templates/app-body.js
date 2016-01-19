@@ -151,8 +151,6 @@ Template.appBody.events({
 
       Router.go(`/lists/${postTopics[0]}/${postId}`);
     });
-
-    console.log(postTitle, postContent, postTopics);
   },
 
   'click .js-menu': function() {
