@@ -1,9 +1,10 @@
 <template name="todosItem">
   <div class="list-item {{checkedClass}} {{editingClass}}">
     <div class='textItem'>
-      <a href='/lists/{{ currentListId }}/{{ this._id }}'>{{ title }}</a>
+      <a href='/lists/{{ currentListId }}/{{ this._id }}'>{{ title }}</a><br />
+      <span class="subtitle">
+        <span class='owner'>Qiming Fang</span> | <span class='timeago'>3 hours ago</span>
+      </span>
     </div>
-
-    <a class="js-delete-item delete-item" href="#"><span class="icon-trash"></span></a>
   </div>
 </template>
