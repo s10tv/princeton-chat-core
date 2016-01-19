@@ -30,20 +30,46 @@ Meteor.publish("userData", function () {
   }
 });
 
-Meteor.publish('todos', function(listId) {
-  check(listId, String);
+Meteor.publishComposite('todos', function(listId) {
+  return {
+    find: function() {
+      check(listId, String);
 
-  return Todos.find({ $or: [
-    { listId: listId },
-    { listIds: listId },
-  ]});
+      return Todos.find({ $or: [
+        { listId: listId },
+        { listIds: listId },
+      ]});
+    },
+
+    children: [
+      {
+        find: function(todo) {
+          return Users.find({ id: todo.ownerId });
+        }
+      }
+    ]
+  }
 });
 
-Meteor.publish('comments', function(todoId) {
-  check(todoId, String);
+Meteor.publishComposite('comments', function(todoId) {
+  return {
+    find: function() {
+      check(todoId, String);
+      return Comments.find({ postId: todoId });
+    },
 
-  return [
-    Comments.find({ postId: todoId }),
-    Todos.find(todoId)
-  ];
+    children: [
+      {
+        find: function(comment) {
+          return Todos.find({ _id: comment.postId })
+        }
+      },
+      {
+        find: function(comment) {
+          return Users.find({ _id: comment.ownerId })
+        }
+      }
+    ]
+  }
+
 })

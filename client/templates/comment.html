@@ -5,15 +5,22 @@
 
       <div class="comment">
         <div class="avatar-container">
-          <img class="avatar" src="/img/qiming.jpg" />
+          {{#with owner}}
+            <img class="avatar" src="{{ avatarUrl }}" />
+          {{/with}}
         </div>
 
         <div class="ts-author-name-container">
           <div class="ts-author-name">
-            Qiming Fang
+            {{#with owner}}
+              {{ displayName }}
+            {{/with}}
           </div>
           <div class="ts-author-name-sub">
-            3 hours ago | Computer Science | Class of '12
+            3 hours ago |
+            {{#with owner }}
+              {{ this.classType }} | Class of {{ this.classYear }}
+            {{/with}}
           </div>
         </div>
       </div>
