@@ -30,10 +30,29 @@ Template.settings.helpers({
 
   isCurrentPrefChecked: function(pref) {
     return Meteor.user().emailPreference === pref;
+  },
+
+  parsedClassYear: function() {
+    const user = Meteor.user();
+    var prefix;
+    switch (user.classType) {
+      case 'grad':
+        prefix = "*";
+        break;
+      case 'undergrad':
+        prefix = "'";
+        break;
+    }
+    return user.classYear.replace(/^[0-9]{2}/, prefix);
   }
 })
 
 Template.settings.events({
+  'click #editProfile': function(e) {
+    e.preventDefault();
+    $('#editProfileModal').modal('show');
+  },
+
   'click #logout': function() {
     Meteor.logout();
     Router.go('/signin');

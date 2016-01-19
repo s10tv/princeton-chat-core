@@ -1,6 +1,5 @@
 <template name="settings">
   <div class="page lists-show-detail settings">
-
     <nav class="js-title-nav">
       <div class="nav-group">
         <a href="#" class="js-menu nav-item"><span class="icon-list-unordered" title="Show menu"></span></a>
@@ -14,10 +13,12 @@
             <img class="avatar" src="{{ this.avatar.url }}" />
           </h1>
           <h1 class="title-auth">
-            {{ this.firstName }} {{ this.lastName }}
+            {{ this.firstName }} {{ this.lastName }} {{ parsedClassYear }}
           </h1>
           <p class="subtitle-auth" >
             <span class="subtitle">{{ this.email.address }}</span><br />
+          </p>
+          <p class="subtitle-auth">
             <a href="#" id="editProfile">Edit Profile</a> | <a href="#" id="logout">Logout</a>
           </p>
         {{/with}}
@@ -28,7 +29,8 @@
             Undergrad in Computer Science, Class of 2012
           </p>
 
-          <h4>My Bio</h4>
+          <!-- TODO: FOR FUTURE VERSIONS
+           <h4>My Bio</h4>
           <p>
             When I was 17 years old, I used to work and study for about 20 hours a day. I went to school, did my homework during breaks and managed a not-for-profit organization at night. At that time, working hard landed me countless national campaigns, opportunities to work with A-list organizations and a successful career. As I got older, I started thinking differently. I realized that working harder is not always the right path to success. Sometimes, working less can actually produce better results.
           </p>
@@ -59,7 +61,7 @@
                 </div>
               </div>
             {{/each}}
-          </div>
+          </div> -->
 
           <h4>Notification Preferences</h4>
           <div class="section">

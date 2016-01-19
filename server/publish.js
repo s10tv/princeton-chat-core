@@ -20,7 +20,9 @@ Meteor.publish("userData", function () {
       firstName: 1,
       lastName: 1,
       avatar: 1,
-      emailPreference: 1
+      emailPreference: 1,
+      classYear: 1,
+      classType: 1
     }});
   } else {
     this.ready();
