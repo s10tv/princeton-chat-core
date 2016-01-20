@@ -19,6 +19,7 @@ Meteor.publish("userData", function () {
       status: 1,
       followingTopics: 1,
       followingPosts: 1,
+      isOnboardingDone: 1,
       'services.facebook.id': 1,
       'services.instagram.id': 1,
       'services.instagram.profile_picture': 1,
@@ -96,7 +97,24 @@ Meteor.publishComposite('comments', function(todoId) {
     ]
   }
 
-})
+});
+
+Meteor.publishComposite('topicsToFollow', function() {
+  return {
+    find: function() {
+      return TopicHeaders.find({});
+    },
+    children: [
+      {
+        find: function(topicHeader) {
+          return Lists.find({ _id: {
+            $in: topicHeader.topicIds
+          }});
+        }
+      }
+    ]
+  }
+});
 
 // Meteor.publish('onboardingMessages', function() {
 //   if (this.userId) {

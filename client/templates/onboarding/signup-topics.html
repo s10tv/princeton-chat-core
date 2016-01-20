@@ -1,0 +1,53 @@
+<template name="signupTopics">
+  <div class="page auth">
+
+    <div class="content-scrollable">
+      <div class="wrapper-auth">
+        <h1 class="title-auth">Topics I follow</h1>
+        <p class="subtitle-auth" >Choose the topics you want to follow, and you will receive an email notification whenever a question is tagged with those topics.</p>
+
+        <form class="ts-form">
+          {{#if errorMessages}}
+            <div class="list-errors">
+              {{#each errorMessages}}
+                <div class="list-item">{{this}}</div>
+              {{/each}}
+            </div>
+          {{/if}}
+
+          <div class="subtitle-auth">
+
+          </div>
+          {{#each topicHeaders}}
+          <div class="section" id="checkboxes-container">
+              <h4 class="topic-header">{{ topicHeader }}</h4>
+              {{#each topicsForHeader this}}
+              <div class="row">
+                <div class="six columns list-item checked">
+                  <label class="checkbox">
+                    <input type="checkbox" name="checked" data-topicid={{ topicIdForSection this 0 }} checked={{ isTopicFollowed this 0 }}>
+                    <span class="checkbox-custom"></span>
+                  </label>
+
+                  {{ topicNameForSection this 0 }}
+                </div>
+
+                <div class="six columns list-item checked">
+                  <label class="checkbox">
+                    <input type="checkbox" name="checked" data-topicid={{ topicIdForSection this 1 }} checked={{ isTopicFollowed this 1 }}>
+                    <span class="checkbox-custom"></span>
+                  </label>
+
+                  {{ topicNameForSection this 1 }}
+                </div>
+              </div>
+              {{/each}}
+          </div>
+          {{/each}}
+
+          <button type="submit" class="btn-primary">Next</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>

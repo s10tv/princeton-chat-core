@@ -31,10 +31,12 @@ UserSchema = new SimpleSchema({
   followingPosts: { type: [String], defaultValue: [] },
   expertTopics: { type: [String], defaultValue: [] },
 
+  isOnboardingDone: { type: Boolean, optional: true, defaultValue: false },
+  isEmailVerified: { type: Boolean, optional: true, defaultValue: false },
   status: {
     type: String,
     optional: true,
-    allowedValues: ['disabled', 'active', 'pending'],
+    allowedValues: ['active', 'pending'],
     defaultValue: 'pending',
   },
 });

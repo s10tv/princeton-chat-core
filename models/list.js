@@ -19,3 +19,12 @@ TopicSchema = new SimpleSchema({
 
 this.Lists.attachBehaviour('timestampable');
 this.Lists.attachSchema(TopicSchema);
+
+TopicHeaders = new Mongo.Collection('topicHeaders');
+
+TopicHeaderSchema = new SimpleSchema({
+  topicHeader: { type: String },
+  topicIds: { type: [String], defaultValue: [] }
+});
+
+this.TopicHeaders.attachSchema(TopicHeaderSchema);
