@@ -47,11 +47,9 @@ Template.todoItemDetail.helpers({
     return Comments.find().fetch()
   },
   listName: function() {
-    const splitted = window.location.href.split('/');
-    const listId = splitted[splitted.length - 2];
-    const list = Lists.findOne(listId);
+    const list = Lists.findOne(this.listId);
     if (list) {
-      return list.name;
+      return list.displayName;
     }
   },
   listId: function() {

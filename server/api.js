@@ -8,6 +8,18 @@ class CurrentUser {
   }
 }
 
+getLargestUserNumber = () => {
+  const [ userWithHighestNumber ] = Users
+    .find({}, { sort: { userNumber: 1 }, limit: 1 })
+    .fetch();
+
+  if (userWithHighestNumber && userWithHighestNumber.userNumber) {
+    return userWithHighestNumber.userNumber + 1;
+  } else {
+    return 1;
+  }
+}
+
 // onboarding related
 sendBase = (sender, content, type, qnum, resumeType) => {
   const user = CurrentUser.get();
@@ -64,8 +76,109 @@ Meteor.methods({
   //   return false;
   // },
 
+  'signup/alumniEmail': (alumniEmail) => {
+    var email = (alumniEmail || "").trim();
+    if (email.length == 0) {
+      throw new Meteor.Error(400, 'To sign up, you need to enter your email.');
+    }
+
+    if (process.env.USE_ALUMNI_SUFFIX) {
+      email = `${email}@alumni.princeton.edu`;
+    }
+
+    var user = Accounts.findUserByEmail(email);
+    if (!user) {
+      // our onboarding using react has a field called `email` on user, instead of meteor `emails`
+      user = Users.findOne({ email: email });
+    }
+
+    if (!user) {
+      var userNumber = getLargestUserNumber();
+      const userId = Users.insert({
+        userNumber: userNumber,
+        status: 'pending',
+      })
+
+      Accounts.addEmail(userId, email);
+      user = Users.findOne(userId);
+    }
+
+    const inviteCode = Random.id();
+    Users.update(user._id, { $set: {
+      inviteCode: inviteCode
+    }})
+
+    const inviteUrl = `${process.env.ROOT_URL}/invite/${inviteCode}?n=${user.userNumber}`;
+    const postmark = Meteor.npmRequire("postmark");
+    const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426';
+    const client = new postmark.Client(postmarkKey);
+
+    const Future = Npm.require('fibers/future')
+    const future = new Future()
+    const onComplete = future.resolver()
+
+    client.sendEmailWithTemplate({
+      "From": "notifications@princeton.chat",
+      "To": email,
+      "TemplateId": 354341,
+      "TemplateModel": {
+        inviteLink: inviteUrl
+      }
+    }, onComplete)
+
+    Future.wait(future)
+    return future.get();
+  },
+
+  'signup/userInfo': (firstName, lastName, classYear, email) => {
+    var user = Users.findOne({ email: email });
+    if (!user) {
+      var userNumber = getLargestUserNumber();
+      const userId = Users.insert({
+        status: 'review',
+        firstName: firstName,
+        lastName: lastName,
+        userNumber: userNumber,
+        classYear: classYear,
+      });
+      Accounts.addEmail(userId, email);
+      user = Users.findOne(userId);
+    }
+
+    return user._id;
+  },
+
+  'username/claim': (username) => {
+    const currentUser = CurrentUser.get();
+    const user = Users.findOne({ username: username });
+    if (!user) {
+      Users.update(currentUser._id, { $set: {
+        username: username
+      }});
+
+      return true;
+    }
+
+    return false;
+  },
+
+  'topics/follow': (topicIds) => {
+    const user = CurrentUser.get();
+    const curatedTopicIds = topicIds.map(topicId => {
+      return Topics.findOne(topicId);
+    }).filter(topic => {
+      return topic != undefined && topic != null;
+    }).map(topic => {
+      return topic._id;
+    })
+
+    Users.update(user._id, { $addToSet: {
+      followingTopics: topicIds,
+    }})
+  },
+
   'profile/update': (profile) => {
-    user = CurrentUser.get();
+    const user = CurrentUser.get();
     Users.update(user._id, {
       $set: {
         firstName: profile.firstName,
