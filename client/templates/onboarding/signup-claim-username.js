@@ -45,7 +45,7 @@ Template.signupClaimUsername.events({
     }
 
     Accounts.changePassword(Meteor.user().inviteCode, password);
-    Meteor.call('signup/setPassAndClaimUsername', username, (err, res) => {
+    Meteor.call('username/claim', username, (err, res) => {
       if (err) {
         errors.serverError = err.reason;
         Session.set(ERRORS_KEY, errors);
