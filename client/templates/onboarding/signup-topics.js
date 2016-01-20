@@ -33,6 +33,15 @@ Template.signupTopics.helpers({
     return sections;
   },
 
+  greeting: function() {
+    const user = Meteor.user();
+    if (user && user.firstName) {
+      return `Welcome ${ user.firstName }`;
+    }
+
+    return 'Welcome';
+  },
+
   isTopicFollowed: function(section, indexOfTopic) {
     var followingTopics = Session.get(TOPICSIFOLLOW_KEY);
     return _.contains(followingTopics, section[indexOfTopic]._id);
