@@ -1,12 +1,17 @@
-<template name="signupInvite">
+<template name="signupFriend">
   <div class="page auth">
 
     <div class="content-scrollable">
       <div class="wrapper-auth">
-        <h1 class="title-auth">Got Classmates?</h1>
-        <p class="subtitle-auth" >Princeton.Chat is better with more tigers. Invite your <u>top two friends</u> from Princeton who would benefit from joining the most.</p>
+        <h1 class="title-auth">Princeton Chat.</h1>
+        <p class="subtitle-auth" > You're almost there! </p>
 
         <form class="ts-form">
+          <hr>
+
+          <h3 class="subheader">Got Classmates?</h3>
+          <p class="subtitle-auth smaller"> Princeton.Chat is better with more tigers. Invite your top two friends from Princeton who would benefit from joining the most. </p>
+
           {{#if errorMessages}}
             <div class="list-errors">
               {{#each errorMessages}}
@@ -16,20 +21,18 @@
           {{/if}}
 
           <div class="input-symbol {{errorClass 'friendName1'}}">
-            <input type="text" name="firstFriend" placeholder="First friend's name or email" />
+            <input type="text" name="friendName1" placeholder="Email or Full Name" />
             <span class="icon-user-add"></span>
           </div>
 
           <div class="input-symbol {{errorClass 'friendName2'}}">
-            <input type="text" name="secondFriend" placeholder="Second friend's name or email" />
+            <input type="text" name="friendName2" placeholder="Email or Full Name" />
             <span class="icon-user-add"></span>
           </div>
 
-          <button type="submit" class="btn-primary">Next</button>
+          <button type="submit" class="btn-primary"> Next </button>
         </form>
       </div>
-
-      <a id="skip" href="#" class="link-auth-alt-link">Skip For Now</a>
     </div>
   </div>
 </template>

@@ -191,8 +191,21 @@ Meteor.methods({
     });
   },
 
-  'friend/add': (userInfo) => {
-    console.log('friend/add', userInfo);  
+  'friends/add': (friendInfos) => {
+    const user = CurrentUser.get();
+    _.each(friendInfos, function(friendInfo) {
+      if (friendInfo.isEmail) {
+        Friends.insert({
+          ofUserId: user._id,
+          email: friendInfo.field
+        })
+      } else {
+        Friends.insert({
+          ofUserId: user._id,
+          fullName: friendInfo.field
+        })
+      }
+    });
   },
 
   'emailPreference/update': (preference) => {
