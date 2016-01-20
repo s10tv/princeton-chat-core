@@ -162,8 +162,23 @@ Meteor.methods({
     return false;
   },
 
+  'topics/follow': (topicIds) => {
+    const user = CurrentUser.get();
+    const curatedTopicIds = topicIds.map(topicId => {
+      return Topics.findOne(topicId);
+    }).filter(topic => {
+      return topic != undefined && topic != null;
+    }).map(topic => {
+      return topic._id;
+    })
+
+    Users.update(user._id, { $addToSet: {
+      followingTopics: topicIds,
+    }})
+  },
+
   'profile/update': (profile) => {
-    user = CurrentUser.get();
+    const user = CurrentUser.get();
     Users.update(user._id, {
       $set: {
         firstName: profile.firstName,

@@ -1,19 +1,15 @@
 <template name="todosItem">
   <div class="list-item {{checkedClass}} {{editingClass}}">
     <div class='textItem'>
-      <a href='/lists/{{ currentListId }}/{{ this._id }}'>{{ title }}</a><br />
-      <a href="/tigers/{{ owner._id }}">
-        <span class="subtitle">
-          {{#with owner}}
-          <span class='owner'>
-            {{ displayName }} |
-          </span>
-          {{/with}}
-          {{#with displayTime}}
-            <span class='timeago'>{{ this }}</span>
-          {{/with}}
-        </span>
-      </a>
+      <a href='/lists/{{ currentListId }}/{{ this._id }}'>{{ title }}</a>
+      <div class="subtitle">
+        <a class="tigers subtitle owner" href="/tigers/{{ owner._id }}">
+          {{#with owner}}<span class='owner'>{{ displayName }}</span>{{/with}}
+        </a> |
+        {{#with displayTime}}
+          <span class='timeago'>{{ this }}</span>
+        {{/with}}
+      </div>
     </div>
   </div>
 </template>
