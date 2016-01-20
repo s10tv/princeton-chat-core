@@ -1,0 +1,35 @@
+<template name="signupInvite">
+  <div class="page auth">
+
+    <div class="content-scrollable">
+      <div class="wrapper-auth">
+        <h1 class="title-auth">Got Classmates?</h1>
+        <p class="subtitle-auth" >Princeton.Chat is better with more tigers. Invite your <u>top two friends</u> from Princeton who would benefit from joining the most.</p>
+
+        <form class="ts-form">
+          {{#if errorMessages}}
+            <div class="list-errors">
+              {{#each errorMessages}}
+                <div class="list-item">{{this}}</div>
+              {{/each}}
+            </div>
+          {{/if}}
+
+          <div class="input-symbol {{errorClass 'friendName'}}">
+            <input type="text" name="firstFriend" placeholder="First fiend's name or email" />
+            <span class="icon-user-add"></span>
+          </div>
+
+          <div class="input-symbol {{errorClass 'friendName'}}">
+            <input type="text" name="secondFriend" placeholder="Second friend's name or email" />
+            <span class="icon-user-add"></span>
+          </div>
+
+          <button type="submit" class="btn-primary">Next</button>
+        </form>
+      </div>
+
+      <a id="skip" href="#" class="link-auth-alt-link">Skip For Now</a>
+    </div>
+  </div>
+</template>

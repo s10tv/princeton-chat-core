@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "postmark": {
-      "version": "1.2.1",
+      "version": "http://registry.npmjs.org/postmark/-/postmark-1.2.1.tgz",
       "dependencies": {
         "git-rev": {
-          "version": "0.2.1"
+          "version": "http://registry.npmjs.org/git-rev/-/git-rev-0.2.1.tgz"
         },
         "merge": {
-          "version": "1.2.0"
+          "version": "http://registry.npmjs.org/merge/-/merge-1.2.0.tgz"
         }
       }
     }

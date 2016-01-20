@@ -1,10 +1,10 @@
-<template name="welcome">
+<template name="signupClaimUsername">
   <div class="page auth">
 
     <div class="content-scrollable">
       <div class="wrapper-auth">
-        <h1 class="title-auth">Princeton Chat.</h1>
-        <p class="subtitle-auth" >Welcome, please sign up to enter the Alumni community!</p>
+        <h1 class="title-auth">Claim Your Username</h1>
+        <p class="subtitle-auth" >And set a password for later use.</p>
 
         <form class="ts-form">
           {{#if errorMessages}}
@@ -16,8 +16,8 @@
           {{/if}}
 
           <div class="input-symbol  {{errorClass 'email'}}">
-            <input type="email" name="email" placeholder="Your Email (tiger@alumni.princeton.edu)" />
-            <span class="icon-email" title="Your Email"></span>
+            <input type="text" name="email" placeholder="Your Username" />
+            <span class="icon-user-add" title="Your Username"></span>
           </div>
 
           <div class="input-symbol  {{errorClass 'password'}}">
@@ -30,11 +30,9 @@
             <span class="icon-lock" title="Confirm Password"></span>
           </div>
 
-          <button type="submit" class="btn-primary">Next</button>
+          <button type="submit" class="btn-primary">Welcome!</button>
         </form>
       </div>
-
-      <p class="link-auth-alt">If you don't know your @alumni.princeton.edu email, enter your primary one.</p>
     </div>
   </div>
 </template>

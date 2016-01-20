@@ -173,8 +173,8 @@ Meteor.methods({
       return topic._id;
     })
 
-    Users.update(user._id, { $addToSet: {
-      followingTopics: { $each: topicIds },
+    Users.update(user._id, { $set: {
+      followingTopics: curatedTopicIds,
     }})
   },
 
@@ -189,6 +189,10 @@ Meteor.methods({
         classType: profile.classType
       }
     });
+  },
+
+  'friend/add': (userInfo) => {
+    console.log('friend/add', userInfo);  
   },
 
   'emailPreference/update': (preference) => {

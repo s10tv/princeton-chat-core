@@ -74,14 +74,12 @@ Template.signupTopics.events({
       return;
     }
 
-    console.log(checkedTopicIds);
-
     Meteor.call('topics/follow', checkedTopicIds, function(err) {
       if (err) {
         return Session.set(ERRORS_KEY, { 'none': err.reason });
       }
 
-      Router.go('signupUsername');
+      Router.go('signupInvite');
     });
   }
 });

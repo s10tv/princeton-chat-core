@@ -1,10 +1,10 @@
 var ERRORS_KEY = 'joinErrors';
 
-Template.welcome.onCreated(function() {
+Template.signupClaimUsername.onCreated(function() {
   Session.set(ERRORS_KEY, {});
 });
 
-Template.welcome.helpers({
+Template.signupClaimUsername.helpers({
   errorMessages: function() {
     return _.values(Session.get(ERRORS_KEY));
   },
@@ -13,7 +13,7 @@ Template.welcome.helpers({
   }
 });
 
-Template.welcome.events({
+Template.signupClaimUsername.events({
   'submit': function(event, template) {
     event.preventDefault();
     var email = template.$('[name=email]').val();

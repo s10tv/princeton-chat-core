@@ -60,6 +60,24 @@
     color: @color-medium;
     display: inline-block;
 
+
+    @media screen and (min-width: 40em) {
+      bottom: 0;
+      margin-top: 1rem;
+      position: relative;
+    }
+  }
+
+  .link-auth-alt-link {
+    .font-s1;
+    .position(absolute, auto, 0, 1em, 0);
+    color: @color-medium;
+    display: inline-block;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
     @media screen and (min-width: 40em) {
       bottom: 0;
       margin-top: 1rem;
