@@ -164,13 +164,15 @@ Meteor.methods({
 
   'topics/follow': (topicIds) => {
     const user = CurrentUser.get();
-    const curatedTopicIds = topicIds.map(topicId => {
-      return Topics.findOne(topicId);
-    }).filter(topic => {
-      return topic != undefined && topic != null;
-    }).map(topic => {
-      return topic._id;
-    })
+
+
+    // const curatedTopicIds = topicIds.map(topicId => {
+    //   return Topics.findOne(topicId);
+    // }).filter(topic => {
+    //   return topic != undefined && topic != null;
+    // }).map(topic => {
+    //   return topic._id;
+    // })
 
     Users.update(user._id, { $addToSet: {
       followingTopics: topicIds,
