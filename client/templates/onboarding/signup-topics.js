@@ -54,7 +54,7 @@ Template.signupTopics.events({
     var errors = {};
     var checkedTopicIds = $('#checkboxes-container').find('[name="checked"]:checked').map(function() {
       return $(this).data('topicid');
-    });
+    }).get();
 
     if (checkedTopicIds.length < 3) {
       errors.topics = 'You need to follow more than 3 topics!';
@@ -65,9 +65,11 @@ Template.signupTopics.events({
       return;
     }
 
+    console.log(checkedTopicIds);
+
     Meteor.call('topics/follow', checkedTopicIds, function(err) {
       if (err) {
-        return Session.set(ERRORS_KEY, { 'none': error.reason });
+        return Session.set(ERRORS_KEY, { 'none': err.reason });
       }
 
       Router.go('signupUsername');

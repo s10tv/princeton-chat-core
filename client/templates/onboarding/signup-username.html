@@ -1,0 +1,48 @@
+<template name="signupUsername">
+  <div class="page auth">
+
+    <div class="content-scrollable">
+      <div class="wrapper-auth">
+        <h1 class="title-auth">Princeton Chat.</h1>
+        <p class="subtitle-auth" > You're almost there! </p>
+
+        <form class="ts-form">
+          {{#if errorMessages}}
+            <div class="list-errors">
+              {{#each errorMessages}}
+                <div class="list-item">{{this}}</div>
+              {{/each}}
+            </div>
+          {{/if}}
+
+          <div class="input-symbol  {{errorClass 'firstName'}}">
+            <input type="text" name="firstName" placeholder="First Name" />
+          </div>
+
+          <div class="input-symbol  {{errorClass 'lastName'}}">
+            <input type="text" name="lastName" placeholder="Last Name" />
+          </div>
+
+          <div class="input-symbol {{errorClass 'classYear'}}">
+            <select class="form-control" id="profileClassYear">
+              <option selected> Class Year </option>
+              {{#each possibleYears}}
+                <option>{{ this }}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="input-symbol {{errorClass 'classYear'}}">
+            <select class="form-control" id="profileClassType">
+              <option selected> Class Type </option>
+              <option>Undergraduate</option>
+              <option>Graduate</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary"> Join! </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
