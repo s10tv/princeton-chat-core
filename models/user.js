@@ -21,6 +21,8 @@ UserSchema = new SimpleSchema({
     defaultValue: 'all',
   },
   emails: { type: [Object], blackbox: true, optional: true },
+  inviteCode: { type: String, optional: true },
+  userNumber: { type: Number, optional: true },
 
   username: { type: String, optional: true },
   services: { type: Object, optional: true, blackbox: true, defaultValue: {} },

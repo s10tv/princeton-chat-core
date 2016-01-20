@@ -64,6 +64,73 @@ Meteor.methods({
   //   return false;
   // },
 
+  'signup/alumniEmail': (alumniEmail) => {
+    var email = (alumniEmail || "").trim();
+    if (email.length == 0) {
+      throw new Meteor.Error(400, 'To sign up, you need to enter your email.');
+    }
+
+    if (process.env.USE_ALUMNI_SUFFIX) {
+      email = `${email}@alumni.princeton.edu`;
+    }
+
+    var user = Accounts.findUserByEmail(email);
+    if (!user) {
+      // our onboarding using react has a field called `email` on user, instead of meteor `emails`
+      user = Users.findOne({ email: email });
+    }
+
+    if (!user) {
+      const [ userWithHighestNumber ] = Users
+        .find({}, { sort: { userNumber: 1 }, limit: 1 })
+        .fetch();
+
+      var userNumber = 1;
+      if (userWithHighestNumber && userWithHighestNumber.userNumber) {
+        userNumber = userWithHighestNumber.userNumber + 1;
+      }
+
+      console.log('usernumber:', userNumber);
+      const userId = Users.insert({
+        userNumber: userNumber,
+        status: 'pending',
+      })
+
+      Accounts.addEmail(userId, email);
+      user = Users.findOne(userId);
+    }
+
+    const inviteCode = Random.id();
+    Users.update(user._id, { $set: {
+      inviteCode: inviteCode
+    }})
+
+    const inviteUrl = `${process.env.ROOT_URL}/invite/${inviteCode}?n=${user.userNumber}`;
+    const postmark = Meteor.npmRequire("postmark");
+    const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426';
+    const client = new postmark.Client(postmarkKey);
+
+    const Future = Npm.require('fibers/future')
+    const future = new Future()
+    const onComplete = future.resolver()
+
+    client.sendEmailWithTemplate({
+      "From": "notifications@princeton.chat",
+      "To": email,
+      "TemplateId": 354341,
+      "TemplateModel": {
+        inviteLink: inviteUrl
+      }
+    }, onComplete)
+
+    Future.wait(future)
+    return future.get();
+  },
+
+  'signup/userInfo': (firstName, lastName, classYear, email) => {
+
+  },
+
   'profile/update': (profile) => {
     user = CurrentUser.get();
     Users.update(user._id, {
