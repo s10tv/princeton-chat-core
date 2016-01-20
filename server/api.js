@@ -134,7 +134,9 @@ Meteor.methods({
 
   'reset': () => {
     const user = CurrentUser.get();
-    Messages.remove({});
+    Messages.remove({
+      ownerId: user._id,
+    });
     Messages.insert({
       senderId: 'system',
       ownerId: user._id,

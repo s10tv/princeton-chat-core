@@ -2,13 +2,13 @@ Template.registerHelper('equals', function (a, b) {
   return a === b;
 });
 
-Template.message.helpers({
+Template.onboarding_message.helpers({
   user: function() {
     if (this.senderId === 'system') {
       return {
         firstName: 'Tigercub',
         avatar: {
-          url: '/images/ic-tiger.png'
+          url: '/img/ic-tiger.png'
         },
       }
     } else {

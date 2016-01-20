@@ -18,6 +18,7 @@
     <div id="post-container" class="content-scrollable">
       <div class="wrapper-auth">
         <h1 class="title-auth">{{ this.todo.title }}</h1>
+        <div class="title-actions">Follow | Report</div>
         <div class="ts-detail-author">
           <div style="ts-avatar-container">
             {{#with owner}}
@@ -36,8 +37,10 @@
           </div>
         </div>
         <pre>{{ this.todo.content }}</pre>
+        <!-- <div class="post-actions">
+          Follow | Report
+        </div> -->
         <div class="todo-detail-content">
-
           <div class="comments">
             {{#each comments}}
               {{> comment}}

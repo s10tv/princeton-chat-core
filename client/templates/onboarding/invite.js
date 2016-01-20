@@ -1,3 +1,12 @@
+Template.invite.rendered = function() {
+  Messages.find().observe({
+    added: function(message) {
+      console.log('message arrived');
+      // $("#onboarding-conversation").animate({ scrollTop: $("#onboarding-conversation")[0].scrollHeight}, 1000);
+    }
+});
+}
+
 Template.invite.helpers({
   messages: () => {
     return Messages.find().fetch();

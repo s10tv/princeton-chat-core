@@ -39,6 +39,7 @@ Template.todoItemDetail.helpers({
     }
   },
   owner: function() {
+    console.log(this);
     if (this.todo) {
       return Users.findOne({ _id: this.todo.ownerId });
     }
