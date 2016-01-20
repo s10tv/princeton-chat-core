@@ -19,29 +19,29 @@
 
           </div>
           {{#each topicHeaders}}
-          <div class="section">
-              <h4 class="topic-header">{{ topicHeader }}</h4>
-              {{#each topicsForHeader this}}
-              <div class="row">
-                <div class="six columns list-item checked">
-                  <label class="checkbox">
-                    <input type="checkbox" name="checked" data-topicid={{ topicIdForSection this 0 }} checked={{ isTopicFollowed this 0 }}>
-                    <span class="checkbox-custom"></span>
-                  </label>
+          <div class="section checkboxes-container">
+            <h4 class="topic-header">{{ topicHeader }}</h4>
+            {{#each topicsForHeader this}}
+            <div class="row">
+              <div class="six columns list-item checked">
+                <label class="checkbox">
+                  <input type="checkbox" name="checked" data-topicid={{ topicIdForSection this 0 }} checked={{ isTopicFollowed this 0 }}>
+                  <span class="checkbox-custom"></span>
+                </label>
 
-                  {{ topicNameForSection this 0 }}
-                </div>
-
-                <div class="six columns list-item checked">
-                  <label class="checkbox">
-                    <input type="checkbox" name="checked" data-topicid={{ topicIdForSection this 1 }} checked={{ isTopicFollowed this 1 }}>
-                    <span class="checkbox-custom"></span>
-                  </label>
-
-                  {{ topicNameForSection this 1 }}
-                </div>
+                {{ topicNameForSection this 0 }}
               </div>
-              {{/each}}
+
+              <div class="six columns list-item checked">
+                <label class="checkbox">
+                  <input type="checkbox" name="checked" data-topicid={{ topicIdForSection this 1 }} checked={{ isTopicFollowed this 1 }}>
+                  <span class="checkbox-custom"></span>
+                </label>
+
+                {{ topicNameForSection this 1 }}
+              </div>
+            </div>
+            {{/each}}
           </div>
           {{/each}}
 
