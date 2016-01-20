@@ -8,6 +8,18 @@ class CurrentUser {
   }
 }
 
+getLargestUserNumber = () => {
+  const [ userWithHighestNumber ] = Users
+    .find({}, { sort: { userNumber: 1 }, limit: 1 })
+    .fetch();
+
+  if (userWithHighestNumber && userWithHighestNumber.userNumber) {
+    return userWithHighestNumber.userNumber + 1;
+  } else {
+    return 1;
+  }
+}
+
 // onboarding related
 sendBase = (sender, content, type, qnum, resumeType) => {
   const user = CurrentUser.get();
@@ -81,16 +93,7 @@ Meteor.methods({
     }
 
     if (!user) {
-      const [ userWithHighestNumber ] = Users
-        .find({}, { sort: { userNumber: 1 }, limit: 1 })
-        .fetch();
-
-      var userNumber = 1;
-      if (userWithHighestNumber && userWithHighestNumber.userNumber) {
-        userNumber = userWithHighestNumber.userNumber + 1;
-      }
-
-      console.log('usernumber:', userNumber);
+      var userNumber = getLargestUserNumber();
       const userId = Users.insert({
         userNumber: userNumber,
         status: 'pending',
@@ -128,7 +131,21 @@ Meteor.methods({
   },
 
   'signup/userInfo': (firstName, lastName, classYear, email) => {
+    var user = Users.findOne({ email: email });
+    if (!user) {
+      var userNumber = getLargestUserNumber();
+      const userId = Users.insert({
+        status: 'review',
+        firstName: firstName,
+        lastName: lastName,
+        userNumber: userNumber,
+        classYear: classYear,
+      });
+      Accounts.addEmail(userId, email);
+      user = Users.findOne(userId);
+    }
 
+    return user._id;
   },
 
   'profile/update': (profile) => {

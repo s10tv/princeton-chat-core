@@ -36,7 +36,7 @@ UserSchema = new SimpleSchema({
   status: {
     type: String,
     optional: true,
-    allowedValues: ['disabled', 'active', 'pending'],
+    allowedValues: ['disabled', 'active', 'pending', 'review'],
     defaultValue: 'pending',
   },
 });
