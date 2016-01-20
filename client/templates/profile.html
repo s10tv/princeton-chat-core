@@ -10,7 +10,7 @@
             {{ this.firstName }} {{ this.lastName }} {{ parsedClassYear }}
           </h1>
           <p class="subtitle-auth" >
-            <span class="subtitle">{{ this.email.address }}</span><br />
+            <span class="subtitle"><a href="mailto:{{this.email.address}}">{{ this.email.address }}</a></span><br />
           </p>
           <p class="subtitle-auth">
             <span class="subtitle profile-info">{{ this.info }}</span>
