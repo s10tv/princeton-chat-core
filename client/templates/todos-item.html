@@ -2,16 +2,18 @@
   <div class="list-item {{checkedClass}} {{editingClass}}">
     <div class='textItem'>
       <a href='/lists/{{ currentListId }}/{{ this._id }}'>{{ title }}</a><br />
-      <span class="subtitle">
-        {{#with owner}}
-        <span class='owner'>
-          {{ displayName }} |
+      {{#with owner}}
+      <a href="/tigers/{{ _id }}">
+        <span class="subtitle">
+          <span class='owner'>
+            {{ displayName }} |
+          </span>
+          {{#with displayTime}}
+            <span class='timeago'>{{ this }}</span>
+          {{/with}}
         </span>
-        {{/with}}
-        {{#with displayTime}}
-          <span class='timeago'>{{ this }}</span>
-        {{/with}}
-      </span>
+      </a>
+      {{/with}}
     </div>
   </div>
 </template>

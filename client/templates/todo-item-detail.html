@@ -40,11 +40,11 @@
           <div class="ts-author-name-container">
             <div class="ts-author-name">
               {{#with owner}}
-                {{ displayName }}
+                <a href="/tigers/{{ _id }}">{{ displayName }}</a>
               {{/with}}
             </div>
             <div class="ts-author-name-sub">
-              {{ displayTime }} | Computer Science | Class of '12
+              {{ displayTime }} | Class of '12
             </div>
           </div>
         </div>

@@ -28,6 +28,24 @@ Meteor.publish("userData", function () {
   }
 });
 
+Meteor.publish("usersData", function(tigerId) {
+  if (this.userId) {
+    check(tigerId, String);
+
+    return Users.find({ _id: tigerId }, { fields: {
+      firstName: 1,
+      lastName: 1,
+      avatar: 1,
+      classYear: 1,
+      classType: 1,
+      info: 1,
+      emails: 1
+    }});
+  } else {
+    this.ready();
+  }
+});
+
 Meteor.publishComposite('todos', function(listId) {
   return {
     find: function() {
@@ -80,10 +98,10 @@ Meteor.publishComposite('comments', function(todoId) {
 
 })
 
-Meteor.publish('onboardingMessages', function() {
-  if (this.userId) {
-    return Messages.find({ ownerId: this.userId })
-  } else {
-    this.ready();
-  }
-})
+// Meteor.publish('onboardingMessages', function() {
+//   if (this.userId) {
+//     return Messages.find({ ownerId: this.userId })
+//   } else {
+//     this.ready();
+//   }
+// })

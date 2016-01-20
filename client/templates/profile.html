@@ -1,0 +1,22 @@
+<template name="profile">
+  <div class="page lists-show-detail settings">
+    <div class="content-scrollable">
+      <div class="wrapper-auth">
+        {{#with profileUser }}
+          <h1 class="title-auth">
+            <img class="avatar" src="{{ this.avatar.url }}" />
+          </h1>
+          <h1 class="title-auth profile-name">
+            {{ this.firstName }} {{ this.lastName }} {{ parsedClassYear }}
+          </h1>
+          <p class="subtitle-auth" >
+            <span class="subtitle">{{ this.email.address }}</span><br />
+          </p>
+          <p class="subtitle-auth">
+            <span class="subtitle profile-info">{{ this.info }}</span>
+          </p>
+        {{/with}}
+      </div>
+    </div>
+  </div>
+</template>
