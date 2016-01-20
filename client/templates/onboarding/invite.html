@@ -1,19 +1,28 @@
 <template name="invite">
+  <!-- <div class="ts-container">
+    {{#each messages}}
+      {{> message }}
+    {{/each}}
+
+    <div class="message-box">
+      <form class='message-box-form'>
+        <input id="m" placeholder="Type message ... " />
+      </form>
+    </div>
+  </div> -->
   <div class="page lists-show-detail todo-item ts-item-details">
     <div id="post-container" class="content-scrollable">
       <div class="wrapper-auth">
         <h1 class="title-auth"> Hi, Tigercub. </h1>
-        <div id="onboarding-conversation">
           {{#each messages}}
-            {{> onboarding_message}}
+            {{> message }}
           {{/each}}
-        </div>
       </div>
     </div>
 
-    <form class="ts-form ts-comment-form message-box-form">
+    <form class="ts-form ts-comment-form">
       <div class="input-symbol">
-        <input id="m" type="comment" name="comment" placeholder="Type message ... " />
+        <input type="comment" name="comment" placeholder="Add comment ... " />
       </div>
 
       <button type="submit" class="btn-primary">Send</button>

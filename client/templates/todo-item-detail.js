@@ -56,7 +56,7 @@ Template.todoItemDetail.helpers({
   },
   displayTime: function() {
     if (this.todo) {
-      return TimeDifferenceCalculator.calculate(new Date(), this.todo.createdAt) + ' ago';
+      return TimeDifferenceCalculator.calculate(new Date(), this.todo.createdAt, true);
     }
   },
   isFollowing: function() {

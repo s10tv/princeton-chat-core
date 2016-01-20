@@ -3,7 +3,7 @@ Template.comment.helpers({
     return Users.findOne({ _id: this.ownerId });
   },
   displayTime: function() {
-    return TimeDifferenceCalculator.calculate(new Date(), this.createdAt) + ' ago';
+    return TimeDifferenceCalculator.calculate(new Date(), this.createdAt, true);
   },
 
   // user in context

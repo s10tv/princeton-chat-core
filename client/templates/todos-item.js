@@ -15,7 +15,7 @@ Template.todosItem.helpers({
     return Users.findOne({ _id: this.ownerId })
   },
   displayTime: function() {
-    return TimeDifferenceCalculator.calculate(new Date(), this.createdAt) + ' ago';
+    return TimeDifferenceCalculator.calculate(new Date(), this.createdAt, true);
   },
 
   // with user in scope
