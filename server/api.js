@@ -98,6 +98,20 @@ Meteor.methods({
     }})
   },
 
+  'post/follow': (postId) => {
+    user = CurrentUser.get();
+    Users.update(user._id, { $addToSet: {
+      followingPosts: postId
+    }})
+  },
+
+  'post/unfollow': (postId) => {
+    user = CurrentUser.get();
+    Users.update(user._id, { $pull: {
+      followingPosts: postId
+    }})
+  },
+
   'post/insert': (title, content, topicIds) => {
     user = CurrentUser.get()
 

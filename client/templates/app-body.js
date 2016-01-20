@@ -100,6 +100,18 @@ Template.appBody.helpers({
   lists: function() {
     return Lists.find();
   },
+  isFollowingTopic: function() {
+    const user = Meteor.user();
+    if (user) {
+      if (user.followingTopics) {
+        if (user.followingTopics.indexOf(this._id) >= 0) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  },
   activeListClass: function() {
     var current = Router.current();
     if ((current.route.name === 'listsShow' && current.params._id === this._id) ||

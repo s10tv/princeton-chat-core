@@ -75,15 +75,12 @@
     }
 
     .count-list {
-      .transition( all 200ms ease-in );
-      background: rgba(255,255,255,.1);
-      border-radius: 1em;
       float: right;
       font-size: .7rem;
       line-height: 1;
       margin-top: .25rem;
-      margin-right: -1.5em;
-      padding: .3em .5em;
+      padding: .3em .75em;
+      color: #ffffff;
     }
 
     [class^="icon-"],
@@ -110,7 +107,9 @@
       &.active {
         background-color: @color-empty;
         color: #F07621;
-        .count-list { background: @color-primary; }
+        .count-list {
+          color: @princeton-orange;
+        }
       }
 
       .cordova &:hover {

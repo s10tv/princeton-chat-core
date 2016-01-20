@@ -8,6 +8,22 @@
       <h1 class="js-edit-list title-page">
         <span class="title-wrapper">{{displayName}}</span>
       </h1>
+
+      {{#if isFollowingTopic}}
+        <a id="unfollow" class="topic-follow" href="#" data-topic-id={{this._id}}>
+          <i class="ion-social-rss display-icon active"></i>
+          <span class="display-text active">
+            Following
+            <i class="ion-checkmark-round"></i>
+          </span>
+        </a>
+      {{else}}
+        <a id="follow" class="topic-follow" href="#" data-topic-id={{this._id}}>
+          <i class="ion-social-rss display-icon"></i>
+          <span class="display-text">Follow Topic</span>
+        </a>
+      {{/if}}
+
     </nav>
 
 
@@ -18,7 +34,7 @@
                           changes, we don't re-render the list contents }}
 
           <div class="list-item add-post">
-            <a  id="addPost"
+            <a id="addPost"
                 class="textItem hvr-icon-forward"
                 data-toggle="modal"
                 data-target="#addPostModal"
