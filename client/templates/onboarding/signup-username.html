@@ -17,14 +17,21 @@
 
           <div class="input-symbol  {{errorClass 'firstName'}}">
             <input type="text" name="firstName" placeholder="First Name" />
+            <span class="icon-edit"></span>
           </div>
 
           <div class="input-symbol  {{errorClass 'lastName'}}">
             <input type="text" name="lastName" placeholder="Last Name" />
+            <span class="icon-edit"></span>
+          </div>
+
+          <div class="input-symbol  {{errorClass 'username'}}">
+            <input type="text" name="username" placeholder="Claim your username here!" />
+            <span class="icon-edit"></span>
           </div>
 
           <div class="input-symbol {{errorClass 'classYear'}}">
-            <select class="form-control" id="profileClassYear">
+            <select class="form-control select" id="classYear">
               <option selected> Class Year </option>
               {{#each possibleYears}}
                 <option>{{ this }}</option>
@@ -32,12 +39,18 @@
             </select>
           </div>
 
-          <div class="input-symbol {{errorClass 'classYear'}}">
-            <select class="form-control" id="profileClassType">
+          <div class="input-symbol {{errorClass 'classType'}}">
+            <select class="form-control select" id="classType">
               <option selected> Class Type </option>
               <option>Undergraduate</option>
               <option>Graduate</option>
             </select>
+          </div>
+
+          <div class="input-symbol {{errorClass 'friendName'}}">
+            <!--  TODO: short and sweet placeholder for this input -->
+            <input type="text" name="lastName" placeholder="Friend's Email or Name" />
+            <span class="icon-user-add"></span>
           </div>
 
           <button type="submit" class="btn-primary"> Join! </button>
