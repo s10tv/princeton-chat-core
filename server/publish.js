@@ -17,6 +17,8 @@ Meteor.publish("userData", function () {
       classType: 1,
       info: 1,
       status: 1,
+      followingTopics: 1,
+      followingPosts: 1,
       'services.facebook.id': 1,
       'services.instagram.id': 1,
       'services.instagram.profile_picture': 1,

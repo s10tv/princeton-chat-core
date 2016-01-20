@@ -84,14 +84,14 @@ Meteor.methods({
     }})
   },
 
-  'list/follow': (listId) => {
+  'topic/follow': (listId) => {
     user = CurrentUser.get();
     Users.update(user._id, { $addToSet: {
       followingTopics: listId
     }})
   },
 
-  'list/unfollow': (listId) => {
+  'topic/unfollow': (listId) => {
     user = CurrentUser.get();
     Users.update(user._id, { $pull: {
       followingTopics: listId

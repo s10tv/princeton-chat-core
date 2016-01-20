@@ -14,6 +14,27 @@ Template.todoItemDetail.events({
       }
     });
   },
+
+  'click #follow': function(event) {
+    event.preventDefault()
+    const listId = $(event.target).data('topic-id');
+    Meteor.call('topic/follow', listId, (err, res) => {
+      if (err) {
+        console.log(err);
+        return
+      }
+    })
+  },
+  'click #unfollow': function(event) {
+    event.preventDefault()
+    const listId = $(event.target).data('topic-id');
+    Meteor.call('topic/unfollow', listId, (err, res) => {
+      if (err) {
+        console.log(err);
+        return
+      }
+    })
+  },
 })
 
 Template.todoItemDetail.helpers({
@@ -38,6 +59,18 @@ Template.todoItemDetail.helpers({
       return TimeDifferenceCalculator.calculate(new Date(), this.todo.createdAt) + ' ago';
     }
   },
+  isFollowing: function() {
+    var isFollowing = false;
+    const user = Meteor.user();
+    if (user) {
+      if (user.followingTopics) {
+        isFollowing = user.followingTopics.indexOf(this.listId) >= 0;
+      }
+    }
+
+    return isFollowing;
+  },
+
   owner: function() {
     console.log(this);
     if (this.todo) {

@@ -95,6 +95,27 @@
       font-size: 16px;
       color: #8F8F8F;
       padding-bottom: 1em;
+
+      .title-action-link {
+        color: #8F8F8F;
+
+        &.active {
+          color: #4CAF50;
+          font-weight: 700;
+        }
+
+        &.inactive {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      #report {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
     .post-actions {
