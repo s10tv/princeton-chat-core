@@ -148,6 +148,20 @@ Meteor.methods({
     return user._id;
   },
 
+  'username/claim': (username) => {
+    const currentUser = CurrentUser.get();
+    const user = Users.findOne({ username: username });
+    if (!user) {
+      Users.update(currentUser._id, { $set: {
+        username: username
+      }});
+
+      return true;
+    }
+
+    return false;
+  },
+
   'profile/update': (profile) => {
     user = CurrentUser.get();
     Users.update(user._id, {
