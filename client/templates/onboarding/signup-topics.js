@@ -52,12 +52,12 @@ Template.signupTopics.events({
     event.preventDefault();
 
     var errors = {};
-    var checkedTopicIds = $('#checkboxes-container').find('[name="checked"]:checked').map(function() {
+    var checkedTopicIds = $(event.target).find('input[name="checked"]:checked').map(function() {
       return $(this).data('topicid');
     }).get();
 
     if (checkedTopicIds.length < 3) {
-      errors.topics = 'You need to follow more than 3 topics!';
+      errors.topics = 'Please follow at least 3 topics.';
     }
 
     Session.set(ERRORS_KEY, errors);
