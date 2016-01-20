@@ -12,8 +12,10 @@
         <div class="list-todos">
           {{#each lists}}
             <a href="{{pathFor 'listsShow'}}" class="list-todo {{activeListClass}}" title="{{name}}">
-              {{#if userId}}
-                <span class="icon-lock"></span>
+              {{#if isFollowingTopic}}
+                <span class="count-list">
+                  <i class="ion-social-rss"></i>
+                </span>
               {{/if}}
               {{displayName}}
             </a>

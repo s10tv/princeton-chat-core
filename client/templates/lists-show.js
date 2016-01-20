@@ -45,7 +45,19 @@ Template.listsShow.helpers({
     return Todos.find({ $or: [
       { listIds: listId },
     ]}, {sort: {createdAt : -1}});
-  }
+  },
+
+  isFollowingTopic: function() {
+    var isFollowing = false;
+    const user = Meteor.user();
+    if (user) {
+      if (user.followingTopics) {
+        isFollowing = user.followingTopics.indexOf(this._id) >= 0;
+      }
+    }
+
+    return isFollowing;
+  },
 });
 
 var editList = function(list, template) {
@@ -100,6 +112,34 @@ var toggleListPrivacy = function(list) {
 };
 
 Template.listsShow.events({
+  'click #follow': function(event) {
+    event.preventDefault()
+    const topicId = $(event.target).closest('.topic-follow').data('topic-id');
+    if (topicId) {
+      $("#follow").hide(); // HACK ALERT: The animations are too fancy that text overlaps. Fix this.
+      Meteor.call('topic/follow', topicId, (err, res) => {
+        if (err) {
+          console.log(err);
+          return
+        }
+      })
+    }
+  },
+
+  'click #unfollow': function(event) {
+    event.preventDefault()
+    const topicId = $(event.target).closest('.topic-follow').data('topic-id');
+    if (topicId) {
+      $("#unfollow").hide(); // HACK ALERT: The animations are too fancy that text overlaps. Fix this.
+      Meteor.call('topic/unfollow', topicId, (err, res) => {
+        if (err) {
+          console.log(err);
+          return
+        }
+      })
+    }
+  },
+
   'click .js-cancel': function() {
     Session.set(EDITING_KEY, false);
   },

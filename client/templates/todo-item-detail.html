@@ -20,12 +20,12 @@
         <h1 class="title-auth">{{ this.todo.title }}</h1>
         <div class="title-actions">
           {{#if isFollowing}}
-            <a href='#' id="unfollow" class="title-action-link active" data-topic-id={{ this.listId }}>
+            <a href='#' id="unfollow" class="title-action-link active" data-post-id={{ this.postId }}>
               Following Post
               <i class="ion-checkmark-round"></i>
             </a> |
           {{ else }}
-            <a href='#' id="follow" class="title-action-link inactive" data-topic-id={{ this.listId }}>
+            <a href='#' id="follow" class="title-action-link inactive" data-post-id={{ this.postId }}>
               Follow Post
             </a> |
           {{/if}}

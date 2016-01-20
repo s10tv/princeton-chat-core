@@ -75,6 +75,35 @@ nav {
     }
   }
 
+  .topic-follow {
+    position: absolute;
+    right: 1em;
+    top: 2em;
+    color: #231D1F;
+
+    .active {
+      color: #4CAF50;
+      font-weight: 700;
+    }
+
+    .display-text {
+      display: block;
+    }
+    .display-icon{
+      font-size: 20px;
+      display: none;
+    }
+
+    @media screen and (max-width: 40em) {
+      .display-text {
+        display: none;
+      }
+      .display-icon {
+        display: block;
+      }
+    }
+  }
+
   form.list-edit-form {
     position: relative;
 
