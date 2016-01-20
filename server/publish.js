@@ -11,7 +11,9 @@ Meteor.publish("userData", function () {
     return Meteor.users.find({_id: this.userId}, {fields: {
       firstName: 1,
       lastName: 1,
+      username: 1,
       avatar: 1,
+      inviteCode: 1,
       emailPreference: 1,
       classYear: 1,
       classType: 1,

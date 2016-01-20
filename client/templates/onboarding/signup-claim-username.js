@@ -10,23 +10,28 @@ Template.signupClaimUsername.helpers({
   },
   errorClass: function(key) {
     return Session.get(ERRORS_KEY)[key] && 'error';
-  }
+  },
+  username: function() {
+    if (Meteor.user()) {
+      return Meteor.user().username;
+    }
+  },
 });
 
 Template.signupClaimUsername.events({
   'submit': function(event, template) {
     event.preventDefault();
-    var email = template.$('[name=email]').val();
+    var username = template.$('[name=username]').val();
     var password = template.$('[name=password]').val();
     var confirm = template.$('[name=confirm]').val();
 
     var errors = {};
 
-    if (! email) {
-      errors.email = 'Email required';
+    if (!username) {
+      errors.username = 'Please enter a username.';
     }
 
-    if (! password) {
+    if (!password) {
       errors.password = 'Password required';
     }
 
@@ -39,15 +44,21 @@ Template.signupClaimUsername.events({
       return;
     }
 
-    Accounts.createUser({
-      email: email,
-      password: password
-    }, function(error) {
-      if (error) {
-        return Session.set(ERRORS_KEY, {'none': error.reason});
+    Accounts.changePassword(Meteor.user().inviteCode, password);
+    Meteor.call('signup/setPassAndClaimUsername', username, (err, res) => {
+      if (err) {
+        errors.serverError = err.reason;
+        Session.set(ERRORS_KEY, errors);
+        return;
       }
 
-      Router.go('signupTopics');
+      if (!res || res == false) {
+        errors.usernameClaim = `${username} is already taken. Please try again.`;
+        Session.set(ERRORS_KEY, errors);
+        return;
+      }
+
+      Router.go('home');
     });
   }
 });

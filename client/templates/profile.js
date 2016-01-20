@@ -20,6 +20,9 @@ Template.profile.helpers({
         prefix = "'";
         break;
     }
-    return user.classYear.replace(/^[0-9]{2}/, prefix);
+
+    if (user.classYear) {
+      return user.classYear.replace(/^[0-9]{2}/, prefix);
+    }
   }
 });

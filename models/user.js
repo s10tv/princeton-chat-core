@@ -12,7 +12,7 @@ UserSchema = new SimpleSchema({
   classYear: { type: String, optional: true },
   classType: { type: String, optional: true },
   avatar: {type: ImageSchema, optional: true, defaultValue: {
-    url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/71/Princeton_shield.svg/804px-Princeton_shield.svg.png'
+    url: '/img/princeton-shield.png'
   }},
   emailPreference: {
     type: String,
