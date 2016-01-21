@@ -44,15 +44,21 @@ Template.signupTopics.helpers({
 
   isTopicFollowed: function(section, indexOfTopic) {
     var followingTopics = Session.get(TOPICSIFOLLOW_KEY);
-    return _.contains(followingTopics, section[indexOfTopic]._id);
+    if (section[indexOfTopic]) {
+      return _.contains(followingTopics, section[indexOfTopic]._id);
+    }
   },
 
   topicNameForSection: function(section, indexOfTopic) {
-    return section[indexOfTopic].displayName;
+    if (section[indexOfTopic]) {
+      return section[indexOfTopic].displayName;
+    }
   },
 
   topicIdForSection: function(section, indexOfTopic) {
-    return section[indexOfTopic]._id;
+    if ( section[indexOfTopic]) {
+      return section[indexOfTopic]._id;
+    }
   }
 });
 

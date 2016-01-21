@@ -15,6 +15,7 @@ Lists.defaultName = function() {
 TopicSchema = new SimpleSchema({
   displayName: { type: String },
   parentTopicId: { type: String, optional: true },
+  order: { type: Number, decimal: true },
 });
 
 this.Lists.attachBehaviour('timestampable');
@@ -24,7 +25,8 @@ TopicHeaders = new Mongo.Collection('topicHeaders');
 
 TopicHeaderSchema = new SimpleSchema({
   topicHeader: { type: String },
-  topicIds: { type: [String], defaultValue: [] }
+  topicIds: { type: [String], defaultValue: [] },
+  order: { type: Number, decimal: true },
 });
 
 this.TopicHeaders.attachSchema(TopicHeaderSchema);
