@@ -98,7 +98,18 @@ Template.appBody.helpers({
     return Session.get(USER_MENU_KEY);
   },
   lists: function() {
-    return Lists.find();
+    var lists = Lists.find().fetch();
+    const user = Meteor.user();
+    if (user && user.followingTopics) {
+      return lists.map((list) => {
+        list.index = user.followingTopics.indexOf(list._id);
+        return list
+      }).sort(function(e1, e2) {
+        return e1.index < e2.index;
+      })
+    }
+
+    return lists;
   },
   isFollowingTopic: function() {
     const user = Meteor.user();
