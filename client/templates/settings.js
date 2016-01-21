@@ -42,6 +42,8 @@ Template.settings.helpers({
       case 'undergrad':
         prefix = "'";
         break;
+      default:
+        return "";
     }
 
     if (user.classYear) {
