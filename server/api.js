@@ -154,7 +154,14 @@ Meteor.methods({
     if (!user) {
       Users.update(currentUser._id, { $set: {
         username: username,
-        status: 'active'
+        avatar: { url: '/img/princeton-shield.png' },
+        emailPreference: 'all',
+        info: 'Go Tigers!',
+        followingPosts: [],
+        expertTopics: [],
+        // dont need to set followingTopics because that should have been set at topics/follow.
+
+        status: 'active',
       }});
 
       return true;
