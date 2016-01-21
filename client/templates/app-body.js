@@ -102,10 +102,22 @@ Template.appBody.helpers({
     const user = Meteor.user();
     if (user && user.followingTopics) {
       return lists.map((list) => {
-        list.index = user.followingTopics.indexOf(list._id);
+        const isFollowing = user.followingTopics.indexOf(list._id);
+        if (isFollowing == -1) {
+          list.index = -1 * list.order;
+        } else {
+          list.index = 1 / list.order;
+        }
+
         return list
       }).sort(function(e1, e2) {
-        return e1.index < e2.index;
+        if (e1.index > e2.index) {
+          return -1
+        } else if (e1.index < e2.index) {
+          return 1
+        } else {
+          return 0;
+        }
       })
     }
 
