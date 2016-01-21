@@ -8,7 +8,9 @@ Template.comment.helpers({
 
   // user in context
   displayName: function() {
-    return `${ this.firstName } ${this.lastName}`;
+    if (this.firstName && this.lastName) {
+      return `${ this.firstName } ${this.lastName}`;
+    }
   },
 
   avatarUrl: function() {

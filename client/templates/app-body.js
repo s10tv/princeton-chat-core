@@ -63,7 +63,7 @@ Template.appBody.onRendered(function() {
   };
 
   this.autorun(function() {
-    if (Meteor.userId()) {
+    if (Meteor.user()) {
       const user = Meteor.user();
       Session.set('profile', {
         firstName: user.firstName,
