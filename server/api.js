@@ -153,7 +153,8 @@ Meteor.methods({
     const user = Users.findOne({ username: username });
     if (!user) {
       Users.update(currentUser._id, { $set: {
-        username: username
+        username: username,
+        status: 'active'
       }});
 
       return true;
