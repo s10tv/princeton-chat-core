@@ -1,0 +1,65 @@
+@menu-width: 270px;
+@column: 5.55555%;
+
+body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #F07621;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  @media screen and (min-width: 60em) {
+    left: @column;
+  }
+
+  @media screen and (min-width: 80em) {
+    left: 2*@column;
+  }
+
+  // Hide anything offscreen
+  overflow: hidden;
+}
+
+#menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#content-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  opacity: 1;
+
+  @media screen and (min-width: 40em) {
+    left: @menu-width;
+  }
+
+  .content-scrollable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

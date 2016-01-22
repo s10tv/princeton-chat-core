@@ -7,16 +7,17 @@ import MainLayout from '../components/layouts.main/index.jsx';
 import PostList from '../containers/postlist';
 import Post from '../containers/post';
 import NewPost from '../containers/newpost';
+import Onboarding from '../containers/onboard';
 
 export const initRoutes = (context, actions) => {
   const MainLayoutCtx = injectDeps(context, actions)(MainLayout);
 
   // Move these as a module and call this from a main file
   FlowRouter.route('/', {
-    name: 'posts.list',
+    name: 'onboarding',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<PostList />)
+        content: () => (<Onboarding />)
       });
     }
   });

@@ -1,4 +1,5 @@
 import React from 'react';
+import FlatButton from 'material-ui/lib/flat-button';
 
 const Post = ({post}) => (
   <div>
@@ -6,6 +7,7 @@ const Post = ({post}) => (
     <h2>{post.title}</h2>
     <p>
       {post.content}
+      <FlatButton label="Primary" primary={true} />
     </p>
   </div>
 );
