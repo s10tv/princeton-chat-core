@@ -1,3 +1,5 @@
+import {Topics, TopicHeaders} from '/libs/collections';
+
 Migrations.add({
   version: 1,
   name: 'Adds default topics to the DB',
@@ -24,9 +26,9 @@ Migrations.add({
       { key:"parents", value: "Parents", order: 18},
       { key:"writing", value: "Writing", order: 19},
     ]
-
-    topics.forEach(topic => {
-      Lists.upsert({ _id: topic.key }, { $set: {
+ 
+    topics.forEach(topic =>  {
+      Topics.upsert({ _id: topic.key }, { $set: {
         displayName: topic.value,
         order: topic.order,
       }});
@@ -55,7 +57,7 @@ Migrations.add({
     ]
 
     regions.forEach(region => {
-      Lists.upsert({ _id: region.key }, { $set: {
+      Topics.upsert({ _id: region.key }, { $set: {
         displayName: region.value,
         order: region.order,
       }});
