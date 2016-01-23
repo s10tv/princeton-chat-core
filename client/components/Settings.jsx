@@ -12,8 +12,12 @@ const Settings = ({currentUser}) => {
       <List>
         <ListItem disabled={true}>
           <div className="question-container">
+            <Avatar src={currentUser.avatar.url} style={{ width: 200, height: 200 }}/>
             <div className="user-name question-title">{ `${currentUser.firstName} ${currentUser.lastName}`}</div>
           </div>
+        </ListItem>
+        <ListItem disabled={true}>
+          <a href="#" onClick={() => { Meteor.logout(); window.redirect('/'); return false; }}>Logout</a>
         </ListItem>
       </List>
       <div />

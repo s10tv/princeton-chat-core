@@ -174,7 +174,7 @@ Meteor.methods({
     const user = CurrentUser.get();
 
     const curatedTopicIds = topicIds.map(topicId => {
-      return Lists.findOne(topicId);
+      return Topics.findOne(topicId);
     }).filter(topic => {
       return topic != undefined && topic != null;
     }).map(topic => {
@@ -254,16 +254,21 @@ Meteor.methods({
   'post/insert': (title, content, topicIds) => {
     user = CurrentUser.get()
 
+    console.log(title, content, topicIds);
+
+    check(title, String);
+    check(content, String);
+    check(topicIds, [String]);
+
     const fullTopics = topicIds.map(topicId => {
-      return Lists.findOne(topicId);
+      return Topics.findOne(topicId);
     })
 
-    return Todos.insert({
+    return Posts.insert({
       title: title,
       content: content,
       ownerId: user._id,
-      topics: fullTopics,
-      listIds: topicIds,
+      topicIds: topicIds,
     })
   },
 

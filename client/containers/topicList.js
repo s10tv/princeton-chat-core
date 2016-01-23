@@ -5,7 +5,7 @@ import {composeWithTracker, composeAll} from 'react-komposer';
 export const composer = ({context, topicId}, onData) => {
   const {Meteor, Collections, Tracker} = context();
 
-  Meteor.subscribe('posts', topicId, () => {
+  if (Meteor.subscribe('posts', topicId).ready()) {
     const topic = Collections.Topics.findOne(topicId);
     const posts = Collections.Posts.find({ topicIds: topicId }).map((post) => {
       post.owner = Collections.Users.findOne(post.ownerId);
@@ -13,7 +13,7 @@ export const composer = ({context, topicId}, onData) => {
     })
 
     onData(null, {topic, posts});
-  });
+  }
 };
 
 export default composeAll(
