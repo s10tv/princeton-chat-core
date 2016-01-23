@@ -258,13 +258,21 @@ Meteor.methods({
       return Lists.findOne(topicId);
     })
 
-    return Todos.insert({
+    const postId = Todos.insert({
       title: title,
       content: content,
       ownerId: user._id,
       topics: fullTopics,
       listIds: topicIds,
+      topicIds: topicIds,
     })
+
+    if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
+      new IronWorker().send({
+          taskName: 'job_user_post_handler',
+        payload: { postId }
+      })
+    }
   },
 
   'comment/insert': (postId, commentText) => {

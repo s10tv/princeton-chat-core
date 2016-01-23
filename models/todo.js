@@ -5,7 +5,8 @@ PostSchema = new SimpleSchema({
   title: { type: String },
   content: { type: String },
   topics: { type: [Object], blackbox: true },
-  listIds: { type: [String] }
+  listIds: { type: [String] },
+  topicIds: { type: [String] }
 });
 
 this.Todos.attachBehaviour('timestampable');
