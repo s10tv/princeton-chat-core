@@ -27,3 +27,8 @@ audit-argument-checks
 check
 random
 less
+percolate:migrations
+zimme:collection-behaviours
+aldeed:simple-schema
+accounts-base
+service-configuration
