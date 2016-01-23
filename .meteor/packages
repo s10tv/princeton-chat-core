@@ -32,3 +32,4 @@ zimme:collection-behaviours
 aldeed:simple-schema
 accounts-base
 service-configuration
+accounts-password

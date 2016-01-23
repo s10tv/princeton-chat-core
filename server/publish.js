@@ -1,3 +1,5 @@
+import { Topics, Posts, Users } from '/libs/collections'
+
 Meteor.publish('topics', function() {
   if (this.userId) {
     return Topics.find()
@@ -49,13 +51,13 @@ Meteor.publish("usersData", function(tigerId) {
   }
 });
 
-Meteor.publishComposite('todos', function(listId) {
+Meteor.publishComposite('posts', function(topicId) {
   return {
     find: function() {
-      check(listId, String);
+      check(topicId, String);
 
-      return Todos.find({ $or: [
-        { listIds: listId },
+      return Posts.find({ $or: [
+        { topicIds: topicId },
       ]});
     },
 

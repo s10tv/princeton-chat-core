@@ -1,4 +1,4 @@
-import Onboarding from '../components/onboard/index.jsx';
+import Onboarding from '../components/Onboard.jsx';
 import {useDeps} from 'react-simple-di';
 import {composeWithTracker, composeAll} from 'react-komposer';
 
