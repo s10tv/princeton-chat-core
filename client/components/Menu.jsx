@@ -12,7 +12,12 @@ const PRINCETON_WHITE = 'white';
 const composer = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
   if (Meteor.subscribe('topics').ready()) {
-    const topics = Collections.Topics.find().fetch();
+    const currentUser = Meteor.user();
+    var topics = [];
+    if (currentUser) {
+      topics = Collections.Topics.find({ _id: { $in : currentUser.followingTopics} }).fetch();
+    }
+
     onData(null, {topics, FlowRouter});
   }
 }
@@ -34,6 +39,14 @@ const Navigations = ({topics ,FlowRouter}) => {
       primaryText={'Princeton.Chat'}/>
   )
 
+  const allTopics = (
+    <ListItem
+      key={'allTopics'}
+      onTouchTap={() => { FlowRouter.go(`/allTopics`) }}
+      style={{ color: PRINCETON_WHITE }}
+      primaryText={'All Topics'}/>
+  )
+
   return (
     <List style={{
         backgroundColor: PRINCETON_ORANGE,
@@ -41,6 +54,7 @@ const Navigations = ({topics ,FlowRouter}) => {
         borderBottomColor: PRINCETON_WHITE,
       }}>
       { settings }
+      { allTopics }
       { renderedNavItems }
     </List>
   );

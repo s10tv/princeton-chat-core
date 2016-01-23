@@ -8,6 +8,7 @@ import MainLayout from '../components/Layout.jsx';
 import Onboarding from '../containers/onboard';
 import TopicList from '../containers/topicList';
 import Settings from '../containers/settings';
+import AllTopics from '../containers/allTopics';
 
 export const initRoutes = (context, actions) => {
   const MainLayoutCtx = injectDeps(context, actions)(MainLayout);
@@ -24,6 +25,15 @@ export const initRoutes = (context, actions) => {
     action() {
       mount(MainLayoutCtx, {
         content: () => (<Onboarding />)
+      });
+    }
+  });
+
+  FlowRouter.route('/allTopics', {
+    name: 'home',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<AllTopics />)
       });
     }
   });
