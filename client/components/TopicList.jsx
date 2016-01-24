@@ -44,6 +44,12 @@ class Posts extends React.Component {
     return (
       <div>
         <div className="topic-title">{ topic.displayName }</div>
+        <a href="#" className="topic-title" onClick={() => {
+            Users.update(Meteor.userId(), { $pull: {
+              followingTopics: topic._id
+            }})
+            return false;
+          }}>Leave Channel</a>
         <h1>Add new Post</h1>
         <List>
           <ListItem>

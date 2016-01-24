@@ -28,7 +28,8 @@ const Navigations = ({topics ,FlowRouter}) => {
       key={topic._id}
       onTouchTap={() => { FlowRouter.go(`/topics/${topic._id}`) }}
       style={{ color: PRINCETON_WHITE }}
-      primaryText={topic.displayName} />;
+      primaryText={topic.displayName}>
+    </ListItem>
   });
 
   const settings = (
@@ -44,11 +45,13 @@ const Navigations = ({topics ,FlowRouter}) => {
       key={'allTopics'}
       onTouchTap={() => { FlowRouter.go(`/allTopics`) }}
       style={{ color: PRINCETON_WHITE }}
-      primaryText={'All Topics'}/>
+      primaryText={'All Topics'}>
+    </ListItem>
   )
 
   return (
     <List style={{
+        width: 270,
         backgroundColor: PRINCETON_ORANGE,
         borderBottomWidth: 1,
         borderBottomColor: PRINCETON_WHITE,
