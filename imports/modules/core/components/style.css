@@ -1,0 +1,40 @@
+.new-post input,
+.new-post textarea {
+  width: 350px;
+  outline: 0;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  padding: 4px 6px;
+}
+
+.new-post textarea {
+  height: 200px;
+}
+
+footer {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 5px;
+}
+
+#sidebar-header {
+  /*background-color: #192024; /* Princeton Black */
+  /*color: white;*/
+}
+
+#sidebar-header h3 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  color: #F07621; /* Princeton Orange */
+}
+
+#sidebar-header .online-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  /*background-color: #83EA4A;*/
+  background-color: green;
+  margin-right: 4px;
+}
