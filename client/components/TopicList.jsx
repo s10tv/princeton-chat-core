@@ -46,6 +46,14 @@ class Posts extends React.Component {
         )
       }
 
+      var detailPath;
+      if (topic._id === undefined) {
+        const [topicId] = post.topicIds;
+        detailPath = `/topics/${topicId}/${post._id}`;
+      } else {
+        detailPath = `/topics/${topic._id}/${post._id}`
+      }
+
       return (
         <ListItem
           key={post._id}
@@ -59,7 +67,7 @@ class Posts extends React.Component {
         >
           <div className="question-container">
             <div className="user-name question-title">
-              <a href={`${window.location.href}/${post._id}`}>
+              <a href={detailPath}>
                 { post.title }
               </a>
             </div>

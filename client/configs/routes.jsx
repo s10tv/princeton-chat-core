@@ -59,6 +59,7 @@ export const initRoutes = (context, actions) => {
   });
 
   FlowRouter.route('/all', {
+    name: 'all',
     action() {
       mount(MainLayoutCtx, {
         content: () => (<TopicList topicId={null} trigger={'ALL'} />)
@@ -67,6 +68,7 @@ export const initRoutes = (context, actions) => {
   });
 
   FlowRouter.route('/all-mine', {
+    name: 'all-mine',
     action() {
       mount(MainLayoutCtx, {
         content: () => (<TopicList topicId={null} trigger={'ALL_MINE'}/>)
@@ -75,6 +77,7 @@ export const initRoutes = (context, actions) => {
   });
 
   FlowRouter.route('/topics/:topicId/:postId', {
+    name: 'detail-topics',
     action({ postId, topicId }) {
       mount(MainLayoutCtx, {
         content: () => (<PostDetails topicId={topicId} postId={postId} />)
