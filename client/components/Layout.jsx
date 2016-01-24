@@ -11,3 +11,7 @@ const Layout = ({content = () => null }) => (
 );
 
 export default Layout;
+
+export const NewLayout = () => (
+  <h1>Hello World there</h1>
+)

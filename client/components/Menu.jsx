@@ -1,6 +1,6 @@
 import React from 'react';
 import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
+import MUIListItem from 'material-ui/lib/lists/list-item';
 import {useDeps} from 'react-simple-di';
 import {composeWithTracker, composeAll} from 'react-komposer';
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -22,14 +22,18 @@ const composer = ({context}, onData) => {
   }
 }
 
+const ListItem = (props) => <MUIListItem innerDivStyle={{
+  paddingTop: 4,
+  paddingBottom: 4,
+}} {...props} />
+
 const Navigations = ({topics ,FlowRouter}) => {
   const renderedNavItems = topics.map((topic) => {
     return <ListItem
       key={topic._id}
       onTouchTap={() => { FlowRouter.go(`/topics/${topic._id}`) }}
       style={{ color: PRINCETON_WHITE }}
-      primaryText={topic.displayName}>
-    </ListItem>
+      primaryText={`#${topic.displayName}`} />
   });
 
   const addPost = (

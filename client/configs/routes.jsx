@@ -12,6 +12,8 @@ import AllTopics from '../containers/allTopics';
 import PostTopic from '../containers/postTopic';
 import PostDetails from '../containers/postDetails';
 
+import {NewLayout} from '../components/Layout.jsx'
+
 export const initRoutes = (context, actions) => {
   const MainLayoutCtx = injectDeps(context, actions)(MainLayout);
 
@@ -21,6 +23,13 @@ export const initRoutes = (context, actions) => {
     this.register('publicLists', Meteor.subscribe('publicLists'));
     this.register('userData', Meteor.subscribe('userData'));
   };
+  
+  FlowRouter.route('/test', {
+    'name': 'test',
+    action() {
+      mount(NewLayout)
+    }
+  })
 
   FlowRouter.route('/', {
     name: 'home',
