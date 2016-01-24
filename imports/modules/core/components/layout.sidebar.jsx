@@ -5,6 +5,7 @@ import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Avatar from 'material-ui/lib/avatar'
 import Divider from 'material-ui/lib/divider'
+import FlatButton from 'material-ui/lib/flat-button'
 import {SmallListItem, MediumListItem} from './helpers.jsx'
 
 import FontIcon from 'material-ui/lib/font-icon'
@@ -34,6 +35,21 @@ const SidebarHeader = () => (
   </ListItem>
 )
 
+const SubHeader = ({label, action}) => (
+  <FlatButton style={{
+      width: '100%',
+      paddingLeft: 4,
+      paddingRight: 16,
+      color: 'gray',
+      fontWeight: 'normal',
+    }}>
+    <Flex justifyContent='space-between'>
+      <span>{label}</span>
+      <span>{action}</span>
+    </Flex>
+  </FlatButton>
+)
+
 export default ({content = () => null }) => (
   <LeftNav open={true} >
     <SidebarHeader />  
@@ -44,12 +60,12 @@ export default ({content = () => null }) => (
       <MediumListItem>Housing</MediumListItem>
       <MediumListItem>Jobs</MediumListItem>
     </List>
-    <List subheader='TOPICS'>
+    <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
       {['economics', 'software', 'politics'].map((topic) =>
           <SmallListItem key={topic}># {topic}</SmallListItem>
       )}
     </List>
-    <List subheader='DIRECT MESSAGES'>
+    <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
       {['tigercub', 'fang', 'nurym'].map((username) =>
           <SmallListItem key={username}>@ {username}</SmallListItem>
       )}
