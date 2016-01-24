@@ -7,15 +7,26 @@ const PRINCETON_ORANGE = '#F07621';
 const PRINCETON_WHITE = 'white';
 
 const AllTopics = ({topics}) => {
-    const renderedTopics = topics.map((topic) => {
-      return <li>{topic.displayName} | <a href='#' onClick={() => {console.log(topic._id); }}>Add</a></li>
-    })
+  const renderedTopics = topics.map((topic) => {
+    return (
+      <li key={topic._id}>
+        <a href='#' onClick={() => {
+            Users.update(Meteor.userId(), {
+              $addToSet: {
+                followingTopics: topic._id
+              }
+            })
 
+            FlowRouter.go(`/topics/${topic._id}`)
+          }}>{ topic.displayName}</a>
+      </li>
+    );
+  })
 
   return (
-    <div>
+    <ul>
       {renderedTopics}
-    </div>
+    </ul>
   );
 }
 

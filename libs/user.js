@@ -46,6 +46,36 @@ UserSchema = new SimpleSchema({
 Users.attachBehaviour('timestampable');
 Users.attachSchema(UserSchema);
 
+Users.allow({
+  update: function (userId, doc, fields, modifier) {
+    if (userId !== doc._id) {
+      return false;
+    }
+
+    const checkFollowTopc = {
+      $addToSet: {
+        followingTopics: String
+      }
+    };
+
+    const checkUnfollowTopic = {
+      $pull: {
+        followingTopics: String
+      }
+    };
+
+    try {
+      check(modifier, Match.OneOf(checkFollowTopc, checkUnfollowTopic));
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+
+    return true;
+  }
+})
+
+
 Users.displayName = (user) => {
   return `${user.firstName} ${user.lastName}`
 }

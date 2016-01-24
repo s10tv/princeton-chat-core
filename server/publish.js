@@ -111,7 +111,7 @@ Meteor.publishComposite('topicsToFollow', function() {
     children: [
       {
         find: function(topicHeader) {
-          return Lists.find({ _id: {
+          return Topics.find({ _id: {
             $in: topicHeader.topicIds
           }});
         }
