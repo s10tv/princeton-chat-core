@@ -5,8 +5,10 @@ import {composeWithTracker, composeAll} from 'react-komposer';
 export const composer = ({context, postId, topicId}, onData) => {
   if (Meteor.subscribe('comments', postId).ready()) {
     const {Collections} = context();
+    const post = Collections.Posts.findOne(postId);
     onData(null, {
-      post: Collections.Posts.findOne(postId),
+      post,
+      owner: Collections.Users.findOne(post.ownerId),
       topic: Collections.Topics.findOne(topicId),
     });
   }
