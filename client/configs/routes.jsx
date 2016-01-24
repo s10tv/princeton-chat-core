@@ -10,6 +10,7 @@ import TopicList from '../containers/topicList';
 import Settings from '../containers/settings';
 import AllTopics from '../containers/allTopics';
 import PostTopic from '../containers/postTopic';
+import PostDetails from '../containers/postDetails';
 
 export const initRoutes = (context, actions) => {
   const MainLayoutCtx = injectDeps(context, actions)(MainLayout);
@@ -39,7 +40,7 @@ export const initRoutes = (context, actions) => {
     }
   });
 
-  FlowRouter.route('/allTopics', {
+  FlowRouter.route('/all-topics', {
     name: 'allTopics',
     action() {
       mount(MainLayoutCtx, {
@@ -69,6 +70,14 @@ export const initRoutes = (context, actions) => {
     action() {
       mount(MainLayoutCtx, {
         content: () => (<TopicList topicId={null} trigger={'ALL_MINE'}/>)
+      });
+    }
+  });
+
+  FlowRouter.route('/topics/:topicId/:postId', {
+    action({ postId, topicId }) {
+      mount(MainLayoutCtx, {
+        content: () => (<PostDetails topicId={topicId} postId={postId} />)
       });
     }
   });

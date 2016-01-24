@@ -74,17 +74,17 @@ Meteor.publishComposite('posts', function(topicId) {
   }
 });
 
-Meteor.publishComposite('comments', function(todoId) {
+Meteor.publishComposite('comments', function(postId) {
   return {
     find: function() {
-      check(todoId, Match.Optional(String));
-      return Todos.find({ _id: todoId })
+      check(postId, Match.Optional(String));
+      return Posts.find({ _id: postId })
 
     },
     children: [
       {
         find: function(todo) {
-          return Comments.find({ postId: todoId })
+          return Comments.find({ postId: postId })
         },
 
         children: [

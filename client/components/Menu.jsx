@@ -68,8 +68,8 @@ const Navigations = ({topics ,FlowRouter}) => {
 
   const allTopics = (
     <ListItem
-      key={'allTopics'}
-      onTouchTap={() => { FlowRouter.go(`/allTopics`) }}
+      key={'all-topics'}
+      onTouchTap={() => { FlowRouter.go(`/all-topics`) }}
       style={{ color: PRINCETON_WHITE }}
       primaryText={'>> More <<'}>
     </ListItem>
@@ -84,7 +84,7 @@ const Navigations = ({topics ,FlowRouter}) => {
           borderBottomColor: PRINCETON_WHITE,
         }}>
         { settings }
-        { addPost } 
+        { addPost }
         { all }
         { allMine }
       </List>

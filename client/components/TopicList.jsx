@@ -58,7 +58,11 @@ class Posts extends React.Component {
           }
         >
           <div className="question-container">
-            <div className="user-name question-title">{ post.title }</div>
+            <div className="user-name question-title">
+              <a href={`${window.location.href}/${post._id}`}>
+                { post.title }
+              </a>
+            </div>
             <div className="question-title">{ truncate(post.content, 150) }</div>
 
             <p>{ renderedTopics }</p>
