@@ -40,26 +40,57 @@ const Navigations = ({topics ,FlowRouter}) => {
       primaryText={'Princeton.Chat'}/>
   )
 
+  const allMine = (
+    <ListItem
+      key={'all-mine'}
+      onTouchTap={() => { FlowRouter.go(`/all-mine`) }}
+      style={{ color: PRINCETON_WHITE }}
+      primaryText={'Everything I Follow'}>
+    </ListItem>
+  );
+
+  const all = (
+    <ListItem
+      key={'all'}
+      onTouchTap={() => { FlowRouter.go(`/all`) }}
+      style={{ color: PRINCETON_WHITE }}
+      primaryText={'All'}>
+    </ListItem>
+  );
+
   const allTopics = (
     <ListItem
       key={'allTopics'}
       onTouchTap={() => { FlowRouter.go(`/allTopics`) }}
       style={{ color: PRINCETON_WHITE }}
-      primaryText={'All Topics'}>
+      primaryText={'>> More <<'}>
     </ListItem>
   )
 
   return (
-    <List style={{
-        width: 270,
-        backgroundColor: PRINCETON_ORANGE,
-        borderBottomWidth: 1,
-        borderBottomColor: PRINCETON_WHITE,
-      }}>
-      { settings }
-      { allTopics }
-      { renderedNavItems }
-    </List>
+    <div>
+      <List style={{
+          width: 270,
+          backgroundColor: PRINCETON_ORANGE,
+          borderBottomWidth: 1,
+          borderBottomColor: PRINCETON_WHITE,
+        }}>
+        { settings }
+        { all }
+        { allMine }
+      </List>
+
+      <List style={{
+          width: 270,
+          marginTop: 50,
+          backgroundColor: PRINCETON_ORANGE,
+          borderBottomWidth: 1,
+          borderBottomColor: PRINCETON_WHITE,
+        }}>
+        { allTopics }
+        { renderedNavItems }
+      </List>
+    </div>
   );
 }
 

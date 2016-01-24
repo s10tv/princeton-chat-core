@@ -30,7 +30,7 @@ export const initRoutes = (context, actions) => {
   });
 
   FlowRouter.route('/allTopics', {
-    name: 'home',
+    name: 'allTopics',
     action() {
       mount(MainLayoutCtx, {
         content: () => (<AllTopics />)
@@ -43,6 +43,22 @@ export const initRoutes = (context, actions) => {
     action() {
       mount(MainLayoutCtx, {
         content: () => (<Settings />)
+      });
+    }
+  });
+
+  FlowRouter.route('/all', {
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<TopicList topicId={null} trigger={'ALL'} />)
+      });
+    }
+  });
+
+  FlowRouter.route('/all-mine', {
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<TopicList topicId={null} trigger={'ALL_MINE'}/>)
       });
     }
   });

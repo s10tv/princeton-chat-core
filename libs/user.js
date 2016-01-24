@@ -52,7 +52,19 @@ Users.allow({
       return false;
     }
 
-    const checkFollowTopc = {
+    const checkFollowPost = {
+      $addToSet: {
+        followingPosts: String
+      }
+    };
+
+    const checkunfollowPost = {
+      $pull: {
+        followingPosts: String
+      }
+    };
+
+    const checkFollowTopic = {
       $addToSet: {
         followingTopics: String
       }
@@ -65,7 +77,11 @@ Users.allow({
     };
 
     try {
-      check(modifier, Match.OneOf(checkFollowTopc, checkUnfollowTopic));
+      check(modifier, Match.OneOf(
+        checkFollowTopic,
+        checkUnfollowTopic,
+        checkFollowPost,
+        checkunfollowPost));
     } catch (err) {
       console.log(err);
       return false;
@@ -74,7 +90,6 @@ Users.allow({
     return true;
   }
 })
-
 
 Users.displayName = (user) => {
   return `${user.firstName} ${user.lastName}`

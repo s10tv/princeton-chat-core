@@ -54,11 +54,14 @@ Meteor.publish("usersData", function(tigerId) {
 Meteor.publishComposite('posts', function(topicId) {
   return {
     find: function() {
-      check(topicId, String);
+      check(topicId, Match.OneOf(null, String));
 
-      return Posts.find({ $or: [
-        { topicIds: topicId },
-      ]});
+      var options = {}
+      if (topicId != null) {
+        options = { topicIds: topicId };
+      }
+
+      return Posts.find(options);
     },
 
     children: [
@@ -74,7 +77,7 @@ Meteor.publishComposite('posts', function(topicId) {
 Meteor.publishComposite('comments', function(todoId) {
   return {
     find: function() {
-      check(todoId, String);
+      check(todoId, Match.Optional(String));
       return Todos.find({ _id: todoId })
 
     },
