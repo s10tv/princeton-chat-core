@@ -13,6 +13,7 @@ import PostTopic from '../containers/postTopic';
 import PostDetails from '../containers/postDetails';
 
 import {NewLayout} from '../components/Layout.jsx'
+import LayoutMain from '/imports/modules/core/components/layout.jsx'
 
 export const initRoutes = (context, actions) => {
   const MainLayoutCtx = injectDeps(context, actions)(MainLayout);
@@ -27,7 +28,7 @@ export const initRoutes = (context, actions) => {
   FlowRouter.route('/test', {
     'name': 'test',
     action() {
-      mount(NewLayout)
+      mount(LayoutMain)
     }
   })
 
