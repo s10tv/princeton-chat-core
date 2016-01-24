@@ -41,7 +41,7 @@ export const composer = ({context, topicId, trigger}, onData) => {
         break;
     }
 
-    const posts = Collections.Posts.find(options).map((post) => {
+    const posts = Collections.Posts.find(options, { sort: { createdAt: -1 }}).map((post) => {
       post.owner = Collections.Users.findOne(post.ownerId);
 
       if (post.topicIds) {

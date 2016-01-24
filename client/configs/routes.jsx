@@ -9,6 +9,7 @@ import Onboarding from '../containers/onboard';
 import TopicList from '../containers/topicList';
 import Settings from '../containers/settings';
 import AllTopics from '../containers/allTopics';
+import PostTopic from '../containers/postTopic';
 
 export const initRoutes = (context, actions) => {
   const MainLayoutCtx = injectDeps(context, actions)(MainLayout);
@@ -25,6 +26,15 @@ export const initRoutes = (context, actions) => {
     action() {
       mount(MainLayoutCtx, {
         content: () => (<Onboarding />)
+      });
+    }
+  });
+
+  FlowRouter.route('/add-post', {
+    name: 'allTopics',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<PostTopic />)
       });
     }
   });

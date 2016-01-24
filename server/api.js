@@ -223,52 +223,44 @@ Meteor.methods({
     }})
   },
 
-  'topic/follow': (listId) => {
-    user = CurrentUser.get();
-    Users.update(user._id, { $addToSet: {
-      followingTopics: listId
-    }})
-  },
-
-  'topic/unfollow': (listId) => {
-    user = CurrentUser.get();
-    Users.update(user._id, { $pull: {
-      followingTopics: listId
-    }})
-  },
-
-  'post/follow': (postId) => {
-    user = CurrentUser.get();
-    Users.update(user._id, { $addToSet: {
-      followingPosts: postId
-    }})
-  },
-
-  'post/unfollow': (postId) => {
-    user = CurrentUser.get();
-    Users.update(user._id, { $pull: {
-      followingPosts: postId
-    }})
-  },
-
   'post/insert': (title, content, topicIds) => {
     user = CurrentUser.get()
-
-    console.log(title, content, topicIds);
 
     check(title, String);
     check(content, String);
     check(topicIds, [String]);
 
-    const fullTopics = topicIds.map(topicId => {
+    try {
+      title = title.trim();
+      content = content.trim();
+    } catch (e) {
+      throw new Meteor.Error(400, 'Every post needs to have a title and content.');
+    }
+
+    if (title.length == 0 || content.length == 0) {
+      throw new Meteor.Error(400, 'Every post needs to have a title and content.');
+    }
+
+    // make sure that the topic ids entered are legit;
+    const filteredTopicIds = topicIds.map(topicId => {
       return Topics.findOne(topicId);
     })
+    .filter((topic) => {
+      return topic != undefined
+    })
+    .map((topic) => {
+      return topic._id;
+    });
+
+    if (filteredTopicIds.length == 0) {
+      throw new Meteor.Error(400, 'Please enter at least one valid topicId.');
+    }
 
     return Posts.insert({
       title: title,
       content: content,
       ownerId: user._id,
-      topicIds: topicIds,
+      topicIds: filteredTopicIds,
     })
   },
 

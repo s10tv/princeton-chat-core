@@ -32,6 +32,14 @@ const Navigations = ({topics ,FlowRouter}) => {
     </ListItem>
   });
 
+  const addPost = (
+    <ListItem
+      key={'addPost'}
+      onTouchTap={() => { FlowRouter.go(`/add-post`) }}
+      style={{ color: PRINCETON_WHITE }}
+      primaryText={'Add Post'}/>
+  )
+
   const settings = (
     <ListItem
       key={'settings'}
@@ -76,6 +84,7 @@ const Navigations = ({topics ,FlowRouter}) => {
           borderBottomColor: PRINCETON_WHITE,
         }}>
         { settings }
+        { addPost } 
         { all }
         { allMine }
       </List>

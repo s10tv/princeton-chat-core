@@ -12,14 +12,6 @@ const PRINCETON_WHITE = 'white';
 
 class Posts extends React.Component {
 
-  onAddContent() {
-    const { topic } = this.props;
-    const title = this.refs.title.getValue();
-    const content = this.refs.content.getValue();
-
-    Meteor.call('post/insert', title, content, [topic._id]);
-  }
-
   render() {
     const { posts, topic, currentUser } = this.props;
 
@@ -105,28 +97,6 @@ class Posts extends React.Component {
     const channelPreferences = !topic._id ? null : (
       <div>
         { leaveOrJoinChannel }
-        <h1>Add new Post</h1>
-        <List>
-          <ListItem>
-            <TextField
-              ref="title"
-              hintText="Title"
-              hintStyle={{color: PRINCETON_ORANGE}}
-              multiLine={true}
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              ref="content"
-              hintText="content"
-              hintStyle={{color: PRINCETON_ORANGE}}
-              multiLine={true}
-            />
-          </ListItem>
-          <ListItem>
-            <FlatButton label="Submit" onClick={this.onAddContent.bind(this) }/>
-          </ListItem>
-        </List>
       </div>
     )
 
