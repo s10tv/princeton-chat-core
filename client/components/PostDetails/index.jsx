@@ -1,5 +1,5 @@
 import React from 'react';
-import DateFormatter from '../lib/DateFormatter'
+import DateFormatter from '../../lib/DateFormatter'
 
 const PRINCETON_ORANGE = '#F07621';
 const PRINCETON_WHITE = 'white';

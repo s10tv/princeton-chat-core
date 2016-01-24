@@ -4,6 +4,7 @@ import TopicHeaders from './topicHeader';
 import Comments from './comment';
 import Posts from './post';
 import Users from './user';
+import Messages from './message';
 
 export default {
   Topics,
@@ -11,4 +12,5 @@ export default {
   Posts,
   Comments,
   Users,
+  Messages
 };

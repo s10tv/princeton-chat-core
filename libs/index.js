@@ -1,5 +1,5 @@
 import Comment from './comment'
-import Message from './message'
+import Messages from './message'
 import Notification from './notification'
 import Post from './post'
 import Topic from './topic'
@@ -8,7 +8,7 @@ import User from './user'
 
 export {
   Comment,
-  Message,
+  Messages,
   Notification,
   Post,
   Topic,

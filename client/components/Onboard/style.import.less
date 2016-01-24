@@ -1,7 +1,16 @@
+@princeton-orange: '#F07621';
+@princeton-white: 'white';
+@grey: '#cccccc';
+
 .ts-onboarding {
   position: relative;
   top: 25px;
   margin: 0 20px;
+
+  .princeton-chat-header {
+    font-size: 24px;
+    font-weight: 100;
+  }
 
   .ts-onboarding-question {
     position: relative;
@@ -21,7 +30,16 @@
       }
 
       .question-answer {
+        .primary-button {
+          background-color: @princeton-orange;
+          color: @princeton-white;
+          margin-right: 10px;
+        }
 
+        .secondary-button {
+          background-color: @grey;
+          color: @princeton-white;
+        }
       }
 
     }

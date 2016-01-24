@@ -1,4 +1,4 @@
-import Menu from './Menu.jsx';
+import Menu from '../Menu/index.jsx';
 import React from 'react';
 
 const Layout = ({content = () => null }) => (

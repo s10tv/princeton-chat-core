@@ -1,6 +1,6 @@
 import {Mongo} from 'meteor/mongo';
 
-const Messages = new Mongo.Collection('messages');
+const Messages = new Mongo.Collection('onboardingMessages');
 
 const MessageSchema = new SimpleSchema({
   senderId: { type: String },
@@ -26,6 +26,4 @@ const MessageSchema = new SimpleSchema({
 Messages.attachBehaviour('timestampable');
 Messages.attachSchema(MessageSchema);
 
-export default {
-  Messages: Messages
-}
+export default Messages;

@@ -1,4 +1,4 @@
-import Settings from '../components/Settings.jsx';
+import Settings from '../components/Settings/index.jsx';
 import {useDeps} from 'react-simple-di';
 import {composeWithTracker, composeAll} from 'react-komposer';
 

@@ -1,4 +1,4 @@
-import { Topics, Posts, Users } from '/libs/collections'
+import { Topics, Posts, Users, Messages } from '/libs/collections'
 
 Meteor.publish('topics', function() {
   if (this.userId) {
@@ -123,10 +123,10 @@ Meteor.publishComposite('topicsToFollow', function() {
   }
 });
 
-// Meteor.publish('onboardingMessages', function() {
-//   if (this.userId) {
-//     return Messages.find({ ownerId: this.userId })
-//   } else {
-//     this.ready();
-//   }
-// })
+Meteor.publish('onboardingMessages', function() {
+  if (this.userId) {
+    return Messages.find({ ownerId: this.userId })
+  } else {
+    this.ready();
+  }
+});

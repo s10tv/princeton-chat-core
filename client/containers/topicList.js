@@ -1,4 +1,4 @@
-import TopicList from '../components/TopicList.jsx';
+import TopicList from '../components/TopicList/index.jsx';
 import {useDeps} from 'react-simple-di';
 import {composeWithTracker, composeAll} from 'react-komposer';
 

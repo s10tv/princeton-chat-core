@@ -1,3 +1,5 @@
+import { Topics, Posts, Users, Messages } from '/libs/collections';
+
 class CurrentUser {
   static get() {
     user = Meteor.user();

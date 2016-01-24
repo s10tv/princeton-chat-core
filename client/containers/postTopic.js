@@ -1,4 +1,4 @@
-import PostTopic from '../components/PostTopic.jsx';
+import PostTopic from '../components/PostTopic/index.jsx';
 import {useDeps} from 'react-simple-di';
 import {composeWithTracker, composeAll} from 'react-komposer';
 

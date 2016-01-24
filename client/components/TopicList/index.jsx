@@ -5,7 +5,7 @@ import Avatar from 'material-ui/lib/avatar';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 import truncate from 'truncate';
-import DateFormatter from '../lib/DateFormatter';
+import DateFormatter from '../../lib/DateFormatter';
 
 const PRINCETON_ORANGE = '#F07621';
 const PRINCETON_WHITE = 'white';

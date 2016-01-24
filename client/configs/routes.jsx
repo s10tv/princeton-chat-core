@@ -1,9 +1,10 @@
 import React from 'react';
 import {injectDeps} from 'react-simple-di';
+import {Accounts} from 'meteor/accounts-base';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import {mount} from 'react-mounter';
 
-import MainLayout from '../components/Layout.jsx';
+import MainLayout from '../components/Layout/index.jsx';
 
 import Onboarding from '../containers/onboard';
 import TopicList from '../containers/topicList';
@@ -12,7 +13,7 @@ import AllTopics from '../containers/allTopics';
 import PostTopic from '../containers/postTopic';
 import PostDetails from '../containers/postDetails';
 
-import {NewLayout} from '../components/Layout.jsx'
+import {NewLayout} from '../components/Layout/index.jsx'
 
 export const initRoutes = (context, actions) => {
   const MainLayoutCtx = injectDeps(context, actions)(MainLayout);
@@ -23,7 +24,7 @@ export const initRoutes = (context, actions) => {
     this.register('publicLists', Meteor.subscribe('publicLists'));
     this.register('userData', Meteor.subscribe('userData'));
   };
-  
+
   FlowRouter.route('/test', {
     'name': 'test',
     action() {
@@ -31,11 +32,20 @@ export const initRoutes = (context, actions) => {
     }
   })
 
-  FlowRouter.route('/', {
-    name: 'home',
-    action() {
-      mount(MainLayoutCtx, {
-        content: () => (<Onboarding />)
+  FlowRouter.route('/invite/:id', {
+    name: 'onboarding',
+    action({ id }) {
+      Accounts.callLoginMethod({
+        methodArguments: [{ invite: id }],
+        userCallback: (err) => {
+          if (err) {
+            FlowRouter.go('test');
+          }
+
+          mount(MainLayoutCtx, {
+            content: () => (<Onboarding />)
+          });
+        }
       });
     }
   });

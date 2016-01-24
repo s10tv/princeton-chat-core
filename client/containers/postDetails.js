@@ -1,4 +1,4 @@
-import PostDetails from '../components/PostDetails.jsx';
+import PostDetails from '../components/PostDetails/index.jsx';
 import {useDeps} from 'react-simple-di';
 import {composeWithTracker, composeAll} from 'react-komposer';
 
