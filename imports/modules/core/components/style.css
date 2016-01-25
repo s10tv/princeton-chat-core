@@ -38,3 +38,9 @@ footer {
   background-color: green;
   margin-right: 4px;
 }
+
+.post-list {
+  padding: 32px;
+  /*margin-top: 56px;*/
+  overflow: scroll;
+}
