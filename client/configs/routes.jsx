@@ -14,7 +14,8 @@ import PostTopic from '../containers/postTopic';
 import PostDetails from '../containers/postDetails';
 
 import {NewLayout} from '../components/Layout/index.jsx';
-import LayoutMain from '/imports/modules/core/components/layout.jsx';
+import LayoutMain from '/imports/modules/core/components/layout.jsx'
+import PostList from '/imports/modules/core/components/post.list.jsx'
 
 import WebFontLoader from 'webfontloader';
 
@@ -34,10 +35,11 @@ export const initRoutes = (context, actions) => {
     this.register('userData', Meteor.subscribe('userData'));
   };
 
-  FlowRouter.route('/test', {
-    'name': 'test',
+  FlowRouter.route('/postlist', {
     action() {
-      mount(LayoutMain)
+      mount(LayoutMain, {
+        content: () => <PostList />
+      })
     }
   })
 

@@ -8,7 +8,6 @@ import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import RaisedButton from 'material-ui/lib/raised-button'
 import {SquareAvatar} from './helpers.jsx'
-import PostList from './post.list.jsx'
 
 // <RaisedButton label='New Post' primary={true} />
 const MainHeader = ({showMenuIcon}) => (
@@ -41,6 +40,6 @@ export default ({sidebarOpen, content = () => null }) => (
         flexDirection: 'column',
       }}>
       <MainHeader showMenuIcon={!sidebarOpen} />
-      <PostList />
+      {content()}
     </main>
 )

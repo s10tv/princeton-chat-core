@@ -17,7 +17,7 @@ export default React.createClass({
     return (
       <div id='layout'>
         <Sidebar sidebarOpen={sidebarOpen} />
-        <Main sidebarOpen={sidebarOpen} />
+        <Main sidebarOpen={sidebarOpen} content={this.props.content} />
         <CreatePost open={false} />
       </div>
     )
