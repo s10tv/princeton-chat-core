@@ -16,7 +16,6 @@ export default ({open, handleClose}) => (
        <FlatButton
          label='Post'
          primary={true}
-         disabled={true}
          onTouchTap={handleClose} />,
      ]}
      modal={true}

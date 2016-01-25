@@ -6,6 +6,10 @@ import ListItem from 'material-ui/lib/lists/list-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
 import {SmallListItem, MediumListItem, SquareAvatar} from './helpers.jsx'
+import darkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+
+console.log(darkRawTheme)
 
 import FontIcon from 'material-ui/lib/font-icon'
 
@@ -45,27 +49,39 @@ const SubHeader = ({label, action}) => (
   </FlatButton>
 )
 
-export default ({sidebarOpen}) => (
-  <LeftNav open={sidebarOpen} style={{display: 'flex', flexDirection: 'column'}}>
-    <SidebarHeader />
-    <Divider />
-    <nav style={{flexGrow: 1, overflow: 'scroll'}}>
-      <List>
-        <MediumListItem>Posts for me</MediumListItem>
-        <MediumListItem>All Posts</MediumListItem>
-        <MediumListItem>Housing</MediumListItem>
-        <MediumListItem>Jobs</MediumListItem>
-      </List>
-      <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
-        {['economics', 'software', 'politics'].map((topic) =>
-            <SmallListItem key={topic}># {topic}</SmallListItem>
-        )}
-      </List>
-      <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
-        {['tigercub', 'fang', 'nurym'].map((username) =>
-            <SmallListItem key={username}>@ {username}</SmallListItem>
-        )}
-      </List>
-    </nav>
-  </LeftNav>
-)
+export default React.createClass({
+  childContextTypes: {
+    muiTheme: React.PropTypes.object,
+  },
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(darkRawTheme),
+    }
+  },
+  render() {
+    return (
+      <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}}>
+        <SidebarHeader />
+        <Divider />
+        <nav style={{flexGrow: 1, overflow: 'scroll'}}>
+          <List>
+            <MediumListItem>Posts for me</MediumListItem>
+            <MediumListItem>All Posts</MediumListItem>
+            <MediumListItem>Housing</MediumListItem>
+            <MediumListItem>Jobs</MediumListItem>
+          </List>
+          <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
+            {['economics', 'software', 'politics'].map((topic) =>
+                <SmallListItem key={topic}># {topic}</SmallListItem>
+            )}
+          </List>
+          <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
+            {['tigercub', 'fang', 'nurym'].map((username) =>
+                <SmallListItem key={username}>@ {username}</SmallListItem>
+            )}
+          </List>
+        </nav>
+      </LeftNav>
+    )
+  }
+})
