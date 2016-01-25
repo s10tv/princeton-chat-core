@@ -1,0 +1,5 @@
+
+.message-history {
+  overflow: scroll;
+  flex: 1;  
+}
