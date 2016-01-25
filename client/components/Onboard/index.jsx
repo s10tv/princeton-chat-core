@@ -37,6 +37,18 @@ const baseMessage = (comment, action, avatarSrc, username, id, date) => {
 }
 
 class Onboarding extends React.Component {
+  componentWillUpdate() {
+    const scrollableDiv = this.refs.scrollableDiv;
+    this.shouldScrollBottom = scrollableDiv.scrollTop + scrollableDiv.offsetHeight === scrollableDiv.scrollHeight;
+  }
+
+  componentDidUpdate() {
+    if (this.shouldScrollBottom) {
+      const scrollableDiv = this.refs.scrollableDiv;
+      scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+    }
+  }
+
   messageOnType(message) {
     const {clickStartOnboarding, clickAbandonOnboarding, LocalState, user, clickFacebook, clickInstagram, clickSkip} = this.props;
     switch (message.type) {
@@ -73,6 +85,9 @@ class Onboarding extends React.Component {
   }
 
   submitTextField(e) {
+    const scrollableDiv = this.refs.scrollableDiv;
+    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+    
     const {submitTextField} = this.props;
     submitTextField(e, this.refs.textField);
   }
@@ -80,7 +95,7 @@ class Onboarding extends React.Component {
   render() {
     const {messages, user} = this.props;
     return (
-      <div className="content-scrollable">
+      <div ref='scrollableDiv' className="content-scrollable">
         <div className="ts-onboarding">
           <div className='princeton-chat-header'>Princeton.Chat</div>
           { messages.map((message) => {
