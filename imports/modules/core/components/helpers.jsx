@@ -1,6 +1,12 @@
 import React from 'react'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Avatar from 'material-ui/lib/avatar'
+import darkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
+import lightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import Colors from 'material-ui/lib/styles/colors'
+import Spacing from 'material-ui/lib/styles/spacing'
+import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
 
 // Helpers
 
@@ -37,3 +43,16 @@ export const SquareAvatar = ({children, length, ...props}) => (
     {children}
   </Avatar>
 )
+
+export const primaryMuiTheme = ThemeManager.getMuiTheme({
+  spacing: Spacing,
+  fontFamily: 'Roboto, sans-serif',
+  palette: {
+    ...lightRawTheme.palette,
+    accent1Color: '#F07621', // Princeton Orange
+  }
+})
+
+export const secondaryMuiTheme = ThemeManager.getMuiTheme({
+  ...darkRawTheme
+})

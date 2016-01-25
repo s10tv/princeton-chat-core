@@ -5,11 +5,7 @@ import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
-import {SmallListItem, MediumListItem, SquareAvatar} from './helpers.jsx'
-import darkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
-
-console.log(darkRawTheme)
+import {SmallListItem, MediumListItem, SquareAvatar, secondaryMuiTheme} from './helpers.jsx'
 
 import FontIcon from 'material-ui/lib/font-icon'
 
@@ -54,8 +50,8 @@ export default React.createClass({
     muiTheme: React.PropTypes.object,
   },
   getChildContext() {
-    return {
-      muiTheme: ThemeManager.getMuiTheme(darkRawTheme),
+    return { 
+      muiTheme: secondaryMuiTheme,
     }
   },
   render() {
