@@ -1,9 +1,9 @@
 import React from 'react';
+import {Flex} from 'jsxstyle'
 import Toolbar from 'material-ui/lib/toolbar/toolbar'
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
-
 
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
@@ -11,35 +11,22 @@ import FontIcon from 'material-ui/lib/font-icon';
 import NavigationExpandMoreIcon from 'material-ui/lib/svg-icons/navigation/expand-more';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
+import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
-
+// <RaisedButton label="New Post" primary={true} />
 const MainHeader = () => (
   <Toolbar>
-    <ToolbarTitle text="# economics" />
-    <ToolbarGroup firstChild={true} float="left">
-      <DropDownMenu value={3}>
-        <MenuItem value={1} primaryText="All Broadcasts" />
-        <MenuItem value={2} primaryText="All Voice" />
-        <MenuItem value={3} primaryText="Some Options" />
-        <MenuItem value={4} primaryText="Complete Voice" />
-        <MenuItem value={5} primaryText="Complete Text" />
-        <MenuItem value={6} primaryText="Active Voice" />
-        <MenuItem value={7} primaryText="Active Text" />
-      </DropDownMenu>
+    <ToolbarGroup>
+      <ToolbarTitle text="# economics" />
     </ToolbarGroup>
-    <ToolbarGroup float="right">
-      
-      <FontIcon className="muidocs-icon-custom-sort" />
-      <IconMenu iconButtonElement={
-        <IconButton touch={true}>
-          <NavigationExpandMoreIcon />
-        </IconButton>
-      }>
-        <MenuItem primaryText="Download" />
-        <MenuItem primaryText="More Info" />
-      </IconMenu>
-      <ToolbarSeparator />
-      <RaisedButton label="New Post" primary={true} />
+    <ToolbarGroup float='right' lastChild={true}>
+      <RaisedButton primary={true} label='New Post' labelPosition='after'>
+          <FontIcon className='material-icons' color='white' style={{
+              verticalAlign: 'middle',
+              height: '100%',
+              marginLeft: 8,
+             }}>add_circle</FontIcon>
+      </RaisedButton>
     </ToolbarGroup>
   </Toolbar>
 )
@@ -54,7 +41,7 @@ export default ({content = () => null }) => (
       <MainHeader />
       <section className='post-list' style={{flexGrow: 1}}>
         <article>
-          <h2>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</h2>
+          <h2>Section 1.10.32 of 'de Finibus Bonorum et Malorum", written by Cicero in 45 BC</h2>
           <p>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
           </p>
