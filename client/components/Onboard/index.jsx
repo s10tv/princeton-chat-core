@@ -5,12 +5,14 @@ import Avatar from 'material-ui/lib/avatar';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import { welcome, firstName, lastName, classYear, classType, thanks, linkService, share, raw } from './tigerBotMessages.jsx';
+import styles from './styles';
+import moment from 'moment';
 
-const tigerBotMessage = (comment, action, id) => {
-  return baseMessage(comment, action, '/images/nph.jpg', 'TigerBot', id);
+const tigerBotMessage = (comment, action, id, date) => {
+  return baseMessage(comment, action, '/images/nph.jpg', 'TigerBot', id, date);
 };
 
-const baseMessage = (comment, action, avatarSrc, username, id) => {
+const baseMessage = (comment, action, avatarSrc, username, id, date) => {
   return (
     <div className="ts-onboarding-question" key={id}>
       <List>
@@ -20,7 +22,7 @@ const baseMessage = (comment, action, avatarSrc, username, id) => {
             <Avatar src={avatarSrc} />
           }
           rightAvatar={
-            <div className="timestamp">3:55pm</div>
+            <div className="timestamp">{moment(date).format('HH:mm A')}</div>
           }
         >
           <div className="question-container">
@@ -34,43 +36,81 @@ const baseMessage = (comment, action, avatarSrc, username, id) => {
   )
 }
 
-const messageOnType = (type) => {
-  switch (type) {
-    case 'welcome':
-      return welcome;
-    case 'firstname':
-      return firstName;
-    case 'lastName':
-      return lastName;
-    case 'classyear':
-      return classYear;
-    case 'classtype':
-      return classType;
-    case 'thanks':
-      return thanks;
-    case 'linkservice':
-      return linkService;
-    case 'share':
-      return share;
-    case 'raw':
-      return raw;
-  }
-}
-
-const Onboarding = ({ messages, user }) => {
-  return (
-    <div className="ts-onboarding">
-      <div className='princeton-chat-header'>Princeton.Chat</div>
-      { messages.map((message) => {
-        var msgContent = messageOnType(message.type);
-        if (message.senderId == user._id) {
-          return baseMessage(msgContent.comment, msgContent.action, user.avatar.url, `${user.firstName} ${user.lastName}`, message._id);
-        } else {
-          return tigerBotMessage(msgContent.comment, msgContent.action, message._id);
+class Onboarding extends React.Component {
+  messageOnType(message) {
+    const {clickStartOnboarding, clickAbandonOnboarding, LocalState, user, clickFacebook, clickInstagram, clickSkip} = this.props;
+    switch (message.type) {
+      case 'welcome':
+        LocalState.set('type', undefined);
+        return welcome({clickStartOnboarding, clickAbandonOnboarding});
+      case 'firstname':
+        LocalState.set('type', 'firstname');
+        return firstName;
+      case 'lastname':
+        LocalState.set('type', 'lastname');
+        return lastName;
+      case 'classyear':
+        LocalState.set('type', 'classyear');
+        return classYear(user.firstName);
+      case 'classtype':
+        LocalState.set('type', 'classtype');
+        return classType;
+      case 'thanks':
+        LocalState.set('type', 'thanks');
+        return thanks;
+      case 'linkservice':
+        LocalState.set('type', undefined);
+        return linkService({ clickFacebook, clickInstagram });
+      case 'share':
+        LocalState.set('type', 'share');
+        return share({ clickSkip });
+      case 'raw':
+        if (message.resumeType) {
+          LocalState.set('type', message.resumeType);
         }
-      }) }
-    </div>
-  )
+        return raw(message.content);
+    }
+  }
+
+  submitTextField(e) {
+    const {submitTextField} = this.props;
+    submitTextField(e, this.refs.textField);
+  }
+
+  render() {
+    const {messages, user} = this.props;
+    return (
+      <div className="content-scrollable">
+        <div className="ts-onboarding">
+          <div className='princeton-chat-header'>Princeton.Chat</div>
+          { messages.map((message) => {
+            var msgContent = this.messageOnType(message);
+            if (message.senderId == user._id) {
+              const lastName = () => {
+                if (user.lastName) {
+                  return ` ${user.lastName}`;
+                } else {
+                  return '';
+                }
+              }
+              return baseMessage(msgContent.comment, msgContent.action, user.avatar.url, `${user.firstName}${lastName()}`, message._id);
+            } else {
+              return tigerBotMessage(msgContent.comment, msgContent.action, message._id);
+            }
+          }) }
+
+          <form onSubmit={(e) => this.submitTextField(e)}>
+            <TextField
+              ref='textField'
+              style={styles.textField}
+              underlineFocusStyle={styles.textFieldUnderlineFocusStyle}
+              placeholder='Type message ...'
+              />
+          </form>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Onboarding;

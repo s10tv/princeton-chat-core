@@ -37,7 +37,9 @@
     "react-mounter": "1.x.x",
     "react-simple-di": "1.x.x",
     "react-tap-event-plugin": "^0.2.1",
-    "truncate": "^2.0.0"
+    "truncate": "^2.0.0",
+    "underscore": "^1.8.3",
+    "webfontloader": "^1.6.20"
   },
   "private": true
 }

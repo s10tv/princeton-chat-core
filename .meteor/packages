@@ -33,3 +33,6 @@ aldeed:simple-schema
 accounts-base
 service-configuration
 accounts-password
+accounts-facebook
+bozhao:link-accounts
+bozhao:accounts-instagram

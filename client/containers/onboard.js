@@ -4,16 +4,23 @@ import {composeWithTracker, composeAll} from 'react-komposer';
 
 export const composer = ({context}, onData) => {
   if (Meteor.userId() && Meteor.subscribe('onboardingMessages').ready()) {
-    const {Collections} = context();
+    const {Collections, LocalState} = context();
     const messages = Collections.Messages.find().fetch();
     onData(null, {
+      LocalState,
       messages,
-      user: Meteor.user()
+      user: Meteor.user(),
     });
   }
 };
 
-export const depsMapper = (context) => ({
+export const depsMapper = (context, actions) => ({
+  clickStartOnboarding: actions.onboarding.clickStartOnboarding,
+  clickAbandonOnboarding: actions.onboarding.clickAbandonOnboarding,
+  submitTextField: actions.onboarding.submitTextField,
+  clickFacebook: actions.onboarding.clickFacebook,
+  clickInstagram: actions.onboarding.clickInstagram,
+  clickSkip: actions.onboarding.clickSkip,
   context: () => context
 });
 

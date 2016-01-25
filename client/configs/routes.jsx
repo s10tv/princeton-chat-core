@@ -16,7 +16,15 @@ import PostDetails from '../containers/postDetails';
 import {NewLayout} from '../components/Layout/index.jsx';
 import LayoutMain from '/imports/modules/core/components/layout.jsx';
 
+import WebFontLoader from 'webfontloader';
+
 export const initRoutes = (context, actions) => {
+  WebFontLoader.load({
+    google: {
+      families: ['Roboto']
+    }
+  });
+  
   const MainLayoutCtx = injectDeps(context, actions)(MainLayout);
 
   // subscribe to some global subscriptions

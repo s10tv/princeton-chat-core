@@ -309,8 +309,10 @@ Meteor.methods({
     switch(serviceName) {
       case 'facebook':
         avatarUrl = `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`;
+        break;
       case 'instagram':
         avatarUrl = user.services.instagram.profile_picture;
+        break;
     }
 
     systemSend('share', 'avatar/update')

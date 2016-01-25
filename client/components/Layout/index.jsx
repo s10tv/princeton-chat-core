@@ -33,13 +33,13 @@ const SplitView = ({collapsed}) => (
 
 export const NewLayout = () => (
   <div>
-    
+
     <LeftNav open={true} >
       <MenuItem>First Item</MenuItem>
       <MenuItem>Second Item</MenuItem>
     </LeftNav>
     <SplitView />
-    
+
   </div>
 )
 
