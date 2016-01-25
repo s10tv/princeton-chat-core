@@ -39,6 +39,15 @@ footer {
   margin-right: 4px;
 }
 
+#sidebar-header .online-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  /*background-color: #83EA4A;*/
+  background-color: green;
+  margin-right: 4px;
+}
+
 .post-list {
   padding: 32px;
   /*margin-top: 56px;*/

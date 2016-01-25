@@ -51,24 +51,26 @@ const SubHeader = ({label, action}) => (
 )
 
 export default ({content = () => null }) => (
-  <LeftNav open={true} >
-    <SidebarHeader />  
+  <LeftNav open={true} style={{display: 'flex', flexDirection: 'column'}}>
+    <SidebarHeader />
     <Divider />
-    <List>
-      <MediumListItem>Posts for me</MediumListItem>
-      <MediumListItem>All Posts</MediumListItem>
-      <MediumListItem>Housing</MediumListItem>
-      <MediumListItem>Jobs</MediumListItem>
-    </List>
-    <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
-      {['economics', 'software', 'politics'].map((topic) =>
-          <SmallListItem key={topic}># {topic}</SmallListItem>
-      )}
-    </List>
-    <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
-      {['tigercub', 'fang', 'nurym'].map((username) =>
-          <SmallListItem key={username}>@ {username}</SmallListItem>
-      )}
-    </List>
+    <nav style={{flexGrow: 1, overflow: 'scroll'}}>
+      <List>
+        <MediumListItem>Posts for me</MediumListItem>
+        <MediumListItem>All Posts</MediumListItem>
+        <MediumListItem>Housing</MediumListItem>
+        <MediumListItem>Jobs</MediumListItem>
+      </List>
+      <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
+        {['economics', 'software', 'politics'].map((topic) =>
+            <SmallListItem key={topic}># {topic}</SmallListItem>
+        )}
+      </List>
+      <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
+        {['tigercub', 'fang', 'nurym'].map((username) =>
+            <SmallListItem key={username}>@ {username}</SmallListItem>
+        )}
+      </List>
+    </nav>
   </LeftNav>
 )
