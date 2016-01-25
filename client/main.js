@@ -1,6 +1,12 @@
-import {initContext} from './configs/context';
-import {initRoutes} from './configs/routes.jsx';
-import actions from './actions';
+
+import {initContext} from '/imports/configs/context';
+import routes from '/imports/configs/routes.jsx';
+import {createApp} from '/imports/libs/mantra';
+
+import coreModule from '/imports/modules/core';
 
 const context = initContext();
-initRoutes(context, actions);
+
+const app = createApp(context);
+app.loadModule(coreModule);
+app.loadRoutes(routes);

@@ -1,4 +1,4 @@
-import { Topics, Posts, Users, Messages } from '/libs/collections'
+import { Topics, Posts, Users, Messages } from '/imports/configs/collections'
 
 Meteor.publish('topics', function() {
   if (this.userId) {

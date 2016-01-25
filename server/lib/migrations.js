@@ -1,4 +1,4 @@
-import {Topics, TopicHeaders} from '/libs/collections';
+import {Topics, TopicHeaders} from '/imports/configs/collections';
 
 Migrations.add({
   version: 1,
@@ -26,7 +26,7 @@ Migrations.add({
       { key:"parents", value: "Parents", order: 18},
       { key:"writing", value: "Writing", order: 19},
     ]
- 
+
     topics.forEach(topic =>  {
       Topics.upsert({ _id: topic.key }, { $set: {
         displayName: topic.value,
