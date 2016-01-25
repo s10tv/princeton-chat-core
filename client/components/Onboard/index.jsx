@@ -19,7 +19,7 @@ const baseMessage = (comment, action, avatarSrc, username, id, date) => {
         <ListItem
           disabled={true}
           leftAvatar={
-            <Avatar src={avatarSrc} />
+            <Avatar src={avatarSrc} style={styles.avatar}/>
           }
           rightAvatar={
             <div className="timestamp">{moment(date).format('HH:mm A')}</div>

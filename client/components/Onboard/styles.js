@@ -33,5 +33,9 @@ export default {
 
   textFieldUnderlineFocusStyle: {
     borderColor: PRINCETON_ORANGE
+  },
+
+  avatar: {
+    objectFit: 'scale-down'
   }
 };
