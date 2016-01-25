@@ -1,4 +1,4 @@
-.new-post input,
+/*.new-post input,
 .new-post textarea {
   width: 350px;
   outline: 0;
@@ -10,13 +10,13 @@
 
 .new-post textarea {
   height: 200px;
-}
+}*/
 
-footer {
+/*footer {
   margin-top: 20px;
   border-top: 1px solid #eee;
   padding-top: 5px;
-}
+}*/
 
 #sidebar-header {
   /*background-color: #192024; /* Princeton Black */
@@ -46,10 +46,4 @@ footer {
   /*background-color: #83EA4A;*/
   background-color: green;
   margin-right: 4px;
-}
-
-.post-list {
-  padding: 32px;
-  /*margin-top: 56px;*/
-  overflow: scroll;
 }
