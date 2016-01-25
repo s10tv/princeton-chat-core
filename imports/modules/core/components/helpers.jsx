@@ -8,6 +8,13 @@ import Colors from 'material-ui/lib/styles/colors'
 import Spacing from 'material-ui/lib/styles/spacing'
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
 
+export const systemFont = `-apple-system, BlinkMacSystemFont, 
+  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
+  "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue", 
+  sans-serif`
+
+export const articleFont = 'medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif'
+
 // Helpers
 
 export const NoPaddingListItem = ({children, ...props}) => (
@@ -46,13 +53,17 @@ export const SquareAvatar = ({children, length, ...props}) => (
 
 export const primaryMuiTheme = ThemeManager.getMuiTheme({
   spacing: Spacing,
-  fontFamily: 'Roboto, sans-serif',
+  fontFamily: systemFont,
   palette: {
     ...lightRawTheme.palette,
     accent1Color: '#F07621', // Princeton Orange
-  }
+  },
 })
 
 export const secondaryMuiTheme = ThemeManager.getMuiTheme({
-  ...darkRawTheme
+  spacing: Spacing,
+  fontFamily: systemFont,
+  palette: {
+    ...darkRawTheme.palette,
+  },
 })
