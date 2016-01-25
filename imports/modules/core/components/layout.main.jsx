@@ -6,6 +6,7 @@ import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
+import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
 import {SquareAvatar} from './helpers.jsx'
 
@@ -18,9 +19,19 @@ const MainHeader = ({showMenuIcon}) => (
           </ToolbarGroup>
         : null }
     <ToolbarGroup>
-      <ToolbarTitle text='# economics' />
+      <ToolbarTitle text='# economics > Section 1.10.32 of ...' />
+    </ToolbarGroup>
+    <ToolbarGroup style={{height: '100%'}}>
+      <Flex alignItems='center' height='100%'>
+        <FontIcon className='material-icons'>group</FontIcon>
+        <span>11/233</span>
+      </Flex>
+    </ToolbarGroup>
+    <ToolbarGroup>
+      <FlatButton label='Follow' />
     </ToolbarGroup>
     <ToolbarGroup float='right' lastChild={true}>
+      <ToolbarSeparator />
       <RaisedButton primary={true} label='New Post' labelPosition='after'>
           <FontIcon className='material-icons' color='white' style={{
               verticalAlign: 'middle',
@@ -40,6 +51,6 @@ export default ({sidebarOpen, content = () => null }) => (
         flexDirection: 'column',
       }}>
       <MainHeader showMenuIcon={!sidebarOpen} />
-      {content()}
+      {content({style: {flex: 1}})}
     </main>
 )

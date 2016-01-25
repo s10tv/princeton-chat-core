@@ -16,6 +16,7 @@ import PostDetails from '../containers/postDetails';
 import {NewLayout} from '../components/Layout/index.jsx';
 import LayoutMain from '/imports/modules/core/components/layout.jsx'
 import PostList from '/imports/modules/core/components/post.list.jsx'
+import PostSingle from '/imports/modules/core/components/post.details.jsx'
 
 import WebFontLoader from 'webfontloader';
 
@@ -39,6 +40,14 @@ export const initRoutes = (context, actions) => {
     action() {
       mount(LayoutMain, {
         content: () => <PostList />
+      })
+    }
+  })
+  
+  FlowRouter.route('/postdetails', {
+    action() {
+      mount(LayoutMain, {
+        content: (props) => <PostSingle {...props} />
       })
     }
   })

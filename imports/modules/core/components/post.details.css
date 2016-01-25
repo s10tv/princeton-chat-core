@@ -1,0 +1,48 @@
+
+.post-details {
+  overflow: scroll;
+  flex: 1;  
+}
+
+.post-details > header {
+  margin: 0 24px;
+}
+
+.post-details .display-name {
+  margin-right: 8px;
+}
+
+.post-details .mention {
+  margin-right: 8px;
+  color: #57A3F0;
+}
+
+.post-details .datetime {
+  font-size: 14px;
+  color: #888;
+}
+
+.post-details p {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.post-details footer {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-details .spacer {
+  flex-grow: 1;
+}
+
+.post-details .topic {
+  margin-right: 8px;
+  color: #888;
+}
+
+.post-details .comments-count, .post-details .followers-count {
+  margin-right: 8px;
+}
