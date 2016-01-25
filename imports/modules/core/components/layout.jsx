@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './layout.sidebar.jsx'
 import Main from './layout.main.jsx'
+import CreatePost from './post.create.jsx'
 import {StyleResizable} from 'material-ui/lib/mixins'
 
 // TODO: Figure out a better way that does not involve using Mixin
@@ -17,6 +18,7 @@ export default React.createClass({
       <div id='layout'>
         <Sidebar sidebarOpen={sidebarOpen} />
         <Main sidebarOpen={sidebarOpen} />
+        <CreatePost open={true} />
       </div>
     )
   }
