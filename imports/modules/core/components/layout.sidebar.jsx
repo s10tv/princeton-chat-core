@@ -46,11 +46,14 @@ const SubHeader = ({label, action}) => (
 )
 
 export default React.createClass({
+  propTypes: {
+    followedTopics: React.PropTypes.array.isRequired
+  },
   childContextTypes: {
     muiTheme: React.PropTypes.object,
   },
   getChildContext() {
-    return { 
+    return {
       muiTheme: secondaryMuiTheme,
     }
   },
@@ -67,13 +70,13 @@ export default React.createClass({
             <MediumListItem>Jobs</MediumListItem>
           </List>
           <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
-            {['economics', 'software', 'politics'].map((topic) =>
-                <SmallListItem key={topic}># {topic}</SmallListItem>
+            {this.props.followedTopics.map((topic) =>
+              <SmallListItem key={topic._id}># {topic.displayName}</SmallListItem>
             )}
           </List>
           <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
             {['tigercub', 'fang', 'nurym'].map((username) =>
-                <SmallListItem key={username}>@ {username}</SmallListItem>
+              <SmallListItem key={username}>@ {username}</SmallListItem>
             )}
           </List>
         </nav>

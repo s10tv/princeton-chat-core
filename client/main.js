@@ -1,4 +1,3 @@
-
 import {initContext} from '/imports/configs/context';
 import routes from '/imports/configs/routes.jsx';
 import {createApp} from '/imports/libs/mantra';

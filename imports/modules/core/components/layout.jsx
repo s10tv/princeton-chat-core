@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleResizable} from 'material-ui/lib/mixins'
 import {primaryMuiTheme} from './helpers.jsx'
-import Sidebar from './layout.sidebar.jsx'
 import Main from './layout.main.jsx'
 import CreatePost from './post.create.jsx'
+import Sidebar from '../containers/layout.sidebar.js';
 
 // TODO: Figure out a better way that does not involve using Mixin
 
@@ -15,7 +15,7 @@ export default React.createClass({
     muiTheme: React.PropTypes.object,
   },
   getChildContext() {
-    return { 
+    return {
       muiTheme: primaryMuiTheme,
     }
   },

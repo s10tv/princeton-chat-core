@@ -1,5 +1,4 @@
 import React from 'react';
-import {injectDeps} from 'react-simple-di';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import {mount} from 'react-mounter';
 
@@ -26,7 +25,7 @@ export default function (injectDeps) {
 
   FlowRouter.route('/postlist', {
     action() {
-      mount(LayoutMain, {
+      mount(LayoutMainCtx, {
         content: () => <PostList />
       })
     }
@@ -34,7 +33,7 @@ export default function (injectDeps) {
 
   FlowRouter.route('/postdetails', {
     action() {
-      mount(LayoutMain, {
+      mount(LayoutMainCtx, {
         content: (props) => <PostSingle {...props} />
       })
     }
