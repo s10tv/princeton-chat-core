@@ -45,8 +45,8 @@ const SubHeader = ({label, action}) => (
   </FlatButton>
 )
 
-export default ({content = () => null }) => (
-  <LeftNav open={true} style={{display: 'flex', flexDirection: 'column'}}>
+export default ({sidebarOpen}) => (
+  <LeftNav open={sidebarOpen} style={{display: 'flex', flexDirection: 'column'}}>
     <SidebarHeader />
     <Divider />
     <nav style={{flexGrow: 1, overflow: 'scroll'}}>
