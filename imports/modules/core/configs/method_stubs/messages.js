@@ -1,23 +1,23 @@
-import {Posts} from '/imports/configs/collections';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
+import {Messages} from '/imports/configs/collections';
 import UserService from '/imports/libs/UserService';
 
 export default function () {
   Meteor.methods({
-    'post/insert'(_id, title, content, topicIds) {
+    'messages/insert'(_id, postId, content) {
       check(_id, String);
-      check(title, String);
+      check(postId, String);
       check(content, String);
-      check(topicIds, [String]);
 
       const createdAt = new Date();
       const ownerId = UserService.currentUser()._id;
 
       const post = {
-        _id, title, content, topicIds, ownerId, createdAt,
+        _id, postId, content, ownerId, createdAt,
       };
-      Posts.insert(post);
+
+      Messages.insert(post);
     }
   });
 }

@@ -1,6 +1,7 @@
-import React from 'react'
-import {Flex, Block} from 'jsxstyle'
-import {Message, MessageGroup, InputBox} from './message.jsx'
+import React from 'react';
+import {Flex, Block} from 'jsxstyle';
+import {Message, MessageGroup} from './message.jsx';
+import InputBox from '../containers/inputBox.js';
 
 export default (props) => (
   <Flex flexDirection='column' flex={1}>
@@ -16,7 +17,10 @@ export default (props) => (
         </div>
       </header>
       <MessageGroup owner={props.owner} timestamp={props.post.timestamp} content={props.post.content} />
+      { props.messages.map(message =>
+        <MessageGroup key={message._id} owner={message.owner} timestamp={message.timestamp} content={message.content} />
+      )}
     </article>
-    <InputBox />
+    <InputBox postId={props.post._id} />
   </Flex>
 )

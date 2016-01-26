@@ -1,6 +1,7 @@
 import React from 'react'
 import {Flex, Block} from 'jsxstyle'
-import {Message, MessageGroup, InputBox} from './message.jsx'
+import {Message, MessageGroup} from './message.jsx'
+import InputBox from '../containers/inputBox.js'
 import Paper from 'material-ui/lib/paper'
 import Card from 'material-ui/lib/card/card'
 

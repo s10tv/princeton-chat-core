@@ -50,34 +50,6 @@ send = (content) => {
 }
 
 Meteor.methods({
-  // TODO: for future versions
-  // 'facebook/isActive': () => {
-  //   user = CurrentUser.get();
-  //   if (user.services.facebook) {
-  //     return true;
-  //   }
-  //
-  //   return false;
-  // },
-  //
-  // 'instagram/isActive': () => {
-  //   user = CurrentUser.get();
-  //   if (user.services.instagram) {
-  //     return true;
-  //   }
-  //
-  //   return false;
-  // },
-  //
-  // 'twitter/isActive': () => {
-  //   user = CurrentUser.get();
-  //   if (user.services.twitter) {
-  //     return true;
-  //   }
-  //
-  //   return false;
-  // },
-
   'signup/alumniEmail': (alumniEmail) => {
     var email = (alumniEmail || "").trim();
     if (email.length == 0) {
@@ -272,16 +244,18 @@ Meteor.methods({
     })
   },
 
-  'messages/insert': (postId, commentText) => {
+  'messages/insert': (_id, postId, commentText) => {
+    check(_id, String);
     check(postId, String);
     check(commentText, String);
 
     const user = CurrentUser.get();
-    // Messages..insert({
-    //   postId,
-    //   content: commentText,
-    //   ownerId: user._id,
-    // })
+    Messages.insert({
+      _id,
+      postId,
+      content: commentText,
+      ownerId: user._id,
+    })
   },
 
   //onboarding related
@@ -437,5 +411,33 @@ Meteor.methods({
           }
       }
     }
-  }
+  },
+
+  // TODO: for future versions
+  // 'facebook/isActive': () => {
+  //   user = CurrentUser.get();
+  //   if (user.services.facebook) {
+  //     return true;
+  //   }
+  //
+  //   return false;
+  // },
+  //
+  // 'instagram/isActive': () => {
+  //   user = CurrentUser.get();
+  //   if (user.services.instagram) {
+  //     return true;
+  //   }
+  //
+  //   return false;
+  // },
+  //
+  // 'twitter/isActive': () => {
+  //   user = CurrentUser.get();
+  //   if (user.services.twitter) {
+  //     return true;
+  //   }
+  //
+  //   return false;
+  // },
 })

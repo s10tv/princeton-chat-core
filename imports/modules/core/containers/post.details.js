@@ -9,8 +9,15 @@ export const composer = ({context, topicId, postId}, onData) => {
     const post = Collections.Posts.findOne(postId);
     post.timestamp = DateFormatter.format(post);
 
+    const messages = Messages.find({ postId: postId }, { sort: { createdAt: 1 }}).map(message => {
+      message.owner = UserService.getUserView(Collections.Users.findOne(message.ownerId));
+      message.timestamp = DateFormatter.format(message);
+      return message;
+    });
+
     onData(null, {
       post,
+      messages,
       owner: UserService.getUserView(Collections.Users.findOne(post.ownerId)),
       topic: Collections.Topics.findOne(topicId),
     });
