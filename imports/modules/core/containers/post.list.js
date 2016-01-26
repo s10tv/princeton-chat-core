@@ -17,7 +17,6 @@ export const composer = ({context, topicId, postListType}, onData) => {
     switch (postListType) {
       case 'ALL':
         topic =  {
-          _id: undefined, // this will let the renderer know that this is an aggregate channel.
           displayName: 'All Posts',
         };
         options = {};
@@ -25,7 +24,6 @@ export const composer = ({context, topicId, postListType}, onData) => {
 
       case 'ALL_MINE':
         topic =  {
-          _id: undefined, // this will let the renderer know that this is an aggregate channel.
           displayName: 'Everything I follow',
         };
         options = { $or: [
@@ -60,7 +58,17 @@ export const composer = ({context, topicId, postListType}, onData) => {
     });
 
     const onTapPostDetails = function() {
-      return FlowRouter.go(`/topics/${topicId}/${this.post._id}`);
+      var currentTopicId;
+      var currentPostId = this.post._id;
+
+      if (topicId) {
+        currentTopicId = topicId; // user clicked on a post detail from a topic
+      } else {
+        // the user clicked on a post detail from /all or /all-mine
+        [ currentTopicId ] = this.post.topicIds;
+      }
+
+      return FlowRouter.go(`/topics/${currentTopicId}/${currentPostId}`);
     };
 
     onData(null, {topic, posts, onTapPostDetails});
