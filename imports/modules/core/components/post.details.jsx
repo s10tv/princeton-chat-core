@@ -6,7 +6,7 @@ export default (props) => (
   <Flex flexDirection='column' {...props}>
     <article className='post-details'>
       <header>
-        <h1>Section 1.10.32 of 'de Finibus Bonorum et Malorum", written by Cicero in 45 BC</h1>
+        <h1>{ props.post.title }</h1>
         <div>
           <span className='topic'>Legal</span>
           <span className='topic'>Operation</span>
@@ -15,12 +15,7 @@ export default (props) => (
           <span className='comments-count'>2 comments</span>
         </div>
       </header>
-      <MessageGroup />
-      <MessageGroup />
-      <MessageGroup />
-      <MessageGroup />
-      <MessageGroup />
-      <MessageGroup />
+      <MessageGroup owner={props.owner} timestamp={props.post.timestamp} content={props.post.content} />
     </article>
     <InputBox />
   </Flex>

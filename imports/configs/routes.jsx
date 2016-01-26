@@ -4,7 +4,7 @@ import {mount} from 'react-mounter';
 
 import LayoutMain from '../modules/core/components/layout.jsx'
 import PostList from '../modules/core/containers/post.list.js'
-import PostSingle from '../modules/core/components/post.details.jsx'
+import PostSingle from '../modules/core/containers/post.details.js'
 import DirectMessage from '../modules/core/components/directMessage.jsx'
 
 import WebFontLoader from 'webfontloader';
@@ -25,10 +25,19 @@ export default function (injectDeps) {
   };
 
   FlowRouter.route('/topics/:topicId', {
-    name: 'topicList',
+    name: 'postList',
     action({ topicId }) {
       mount(LayoutMainCtx, {
         content: () => <PostList topicId={topicId} />
+      })
+    }
+  });
+
+  FlowRouter.route('/topics/:topicId/:postId', {
+    name: 'postDetails',
+    action({ topicId, postId }) {
+      mount(LayoutMainCtx, {
+        content: () => <PostSingle topicId={topicId} postId={postId} />
       })
     }
   });
@@ -40,7 +49,7 @@ export default function (injectDeps) {
       })
     }
   });
-  
+
   FlowRouter.route('/x-directmessage', {
     action() {
       mount(LayoutMainCtx, {

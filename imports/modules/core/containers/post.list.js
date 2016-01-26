@@ -4,9 +4,12 @@ import PostList from '../components/post.list.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 export const composer = ({context, topicId, postListType}, onData) => {
-  const {Meteor, Collections} = context();
+  const {Meteor, Collections, FlowRouter} = context();
   if (Meteor.subscribe('posts', topicId).ready()) {
     var topic;
     var options;
@@ -56,7 +59,11 @@ export const composer = ({context, topicId, postListType}, onData) => {
       return post;
     });
 
-    onData(null, {topic, posts});
+    const onTapPostDetails = function() {
+      return FlowRouter.go(`/topics/${topicId}/${this.post._id}`);
+    };
+
+    onData(null, {topic, posts, onTapPostDetails});
   }
 };
 

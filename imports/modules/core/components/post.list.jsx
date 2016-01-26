@@ -3,7 +3,7 @@ import {SquareAvatar, NoPaddingListItem} from './helpers.jsx'
 import List from 'material-ui/lib/lists/list'
 
 const PostListItem = (props) => (
-  <NoPaddingListItem>
+  <NoPaddingListItem onTouchTap={props.onTapPostDetails.bind({ post: props.post })}>
     <article>
       <SquareAvatar src={props.post.owner.avatar.url} length={60} />
       <div className='right-container'>
@@ -37,7 +37,7 @@ export default (props) => (
   <section className='post-list' style={{flexGrow: 1}}>
     <List style={{paddingTop: 0, paddingBottom: 0}}>
       { props.posts.map(post =>
-        <PostListItem key={post._id} post={post} />
+        <PostListItem key={post._id} post={post} onTapPostDetails={props.onTapPostDetails} />
       )}
     </List>
   </section>
