@@ -3,7 +3,7 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import {mount} from 'react-mounter';
 
 import LayoutMain from '../modules/core/components/layout.jsx'
-import PostList from '../modules/core/components/post.list.jsx'
+import PostList from '../modules/core/containers/post.list.js'
 import PostSingle from '../modules/core/components/post.details.jsx'
 
 import WebFontLoader from 'webfontloader';
@@ -23,10 +23,11 @@ export default function (injectDeps) {
     this.register('userData', Meteor.subscribe('userData'));
   };
 
-  FlowRouter.route('/postlist', {
-    action() {
+  FlowRouter.route('/topics/:topicId', {
+    name: 'topicList',
+    action({ topicId }) {
       mount(LayoutMainCtx, {
-        content: () => <PostList />
+        content: () => <PostList topicId={topicId} />
       })
     }
   });

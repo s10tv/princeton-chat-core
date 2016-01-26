@@ -2,25 +2,26 @@ import React from 'react'
 import {SquareAvatar, NoPaddingListItem} from './helpers.jsx'
 import List from 'material-ui/lib/lists/list'
 
-const PostListItem = () => (
+const PostListItem = (props) => (
   <NoPaddingListItem>
     <article>
-      <SquareAvatar src='http://lorempixel.com/200/200/people/' length={60} />
+      <SquareAvatar src={props.post.owner.avatar.url} length={60} />
       <div className='right-container'>
         <header>
-          <span className='display-name'>Sara Johnson '11</span>
-          <span className='mention'>@saraj</span>
-          <span className='datetime'>7:32 pm</span>
+          <span className='display-name'>
+            { props.post.owner.displayName }
+          </span>
+          <span className='mention'>@{ props.post.owner.username }</span>
+          <span className='datetime'>{ props.post.timestamp }</span>
         </header>
-        <h2>Section 1.10.32 of 'de Finibus Bonorum et Malorum", written by Cicero in 45 BC</h2>
+        <h2>{ props.post.title }</h2>
         <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-          totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto...
+          { props.post.truncatedContent }
         </p>
         <footer>
-          <span className='topic'>Legal</span>
-          <span className='topic'>Operation</span>
-          <span className='topic'>Programming</span>
+          { props.post.topics.map(topic =>
+            <span key={topic._id} className='topic'>{ topic.displayName }</span>
+          )}
           <span className='spacer' />
           <span className='comments-count'>2 comments</span>
           <span className='followers-count'>5 followers</span>
@@ -31,17 +32,13 @@ const PostListItem = () => (
   </NoPaddingListItem>
 )
 
-export default () => (
-  
+export default (props) => (
+
   <section className='post-list' style={{flexGrow: 1}}>
     <List style={{paddingTop: 0, paddingBottom: 0}}>
-        <PostListItem />
-        <PostListItem />
-        <PostListItem />
-        <PostListItem />
-        <PostListItem />
-        <PostListItem />
-        <PostListItem />
+      { props.posts.map(post =>
+        <PostListItem key={post._id} post={post} />
+      )}
     </List>
   </section>
 )
