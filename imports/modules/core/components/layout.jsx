@@ -19,14 +19,28 @@ export default React.createClass({
       muiTheme: primaryMuiTheme,
     }
   },
+  getInitialState: function() {
+    return {
+      isAddPostPopupShowing: false,
+    }
+  },
+  showAddPostPopup() {
+    this.setState({ isAddPostPopupShowing: true });
+  },
+  hideAddPostPopup() {
+    this.setState({ isAddPostPopupShowing: false });
+  },
   render() {
     const sidebarOpen = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
                      || this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
     return (
       <div id='layout'>
         <Sidebar sidebarOpen={sidebarOpen} />
-        <Main sidebarOpen={sidebarOpen} content={this.props.content} />
-        <CreatePost open={false} />
+        <Main
+            sidebarOpen={sidebarOpen}
+            content={this.props.content}
+            showAddPostPopup={this.showAddPostPopup} />
+        <CreatePost open={this.state.isAddPostPopupShowing} handleClose={this.hideAddPostPopup} />
       </div>
     )
   }

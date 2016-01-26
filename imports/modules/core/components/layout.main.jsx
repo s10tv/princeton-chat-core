@@ -11,7 +11,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import {SquareAvatar} from './helpers.jsx'
 
 // <RaisedButton label='New Post' primary={true} />
-const MainHeader = ({showMenuIcon, breadcrumbs, followFn, unfollowFn, isFollowing}) => (
+const MainHeader = ({showMenuIcon, breadcrumbs, followFn, unfollowFn, isFollowing, showAddPostPopup}) => (
   <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd'}}>
     { showMenuIcon
         ? <ToolbarGroup firstChild={true}>
@@ -36,7 +36,7 @@ const MainHeader = ({showMenuIcon, breadcrumbs, followFn, unfollowFn, isFollowin
     </ToolbarGroup>
     <ToolbarGroup float='right' lastChild={true}>
       <ToolbarSeparator />
-      <RaisedButton primary={true} label='New Post' labelPosition='after'>
+      <RaisedButton primary={true} label='New Post' labelPosition='after' onTouchTap={showAddPostPopup}>
           <FontIcon className='material-icons' color='white' style={{
               verticalAlign: 'middle',
               height: '100%',
@@ -47,7 +47,14 @@ const MainHeader = ({showMenuIcon, breadcrumbs, followFn, unfollowFn, isFollowin
   </Toolbar>
 )
 
-export default ({sidebarOpen, breadcrumbs, followFn, unfollowFn, isFollowing, content = () => null }) => (
+export default ({
+      sidebarOpen,
+      showAddPostPopup,
+      breadcrumbs,
+      followFn,
+      unfollowFn,
+      isFollowing,
+      content = () => null }) => (
     <main style={{
         marginLeft: sidebarOpen ? 240 : 0,
         height: '100vh',
@@ -56,6 +63,7 @@ export default ({sidebarOpen, breadcrumbs, followFn, unfollowFn, isFollowing, co
       }}>
       <MainHeader
         showMenuIcon={!sidebarOpen}
+        showAddPostPopup={showAddPostPopup}
         breadcrumbs={breadcrumbs}
         isFollowing={isFollowing}
         followFn={followFn}
