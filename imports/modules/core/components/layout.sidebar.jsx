@@ -9,26 +9,28 @@ import {SmallListItem, MediumListItem, SquareAvatar, secondaryMuiTheme} from './
 
 import FontIcon from 'material-ui/lib/font-icon'
 
-const SidebarHeader = () => (
-  <ListItem id='sidebar-header' innerDivStyle={{
-      paddingTop: 8,
-      paddingRight: 8,
-      paddingBottom: 8,
-      paddingLeft: 8,
-    }}>
-    <Flex>
-      <SquareAvatar src='http://lorempixel.com/200/200/people/' length={60} />
-      <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
-        <h3>Princeton.Chat</h3>
-        <Flex alignItems='center'>
-          <span className='online-status' />
-          <span>@tonyx</span>
-          <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
+const SidebarHeader = (props) => {
+  return (
+    <ListItem id='sidebar-header' innerDivStyle={{
+        paddingTop: 8,
+        paddingRight: 8,
+        paddingBottom: 8,
+        paddingLeft: 8,
+      }}>
+      <Flex>
+        <SquareAvatar src={ props.avatar.url } length={60} />
+        <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
+          <h3>Princeton.Chat</h3>
+          <Flex alignItems='center'>
+            <span className='online-status' />
+            <span>@tonyx</span>
+            <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
-  </ListItem>
-)
+    </ListItem>
+  )
+}
 
 const SubHeader = ({label, action}) => (
   <FlatButton style={{
@@ -47,7 +49,8 @@ const SubHeader = ({label, action}) => (
 
 export default React.createClass({
   propTypes: {
-    followedTopics: React.PropTypes.array.isRequired
+    avatar: React.PropTypes.object.isRequired,
+    followedTopics: React.PropTypes.array.isRequired,
   },
   childContextTypes: {
     muiTheme: React.PropTypes.object,
@@ -60,7 +63,7 @@ export default React.createClass({
   render() {
     return (
       <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240}>
-        <SidebarHeader />
+        <SidebarHeader avatar{this.props.avatar} />
         <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
