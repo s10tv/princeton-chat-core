@@ -8,13 +8,16 @@ FollowerSchema = new SimpleSchema({
 })
 
 PostSchema = new SimpleSchema({
-  ownerId: { type: String },
   content: { type: String },
   followers: { type: [FollowerSchema], defaultValue: [] },
 
   // relevant for discussion posts
+  ownerId: { type: String, optional: true },
   title: { type: String, optional: true},
   topicIds: { type: [String], optional: true},
+
+  // relevant for direct messages
+  isDM: { type: Boolean, optional: false, defaultValue: false },
 });
 
 Posts.attachBehaviour('timestampable');

@@ -82,8 +82,8 @@ export default React.createClass({
             )}
           </List>
           <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
-            {['tigercub', 'fang', 'nurym'].map((username) =>
-              <SmallListItem key={username}>@ {username}</SmallListItem>
+            {this.props.directMessages.map(directMessage =>
+              <SmallListItem key={directMessage._id}>{directMessage.displayName}</SmallListItem>
             )}
           </List>
         </nav>

@@ -7,7 +7,7 @@ injectTapEventPlugin();
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
-  if (Meteor.subscribe('topics').ready()) {
+  if (Meteor.subscribe('topics').ready() && Meteor.subscribe('directMessages').ready()) {
     const user = UserService.currentUser();
     const followedTopics = user ? Collections.Topics.find({
       _id: { $in : user.followingTopics}
@@ -21,11 +21,25 @@ export const composer = ({context}, onData) => {
       return FlowRouter.go(`/${this.location}`);
     }
 
+    const directMessages = Posts.find({ isDM: true }).map(post => {
+      const otherUsers = _.reject(post.followers, (follower) => {
+        return follower.userId == Meteor.userId();
+      }).map(follower => {
+        return Users.findOne(follower.userId);
+      }).filter(user => {
+        return user != undefined;
+      })
+
+      post.displayName = otherUsers.map(otherUser => `@${otherUser.username}`).join(',');
+      return post;
+    })
+
     onData(null, {
       user,
       followedTopics,
       showTopic,
       navigateTo,
+      directMessages,
     });
   }
 }

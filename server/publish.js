@@ -57,8 +57,10 @@ Meteor.publishComposite('posts', function(topicId) {
       check(topicId, Match.OneOf(null, String));
 
       var options = {}
+      options.isDM = { $ne: true }; // don't get the direct messages
+
       if (topicId != null) {
-        options = { topicIds: topicId };
+        options.topicIds = topicId;
       }
 
       return Posts.find(options);
@@ -103,8 +105,35 @@ Meteor.publishComposite('messages', function(postId) {
       }
     ]
   }
-
 });
+
+Meteor.publishComposite('directMessages', function() {
+  const myUserId = this.userId;
+  if (myUserId) {
+    return {
+      find: function() {
+        return Posts.find({
+          isDM: true,
+          'followers.userId': myUserId,
+        });
+      },
+
+      children: [
+        {
+          find: function(post) {
+            const otherUserIds = _.reject(post.followers, function(follower) {
+              return follower.userId == myUserId;
+            }).map(user => user.userId);
+
+            return Users.find({ _id: { $in: otherUserIds } });
+          }
+        }
+      ]
+    }
+  } else {
+    this.ready();
+  }
+})
 
 Meteor.publishComposite('topicsToFollow', function() {
   return {

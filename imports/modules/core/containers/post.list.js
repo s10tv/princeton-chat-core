@@ -12,29 +12,29 @@ export const composer = ({context, topicId, postListType}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
   if (Meteor.subscribe('posts', topicId).ready()) {
     var topic;
-    var options;
+    var options = {};
+    options.isDM = { $ne: true };
 
     switch (postListType) {
       case 'ALL':
         topic =  {
           displayName: 'All Posts',
         };
-        options = {};
         break;
 
       case 'ALL_MINE':
         topic =  {
           displayName: 'Everything I follow',
         };
-        options = { $or: [
+        options['$or'] = [
           { _id: { $in: Meteor.user().followingPosts }},
           { topicIds: { $in: Meteor.user().followingTopics }},
-        ]};
+        ];
         break;
 
       default:
         topic = Collections.Topics.findOne(topicId);
-        options = { topicIds: topicId };
+        options.topicIds = topicId;
         break;
     }
 

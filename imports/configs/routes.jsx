@@ -21,7 +21,6 @@ export default function (injectDeps) {
 
   FlowRouter.subscriptions = function() {
     this.register('topicsToFollow', Meteor.subscribe('topicsToFollow'));
-    this.register('publicLists', Meteor.subscribe('publicLists'));
     this.register('userData', Meteor.subscribe('userData'));
   };
 
