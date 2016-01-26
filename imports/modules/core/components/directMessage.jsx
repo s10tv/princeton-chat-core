@@ -8,12 +8,6 @@ export default (props) => (
   <Flex {...props}>
     <Flex flexDirection='column' flex={1}>
       <section className='message-history'>
-        <MessageGroup />
-        <MessageGroup />
-        <MessageGroup />
-        <MessageGroup />
-        <MessageGroup />
-        <MessageGroup />
       </section>
       <InputBox />
     </Flex>
