@@ -11,9 +11,9 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import {SquareAvatar} from './helpers.jsx'
 
 // <RaisedButton label='New Post' primary={true} />
-const MainHeader = ({showMenuIcon}) => (
+const MainHeader = ({showMenuIcon, breadcrumbs, followFn, unfollowFn, isFollowing}) => (
   <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd'}}>
-    { showMenuIcon 
+    { showMenuIcon
         ? <ToolbarGroup firstChild={true}>
             <IconButton iconClassName='material-icons' tooltip='Menu'>menu</IconButton>
           </ToolbarGroup>
@@ -28,7 +28,11 @@ const MainHeader = ({showMenuIcon}) => (
       </Flex>
     </ToolbarGroup>
     <ToolbarGroup>
-      <FlatButton label='Follow' />
+      { isFollowing
+        ? <FlatButton label='Following' style={{ backgroundColor: '#4CAF50', color: '#ffffff' }}
+             onTouchTap={unfollowFn} />
+        : <FlatButton label='Follow' onTouchTap={followFn} />
+      }
     </ToolbarGroup>
     <ToolbarGroup float='right' lastChild={true}>
       <ToolbarSeparator />
@@ -43,14 +47,19 @@ const MainHeader = ({showMenuIcon}) => (
   </Toolbar>
 )
 
-export default ({sidebarOpen, content = () => null }) => (
+export default ({sidebarOpen, breadcrumbs, followFn, unfollowFn, isFollowing, content = () => null }) => (
     <main style={{
         marginLeft: sidebarOpen ? 240 : 0,
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
       }}>
-      <MainHeader showMenuIcon={!sidebarOpen} />
+      <MainHeader
+        showMenuIcon={!sidebarOpen}
+        breadcrumbs={breadcrumbs}
+        isFollowing={isFollowing}
+        followFn={followFn}
+        unfollowFn={unfollowFn} />
       {content({style: {flex: 1}})}
     </main>
 )

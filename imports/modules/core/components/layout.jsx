@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleResizable} from 'material-ui/lib/mixins'
 import {primaryMuiTheme} from './helpers.jsx'
-import Main from './layout.main.jsx'
 import CreatePost from './post.create.jsx'
+import Main from '../containers/layout.main.js'
 import Sidebar from '../containers/layout.sidebar.js';
 
 // TODO: Figure out a better way that does not involve using Mixin
