@@ -74,7 +74,9 @@ export default React.createClass({
           </List>
           <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
             {this.props.followedTopics.map((topic) =>
-              <SmallListItem key={topic._id}># {topic.displayName}</SmallListItem>
+              <SmallListItem key={topic._id} onTouchTap={this.props.showTopic.bind({ topic })}>
+                # {topic.displayName}
+              </SmallListItem>
             )}
           </List>
           <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
