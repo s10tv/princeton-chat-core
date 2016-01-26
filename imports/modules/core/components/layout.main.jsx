@@ -19,7 +19,7 @@ const MainHeader = ({showMenuIcon, breadcrumbs, followFn, unfollowFn, isFollowin
           </ToolbarGroup>
         : null }
     <ToolbarGroup>
-      <ToolbarTitle text='# economics > Section 1.10.32 of ...' />
+      <ToolbarTitle text={breadcrumbs.map(breadcrumb => breadcrumb.name).join(' > ')} />
     </ToolbarGroup>
     <ToolbarGroup style={{height: '100%'}}>
       <Flex alignItems='center' height='100%'>
