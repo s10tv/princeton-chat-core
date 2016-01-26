@@ -3,7 +3,7 @@ import {Flex, Block} from 'jsxstyle'
 import {Message, MessageGroup, InputBox} from './message.jsx'
 
 export default (props) => (
-  <Flex flexDirection='column' {...props}>
+  <Flex flexDirection='column' flex={1}>
     <article className='post-details'>
       <header>
         <h1>{ props.post.title }</h1>

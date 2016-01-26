@@ -68,6 +68,6 @@ export default ({
         isFollowing={isFollowing}
         followFn={followFn}
         unfollowFn={unfollowFn} />
-      {content({style: {flex: 1}})}
+      {content()}
     </main>
 )
