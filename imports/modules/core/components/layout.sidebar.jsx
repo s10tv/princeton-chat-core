@@ -18,12 +18,12 @@ const SidebarHeader = (props) => {
         paddingLeft: 8,
       }}>
       <Flex>
-        <SquareAvatar src={ props.avatar.url } length={60} />
+        <SquareAvatar src={ props.user.avatar.url } length={60} />
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
           <h3>Princeton.Chat</h3>
           <Flex alignItems='center'>
             <span className='online-status' />
-            <span>@tonyx</span>
+            <span>@{ props.user.username }</span>
             <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
           </Flex>
         </Flex>
@@ -49,7 +49,7 @@ const SubHeader = ({label, action}) => (
 
 export default React.createClass({
   propTypes: {
-    avatar: React.PropTypes.object.isRequired,
+    user: React.PropTypes.object.isRequired,
     followedTopics: React.PropTypes.array.isRequired,
   },
   childContextTypes: {
@@ -63,7 +63,7 @@ export default React.createClass({
   render() {
     return (
       <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240}>
-        <SidebarHeader avatar{this.props.avatar} />
+        <SidebarHeader user={this.props.user} />
         <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>

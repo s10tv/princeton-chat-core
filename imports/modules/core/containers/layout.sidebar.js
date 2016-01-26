@@ -5,16 +5,14 @@ import CurrentUser from '/imports/libs/CurrentUser';
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
   if (Meteor.subscribe('topics').ready()) {
-    const currentUser = CurrentUser.get();
-    console.log(currentUser);
-
-    const followedTopics = currentUser ? Collections.Topics.find({
-      _id: { $in : currentUser.followingTopics}
+    const user = CurrentUser.get();
+    const followedTopics = user ? Collections.Topics.find({
+      _id: { $in : user.followingTopics}
     }).fetch() : [];
 
     onData(null, {
+      user,
       followedTopics,
-      avatar: currentUser.avatar
     });
   }
 }
