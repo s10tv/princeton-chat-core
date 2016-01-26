@@ -10,6 +10,7 @@ FollowerSchema = new SimpleSchema({
 PostSchema = new SimpleSchema({
   content: { type: String },
   followers: { type: [FollowerSchema], defaultValue: [] },
+  numMsgs: { type: Number, defaultValue: 0 }, // cache this so we don't have to count.
 
   // relevant for discussion posts
   ownerId: { type: String, optional: true },

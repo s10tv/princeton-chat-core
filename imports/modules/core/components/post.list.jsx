@@ -23,8 +23,8 @@ const PostListItem = (props) => (
             <span key={topic._id} className='topic'>{ topic.displayName }</span>
           )}
           <span className='spacer' />
-          <span className='comments-count'>2 comments</span>
-          <span className='followers-count'>5 followers</span>
+          <span className='comments-count'>{ props.post.numMsgs} comments</span>
+          <span className='followers-count'>{ props.post.numFollowers } followers</span>
           <span className='follow-button'>follow</span>
         </footer>
       </div>

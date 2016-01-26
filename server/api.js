@@ -241,6 +241,7 @@ Meteor.methods({
         userId: user._id,
         unreadCount: 0,
       }],
+      numMsgs: 0,
     })
   },
 
@@ -256,6 +257,8 @@ Meteor.methods({
       content: commentText,
       ownerId: user._id,
     })
+
+    Posts.update(postId, { $inc: { numMsgs: 1 }});
   },
 
   //onboarding related

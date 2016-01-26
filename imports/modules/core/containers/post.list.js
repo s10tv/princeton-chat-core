@@ -54,6 +54,8 @@ export const composer = ({context, topicId, postListType}, onData) => {
       post.timestamp = DateFormatter.format(post);
       post.truncatedContent = truncate(post.content, 150);
 
+      post.numFollowers = post.followers.length;
+
       return post;
     });
 
@@ -75,7 +77,12 @@ export const composer = ({context, topicId, postListType}, onData) => {
   }
 };
 
+const depsMapper = (context, actions) => ({
+  followPost: actions.posts.follow,
+  context: () => context
+});
+
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
+  useDeps(depsMapper)
 )(PostList);
