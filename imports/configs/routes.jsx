@@ -8,13 +8,19 @@ import PostSingle from '../modules/core/containers/post.details.js'
 import DirectMessage from '../modules/core/components/directMessage.jsx'
 import TopicList from '../modules/core/components/topic.list.jsx'
 
-import Login from '../modules/core/components/login.jsx'
+import Login from '../modules/core/containers/login.js'
 
 import WebFontLoader from 'webfontloader';
 
 function requireLogin(context) {
   if (!Meteor.user()) {
     return FlowRouter.go('home');
+  }
+}
+
+function redirectToAllMine(context) {
+  if (Meteor.user()) {
+    return FlowRouter.go('all-mine');
   }
 }
 
@@ -28,6 +34,7 @@ export default function (injectDeps) {
   const LayoutMainCtx = injectDeps(LayoutMain);
 
   FlowRouter.triggers.enter([requireLogin], {except: ["home"]});
+  FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {
     this.register('topicsToFollow', Meteor.subscribe('topicsToFollow'));
