@@ -5,6 +5,7 @@ import {mount} from 'react-mounter';
 import LayoutMain from '../modules/core/components/layout.jsx'
 import PostList from '../modules/core/containers/post.list.js'
 import PostSingle from '../modules/core/components/post.details.jsx'
+import DirectMessage from '../modules/core/components/directMessage.jsx'
 
 import WebFontLoader from 'webfontloader';
 
@@ -36,6 +37,14 @@ export default function (injectDeps) {
     action() {
       mount(LayoutMainCtx, {
         content: (props) => <PostSingle {...props} />
+      })
+    }
+  });
+  
+  FlowRouter.route('/x-directmessage', {
+    action() {
+      mount(LayoutMainCtx, {
+        content: (props) => <DirectMessage {...props} />
       })
     }
   });
