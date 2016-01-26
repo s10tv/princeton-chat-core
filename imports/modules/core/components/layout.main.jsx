@@ -45,7 +45,7 @@ const MainHeader = ({showMenuIcon}) => (
 
 export default ({sidebarOpen, content = () => null }) => (
     <main style={{
-        marginLeft: sidebarOpen ? 256 : 0,
+        marginLeft: sidebarOpen ? 240 : 0,
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',

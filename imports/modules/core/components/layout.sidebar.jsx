@@ -56,7 +56,7 @@ export default React.createClass({
   },
   render() {
     return (
-      <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}}>
+      <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240}>
         <SidebarHeader />
         <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>

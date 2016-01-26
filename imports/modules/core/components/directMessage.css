@@ -3,3 +3,45 @@
   overflow: scroll;
   flex: 1;  
 }
+
+.profile-header {
+  position: relative;
+  color: white;
+}
+
+.profile-header h2 {
+  margin: 16px;
+}
+
+.profile-header h3 {
+  margin: 0 0 16px 0;
+  color: #57A3F0;
+}
+
+.profile-header p {
+  margin: 0;
+  text-align: center;
+}
+
+.profile-cover {
+  /*border-left: 1px solid #eceeef;*/
+  position: absolute;
+  background-image: url(http://lorempixel.com/400/400/nature/);
+  width: 100%;
+  height: 100%;
+}
+
+.profile-cover:before {
+  position: absolute;
+  content: '\A';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.profile-avatar {
+  border-radius: 50%;
+  border: 2px solid white;
+}
