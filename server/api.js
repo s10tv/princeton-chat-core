@@ -225,9 +225,10 @@ Meteor.methods({
     }})
   },
 
-  'post/insert': (title, content, topicIds) => {
+  'post/insert': (_id, title, content, topicIds) => {
     user = CurrentUser.get()
 
+    check(_id, String);
     check(title, String);
     check(content, String);
     check(topicIds, [String]);
@@ -258,24 +259,29 @@ Meteor.methods({
       throw new Meteor.Error(400, 'Please enter at least one valid topicId.');
     }
 
-    return Posts.insert({
-      title: title,
-      content: content,
+    Posts.insert({
+      _id,
+      title,
+      content,
       ownerId: user._id,
       topicIds: filteredTopicIds,
+      followers: [{
+        userId: user._id,
+        unreadCount: 0,
+      }],
     })
   },
 
-  'comment/insert': (postId, commentText) => {
+  'messages/insert': (postId, commentText) => {
     check(postId, String);
     check(commentText, String);
 
     const user = CurrentUser.get();
-    Comments.insert({
-      postId,
-      content: commentText,
-      ownerId: user._id,
-    })
+    // Messages..insert({
+    //   postId,
+    //   content: commentText,
+    //   ownerId: user._id,
+    // })
   },
 
   //onboarding related

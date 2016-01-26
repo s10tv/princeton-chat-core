@@ -1,35 +1,12 @@
-import {Mongo} from 'meteor/mongo';
+Messages = new Mongo.Collection('messages');
 
-const Messages = new Mongo.Collection('onboardingMessages');
-
-const MessageSchema = new SimpleSchema({
-  senderId: { type: String },
+CommentSchema = new SimpleSchema({
   ownerId: { type: String },
-  type: { type: String, allowedValues: [
-    'raw',
-    'welcome',
-    'firstname',
-    'lastname',
-    'classyear',
-    'classtype',
-    'share',
-    'thanks',
-    'linkservice']
-  },
-  content: { type: String, optional: true },
-
-  // internal
-  qnum: { type: String, optional: true },
-  resumeType: { type: String, optional: true },
+  postId: { type: String }, // post id or direct message thread id.
+  content: { type: String },
 });
 
 Messages.attachBehaviour('timestampable');
-Messages.attachSchema(MessageSchema);
-
-Messages.allow({
-  insert: function(userId, doc, fields, modifier) {
-    return doc.ownerId == userId;
-  }
-})
+Messages.attachSchema(CommentSchema);
 
 export default Messages;

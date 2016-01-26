@@ -5,7 +5,7 @@ import DateFormatter from '/imports/libs/DateFormatter';
 
 export const composer = ({context, topicId, postId}, onData) => {
   const { Collections } = context();
-  if (Meteor.subscribe('comments', postId).ready()) {
+  if (Meteor.subscribe('messages', postId).ready()) {
     const post = Collections.Posts.findOne(postId);
     post.timestamp = DateFormatter.format(post);
 

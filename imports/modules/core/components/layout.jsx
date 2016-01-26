@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleResizable} from 'material-ui/lib/mixins'
 import {primaryMuiTheme} from './helpers.jsx'
-import CreatePost from './post.create.jsx'
+import CreatePost from '../containers/post.create.js'
 import Main from '../containers/layout.main.js'
 import Sidebar from '../containers/layout.sidebar.js';
 
@@ -19,17 +19,6 @@ export default React.createClass({
       muiTheme: primaryMuiTheme,
     }
   },
-  getInitialState: function() {
-    return {
-      isAddPostPopupShowing: false,
-    }
-  },
-  showAddPostPopup() {
-    this.setState({ isAddPostPopupShowing: true });
-  },
-  hideAddPostPopup() {
-    this.setState({ isAddPostPopupShowing: false });
-  },
   render() {
     const sidebarOpen = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
                      || this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
@@ -38,9 +27,8 @@ export default React.createClass({
         <Sidebar sidebarOpen={sidebarOpen} />
         <Main
             sidebarOpen={sidebarOpen}
-            content={this.props.content}
-            showAddPostPopup={this.showAddPostPopup} />
-        <CreatePost open={this.state.isAddPostPopupShowing} handleClose={this.hideAddPostPopup} />
+            content={this.props.content} />
+          <CreatePost />
       </div>
     )
   }

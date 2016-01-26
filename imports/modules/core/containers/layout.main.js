@@ -101,7 +101,7 @@ function getIsFollowing(currentRoute, currentUser) {
 }
 
 export const composer = ({context}, onData) => {
-  const {Meteor, Collections, FlowRouter} = context();
+  const { Meteor, Collections, FlowRouter, LocalState } = context();
 
   const currentUser = UserService.currentUser();
   if (currentUser) {
@@ -109,12 +109,16 @@ export const composer = ({context}, onData) => {
     const breadcrumbs = getRoutes(Collections, currentRoute);
     const { followFn, unfollowFn } = onToggleFollowFn(currentRoute, currentUser, Collections);
     const isFollowing = getIsFollowing(currentRoute, currentUser);
+    const showAddPostPopup = () => {
+      LocalState.set('ADD_POST_POPUP_SHOWING', true);
+    }
 
     onData(null, {
       breadcrumbs,
       followFn,
       unfollowFn,
       isFollowing,
+      showAddPostPopup,
     });
   }
 }

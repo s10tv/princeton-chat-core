@@ -74,7 +74,7 @@ Meteor.publishComposite('posts', function(topicId) {
   }
 });
 
-Meteor.publishComposite('comments', function(postId) {
+Meteor.publishComposite('messages', function(postId) {
   return {
     find: function() {
       check(postId, Match.Optional(String));
@@ -84,7 +84,7 @@ Meteor.publishComposite('comments', function(postId) {
     children: [
       {
         find: function(todo) {
-          return Comments.find({ postId: postId })
+          return Messages.find({ postId: postId })
         },
 
         children: [
