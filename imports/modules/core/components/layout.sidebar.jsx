@@ -32,6 +32,14 @@ const SidebarHeader = (props) => {
   )
 }
 
+const DirectMessageList = (props) => (
+  <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
+    {this.props.directMessages.map(directMessage =>
+      <SmallListItem key={directMessage._id}>{directMessage.displayName}</SmallListItem>
+    )}
+  </List>
+)
+
 const SubHeader = ({label, action}) => (
   <FlatButton style={{
       width: '100%',
@@ -71,19 +79,12 @@ export default React.createClass({
           <List>
             <MediumListItem onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>Posts for me</MediumListItem>
             <MediumListItem onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>All Posts</MediumListItem>
-            <MediumListItem>Housing</MediumListItem>
-            <MediumListItem>Jobs</MediumListItem>
           </List>
           <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
             {this.props.followedTopics.map((topic) =>
               <SmallListItem key={topic._id} onTouchTap={this.props.showTopic.bind({ topic })}>
                 # {topic.displayName}
               </SmallListItem>
-            )}
-          </List>
-          <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
-            {this.props.directMessages.map(directMessage =>
-              <SmallListItem key={directMessage._id}>{directMessage.displayName}</SmallListItem>
             )}
           </List>
         </nav>
