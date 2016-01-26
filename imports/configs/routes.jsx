@@ -6,6 +6,7 @@ import LayoutMain from '../modules/core/components/layout.jsx'
 import PostList from '../modules/core/containers/post.list.js'
 import PostSingle from '../modules/core/containers/post.details.js'
 import DirectMessage from '../modules/core/components/directMessage.jsx'
+import TopicList from '../modules/core/components/topic.list.jsx'
 
 import WebFontLoader from 'webfontloader';
 
@@ -72,6 +73,14 @@ export default function (injectDeps) {
     action() {
       mount(LayoutMainCtx, {
         content: (props) => <DirectMessage {...props} />
+      })
+    }
+  });
+  
+  FlowRouter.route('/x-topics', {
+    action() {
+      mount(LayoutMainCtx, {
+        content: (props) => <TopicList {...props} />
       })
     }
   });
