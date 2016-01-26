@@ -1,4 +1,3 @@
-import actions from '../actions/index.js';
 import InputBox from '../components/inputBox.jsx';
 import {useDeps} from '/imports/libs/mantra';
 
