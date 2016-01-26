@@ -17,10 +17,15 @@ export const composer = ({context}, onData) => {
       return FlowRouter.go(`/topics/${this.topic._id}`)
     }
 
+    const navigateTo = function() {
+      return FlowRouter.go(`/${this.location}`);
+    }
+
     onData(null, {
       user,
       followedTopics,
       showTopic,
+      navigateTo,
     });
   }
 }

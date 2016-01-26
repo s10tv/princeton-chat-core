@@ -51,6 +51,8 @@ export default React.createClass({
   propTypes: {
     user: React.PropTypes.object.isRequired,
     followedTopics: React.PropTypes.array.isRequired,
+    showTopic: React.PropTypes.func.isRequired,
+    navigateTo: React.PropTypes.func.isRequired,
   },
   childContextTypes: {
     muiTheme: React.PropTypes.object,
@@ -67,8 +69,8 @@ export default React.createClass({
         <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
-            <MediumListItem>Posts for me</MediumListItem>
-            <MediumListItem>All Posts</MediumListItem>
+            <MediumListItem onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>Posts for me</MediumListItem>
+            <MediumListItem onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>All Posts</MediumListItem>
             <MediumListItem>Housing</MediumListItem>
             <MediumListItem>Jobs</MediumListItem>
           </List>

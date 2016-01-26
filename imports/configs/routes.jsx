@@ -33,6 +33,24 @@ export default function (injectDeps) {
     }
   });
 
+  FlowRouter.route('/all-mine', {
+    name: 'all-mine',
+    action() {
+      mount(LayoutMainCtx, {
+        content: () => <PostList postListType={'ALL_MINE'} />
+      })
+    }
+  });
+
+  FlowRouter.route('/all', {
+    name: 'all',
+    action() {
+      mount(LayoutMainCtx, {
+        content: () => <PostList postListType={'ALL'} />
+      })
+    }
+  });
+
   FlowRouter.route('/topics/:topicId/:postId', {
     name: 'postDetails',
     action({ topicId, postId }) {
