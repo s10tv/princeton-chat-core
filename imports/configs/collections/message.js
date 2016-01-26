@@ -26,4 +26,10 @@ const MessageSchema = new SimpleSchema({
 Messages.attachBehaviour('timestampable');
 Messages.attachSchema(MessageSchema);
 
+Messages.allow({
+  insert: function(userId, doc, fields, modifier) {
+    return doc.ownerId == userId;
+  }
+})
+
 export default Messages;
