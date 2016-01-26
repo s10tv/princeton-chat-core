@@ -4,6 +4,12 @@
   flex: 1;  
 }
 
+
+/* */
+.info-panel {
+  overflow: scroll;
+}
+
 .profile-header {
   position: relative;
   color: white;
@@ -44,4 +50,58 @@
 .profile-avatar {
   border-radius: 50%;
   border: 2px solid white;
+}
+
+.profile-info {
+  margin: 16px;
+}
+
+.profile-info h3 {
+  color: gray;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.profile-info ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-info ul li {
+  padding: 4px;
+  margin: 4px;
+  font-size: 14px;
+}
+
+.profile-info-table {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.profile-info-table .row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-info-table label {
+  color: gray;
+  flex-basis: 100px;
+}
+
+.profile-info-table span {
+  min-width: 150px;
+  flex: 1;
+  word-wrap: break-word;
+}
+
+.profile-info-table span, .profile-info-table label {
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: normal;
 }
