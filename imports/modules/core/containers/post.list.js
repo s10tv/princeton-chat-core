@@ -58,6 +58,15 @@ export const composer = ({context, topicId, postListType}, onData) => {
 
         post.numFollowers = post.followers.length;
 
+        post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0;
+        post.onFollow = () => {
+          return Meteor.call('post/follow', post._id);
+        };
+
+        post.onUnfollow = () => {
+          return Meteor.call('post/unfollow', post._id);
+        };
+
         return post;
       });
 
@@ -75,7 +84,16 @@ export const composer = ({context, topicId, postListType}, onData) => {
         return FlowRouter.go(`/topics/${currentTopicId}/${currentPostId}`);
       };
 
-      onData(null, {topic, posts, onTapPostDetails});
+      const navigateToTopic = function() {
+        return FlowRouter.go(`/topics/${this.topic._id}`);
+      };
+
+      onData(null, {
+        topic,
+        posts,
+        onTapPostDetails,
+        navigateToTopic,
+      });
     }
   }
 };

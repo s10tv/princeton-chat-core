@@ -2,6 +2,12 @@ import React from 'react'
 import {SquareAvatar, NoPaddingListItem} from './helpers.jsx'
 import List from 'material-ui/lib/lists/list'
 
+const FollowBtn = (props) => (
+  props.post.isFollowingPost
+    ? <a href='#' onClick={props.post.onUnFollow}>Following</a>
+    : <a href='#' onClick={props.post.onFollow}>Follow</a>
+)
+
 const PostListItem = (props) => (
   <NoPaddingListItem onTouchTap={props.onTapPostDetails.bind({ post: props.post })}>
     <article>
@@ -20,12 +26,16 @@ const PostListItem = (props) => (
         </p>
         <footer>
           { props.post.topics.map(topic =>
-            <span key={topic._id} className='topic'>{ topic.displayName }</span>
+            <span key={topic._id} className='topic'>
+              <a href="#" onClick={props.navigateToTopic.bind({ topic: topic })}>{ topic.displayName }</a>
+            </span>
           )}
           <span className='spacer' />
           <span className='comments-count'>{ props.post.numMsgs} comments</span>
           <span className='followers-count'>{ props.post.numFollowers } followers</span>
-          <span className='follow-button'>follow</span>
+          <span className='follow-button'>
+            <FollowBtn {...props} />
+          </span>
         </footer>
       </div>
     </article>
@@ -37,7 +47,7 @@ export default (props) => (
   <section className='post-list' style={{flexGrow: 1}}>
     <List style={{paddingTop: 0, paddingBottom: 0}}>
       { props.posts.map(post =>
-        <PostListItem key={post._id} post={post} onTapPostDetails={props.onTapPostDetails} />
+        <PostListItem key={post._id} post={post} {...props} />
       )}
     </List>
   </section>
