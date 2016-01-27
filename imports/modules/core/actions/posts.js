@@ -13,6 +13,7 @@ export default {
       }
 
       LocalState.set('ADD_POST_POPUP_SHOWING', false);
+      FlowRouter.go(`/topics/${topicIds[0]}/${id}`)
     });
   },
 
