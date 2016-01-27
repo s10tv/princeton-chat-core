@@ -30,6 +30,7 @@ sendBase = (sender, content, type, qnum, resumeType) => {
     senderId: sender,
     ownerId: user._id,
     type: type,
+    postId: user.tigerbotPostId,
     content: content,
     qnum: qnum,
     resumeType: resumeType,
@@ -343,12 +344,30 @@ Meteor.methods({
 
   'reset': () => {
     const user = CurrentUser.get();
+    if (!user.tigerbotPostId) {
+      user.tigerbotPostId = Posts.insert({
+        ownerId: 'system',
+        content: 'Welcome to Princeton.chat!',
+        followers: [
+          { userId: user._id, unreadCount: 0 },
+          { userId: 'system', unreadCount: 0 },
+        ],
+        isDM: true,
+        numMsgs: 0,
+      })
+
+      Users.update(user._id, { $set: {
+        tigerbotPostId: user.tigerbotPostId
+      }});
+    }
+
     Messages.remove({
       ownerId: user._id,
     });
     Messages.insert({
       senderId: 'system',
       ownerId: user._id,
+      postId: user.tigerbotPostId,
       type: "welcome",
     })
   },
@@ -424,7 +443,6 @@ Meteor.methods({
       return 0;
     }
 
-    console.log(message, type);
     send(message)
 
     if (type) {
@@ -445,10 +463,8 @@ Meteor.methods({
 
             var year;
             if (message.match(fourDigitRe) != null) {
-              console.log(message.match(fourDigitRe))
               year = parseInt(message);
             } else {
-              console.log(message.match(shorthandRe))
               const parsed = parseInt(message.substring(1));
               if (parsed > 30) {
                 year = parseInt(`19${parsed}`)

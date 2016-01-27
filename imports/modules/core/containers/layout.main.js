@@ -17,6 +17,9 @@ function getRoutes(Collections, currentRoute) {
     case 'all':
       return [{ name: 'All posts', url: currentRoute.path }];
 
+    case 'onboarding':
+      return [{ name: '@Tigerbot', url: currentRoute.path }];
+
     case 'postList':
       topic = Collections.Topics.findOne(currentRoute.params.topicId);
       if (topic) {

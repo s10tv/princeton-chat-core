@@ -7,6 +7,7 @@ import PostList from '../modules/core/containers/post.list.js'
 import PostSingle from '../modules/core/containers/post.details.js'
 import DirectMessage from '../modules/core/components/directMessage.jsx'
 import TopicList from '../modules/core/containers/topic.list.js'
+import Onboarding from '../modules/core/containers/onboarding.js'
 
 import Login from '../modules/core/containers/login.js'
 
@@ -33,8 +34,9 @@ export default function (injectDeps) {
 
   const LayoutMainCtx = injectDeps(LayoutMain);
   const LoginWithCtx = injectDeps(Login);
+  const OnboardingWithCtx = injectDeps(Onboarding);
 
-  FlowRouter.triggers.enter([requireLogin], {except: ["home"]});
+  FlowRouter.triggers.enter([requireLogin], {except: ["home", "onboarding"]});
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {
@@ -107,6 +109,15 @@ export default function (injectDeps) {
     action() {
       mount(LayoutMainCtx, {
         content: (props) => <DirectMessage {...props} />
+      })
+    }
+  });
+
+  FlowRouter.route('/x-onboarding', {
+    name: 'onboarding',
+    action() {
+      mount(LayoutMainCtx, {
+        content: (props) => <Onboarding {...props} />
       })
     }
   });
