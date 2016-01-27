@@ -9,7 +9,7 @@ const FollowBtn = (props) => (
 )
 
 const PostListItem = (props) => (
-  <NoPaddingListItem>
+  <NoPaddingListItem disabled={true}>
     <article>
       <SquareAvatar src={props.post.owner.avatar.url} length={60} />
       <div className='right-container'>
