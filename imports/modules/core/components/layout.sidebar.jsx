@@ -92,7 +92,7 @@ export default React.createClass({
              {this.props.directMessages.map(directMessage =>
               <SmallListItem
                 key={directMessage._id}
-                onTouchTap={this.props.navigateTo.bind({ location: `/welcome`})}>
+                onTouchTap={directMessage.goToConversation}>
                   {directMessage.displayName}
               </SmallListItem>
             )}
