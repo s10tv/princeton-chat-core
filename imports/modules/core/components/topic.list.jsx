@@ -4,7 +4,7 @@ import ListItem from 'material-ui/lib/lists/list-item'
 import Checkbox from 'material-ui/lib/checkbox'
 import {Flex, Block} from 'jsxstyle'
 
-const TopicListItem = ({topic, followTopic, unfollowTopic}) => (
+export const TopicListItem = ({topic, followTopic, unfollowTopic}) => (
   <ListItem
     leftCheckbox={<Checkbox defaultChecked={topic.isFollowed} onCheck={(e, checked) => {
       if (checked) {

@@ -3,9 +3,10 @@ import {Flex, Block} from 'jsxstyle'
 import {SquareAvatar} from './helpers.jsx'
 
 export const Message = (props) => (
-  <p className='message'>
+  <div className='message'>
     { props.content }
-  </p>
+    { props.action }
+  </div>
 )
 
 export const MessageGroup = (props) => (

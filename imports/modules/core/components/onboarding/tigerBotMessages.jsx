@@ -2,6 +2,10 @@ import React from 'react';
 import FlatButton from 'material-ui/lib/flat-button';
 import styles from './styles.js';
 import _ from 'underscore';
+import TopicList from '../../containers/topic.list.js';
+import TextField from 'material-ui/lib/text-field'
+import {SquareAvatar} from '../helpers.jsx'
+
 // Type 'welcome'
 const primaryButton = ({ onClick }) => {
   return <FlatButton label="Yes" style={styles.primaryButton} rippleColor='white' onClick={onClick} />
@@ -11,17 +15,27 @@ const secondaryButton = ({ onClick }) => {
   return <FlatButton style={styles.secondaryButton} label="Not Now" rippleColor='white' onClick={onClick} />
 }
 
-const welcome = ({clickStartOnboarding, clickAbandonOnboarding}) => {
+const welcome = ({user, clickStartOnboarding, clickAbandonOnboarding}) => {
+  const customGreeting = user && user.firstName ? `Hey ${user.firstName}! ` : null;
+
   return {
-    comment: <span>Welcome to Princeton.Chat. Are you ready to continue?</span>,
+    comment: <span>{ customGreeting }Welcome to Princeton.Chat. Are you ready to continue?</span>,
     action: (
-      <div>
+      <div style={{ paddingTop: 16 }}>
         { primaryButton({ onClick: clickStartOnboarding }) }
         { secondaryButton({ onClick: clickAbandonOnboarding }) }
       </div>
     )
   }
 };
+
+// Type 'topics'
+
+const topics = ({user, topics}) => {
+  return {
+    comment: <TopicList />
+  }
+}
 
 // Type 'firstname'
 
@@ -52,7 +66,19 @@ const classType = {
 // Type 'thanks'
 
 const thanks = {
-  comment: <span>Thanks :) You're all set</span>
+  comment: (
+    <div>
+      <p>
+        That's it. If you have any questions, comments, or concerns, utter them or forever remain silent.
+      </p>
+      <p>
+        👻 Just kidding! Actually if you send a message to me in the future I'll forward to the team
+        that built me. Play around with <a href="/all-mine">Your Feed</a>, explore
+        some <a href="/choose-topics">More Topics</a>, and please do send your feedback so we can improve.
+        Talk soon :)
+      </p>
+    </div>
+  )
 }
 
 // Type 'linkservice'
@@ -69,40 +95,26 @@ const flattenedServices = (services) => {
   return flattenedServices;
 };
 
-const servicePhotoSrc = (service) => {
-  switch(service.serviceName) {
-    case 'facebook':
-      return `https://graph.facebook.com/${service.id}/picture?type=large`;
-    case 'instagram':
-      return service.profile_picture;
-  }
-}
-
-const linkService = ({clickFacebook, clickInstagram, services}) => {
+const linkService = ({clickFacebook, addPassword}) => {
   return {
     comment:
       <span>
-        To make it easier for others to recognize you, you can upload a photo.
-        Would you like to use the profile pic from your social network?
+        One last thing. How would you like to login to Princeton.chat in the future? You can
       </span>,
     action: (
       <div>
-        <div>
+        <div style={{ display: 'inline-block' }}>
+          <TextField type="password" floatingLabelText='Choose Password' onEnterKeyDown={addPassword} />
+        </div>
+        <div style={{ display: 'inline-block', padding: "0px 32px" }}>
+          OR
+        </div>
+        <div style={{ display: 'inline-block' }}>
           <FlatButton
-            label="Facebook"
+            label="Link Facebook"
             style={styles.facebookButton}
             rippleColor='white'
             onClick={clickFacebook} />
-          <FlatButton
-            label="Instagram"
-            style={styles.instagramButton}
-            rippleColor='white'
-            onClick={clickInstagram} />
-        </div>
-        <div>
-          { flattenedServices({ services }).map((service) =>
-            <img src={servicePhotoSrc(service)} alt='avatar' key={service.id} />
-          )}
         </div>
       </div>
     )
@@ -132,4 +144,4 @@ const raw = (comment) => {
   }
 }
 
-export { welcome, firstName, lastName, classYear, classType, thanks, linkService, share, raw };
+export { welcome, firstName, lastName, topics, classYear, classType, thanks, linkService, share, raw };

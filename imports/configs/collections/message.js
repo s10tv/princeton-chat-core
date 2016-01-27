@@ -14,6 +14,7 @@ MessageSchema = new SimpleSchema({
     'lastname',
     'classyear',
     'classtype',
+    'topics',
     'share',
     'thanks',
     'linkservice']

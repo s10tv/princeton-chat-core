@@ -1,7 +1,7 @@
 import UserService from '/imports/libs/UserService';
 
 export default {
-  create({Collections, LocalState, handleClose}, title, content, topics) {
+  create({Collections, LocalState, FlowRouter, handleClose}, title, content, topics) {
     const id = Meteor.uuid();
     const topicIds = topics.split(',');
 
@@ -16,9 +16,16 @@ export default {
       FlowRouter.go(`/topics/${topicIds[0]}/${id}`)
     });
   },
+
   follow({Meteor}, topicId) {
     Meteor.call('topic/follow', topicId)
+
+    switch (FlowRouter.current().route.name) {
+      case 'onboarding':
+        Meteor.call('welcome/topic/follow', topicId)
+    }
   },
+
   unfollow({Meteor}, topicId) {
     Meteor.call('topic/unfollow', topicId);
   },

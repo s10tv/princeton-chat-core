@@ -372,38 +372,20 @@ Meteor.methods({
     })
   },
 
-  'avatar/update': (serviceName) => {
-    const user = CurrentUser.get();
-    console.log('avatar/update', serviceName);
+  'welcome/setLoginService': (serviceName) => {
+    check(serviceName, String);
 
-    if (Messages.find({ ownerId: user._id, qnum: 'avatar/update' }).count() > 0) {
-      // the user has seen this already
+    const user = CurrentUser.get();
+    if (Messages.find({ ownerId: user._id, qnum: 'welcome/setLoginService' }).count() > 0) {
       return;
     }
 
-    var avatarUrl;
-    switch(serviceName) {
+    switch (serviceName) {
       case 'facebook':
-        avatarUrl = `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`;
-        break;
-      case 'instagram':
-        avatarUrl = user.services.instagram.profile_picture;
-        break;
+        return systemSend('thanks', 'welcome/setLoginService')
+      case 'password':
+        return systemSend('thanks', 'welcome/setLoginService')
     }
-
-    systemSend('share', 'avatar/update')
-    Users.update(user._id, {
-      $set: {
-        avatar: {
-          url: avatarUrl
-        }
-      }
-    });
-    //  systemSend('thanks', 'avatar/update')
-  },
-
-  'share/skip': () => {
-    systemSend('thanks', 'avatar/update')
   },
 
   'welcome/yes': () => {
@@ -419,10 +401,11 @@ Meteor.methods({
       systemSendRaw('Wonderful! Glad you changed your mind.')
     } else {
       send('Sure! Count me in.')
+      systemSendRaw('Wonderful! Welcome to Princeton.chat.')
     }
 
-    systemSendRaw('Welcome to the Princeton.chat community. Let\'s get you set up right away.')
-    systemSend('firstname', 'welcome/yes')
+    systemSendRaw(`Here, posts are grouped into topics, and you will only receive notifications for topics that you follow. Why don't you follow some topics that interest you?`);
+    systemSend('topics', 'welcome/yes')
   },
 
   'welcome/no': () => {
@@ -432,6 +415,25 @@ Meteor.methods({
       send('Not now. Remind me again in a bit')
       systemSendRaw('Alright then. We will follow up with you via email in the following weeks.', 'welcome/no')
     }
+  },
+
+  'welcome/topic/follow': (topicId) => {
+    check(topicId, String);
+
+    const user = CurrentUser.get();
+    const topic = Topics.findOne(topicId);
+
+
+    if (Messages.find({ ownerId: user._id, qnum: 'welcome/topic/follow' }).count() > 0) {
+      // the user has answered this question already;
+      return;
+    }
+
+    if (topic) {
+      systemSendRaw(`${ topic.displayName } sounds like a fun topic.`);
+    }
+
+    systemSend('linkservice', 'welcome/topic/follow')
   },
 
   'message/add': (msg, type) => {

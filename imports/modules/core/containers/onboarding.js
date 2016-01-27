@@ -27,7 +27,7 @@ export const depsMapper = (context, actions) => ({
   clickAbandonOnboarding: actions.onboarding.clickAbandonOnboarding,
   submitTextField: actions.onboarding.submitTextField,
   clickFacebook: actions.onboarding.clickFacebook,
-  clickInstagram: actions.onboarding.clickInstagram,
+  addPassword: actions.onboarding.addPassword,
   clickSkip: actions.onboarding.clickSkip,
   context: () => context
 });

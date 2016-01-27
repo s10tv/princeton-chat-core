@@ -24,19 +24,19 @@ export default {
         console.log(err);
       }
 
-      Meteor.call('avatar/update', 'facebook');
+      Meteor.call('welcome/setLoginService', 'facebook');
     });
   },
 
-  clickInstagram({Meteor}) {
+  addPassword({Meteor}, event) {
     event.preventDefault();
-    Meteor.linkWithInstagram({}, (err) => {
-      if (err) {
-        console.log(err);
-      }
-
-      Meteor.call('avatar/update', 'instagram');
-    });
+    const pwd = event.target.value;
+    if (pwd) {
+      Accounts.changePassword(Meteor.user().inviteCode, pwd);
+      Meteor.call('welcome/setLoginService', 'password');
+      
+      event.target.value = "";
+    }
   },
 
   clickSkip({Meteor}) {
