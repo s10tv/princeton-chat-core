@@ -17,10 +17,11 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   }
 };
 
-const mapped = useDeps((context, actions) => ({
-  context: () => context,
-  followTopic: actions.topics.follow,
-  unfollowTopic: actions.topics.unfollow,
-}))
-
-export default mapped(composeWithTracker(composer)(TopicList, Loading))
+export default composeAll(
+  composeWithTracker(composer, Loading),
+  useDeps((context, actions) => ({
+    context: () => context,
+    followTopic: actions.topics.follow,
+    unfollowTopic: actions.topics.unfollow,
+  }))
+)(TopicList)

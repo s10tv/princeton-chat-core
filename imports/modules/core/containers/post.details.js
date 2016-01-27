@@ -2,6 +2,7 @@ import PostDetails from '../components/post.details.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';
+import {Loading} from '../components/helpers.jsx'
 
 export const composer = ({context, topicId, postId}, onData) => {
   const { Collections } = context();
@@ -25,6 +26,6 @@ export const composer = ({context, topicId, postId}, onData) => {
 };
 
 export default composeAll(
-  composeWithTracker(composer),
+  composeWithTracker(composer, Loading),
   useDeps()
 )(PostDetails);

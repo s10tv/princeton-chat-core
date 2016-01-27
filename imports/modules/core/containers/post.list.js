@@ -1,11 +1,11 @@
 import truncate from 'truncate';
 
+import {Loading} from '../components/helpers.jsx'
 import PostList from '../components/post.list.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
 injectTapEventPlugin();
 
 export const composer = ({context, topicId, postListType}, onData) => {
@@ -110,6 +110,6 @@ const depsMapper = (context, actions) => ({
 });
 
 export default composeAll(
-  composeWithTracker(composer),
+  composeWithTracker(composer, Loading),
   useDeps(depsMapper)
 )(PostList);
