@@ -11,25 +11,29 @@ const FollowBtn = (props) => (
 const PostListItem = (props) => (
   <NoPaddingListItem disabled={true}>
     <article>
-      <SquareAvatar src={props.post.owner.avatar.url} length={60} />
+      <a href='#' onClick={props.post.showUserProfile}>
+        <SquareAvatar src={props.post.owner.avatar.url} length={60} />
+      </a>
       <div className='right-container'>
         <header>
-          <span className='display-name'>
-            <a href='#' onClick={props.post.showUserProfile}>
+          <a href='#' onClick={props.post.showUserProfile}>
+            <span className='display-name'>
               { props.post.owner.displayName }
-            </a>
-          </span>
-          <span className='mention'>@{ props.post.owner.username }</span>
+            </span>
+          </a>
+          <a href='#' onClick={props.post.showUserProfile}>
+            <span className='mention'>
+              @{ props.post.owner.username }
+            </span>
+          </a>
           <span className='datetime'>{ props.post.timestamp }</span>
         </header>
-        <h2>
-          <a href={props.post.url}>
-            { props.post.title }
-          </a>
-        </h2>
-        <p>
-          { props.post.truncatedContent }
-        </p>
+        <a href={props.post.url}>
+          <h2>{ props.post.title }</h2>
+        </a>
+        <a href={props.post.url}>
+          <p>{ props.post.truncatedContent }</p>
+        </a>
         <footer>
           { props.post.topics.map(topic =>
             <span key={topic._id} className='topic'>
