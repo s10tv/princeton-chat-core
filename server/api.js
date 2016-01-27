@@ -344,23 +344,6 @@ Meteor.methods({
 
   'reset': () => {
     const user = CurrentUser.get();
-    if (!user.tigerbotPostId) {
-      user.tigerbotPostId = Posts.insert({
-        ownerId: 'system',
-        content: 'Welcome to Princeton.chat!',
-        followers: [
-          { userId: user._id, unreadCount: 0 },
-          { userId: 'system', unreadCount: 0 },
-        ],
-        isDM: true,
-        numMsgs: 0,
-      })
-
-      Users.update(user._id, { $set: {
-        tigerbotPostId: user.tigerbotPostId
-      }});
-    }
-
     Messages.remove({
       ownerId: user._id,
     });
