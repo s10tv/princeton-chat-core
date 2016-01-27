@@ -131,6 +131,15 @@ export default function (injectDeps) {
     }
   });
 
+  FlowRouter.route('/users/:postId', {
+    name: 'directmessage',
+    action({ postId }) {
+      mount(LayoutMainCtx, {
+        content: (props) => <PostSingle postId={postId} />
+      })
+    }
+  });
+
   FlowRouter.route('/x-directmessage', {
     action() {
       mount(LayoutMainCtx, {

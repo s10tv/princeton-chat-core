@@ -157,6 +157,7 @@ Meteor.publish('onboardingMessages', function() {
   if (this.userId) {
     const user = Users.findOne(this.userId);
     return [
+      Users.find({ _id: 'system' }),
       Posts.find({ _id: user.tigerbotPostId}),
       Messages.find({ postId: user.tigerbotPostId }),
     ]

@@ -87,3 +87,19 @@ Migrations.add({
     })
   },
 });
+
+
+Migrations.add({
+  version: 4,
+  name: 'Adds tigerbot to the prepopulated data',
+  up: function() {
+    Users.upsert('system', { $set: {
+      avatar: {
+        url: '/images/nph.jpg',
+      },
+      username: 'tigerbot',
+      firstName: 'Tiger',
+      lastName: 'Bot',
+    }})
+  },
+})

@@ -87,6 +87,16 @@ export default React.createClass({
               </SmallListItem>
             )}
           </List>
+
+          <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
+             {this.props.directMessages.map(directMessage =>
+              <SmallListItem
+                key={directMessage._id}
+                onTouchTap={this.props.navigateTo.bind({ location: `/welcome`})}>
+                  {directMessage.displayName}
+              </SmallListItem>
+            )}
+          </List>
         </nav>
       </LeftNav>
     )

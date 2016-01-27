@@ -29,6 +29,13 @@ export const composer = ({context}, onData) => {
         })
 
         post.displayName = otherUsers.map(otherUser => `@${otherUser.username}`).join(',');
+        post.onClick = () => {
+          if (post.displayName == '@tigerbot') {
+            FlowRouter.go('/welcome')
+          } else {
+            FlowRouter.go(`/users/${post._id}`)
+          }
+        }
         return post;
       })
 

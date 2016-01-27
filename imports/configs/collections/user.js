@@ -29,9 +29,9 @@ UserSchema = new SimpleSchema({
   profile: { type: Object, optional: true, blackbox: true },
   info: { type: String, optional: true, defaultValue: 'Go Tigers!', max: 150 },
 
-  followingTopics: { type: [String], defaultValue: [] },
-  followingPosts: { type: [String], defaultValue: [] },
-  expertTopics: { type: [String], defaultValue: [] },
+  followingTopics: { type: [String], optional: true, defaultValue: [] },
+  followingPosts: { type: [String], optional: true, defaultValue: [] },
+  expertTopics: { type: [String], optional: true, defaultValue: [] },
 
   // the DM channel used to communicate with tigerbot.
   tigerbotPostId: { type: String, optional: true },
@@ -44,7 +44,7 @@ UserSchema = new SimpleSchema({
     allowedValues: ['disabled', 'active', 'pending', 'review'],
     defaultValue: 'pending',
   },
-});
+})
 
 Users.attachBehaviour('timestampable');
 Users.attachSchema(UserSchema);

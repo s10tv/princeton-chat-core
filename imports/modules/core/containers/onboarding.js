@@ -20,7 +20,13 @@ export const composer = ({context}, onData) => {
       .find({ postId: currentUser.tigerbotPostId })
       .map(message => {
         message.timestamp = DateFormatter.format(message);
-        message.owner = (message.senderId == 'system') ? tigerbot : currentUser;
+
+        if (message.senderId) {
+          message.owner = UserService.getUserView(Users.findOne(message.senderId));
+        } else if (message.ownerId) {
+          message.owner = UserService.getUserView(Users.findOne(message.ownerId));
+        }
+
         return message;
       });
 
