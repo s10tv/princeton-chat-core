@@ -9,7 +9,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 export const composer = ({context, topicId, postListType}, onData) => {
-  const {Meteor, Collections, FlowRouter} = context();
+  const {Meteor, Collections, FlowRouter, LocalState} = context();
   if (Meteor.subscribe('posts', topicId).ready()) {
     const currentUser = UserService.currentUser();
     if (currentUser) {
@@ -59,30 +59,41 @@ export const composer = ({context, topicId, postListType}, onData) => {
         post.numFollowers = post.followers.length;
 
         post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0;
-        post.onFollow = () => {
+        post.onFollow = (event) => {
+          event.preventDefault();
           return Meteor.call('post/follow', post._id);
         };
 
-        post.onUnfollow = () => {
+        post.onUnFollow = (event) => {
+          event.preventDefault();
           return Meteor.call('post/unfollow', post._id);
         };
 
-        return post;
-      });
-
-      const onTapPostDetails = function() {
-        var currentTopicId;
-        var currentPostId = this.post._id;
-
-        if (topicId) {
-          currentTopicId = topicId; // user clicked on a post detail from a topic
-        } else {
-          // the user clicked on a post detail from /all or /all-mine
-          [ currentTopicId ] = this.post.topicIds;
+        post.showUserProfile = (event) => {
+          event.preventDefault();
+          LocalState.set('PROFILE_USER_ANCHOR', event.target);
+          LocalState.set('PROFILE_USER', post.owner);
         }
 
-        return FlowRouter.go(`/topics/${currentTopicId}/${currentPostId}`);
-      };
+        post.onTapDetails = (event) => {
+          event.preventDefault();
+
+          var currentTopicId;
+          var currentPostId = post._id;
+
+          if (topicId) { // topicid is passed as arg to this whole function. (from URL)
+            currentTopicId = topicId; // user clicked on a post detail from a topic
+          } else {
+            // the user clicked on a post detail from /all or /all-mine
+            [ currentTopicId ] = post.topicIds;
+          }
+
+          return FlowRouter.go(`/topics/${currentTopicId}/${currentPostId}`);
+        }
+
+
+        return post;
+      });
 
       const navigateToTopic = function() {
         return FlowRouter.go(`/topics/${this.topic._id}`);
@@ -91,7 +102,6 @@ export const composer = ({context, topicId, postListType}, onData) => {
       onData(null, {
         topic,
         posts,
-        onTapPostDetails,
         navigateToTopic,
       });
     }

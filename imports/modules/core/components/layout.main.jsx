@@ -9,6 +9,7 @@ import FontIcon from 'material-ui/lib/font-icon'
 import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
 import {SquareAvatar} from './helpers.jsx'
+import Profile from '../containers/profile.js'
 
 export default ({
       sidebarOpen,
@@ -69,7 +70,11 @@ export default ({
         </ToolbarGroup>
       </Toolbar>
 
-
-      {content()}
+      <Flex>
+        <Flex flexDirection='column' flex={1}>
+          {content()}
+        </Flex>
+        <Profile />
+      </Flex>
     </main>
 )

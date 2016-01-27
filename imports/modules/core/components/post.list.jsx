@@ -9,18 +9,24 @@ const FollowBtn = (props) => (
 )
 
 const PostListItem = (props) => (
-  <NoPaddingListItem onTouchTap={props.onTapPostDetails.bind({ post: props.post })}>
+  <NoPaddingListItem>
     <article>
       <SquareAvatar src={props.post.owner.avatar.url} length={60} />
       <div className='right-container'>
         <header>
           <span className='display-name'>
-            { props.post.owner.displayName }
+            <a href='#' onClick={props.post.showUserProfile}>
+              { props.post.owner.displayName }
+            </a>
           </span>
           <span className='mention'>@{ props.post.owner.username }</span>
           <span className='datetime'>{ props.post.timestamp }</span>
         </header>
-        <h2>{ props.post.title }</h2>
+        <h2>
+          <a href='#' onClick={props.post.onTapDetails}>
+            { props.post.title }
+          </a>
+        </h2>
         <p>
           { props.post.truncatedContent }
         </p>

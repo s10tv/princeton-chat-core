@@ -29,8 +29,8 @@ export default React.createClass({
         <Main
             sidebarOpen={sidebarOpen}
             content={this.props.content} />
-          <CreatePost />
-          <LogoutModal />
+        <CreatePost />
+        <LogoutModal />
       </div>
     )
   }
