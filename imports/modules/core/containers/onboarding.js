@@ -21,10 +21,14 @@ export const composer = ({context}, onData) => {
       .map(message => {
         message.timestamp = DateFormatter.format(message);
 
-        if (message.senderId) {
+        if (message.type) {
+          // special message
           message.owner = UserService.getUserView(Users.findOne(message.senderId));
-        } else if (message.ownerId) {
+          message.isOnboardingMessage = message.type != 'raw';
+        } else {
+          // regular message
           message.owner = UserService.getUserView(Users.findOne(message.ownerId));
+          message.isOnboardingMessage = false;
         }
 
         return message;
