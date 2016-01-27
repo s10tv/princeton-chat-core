@@ -16,7 +16,7 @@ const SidebarHeader = (props) => {
         paddingRight: 8,
         paddingBottom: 8,
         paddingLeft: 8,
-      }}>
+      }} onTouchTap={props.onTapSettings}>
       <Flex>
         <SquareAvatar src={ props.user.avatar.url } length={60} />
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
@@ -73,7 +73,7 @@ export default React.createClass({
   render() {
     return (
       <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240}>
-        <SidebarHeader user={this.props.user} />
+        <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
         <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>

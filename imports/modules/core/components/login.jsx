@@ -22,11 +22,11 @@ export default React.createClass({
   },
   handleSubmit(event) {
     event.preventDefault()
-    console.log(this.state);
-    this.setState({
-      username: '',
-      password: '',
-    })
+    this.props.loginWithPassword(this.state.username, this.state.password);
+    // this.setState({
+    //   username: '',
+    //   password: '',
+    // })
   },
   render() {
     return (

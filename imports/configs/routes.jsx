@@ -32,6 +32,7 @@ export default function (injectDeps) {
   });
 
   const LayoutMainCtx = injectDeps(LayoutMain);
+  const LoginWithCtx = injectDeps(Login);
 
   FlowRouter.triggers.enter([requireLogin], {except: ["home"]});
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
@@ -44,7 +45,7 @@ export default function (injectDeps) {
   FlowRouter.route('/', {
     name: 'home',
     action() {
-      mount(Login);
+      mount(LoginWithCtx);
     }
   });
 
@@ -110,4 +111,9 @@ export default function (injectDeps) {
     }
   });
 
+  Tracker.autorun(() => {
+    if (!Meteor.userId()) {
+      FlowRouter.go('/');
+    }
+  })
 }

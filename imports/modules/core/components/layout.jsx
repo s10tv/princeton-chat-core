@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleResizable} from 'material-ui/lib/mixins'
 import {primaryMuiTheme} from './helpers.jsx'
 import CreatePost from '../containers/post.create.js'
+import LogoutModal from '../containers/logout.modal.js'
 import Main from '../containers/layout.main.js'
 import Sidebar from '../containers/layout.sidebar.js';
 
@@ -29,6 +30,7 @@ export default React.createClass({
             sidebarOpen={sidebarOpen}
             content={this.props.content} />
           <CreatePost />
+          <LogoutModal />
       </div>
     )
   }
