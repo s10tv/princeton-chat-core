@@ -243,6 +243,12 @@ Meteor.methods({
       }],
       numMsgs: 0,
     })
+
+    filteredTopicIds.forEach(topicId => {
+      Topics.update(topicId, { $set: {
+        numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
+      }});
+    })
   },
 
   'topic/follow': (topicId) => {
@@ -254,6 +260,8 @@ Meteor.methods({
 
     Topics.update(topicId, { $addToSet: {
       followers: { userId: user._id, unreadCount: 0 }
+    }, $set: {
+      numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
     }});
   },
 
@@ -266,31 +274,53 @@ Meteor.methods({
 
     Topics.update(topicId, { $pull: {
       followers: { userId: user._id }
+    }, $set: {
+      numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
     }});
   },
 
   'post/follow': (postId) => {
     check(postId, String);
     user = CurrentUser.get()
-    Users.update(user._id, { $addToSet: {
-      followingPosts: postId,
-    }});
+    post = Posts.findOne(postId);
 
-    Posts.update(postId, { $addToSet: {
-      followers: { userId: user._id, unreadCount: 0 }
-    }});
+    if (post) {
+      Users.update(user._id, { $addToSet: {
+        followingPosts: postId,
+      }});
+
+      Posts.update(postId, { $addToSet: {
+        followers: { userId: user._id, unreadCount: 0 }
+      }});
+
+      post.topicIds.forEach(topicId => {
+        Topics.update(topicId, { $set: {
+          numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
+        }});
+      });
+    }
   },
 
   'post/unfollow': (postId) => {
     check(postId, String);
     user = CurrentUser.get()
-    Users.update(user._id, { $pull: {
-      followingPosts: postId,
-    }});
+    post = Posts.findOne(postId);
 
-    Posts.update(postId, { $pull: {
-      followers: { userId: user._id }
-    }});
+    if (post) {
+      Users.update(user._id, { $pull: {
+        followingPosts: postId,
+      }});
+
+      Posts.update(postId, { $pull: {
+        followers: { userId: user._id }
+      }});
+
+      post.topicIds.forEach(topicId => {
+        Topics.update(topicId, { $set: {
+          numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
+        }});
+      });
+    }
   },
 
   'messages/insert': (_id, postId, commentText) => {
