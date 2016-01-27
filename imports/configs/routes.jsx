@@ -15,6 +15,7 @@ import WebFontLoader from 'webfontloader';
 
 function requireLogin(context) {
   if (!Meteor.user()) {
+    console.log('checking');
     return FlowRouter.go('home');
   }
 }
@@ -36,7 +37,7 @@ export default function (injectDeps) {
   const LoginWithCtx = injectDeps(Login);
   const OnboardingWithCtx = injectDeps(Onboarding);
 
-  FlowRouter.triggers.enter([requireLogin], {except: ["home", "onboarding"]});
+  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite" ]});
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {
@@ -105,15 +106,23 @@ export default function (injectDeps) {
     }
   });
 
-  FlowRouter.route('/x-directmessage', {
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <DirectMessage {...props} />
+  FlowRouter.route('/invite/:inviteId', {
+    name: 'invite',
+    action({ inviteId }) {
+      Accounts.callLoginMethod({
+        methodArguments: [{ invite: inviteId }],
+        userCallback: (err) => {
+          if (err) {
+            return FlowRouter.go('home');
+          }
+
+          FlowRouter.go('onboarding')
+        }
       })
     }
   });
 
-  FlowRouter.route('/x-onboarding', {
+  FlowRouter.route('/welcome', {
     name: 'onboarding',
     action() {
       mount(LayoutMainCtx, {
@@ -122,8 +131,16 @@ export default function (injectDeps) {
     }
   });
 
+  FlowRouter.route('/x-directmessage', {
+    action() {
+      mount(LayoutMainCtx, {
+        content: (props) => <DirectMessage {...props} />
+      })
+    }
+  });
+
   Tracker.autorun(() => {
-    if (!Meteor.userId()) {
+    if (!Meteor.userId() && !/\/invite\/[0-9A-Za-z]+$/.test(window.location.href)) {
       FlowRouter.go('/');
     }
   })
