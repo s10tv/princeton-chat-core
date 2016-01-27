@@ -9,7 +9,6 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
     const topics = Topics.find().map(topic => {
       topic.followersCount = topic.followers.length;
       topic.isFollowed = topic.followers.filter(follower => follower.userId == Meteor.userId()).length > 0;
-
       return topic;
     })
 

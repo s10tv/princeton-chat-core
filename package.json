@@ -29,7 +29,7 @@
   "dependencies": {
     "domready": "^1.0.8",
     "jsxstyle": "0.0.18",
-    "material-ui": "^0.14.2",
+    "material-ui": "^0.14.3",
     "moment": "^2.11.1",
     "react": "0.14.x",
     "react-addons-linked-state-mixin": "^0.14.6",
