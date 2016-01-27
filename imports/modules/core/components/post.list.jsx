@@ -23,7 +23,7 @@ const PostListItem = (props) => (
           <span className='datetime'>{ props.post.timestamp }</span>
         </header>
         <h2>
-          <a href='#' onClick={props.post.onTapDetails}>
+          <a href={props.post.url}>
             { props.post.title }
           </a>
         </h2>

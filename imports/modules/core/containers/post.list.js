@@ -75,25 +75,21 @@ export const composer = ({context, topicId, postListType}, onData) => {
           LocalState.set('PROFILE_USER', post.owner);
         }
 
-        post.onTapDetails = (event) => {
-          event.preventDefault();
+        
+        var currentTopicId;
+        var currentPostId = post._id;
 
-          var currentTopicId;
-          var currentPostId = post._id;
-
-          if (topicId) { // topicid is passed as arg to this whole function. (from URL)
-            currentTopicId = topicId; // user clicked on a post detail from a topic
-          } else {
-            // the user clicked on a post detail from /all or /all-mine
-            [ currentTopicId ] = post.topicIds;
-          }
-
-          return FlowRouter.go(`/topics/${currentTopicId}/${currentPostId}`);
+        if (topicId) { // topicid is passed as arg to this whole function. (from URL)
+          currentTopicId = topicId; // user clicked on a post detail from a topic
+        } else {
+          // the user clicked on a post detail from /all or /all-mine
+          [ currentTopicId ] = post.topicIds;
         }
 
-
-        return post;
-      });
+        post.url = `/topics/${currentTopicId}/${currentPostId}`
+        
+        return post
+      })
 
       const navigateToTopic = function() {
         return FlowRouter.go(`/topics/${this.topic._id}`);
