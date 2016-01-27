@@ -5,8 +5,6 @@ import PostList from '../components/post.list.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 export const composer = ({context, topicId, postListType}, onData) => {
   const {Meteor, Collections, FlowRouter, LocalState} = context();

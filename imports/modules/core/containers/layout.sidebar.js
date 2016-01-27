@@ -1,9 +1,6 @@
 import LayoutSidebar from '../components/layout.sidebar.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-injectTapEventPlugin();
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter, LocalState} = context();

@@ -2,9 +2,6 @@ import truncate from 'truncate';
 import LayoutMain from '../components/layout.main.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-injectTapEventPlugin();
 
 const TOTAL_TITLE_CHARACTERS = 40;
 
