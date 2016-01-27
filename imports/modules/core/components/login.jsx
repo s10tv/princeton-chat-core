@@ -5,8 +5,13 @@ import TextField from 'material-ui/lib/text-field'
 import Colors from 'material-ui/lib/styles/colors'
 import RaisedButton from 'material-ui/lib/raised-button'
 import {primaryMuiTheme} from './helpers.jsx'
+import LinkedStateMixin from 'react-addons-linked-state-mixin'
 
 export default React.createClass({
+  mixins: [LinkedStateMixin],
+  getInitialState() {
+    return {}
+  },
   childContextTypes: {
     muiTheme: React.PropTypes.object,
   },
@@ -14,6 +19,14 @@ export default React.createClass({
     return {
       muiTheme: primaryMuiTheme,
     }
+  },
+  handleSubmit(event) {
+    event.preventDefault()
+    console.log(this.state);
+    this.setState({
+      username: '',
+      password: '',
+    })
   },
   render() {
     return (
@@ -24,9 +37,9 @@ export default React.createClass({
             margin: 24,
           }}>
           <h1 style={{fontSize: 30, color: '#F07621', textAlign: 'center'}}>Princeton.Chat</h1>
-          <form action='/login'>
-            <TextField floatingLabelText='Username' fullWidth={true} />
-            <TextField floatingLabelText='Password' type='password' fullWidth={true} />
+          <form action='/login' onSubmit={this.handleSubmit}>
+            <TextField floatingLabelText='Username' fullWidth={true} valueLink={this.linkState('username') }/>
+            <TextField floatingLabelText='Password' type='password' fullWidth={true} valueLink={this.linkState('password')} />
             <RaisedButton label='Login' primary={true} style={{marginTop: 30}} type='submit' />
           </form>
         </Card>
