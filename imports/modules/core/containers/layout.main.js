@@ -93,6 +93,34 @@ function getIsFollowing(currentRoute, currentUser) {
   }
 }
 
+function getNumFollowers(currentRoute) {
+  switch(currentRoute.route.name) {
+    case 'postList':
+      const topicId = currentRoute.params.topicId;
+      const topic = Topics.findOne(topicId);
+      if (topic) {
+        return {
+          showNumFollowers: true,
+          numFollowers: topic.followers.length,
+        }
+      }
+      break;
+
+    case 'postDetails':
+      const postId = currentRoute.params.postId;
+      const post = Posts.findOne(postId)
+      if (post) {
+        return {
+          showNumFollowers: true,
+          numFollowers: post.followers.length,
+        }
+      }
+      break;
+  }
+
+  return {};
+}
+
 export const composer = ({context}, onData) => {
   const { Meteor, Collections, FlowRouter, LocalState } = context();
 
@@ -107,6 +135,7 @@ export const composer = ({context}, onData) => {
     const showAddPostPopup = () => {
       LocalState.set('ADD_POST_POPUP_SHOWING', true);
     }
+    const { showNumFollowers, numFollowers } = getNumFollowers(currentRoute);
 
     showFollowSection = showFollowSection || showFollow;
 
@@ -117,6 +146,8 @@ export const composer = ({context}, onData) => {
       isFollowing,
       showAddPostPopup,
       showFollowSection,
+      showNumFollowers,
+      numFollowers,
     });
   }
 }

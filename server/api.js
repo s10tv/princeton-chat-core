@@ -231,7 +231,7 @@ Meteor.methods({
       throw new Meteor.Error(400, 'Please enter at least one valid topicId.');
     }
 
-    Posts.insert({
+    const postId = Posts.insert({
       _id,
       title,
       content,
@@ -244,11 +244,7 @@ Meteor.methods({
       numMsgs: 0,
     })
 
-    filteredTopicIds.forEach(topicId => {
-      Topics.update(topicId, { $set: {
-        numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
-      }});
-    })
+    Meteor.call('post/follow', postId)
   },
 
   'topic/follow': (topicId) => {

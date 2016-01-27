@@ -18,6 +18,8 @@ export default ({
       unfollowFn,
       isFollowing,
       showFollowSection,
+      showNumFollowers,
+      numFollowers,
       content = () => null }) => (
     <main style={{
         marginLeft: sidebarOpen ? 240 : 0,
@@ -35,12 +37,15 @@ export default ({
         <ToolbarGroup>
           <ToolbarTitle text={breadcrumbs.map(breadcrumb => breadcrumb.name).join(' > ')} />
         </ToolbarGroup>
-        <ToolbarGroup style={{height: '100%'}}>
-          <Flex alignItems='center' height='100%'>
-            <FontIcon className='material-icons'>group</FontIcon>
-            <span>11/233</span>
-          </Flex>
-        </ToolbarGroup>
+
+        { !showNumFollowers ? null :
+          <ToolbarGroup style={{height: '100%'}}>
+            <Flex alignItems='center' height='100%'>
+              <FontIcon className='material-icons'>group</FontIcon>
+              <span>{ numFollowers }</span>
+            </Flex>
+          </ToolbarGroup>
+        }
 
         { !showFollowSection ? null :
           <ToolbarGroup>
