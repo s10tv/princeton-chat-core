@@ -50,6 +50,7 @@ function onToggleFollowFn(currentRoute, currentUser, Meteor) {
       const topicId = currentRoute.params.topicId;
       if (topicId) {
         return {
+          showFollow: true,
           followFn: () => {
             Meteor.call('topic/follow', topicId);
           },
@@ -64,6 +65,7 @@ function onToggleFollowFn(currentRoute, currentUser, Meteor) {
       const postId = currentRoute.params.postId;
       if (postId) {
         return {
+          showFollow: true,
           followFn: () => {
             Meteor.call('post/follow', postId);
           },
@@ -96,13 +98,17 @@ export const composer = ({context}, onData) => {
 
   const currentUser = UserService.currentUser();
   if (currentUser) {
+    var showFollowSection = false;
+
     const currentRoute = FlowRouter.current();
     const breadcrumbs = getRoutes(Collections, currentRoute);
-    const { followFn, unfollowFn } = onToggleFollowFn(currentRoute, currentUser, Meteor);
+    const { followFn, unfollowFn, showFollow } = onToggleFollowFn(currentRoute, currentUser, Meteor);
     const isFollowing = getIsFollowing(currentRoute, currentUser);
     const showAddPostPopup = () => {
       LocalState.set('ADD_POST_POPUP_SHOWING', true);
     }
+
+    showFollowSection = showFollowSection || showFollow;
 
     onData(null, {
       breadcrumbs,
@@ -110,6 +116,7 @@ export const composer = ({context}, onData) => {
       unfollowFn,
       isFollowing,
       showAddPostPopup,
+      showFollowSection,
     });
   }
 }
