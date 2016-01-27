@@ -7,15 +7,27 @@ export const composer = ({context}, onData) => {
   const currentUser = UserService.currentUser();
   if (currentUser && Meteor.subscribe('onboardingMessages').ready()) {
     const {Collections, LocalState} = context();
+
+    const tigerbot = {
+      avatar: {
+        url: '/images/nph.jpg',
+      },
+      username: 'tigerbot',
+      displayName: 'Tiger Bot'
+    };
+
     const messages = Collections.Messages
       .find({ postId: currentUser.tigerbotPostId })
       .map(message => {
         message.timestamp = DateFormatter.format(message);
+        message.owner = (message.senderId == 'system') ? tigerbot : currentUser;
         return message;
       });
+
     onData(null, {
       post: Posts.findOne(currentUser.tigerbotPostId),
       LocalState,
+      showInputBox: currentUser.status == 'active',
       messages,
       user: currentUser,
     });

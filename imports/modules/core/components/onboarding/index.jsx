@@ -84,31 +84,45 @@ class Onboarding extends React.Component {
   }
 
   render() {
-    const {messages, user} = this.props;
+    const {messages, user, post, showInputBox } = this.props;
     return (
       <Flex flexDirection='column' flex={1}>
         <article className='post-details'>
           { messages.map(message => {
-            if (message.senderId == user._id) {
-              return <MessageGroup key={message._id} owner={user} timestamp={message.timestamp} content={message.content} />
+
+            if (message.type) {
+              // special onboarding message handling
+
+              if (message.senderId == user._id) {
+                return <MessageGroup
+                    key={message._id}
+                    owner={message.owner}
+                    timestamp={message.timestamp}
+                    content={message.content} />
+              } else {
+                var msgContent = this.messageOnType(message);
+
+                return <MessageGroup
+                    key={message._id}
+                    owner={message.owner}
+                    timestamp={message.timestamp}
+                    action={msgContent.action}
+                    content={msgContent.comment} />
+              }
             } else {
-              var msgContent = this.messageOnType(message);
-              const tigerbot = {
-                avatar: {
-                  url: '/images/nph.jpg',
-                },
-                username: 'tigerbot',
-                displayName: 'Tiger Bot'
-              };
+              // regular message handling
+
               return <MessageGroup
-                  key={message._id}
-                  owner={tigerbot}
-                  timestamp={message.timestamp}
-                  action={msgContent.action}
-                  content={msgContent.comment} />
+                key={message._id}
+                owner={message.owner}
+                timestamp={message.timestamp}
+                content={message.content} />
             }
+
+
           })}
         </article>
+        { !showInputBox ? null :  <InputBox postId={post._id} /> }
       </Flex>
     )
   }

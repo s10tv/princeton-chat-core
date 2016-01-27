@@ -123,28 +123,6 @@ Meteor.methods({
     return user._id;
   },
 
-  'username/claim': (username) => {
-    const currentUser = CurrentUser.get();
-    const user = Users.findOne({ username: username });
-    if (!user) {
-      Users.update(currentUser._id, { $set: {
-        username: username,
-        avatar: { url: '/img/princeton-shield.png' },
-        emailPreference: 'all',
-        info: 'Go Tigers!',
-        followingPosts: [],
-        expertTopics: [],
-        // dont need to set followingTopics because that should have been set at topics/follow.
-
-        status: 'active',
-      }});
-
-      return true;
-    }
-
-    return false;
-  },
-
   'topics/follow': (topicIds) => {
     const user = CurrentUser.get();
 
@@ -170,23 +148,6 @@ Meteor.methods({
         info: profile.info,
         classYear: profile.classYear,
         classType: profile.classType
-      }
-    });
-  },
-
-  'friends/add': (friendInfos) => {
-    const user = CurrentUser.get();
-    _.each(friendInfos, function(friendInfo) {
-      if (friendInfo.isEmail) {
-        Friends.insert({
-          ofUserId: user._id,
-          email: friendInfo.field
-        })
-      } else {
-        Friends.insert({
-          ofUserId: user._id,
-          fullName: friendInfo.field
-        })
       }
     });
   },
@@ -363,6 +324,10 @@ Meteor.methods({
       return;
     }
 
+    Users.update(user._id, { $set: {
+      status: 'active'
+    }})
+
     switch (serviceName) {
       case 'facebook':
         return systemSend('thanks', 'welcome/setLoginService')
@@ -421,75 +386,52 @@ Meteor.methods({
 
   'message/add': (msg, type) => {
     const user = CurrentUser.get();
-
     const message = (msg || '').trim();
 
-    if (message.length == 0) {
-      return 0;
-    }
-
-    send(message)
-
-    if (type) {
-      switch(type) {
-        // what is your first naem
-        case 'firstname':
-          Users.update(user._id, { $set: { firstName: message }});
-          return systemSend('lastname');
-
-        case 'lastname':
-          Users.update(user._id, { $set: { lastName: message }});
-          return systemSend('classyear');
-
-        case 'classyear':
-          const fourDigitRe = /^[0-9]{4}$/
-          const shorthandRe = /^'[0-9]{2}$/
-          if (message.match(fourDigitRe) != null || message.match(shorthandRe) != null) {
-
-            var year;
-            if (message.match(fourDigitRe) != null) {
-              year = parseInt(message);
-            } else {
-              const parsed = parseInt(message.substring(1));
-              if (parsed > 30) {
-                year = parseInt(`19${parsed}`)
-              } else {
-                year = parseInt(`20${parsed}`)
-              }
-            }
-
-            Users.update(user._id, { $set: { classYear: `${year}`}});
-
-            const yearAsNum = parseInt(year);
-            const diff = 2016 - yearAsNum;
-            if (diff < 5) {
-              systemSendRaw(`Oh it's only been ${diff} years since you've graduated.`, 'classyear');
-              return systemSend('classtype');
-            } else {
-              systemSendRaw(`Wow you've been out of princeton for ${diff} years already? Time flies.`, 'classyear');
-              return systemSend('classtype');
-            }
-          } else {
-            return systemSendRaw('Please enter your classyear as a 4 digit number, or using the shorthand i.e. \'12.', undefined, 'classyear');
-          }
-
-          break;
-
-        case 'classtype':
-          if (message.toLowerCase() == 'undergraduate' || message.toLowerCase() == 'undergrad' || message.toLowerCase() == 'u') {
-            Users.update(user._id, { $set: { classType: 'undergrad' }});
-            systemSendRaw(`Ah of course. I miss my undergrad days too`, 'classtype');
-            return systemSend('linkservice');
-          } else if (message.toLowerCase() == 'graduate' || message.toLowerCase() == 'grad' || message.toLowerCase() == 'g') {
-            Users.update(user._id, { $set: { classType: 'grad' }});
-            systemSendRaw(`Ah of course. I miss my grad school days too`, 'classtype');
-            return systemSend('linkservice');
-          } else {
-            return systemSendRaw('Please enter \'U\' for undergrad and \'G\' for grad', undefined, 'classtype');
-          }
-      }
+    if (message.length > 0) {
+      return send(message)
     }
   },
+
+  // 'username/claim': (username) => {
+  //   const currentUser = CurrentUser.get();
+  //   const user = Users.findOne({ username: username });
+  //   if (!user) {
+  //     Users.update(currentUser._id, { $set: {
+  //       username: username,
+  //       avatar: { url: '/img/princeton-shield.png' },
+  //       emailPreference: 'all',
+  //       info: 'Go Tigers!',
+  //       followingPosts: [],
+  //       expertTopics: [],
+  //       // dont need to set followingTopics because that should have been set at topics/follow.
+  //
+  //       status: 'active',
+  //     }});
+  //
+  //     return true;
+  //   }
+  //
+  //   return false;
+  // },
+  //
+  // 'friends/add': (friendInfos) => {
+  //   const user = CurrentUser.get();
+  //   _.each(friendInfos, function(friendInfo) {
+  //     if (friendInfo.isEmail) {
+  //       Friends.insert({
+  //         ofUserId: user._id,
+  //         email: friendInfo.field
+  //       })
+  //     } else {
+  //       Friends.insert({
+  //         ofUserId: user._id,
+  //         fullName: friendInfo.field
+  //       })
+  //     }
+  //   });
+  // },
+
 
   // TODO: for future versions
   // 'facebook/isActive': () => {
