@@ -88,7 +88,7 @@ export default React.createClass({
             )}
           </List>
 
-          <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
+          <List subheader={<SubHeader label='DIRECT MESSAGES' />}>
              {this.props.directMessages.map(directMessage =>
               <SmallListItem
                 key={directMessage._id}
