@@ -40,14 +40,14 @@ const DirectMessageList = (props) => (
   </List>
 )
 
-const SubHeader = ({label, action}) => (
+const SubHeader = ({label, action, onClick}) => (
   <FlatButton style={{
       width: '100%',
       paddingLeft: 4,
       paddingRight: 16,
       color: 'gray',
       fontWeight: 'normal',
-    }}>
+    }} onTouchTap={onClick}>
     <Flex justifyContent='space-between'>
       <span>{label}</span>
       <span>{action}</span>
@@ -80,7 +80,7 @@ export default React.createClass({
             <MediumListItem onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>Posts for me</MediumListItem>
             <MediumListItem onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>All Posts</MediumListItem>
           </List>
-          <List subheader={<SubHeader label='TOPICS' action='ALL' />}>
+          <List subheader={<SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>}>
             {this.props.followedTopics.map((topic) =>
               <SmallListItem key={topic._id} onTouchTap={this.props.showTopic.bind({ topic })}>
                 # {topic.displayName}

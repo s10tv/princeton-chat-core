@@ -42,9 +42,8 @@ function getRoutes(Collections, currentRoute) {
   }
 }
 
-function onToggleFollowFn(currentRoute, currentUser, Collections) {
+function onToggleFollowFn(currentRoute, currentUser, Meteor) {
   const noOp = { followFn: () => {}, unfollowFn: () => {} };
-
 
   switch(currentRoute.route.name) {
     case 'postList':
@@ -52,14 +51,10 @@ function onToggleFollowFn(currentRoute, currentUser, Collections) {
       if (topicId) {
         return {
           followFn: () => {
-            Collections.Users.update(currentUser._id, { $addToSet: {
-              followingTopics: topicId,
-            }});
+            Meteor.call('topic/follow', topicId);
           },
           unfollowFn: () => {
-            Collections.Users.update(currentUser._id, { $pull: {
-              followingTopics: topicId,
-            }});
+            Meteor.call('topic/unfollow', topicId);
           },
         };
       };
@@ -70,15 +65,11 @@ function onToggleFollowFn(currentRoute, currentUser, Collections) {
       if (postId) {
         return {
           followFn: () => {
-            Collections.Users.update(currentUser._id, { $addToSet: {
-              followingPosts: postId,
-            }});
+            Meteor.call('post/follow', postId);
           },
 
           unfollowFn: () => {
-            Collections.Users.update(currentUser._id, { $pull: {
-              followingPosts: postId,
-            }});
+            Meteor.call('post/unfollow', postId);
           }
         };
       }
@@ -107,7 +98,7 @@ export const composer = ({context}, onData) => {
   if (currentUser) {
     const currentRoute = FlowRouter.current();
     const breadcrumbs = getRoutes(Collections, currentRoute);
-    const { followFn, unfollowFn } = onToggleFollowFn(currentRoute, currentUser, Collections);
+    const { followFn, unfollowFn } = onToggleFollowFn(currentRoute, currentUser, Meteor);
     const isFollowing = getIsFollowing(currentRoute, currentUser);
     const showAddPostPopup = () => {
       LocalState.set('ADD_POST_POPUP_SHOWING', true);

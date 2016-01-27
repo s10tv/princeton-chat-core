@@ -1,4 +1,4 @@
-import {Posts} from '/imports/configs/collections';
+import {Posts, Topics, Users} from '/imports/configs/collections';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 import UserService from '/imports/libs/UserService';
@@ -18,6 +18,54 @@ export default function () {
         _id, title, content, topicIds, ownerId, createdAt,
       };
       Posts.insert(post);
-    }
+    },
+
+    'topic/follow'(topicId) {
+      check(topicId, String);
+      user = UserService.currentUser()
+      Users.update(user._id, { $addToSet: {
+        followingTopics: topicId,
+      }});
+
+      Topics.update(topicId, { $addToSet: {
+        followers: { userId: user._id, unreadCount: 0 }
+      }});
+    },
+
+    'topic/unfollow'(topicId) {
+      check(topicId, String);
+      user = UserService.currentUser()
+      Users.update(user._id, { $pull: {
+        followingTopics: topicId,
+      }});
+
+      Topics.update(topicId, { $pull: {
+        followers: { userId: user._id }
+      }});
+    },
+
+    'post/follow'(postId) {
+      check(postId, String);
+      user = UserService.currentUser()
+      Users.update(user._id, { $addToSet: {
+        followingPosts: postId,
+      }});
+
+      Posts.update(postId, { $addToSet: {
+        followers: { userId: user._id, unreadCount: 0 }
+      }});
+    },
+
+    'post/unfollow'(postId) {
+      check(postId, String);
+      user = UserService.currentUser()
+      Users.update(user._id, { $pull: {
+        followingPosts: postId,
+      }});
+
+      Posts.update(postId, { $pull: {
+        followers: { userId: user._id }
+      }});
+    },
   });
 }

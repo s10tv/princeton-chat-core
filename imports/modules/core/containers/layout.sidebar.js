@@ -34,12 +34,17 @@ export const composer = ({context}, onData) => {
       return post;
     })
 
+    const showAllTopics = () => {
+      return FlowRouter.go('choose-topics');
+    }
+
     onData(null, {
       user,
       followedTopics,
       showTopic,
       navigateTo,
       directMessages,
+      showAllTopics,
     });
   }
 }

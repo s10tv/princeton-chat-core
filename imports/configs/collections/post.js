@@ -1,11 +1,8 @@
+import FollowerSchema from './common/follower';
+
 // A post is either the start of a public thread, or represents a direct message relationship.
 
 Posts = new Mongo.Collection('posts');
-
-FollowerSchema = new SimpleSchema({
-  userId: { type: String },
-  unreadCount: { type: Number, defaultValue: 0 },
-})
 
 PostSchema = new SimpleSchema({
   content: { type: String },

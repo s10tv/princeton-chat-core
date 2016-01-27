@@ -74,3 +74,16 @@ Migrations.add({
     }})
   },
 });
+
+Migrations.add({
+  version: 3,
+  name: 'Adds followers, numPosts to the topics.',
+  up: function() {
+    Topics.find().map(topic => {
+      Topics.update(topic._id, { $set: {
+        followers: [],
+        numPosts: Posts.find({ topicIds: topic._id }).count(),
+      }})
+    })
+  },
+});

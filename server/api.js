@@ -245,6 +245,54 @@ Meteor.methods({
     })
   },
 
+  'topic/follow': (topicId) => {
+    check(topicId, String);
+    user = CurrentUser.get()
+    Users.update(user._id, { $addToSet: {
+      followingTopics: topicId,
+    }});
+
+    Topics.update(topicId, { $addToSet: {
+      followers: { userId: user._id, unreadCount: 0 }
+    }});
+  },
+
+  'topic/unfollow': (topicId) => {
+    check(topicId, String);
+    user = CurrentUser.get()
+    Users.update(user._id, { $pull: {
+      followingTopics: topicId,
+    }});
+
+    Topics.update(topicId, { $pull: {
+      followers: { userId: user._id }
+    }});
+  },
+
+  'post/follow': (postId) => {
+    check(postId, String);
+    user = CurrentUser.get()
+    Users.update(user._id, { $addToSet: {
+      followingPosts: postId,
+    }});
+
+    Posts.update(postId, { $addToSet: {
+      followers: { userId: user._id, unreadCount: 0 }
+    }});
+  },
+
+  'post/unfollow': (postId) => {
+    check(postId, String);
+    user = CurrentUser.get()
+    Users.update(user._id, { $pull: {
+      followingPosts: postId,
+    }});
+
+    Posts.update(postId, { $pull: {
+      followers: { userId: user._id }
+    }});
+  },
+
   'messages/insert': (_id, postId, commentText) => {
     check(_id, String);
     check(postId, String);

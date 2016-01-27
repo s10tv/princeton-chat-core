@@ -1,3 +1,5 @@
+import FollowerSchema from './common/follower';
+
 Topics = new Mongo.Collection('topics');
 
 // Calculate a default name for a list in the form of 'List A'
@@ -14,6 +16,8 @@ Topics.defaultName = function() {
 
 TopicSchema = new SimpleSchema({
   displayName: { type: String },
+  followers: { type: [FollowerSchema], defaultValue: [] },
+  numPosts: { type: Number, defaultValue: 0 },
   parentTopicId: { type: String, optional: true },
   order: { type: Number, decimal: true },
 });
