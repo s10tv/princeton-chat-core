@@ -1,4 +1,5 @@
 import React from 'react'
+import {Flex} from 'jsxstyle'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Avatar from 'material-ui/lib/avatar'
 import darkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
@@ -7,6 +8,7 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Colors from 'material-ui/lib/styles/colors'
 import Spacing from 'material-ui/lib/styles/spacing'
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
+import CircularProgress from 'material-ui/lib/circular-progress'
 
 export const systemFont = `-apple-system, BlinkMacSystemFont, 
   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
@@ -16,6 +18,12 @@ export const systemFont = `-apple-system, BlinkMacSystemFont,
 export const articleFont = 'medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif'
 
 // Helpers
+
+export const Loading = () => (
+  <Flex flex={1} justifyContent='center' alignItems='center'>
+    <CircularProgress />
+  </Flex>
+)
 
 export const NoPaddingListItem = ({children, ...props}) => (
   <ListItem innerDivStyle={{
