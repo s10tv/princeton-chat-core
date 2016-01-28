@@ -14,7 +14,7 @@ export const composer = ({context}, onData) => {
     });
 
     const messages = Collections.Messages
-      .find({ postId: currentUser.tigerbotPostId })
+      .find({ postId: currentUser.tigerbotPostId }, { sort: { createdAt: 1 }})
       .map(message => {
         message.timestamp = DateFormatter.format(message);
 
