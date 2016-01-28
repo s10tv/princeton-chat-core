@@ -2,7 +2,7 @@ import React from 'react';
 import FlatButton from 'material-ui/lib/flat-button';
 import styles from './styles.js';
 import _ from 'underscore';
-import TopicList from '../../containers/topic.list.js';
+import {TopicGridContainer} from '../../containers/topic.list.js';
 import TextField from 'material-ui/lib/text-field'
 import {SquareAvatar} from '../helpers.jsx'
 
@@ -31,7 +31,9 @@ const welcome = ({user, clickStartOnboarding, clickAbandonOnboarding}) => {
 
 const topics = ({user, topics}) => {
   return {
-    comment: <TopicList />
+    comment: <TopicGridContainer style={{
+      marginTop: 16,
+    }} />
   }
 }
 

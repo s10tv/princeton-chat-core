@@ -11,7 +11,7 @@ export default class UserService {
     user.expertTopics = user.expertTopics || [];
 
     user.status = user.status || 'pending';
-    user.avatar = user.avatar || { url: '/images/nph.jpg' };
+    user.avatar = user.avatar || { url: '/images/tigerbot.png' };
 
     if (user.classYear) {
       const shortClassYear = (/^[0-9]{4}$/.test(user.classYear)) ?

@@ -43,8 +43,14 @@ class Onboarding extends React.Component {
   render() {
     const {messages, user, post, showInputBox, isTyping} = this.props;
     return (
-      <Flex flexDirection='column' flex={1}>
-        <article className='post-details'>
+      <Flex flexDirection='column' flex={1} overflowY='hidden'>
+        <Block flex={1} overflowY='scroll'>
+          <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
+            Welcome Tiger!
+          </h1>
+          <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center'}}>
+            Princeton.Chat is a community for Princeton alums.
+          </h2>
           { messages.map(message => {
 
             if (message.isOnboardingMessage) {
@@ -64,7 +70,7 @@ class Onboarding extends React.Component {
                   content={message.content} />
             }
           })}
-        </article>
+        </Block>
 
         { !isTyping ? null : <p style={{ padding: "0 20px" }}>Tigerbot is typing ... </p> }
         { !showInputBox ? null :  <InputBox postId={post._id} /> }
