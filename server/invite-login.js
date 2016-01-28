@@ -30,6 +30,8 @@ Accounts.registerLoginHandler('invite', (serviceData) => {
         postId: user.tigerbotPostId,
         type: "welcome",
       })
+
+      Meteor.call('welcome/triggerSelectTopicPrompt');
     }
 
     return {

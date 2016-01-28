@@ -41,7 +41,7 @@ class Onboarding extends React.Component {
   }
 
   render() {
-    const {messages, user, post, showInputBox } = this.props;
+    const {messages, user, post, showInputBox, isTyping} = this.props;
     return (
       <Flex flexDirection='column' flex={1}>
         <article className='post-details'>
@@ -65,6 +65,8 @@ class Onboarding extends React.Component {
             }
           })}
         </article>
+
+        { !isTyping ? null : <p style={{ padding: "0 20px" }}>Tigerbot is typing ... </p> }
         { !showInputBox ? null :  <InputBox postId={post._id} /> }
       </Flex>
     )

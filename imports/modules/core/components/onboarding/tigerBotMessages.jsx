@@ -16,15 +16,13 @@ const secondaryButton = ({ onClick }) => {
 }
 
 const welcome = ({user, clickStartOnboarding, clickAbandonOnboarding}) => {
-  const customGreeting = user && user.firstName ? `Hey ${user.firstName}! ` : null;
-
   return {
-    comment: <span>{ customGreeting }Welcome to Princeton.Chat. Are you ready to continue?</span>,
-    action: (
-      <div style={{ paddingTop: 16 }}>
-        { primaryButton({ onClick: clickStartOnboarding }) }
-        { secondaryButton({ onClick: clickAbandonOnboarding }) }
-      </div>
+    comment: (
+      <span>
+        Hurray { user.firstName } { user.lastName} from the great class of { user.classYear },
+        I’m Tigercub and I’ll setup a few pieces of details to make it
+        easier for you and other Princeton alums.
+      </span>
     )
   }
 };

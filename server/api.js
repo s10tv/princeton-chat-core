@@ -23,9 +23,7 @@ getLargestUserNumber = () => {
 }
 
 // onboarding related
-sendBase = (sender, content, type, qnum, resumeType) => {
-  const user = CurrentUser.get();
-
+sendBase = (user, sender, content, type, qnum, resumeType) => {
   Messages.insert({
     senderId: sender,
     ownerId: user._id,
@@ -37,17 +35,37 @@ sendBase = (sender, content, type, qnum, resumeType) => {
   })
 }
 
-systemSend = (type, qnum) => {
-  return sendBase('system', undefined, type, qnum)
+toggleTypingIndicatorForSystem = (post, isTyping) => {
+  post.followers.map(follower => {
+    if (follower.userId != user._id) {
+      follower.isTyping = isTyping;
+    }
+    return follower;
+  });
+
+  Posts.update(post._id, { $set: {
+    followers: post.followers
+  }})
 }
 
-systemSendRaw = (content, qnum, resumeType) => {
-  return sendBase('system', content, 'raw', qnum, resumeType)
-}
-
-send = (content) => {
+systemSend = (type, qnum, defaultTypeTime = 1000) => {
   const user = CurrentUser.get();
-  return sendBase(user._id, content, 'raw');
+
+  const post = Posts.findOne(user.tigerbotPostId);
+  toggleTypingIndicatorForSystem(post, true);
+
+  Meteor.setTimeout(() => {
+    toggleTypingIndicatorForSystem(post, false);
+    sendBase(user, 'system', undefined, type, qnum);
+  }, defaultTypeTime);
+}
+
+systemSendRaw = (content, qnum, resumeType, defaultTypeTime = 1000) => {
+  const user = CurrentUser.get();
+
+  Meteor.setTimeout(() => {
+    sendBase(user, 'system', content, 'raw', qnum, resumeType)
+  }, defaultTypeTime);
 }
 
 Meteor.methods({
@@ -314,6 +332,33 @@ Meteor.methods({
       postId: user.tigerbotPostId,
       type: "welcome",
     })
+
+    Meteor.call('welcome/triggerSelectTopicPrompt');
+  },
+
+  'welcome/triggerSelectTopicPrompt': () => {
+    Meteor._sleepForMs(1500);
+
+    const user = CurrentUser.get();
+    systemSend('topics', undefined, 2500);
+  },
+
+  'welcome/topic/follow': (topicId) => {
+    check(topicId, String);
+
+    const user = CurrentUser.get();
+    const topic = Topics.findOne(topicId);
+
+    if (Messages.find({ ownerId: user._id, qnum: 'welcome/topic/follow' }).count() > 0) {
+      // the user has answered this question already;
+      return;
+    }
+
+    if (topic) {
+      systemSendRaw(`${ topic.displayName } sounds like a fun topic.`);
+    }
+
+    systemSend('linkservice', 'welcome/topic/follow', 1500)
   },
 
   'welcome/setLoginService': (serviceName) => {
@@ -336,62 +381,34 @@ Meteor.methods({
     }
   },
 
-  'welcome/yes': () => {
-    const user = CurrentUser.get();
-
-    if (Messages.find({ ownerId: user._id, qnum: 'welcome/yes' }).count() > 0) {
-      // the user has answered this question already;
-      return;
-    }
-
-    if (Messages.find({ ownerId: user._id, senderId: 'system' }).count() > 1) {
-      send('Actually, I changed my mind. Sign me up now.')
-      systemSendRaw('Wonderful! Glad you changed your mind.')
-    } else {
-      send('Sure! Count me in.')
-      systemSendRaw('Wonderful! Welcome to Princeton.chat.')
-    }
-
-    systemSendRaw(`Here, posts are grouped into topics, and you will only receive notifications for topics that you follow. Why don't you follow some topics that interest you?`);
-    systemSend('topics', 'welcome/yes')
-  },
-
-  'welcome/no': () => {
-    const user = CurrentUser.get();
-
-    if (Messages.find({ ownerId: user._id, qnum: { $in: ['welcome/yes', 'welcome/no']}}).count() == 0) {
-      send('Not now. Remind me again in a bit')
-      systemSendRaw('Alright then. We will follow up with you via email in the following weeks.', 'welcome/no')
-    }
-  },
-
-  'welcome/topic/follow': (topicId) => {
-    check(topicId, String);
-
-    const user = CurrentUser.get();
-    const topic = Topics.findOne(topicId);
-
-
-    if (Messages.find({ ownerId: user._id, qnum: 'welcome/topic/follow' }).count() > 0) {
-      // the user has answered this question already;
-      return;
-    }
-
-    if (topic) {
-      systemSendRaw(`${ topic.displayName } sounds like a fun topic.`);
-    }
-
-    systemSend('linkservice', 'welcome/topic/follow')
-  },
-
-  'message/add': (msg, type) => {
-    const user = CurrentUser.get();
-    const message = (msg || '').trim();
-
-    if (message.length > 0) {
-      return send(message)
-    }
-  },
+  // 'welcome/yes': () => {
+  //   const user = CurrentUser.get();
+  //
+  //   if (Messages.find({ ownerId: user._id, qnum: 'welcome/yes' }).count() > 0) {
+  //     // the user has answered this question already;
+  //     return;
+  //   }
+  //
+  //   if (Messages.find({ ownerId: user._id, senderId: 'system' }).count() > 1) {
+  //     send('Actually, I changed my mind. Sign me up now.')
+  //     systemSendRaw('Wonderful! Glad you changed your mind.')
+  //   } else {
+  //     send('Sure! Count me in.')
+  //     systemSendRaw('Wonderful! Welcome to Princeton.chat.')
+  //   }
+  //
+  //   systemSendRaw(`Here, posts are grouped into topics, and you will only receive notifications for topics that you follow. Why don't you follow some topics that interest you?`);
+  //   systemSend('topics', 'welcome/yes')
+  // },
+  //
+  // 'welcome/no': () => {
+  //   const user = CurrentUser.get();
+  //
+  //   if (Messages.find({ ownerId: user._id, qnum: { $in: ['welcome/yes', 'welcome/no']}}).count() == 0) {
+  //     send('Not now. Remind me again in a bit')
+  //     systemSendRaw('Alright then. We will follow up with you via email in the following weeks.', 'welcome/no')
+  //   }
+  // },
 
   // 'username/claim': (username) => {
   //   const currentUser = CurrentUser.get();

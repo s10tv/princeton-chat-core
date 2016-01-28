@@ -8,13 +8,10 @@ export const composer = ({context}, onData) => {
   if (currentUser && Meteor.subscribe('onboardingMessages').ready()) {
     const {Collections, LocalState} = context();
 
-    const tigerbot = {
-      avatar: {
-        url: '/images/nph.jpg',
-      },
-      username: 'tigerbot',
-      displayName: 'Tiger Bot'
-    };
+    const post = Posts.findOne(currentUser.tigerbotPostId);
+    const [ tigerBotFollower ] = _.reject(post.followers, (follower) => {
+      return follower.userId == currentUser._id;
+    });
 
     const messages = Collections.Messages
       .find({ postId: currentUser.tigerbotPostId })
@@ -35,9 +32,10 @@ export const composer = ({context}, onData) => {
       });
 
     onData(null, {
-      post: Posts.findOne(currentUser.tigerbotPostId),
+      post,
       LocalState,
       showInputBox: currentUser.status == 'active',
+      isTyping: tigerBotFollower.isTyping,
       messages,
       user: currentUser,
     });
