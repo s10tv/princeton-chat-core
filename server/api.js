@@ -10,6 +10,21 @@ class CurrentUser {
   }
 }
 
+class UsernameGenerator {
+  static generate(user) {
+    if (user.emails.length > 0) {
+      const [ email ] = user.emails;
+      return email.address.substring(0, email.address.indexOf('@'));
+    } else if (user.firstName && user.lastName) {
+      return `${user.firstName.toLowerCase()}.${user.lastName.toLowerCase()}`;
+    } else if (user.firstName) {
+      return `${user.firstName.toLowerCase()}`;
+    } else {
+      return Meteor.uuid();
+    }
+  }
+}
+
 getLargestUserNumber = () => {
   const [ userWithHighestNumber ] = Users
     .find({}, { sort: { userNumber: 1 }, limit: 1 })
@@ -402,7 +417,7 @@ Meteor.methods({
     }
 
     Users.update(user._id, { $set: {
-      username: `${user.firstName.toLowerCase()}.${user.lastName.toLowerCase()}`,
+      username: UsernameGenerator.generate(user),
       avatar: {
         url: '/images/princeton.svg'
       },
