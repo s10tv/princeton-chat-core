@@ -36,6 +36,7 @@
     "react-dom": "0.14.x",
     "react-komposer": "1.x.x",
     "react-mounter": "1.x.x",
+    "react-select": "^0.9.1",
     "react-simple-di": "1.x.x",
     "react-tap-event-plugin": "^0.2.1",
     "truncate": "^2.0.0",
