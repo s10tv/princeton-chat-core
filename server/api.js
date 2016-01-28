@@ -364,7 +364,9 @@ Meteor.methods({
     Meteor._sleepForMs(2500);
 
     const user = CurrentUser.get();
-    systemSend('topics', undefined, 3500);
+    return pause(2500).then(() => {
+      return systemSend('topics', undefined, 3500);
+    });
   },
 
   'welcome/topic/follow': (topicId) => {
