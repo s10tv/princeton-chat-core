@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 
 const TopicListItem = ({topic, followTopic, unfollowTopic}) => (
-  <Flex width={300} backgroundColor='#F2F6F9' padding='16px 4px 16px 16px' margin={8} alignItems='center'>
+  <Flex width={300} height={80} backgroundColor='#F2F6F9' padding='16px 4px 16px 16px' margin={8} alignItems='center'>
     <Block flex={1}>
       <Block fontWeight={600}>#{topic.displayName}</Block>
       <Block color='#8899A6' fontSize={14}>{topic.numPosts} posts - {topic.followersCount} followers</Block>
