@@ -12,15 +12,15 @@ Accounts.registerLoginHandler('invite', (serviceData) => {
 
     if (!user.tigerbotPostId) {
 
-      const existingPostId = Posts.findOne({
+      const existingPost = Posts.findOne({
         $and: [
           { 'followers.userId': user._id },
           { 'followers.userId': 'system' },
         ]
       })
 
-      if (existingPostId) {
-        user.tigerbotPostId = existingPostId;
+      if (existingPost) {
+        user.tigerbotPostId = existingPost._id;
       } else {
         user.tigerbotPostId = Posts.insert({
           ownerId: 'system',
