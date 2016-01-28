@@ -402,7 +402,11 @@ Meteor.methods({
     }
 
     Users.update(user._id, { $set: {
-      status: 'active'
+      username: `${user.firstName.toLowerCase()}.${user.lastName.toLoweCase()}`,
+      avatar: {
+        url: '/images/princeton.svg'
+      },
+      status: 'active',
     }})
 
 

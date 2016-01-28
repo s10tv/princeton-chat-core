@@ -159,7 +159,7 @@ export default function (injectDeps) {
   });
 
   Tracker.autorun(() => {
-    if (!Meteor.userId() && !/\/invite\/[0-9A-Za-z]+$/.test(window.location.href)) {
+    if (!Meteor.userId() && !/\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href)) {
       FlowRouter.go('/');
     }
   })

@@ -23,7 +23,6 @@ Meteor.publish("userData", function () {
       status: 1,
       followingTopics: 1,
       followingPosts: 1,
-      isOnboardingDone: 1,
       tigerbotPostId: 1,
       'services.facebook.id': 1,
       'services.instagram.id': 1,
