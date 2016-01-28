@@ -20,6 +20,7 @@ export default ({
       showFollowSection,
       showNumFollowers,
       numFollowers,
+      shouldHidePostBtn,
       shouldShowToolbar,
       content = () => null }) => (
     <main style={{
@@ -59,16 +60,18 @@ export default ({
             </ToolbarGroup>
           }
 
-          <ToolbarGroup float='right' lastChild={true}>
-            <ToolbarSeparator />
-            <RaisedButton primary={true} label='New Post' labelPosition='after' onTouchTap={showAddPostPopup}>
-                <FontIcon className='material-icons' color='white' style={{
-                    verticalAlign: 'middle',
-                    height: '100%',
-                    marginLeft: 8,
-                   }}>add_circle</FontIcon>
-            </RaisedButton>
-          </ToolbarGroup>
+          { shouldHidePostBtn ? null : (
+            <ToolbarGroup float='right' lastChild={true}>
+              <ToolbarSeparator />
+              <RaisedButton primary={true} label='New Post' labelPosition='after' onTouchTap={showAddPostPopup}>
+                  <FontIcon className='material-icons' color='white' style={{
+                      verticalAlign: 'middle',
+                      height: '100%',
+                      marginLeft: 8,
+                     }}>add_circle</FontIcon>
+              </RaisedButton>
+            </ToolbarGroup>
+          )}
         </Toolbar>
       )}
 

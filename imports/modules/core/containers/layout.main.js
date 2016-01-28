@@ -121,6 +121,15 @@ function getNumFollowers(currentRoute) {
   return {};
 }
 
+function getShouldHidePostBtn(currentRoute, Collections) {
+  switch(currentRoute.route.name) {
+    case 'postList':
+      return Collections.Posts.find({ topicIds: currentRoute.params.topicId }).count() == 0;
+    default:
+      return false;
+  }
+}
+
 export const composer = ({context}, onData) => {
   const { Meteor, Collections, FlowRouter, LocalState } = context();
 
@@ -133,6 +142,7 @@ export const composer = ({context}, onData) => {
     const { followFn, unfollowFn, showFollow } = onToggleFollowFn(currentRoute, currentUser, Meteor);
     const isFollowing = getIsFollowing(currentRoute, currentUser);
     const { showNumFollowers, numFollowers } = getNumFollowers(currentRoute);
+    const shouldHidePostBtn = getShouldHidePostBtn(currentRoute, Collections);
 
     showFollowSection = showFollowSection || showFollow;
 
@@ -144,6 +154,7 @@ export const composer = ({context}, onData) => {
       showFollowSection,
       showNumFollowers,
       numFollowers,
+      shouldHidePostBtn,
       shouldShowToolbar: currentUser.status === 'active',
     });
   }
