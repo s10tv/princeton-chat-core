@@ -31,6 +31,7 @@ Migrations.add({
       Topics.upsert({ _id: topic.key }, { $set: {
         displayName: topic.value,
         order: topic.order,
+        followers: [],
       }});
     })
 
@@ -60,6 +61,7 @@ Migrations.add({
       Topics.upsert({ _id: region.key }, { $set: {
         displayName: region.value,
         order: region.order,
+        followers: [],
       }});
     })
 

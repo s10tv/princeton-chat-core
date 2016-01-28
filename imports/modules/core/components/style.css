@@ -48,3 +48,7 @@
   background-color: green;
   margin-right: 4px;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
