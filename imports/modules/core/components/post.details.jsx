@@ -1,38 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import {Flex, Block} from 'jsxstyle';
 import {Message, MessageGroup} from './message.jsx';
 import InputBox from '../containers/inputBox.js';
+import {ScrollingContainer} from './helpers.jsx'
 
-export class ScrollingContainer extends React.Component {
-  scrollToBottom() {
-    const node = ReactDOM.findDOMNode(this)
-    node.scrollTop = node.scrollHeight
-  }
-  componentDidMount() {
-    this.scrollToBottom()
-  }
-  componentWillUpdate() {
-    const node = ReactDOM.findDOMNode(this)
-
-    if (this.props.alwaysScrollToBottom) {
-      // sometimes (in case with onboarding) it is important to always scroll to the bottom
-      // whenever a component is about to update.
-      this.shouldScrollBottom = true;
-    } else {
-      // Sometimes scrollTop + offsetHeight is greater than scrollHeight.. Maybe border? >= for workaround
-      this.shouldScrollBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight
-    }
-  }
-  componentDidUpdate() {
-    if (this.shouldScrollBottom) {
-      this.scrollToBottom()
-    }
-  }
-  render() {
-    return this.props.child
-  }
-}
 // <div>
 //   <span className='topic'>Legal</span>
 //   <span className='topic'>Operation</span>

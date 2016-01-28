@@ -9,6 +9,7 @@ import Colors from 'material-ui/lib/styles/colors'
 import Spacing from 'material-ui/lib/styles/spacing'
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
 import CircularProgress from 'material-ui/lib/circular-progress'
+import ReactDOM from 'react-dom'
 
 export const systemFont = `-apple-system, BlinkMacSystemFont, 
   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
@@ -76,3 +77,33 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
     ...darkRawTheme.palette,
   },
 })
+
+export class ScrollingContainer extends React.Component {
+  scrollToBottom() {
+    const node = ReactDOM.findDOMNode(this)
+    node.scrollTop = node.scrollHeight
+  }
+  componentDidMount() {
+    this.scrollToBottom()
+  }
+  componentWillUpdate() {
+    const node = ReactDOM.findDOMNode(this)
+
+    if (this.props.alwaysScrollToBottom) {
+      // sometimes (in case with onboarding) it is important to always scroll to the bottom
+      // whenever a component is about to update.
+      this.shouldScrollBottom = true;
+    } else {
+      // Sometimes scrollTop + offsetHeight is greater than scrollHeight.. Maybe border? >= for workaround
+      this.shouldScrollBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight
+    }
+  }
+  componentDidUpdate() {
+    if (this.shouldScrollBottom) {
+      this.scrollToBottom()
+    }
+  }
+  render() {
+    return this.props.child
+  }
+}

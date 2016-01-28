@@ -10,7 +10,7 @@ import moment from 'moment'
 import {Flex, Block} from 'jsxstyle'
 import {Message, MessageGroup} from '../message.jsx'
 import InputBox from '../../containers/inputBox.js'
-import { ScrollingContainer } from '../post.details.jsx'
+import { ScrollingContainer } from '../helpers.jsx'
 
 class Onboarding extends React.Component {
   messageOnType(message) {
