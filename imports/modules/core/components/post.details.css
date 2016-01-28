@@ -20,3 +20,7 @@
 .post-details .comments-count {
   margin-right: 8px;
 }
+
+.post-details h1 {
+  font-weight: 600;
+}

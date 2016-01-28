@@ -33,20 +33,20 @@ export class ScrollingContainer extends React.Component {
     return this.props.child
   }
 }
+// <div>
+//   <span className='topic'>Legal</span>
+//   <span className='topic'>Operation</span>
+//   <span className='topic'>Programming</span>
+//   <span className='spacer' />
+//   <span className='comments-count'>2 comments</span>
+// </div>
 
 export default (props) => (
   <Flex flexDirection='column' flex={1}>
     <ScrollingContainer child={
       <article className='post-details'>
         <header>
-          <h1>{ props.post.title }</h1>
-          <div>
-            <span className='topic'>Legal</span>
-            <span className='topic'>Operation</span>
-            <span className='topic'>Programming</span>
-            <span className='spacer' />
-            <span className='comments-count'>2 comments</span>
-          </div>
+          <h1>{props.post.title}</h1>
         </header>
         <MessageGroup owner={props.owner} timestamp={props.post.timestamp} content={props.post.content} />
         { props.messages.map(message =>
