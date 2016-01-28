@@ -258,6 +258,13 @@ Meteor.methods({
     })
 
     Meteor.call('post/follow', postId)
+
+    if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
+      new IronWorker().send({
+          taskName: 'job_user_post_handler',
+        payload: { postId }
+      })
+    }
   },
 
   'topic/follow': (topicId) => {
