@@ -8,16 +8,21 @@ import {Flex} from 'jsxstyle'
 
 export default React.createClass({
 
+  getInitialState() {
+    return { topicIds: '' };
+  },
+
   onAddPost() {
     const title = this.refs.title.getValue();
     const content = this.refs.content.getValue();
-    const topics = this.refs.topics.getValue();
-
+    const topics = this.state.topicIds;
     this.props.create(title, content, topics);
   },
 
-  logChange(val) {
-    console.log("Selected: " + val);
+  modifyTopicsList(value) {
+    this.setState({
+      topicIds: value
+    })
   },
 
   render() {
@@ -51,7 +56,8 @@ export default React.createClass({
               options={allTopics}
               multi={true}
               simpleValue={true}
-              onChange={this.logChange}
+              value={this.state.topicIds}
+              onChange={this.modifyTopicsList}
             />
          </Flex>
        </Dialog>
