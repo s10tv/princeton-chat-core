@@ -48,7 +48,7 @@ class Onboarding extends React.Component {
           <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
             Welcome Tiger!
           </h1>
-          <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center'}}>
+          <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
             Princeton.Chat is a community for Princeton alums.
           </h2>
           { messages.map(message => {

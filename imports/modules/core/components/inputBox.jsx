@@ -24,7 +24,7 @@ class InputBox extends React.Component {
     return (
       <Flex className='input-box' margin='0 16px 16px 16px' padding='0px 12px' border='2px solid #d9d9d9' borderRadius={5}>
         <TextField multiLine={true} fullWidth={true} underlineShow={false} rowsMax={8}
-          hintText='Say something Im giving up on you'
+          hintText='Type a message...'
           value={this.state.text}
           onChange={this.handleChange.bind(this)}
           onEnterKeyDown={this.handleEnterKeyDown.bind(this)} />

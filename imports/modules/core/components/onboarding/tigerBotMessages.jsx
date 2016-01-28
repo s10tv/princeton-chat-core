@@ -19,7 +19,7 @@ const welcome = ({user, clickStartOnboarding, clickAbandonOnboarding}) => {
   return {
     comment: (
       <span>
-        Hurray { user.firstName } { user.lastName} from the great class of { user.classYear },
+        Hurrah { user.firstName } { user.lastName} from the great class of { user.classYear },
         I’m Tigercub and I’ll setup a few pieces of details to make it
         easier for you and other Princeton alums.
       </span>
