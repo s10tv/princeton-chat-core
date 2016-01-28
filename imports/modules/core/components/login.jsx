@@ -46,6 +46,7 @@ export default React.createClass({
           }}>Princeton.Chat</h1>
           <RaisedButton label='Login with Facebook'
             secondary={true} backgroundColor='#3b5998'
+            onTouchTap={this.props.loginWithFacebook}
             style={{
               alignSelf: 'center',
             }} />

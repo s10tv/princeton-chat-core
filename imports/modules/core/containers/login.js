@@ -3,6 +3,7 @@ import {composeAll, useDeps} from '/imports/libs/mantra';
 
 const depsMapper = (context, actions) => ({
   loginWithPassword: actions.login.loginWithPassword,
+  loginWithFacebook: actions.login.loginWithFacebook,
   context: () => context
 });
 
