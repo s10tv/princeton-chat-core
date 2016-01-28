@@ -95,7 +95,7 @@ Migrations.add({
   up: function() {
     Users.upsert('system', { $set: {
       avatar: {
-        url: '/images/nph.jpg',
+        url: '/images/tigerbot.png',
       },
       username: 'tigerbot',
       firstName: 'Tiger',
