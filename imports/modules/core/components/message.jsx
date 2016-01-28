@@ -4,7 +4,7 @@ import {SquareAvatar} from './helpers.jsx'
 
 export const Message = (props) => (
   <div className='message'>
-    <div>{ props.content }</div>
+    <div className='message-content'>{ props.content }</div>
     { props.action }
   </div>
 )
