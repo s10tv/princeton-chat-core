@@ -31,7 +31,7 @@ export const composer = ({context}, onData) => {
         post.displayName = otherUsers.map(otherUser => `@${otherUser.username}`).join(',');
         post.goToConversation = () => {
           if (post.displayName == '@tigerbot') {
-            FlowRouter.go('/welcome')
+            FlowRouter.go('/users/tigerbot')
           } else {
             FlowRouter.go(`/users/${post._id}`)
           }
