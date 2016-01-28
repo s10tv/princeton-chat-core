@@ -18,6 +18,8 @@ class Onboarding extends React.Component {
       shouldShowPasswordFields,
       LocalState,
       user,
+      clickStartOnboarding,
+      tigerBotMessages,
       topics,
       clickFacebook,
       addPassword,
@@ -26,7 +28,7 @@ class Onboarding extends React.Component {
     switch (message.type) {
       case 'welcome':
         LocalState.set('type', undefined);
-        return welcome({ user })
+        return welcome({ user, clickStartOnboarding })
       case 'topics':
         LocalState.set('type', 'topics');
         return followTopics({ user, topics });
@@ -53,6 +55,7 @@ class Onboarding extends React.Component {
     const {messages, user, post, showInputBox, isTyping} = this.props;
     return (
       <Flex flexDirection='column' flex={1} overflowY='hidden'>
+        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
         <ScrollingContainer alwaysScrollToBottom={true} child={
           <Block flex={1} overflowY='scroll'>
             <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>

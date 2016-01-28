@@ -1,6 +1,6 @@
 export default {
   clickStartOnboarding({Meteor}) {
-    Meteor.call('welcome/yes');
+    Meteor.call('welcome/triggerSelectTopicPrompt');
   },
 
   clickAbandonOnboarding({Meteor}) {

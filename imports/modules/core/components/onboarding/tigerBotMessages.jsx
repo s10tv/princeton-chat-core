@@ -15,14 +15,22 @@ const secondaryButton = ({ onClick }) => {
   return <FlatButton style={styles.secondaryButton} label="Not Now" rippleColor='white' onClick={onClick} />
 }
 
-const welcome = ({user, clickStartOnboarding, clickAbandonOnboarding}) => {
+const welcome = ({user, clickStartOnboarding}) => {
   return {
     comment: (
-      <span>
-        Hurrah { user.firstName } { user.lastName} from the great class of { user.classYear },
-        I’m Tigercub and I’ll setup a few pieces of details to make it
-        easier for you and other Princeton alums.
-      </span>
+      <div>
+        <p>
+          Hurrah { user.firstName } { user.lastName} from the great class of { user.classYear },
+          I’m Tigercub and I’ll setup a few pieces of details to make it
+          easier for you and other Princeton alums.
+        </p>
+        <p style={{ paddingTop: 8 }}>
+          <FlatButton
+            label="Get Started"
+            style={styles.primaryButton}
+            onTouchTap={clickStartOnboarding} />
+        </p>
+      </div>
     )
   }
 };
@@ -136,6 +144,7 @@ const SetPasswordComponent = React.createClass({
             <div style={{ display: 'inline-block', paddingLeft: 16 }}>
               <FlatButton
                 label="Set Password"
+                style={styles.primaryButton}
                 disabled={!shouldShowPasswordFields}
                 onClick={this.setPassword} />
             </div>

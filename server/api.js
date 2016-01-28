@@ -35,6 +35,11 @@ sendBase = (user, sender, content, type, qnum, resumeType) => {
   })
 }
 
+send = (content) => {
+  const user = CurrentUser.get();
+  return sendBase(user, user._id, content, 'raw');
+}
+
 toggleTypingIndicatorForSystem = (post, isTyping) => {
   post.followers.map(follower => {
     if (follower.userId != user._id) {
@@ -50,33 +55,26 @@ toggleTypingIndicatorForSystem = (post, isTyping) => {
 
 systemSend = (type, qnum, defaultTypeTime = 1000) => {
   const user = CurrentUser.get();
+  const post = Posts.findOne(user.tigerbotPostId);
+  toggleTypingIndicatorForSystem(post, true);
 
-  return new Promise((resolve, reject) => {
-    const post = Posts.findOne(user.tigerbotPostId);
-    toggleTypingIndicatorForSystem(post, true);
-
-    Meteor.setTimeout(() => {
-      toggleTypingIndicatorForSystem(post, false);
-      sendBase(user, 'system', undefined, type, qnum);
-
-      return resolve(true);
-
-    }, defaultTypeTime);
+  return pause(defaultTypeTime).then(() => {
+    toggleTypingIndicatorForSystem(post, false);
+    sendBase(user, 'system', undefined, type, qnum);
+    return Promise.resolve(true);
   })
 }
 
 systemSendRaw = (content, qnum, resumeType, defaultTypeTime = 1000) => {
   const user = CurrentUser.get();
 
-  return new Promise((resolve, reject) => {
-    const post = Posts.findOne(user.tigerbotPostId);
-    toggleTypingIndicatorForSystem(post, true);
+  const post = Posts.findOne(user.tigerbotPostId);
+  toggleTypingIndicatorForSystem(post, true);
 
-    Meteor.setTimeout(() => {
-      toggleTypingIndicatorForSystem(post, false);
-      sendBase(user, 'system', content, 'raw', qnum, resumeType)
-      return resolve(true);
-    }, defaultTypeTime);
+  return pause(defaultTypeTime).then(() => {
+    toggleTypingIndicatorForSystem(post, false);
+    sendBase(user, 'system', content, 'raw', qnum, resumeType)
+    return Promise.resolve(true);
   })
 }
 
@@ -356,16 +354,20 @@ Meteor.methods({
       postId: user.tigerbotPostId,
       type: "welcome",
     })
-
-    Meteor.call('welcome/triggerSelectTopicPrompt');
   },
 
   'welcome/triggerSelectTopicPrompt': () => {
-    Meteor._sleepForMs(2500);
-
     const user = CurrentUser.get();
-    return pause(2500).then(() => {
-      return systemSend('topics', undefined, 3500);
+
+    if (Messages.find({ ownerId: user._id, qnum: 'welcome/triggerSelectTopicPrompt' }).count() > 0) {
+      // the user has answered this question already;
+      return;
+    }
+
+    send("I'm here! Now what?")
+
+    return pause(1000).then(() => {
+      return systemSend('topics', 'welcome/triggerSelectTopicPrompt', 3500);
     });
   },
 
@@ -382,7 +384,7 @@ Meteor.methods({
 
     var sendMessageFeedback;
     if (topic) {
-      sendMessageFeedback = systemSendRaw(`${ topic.displayName } sounds like a fun topic to follow.`,
+      sendMessageFeedback = systemSendRaw(`Nice. I'm following ${ topic.displayName } too 😊 You will now get a notification anytime someone tags a post with ${ topic.displayName }.`,
         undefined, undefined, 2000).then(() => pause(2500));
     } else {
       sendMessageFeedback = Promise.resolve(true);
