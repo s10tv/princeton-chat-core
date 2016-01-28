@@ -21,7 +21,7 @@ export default class LogoutModal extends React.Component {
       <Dialog
         title="My Account"
         actions={actions}
-        modal={true}
+        modal={false}
         open={this.props.isOpen}
         onRequestClose={this.props.handleClose}>
         Would you like to log out?
