@@ -144,7 +144,7 @@ const SetPasswordComponent = React.createClass({
             <div style={{ display: 'inline-block', paddingLeft: 16 }}>
               <FlatButton
                 label="Set Password"
-                style={styles.primaryButton}
+                style={shouldShowPasswordFields ? styles.primaryButton : styles.disabledButton}
                 disabled={!shouldShowPasswordFields}
                 onClick={this.setPassword} />
             </div>
