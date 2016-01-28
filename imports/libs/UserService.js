@@ -3,7 +3,7 @@ export default class UserService {
 
   static getUserView(user) {
     if (!user) {
-      return null;
+      user = {};
     }
 
     user.followingTopics = user.followingTopics || [];
@@ -23,6 +23,7 @@ export default class UserService {
       user.classDisplay= ''
     }
 
+    user.displayUsername = user.username ? `@${user.username}` : '';
     user.displayName = `${user.firstName} ${user.lastName} ${user.classDisplay}`;
 
     return user;

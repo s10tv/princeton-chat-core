@@ -26,9 +26,11 @@ export const composer = ({context}, onData) => {
           return Users.findOne(follower.userId);
         }).filter(user => {
           return user != undefined;
+        }).map(user => {
+          return UserService.getUserView(user);
         })
 
-        post.displayName = otherUsers.map(otherUser => `@${otherUser.username}`).join(',');
+        post.displayName = otherUsers.map(otherUser => `${otherUser.displayUsername}`).join(',');
         post.goToConversation = () => {
           if (post.displayName == '@tigerbot') {
             FlowRouter.go('/users/tigerbot')

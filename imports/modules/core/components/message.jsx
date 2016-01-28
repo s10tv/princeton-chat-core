@@ -15,7 +15,7 @@ export const MessageGroup = (props) => (
     <Block flex={1} marginLeft={8}>
       <header>
         <span className='display-name'>{ props.owner.displayName }</span>
-        <span className='mention'>@{ props.owner.username }</span>
+        <span className='mention'>{ props.owner.displayUsername }</span>
         <span className='datetime'>{ props.timestamp }</span>
       </header>
       <Message {...props} />

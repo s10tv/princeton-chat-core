@@ -24,7 +24,7 @@ const SidebarHeader = (props) => {
           <h3>Princeton.Chat</h3>
           <Flex alignItems='center'>
             <span className='online-status' />
-            <span>@{ props.user.username }</span>
+            <span>{ props.user.displayUsername }</span>
             <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
           </Flex>
         </Flex>
