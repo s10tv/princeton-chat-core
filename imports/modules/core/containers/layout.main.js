@@ -148,6 +148,7 @@ export const composer = ({context}, onData) => {
       showFollowSection,
       showNumFollowers,
       numFollowers,
+      shouldShowToolbar: currentUser.status === 'active',
     });
   }
 }

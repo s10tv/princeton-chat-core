@@ -28,14 +28,11 @@ export default {
     });
   },
 
-  addPassword({Meteor}, event) {
+  addPassword({Meteor}, pwd) {
     event.preventDefault();
-    const pwd = event.target.value;
     if (pwd) {
       Accounts.changePassword(Meteor.user().inviteCode, pwd);
       Meteor.call('welcome/setLoginService', 'password');
-      
-      event.target.value = "";
     }
   },
 

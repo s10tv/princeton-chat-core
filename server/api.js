@@ -51,21 +51,41 @@ toggleTypingIndicatorForSystem = (post, isTyping) => {
 systemSend = (type, qnum, defaultTypeTime = 1000) => {
   const user = CurrentUser.get();
 
-  const post = Posts.findOne(user.tigerbotPostId);
-  toggleTypingIndicatorForSystem(post, true);
+  return new Promise((resolve, reject) => {
+    const post = Posts.findOne(user.tigerbotPostId);
+    toggleTypingIndicatorForSystem(post, true);
 
-  Meteor.setTimeout(() => {
-    toggleTypingIndicatorForSystem(post, false);
-    sendBase(user, 'system', undefined, type, qnum);
-  }, defaultTypeTime);
+    Meteor.setTimeout(() => {
+      toggleTypingIndicatorForSystem(post, false);
+      sendBase(user, 'system', undefined, type, qnum);
+
+      return resolve(true);
+
+    }, defaultTypeTime);
+  })
 }
 
 systemSendRaw = (content, qnum, resumeType, defaultTypeTime = 1000) => {
   const user = CurrentUser.get();
 
-  Meteor.setTimeout(() => {
-    sendBase(user, 'system', content, 'raw', qnum, resumeType)
-  }, defaultTypeTime);
+  return new Promise((resolve, reject) => {
+    const post = Posts.findOne(user.tigerbotPostId);
+    toggleTypingIndicatorForSystem(post, true);
+
+    Meteor.setTimeout(() => {
+      toggleTypingIndicatorForSystem(post, false);
+      sendBase(user, 'system', content, 'raw', qnum, resumeType)
+      return resolve(true);
+    }, defaultTypeTime);
+  })
+}
+
+pause = (pauseTime = 1000) => {
+  return new Promise((resolve, reject) => {
+    Meteor.setTimeout(() => {
+      resolve(true);
+    }, pauseTime);
+  })
 }
 
 Meteor.methods({
@@ -323,6 +343,10 @@ Meteor.methods({
 
   'reset': () => {
     const user = CurrentUser.get();
+    Users.update(user._id, { $set: {
+      status: 'pending'
+    }});
+
     Messages.remove({
       ownerId: user._id,
     });
@@ -337,10 +361,10 @@ Meteor.methods({
   },
 
   'welcome/triggerSelectTopicPrompt': () => {
-    Meteor._sleepForMs(1500);
+    Meteor._sleepForMs(2500);
 
     const user = CurrentUser.get();
-    systemSend('topics', undefined, 2500);
+    systemSend('topics', undefined, 3500);
   },
 
   'welcome/topic/follow': (topicId) => {
@@ -354,11 +378,15 @@ Meteor.methods({
       return;
     }
 
+    var sendMessageFeedback;
     if (topic) {
-      systemSendRaw(`${ topic.displayName } sounds like a fun topic.`);
+      sendMessageFeedback = systemSendRaw(`${ topic.displayName } sounds like a fun topic to follow.`,
+        undefined, undefined, 2000).then(() => pause(2500));
+    } else {
+      sendMessageFeedback = Promise.resolve(true);
     }
 
-    systemSend('linkservice', 'welcome/topic/follow', 1500)
+    return sendMessageFeedback.then(() => systemSend('linkservice', 'welcome/topic/follow', 1500));
   },
 
   'welcome/setLoginService': (serviceName) => {
@@ -373,11 +401,20 @@ Meteor.methods({
       status: 'active'
     }})
 
+
     switch (serviceName) {
       case 'facebook':
-        return systemSend('thanks', 'welcome/setLoginService')
+        systemSendRaw('Got it. You can log in with Facebook next time.')
+        .then(() => {
+          return systemSend('thanks', 'welcome/setLoginService', 1500)
+        })
+        break;
       case 'password':
-        return systemSend('thanks', 'welcome/setLoginService')
+        systemSendRaw('Got it. You can log in with your new password next time.')
+        .then(() => {
+          return systemSend('thanks', 'welcome/setLoginService', 2500)
+        })
+        break;
     }
   },
 

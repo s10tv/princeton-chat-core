@@ -55,6 +55,7 @@ export const composer = ({context}, onData) => {
         directMessages,
         showAllTopics,
         onTapSettings,
+        showOverlay: user.status != 'active',
       });
     }
   }

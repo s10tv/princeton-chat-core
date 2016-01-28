@@ -6,6 +6,7 @@ import ListItem from 'material-ui/lib/lists/list-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
 import {SmallListItem, MediumListItem, SquareAvatar, secondaryMuiTheme} from './helpers.jsx'
+import { SidebarOverlay } from './onboarding/onboarding.overlay.jsx'
 
 import FontIcon from 'material-ui/lib/font-icon'
 
@@ -71,8 +72,18 @@ export default React.createClass({
     }
   },
   render() {
+    if (this.props.showOverlay) {
+      return (
+        <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
+          <SidebarOverlay />
+        </LeftNav>
+      )
+    }
+
     return (
-      <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240}>
+      <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
+        <SidebarOverlay display={ this.props.showOverlay ? 'block' : 'none'} />
+
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
         <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>

@@ -20,6 +20,7 @@ export default ({
       showFollowSection,
       showNumFollowers,
       numFollowers,
+      shouldShowToolbar,
       content = () => null }) => (
     <main style={{
         marginLeft: sidebarOpen ? 240 : 0,
@@ -28,46 +29,48 @@ export default ({
         flexDirection: 'column',
       }}>
 
-      <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd'}}>
-        { !sidebarOpen
-            ? <ToolbarGroup firstChild={true}>
-                <IconButton iconClassName='material-icons' tooltip='Menu'>menu</IconButton>
-              </ToolbarGroup>
-            : null }
-        <ToolbarGroup>
-          <ToolbarTitle text={breadcrumbs.map(breadcrumb => breadcrumb.name).join(' > ')} />
-        </ToolbarGroup>
-
-        { !showNumFollowers ? null :
-          <ToolbarGroup style={{height: '100%'}}>
-            <Flex alignItems='center' height='100%'>
-              <FontIcon className='material-icons'>group</FontIcon>
-              <span>{ numFollowers }</span>
-            </Flex>
-          </ToolbarGroup>
-        }
-
-        { !showFollowSection ? null :
+      {!shouldShowToolbar ? null : (
+        <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd'}}>
+          { !sidebarOpen
+              ? <ToolbarGroup firstChild={true}>
+                  <IconButton iconClassName='material-icons' tooltip='Menu'>menu</IconButton>
+                </ToolbarGroup>
+              : null }
           <ToolbarGroup>
-            { isFollowing
-              ? <FlatButton label='Following' style={{ backgroundColor: '#4CAF50', color: '#ffffff' }}
-                   onTouchTap={unfollowFn} />
-              : <FlatButton label='Follow' onTouchTap={followFn} />
-            }
+            <ToolbarTitle text={breadcrumbs.map(breadcrumb => breadcrumb.name).join(' > ')} />
           </ToolbarGroup>
-        }
 
-        <ToolbarGroup float='right' lastChild={true}>
-          <ToolbarSeparator />
-          <RaisedButton primary={true} label='New Post' labelPosition='after' onTouchTap={showAddPostPopup}>
-              <FontIcon className='material-icons' color='white' style={{
-                  verticalAlign: 'middle',
-                  height: '100%',
-                  marginLeft: 8,
-                 }}>add_circle</FontIcon>
-          </RaisedButton>
-        </ToolbarGroup>
-      </Toolbar>
+          { !showNumFollowers ? null :
+            <ToolbarGroup style={{height: '100%'}}>
+              <Flex alignItems='center' height='100%'>
+                <FontIcon className='material-icons'>group</FontIcon>
+                <span>{ numFollowers }</span>
+              </Flex>
+            </ToolbarGroup>
+          }
+
+          { !showFollowSection ? null :
+            <ToolbarGroup>
+              { isFollowing
+                ? <FlatButton label='Following' style={{ backgroundColor: '#4CAF50', color: '#ffffff' }}
+                     onTouchTap={unfollowFn} />
+                : <FlatButton label='Follow' onTouchTap={followFn} />
+              }
+            </ToolbarGroup>
+          }
+
+          <ToolbarGroup float='right' lastChild={true}>
+            <ToolbarSeparator />
+            <RaisedButton primary={true} label='New Post' labelPosition='after' onTouchTap={showAddPostPopup}>
+                <FontIcon className='material-icons' color='white' style={{
+                    verticalAlign: 'middle',
+                    height: '100%',
+                    marginLeft: 8,
+                   }}>add_circle</FontIcon>
+            </RaisedButton>
+          </ToolbarGroup>
+        </Toolbar>
+      )}
 
       {content()}
     </main>

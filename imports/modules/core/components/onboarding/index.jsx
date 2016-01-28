@@ -1,29 +1,38 @@
-import React from 'react';
-import TextField from 'material-ui/lib/text-field';
-import Paper from 'material-ui/lib/paper';
-import Avatar from 'material-ui/lib/avatar';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import { welcome, topics, thanks, linkService, raw } from './tigerBotMessages.jsx';
-import styles from './styles';
-import moment from 'moment';
-import {Flex, Block} from 'jsxstyle';
-import {Message, MessageGroup} from '../message.jsx';
-import InputBox from '../../containers/inputBox.js';
+import React from 'react'
+import TextField from 'material-ui/lib/text-field'
+import Paper from 'material-ui/lib/paper'
+import Avatar from 'material-ui/lib/avatar'
+import List from 'material-ui/lib/lists/list'
+import ListItem from 'material-ui/lib/lists/list-item'
+import { welcome, followTopics, thanks, linkService, raw } from './tigerBotMessages.jsx'
+import styles from './styles'
+import moment from 'moment'
+import {Flex, Block} from 'jsxstyle'
+import {Message, MessageGroup} from '../message.jsx'
+import InputBox from '../../containers/inputBox.js'
+import { ScrollingContainer } from '../post.details.jsx'
 
 class Onboarding extends React.Component {
   messageOnType(message) {
-    const {clickStartOnboarding, clickAbandonOnboarding, LocalState, user, clickFacebook, addPassword, clickSkip} = this.props;
+    const {
+      shouldShowPasswordFields,
+      LocalState,
+      user,
+      topics,
+      clickFacebook,
+      addPassword,
+      clickSkip
+    } = this.props;
     switch (message.type) {
       case 'welcome':
         LocalState.set('type', undefined);
-        return welcome({user: this.props.user, clickStartOnboarding, clickAbandonOnboarding});
+        return welcome({ user })
       case 'topics':
         LocalState.set('type', 'topics');
-        return topics({ user: this.props.user, topics: this.props.topics });
+        return followTopics({ user, topics });
       case 'linkservice':
         LocalState.set('type', undefined);
-        return linkService({ clickFacebook, addPassword });
+        return linkService({ shouldShowPasswordFields, clickFacebook, addPassword });
       case 'thanks':
         LocalState.set('type', 'thanks');
         return thanks;
@@ -44,33 +53,35 @@ class Onboarding extends React.Component {
     const {messages, user, post, showInputBox, isTyping} = this.props;
     return (
       <Flex flexDirection='column' flex={1} overflowY='hidden'>
-        <Block flex={1} overflowY='scroll'>
-          <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
-            Welcome Tiger!
-          </h1>
-          <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-            Princeton.Chat is a community for Princeton alums.
-          </h2>
-          { messages.map(message => {
+        <ScrollingContainer alwaysScrollToBottom={true} child={
+          <Block flex={1} overflowY='scroll'>
+            <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
+              Welcome Tiger!
+            </h1>
+            <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
+              Princeton.Chat is a community for Princeton alums.
+            </h2>
+            { messages.map(message => {
 
-            if (message.isOnboardingMessage) {
-              var msgContent = this.messageOnType(message);
+              if (message.isOnboardingMessage) {
+                var msgContent = this.messageOnType(message);
 
-              return <MessageGroup
-                  key={message._id}
-                  owner={message.owner}
-                  timestamp={message.timestamp}
-                  action={msgContent.action}
-                  content={msgContent.comment} />
-            } else {
-              return <MessageGroup
-                  key={message._id}
-                  owner={message.owner}
-                  timestamp={message.timestamp}
-                  content={message.content} />
-            }
-          })}
-        </Block>
+                return <MessageGroup
+                    key={message._id}
+                    owner={message.owner}
+                    timestamp={message.timestamp}
+                    action={msgContent.action}
+                    content={msgContent.comment} />
+              } else {
+                return <MessageGroup
+                    key={message._id}
+                    owner={message.owner}
+                    timestamp={message.timestamp}
+                    content={message.content} />
+              }
+            })}
+          </Block>
+        } />
 
         { !isTyping ? null : <p style={{ padding: "0 20px" }}>Tigerbot is typing ... </p> }
         { !showInputBox ? null :  <InputBox postId={post._id} /> }

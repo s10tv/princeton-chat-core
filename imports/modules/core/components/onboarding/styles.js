@@ -14,6 +14,12 @@ export default {
     color: PRINCETON_WHITE
   },
 
+  disabledButton: {
+    backgroundColor: '#cccccc',
+    color: PRINCETON_WHITE,
+    marginRight: 10
+  },
+
   facebookButton: {
     backgroundColor: '#3B5998',
     color: PRINCETON_WHITE,

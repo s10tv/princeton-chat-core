@@ -126,7 +126,16 @@ export default function (injectDeps) {
   FlowRouter.route('/welcome', {
     name: 'onboarding',
     action() {
-      mount(OnboardingOverlayCtx, {
+      mount(LayoutMainCtx, {
+        content: (props) => <Onboarding {...props} />
+      })
+    }
+  });
+
+  FlowRouter.route('/users/tigerbot', {
+    name: 'tigercub-directmessage',
+    action() {
+      mount(LayoutMainCtx, {
         content: (props) => <Onboarding {...props} />
       })
     }

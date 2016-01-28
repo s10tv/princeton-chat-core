@@ -35,6 +35,7 @@ export const composer = ({context}, onData) => {
       post,
       LocalState,
       showInputBox: currentUser.status == 'active',
+      shouldShowPasswordFields: currentUser.status != 'active',
       isTyping: tigerBotFollower.isTyping,
       messages,
       user: currentUser,

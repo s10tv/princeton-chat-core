@@ -29,11 +29,18 @@ const welcome = ({user, clickStartOnboarding, clickAbandonOnboarding}) => {
 
 // Type 'topics'
 
-const topics = ({user, topics}) => {
+const followTopics = ({user, topics}) => {
   return {
-    comment: <TopicGridContainer style={{
-      marginTop: 16,
-    }} />
+    comment: (
+      <div>
+        <span>
+          Princeton.Chat is organized around topics curated by the community. <b>Follow a few topics</b> of interest so we can construct a feed of relevant content.
+        </span>
+        <TopicGridContainer style={{
+          marginTop: 16,
+        }} />
+      </div>
+    )
   }
 }
 
@@ -95,27 +102,75 @@ const flattenedServices = (services) => {
   return flattenedServices;
 };
 
-const linkService = ({clickFacebook, addPassword}) => {
-  return {
-    comment:
-      <span>
-        One last thing. How would you like to login to Princeton.chat in the future? You can
-      </span>,
-    action: (
+const SetPasswordComponent = React.createClass({
+
+  getInitialState() {
+    return {
+      passwordText: '',
+    }
+  },
+
+  handleChange(event) {
+    this.setState({passwordText: event.target.value})
+  },
+
+  setPassword() {
+    const password = this.refs.passwordField.getValue();
+    this.props.addPassword(password);
+  },
+
+  render() {
+    const { addPassword, shouldShowPasswordFields, clickFacebook } = this.props;
+
+    return (
       <div>
         <div style={{ display: 'inline-block' }}>
-          <TextField type="password" floatingLabelText='Choose Password' onEnterKeyDown={addPassword} />
+          <TextField
+            ref='passwordField'
+            type="password"
+            floatingLabelText='Choose Password'
+            onChange={this.handleChange}
+            disabled={!shouldShowPasswordFields} />
+
+          { this.state.passwordText.length == 0 ? null : (
+            <div style={{ display: 'inline-block', paddingLeft: 16 }}>
+              <FlatButton
+                label="Set Password"
+                disabled={!shouldShowPasswordFields}
+                onClick={this.setPassword} />
+            </div>
+          )}
         </div>
-        <div style={{ display: 'inline-block', padding: "0px 32px" }}>
-          OR
-        </div>
-        <div style={{ display: 'inline-block' }}>
-          <FlatButton
-            label="Link Facebook"
-            style={styles.facebookButton}
-            rippleColor='white'
-            onClick={clickFacebook} />
-        </div>
+
+        { this.state.passwordText.length > 0 ? null : (
+          <div style={{ display: 'inline-block'}}>
+            <div style={{ display: 'inline-block', padding: "0px 32px" }}>
+              OR
+            </div>
+            <div style={{ display: 'inline-block' }}>
+              <FlatButton
+                label="Link Facebook"
+                style={ shouldShowPasswordFields ? styles.facebookButton : styles.disabledButton }
+                rippleColor='white'
+                disabled={!shouldShowPasswordFields}
+                onClick={clickFacebook} />
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+})
+
+const linkService = (props) => {
+  const { shouldShowPasswordFields, clickFacebook, addPassword } = props;
+  return {
+    comment: (
+      <div>
+        <p>
+          One last thing. How would you like to login to Princeton.chat in the future? You can either <b>set a password</b> or <b>link your account</b> with facebook.
+        </p>
+        <SetPasswordComponent style={{ display: 'inline-block'}} {...props} />
       </div>
     )
   }
@@ -144,4 +199,4 @@ const raw = (comment) => {
   }
 }
 
-export { welcome, firstName, lastName, topics, classYear, classType, thanks, linkService, share, raw };
+export { welcome, firstName, lastName, followTopics, classYear, classType, thanks, linkService, share, raw };

@@ -22,6 +22,7 @@ export default {
 
     switch (FlowRouter.current().route.name) {
       case 'onboarding':
+      case 'tigercub-directmessage':
         Meteor.call('welcome/topic/follow', topicId)
     }
   },

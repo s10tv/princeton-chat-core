@@ -14,8 +14,15 @@ export class ScrollingContainer extends React.Component {
   }
   componentWillUpdate() {
     const node = ReactDOM.findDOMNode(this)
-    // Sometimes scrollTop + offsetHeight is greater than scrollHeight.. Maybe border? >= for workaround
-    this.shouldScrollBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight
+
+    if (this.props.alwaysScrollToBottom) {
+      // sometimes (in case with onboarding) it is important to always scroll to the bottom
+      // whenever a component is about to update.
+      this.shouldScrollBottom = true;
+    } else {
+      // Sometimes scrollTop + offsetHeight is greater than scrollHeight.. Maybe border? >= for workaround
+      this.shouldScrollBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight
+    }
   }
   componentDidUpdate() {
     if (this.shouldScrollBottom) {
