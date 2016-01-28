@@ -8,6 +8,7 @@ import PostSingle from '../modules/core/containers/post.details.js'
 import DirectMessage from '../modules/core/components/directMessage.jsx'
 import TopicList from '../modules/core/containers/topic.list.js'
 import Onboarding from '../modules/core/containers/onboarding.js'
+import OnboardingOverlay from '../modules/core/containers/onboarding.overlay.js'
 
 import Login from '../modules/core/containers/login.js'
 
@@ -35,7 +36,7 @@ export default function (injectDeps) {
 
   const LayoutMainCtx = injectDeps(LayoutMain);
   const LoginWithCtx = injectDeps(Login);
-  const OnboardingWithCtx = injectDeps(Onboarding);
+  const OnboardingOverlayCtx = injectDeps(OnboardingOverlay);
 
   FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite" ]});
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
@@ -125,7 +126,7 @@ export default function (injectDeps) {
   FlowRouter.route('/welcome', {
     name: 'onboarding',
     action() {
-      mount(LayoutMainCtx, {
+      mount(OnboardingOverlayCtx, {
         content: (props) => <Onboarding {...props} />
       })
     }

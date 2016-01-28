@@ -1,7 +1,7 @@
 import React from 'react'
 import {Flex, Block} from 'jsxstyle'
 
-export default OnboardingOverlay = () => (
+export default OnboardingOverlay = ({ content = () => null }) => (
   <Flex zIndex={1500} position='fixed' top={0} left={0} width='100vw' height='100vh'>
     <Block width='240px' backgroundColor='#242424' padding={16}>
       <Block height={15} width='100%' backgroundColor='rgba(255, 255, 255, 0.05)' />
@@ -14,6 +14,7 @@ export default OnboardingOverlay = () => (
       <Flex flexDirection='column' justifyContent='center' alignItems='center'>
         <h1 style={{fontSize: 48, fontWeight: 'normal'}}>Welcome Tiger!</h1>
         <h2 style={{fontSize: 20, fontWeight: 'normal'}}>Princeton.Chat is a community for Princeton alums.</h2>
+        {content()}
       </Flex>
     </Block>
   </Flex>

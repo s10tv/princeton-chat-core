@@ -6,7 +6,6 @@ import LogoutModal from '../containers/logout.modal.js'
 import Main from '../containers/layout.main.js'
 import Sidebar from '../containers/layout.sidebar.js';
 import Profile from '../containers/profile.js'
-import OnboardingOverlay from './onboardingOverlay.jsx'
 
 // TODO: Figure out a better way that does not involve using Mixin
 
@@ -34,7 +33,6 @@ export default React.createClass({
         <CreatePost />
         <LogoutModal />
         <Profile />
-        { false ? <OnboardingOverlay /> : null }
       </div>
     )
   }
