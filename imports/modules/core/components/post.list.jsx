@@ -54,12 +54,15 @@ const PostListItem = (props) => (
   </NoPaddingListItem>
 )
 
-const EmptyPostList = () => (
-  <Flex className='post-list-empty' flex={1} flexDirection='column' 
+const EmptyPostList = ({ showAddPostPopup }) => (
+  <Flex className='post-list-empty' flex={1} flexDirection='column'
     justifyContent='center' alignItems='center'>
     <h2>It's awfully quiet in here</h2>
     <h3>Let's break the ice</h3>
-    <RaisedButton primary={true} label='Create a new post' />
+    <RaisedButton
+      primary={true}
+      onTouchTap={showAddPostPopup}
+      label='Create a new post' />
     <img src='/images/bg-empty-feed.png' alt='empty feed' style={{
         width: '50%',
         maxWidth: 468,
@@ -79,5 +82,5 @@ const PostList = (props) => (
 )
 
 export default (props) => (
-  props.posts.length > 0 ? <PostList {...props} /> : <EmptyPostList />  
+  props.posts.length > 0 ? <PostList {...props} /> : <EmptyPostList {...props} />
 )

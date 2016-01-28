@@ -17,6 +17,10 @@ export default {
     });
   },
 
+  showAddPostPopup({ LocalState }) {
+    LocalState.set('ADD_POST_POPUP_SHOWING', true);
+  },
+
   follow({}, postId) {
     Meteor.call('topic/follow', postId);
   },

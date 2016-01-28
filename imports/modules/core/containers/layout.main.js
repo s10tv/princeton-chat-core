@@ -132,9 +132,6 @@ export const composer = ({context}, onData) => {
     const breadcrumbs = getRoutes(Collections, currentRoute);
     const { followFn, unfollowFn, showFollow } = onToggleFollowFn(currentRoute, currentUser, Meteor);
     const isFollowing = getIsFollowing(currentRoute, currentUser);
-    const showAddPostPopup = () => {
-      LocalState.set('ADD_POST_POPUP_SHOWING', true);
-    }
     const { showNumFollowers, numFollowers } = getNumFollowers(currentRoute);
 
     showFollowSection = showFollowSection || showFollow;
@@ -144,7 +141,6 @@ export const composer = ({context}, onData) => {
       followFn,
       unfollowFn,
       isFollowing,
-      showAddPostPopup,
       showFollowSection,
       showNumFollowers,
       numFollowers,
@@ -154,6 +150,7 @@ export const composer = ({context}, onData) => {
 }
 
 export const depsMapper = (context, actions) => ({
+  showAddPostPopup: actions.posts.showAddPostPopup,
   context: () => context
 });
 

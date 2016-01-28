@@ -73,7 +73,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
           LocalState.set('PROFILE_USER', post.owner);
         }
 
-        
+
         var currentTopicId;
         var currentPostId = post._id;
 
@@ -85,7 +85,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
         }
 
         post.url = `/topics/${currentTopicId}/${currentPostId}`
-        
+
         return post
       })
 
@@ -104,6 +104,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
 
 const depsMapper = (context, actions) => ({
   followPost: actions.posts.follow,
+  showAddPostPopup: actions.posts.showAddPostPopup,
   context: () => context
 });
 
