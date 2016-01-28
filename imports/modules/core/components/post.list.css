@@ -1,4 +1,16 @@
 
+.post-list-empty h2 {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.post-list-empty h3 {
+  font-size: 18px;
+  font-weight: normal;
+  margin-top: 0;
+}
+
+
 .post-list {
   overflow: scroll;
 }
