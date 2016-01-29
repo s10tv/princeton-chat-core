@@ -22,7 +22,7 @@ export default React.createClass({
   },
   handleSubmit(event) {
     event.preventDefault()
-    this.props.loginWithPassword(this.state['username'], this.state['password'])
+    this.props.loginWithPassword(this.state['email'], this.state['password'])
     // this.setState({
     //   username: '',
     //   password: '',
