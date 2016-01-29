@@ -84,7 +84,7 @@ const thanks = {
   comment: (
     <div>
       <p>
-        That's it. If you have any questions, comments, or concerns, utter them or forever remain silent.
+        That's it. If you have any questions, comments, or concerns, utter them now or forever remain silent.
       </p>
       <p>
         👻 Just kidding! Actually if you send a message to me in the future I'll forward to the team

@@ -19,10 +19,10 @@
               "version": "http://registry.npmjs.org/underscore/-/underscore-1.7.0.tgz"
             },
             "request": {
-              "version": "http://registry.npmjs.org/request/-/request-2.53.0.tgz",
+              "version": "2.53.0",
               "dependencies": {
                 "bl": {
-                  "version": "http://registry.npmjs.org/bl/-/bl-0.9.5.tgz",
+                  "version": "0.9.5",
                   "dependencies": {
                     "readable-stream": {
                       "version": "1.0.33",

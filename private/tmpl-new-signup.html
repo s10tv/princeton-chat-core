@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+  <title>[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.</title>
+  <style type='text/css' rel='stylesheet' media='all'>
+    /* Base ------------------------------ */
+    *:not(br):not(tr):not(html) {
+      font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, sans-serif;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100% !important;
+      height: 100%;
+      margin: 0;
+      line-height: 1.4;
+      /*background-color: #F2F4F6;*/
+      color: #74787E;
+      -webkit-text-size-adjust: none;
+      background-color: #192024;
+    }
+    a {
+      color: #3869D4;
+    }
+
+    /* Layout ------------------------------ */
+    .email-wrapper {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      /*background-color: #F2F4F6;*/
+      background-color: #192024;
+    }
+    .email-content {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Masthead ----------------------- */
+    .email-masthead {
+      padding: 25px 0;
+      text-align: center;
+      background-color: #192024;
+    }
+    .email-masthead_logo {
+      max-width: 400px;
+      border: 0;
+    }
+    .email-masthead_name {
+      font-size: 20px;
+      font-weight: 600;
+      color: #bbbfc3;
+      text-decoration: none;
+    }
+
+    /* Body ------------------------------ */
+    .email-body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid #EDEFF2;
+      border-bottom: 1px solid #EDEFF2;
+      background-color: #efefef;
+      /*background-color: #FFF;*/
+    }
+    .email-body_inner {
+      width: 570px;
+      margin: 0 auto;
+      padding: 0;
+    }
+    .content-cell {
+      padding: 35px;
+    }
+
+    /* Type ------------------------------ */
+    h1 {
+      margin-top: 0;
+      color: #2F3133;
+      font-size: 19px;
+      font-weight: 600;
+      text-align: left;
+    }
+    p {
+      margin-top: 0;
+      color: #74787E;
+      font-size: 16px;
+      line-height: 1.5em;
+      text-align: left;
+    }
+    .princeton {
+      color: #F46F1B;
+    }
+    .content-container {
+
+    }
+    .post {
+      padding: 10px;
+      background: #fff;
+    }
+    .title {
+      font-weight: 600;
+      color: #7D766D;
+    }
+    .topic {
+      font-size: 14px;
+      color: #cccccc;
+    }
+    div.footnote p {
+      font-size: 12px;
+      color: #888;
+    }
+    div.footnote a {
+      font-size: 12px;
+    }
+    a.cta {
+      background-color: #F46F1B;
+      color: white;
+      /*background-color: #192024;*/
+      /*color: #F46F1B;*/
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px auto 20px auto;
+      width: 200px;
+      display: block;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /*Media Queries ------------------------------ */
+    @media only screen and (max-width: 600px) {
+      .email-body_inner,
+      .email-footer {
+        width: 100% !important;
+      }
+    }
+    @media only screen and (max-width: 500px) {
+      .button {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <table class='email-wrapper' width='100%' cellpadding='0' cellspacing='0'>
+    <tr>
+      <td align='center'>
+        <table class='email-content' width='100%' cellpadding='0' cellspacing='0'>
+          <!-- Logo -->
+          <tr>
+            <td class='email-masthead'>
+              <a class='email-masthead_name princeton'>Princeton.Chat</a>
+            </td>
+          </tr>
+          <!-- Email Body -->
+          <tr>
+            <td class='email-body' width='100%'>
+              <table class='email-body_inner' align='center' width='570' cellpadding='0' cellspacing='0'>
+                <!-- Body content -->
+                <tr>
+                  <td class='content-cell'>
+                    <div class="post">
+                      <h3 class='title'>Welcome Tiger!</h3>
+                      <p class="content">
+                        Thank you for signing up for Princeton.Chat. We can't wait to have you onboard.
+                        Please press the link below to activate your account.
+                      </p>
+                      <a target="_blank" href="{{ inviteLink }}" class="cta">Verify Account</a>
+                      <div class="footnote">
+                        <p>Button didn't work? Copy and paste the link below into your browser's address bar.</p>
+                        <a target="_blank" href="{{ inviteLink }}">{{ inviteLink }}</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
