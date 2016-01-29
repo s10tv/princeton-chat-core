@@ -15,14 +15,13 @@ import Login from '../modules/core/containers/login.js'
 import WebFontLoader from 'webfontloader';
 
 function requireLogin(context) {
-  if (!Meteor.user()) {
-    console.log('checking');
+  if (!Meteor.userId()) {
     return FlowRouter.go('home');
   }
 }
 
 function redirectToAllMine(context) {
-  if (Meteor.user()) {
+  if (Meteor.userId()) {
     return FlowRouter.go('all-mine');
   }
 }
