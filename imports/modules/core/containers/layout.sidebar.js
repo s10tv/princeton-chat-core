@@ -57,6 +57,7 @@ export const composer = ({context}, onData) => {
         directMessages,
         showAllTopics,
         onTapSettings,
+        FlowRouter,
         showOverlay: user.status != 'active',
       });
     }
