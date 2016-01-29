@@ -11,6 +11,8 @@ export const composer = ({context, actions}, onData) => {
     LocalState.set('SETTINGS_EDIT_PROFILE_USERNAME', null);
     LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', null);
     LocalState.set('SETTINGS_EDIT_PROFILE_CLASS_YEAR', null);
+    LocalState.set('SETTINGS_EDIT_PROFILE_OLD_PASSWORD', null);
+    LocalState.set('SETTINGS_EDIT_PROFILE_NEW_PASSWORD', null);
   }
 
   const handleClose = () => {
@@ -26,6 +28,8 @@ export const composer = ({context, actions}, onData) => {
   const lastName = LocalState.get('SETINGS_EDIT_PROFILE_LAST_NAME') || user.lastName;
   const username = LocalState.get('SETTINGS_EDIT_PROFILE_USERNAME') || user.username;
   const classYear = LocalState.get('SETTINGS_EDIT_PROFILE_CLASS_YEAR') || +user.classYear;
+  const oldPassword = LocalState.get('SETTINGS_EDIT_PROFILE_OLD_PASSWORD');
+  const newPassword = LocalState.get('SETTINGS_EDIT_PROFILE_NEW_PASSWORD');
 
   const firstNameUpdate = (event) => {
     LocalState.set('SETTINGS_EDIT_PROFILE_FIRST_NAME', event.target.value);
@@ -41,6 +45,14 @@ export const composer = ({context, actions}, onData) => {
 
   const handleClassYearChange = (event, index, value) => {
     LocalState.set('SETTINGS_EDIT_PROFILE_CLASS_YEAR', value);
+  }
+
+  const handleOldPasswordChange = (event) => {
+    LocalState.set('SETTINGS_EDIT_PROFILE_OLD_PASSWORD', event.target.value);
+  }
+
+  const handleNewPasswordChange = (event) => {
+    LocalState.set('SETTINGS_EDIT_PROFILE_NEW_PASSWORD', event.target.value);
   }
 
   const currentAvatarUrl = LocalState.get('SETTINGS_EDIT_PROFILE_AVATAR') || user.avatar.url;
@@ -65,6 +77,7 @@ export const composer = ({context, actions}, onData) => {
 
   const handleSubmit = () => {
     LocalState.set('SETTINGS_EDIT_PROFILE_SHOWING', false);
+
     profile = {
       firstName: firstName,
       lastName: lastName,
@@ -72,13 +85,21 @@ export const composer = ({context, actions}, onData) => {
       classYear: classYear,
       avatarUrl: currentAvatarUrl
     }
-    console.log(profile);
+
     Meteor.call('profile/update', profile, (err) => {
       if (err) {
         alert(err.reason);
       }
 
       resetSessionEditProfile();
+    });
+  };
+
+  const changePassword = () => {
+    Accounts.changePassword(oldPassword, newPassword, (err) => {
+      if (err.reason) {
+        alert(err);
+      }
     });
   };
 
@@ -92,6 +113,9 @@ export const composer = ({context, actions}, onData) => {
     firstNameUpdate,
     lastNameUpdate,
     usernameUpdate,
+    handleOldPasswordChange,
+    handleNewPasswordChange,
+    changePassword,
     classYear,
     handleClassYearChange,
     currentAvatarUrl,

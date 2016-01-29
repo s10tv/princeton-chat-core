@@ -9,6 +9,7 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 import TextField from 'material-ui/lib/text-field';
 import SelectField from 'material-ui/lib/select-field';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import Divider from 'material-ui/lib/divider';
 import {Flex} from 'jsxstyle';
 import _ from 'underscore';
 
@@ -24,6 +25,9 @@ export default class editProfileModal extends React.Component {
       firstNameUpdate,
       lastNameUpdate,
       usernameUpdate,
+      handleOldPasswordChange,
+      handleNewPasswordChange,
+      changePassword,
       handleClassYearChange,
       classYear,
       currentAvatarUrl,
@@ -47,20 +51,28 @@ export default class editProfileModal extends React.Component {
         modal={false}
         open={isOpen}
         onRequestClose={handleClose}>
-        <Flex flexDirection="row" justifyContent="space-around">
-          <Flex flexDirection='column' alignItems='center' justifyContent='center'>
-            <TextField floatingLabelText="First Name" onChange={firstNameUpdate} defaultValue={firstName} maxLength={50} />
-            <TextField floatingLabelText="Last Name" onChange={lastNameUpdate} defaultValue={lastName} maxLength={50} />
-            <TextField floatingLabelText="Username" onChange={usernameUpdate} defaultValue={username} maxLength={20} />
-            <SelectField floatingLabelText="Class Year" value={classYear} onChange={handleClassYearChange} maxHeight={300}>
-              {_.range(1920, (new Date()).getFullYear())
-                .map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
-            </SelectField>
+        <Flex flexDirection="column">
+          <Flex flexDirection="row" justifyContent="space-around">
+            <Flex flexDirection='column' alignItems='center' justifyContent='center'>
+              <TextField floatingLabelText="First Name" onChange={firstNameUpdate} defaultValue={firstName} maxLength={50} />
+              <TextField floatingLabelText="Last Name" onChange={lastNameUpdate} defaultValue={lastName} maxLength={50} />
+              <TextField floatingLabelText="Username" onChange={usernameUpdate} defaultValue={username} maxLength={20} />
+              <SelectField floatingLabelText="Class Year" value={classYear} onChange={handleClassYearChange} maxHeight={300}>
+                {_.range(1920, (new Date()).getFullYear())
+                  .map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
+              </SelectField>
+             </Flex>
+            <Flex flexDirection='column' alignItems='center' justifyContent='space-around'>
+              <img src={currentAvatarUrl} className='profile-avatar' />
+              <RaisedButton label="Use Default Avatar" primary={true} onTouchTap={changeAvatarToDefault} />
+              <RaisedButton label="Use Facebook Photo" secondary={true} backgroundColor='#3b5998' onTouchTap={changeAvatarToFacebook} />
+            </Flex>
           </Flex>
-          <Flex flexDirection='column' alignItems='center' justifyContent='space-around'>
-            <img src={currentAvatarUrl} className='profile-avatar' />
-            <RaisedButton label="Use Default Avatar" primary={true} onTouchTap={changeAvatarToDefault} />
-            <RaisedButton label="Use Facebook Photo" secondary={true} backgroundColor='#3b5998' onTouchTap={changeAvatarToFacebook} />
+          <Divider style={{marginTop: 40}} />
+          <Flex flexDirection="column" alignItems='center'>
+            <TextField type="password" floatingLabelText="Current Password" onChange={handleOldPasswordChange} />
+            <TextField type="password" floatingLabelText="New Password" onChange={handleNewPasswordChange} />
+            <FlatButton primary={true} label='Change Password' onTouchTap={changePassword} style={{marginTop: 10}}/>
           </Flex>
         </Flex>
       </Dialog>
