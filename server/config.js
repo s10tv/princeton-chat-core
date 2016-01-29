@@ -11,9 +11,15 @@ ServiceConfiguration.configurations.insert({
 ServiceConfiguration.configurations.remove({
    service: "instagram"
  });
- ServiceConfiguration.configurations.insert({
+
+ServiceConfiguration.configurations.insert({
    service: "instagram",
    clientId: process.env.INSTAGRAM_ID || '8ec6615feaf24a18baaec4a3448f5eec',
    secret: process.env.INSTAGRAM_SECRET || '51dd6c59fe06453391997df4e4332273',
    scope: 'basic',
  });
+
+Accounts.validateNewUser((user) => {
+  throw new Meteor.Error(403, "You haven't registered yet. Register first at https://princeton.chat")
+  return false
+})

@@ -6,6 +6,7 @@ export default {
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
         LocalState.set('LOGIN_ERROR', true);
+        alert('Email and password not recognized. Have you registered yet?')
         return;
       }
 
@@ -17,7 +18,8 @@ export default {
     Meteor.loginWithFacebook((err) => {
       if (err) {
         LocalState.set('LOGIN_ERROR', true);
-        return;
+        alert(err.reason)
+        return
       }
 
       LocalState.set('LOGIN_ERROR', false);
