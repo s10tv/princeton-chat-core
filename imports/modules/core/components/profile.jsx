@@ -7,21 +7,13 @@ import Dialog from 'material-ui/lib/dialog';
 const UserDetails = (props) => (
   <Paper>
     <section className='profile-header'>
-      <div className='profile-cover' />
       <Flex flexDirection='column' alignItems='center' justifyContent='center' position='relative'
         padding='36px'>
         <img src={props.user.avatar.url} className='profile-avatar' />
-        <h2>{props.user.displayName}</h2>
+        <h1>{props.user.displayName}</h1>
         <h3>@{props.user.username}</h3>
+        <p>{props.user.emails[0].address}</p>
       </Flex>
-    </section>
-    <section className='profile-info'>
-      <div className='profile-info-table'>
-        <div className="row">
-          <label>Email</label>
-          <span>{props.user.emails[0].address}</span>
-        </div>
-      </div>
     </section>
   </Paper>
 )

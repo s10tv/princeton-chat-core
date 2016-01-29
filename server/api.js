@@ -192,13 +192,23 @@ Meteor.methods({
 
   'profile/update': (profile) => {
     const user = CurrentUser.get();
+
+    check(profile, Object);
+    check(profile.firstName, String);
+    check(profile.lastName, String);
+    check(profile.classYear, Number);
+    check(profile.username, String);
+    check(profile.avatarUrl, String);
+    
     Users.update(user._id, {
       $set: {
         firstName: profile.firstName,
         lastName: profile.lastName,
-        info: profile.info,
         classYear: profile.classYear,
-        classType: profile.classType
+        username: profile.username,
+        avatar: {
+          url: profile.avatarUrl
+        },
       }
     });
   },
