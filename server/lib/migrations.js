@@ -37,65 +37,11 @@ Migrations.add({
         followers: [],
       }});
     })
-
-    const keys = topics.map((topic) => {
-      return topic.key;
-    })
-
-    TopicHeaders.upsert({ _id: 'topics'}, { $set: {
-      topicHeader: 'Topics',
-      topicIds: keys,
-      order: 2,
-    }})
   },
 });
 
 Migrations.add({
   version: 2,
-  name: 'Adds default regions to the DB.',
-  up: function() {
-
-    const regions = [
-      { key:"bayarea", value: "SF Bay Area", order: 20},
-      { key:"newyork", value: "New York", order: 25},
-    ]
-
-    regions.forEach(region => {
-      Topics.upsert({ _id: region.key }, { $set: {
-        displayName: region.value,
-        order: region.order,
-        followers: [],
-      }});
-    })
-
-    const keys = regions.map((region) => {
-      return region.key;
-    })
-
-    TopicHeaders.upsert({ _id: 'regions'}, { $set: {
-      topicHeader: 'Regions',
-      topicIds: keys,
-      order: 1,
-    }})
-  },
-});
-
-Migrations.add({
-  version: 3,
-  name: 'Adds followers, numPosts to the topics.',
-  up: function() {
-    Topics.find().map(topic => {
-      Topics.update(topic._id, { $set: {
-        followers: [],
-        numPosts: Posts.find({ topicIds: topic._id }).count(),
-      }})
-    })
-  },
-});
-
-
-Migrations.add({
-  version: 4,
   name: 'Adds tigerbot to the prepopulated data',
   up: function() {
     Users.upsert('system', { $set: {
