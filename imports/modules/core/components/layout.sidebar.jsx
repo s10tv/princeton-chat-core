@@ -71,6 +71,9 @@ export default React.createClass({
       muiTheme: secondaryMuiTheme,
     }
   },
+  giveListItemStyleForRoutePath(routeName) {
+    return (`/${routeName}` === FlowRouter.current().path) ? {backgroundColor: 'grey'} : {}
+  },
   render() {
     if (this.props.showOverlay) {
       return (
@@ -88,12 +91,12 @@ export default React.createClass({
         <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
-            <MediumListItem onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>Posts for me</MediumListItem>
-            <MediumListItem onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>All Posts</MediumListItem>
+            <MediumListItem style={this.giveListItemStyleForRoutePath('all-mine')} onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>Posts for me</MediumListItem>
+            <MediumListItem style={this.giveListItemStyleForRoutePath('all')} onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>All Posts</MediumListItem>
           </List>
           <List subheader={<SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>}>
             {this.props.followedTopics.map((topic) =>
-              <SmallListItem key={topic._id} onTouchTap={this.props.showTopic.bind({ topic })}>
+              <SmallListItem style={this.giveListItemStyleForRoutePath(`topics/${topic._id}`)}key={topic._id} onTouchTap={this.props.showTopic.bind({ topic })}>
                 # {topic.displayName}
               </SmallListItem>
             )}
@@ -102,6 +105,7 @@ export default React.createClass({
           <List subheader={<SubHeader label='DIRECT MESSAGES' />}>
              {this.props.directMessages.map(directMessage =>
               <SmallListItem
+                style={this.giveListItemStyleForRoutePath(`users/tigerbot`)}
                 key={directMessage._id}
                 onTouchTap={directMessage.goToConversation}>
                   {directMessage.displayName}
