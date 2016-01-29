@@ -355,7 +355,7 @@ Meteor.methods({
     if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
       new IronWorker().send({
           taskName: 'job_user_message_email_sender',
-        payload: { mesageId: _id }
+        payload: { messageId: _id }
       })
     }
 
