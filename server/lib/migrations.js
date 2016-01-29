@@ -49,8 +49,8 @@ Migrations.add({
         url: '/images/tigerbot.png',
       },
       username: 'tigerbot',
-      firstName: 'Tiger',
-      lastName: 'Bot',
+      firstName: 'Tigerbot',
+      lastName: '',
     }})
   },
 })

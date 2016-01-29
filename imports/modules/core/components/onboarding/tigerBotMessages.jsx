@@ -21,7 +21,7 @@ const welcome = ({user, clickStartOnboarding}) => {
       <div>
         <p>
           Hurrah { user.firstName } { user.lastName} from the great class of { user.classYear },
-          I’m Tigercub and I’ll setup a few pieces of details to make it
+          I’m Tigerbot and I’ll setup a few pieces of details to make it
           easier for you and other Princeton alums.
         </p>
         <p style={{ paddingTop: 8 }}>
