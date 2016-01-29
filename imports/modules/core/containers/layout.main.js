@@ -1,5 +1,5 @@
 import truncate from 'truncate';
-import LayoutMain from '../components/layout.main.jsx';
+import LayoutMain from '../components-refactor/layout.main.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 

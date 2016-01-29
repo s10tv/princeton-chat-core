@@ -1,4 +1,4 @@
-import Onboarding from '../components/onboarding/index.jsx';
+import Onboarding from '../components-refactor/onboarding/index.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';

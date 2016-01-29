@@ -1,4 +1,4 @@
-import CreatePost from '../components/post.create.jsx';
+import CreatePost from '../components-refactor/post.create.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 
 export const composer = ({context}, onData) => {

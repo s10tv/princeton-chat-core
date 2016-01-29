@@ -1,4 +1,4 @@
-import LogoutModal from '../components/logout.modal.jsx';
+import LogoutModal from '../components-refactor/logout.modal.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 
 export const composer = ({context, actions}, onData) => {

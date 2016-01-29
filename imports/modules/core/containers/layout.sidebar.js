@@ -1,4 +1,4 @@
-import LayoutSidebar from '../components/layout.sidebar.jsx';
+import LayoutSidebar from '../components-refactor/layout.sidebar.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 

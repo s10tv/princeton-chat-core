@@ -1,9 +1,8 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import {SquareAvatar, NoPaddingListItem} from '/imports/modules/core/components-refactor/helpers.jsx'
+import {SquareAvatar, NoPaddingListItem} from './helpers.jsx'
 import List from 'material-ui/lib/lists/list'
 import RaisedButton from 'material-ui/lib/raised-button'
-import Menu from './menu.jsx'
 
 const FollowBtn = (props) => (
   props.post.isFollowingPost
@@ -40,12 +39,7 @@ const PostListItem = (props) => (
         <footer>
           { props.post.topics.map(topic =>
             <span key={topic._id} className='topic'>
-              <a href="#" onClick={() => {
-                props.navigateToTopic(topic._id);
-                return false;
-              }}>
-                { topic.displayName }
-              </a>
+              <a href="#" onClick={props.navigateToTopic.bind({ topic: topic })}>{ topic.displayName }</a>
             </span>
           )}
           <span className='spacer' />
@@ -78,16 +72,13 @@ const EmptyPostList = ({ showAddPostPopup }) => (
 )
 
 const PostList = (props) => (
-  <div>
-    <Menu title={'# Software'} followersCount={"5"} isFollowing={true} />
-    <section className='post-list' style={{flexGrow: 1}}>
-      <List style={{paddingTop: 0, paddingBottom: 0}}>
-        { props.posts.map(post =>
-          <PostListItem key={post._id} post={post} {...props} />
-        )}
-      </List>
-    </section>
-  </div>
+  <section className='post-list' style={{flexGrow: 1}}>
+    <List style={{paddingTop: 0, paddingBottom: 0}}>
+      { props.posts.map(post =>
+        <PostListItem key={post._id} post={post} {...props} />
+      )}
+    </List>
+  </section>
 )
 
 export default (props) => (

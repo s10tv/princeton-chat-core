@@ -24,12 +24,19 @@ export default React.createClass({
   render() {
     const sidebarOpen = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
                      || this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
+    const content = this.props.content || () => {};
+
     return (
       <div id='layout'>
         <Sidebar sidebarOpen={sidebarOpen} />
-        <Main
-            sidebarOpen={sidebarOpen}
-            content={this.props.content} />
+        <main style={{
+            marginLeft: sidebarOpen ? 240 : 0,
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+          {content()}
+        </main>
         <CreatePost />
         <LogoutModal />
         <Profile />

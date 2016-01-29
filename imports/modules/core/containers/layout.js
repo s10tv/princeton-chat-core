@@ -1,4 +1,4 @@
-import Layout from '../components/layout.jsx';
+import Layout from '../components-refactor/layout.jsx';
 import {useDeps} from '/imports/libs/mantra.js';
 
 export const depsMapper = (context, actions) => ({

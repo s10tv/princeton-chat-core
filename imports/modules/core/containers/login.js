@@ -1,4 +1,4 @@
-import Login from '../components/login.jsx';
+import Login from '../components-refactor/login.jsx';
 import {composeAll, useDeps} from '/imports/libs/mantra';
 
 const depsMapper = (context, actions) => ({

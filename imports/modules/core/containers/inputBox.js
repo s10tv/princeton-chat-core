@@ -1,4 +1,4 @@
-import InputBox from '../components/inputBox.jsx';
+import InputBox from '../components-refactor/inputBox.jsx';
 import {useDeps} from '/imports/libs/mantra';
 
 const depsMapper = (context, actions) => ({

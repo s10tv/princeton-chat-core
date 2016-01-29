@@ -17,6 +17,10 @@ export default {
     });
   },
 
+  navigateToTopic({}, topicId) {
+    return FlowRouter.go(`/topics/${topicId}`);
+  },
+
   follow({Meteor}, topicId) {
     Meteor.call('topic/follow', topicId, (err) => {
       switch (FlowRouter.current().route.name) {
