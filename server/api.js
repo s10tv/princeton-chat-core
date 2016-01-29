@@ -428,6 +428,7 @@ Meteor.methods({
 
     Users.update(user._id, { $set: {
       username: UsernameGenerator.generate(user),
+      emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
       avatar: {
         url: '/images/princeton.svg'
       },
