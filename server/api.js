@@ -352,6 +352,13 @@ Meteor.methods({
       ownerId: user._id,
     })
 
+    if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
+      new IronWorker().send({
+          taskName: 'job_user_message_email_sender',
+        payload: { mesageId: _id }
+      })
+    }
+
     Posts.update(postId, { $inc: { numMsgs: 1 }});
   },
 
@@ -451,101 +458,4 @@ Meteor.methods({
         break;
     }
   },
-
-  // 'welcome/yes': () => {
-  //   const user = CurrentUser.get();
-  //
-  //   if (Messages.find({ ownerId: user._id, qnum: 'welcome/yes' }).count() > 0) {
-  //     // the user has answered this question already;
-  //     return;
-  //   }
-  //
-  //   if (Messages.find({ ownerId: user._id, senderId: 'system' }).count() > 1) {
-  //     send('Actually, I changed my mind. Sign me up now.')
-  //     systemSendRaw('Wonderful! Glad you changed your mind.')
-  //   } else {
-  //     send('Sure! Count me in.')
-  //     systemSendRaw('Wonderful! Welcome to Princeton.chat.')
-  //   }
-  //
-  //   systemSendRaw(`Here, posts are grouped into topics, and you will only receive notifications for topics that you follow. Why don't you follow some topics that interest you?`);
-  //   systemSend('topics', 'welcome/yes')
-  // },
-  //
-  // 'welcome/no': () => {
-  //   const user = CurrentUser.get();
-  //
-  //   if (Messages.find({ ownerId: user._id, qnum: { $in: ['welcome/yes', 'welcome/no']}}).count() == 0) {
-  //     send('Not now. Remind me again in a bit')
-  //     systemSendRaw('Alright then. We will follow up with you via email in the following weeks.', 'welcome/no')
-  //   }
-  // },
-
-  // 'username/claim': (username) => {
-  //   const currentUser = CurrentUser.get();
-  //   const user = Users.findOne({ username: username });
-  //   if (!user) {
-  //     Users.update(currentUser._id, { $set: {
-  //       username: username,
-  //       avatar: { url: '/img/princeton-shield.png' },
-  //       emailPreference: 'all',
-  //       info: 'Go Tigers!',
-  //       followingPosts: [],
-  //       expertTopics: [],
-  //       // dont need to set followingTopics because that should have been set at topics/follow.
-  //
-  //       status: 'active',
-  //     }});
-  //
-  //     return true;
-  //   }
-  //
-  //   return false;
-  // },
-  //
-  // 'friends/add': (friendInfos) => {
-  //   const user = CurrentUser.get();
-  //   _.each(friendInfos, function(friendInfo) {
-  //     if (friendInfo.isEmail) {
-  //       Friends.insert({
-  //         ofUserId: user._id,
-  //         email: friendInfo.field
-  //       })
-  //     } else {
-  //       Friends.insert({
-  //         ofUserId: user._id,
-  //         fullName: friendInfo.field
-  //       })
-  //     }
-  //   });
-  // },
-
-
-  // TODO: for future versions
-  // 'facebook/isActive': () => {
-  //   user = CurrentUser.get();
-  //   if (user.services.facebook) {
-  //     return true;
-  //   }
-  //
-  //   return false;
-  // },
-  //
-  // 'instagram/isActive': () => {
-  //   user = CurrentUser.get();
-  //   if (user.services.instagram) {
-  //     return true;
-  //   }
-  //
-  //   return false;
-  // },
-  //
-  // 'twitter/isActive': () => {
-  //   user = CurrentUser.get();
-  //   if (user.services.twitter) {
-  //     return true;
-  //   }
-  //
-  //   return false;
-  // },
 })
