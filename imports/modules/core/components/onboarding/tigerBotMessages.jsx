@@ -131,8 +131,8 @@ const SetPasswordComponent = React.createClass({
     const { addPassword, shouldShowPasswordFields, clickFacebook } = this.props;
 
     return (
-      <div>
-        <div style={{ display: 'inline-block' }}>
+      <div className="choose-password-section">
+        <div className="password-chooser">
           <TextField
             ref='passwordField'
             type="password"
@@ -152,18 +152,19 @@ const SetPasswordComponent = React.createClass({
         </div>
 
         { this.state.passwordText.length > 0 ? null : (
-          <div style={{ display: 'inline-block'}}>
-            <div style={{ display: 'inline-block', padding: "0px 32px" }}>
-              OR
-            </div>
-            <div style={{ display: 'inline-block' }}>
-              <FlatButton
-                label="Link Facebook"
-                style={ shouldShowPasswordFields ? styles.facebookButton : styles.disabledButton }
-                rippleColor='white'
-                disabled={!shouldShowPasswordFields}
-                onClick={clickFacebook} />
-            </div>
+          <div className="password-chooser" style={{ padding: "0px 16px"}}>
+            OR
+          </div>
+        )}
+
+        { this.state.passwordText.length > 0 ? null : (
+          <div className="password-chooser">
+            <FlatButton
+              label="Link Facebook"
+              style={ shouldShowPasswordFields ? styles.facebookButton : styles.disabledButton }
+              rippleColor='white'
+              disabled={!shouldShowPasswordFields}
+              onClick={clickFacebook} />
           </div>
         )}
       </div>
@@ -175,13 +176,12 @@ const linkService = (props) => {
   const { shouldShowPasswordFields, clickFacebook, addPassword } = props;
   return {
     comment: (
-      <div>
-        <p>
+        <span>
           One last thing. How would you like to login to Princeton.chat in the future? You can either <b>set a password</b> or <b>link your account</b> with facebook.
-        </p>
-        <SetPasswordComponent style={{ display: 'inline-block'}} {...props} />
-      </div>
-    )
+        </span>
+    ),
+
+    action: <SetPasswordComponent style={{ display: 'inline-block'}} {...props} />
   }
 };
 
