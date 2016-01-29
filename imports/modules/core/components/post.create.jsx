@@ -45,7 +45,7 @@ export default React.createClass({
          open={isOpen}>
          <Flex flexDirection='column'>
            <TextField ref="title" fullWidth={true} floatingLabelText='Title' />
-           <TextField ref="content" fullWidth={true} rows={5} multiLine={true}
+           <TextField ref="content" fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
              hintText='What do you want to say to other Princetonians?'
              floatingLabelText='Content' />
 
