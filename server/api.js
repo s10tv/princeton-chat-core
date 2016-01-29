@@ -399,15 +399,18 @@ Meteor.methods({
     const user = CurrentUser.get();
     const topic = Topics.findOne(topicId);
 
-    if (Messages.find({ ownerId: user._id, qnum: 'welcome/topic/follow' }).count() > 0) {
-      // the user has answered this question already;
+    const hasSeenThisMessageBefore = Messages.find({ ownerId: user._id, qnum: 'welcome/topic/follow' }).count() > 0;
+
+    // we check that the following topics length is not 1, to prevent the message from being sent
+    // multiple times while the user clicks follow multiple times in a row.
+    if ((user.followingTopics && user.followingTopics.length != 1) || hasSeenThisMessageBefore) {
       return;
     }
 
     var sendMessageFeedback;
     if (topic) {
       sendMessageFeedback = systemSendRaw(`Nice. I'm following ${ topic.displayName } too 😊 You will now get a notification anytime someone tags a post with ${ topic.displayName }.`,
-        undefined, undefined, 2000).then(() => pause(2500));
+        'welcome/topic/follow', undefined, 1500).then(() => pause(2000));
     } else {
       sendMessageFeedback = Promise.resolve(true);
     }
