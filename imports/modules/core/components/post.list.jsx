@@ -32,6 +32,11 @@ export default React.createClass({
      * A function to show the user profile associated with the post.
      */
     showUserProfile: React.PropTypes.func.isRequired,
+
+    /**
+     * A function to show the followers of the post.
+     */
+    showPostFollowers: React.PropTypes.func.isRequired,
   },
 
   render() {
