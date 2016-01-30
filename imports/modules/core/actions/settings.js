@@ -7,5 +7,10 @@ export default {
 
   closeSettingsModal({ LocalState }) {
     LocalState.set('SETTINGS_DIALOG_SHOWING', false);
-  }
+  },
+
+  editProfile(event) => {
+    event.preventDefault();
+    LocalState.set('SETTINGS_EDIT_PROFILE_SHOWING', true);
+  },
 }

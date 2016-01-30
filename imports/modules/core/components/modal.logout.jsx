@@ -2,6 +2,11 @@ import React from 'react';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
+import Toolbar from 'material-ui/lib/toolbar/toolbar';
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
+import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
+import {Flex} from 'jsxstyle';
 
 export default React.createClass({
   propTypes: {
@@ -15,31 +20,52 @@ export default React.createClass({
      * Function to call to tigger logout action.
      */
     onLogout: React.PropTypes.func.isRequired,
+
+    /**
+     * Function to call when we want to edit the profile.
+     */
+    editProfile: React.PropTypes.func.isRequired,
+
+    /**
+     * The (current) user whos profile will be displayed.
+     */
+    user: React.PropTypes.user,
+
+    /**
+     * True if this modal is showing.
+     */
+    isOpen: React.PropTypes.boolean,
   },
 
   render() {
-    const { handleClose, onLogout } = this.props;
+    const { handleClose, onLogout, isOpen, user, editProfile } = this.props;
 
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        secondary={true}
-        onTouchTap={handleClose} />,
-      <FlatButton
-        label="Yes"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={onLogout} />,
-    ];
+    const toolbar =
+      <Toolbar>
+        <ToolbarGroup float="left">
+          <ToolbarTitle text="Settings" />
+        </ToolbarGroup>
+        <ToolbarGroup float="right" lastChild={true}>
+          <RaisedButton label="Done" primary={true} onTouchTap={handleClose} />
+        </ToolbarGroup>
+      </Toolbar>
 
     return (
       <Dialog
-        title="My Account"
-        actions={actions}
+        title={toolbar}
         modal={false}
-        open={this.props.isOpen}
-        onRequestClose={this.props.handleClose}>
-        Would you like to log out?
+        open={isOpen}
+        onRequestClose={handleClose}>
+        <section className='profile-header'>
+          <Flex flexDirection='column' alignItems='center' justifyContent='center' position='relative'
+            padding='36px'>
+            <img src={user.avatar.url} className='profile-avatar' />
+            <h1>{user.displayName}</h1>
+            <h3>{user.displayUsername}</h3>
+            <p>{user.emails[0].address}</p>
+            <p className='profile-edit'><a href="#" onClick={editProfile}>Edit Profile</a> | <a href="#" onClick={onLogout}>Logout</a></p>
+          </Flex>
+        </section>
       </Dialog>
     );
   }

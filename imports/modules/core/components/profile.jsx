@@ -33,25 +33,17 @@ export default React.createClass({
         open={this.props.isOpen && this.props.user }
         modal={false}
         onRequestClose={this.props.handleClose}>
-          <Paper>
-            <section className='profile-header'>
-              <div className='profile-cover' />
-              <Flex flexDirection='column' alignItems='center' justifyContent='center' position='relative'
-                padding='36px'>
-                <img src={this.props.user.avatar.url} className='profile-avatar' />
-                <h2>{this.props.user.displayName}</h2>
-                <h3>@{this.props.user.username}</h3>
-              </Flex>
-            </section>
-            <section className='profile-info'>
-              <div className='profile-info-table'>
-                <div className="row">
-                  <label>Email</label>
-                  <span>{this.props.user.emails[0].address}</span>
-                </div>
-              </div>
-            </section>
-          </Paper>
+        <Paper>
+          <section className='profile-header'>
+            <Flex flexDirection='column' alignItems='center' justifyContent='center' position='relative'
+              padding='36px'>
+              <img src={this.props.user.avatar.url} className='profile-avatar' />
+              <h1>{this.props.user.displayName}</h1>
+              <h3>@{this.props.user.username}</h3>
+              <p>{this.props.user.emails[0].address}</p>
+            </Flex>
+          </section>
+        </Paper>
       </Dialog>
     )
   }

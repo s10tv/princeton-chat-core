@@ -61,10 +61,10 @@
                   "version": "5.0.1"
                 },
                 "mime-types": {
-                  "version": "http://registry.npmjs.org/mime-types/-/mime-types-2.0.14.tgz",
+                  "version": "2.0.14",
                   "dependencies": {
                     "mime-db": {
-                      "version": "http://registry.npmjs.org/mime-db/-/mime-db-1.12.0.tgz"
+                      "version": "1.12.0"
                     }
                   }
                 },
