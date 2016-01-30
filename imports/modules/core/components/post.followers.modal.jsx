@@ -7,6 +7,7 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Dialog from 'material-ui/lib/dialog';
 import RaisedButton from 'material-ui/lib/raised-button';
+import Avatar from 'material-ui/lib/avatar';
 import Menu from '/imports/modules/core/components/menu.jsx';
 
 export default class PostFollowersModal extends React.Component {
@@ -36,23 +37,21 @@ export default class PostFollowersModal extends React.Component {
     const toolbar =
       <Toolbar>
         <ToolbarGroup float='left'>
-          <ToolbarTitle text='Edit Profile' />
+          <ToolbarTitle text='Followers' />
         </ToolbarGroup>
         <ToolbarGroup float='right' lastChild={true}>
-          <RaisedButton label='Done' primary={true} onTouchTap={closeModal} />
+          <RaisedButton label='Close' secondary={true} onTouchTap={closeModal} />
         </ToolbarGroup>
       </Toolbar>
 
     return (
-      <Dialog>
+      <Dialog
         title={toolbar}
         modal={false}
         open={isOpen}
         onRequestClose={closeModal}>
         <List>
-          {followers.map(follower => {
-            <ListItem primaryText={follower.displayName} />
-          })}
+          {followers.map((follower) => <ListItem primaryText={follower.displayName} leftAvatar={<Avatar src={follower.avatar.url} />} /> )}
         </List>
       </Dialog>
     )

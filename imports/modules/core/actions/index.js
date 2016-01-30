@@ -5,6 +5,7 @@ import login from './login';
 import onboarding from './onboarding';
 import settings from './settings';
 import profile from './profile';
+import postfollowers from './postfollowers';
 
 export default {
   posts,
@@ -14,4 +15,5 @@ export default {
   onboarding,
   profile,
   settings,
+  postfollowers
 };
