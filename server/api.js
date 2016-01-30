@@ -102,76 +102,20 @@ pause = (pauseTime = 1000) => {
 }
 
 Meteor.methods({
-  'signup/alumniEmail': (alumniEmail) => {
-    var email = (alumniEmail || "").trim();
-    if (email.length == 0) {
-      throw new Meteor.Error(400, 'To sign up, you need to enter your email.');
-    }
+  'signup/randomuser': () => {
+    const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results;
+    const inviteCode = Meteor.uuid()
+    Users.insert({
+      firstName: user.name.first,
+      lastName: user.name.last,
+      emails: [
+        { address: user.email, verified: false }
+      ],
+      classYear: "2012",
+      inviteCode: inviteCode,
+    })
 
-    if (process.env.USE_ALUMNI_SUFFIX) {
-      email = `${email}@alumni.princeton.edu`;
-    }
-
-    var user = Accounts.findUserByEmail(email);
-    if (!user) {
-      // our onboarding using react has a field called `email` on user, instead of meteor `emails`
-      user = Users.findOne({ email: email });
-    }
-
-    if (!user) {
-      var userNumber = getLargestUserNumber();
-      const userId = Users.insert({
-        userNumber: userNumber,
-        status: 'pending',
-      })
-
-      Accounts.addEmail(userId, email);
-      user = Users.findOne(userId);
-    }
-
-    const inviteCode = Random.id();
-    Users.update(user._id, { $set: {
-      inviteCode: inviteCode
-    }})
-
-    const inviteUrl = `${process.env.ROOT_URL}/invite/${inviteCode}?n=${user.userNumber}`;
-    const postmark = Meteor.npmRequire("postmark");
-    const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426';
-    const client = new postmark.Client(postmarkKey);
-
-    const Future = Npm.require('fibers/future')
-    const future = new Future()
-    const onComplete = future.resolver()
-
-    client.sendEmailWithTemplate({
-      "From": "notifications@princeton.chat",
-      "To": email,
-      "TemplateId": 354341,
-      "TemplateModel": {
-        inviteLink: inviteUrl
-      }
-    }, onComplete)
-
-    Future.wait(future)
-    return future.get();
-  },
-
-  'signup/userInfo': (firstName, lastName, classYear, email) => {
-    var user = Users.findOne({ email: email });
-    if (!user) {
-      var userNumber = getLargestUserNumber();
-      const userId = Users.insert({
-        status: 'review',
-        firstName: firstName,
-        lastName: lastName,
-        userNumber: userNumber,
-        classYear: classYear,
-      });
-      Accounts.addEmail(userId, email);
-      user = Users.findOne(userId);
-    }
-
-    return user._id;
+    console.log(`http://localhost:3000/invite/${inviteCode}`);
   },
 
   'topics/follow': (topicIds) => {
