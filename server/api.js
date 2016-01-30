@@ -427,4 +427,12 @@ Meteor.methods({
         break;
     }
   },
+
+  'get/followers': (userIds) => {
+    check(userIds, Array);
+
+    return userIds.map(user => {
+      return Users.findOne(user.userId);
+    });
+  }
 })

@@ -32,7 +32,14 @@ export default {
 
   showPostFollowers({ LocalState }, followers) {
     LocalState.set('FOLLOWERS_MODAL_OPEN', true);
-    LocalState.set('POST_FOLLOWERS', followers);
+
+    Meteor.call('get/followers', followers, (err, res) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(res);
+      LocalState.set('POST_FOLLOWERS', res);
+    });
   },
 
   follow({ Meteor }, postId) {

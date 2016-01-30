@@ -8,7 +8,7 @@ export const composer = ({context, actions}, onData) => {
   const isOpen = LocalState.get('FOLLOWERS_MODAL_OPEN') || false;
   const followersFromState = LocalState.get('POST_FOLLOWERS') || [];
   const followers = followersFromState.map(follower => {
-    return UserService.getUserView(Users.findOne(follower.userId));
+    return UserService.getUserView(follower);
   });
 
   onData(null, {
