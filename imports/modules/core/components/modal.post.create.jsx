@@ -36,7 +36,7 @@ export default React.createClass({
   onAddPost() {
     const title = this.refs.title.getValue();
     const content = this.refs.content.getValue();
-    const topics = this.state.selectedTopicId;
+    const topics = this.state.selectedTopicIds;
     this.props.create(title, content, topics);
   },
 
