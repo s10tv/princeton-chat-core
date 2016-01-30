@@ -23,6 +23,9 @@ export default React.createClass({
      * Determines whether to expand the content to 100% or make room for sidebar.
      */
     sidebarOpen: React.PropTypes.bool.isRequired,
+
+    clickStartOnboarding: React.PropTypes.func.isRequired,
+    user: React.PropTypes.object.isRequired,
   },
 
   messageOnType(message) {
