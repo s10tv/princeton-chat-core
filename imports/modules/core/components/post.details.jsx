@@ -23,6 +23,16 @@ export default React.createClass({
      * A list of messages for this post. Can be empty, but is required.
      */
     messages: React.PropTypes.array.isRequired,
+
+    /**
+     * Determines whether to expand the content to 100% or make room for sidebar.
+     */
+    sidebarOpen: React.PropTypes.bool.isRequired,
+
+    /**
+     * Determines whether this is a direct message or a post detail.
+     */
+    isDirectMessage: React.PropTypes.bool.isRequired,
   },
 
   render() {

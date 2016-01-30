@@ -8,6 +8,17 @@ import LinkedStateMixin from 'react-addons-linked-state-mixin'
 import {primaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
 
 export default React.createClass({
+  propTypes: {
+    /**
+     * The function to call to attempt login with a password.
+     */
+    loginWithPassword: React.PropTypes.func.isRequired,
+
+    /**
+     * The function to call to attempt login with facebook.
+     */
+    loginWithFacebook: React.PropTypes.func.isRequired,
+  },
   mixins: [LinkedStateMixin],
   getInitialState() {
     return {}

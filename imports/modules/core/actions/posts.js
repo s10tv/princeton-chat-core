@@ -25,7 +25,7 @@ export default {
     LocalState.set('ADD_POST_POPUP_SHOWING', false);
   },
 
-  showUserProfile({}, post) {
+  showUserProfile({ LocalState }, post) {
     LocalState.set('PROFILE_USER', post.owner);
   },
 };
