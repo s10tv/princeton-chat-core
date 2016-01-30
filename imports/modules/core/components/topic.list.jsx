@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import Menu from '/imports/modules/core/components/menu.jsx'
-import { styles } from '/imports/modules/core/components/styles.jsx'
+import styles from '/imports/modules/core/components/styles.jsx'
 
 export default React.createClass({
   render() {

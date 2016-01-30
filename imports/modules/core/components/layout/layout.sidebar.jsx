@@ -85,8 +85,6 @@ export default React.createClass({
 
     return (
       <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
-        <SidebarOverlay display={ this.props.showOverlay ? 'block' : 'none'} />
-
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
         <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
