@@ -25,8 +25,6 @@ Meteor.publish("userData", function () {
       followingPosts: 1,
       tigerbotPostId: 1,
       'services.facebook.id': 1,
-      'services.instagram.id': 1,
-      'services.instagram.profile_picture': 1,
     }});
   } else {
     this.ready();
