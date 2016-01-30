@@ -9,8 +9,7 @@ export default {
     LocalState.set('SETTINGS_DIALOG_SHOWING', false);
   },
 
-  editProfile(event) => {
-    event.preventDefault();
+  editProfile({ LocalState }, event) {
     LocalState.set('SETTINGS_EDIT_PROFILE_SHOWING', true);
   },
 }

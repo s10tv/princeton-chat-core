@@ -29,16 +29,20 @@ export default React.createClass({
     /**
      * The (current) user whos profile will be displayed.
      */
-    user: React.PropTypes.user,
+    user: React.PropTypes.object,
 
     /**
      * True if this modal is showing.
      */
-    isOpen: React.PropTypes.boolean,
+    isOpen: React.PropTypes.bool,
   },
 
   render() {
     const { handleClose, onLogout, isOpen, user, editProfile } = this.props;
+
+    if (!user) {
+      return null;
+    }
 
     const toolbar =
       <Toolbar>
@@ -63,7 +67,9 @@ export default React.createClass({
             <h1>{user.displayName}</h1>
             <h3>{user.displayUsername}</h3>
             <p>{user.emails[0].address}</p>
-            <p className='profile-edit'><a href="#" onClick={editProfile}>Edit Profile</a> | <a href="#" onClick={onLogout}>Logout</a></p>
+            <p className='profile-edit'>
+              <a href="#" onClick={editProfile}>Edit Profile</a> | <a href="#" onClick={onLogout}>Logout</a>
+            </p>
           </Flex>
         </section>
       </Dialog>
