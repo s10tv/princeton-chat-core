@@ -9,6 +9,7 @@ export default {
     // That's how we are doing latency compensation
     Meteor.call('post/insert', id, title, content, topicIds, (err) => {
       if (err) {
+        console.log(err.message);
         return LocalState.set('SAVING_ERROR', err.message);
       }
 

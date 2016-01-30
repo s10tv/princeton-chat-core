@@ -184,20 +184,15 @@ Meteor.methods({
     }
 
     // make sure that the topic ids entered are legit;
-    const filteredTopicIds = topicIds.map(topicId => {
-      return Topics.findOne(topicId);
+    const filteredTopicIds = topicIds.filter(topicId => {
+      return Topics.findOne(topicId) != undefined
     })
-    .filter((topic) => {
-      return topic != undefined
-    })
-    .map((topic) => {
-      return topic._id;
-    });
 
     if (filteredTopicIds.length == 0) {
       throw new Meteor.Error(400, 'Please enter at least one valid topicId.');
     }
 
+    // We are good to insert the post.
     const postId = Posts.insert({
       _id,
       title,
@@ -211,7 +206,15 @@ Meteor.methods({
       numMsgs: 0,
     })
 
-    Meteor.call('post/follow', postId)
+    // The current user follows the current post they just posted
+    Meteor.call('post/follow', postId);
+
+    // update the num posts after posting.
+    filteredTopicIds.forEach(topicId => {
+      Topics.update(topicId, { $set: {
+        numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId}).count()
+      }});
+    })
 
     if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
       new IronWorker().send({
@@ -228,11 +231,12 @@ Meteor.methods({
       followingTopics: topicId,
     }});
 
-    Topics.update(topicId, { $addToSet: {
-      followers: { userId: user._id, unreadCount: 0 }
-    }, $set: {
-      numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
-    }});
+    const topic = Topics.findOne(topicId);
+    if (topic.followers.filter(follower => follower.userId == user._id).length == 0) {
+      Topics.update(topicId, { $addToSet: {
+        followers: { userId: user._id, unreadCount: 0 }
+      }});
+    }
   },
 
   'topic/unfollow': (topicId) => {
@@ -244,8 +248,6 @@ Meteor.methods({
 
     Topics.update(topicId, { $pull: {
       followers: { userId: user._id }
-    }, $set: {
-      numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
     }});
   },
 
@@ -259,9 +261,12 @@ Meteor.methods({
         followingPosts: postId,
       }});
 
-      Posts.update(postId, { $addToSet: {
-        followers: { userId: user._id, unreadCount: 0 }
-      }});
+
+      if (post.followers.filter(follower => follower.userId == user._id).length == 0) {
+        Posts.update(postId, { $addToSet: {
+          followers: { userId: user._id, unreadCount: 0 }
+        }});
+      }
 
       post.topicIds.forEach(topicId => {
         Topics.update(topicId, { $set: {
