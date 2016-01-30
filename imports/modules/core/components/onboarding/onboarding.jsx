@@ -14,22 +14,24 @@ import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx
 
 export default React.createClass({
   messageOnType(message) {
+    const { setMessageType } = this.props;
+
     switch (message.type) {
       case 'welcome':
-        LocalState.set('type', undefined);
+        setMessageType('type', undefined);
         return welcome(this.props)
       case 'topics':
-        LocalState.set('type', 'topics');
+        setMessageType('type', 'topics');
         return followTopics(this.props);
       case 'linkservice':
-        LocalState.set('type', undefined);
+        setMessageType('type', undefined);
         return linkService(this.props);
       case 'thanks':
-        LocalState.set('type', 'thanks');
+        setMessageType('type', 'thanks');
         return thanks;
       case 'raw':
         if (message.resumeType) {
-          LocalState.set('type', message.resumeType);
+          setMessageType('type', message.resumeType);
         }
         return raw(message.content);
     }

@@ -49,6 +49,7 @@ export const depsMapper = (context, actions) => ({
   submitTextField: actions.onboarding.submitTextField,
   clickFacebook: actions.onboarding.clickFacebook,
   addPassword: actions.onboarding.addPassword,
+  setMessageType: actions.onboarding.setMessageType,
   clickSkip: actions.onboarding.clickSkip,
   context: () => context
 });

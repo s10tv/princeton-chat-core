@@ -1,4 +1,8 @@
 export default {
+  setMessageType({LocalState}, value) {
+    LocalState.set('type', value);
+  },
+
   clickStartOnboarding({Meteor}) {
     Meteor.call('welcome/triggerSelectTopicPrompt');
   },
