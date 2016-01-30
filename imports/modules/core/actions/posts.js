@@ -28,4 +28,8 @@ export default {
   showUserProfile({ LocalState }, post) {
     LocalState.set('PROFILE_USER', post.owner);
   },
+
+  showPostFollowers({ LocalState }, postId) {
+    LocalState.set('POST_FOLLOWERS', postId);
+  }
 };

@@ -199,7 +199,7 @@ Meteor.methods({
     check(profile.classYear, Number);
     check(profile.username, String);
     check(profile.avatarUrl, String);
-    
+
     Users.update(user._id, {
       $set: {
         firstName: profile.firstName,

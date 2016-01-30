@@ -19,7 +19,7 @@ TopicSchema = new SimpleSchema({
   followers: { type: [FollowerSchema], defaultValue: [], optional: true},
   numPosts: { type: Number, defaultValue: 0, optional: true},
   parentTopicId: { type: String, optional: true },
-  order: { type: Number, decimal: true },
+  order: { type: Number, decimal: true, optional: true },
 });
 
 Topics.attachBehaviour('timestampable');
