@@ -51,7 +51,12 @@ export default class PostFollowersModal extends React.Component {
         open={isOpen}
         onRequestClose={closeModal}>
         <List>
-          {followers.map((follower) => <ListItem primaryText={follower.displayName} leftAvatar={<Avatar src={follower.avatar.url} />} /> )}
+          { followers.map((follower) =>
+            <ListItem
+              key={follower._id}
+              primaryText={follower.displayName}
+              leftAvatar={<Avatar src={follower.avatar.url} />}
+            /> )}
         </List>
       </Dialog>
     )
