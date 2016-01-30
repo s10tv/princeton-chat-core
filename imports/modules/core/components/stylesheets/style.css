@@ -1,0 +1,27 @@
+#sidebar-header h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #F07621; /* Princeton Orange */
+}
+
+#sidebar-header .online-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: green;
+  margin-right: 4px;
+}
+
+#sidebar-header .online-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: green;
+  margin-right: 4px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

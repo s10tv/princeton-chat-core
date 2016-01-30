@@ -13,6 +13,18 @@ import InputBox from '/imports/modules/core/containers/inputBox.js'
 import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
 
 export default React.createClass({
+  propTypes: {
+    /**
+     * Determines whether this is from a direct message (to tiger bot) or onboarding.
+     */
+    isDirectMessage: React.PropTypes.bool.isRequired,
+
+    /**
+     * Determines whether to expand the content to 100% or make room for sidebar.
+     */
+    sidebarOpen: React.PropTypes.bool.isRequired,
+  },
+
   messageOnType(message) {
     const { setMessageType } = this.props;
 
@@ -45,41 +57,43 @@ export default React.createClass({
   render() {
     const {messages, user, post, showInputBox, isTyping} = this.props;
     return (
-      <Flex flexDirection='column' flex={1} overflowY='hidden'>
-        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
-        <ScrollingContainer alwaysScrollToBottom={true} child={
-          <Block flex={1} overflowY='scroll'>
-            <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
-              Welcome Tiger!
-            </h1>
-            <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-              Princeton.Chat is a community for Princeton alums.
-            </h2>
-            { messages.map(message => {
+      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
+        <Flex flexDirection='column' flex={1} overflowY='hidden'>
+          <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
+          <ScrollingContainer alwaysScrollToBottom={true} child={
+            <Block flex={1} overflowY='scroll'>
+              <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
+                Welcome Tiger!
+              </h1>
+              <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
+                Princeton.Chat is a community for Princeton alums.
+              </h2>
+              { messages.map(message => {
 
-              if (message.isOnboardingMessage) {
-                var msgContent = this.messageOnType(message);
+                if (message.isOnboardingMessage) {
+                  var msgContent = this.messageOnType(message);
 
-                return <MessageGroup
-                    key={message._id}
-                    owner={message.owner}
-                    timestamp={message.timestamp}
-                    action={msgContent.action}
-                    content={msgContent.comment} />
-              } else {
-                return <MessageGroup
-                    key={message._id}
-                    owner={message.owner}
-                    timestamp={message.timestamp}
-                    content={message.content} />
-              }
-            })}
-          </Block>
-        } />
+                  return <MessageGroup
+                      key={message._id}
+                      owner={message.owner}
+                      timestamp={message.timestamp}
+                      action={msgContent.action}
+                      content={msgContent.comment} />
+                } else {
+                  return <MessageGroup
+                      key={message._id}
+                      owner={message.owner}
+                      timestamp={message.timestamp}
+                      content={message.content} />
+                }
+              })}
+            </Block>
+          } />
 
-        { !isTyping ? null : <p style={{ padding: "0 20px" }}>Tigerbot is typing ... </p> }
-        { !showInputBox ? null :  <InputBox postId={post._id} /> }
-      </Flex>
+          { !isTyping ? null : <p style={{ padding: "0 20px" }}>Tigerbot is typing ... </p> }
+          { !showInputBox ? null :  <InputBox postId={post._id} /> }
+        </Flex>
+      </main>
     )
   }
 })

@@ -27,6 +27,11 @@ export default React.createClass({
      * True if there are no posts in this list
      */
     isEmpty: React.PropTypes.bool,
+
+    /**
+     * A function to show the user profile associated with the post.
+     */
+    showUserProfile: React.PropTypes.func.isRequired,
   },
 
   render() {
@@ -72,17 +77,17 @@ const PostList = (props) => (
 const PostListItem = (props) => (
   <NoPaddingListItem disabled={true}>
     <article>
-      <a href='#' onClick={() => { props.post.showUserProfile(props.post.owner) }}>
+      <a href='#' onClick={() => props.showUserProfile(props.post)}>
         <SquareAvatar src={props.post.owner.avatar.url} length={60} />
       </a>
       <div className='right-container'>
         <header>
-          <a href='#' onClick={props.post.showUserProfile}>
+          <a href='#' onClick={() => props.showUserProfile(props.post)}>
             <span className='display-name'>
               { props.post.owner.displayName }
             </span>
           </a>
-          <a href='#' onClick={props.post.showUserProfile}>
+          <a href='#' onClick={() => props.showUserProfile(props.post)}>
             <span className='mention'>
               @{ props.post.owner.username }
             </span>

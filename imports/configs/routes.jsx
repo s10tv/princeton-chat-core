@@ -124,7 +124,7 @@ export default function (injectDeps) {
     name: 'onboarding',
     action() {
       mount(LayoutMainCtx, {
-        content: (props) => <Onboarding {...props} />
+        content: (props) => <Onboarding {...props} isDirectMessage={false} />
       })
     }
   });
@@ -133,7 +133,7 @@ export default function (injectDeps) {
     name: 'tigercub-directmessage',
     action() {
       mount(LayoutMainCtx, {
-        content: (props) => <Onboarding {...props} />
+        content: (props) => <Onboarding {...props} isDirectMessage={true} />
       })
     }
   });
@@ -142,7 +142,7 @@ export default function (injectDeps) {
     name: 'directmessage',
     action({ postId }) {
       mount(LayoutMainCtx, {
-        content: (props) => <PostSingle postId={postId} />
+        content: (props) => <PostSingle postId={postId} {...props} />
       })
     }
   });

@@ -23,6 +23,7 @@ export const composer = ({context, topicId, postId}, onData) => {
     onData(null, {
       post,
       messages,
+      isDirectMessage: post.isDM,
       followFn: () => { Meteor.call('post/follow', post._id) },
       unfollowFn: () => { Meteor.call('post/unfollow', post._id) },
       followersCount: post.followers.length,
