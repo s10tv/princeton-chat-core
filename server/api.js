@@ -1,5 +1,9 @@
 import { Topics, Posts, Users, Messages } from '/imports/configs/collections';
 
+const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
+const slackUsername = process.env.ENV || 'dev';
+const slackEmoji = process.env.ENV == 'prod' ? ':beer:' : ':poop:';
+
 class CurrentUser {
   static get() {
     user = Meteor.user();
@@ -401,6 +405,12 @@ Meteor.methods({
       status: 'active',
     }})
 
+    const slack = Meteor.npmRequire('slack-notify')(slackUrl);
+    slack.send({
+      icon_emoji: slackEmoji,
+      text: `${user.firstName} ${user.lastName} just signed up. Total count: ${ Users.find().count() + 1 }.`,
+      username: slackUsername,
+    })
 
     switch (serviceName) {
       case 'facebook':
