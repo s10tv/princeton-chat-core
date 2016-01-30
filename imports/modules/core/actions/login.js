@@ -14,6 +14,7 @@ export default {
       FlowRouter.go('all-mine');
     })
   },
+
   loginWithFacebook({LocalState, FlowRouter}) {
     Meteor.loginWithFacebook((err) => {
       if (err) {
