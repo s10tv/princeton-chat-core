@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleResizable} from 'material-ui/lib/mixins'
-import {primaryMuiTheme} from './helpers.jsx'
-import CreatePost from '../containers/post.create.js'
-import LogoutModal from '../containers/logout.modal.js'
-import Main from '../containers/layout.main.js'
-import Sidebar from '../containers/layout.sidebar.js';
-import Profile from '../containers/profile.js'
+import {primaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
+import CreatePost from '/imports/modules/core/containers/post.create.js'
+import LogoutModal from '/imports/modules/core/containers/logout.modal.js'
+import Sidebar from '/imports/modules/core/containers/layout.sidebar.js';
+import Profile from '/imports/modules/core/containers/profile.js'
 
 // TODO: Figure out a better way that does not involve using Mixin
 

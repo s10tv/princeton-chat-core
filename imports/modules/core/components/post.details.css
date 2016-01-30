@@ -1,7 +1,6 @@
-
 .post-details {
   overflow: scroll;
-  flex: 1;  
+  flex: 1;
 }
 
 .post-details > header {

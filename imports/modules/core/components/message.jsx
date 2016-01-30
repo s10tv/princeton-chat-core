@@ -1,6 +1,6 @@
 import React from 'react'
 import {Flex, Block} from 'jsxstyle'
-import {SquareAvatar} from '/imports/modules/core/components-refactor/helpers.jsx'
+import {SquareAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 export const Message = (props) => (
   <div className='message'>

@@ -4,8 +4,8 @@ import Card from 'material-ui/lib/card/card'
 import TextField from 'material-ui/lib/text-field'
 import Colors from 'material-ui/lib/styles/colors'
 import RaisedButton from 'material-ui/lib/raised-button'
-import {primaryMuiTheme} from './helpers.jsx'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
+import {primaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
 
 export default React.createClass({
   mixins: [LinkedStateMixin],
@@ -23,10 +23,6 @@ export default React.createClass({
   handleSubmit(event) {
     event.preventDefault()
     this.props.loginWithPassword(this.state['email'], this.state['password'])
-    // this.setState({
-    //   username: '',
-    //   password: '',
-    // })
   },
   render() {
     return (

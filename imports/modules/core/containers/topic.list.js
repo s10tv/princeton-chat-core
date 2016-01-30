@@ -1,6 +1,6 @@
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import TopicList, {TopicGrid} from '../components-refactor/topic.list.jsx';
-import {Loading} from '../components-refactor/helpers.jsx'
+import {Loading} from '/imports/modules/core/components/helpers.jsx'
 
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context();

@@ -37,8 +37,8 @@ export default React.createClass({
         <TextField multiLine={true} fullWidth={true} underlineShow={false} rowsMax={8}
           hintText='Type a message...'
           value={this.state.text}
-          onChange={this.handleChange.bind(this)}
-          onEnterKeyDown={this.handleEnterKeyDown.bind(this)} />
+          onChange={this.handleChange}
+          onEnterKeyDown={this.handleEnterKeyDown} />
       </Flex>
     )
   }

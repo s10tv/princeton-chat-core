@@ -1,9 +1,9 @@
-import PostDetails from '../components/post.details.jsx';
+import truncate from 'truncate'
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';
-import {Loading} from '../components-refactor/helpers.jsx'
-import truncate from 'truncate'
+import PostDetails from '/imports/modules/core/components/post.details.jsx';
+import {Loading} from '/imports/modules/core/components/helpers.jsx'
 
 export const composer = ({context, topicId, postId}, onData) => {
   const { Collections } = context();

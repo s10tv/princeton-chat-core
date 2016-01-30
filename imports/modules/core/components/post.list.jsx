@@ -1,6 +1,6 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import {SquareAvatar, NoPaddingListItem} from '/imports/modules/core/components-refactor/helpers.jsx'
+import {SquareAvatar, NoPaddingListItem} from '/imports/modules/core/components/helpers.jsx'
 import List from 'material-ui/lib/lists/list'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Menu from '/imports/modules/core/components/menu.jsx'

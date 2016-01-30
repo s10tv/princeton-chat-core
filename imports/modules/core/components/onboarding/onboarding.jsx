@@ -4,37 +4,26 @@ import Paper from 'material-ui/lib/paper'
 import Avatar from 'material-ui/lib/avatar'
 import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
-import { welcome, followTopics, thanks, linkService, raw } from './tigerBotMessages.jsx'
-import styles from './styles'
 import moment from 'moment'
 import {Flex, Block} from 'jsxstyle'
-import {Message, MessageGroup} from '../message.jsx'
-import InputBox from '../../containers/inputBox.js'
-import { ScrollingContainer } from '../helpers.jsx'
+import styles from './styles'
+import { welcome, followTopics, thanks, linkService, raw } from './tigerBotMessages.jsx'
+import {Message, MessageGroup} from '/imports/modules/core/components/message.jsx'
+import InputBox from '/imports/modules/core/containers/inputBox.js'
+import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
 
-class Onboarding extends React.Component {
+export default React.createClass({
   messageOnType(message) {
-    const {
-      shouldShowPasswordFields,
-      LocalState,
-      user,
-      clickStartOnboarding,
-      tigerBotMessages,
-      topics,
-      clickFacebook,
-      addPassword,
-      clickSkip
-    } = this.props;
     switch (message.type) {
       case 'welcome':
         LocalState.set('type', undefined);
-        return welcome({ user, clickStartOnboarding })
+        return welcome(this.props)
       case 'topics':
         LocalState.set('type', 'topics');
-        return followTopics({ user, topics });
+        return followTopics(this.props);
       case 'linkservice':
         LocalState.set('type', undefined);
-        return linkService({ shouldShowPasswordFields, clickFacebook, addPassword });
+        return linkService(this.props);
       case 'thanks':
         LocalState.set('type', 'thanks');
         return thanks;
@@ -44,12 +33,12 @@ class Onboarding extends React.Component {
         }
         return raw(message.content);
     }
-  }
+  },
 
   submitTextField(e) {
     const {submitTextField} = this.props;
     submitTextField(e, this.refs.textField);
-  }
+  },
 
   render() {
     const {messages, user, post, showInputBox, isTyping} = this.props;
@@ -91,6 +80,4 @@ class Onboarding extends React.Component {
       </Flex>
     )
   }
-}
-
-export default Onboarding;
+})

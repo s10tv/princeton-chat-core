@@ -1,10 +1,9 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
 import InputBox from '/imports/modules/core/containers/inputBox.js'
-import {ScrollingContainer} from '/imports/modules/core/components-refactor/helpers.jsx'
+import {ScrollingContainer} from '/imports/modules/core/components/helpers.jsx'
 import Menu from '/imports/modules/core/components/menu.jsx'
 import {MessageGroup} from '/imports/modules/core/components/message.jsx'
-import { FixedMenuContainer } from '/imports/modules/core/components-refactor/layout.main.jsx'
 import { styles } from '/imports/modules/core/components/styles.jsx'
 
 export default React.createClass({

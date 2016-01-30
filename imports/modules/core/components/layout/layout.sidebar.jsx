@@ -5,8 +5,8 @@ import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
-import {SmallListItem, MediumListItem, SquareAvatar, secondaryMuiTheme} from './helpers.jsx'
-import { SidebarOverlay } from './onboarding/onboarding.overlay.jsx'
+import SidebarOverlay from '/imports/modules/core/components/onboarding/sidebar.overlay.jsx'
+import {SmallListItem, MediumListItem, SquareAvatar, secondaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
 
 import FontIcon from 'material-ui/lib/font-icon'
 

@@ -1,10 +1,10 @@
-import React from 'react';
-import FlatButton from 'material-ui/lib/flat-button';
-import styles from './styles.js';
-import _ from 'underscore';
-import {TopicGridContainer} from '../../containers/topic.list.js';
+import React from 'react'
+import FlatButton from 'material-ui/lib/flat-button'
 import TextField from 'material-ui/lib/text-field'
-import {SquareAvatar} from '../helpers.jsx'
+import _ from 'underscore'
+import styles from './styles.js'
+import {TopicGridContainer} from '/imports/modules/core/containers/topic.list.js'
+import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
 
 // Type 'welcome'
 const primaryButton = ({ onClick }) => {

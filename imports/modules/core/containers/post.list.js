@@ -1,7 +1,7 @@
 import truncate from 'truncate';
 
-import {Loading} from '../components-refactor/helpers.jsx'
-import PostList from '../components/post.list.jsx';
+import {Loading} from '/imports/modules/core/components/helpers.jsx'
+import PostList from '/imports/modules/core/components/post.list.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';
