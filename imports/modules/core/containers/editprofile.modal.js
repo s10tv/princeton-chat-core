@@ -97,9 +97,11 @@ export const composer = ({context, actions}, onData) => {
 
   const changePassword = () => {
     Accounts.changePassword(oldPassword, newPassword, (err) => {
-      if (err.reason) {
-        alert(err);
+      if (err) {
+        return alert(err.reason);
       }
+
+      return alert('Your password has been changed.');
     });
   };
 
