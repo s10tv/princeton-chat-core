@@ -23,7 +23,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
         break;
 
       case 'ALL_MINE':
-        topic =  {
+        topic = {
           displayName: 'Everything I follow',
         };
         options['$or'] = [
@@ -89,6 +89,7 @@ const depsMapper = (context, actions) => ({
   showAddPostPopupFn: actions.posts.showAddPostPopup,
   showUserProfile: actions.posts.showUserProfile,
   navigateToTopic: actions.topics.navigateToTopic,
+  showPostFollowers: actions.posts.showPostFollowers,
   context: () => context
 });
 
