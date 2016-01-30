@@ -31,10 +31,6 @@ export default class UserService {
 
   static currentUser() {
     const user = Meteor.user();
-    if (!user) {
-      return null;
-    }
-
     return UserService.getUserView(user);
   }
 }
