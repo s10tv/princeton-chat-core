@@ -15,6 +15,8 @@ export const composer = ({context}, onData) => {
 export const depsMapper = (context, actions) => ({
   create: actions.posts.create,
   handleClose: actions.posts.closeAddPostPopup,
+  showTopicFollowers: actions.topics.showTopicFollowers,
+  updateTopicFollowers: actions.topics.updateTopicFollowers,
   context: () => context
 });
 

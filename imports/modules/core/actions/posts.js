@@ -30,8 +30,9 @@ export default {
     LocalState.set('PROFILE_USER', post.owner);
   },
 
-  showPostFollowers({ LocalState }, postId) {
-    LocalState.set('POST_FOLLOWERS', postId);
+  showPostFollowers({ LocalState }, followers) {
+    LocalState.set('FOLLOWERS_MODAL_OPEN', true);
+    LocalState.set('POST_FOLLOWERS', followers);
   },
 
   follow({ Meteor }, postId) {

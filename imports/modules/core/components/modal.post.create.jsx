@@ -27,6 +27,16 @@ export default React.createClass({
      * A list of all of the topics to use for the selector
      */
     allTopics: React.PropTypes.array,
+
+    /**
+     * A function to show the followers of the post.
+     */
+    showTopicFollowers: React.PropTypes.func.isRequired,
+
+    /**
+     * Updates the list of followers whenever a new topic is selected.
+     */
+    updateTopicFollowers: React.PropTypes.func.isRequired,
   },
 
   getInitialState() {
@@ -44,10 +54,12 @@ export default React.createClass({
     this.setState({
       selectedTopicIds: value
     })
+
+    this.props.updateTopicFollowers(value.split(','));
   },
 
   render() {
-    const { isOpen, handleClose, allTopics } = this.props;
+    const { isOpen, handleClose, allTopics, showTopicFollowers } = this.props;
     return (
       <Dialog
          title='New Post'

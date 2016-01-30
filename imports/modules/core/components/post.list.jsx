@@ -123,7 +123,7 @@ const PostListItem = (props) => (
           )}
           <span className='spacer' />
           <span className='comments-count'>{ props.post.numMsgs} comments</span>
-          <a href='#' onClick={() => props.showPostFollowers(props.post._id)}>
+          <a href='#' onClick={() => props.showPostFollowers(props.post.followers)}>
             <span className='followers-count'>{ props.post.numFollowers } followers</span>
           </a>
           <span className='follow-button'>

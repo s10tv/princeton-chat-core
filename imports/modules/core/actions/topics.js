@@ -21,6 +21,23 @@ export default {
     return FlowRouter.go(`/topics/${topicId}`);
   },
 
+  updateTopicFollowers({ LocalState, Collections }, topicIds) {
+    const userIdMap = Collections.Topics.find({ _id: { $in: topicIds }}).fetch().reduce((acc, topic) => {
+      topic.followers.forEach(follower => {
+        acc[follower.userId] = follower;
+      });
+      return acc;
+    }, {});
+
+    LocalState.set('POST_FOLLOWERS', _.map(userIdMap, (val) => {
+      return val
+    }));
+  },
+
+  showTopicFollowers({ LocalState }) {
+    LocalState.set('FOLLOWERS_MODAL_OPEN', true);
+  },
+
   follow({Meteor}, topicId) {
     Meteor.call('topic/follow', topicId, (err) => {
       switch (FlowRouter.current().route.name) {

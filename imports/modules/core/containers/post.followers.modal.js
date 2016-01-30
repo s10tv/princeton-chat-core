@@ -5,23 +5,15 @@ import UserService from '../../../libs/UserService';
 export const composer = ({context, actions}, onData) => {
   const { Meteor, Collections, FlowRouter, LocalState } = context();
 
-  const isOpen = LocalState.get('POST_FOLLOWERS') != undefined;
-  const postId = LocalState.get('POST_FOLLOWERS');
-
-  const getFollowers = () => {
-    if (postId) {
-      const post = Collections.Posts.findOne(postId);
-      return post.followers.map(follower => {
-        return UserService.getUserView(Users.findOne(follower.userId));
-      });
-    } else {
-      return [];
-    }
-  }
+  const isOpen = LocalState.get('FOLLOWERS_MODAL_OPEN') || false;
+  const followersFromState = LocalState.get('POST_FOLLOWERS') || [];
+  const followers = followersFromState.map(follower => {
+    return UserService.getUserView(Users.findOne(follower.userId));
+  });
 
   onData(null, {
     isOpen,
-    followers: getFollowers()
+    followers
   });
 };
 
