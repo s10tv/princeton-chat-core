@@ -22,14 +22,17 @@ export default React.createClass({
     }
   },
   render() {
-    const sidebarOpen = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
-                     || this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
+    const isAtLeastDesktop = this.isDeviceSize(StyleResizable.statics.Sizes.LARGE);
+    const isAtLastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM);
+    const isAtLeastMobile = this.isDeviceSize(StyleResizable.statics.Sizes.SMALL);
+
+    const sidebarOpen = isAtLastTablet || isAtLeastDesktop;
     const content = this.props.content || () => {};
 
     return (
       <div id='layout'>
         <Sidebar sidebarOpen={sidebarOpen} />
-        {content({ sidebarOpen })}
+        {content({ sidebarOpen, isAtLastTablet, isAtLeastDesktop })}
         <CreatePost />
         <LogoutModal />
         <EditProfileModal />

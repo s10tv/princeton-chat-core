@@ -8,6 +8,7 @@ import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
+import truncate from 'truncate'
 
 export default React.createClass({
 
@@ -67,6 +68,61 @@ export default React.createClass({
     * Executing this function shows the post modal.
     */
     showAddPostPopupFn: React.PropTypes.func,
+
+    /**
+     * For media queries
+     */
+    isAtLastTablet: React.PropTypes.bool,
+    isAtLastDesktop: React.PropTypes.bool,
+  },
+
+  getTitleText() {
+    if (this.props.isAtLastTablet) {
+      return truncate(this.props.title, 50);
+    } else if (this.props.isAtLastTablet)  {
+      return truncate(this.props.title, 30);
+    } else {
+      return ''; // mobile devices are too small to display titles.
+    }
+  },
+
+  getAddPostButtonText() {
+    if (this.props.isDesktop || this.props.isTablet) {
+      return 'New Post';
+    }
+
+    return 'Post';
+  },
+
+  getFollowerButton() {
+    const emailIcon = this.props.sidebarOpen ? null :
+      <FontIcon className='material-icons' color='white' style={{
+        verticalAlign: 'middle',
+        height: '100%',
+        marginLeft: (this.props.sidebarOpen ? 8 : 0),
+      }}>email</FontIcon>
+
+    if (this.props.isFollowing) {
+      return <FlatButton
+        label={ this.props.sidebarOpen ? 'Following' : null }
+        style={{
+          backgroundColor: '#4CAF50',
+          color: '#ffffff'
+        }}
+        onTouchTap={this.props.unfollowFn}>
+          { emailIcon }
+      </FlatButton>
+    } else {
+      return <FlatButton
+        label={ this.props.sidebarOpen ? 'Follow' : null }
+        style={{
+          backgroundColor: '#cccccc',
+          color: '#ffffff'
+        }}
+        onTouchTap={this.props.followFn}>
+          { emailIcon }
+      </FlatButton>
+    }
   },
 
   render() {
@@ -77,7 +133,7 @@ export default React.createClass({
     return (
       <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd'}}>
 
-        { !this.props.isMobile ? null :
+        { this.props.sidebarOpen ? null :
           <ToolbarGroup firstChild={true}>
             <IconButton iconClassName='material-icons' tooltip='Menu'>menu</IconButton>
           </ToolbarGroup>
@@ -85,14 +141,14 @@ export default React.createClass({
 
         { this.props.hideTitleSection ? null :
           <ToolbarGroup >
-            <ToolbarTitle text={this.props.title} />
+            <ToolbarTitle text={this.getTitleText()} />
           </ToolbarGroup>
         }
 
         { this.props.hideFollowerSection ? null :
           <ToolbarGroup style={{height: '100%'}}>
             <Flex alignItems='center' height='100%'>
-              <FontIcon className='material-icons'>group</FontIcon>
+              <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
               <span>{ this.props.followersCount }</span>
             </Flex>
           </ToolbarGroup>
@@ -100,23 +156,15 @@ export default React.createClass({
 
         { this.props.hideFollowActionSection ? null :
           <ToolbarGroup>
-            { this.props.isFollowing
-              ? <FlatButton
-                  label='Following'
-                  style={{ backgroundColor: '#4CAF50', color: '#ffffff' }}
-                  onTouchTap={this.props.unfollowFn} />
-              : <FlatButton
-                  label='Follow'
-                  onTouchTap={this.props.followFn} />
-            }
+            { this.getFollowerButton() }
           </ToolbarGroup>
         }
 
         { this.props.hidePostButton ? null :
           <ToolbarGroup float='right' lastChild={true}>
             <ToolbarSeparator />
-            <RaisedButton primary={true}
-                label='New Post'
+              <RaisedButton primary={true}
+                label={ this.getAddPostButtonText() }
                 labelPosition='after'
                 onTouchTap={this.props.showAddPostPopupFn}>
               <FontIcon className='material-icons' color='white' style={{
