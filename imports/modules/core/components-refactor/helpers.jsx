@@ -11,9 +11,9 @@ import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
 import CircularProgress from 'material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
 
-export const systemFont = `-apple-system, BlinkMacSystemFont, 
-  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
-  "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue", 
+export const systemFont = `-apple-system, BlinkMacSystemFont,
+  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+  "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue",
   sans-serif`
 
 export const articleFont = 'medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif'

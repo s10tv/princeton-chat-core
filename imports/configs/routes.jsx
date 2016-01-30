@@ -56,7 +56,7 @@ export default function (injectDeps) {
     name: 'postList',
     action({ topicId }) {
       mount(LayoutMainCtx, {
-        content: () => <PostList topicId={topicId} />
+        content: (props) => <PostList topicId={topicId} {...props} />
       })
     }
   });
@@ -65,7 +65,7 @@ export default function (injectDeps) {
     name: 'all-mine',
     action() {
       mount(LayoutMainCtx, {
-        content: () => <PostList postListType={'ALL_MINE'} />
+        content: (props) => <PostList postListType={'ALL_MINE'} {...props} />
       })
     }
   });
@@ -74,7 +74,7 @@ export default function (injectDeps) {
     name: 'all',
     action() {
       mount(LayoutMainCtx, {
-        content: () => <PostList postListType={'ALL'} />
+        content: (props) => <PostList postListType={'ALL'} {...props} />
       })
     }
   });
@@ -84,7 +84,7 @@ export default function (injectDeps) {
     name: 'choose-topics',
     action() {
       mount(LayoutMainCtx, {
-        content: (props) => <TopicList {...props} />
+        content: (props) => <TopicList {...props} {...props} />
       })
     }
   });
@@ -93,7 +93,7 @@ export default function (injectDeps) {
     name: 'postDetails',
     action({ topicId, postId }) {
       mount(LayoutMainCtx, {
-        content: () => <PostSingle topicId={topicId} postId={postId} />
+        content: (props) => <PostSingle topicId={topicId} postId={postId} {...props } />
       })
     }
   });

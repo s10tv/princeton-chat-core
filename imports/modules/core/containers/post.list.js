@@ -8,8 +8,9 @@ import DateFormatter from '/imports/libs/DateFormatter';
 
 export const composer = ({context, topicId, postListType}, onData) => {
   const {Meteor, Collections, FlowRouter, LocalState} = context();
+  const currentUser = UserService.currentUser();
+
   if (Meteor.subscribe('posts', topicId).ready()) {
-    const currentUser = UserService.currentUser();
     var topic;
     var options = {};
     options.isDM = { $ne: true };
@@ -54,23 +55,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
       post.truncatedContent = truncate(post.content, 150);
 
       post.numFollowers = post.followers.length;
-
       post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0;
-      post.onFollow = (event) => {
-        event.preventDefault();
-        return Meteor.call('post/follow', post._id);
-      };
-
-      post.onUnFollow = (event) => {
-        event.preventDefault();
-        return Meteor.call('post/unfollow', post._id);
-      };
-
-      post.showUserProfile = (event) => {
-        event.preventDefault();
-        LocalState.set('PROFILE_USER_ANCHOR', event.target);
-        LocalState.set('PROFILE_USER', post.owner);
-      }
 
       var currentTopicId;
       var currentPostId = post._id;
@@ -90,13 +75,19 @@ export const composer = ({context, topicId, postListType}, onData) => {
     onData(null, {
       topic,
       posts,
+      followFn: () => { Meteor.call('topic/follow', topic._id) },
+      unfollowFn: () => { Meteor.call('topic/unfollow', topic._id) },
+      followersCount: topic.followers.length,
+      title: topic.displayName,
+      isFollowing: currentUser.followingTopics.indexOf(topic._id) >= 0,
+      isEmpty: posts.length == 0,
     });
   }
 };
 
 const depsMapper = (context, actions) => ({
-  followPost: actions.posts.follow,
-  showAddPostPopup: actions.posts.showAddPostPopup,
+  showAddPostPopupFn: actions.posts.showAddPostPopup,
+  showUserProfile: actions.posts.showUserProfile,
   navigateToTopic: actions.topics.navigateToTopic,
   context: () => context
 });

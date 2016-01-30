@@ -21,7 +21,7 @@ export default {
     LocalState.set('ADD_POST_POPUP_SHOWING', true);
   },
 
-  follow({}, postId) {
-    Meteor.call('topic/follow', postId);
+  showUserProfile({}, post) {
+    LocalState.set('PROFILE_USER', post.owner);
   },
 };

@@ -29,14 +29,7 @@ export default React.createClass({
     return (
       <div id='layout'>
         <Sidebar sidebarOpen={sidebarOpen} />
-        <main style={{
-            marginLeft: sidebarOpen ? 240 : 0,
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-          }}>
-          {content()}
-        </main>
+        {content({ sidebarOpen })}
         <CreatePost />
         <LogoutModal />
         <Profile />

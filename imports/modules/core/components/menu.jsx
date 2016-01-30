@@ -35,7 +35,7 @@ export default React.createClass({
     /**
      * This text will be prepended with a person avatar.
      */
-    followersCount: React.PropTypes.string,
+    followersCount: React.PropTypes.number,
 
     /**
      * True if the followers section should be hidden
@@ -45,28 +45,28 @@ export default React.createClass({
     /**
      * True if the Follow/Following action section will be hidden
      */
-     hideFollowActionSection: React.PropTypes.bool,
+    hideFollowActionSection: React.PropTypes.bool,
 
-     /**
-      * True if this element is already being followed.
-      */
-     isFollowing: React.PropTypes.bool,
+    /**
+    * True if this element is already being followed.
+    */
+    isFollowing: React.PropTypes.bool,
 
-     /**
-      * Functions to call when follow action is pressed.
-      */
-     followFn: React.PropTypes.func,
-     unfollowFn: React.PropTypes.func,
+    /**
+    * Functions to call when follow action is pressed.
+    */
+    followFn: React.PropTypes.func,
+    unfollowFn: React.PropTypes.func,
 
-     /**
-      * True to hide the add new post button
-      */
-     hidePostButton: React.PropTypes.bool,
+    /**
+    * True to hide the add new post button
+    */
+    hidePostButton: React.PropTypes.bool,
 
-     /**
-      * Executing this function shows the post modal.
-      */
-     showAddPostPopupFn: React.PropTypes.func,
+    /**
+    * Executing this function shows the post modal.
+    */
+    showAddPostPopupFn: React.PropTypes.func,
   },
 
   render() {

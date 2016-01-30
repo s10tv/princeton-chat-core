@@ -1,0 +1,21 @@
+.message-group .display-name {
+  margin-right: 8px;
+}
+
+.message-group .mention {
+  margin-right: 8px;
+  color: #57A3F0;
+}
+
+.message-group .datetime {
+  font-size: 14px;
+  color: #888;
+}
+
+.message-group p, .message-group .message-content {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  font-size: 15px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

@@ -3,18 +3,76 @@ import {Flex} from 'jsxstyle'
 import {SquareAvatar, NoPaddingListItem} from '/imports/modules/core/components-refactor/helpers.jsx'
 import List from 'material-ui/lib/lists/list'
 import RaisedButton from 'material-ui/lib/raised-button'
-import Menu from './menu.jsx'
+import Menu from '/imports/modules/core/components/menu.jsx'
+import { styles } from '/imports/modules/core/components/styles.jsx'
 
-const FollowBtn = (props) => (
-  props.post.isFollowingPost
-    ? <a href='#' onClick={props.post.onUnFollow}>Following</a>
-    : <a href='#' onClick={props.post.onFollow}>Follow</a>
+export default React.createClass({
+  propTypes: {
+    /**
+     * Proptypes are also indirectly passed to Menu
+     */
+    ...Menu.propTypes,
+
+    /**
+     * Topic to render
+     */
+    topic: React.PropTypes.object.isRequired,
+
+    /**
+     * Posts to render (array can be empty).
+     */
+    posts: React.PropTypes.array.isRequired,
+
+    /**
+     * True if there are no posts in this list
+     */
+    isEmpty: React.PropTypes.bool,
+  },
+
+  render() {
+    return (
+      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
+        <Menu
+          hidePostButton={this.props.isEmpty}
+          {...this.props} />
+
+        { this.props.isEmpty ? <EmptyPostList {...this.props} /> : <PostList {...this.props} /> }
+      </main>
+    )
+  }
+})
+
+const EmptyPostList = ({ showAddPostPopup }) => (
+  <Flex className='post-list-empty' flex={1} flexDirection='column'
+    justifyContent='center' alignItems='center'>
+    <h2>It's awfully quiet in here</h2>
+    <h3>Let's break the ice</h3>
+    <RaisedButton
+      primary={true}
+      onTouchTap={showAddPostPopup}
+      label='Create a new post' />
+    <img src='/images/bg-empty-feed.png' alt='empty feed' style={{
+        width: '50%',
+        maxWidth: 468,
+        marginTop: 36,
+      }}/>
+  </Flex>
+)
+
+const PostList = (props) => (
+  <section className='post-list' style={{flexGrow: 1}}>
+    <List style={{paddingTop: 0, paddingBottom: 0}}>
+      { props.posts.map(post =>
+        <PostListItem key={post._id} post={post} {...props} />
+      )}
+    </List>
+  </section>
 )
 
 const PostListItem = (props) => (
   <NoPaddingListItem disabled={true}>
     <article>
-      <a href='#' onClick={props.post.showUserProfile}>
+      <a href='#' onClick={() => { props.post.showUserProfile(props.post.owner) }}>
         <SquareAvatar src={props.post.owner.avatar.url} length={60} />
       </a>
       <div className='right-container'>
@@ -60,36 +118,8 @@ const PostListItem = (props) => (
   </NoPaddingListItem>
 )
 
-const EmptyPostList = ({ showAddPostPopup }) => (
-  <Flex className='post-list-empty' flex={1} flexDirection='column'
-    justifyContent='center' alignItems='center'>
-    <h2>It's awfully quiet in here</h2>
-    <h3>Let's break the ice</h3>
-    <RaisedButton
-      primary={true}
-      onTouchTap={showAddPostPopup}
-      label='Create a new post' />
-    <img src='/images/bg-empty-feed.png' alt='empty feed' style={{
-        width: '50%',
-        maxWidth: 468,
-        marginTop: 36,
-      }}/>
-  </Flex>
-)
-
-const PostList = (props) => (
-  <div>
-    <Menu title={'# Software'} followersCount={"5"} isFollowing={true} />
-    <section className='post-list' style={{flexGrow: 1}}>
-      <List style={{paddingTop: 0, paddingBottom: 0}}>
-        { props.posts.map(post =>
-          <PostListItem key={post._id} post={post} {...props} />
-        )}
-      </List>
-    </section>
-  </div>
-)
-
-export default (props) => (
-  props.posts.length > 0 ? <PostList {...props} /> : <EmptyPostList {...props} />
+const FollowBtn = (props) => (
+  props.post.isFollowingPost
+    ? <a href='#' onClick={props.onUnFollow}>Following</a>
+    : <a href='#' onClick={props.onFollow}>Follow</a>
 )
