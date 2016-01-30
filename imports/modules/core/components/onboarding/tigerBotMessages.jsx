@@ -2,7 +2,7 @@ import React from 'react'
 import FlatButton from 'material-ui/lib/flat-button'
 import TextField from 'material-ui/lib/text-field'
 import _ from 'underscore'
-import styles from '/imports/modules/core/components/styles.js'
+import styles from '/imports/modules/core/components/styles.jsx'
 import {TopicGridContainer} from '/imports/modules/core/containers/topic.list.js'
 import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
 
