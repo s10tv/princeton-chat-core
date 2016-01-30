@@ -4,7 +4,7 @@ import {SquareAvatar, NoPaddingListItem} from '/imports/modules/core/components/
 import List from 'material-ui/lib/lists/list'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Menu from '/imports/modules/core/components/menu.jsx'
-import { styles } from '/imports/modules/core/components/styles.jsx'
+import styles from '/imports/modules/core/components/styles.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -37,6 +37,11 @@ export default React.createClass({
      * A function to show the followers of the post.
      */
     showPostFollowers: React.PropTypes.func.isRequired,
+
+    /**
+     * The function to show a popup modal for adding new posts (in case of empty state).
+     */
+    showAddPostPopupFn: React.PropTypes.func.isRequired,
   },
 
   render() {
@@ -52,14 +57,14 @@ export default React.createClass({
   }
 })
 
-const EmptyPostList = ({ showAddPostPopup }) => (
+const EmptyPostList = ({ showAddPostPopupFn }) => (
   <Flex className='post-list-empty' flex={1} flexDirection='column'
     justifyContent='center' alignItems='center'>
     <h2>It's awfully quiet in here</h2>
     <h3>Let's break the ice</h3>
     <RaisedButton
       primary={true}
-      onTouchTap={showAddPostPopup}
+      onTouchTap={showAddPostPopupFn}
       label='Create a new post' />
     <img src='/images/bg-empty-feed.png' alt='empty feed' style={{
         width: '50%',
