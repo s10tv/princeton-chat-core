@@ -94,6 +94,8 @@ const depsMapper = (context, actions) => ({
   showUserProfile: actions.posts.showUserProfile,
   navigateToTopic: actions.topics.navigateToTopic,
   showPostFollowers: actions.posts.showPostFollowers,
+  followPostFn: actions.posts.follow,
+  unfollowPostFn: actions.posts.unfollow,
   context: () => context
 });
 

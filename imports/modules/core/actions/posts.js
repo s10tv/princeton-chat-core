@@ -31,5 +31,13 @@ export default {
 
   showPostFollowers({ LocalState }, postId) {
     LocalState.set('POST_FOLLOWERS', postId);
-  }
+  },
+
+  follow({ Meteor }, postId) {
+    Meteor.call('post/follow', postId);
+  },
+
+  unfollow({ Meteor }, postId) {
+    Meteor.call('post/unfollow', postId);
+  },
 };

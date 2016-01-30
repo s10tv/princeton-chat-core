@@ -137,6 +137,6 @@ const PostListItem = (props) => (
 
 const FollowBtn = (props) => (
   props.post.isFollowingPost
-    ? <a href='#' onClick={props.onUnFollow}>Following</a>
-    : <a href='#' onClick={props.onFollow}>Follow</a>
+    ? <a href='#' onClick={() => props.unfollowPostFn(props.post._id)}>Following</a>
+    : <a href='#' onClick={() => props.followPostFn(props.post._id)}>Follow</a>
 )
