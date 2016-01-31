@@ -6,13 +6,22 @@ import PostDetails from '/imports/modules/core/components/post.details.jsx';
 import {Loading} from '/imports/modules/core/components/helpers.jsx'
 
 export const composer = ({context, topicId, postId}, onData) => {
-  const { Collections } = context();
+  const { Collections, LocalState } = context();
   const currentUser = UserService.currentUser();
 
   if (Meteor.subscribe('messages', postId).ready()) {
     const post = Collections.Posts.findOne(postId);
     post.timestamp = DateFormatter.format(post);
     post.owner = UserService.getUserView(Collections.Users.findOne(post.ownerId));
+
+    // populate the cache of post followers.
+    if (post.followers.length > 0) {
+      Meteor.call('get/followers', post.followers, (err, res) => {
+        LocalState.set('POST_FOLLOWERS', res);
+      });
+    } else {
+      LocalState.set('POST_FOLLOWERS', []);
+    }
 
     const messages = Messages.find({ postId: postId }, { sort: { createdAt: 1 }}).map(message => {
       message.owner = UserService.getUserView(Collections.Users.findOne(message.ownerId));
@@ -35,6 +44,7 @@ export const composer = ({context, topicId, postId}, onData) => {
 
 const depsMapper = (context, actions) => ({
   showAddPostPopupFn: actions.posts.showAddPostPopup,
+  showFollowersFn: actions.topics.showTopicFollowers,
   context: () => context
 });
 
