@@ -72,9 +72,15 @@ export default React.createClass({
         <ToolbarGroup float="left">
           <ToolbarTitle text="New Post" />
         </ToolbarGroup>
-        <ToolbarGroup float="right" lastChild={true}>
-          <RaisedButton label="Followers" disabled={isFollowersDisabled} primary={true} onTouchTap={showTopicFollowers}  />
-        </ToolbarGroup>
+
+        { isFollowersDisabled ? null :
+          <ToolbarGroup float="right" lastChild={true}>
+            <RaisedButton
+              label="Show Followers"
+              primary={true}
+              onTouchTap={showTopicFollowers}  />
+          </ToolbarGroup>
+        }
       </Toolbar>
 
     return (
