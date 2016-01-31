@@ -20,6 +20,10 @@ ServiceConfiguration.configurations.insert({
  });
 
 Accounts.validateNewUser((user) => {
-  throw new Meteor.Error(403, "You haven't registered yet. Register first at https://princeton.chat")
-  return false
+  if (user && user.services && user.services.facebook) {
+    throw new Meteor.Error(403, "You haven't registered yet. Register first at https://princeton.chat")
+    return false
+  }
+
+  return true;
 })

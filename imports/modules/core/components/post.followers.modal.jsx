@@ -54,7 +54,7 @@ export default class PostFollowersModal extends React.Component {
           { followers.map((follower) =>
             <ListItem
               key={follower._id}
-              primaryText={follower.displayName}
+              primaryText={follower.displayEmail}
               leftAvatar={<Avatar src={follower.avatar.url} />}
             /> )}
         </List>

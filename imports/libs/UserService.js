@@ -24,7 +24,25 @@ export default class UserService {
     }
 
     user.displayUsername = user.username ? `@${user.username}` : '';
-    user.displayName = `${user.firstName} ${user.lastName} ${user.classDisplay}`;
+
+    user.displayName = "";
+    if (user.firstName) {
+      user.displayName += `${user.firstName} `;
+    }
+
+    if (user.lastName) {
+      user.displayName += `${user.lastName} `;
+    }
+
+    if (user.classDisplay) {
+      user.displayName += `${user.classDisplay} `;
+    }
+
+    if (user.emails && user.emails.length > 0) {
+      user.displayEmail = user.emails[0].address;
+    } else {
+      user.displayEmail = '';
+    }
 
     return user;
   }

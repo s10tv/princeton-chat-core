@@ -20,7 +20,7 @@ export default {
   navigateToTopic({}, topicId) {
     return FlowRouter.go(`/topics/${topicId}`);
   },
-
+  
   updateTopicFollowers({ LocalState, Collections }, topicIds) {
     const userIdMap = Collections.Topics.find({ _id: { $in: topicIds }}).fetch().reduce((acc, topic) => {
       topic.followers.forEach(follower => {
@@ -38,7 +38,7 @@ export default {
         console.log(err);
       }
 
-      LocalState.set('POST_FOLLOWERS', res);
+    LocalState.set('POST_FOLLOWERS', res);
     });
   },
 

@@ -7,7 +7,7 @@ ImageSchema = new SimpleSchema({
 });
 
 UserSchema = new SimpleSchema({
-  firstName: { type: String, optional: true, defaultValue: 'Me' },
+  firstName: { type: String, optional: true },
   lastName: { type: String, optional: true },
   classYear: { type: String, optional: true },
   classType: { type: String, optional: true },

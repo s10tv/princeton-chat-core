@@ -1,4 +1,6 @@
 import { Topics, Posts, Users, Messages } from '/imports/configs/collections';
+import TopicManager from '/imports/server/TopicManager';
+import PostManager from '/imports/server/PostManager';
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev';
@@ -106,6 +108,35 @@ pause = (pauseTime = 1000) => {
 }
 
 Meteor.methods({
+  'topics/users/import': (topicId, emails) => {
+    check(topicId, String);
+    check(emails, [String]);
+
+    const topic = Topics.findOne(topicId);
+    if (!topic) {
+      throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`);
+    }
+
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    emails.filter(email => re.test(email))
+    .forEach(email => {
+      let existingUser = Accounts.findUserByEmail(email);
+      if (!existingUser) {
+        // assign the user a username equal to their email username
+        let username = email.substring(0, email.indexOf('@'));
+        let newUserId = Accounts.createUser({ username, email, password: email, profile: {} });
+
+        Users.update(newUserId, { $set: {
+          firstName: username,
+        }})
+
+        existingUser = Users.findOne(newUserId);
+      }
+
+      TopicManager.follow({ topicId, user: existingUser });
+    })
+  },
+
   'signup/randomuser': () => {
     const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results;
     const inviteCode = Meteor.uuid()
@@ -229,77 +260,23 @@ Meteor.methods({
   },
 
   'topic/follow': (topicId) => {
-    check(topicId, String);
-    user = CurrentUser.get()
-    Users.update(user._id, { $addToSet: {
-      followingTopics: topicId,
-    }});
-
-    const topic = Topics.findOne(topicId);
-    if (topic.followers.filter(follower => follower.userId == user._id).length == 0) {
-      Topics.update(topicId, { $addToSet: {
-        followers: { userId: user._id, unreadCount: 0 }
-      }});
-    }
+    check(topicId, String)
+    TopicManager.follow({ topicId, user: CurrentUser.get()})
   },
 
   'topic/unfollow': (topicId) => {
-    check(topicId, String);
-    user = CurrentUser.get()
-    Users.update(user._id, { $pull: {
-      followingTopics: topicId,
-    }});
-
-    Topics.update(topicId, { $pull: {
-      followers: { userId: user._id }
-    }});
+    check(topicId, String)
+    TopicManager.unfollow({ topicId, user: CurrentUser.get()})
   },
 
   'post/follow': (postId) => {
     check(postId, String);
-    user = CurrentUser.get()
-    post = Posts.findOne(postId);
-
-    if (post) {
-      Users.update(user._id, { $addToSet: {
-        followingPosts: postId,
-      }});
-
-
-      if (post.followers.filter(follower => follower.userId == user._id).length == 0) {
-        Posts.update(postId, { $addToSet: {
-          followers: { userId: user._id, unreadCount: 0 }
-        }});
-      }
-
-      post.topicIds.forEach(topicId => {
-        Topics.update(topicId, { $set: {
-          numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
-        }});
-      });
-    }
+    PostManager.follow({ post: Posts.findOne(postId), user: CurrentUser.get()})
   },
 
   'post/unfollow': (postId) => {
     check(postId, String);
-    user = CurrentUser.get()
-    post = Posts.findOne(postId);
-
-    if (post) {
-      Users.update(user._id, { $pull: {
-        followingPosts: postId,
-      }});
-
-      Posts.update(postId, { $pull: {
-        followers: { userId: user._id }
-      }});
-
-      post.topicIds.forEach(topicId => {
-        Topics.update(topicId, { $set: {
-          numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
-        }});
-      });
-    }
+    PostManager.unfollow({ post: Posts.findOne(postId), user: CurrentUser.get()})
   },
 
   'messages/insert': (_id, postId, commentText) => {

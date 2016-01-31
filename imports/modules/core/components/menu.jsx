@@ -44,6 +44,11 @@ export default React.createClass({
     hideFollowerSection: React.PropTypes.bool,
 
     /**
+     * Shows who is following this topic
+     */
+    showFollowersFn: React.PropTypes.func,
+
+    /**
      * True if the Follow/Following action section will be hidden
      */
     hideFollowActionSection: React.PropTypes.bool,
@@ -149,7 +154,9 @@ export default React.createClass({
           <ToolbarGroup style={{height: '100%'}}>
             <Flex alignItems='center' height='100%'>
               <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
-              <span>{ this.props.followersCount }</span>
+              <a href='#' onClick={this.props.showFollowersFn}>
+                <span>{ this.props.followersCount }</span>
+              </a>
             </Flex>
           </ToolbarGroup>
         }
