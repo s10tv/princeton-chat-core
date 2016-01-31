@@ -4,6 +4,10 @@ import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
 import TextField from 'material-ui/lib/text-field'
 import Select from 'react-select'
+import Toolbar from 'material-ui/lib/toolbar/toolbar'
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
+import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import {Flex} from 'jsxstyle'
 
 export default React.createClass({
@@ -60,9 +64,22 @@ export default React.createClass({
 
   render() {
     const { isOpen, handleClose, allTopics, showTopicFollowers } = this.props;
+
+    const isFollowersDisabled = this.state.selectedTopicIds == '';
+
+    const toolbar =
+      <Toolbar>
+        <ToolbarGroup float="left">
+          <ToolbarTitle text="New Post" />
+        </ToolbarGroup>
+        <ToolbarGroup float="right" lastChild={true}>
+          <RaisedButton label="Followers" disabled={isFollowersDisabled} primary={true} onTouchTap={showTopicFollowers}  />
+        </ToolbarGroup>
+      </Toolbar>
+
     return (
       <Dialog
-         title='New Post'
+         title={toolbar}
          bodyStyle={{ overflow: 'visible' }}
          actions={[
            <FlatButton

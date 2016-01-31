@@ -7,7 +7,7 @@ export const composer = ({context}, onData) => {
   const isOpen = LocalState.get('ADD_POST_POPUP_SHOWING') || false;
   const allTopics = Collections.Topics.find().map(topic => {
     return { value: topic._id , label: topic.displayName };
-  })
+  });
 
   onData(null, { isOpen, allTopics });
 };

@@ -29,9 +29,17 @@ export default {
       return acc;
     }, {});
 
-    LocalState.set('POST_FOLLOWERS', _.map(userIdMap, (val) => {
-      return val
-    }));
+    const followers = _.map(userIdMap, (val) => {
+      return val;
+    });
+
+    Meteor.call('get/followers', followers, (err, res) => {
+      if (err) {
+        console.log(err);
+      }
+
+      LocalState.set('POST_FOLLOWERS', res);
+    });
   },
 
   showTopicFollowers({ LocalState }) {
