@@ -8,7 +8,7 @@ import PostSingle from '/imports/modules/core/containers/post.details.js'
 import DirectMessage from '/imports/modules/core/components/directMessage.jsx'
 import TopicList from '/imports/modules/core/containers/topic.list.js'
 import Onboarding from '/imports/modules/core/containers/onboarding.js'
-
+import SignupForm from '/imports/modules/core/containers/signup.form.js';
 import Login from '/imports/modules/core/containers/login.js'
 
 import WebFontLoader from 'webfontloader';
@@ -35,11 +35,10 @@ export default function (injectDeps) {
   const LayoutMainCtx = injectDeps(LayoutMain);
   const LoginWithCtx = injectDeps(Login);
 
-  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite" ]});
+  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite", "signupForm"]});
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {
-    this.register('topicsToFollow', Meteor.subscribe('topicsToFollow'));
     this.register('userData', Meteor.subscribe('userData'));
   };
 
@@ -114,20 +113,29 @@ export default function (injectDeps) {
             return FlowRouter.go('home');
           }
 
-          FlowRouter.go('onboarding')
+          FlowRouter.go('signupForm')
         }
       })
     }
   });
 
-  FlowRouter.route('/welcome', {
-    name: 'onboarding',
+  // FlowRouter.route('/welcome', {
+  //   name: 'onboarding',
+  //   action() {
+  //     mount(LayoutMainCtx, {
+  //       content: (props) => <Onboarding {...props} isDirectMessage={false} />
+  //     })
+  //   }
+  // });
+
+  FlowRouter.route('/hello', {
+    name: 'signupForm',
     action() {
       mount(LayoutMainCtx, {
-        content: (props) => <Onboarding {...props} isDirectMessage={false} />
-      })
+        content: (props) => <SignupForm {...props} />
+      });
     }
-  });
+  })
 
   FlowRouter.route('/users/tigerbot', {
     name: 'tigercub-directmessage',
@@ -164,12 +172,16 @@ export default function (injectDeps) {
   });
 
   Tracker.autorun(() => {
-    if (!Meteor.userId() && !/\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href)) {
+    const isInvite = /\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href);
+    const isSignupForm = /\/hello$/.test(window.location.href);
+    const isSignupPassword = /\account$/.test(window.location.href);
+
+    if (!Meteor.userId() && !isInvite && !isSignupForm && !isSignupPassword) {
       return FlowRouter.go('/');
     }
 
     if (Meteor.user() && Meteor.user().status === 'pending') {
-      return FlowRouter.go('onboarding');
+      return FlowRouter.go('signupForm');
     }
   })
 }

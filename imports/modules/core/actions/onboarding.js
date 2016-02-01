@@ -1,24 +1,7 @@
 export default {
-  setMessageType({LocalState}, value) {
-    LocalState.set('type', value);
-  },
-
-  clickStartOnboarding({Meteor}) {
-    Meteor.call('welcome/triggerSelectTopicPrompt');
-  },
-
-  clickAbandonOnboarding({Meteor}) {
-    Meteor.call('welcome/no');
-  },
-
-  submitTextField({Meteor, LocalState}, event, textField) {
-    event.preventDefault();
-    const message = textField.getValue();
-    Meteor.call('message/add', message, LocalState.get('type'), (err) => {
-      textField.setValue('');
-
-      LocalState.set('type', undefined);
-    });
+  goToSetPasswordPage({ LocalState }) {
+    console.log('im going to the password page');
+    // LocalState.set('GO_TO_SET_PASSWORD', true);
   },
 
   clickFacebook({Meteor}) {
@@ -39,8 +22,4 @@ export default {
       Meteor.call('welcome/setLoginService', 'password');
     }
   },
-
-  clickSkip({Meteor}) {
-    Meteor.call('share/skip');
-  }
 }

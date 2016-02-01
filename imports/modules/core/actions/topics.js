@@ -47,13 +47,7 @@ export default {
   },
 
   follow({Meteor}, topicId) {
-    Meteor.call('topic/follow', topicId, (err) => {
-      switch (FlowRouter.current().route.name) {
-        case 'onboarding':
-        case 'tigercub-directmessage':
-          Meteor.call('welcome/topic/follow', topicId)
-      }
-    });
+    Meteor.call('topic/follow', topicId);
   },
 
   unfollow({Meteor}, topicId) {

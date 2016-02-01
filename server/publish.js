@@ -133,23 +133,6 @@ Meteor.publishComposite('directMessages', function() {
   }
 })
 
-Meteor.publishComposite('topicsToFollow', function() {
-  return {
-    find: function() {
-      return TopicHeaders.find({});
-    },
-    children: [
-      {
-        find: function(topicHeader) {
-          return Topics.find({ _id: {
-            $in: topicHeader.topicIds
-          }});
-        }
-      }
-    ]
-  }
-});
-
 Meteor.publish('onboardingMessages', function() {
   if (this.userId) {
     const user = Users.findOne(this.userId);

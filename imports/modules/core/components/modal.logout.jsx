@@ -66,7 +66,7 @@ export default React.createClass({
             <img src={user.avatar.url} className='profile-avatar' />
             <h1>{user.displayName}</h1>
             <h3>{user.displayUsername}</h3>
-            <p>{user.emails[0].address}</p>
+            <p>{user.displayEmail}</p>
             <p className='profile-edit'>
               <a href="#" onClick={editProfile}>Edit Profile</a> | <a href="#" onClick={onLogout}>Logout</a>
             </p>
