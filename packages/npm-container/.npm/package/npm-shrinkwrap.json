@@ -1,22 +1,22 @@
 {
   "dependencies": {
     "iron_worker": {
-      "version": "http://registry.npmjs.org/iron_worker/-/iron_worker-0.1.6.tgz",
+      "version": "0.1.6",
       "dependencies": {
         "pkginfo": {
-          "version": "http://registry.npmjs.org/pkginfo/-/pkginfo-0.2.3.tgz"
+          "version": "0.2.3"
         },
         "underscore": {
           "version": "1.3.3"
         },
         "iron_core": {
-          "version": "http://registry.npmjs.org/iron_core/-/iron_core-0.2.6.tgz",
+          "version": "0.2.6",
           "dependencies": {
             "pkginfo": {
               "version": "0.3.0"
             },
             "underscore": {
-              "version": "http://registry.npmjs.org/underscore/-/underscore-1.7.0.tgz"
+              "version": "1.7.0"
             },
             "request": {
               "version": "2.53.0",
@@ -44,7 +44,7 @@
                   }
                 },
                 "caseless": {
-                  "version": "http://registry.npmjs.org/caseless/-/caseless-0.9.0.tgz"
+                  "version": "0.9.0"
                 },
                 "forever-agent": {
                   "version": "http://registry.npmjs.org/forever-agent/-/forever-agent-0.5.2.tgz"
@@ -95,10 +95,10 @@
                   }
                 },
                 "oauth-sign": {
-                  "version": "http://registry.npmjs.org/oauth-sign/-/oauth-sign-0.6.0.tgz"
+                  "version": "0.6.0"
                 },
                 "hawk": {
-                  "version": "http://registry.npmjs.org/hawk/-/hawk-2.3.1.tgz",
+                  "version": "2.3.1",
                   "dependencies": {
                     "hoek": {
                       "version": "2.16.3"
@@ -136,7 +136,7 @@
           }
         },
         "needle": {
-          "version": "http://registry.npmjs.org/needle/-/needle-0.7.8.tgz",
+          "version": "0.7.8",
           "dependencies": {
             "iconv-lite": {
               "version": "0.4.13"
@@ -144,10 +144,10 @@
           }
         },
         "ncp": {
-          "version": "http://registry.npmjs.org/ncp/-/ncp-0.6.0.tgz"
+          "version": "0.6.0"
         },
         "adm-zip": {
-          "version": "http://registry.npmjs.org/adm-zip/-/adm-zip-0.4.4.tgz"
+          "version": "0.4.4"
         }
       }
     },

@@ -16,6 +16,7 @@ export default React.createClass({
         <Menu {...this.props}
             title={'Follow some topics'}
             hideFollowerSection={true}
+            hideAddNewUsersButton={true}
             hideFollowActionSection={true} />
 
         <Flex flex={1} flexDirection='column' alignItems='center'>

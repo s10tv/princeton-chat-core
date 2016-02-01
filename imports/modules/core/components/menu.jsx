@@ -54,6 +54,11 @@ export default React.createClass({
     hideFollowActionSection: React.PropTypes.bool,
 
     /**
+     * True if the Importing new users action button will be hidden
+     */
+    hideAddNewUsersButton: React.PropTypes.bool,
+
+    /**
     * True if this element is already being followed.
     */
     isFollowing: React.PropTypes.bool,
@@ -73,6 +78,11 @@ export default React.createClass({
     * Executing this function shows the post modal.
     */
     showAddPostPopupFn: React.PropTypes.func,
+
+    /**
+    * Executing this function shows the import new users modal.
+    */
+    showAddNewUsersModal: React.PropTypes.func,
 
     /**
      * For media queries
@@ -183,6 +193,14 @@ export default React.createClass({
           </ToolbarGroup>
         }
 
+        { this.props.hideAddNewUsersButton ? null :
+          <ToolbarGroup float='right' style={{marginRight: -24}}>
+            <RaisedButton
+              primary={true}
+              label='Add New Users'
+              onTouchTap={() => this.props.showAddNewUsersModal(this.props.topic._id)} />
+          </ToolbarGroup>
+        }
       </Toolbar>
     )
   }

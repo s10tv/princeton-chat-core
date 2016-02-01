@@ -13,7 +13,7 @@ import Divider from 'material-ui/lib/divider';
 import {Flex} from 'jsxstyle';
 import _ from 'underscore';
 
-export default class editProfileModal extends React.Component {
+export default class EditProfileModal extends React.Component {
   render() {
     const {
       handleClose,

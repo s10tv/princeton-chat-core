@@ -93,6 +93,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
       isFollowing: currentUser.followingTopics.indexOf(topic._id) >= 0,
       isEmpty: posts.length == 0,
       hideFollowerSection: topic._id == undefined,
+      hideAddNewUsersButton: topic._id == undefined,
       hideFollowActionSection: topic._id == undefined,
     });
   }
@@ -104,6 +105,7 @@ const depsMapper = (context, actions) => ({
   showFollowersFn: actions.topics.showTopicFollowers,
   navigateToTopic: actions.topics.navigateToTopic,
   showPostFollowers: actions.posts.showPostFollowers,
+  showAddNewUsersModal: actions.topics.showAddNewUsersModal,
   followPostFn: actions.posts.follow,
   unfollowPostFn: actions.posts.unfollow,
   context: () => context
