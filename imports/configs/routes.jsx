@@ -46,6 +46,20 @@ export default function (injectDeps) {
     this.register('topicsToFollow', Meteor.subscribe('topicsToFollow'));
     this.register('userData', Meteor.subscribe('userData'));
   };
+  
+  FlowRouter.route('/', {
+    name: 'signup',
+    action() {
+      mount(SignupWithCtx);
+    }
+  })
+  
+  FlowRouter.route('/signed-up', {
+    name: 'signup-done',
+    action() {
+      mount(SignupDoneWithCtx);
+    }
+  })
 
   FlowRouter.route('/login', {
     name: 'home',
@@ -147,36 +161,6 @@ export default function (injectDeps) {
     action({ postId }) {
       mount(LayoutMainCtx, {
         content: (props) => <PostSingle postId={postId} {...props} />
-      })
-    }
-  });
-
-  FlowRouter.route('/', {
-    name: 'signup',
-    action() {
-      mount(SignupWithCtx);
-    }
-  })
-
-  FlowRouter.route('/signed-up', {
-    name: 'signup-done',
-    action() {
-      mount(SignupDoneWithCtx);
-    }
-  })
-
-  FlowRouter.route('/x-directmessage', {
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <DirectMessage {...props} />
-      })
-    }
-  });
-
-  FlowRouter.route('/x-postlist', {
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <PostList topicId={'marketing'} {...props} />
       })
     }
   });

@@ -153,6 +153,7 @@ class Home extends React.Component {
 
     return (
       <div className='signup-container'>
+        <a className='login-link' href='/login'>Have an account? Login here.</a>
         <div className='splash'>
           <section>
             <h1 className='h1-logo'>Princeton.Chat</h1>
@@ -183,11 +184,6 @@ class Home extends React.Component {
               onBlur: this.validateClassYear.bind(this)
             })}
             <Button label="Let's do it" onClick={this.verifyEmail.bind(this)} />
-
-            <FlatButton
-              label="Login"
-              style={{ backgroundColor: '#cccccc', color: '#fff', marginTop: 32 }}
-              onClick={(event) => { event.preventDefault(); window.location = '/login'; }} />
 
             { loader }
           </section>

@@ -41,7 +41,9 @@ export default React.createClass({
       <Flex minHeight='100vh' minWidth='100vw'
         justifyContent='center' alignItems='center'
         backgroundImage="url('/assets/background-tile.png')"
+        position='relative'
         backgroundRepeat='repeat'>
+        <a className='login-link' href='/'>No account yet? Signup here.</a>
         <Flex flexDirection='column'
           backgroundColor='white'
           borderRadius={5}
