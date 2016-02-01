@@ -24,18 +24,22 @@
     "react-addons-test-utils": ">=0.14.3 <=0.15.0"
   },
   "dependencies": {
+    "component-raf": "^1.2.0",
+    "component-tween": "^1.2.0",
     "domready": "^1.0.8",
     "jsxstyle": "0.0.18",
-    "material-ui": "^0.14.3",
+    "material-ui": "^0.14.2",
     "moment": "^2.11.1",
     "react": "0.14.7",
     "react-addons-linked-state-mixin": "^0.14.6",
+    "react-css-modules": "^3.6.8",
     "react-dom": "0.14.x",
     "react-komposer": "1.x.x",
     "react-mounter": "1.x.x",
     "react-select": "^0.9.1",
     "react-simple-di": "1.x.x",
     "react-tap-event-plugin": "^0.2.1",
+    "scroll-to": "0.0.2",
     "truncate": "^2.0.0",
     "underscore": "^1.8.3",
     "webfontloader": "^1.6.20"

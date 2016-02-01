@@ -9,6 +9,8 @@ import DirectMessage from '/imports/modules/core/components/directMessage.jsx'
 import TopicList from '/imports/modules/core/containers/topic.list.js'
 import Onboarding from '/imports/modules/core/containers/onboarding.js'
 import SignupForm from '/imports/modules/core/containers/signup.form.js';
+import Signup from '/imports/modules/core/containers/signup.js'
+import SignupDone from '/imports/modules/core/containers/signup.done.js'
 import Login from '/imports/modules/core/containers/login.js'
 
 import WebFontLoader from 'webfontloader';
@@ -34,8 +36,10 @@ export default function (injectDeps) {
 
   const LayoutMainCtx = injectDeps(LayoutMain);
   const LoginWithCtx = injectDeps(Login);
+  const SignupWithCtx = injectDeps(Signup);
+  const SignupDoneWithCtx = injectDeps(SignupDone);
 
-  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite", "signupForm"]});
+  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite", "signup", "signup-done", "signupForm" ]});
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {
@@ -43,6 +47,20 @@ export default function (injectDeps) {
   };
 
   FlowRouter.route('/', {
+    name: 'signup',
+    action() {
+      mount(SignupWithCtx);
+    }
+  })
+
+  FlowRouter.route('/signed-up', {
+    name: 'signup-done',
+    action() {
+      mount(SignupDoneWithCtx);
+    }
+  })
+
+  FlowRouter.route('/login', {
     name: 'home',
     action() {
       mount(LoginWithCtx);
@@ -119,15 +137,6 @@ export default function (injectDeps) {
     }
   });
 
-  // FlowRouter.route('/welcome', {
-  //   name: 'onboarding',
-  //   action() {
-  //     mount(LayoutMainCtx, {
-  //       content: (props) => <Onboarding {...props} isDirectMessage={false} />
-  //     })
-  //   }
-  // });
-
   FlowRouter.route('/hello', {
     name: 'signupForm',
     action() {
@@ -155,28 +164,14 @@ export default function (injectDeps) {
     }
   });
 
-  FlowRouter.route('/x-directmessage', {
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <DirectMessage {...props} />
-      })
-    }
-  });
-
-  FlowRouter.route('/x-postlist', {
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <PostList topicId={'marketing'} {...props} />
-      })
-    }
-  });
-
   Tracker.autorun(() => {
     const isInvite = /\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href);
     const isSignupForm = /\/hello$/.test(window.location.href);
     const isSignupPassword = /\account$/.test(window.location.href);
+    const isLogin = /\/login$/.test(window.location.href);
+    const isSignupDone = /\/signed-up$/.test(window.location.href);
 
-    if (!Meteor.userId() && !isInvite && !isSignupForm && !isSignupPassword) {
+    if (!Meteor.userId() && !isInvite && !isSignupForm && !isSignupPassword && !isLogin && !isSignupDone) {
       return FlowRouter.go('/');
     }
 

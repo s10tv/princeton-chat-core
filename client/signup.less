@@ -1,0 +1,306 @@
+@princetonOrange: #F07621;
+@princetonWhite: white;
+
+@keyframes bounce {
+	0%		{ transform: translateY(0); }
+	15%		{ transform: translateY(-10px); }
+	30%		{ transform: translateY(0); }
+	100%	{ transform: translateY(0); }
+}
+
+.logo {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	color: @princetonWhite;
+	font-weight: 500;
+	font-size: 20px
+}
+
+.signup-container {
+	display: flex;
+	flex-direction: column;
+	/*align-items: center;*/
+	background-color: #eee;
+	position: relative;
+}
+
+.login-link {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #eee;
+}
+.login-link:visited {
+	color: #eee;
+}
+
+.hashtag {
+	/*color: #57A3F0;*/
+	color: @princetonOrange;
+	font-weight: 600;
+}
+
+/* Splash */
+.splash {
+	/*background-color: @princetonOrange;*/
+	background-image: url('/assets/background-tile.png');
+  background-repeat: repeat;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	color: @princetonWhite;
+
+	h1 {
+		/*border-width: 1px;*/
+		/*background-color: black;*/
+		/*margin: 0;*/
+	 	/*font-size: 50px;*/
+	 	/*color: @princetonOrange;*/
+	}
+	section {
+		/*padding: 16px;*/
+		/*border-radius: 8px;*/
+		/*background-color: white;*/
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		/*background-color: red;*/
+		/*span {
+			margin-bottom: 20px;
+		}*/
+		flex-grow: 1;
+	}
+
+	a {
+		margin-top: 12px;
+		margin-bottom: 12px;
+	}
+}
+
+.h1-logo {
+	margin-top: 0;
+	color: @princetonOrange;
+	font-weight: 600;
+	font-size: 45px;
+	margin-bottom: -4px;
+}
+
+.h2-slogan {
+	margin: 0;
+	padding: 0;
+	color: @princetonOrange;
+	font-weight: 400;
+	font-size: 16px;
+}
+
+.more {
+	font-weight: 700;
+}
+.less {
+	font-weight: 100;
+	font-style: italic
+}
+
+/*.learn-more {
+	position: absolute;
+	bottom: 8px;
+	left: 50%;
+	margin-left: -15px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: @princetonWhite;
+	text-decoration: none;
+	font-size: 12px;
+	span {
+		margin-top: 4px;
+	}
+}*/
+
+.caret {
+
+	animation: bounce 2.5s infinite
+}
+
+/* Content Container */
+
+.content-container {
+	max-width: 1024px;
+	align-self: center;
+	background-color: @princetonWhite;
+	a {
+		color: @princetonOrange;
+		font-weight: 600;
+	}
+	a:visited {
+		color: @princetonOrange;
+		font-weight: 600;
+	}
+}
+
+/* Question, answer and purpose */
+
+.qa-and-purpose {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.qa-and-purpose > * {
+	flex: 0 0 100%;
+	@media (min-width: 768px) {
+		flex: 1;
+	}
+}
+
+.qa {
+	color: @princetonWhite;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+	background-image: url(/assets/bg-blair-arch.jpg);
+	background-size: cover;
+	padding: 32px 24px;
+	/*background: rgba(0,0,0,0);*/
+}
+
+.qa-inner {
+	max-width: 320px;
+	display: flex;
+}
+
+.logo-inline {
+	color: @princetonOrange;
+	font-weight: 500;
+	font-size: 20px
+}
+
+.q {
+	/*font-size: 50px;*/
+	width: 51px;
+	height: 56px;
+	margin-right: 16px;
+	margin-top: 16px;
+	/* Safari / mobile fix */
+	min-width: 51px;
+}
+
+.purpose {
+	padding: 24px;
+	border-bottom: 1px solid #999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.purpose p {
+	margin: 0;
+	max-width: 320px;
+}
+
+ /* Benefits */
+
+.benefits {
+	display: flex;
+ 	justify-content: space-around;
+
+	flex-wrap: wrap;
+	margin: 24px;
+
+	section {
+		flex: 0 0 100%;
+	}
+
+	@media (min-width: 768px) {
+		section {
+			width: auto;
+			flex: 0 0 33.3%;
+		}
+	}
+
+
+	section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 30px;
+		/*margin: 10px;*/
+		/*background-color: #eeeeee;*/
+		/*background-color: red;*/
+
+		img {
+			margin-bottom: 16px;
+			width: 80px;
+			height: 80px;
+		}
+		h2 {
+			font-size: 24px;
+			text-align: center;
+			font-weight: 500;
+		}
+	}
+}
+/* Bottom CTA */
+.bottom-cta {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	h2 {
+		font-size: 24px;
+		text-align: center;
+		font-weight: 500;
+	}
+}
+
+/* Help spread the word */
+.spread-word {
+	img {
+		width: 62px;
+		height: 20px;
+		margin: 0 15px 20px 15px;
+	}
+}
+
+/* Quote */
+.quote {
+	color: rgba(255, 255, 255, 0.75);
+	margin: 0;
+	padding: 16px;
+	text-align: center;
+	/*border-radius: 5px;*/
+	background-color: #eee;
+	background-image: url(/assets/bg-nassau.jpg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+/* Footer */
+ .footer {
+	 min-height: 100px;
+
+	 background-color: #192024;
+	 color: white;
+	 display: flex;
+	 padding: 16px;
+	 /*justify-content: center;*/
+	 flex-direction: column;
+	 align-items: center;
+	 h4 {
+		 margin: 0;
+		 padding: 0;
+		 font-weight: 600;
+	 }
+	 img {
+		 width: 26px;
+		 height: 27px;
+		 margin: 10px;
+	 }
+}
+
+.footer-logo {
+	color: @princetonOrange;
+}

@@ -5,6 +5,7 @@ import PostManager from '/imports/server/PostManager';
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev';
 const slackEmoji = process.env.ENV == 'prod' ? ':beer:' : ':poop:';
+const slack = Meteor.npmRequire('slack-notify')(slackUrl);
 
 class CurrentUser {
   static get() {
@@ -107,7 +108,100 @@ pause = (pauseTime = 1000) => {
   })
 }
 
+stripTrailingSlash = (str) => {
+  if(str.substr(-1) === '/') {
+      return str.substr(0, str.length - 1);
+  }
+  return str;
+}
+
 Meteor.methods({
+  'signup': (options) => {
+    check(options, Object);
+    const { firstName, lastName, classYear, emailAddress } = options;
+
+    check(firstName, String);
+    check(lastName, String);
+    check(classYear, String);
+    check(emailAddress, String);
+
+    var email = (emailAddress || "").trim();
+    if (email.length == 0) {
+      throw new Meteor.Error(400, 'To sign up, you need to enter your email.');
+    }
+
+    var user = Accounts.findUserByEmail(email);
+    if (!user) {
+      // our onboarding using react has a field called `email` on user, instead of meteor `emails`
+      user = Users.findOne({ email: email });
+    }
+
+    if (!user) {
+      var userNumber = getLargestUserNumber();
+      const userId = Users.insert({
+        firstName,
+        lastName,
+        classYear,
+        userNumber: userNumber,
+        status: 'pending',
+      })
+
+      Accounts.addEmail(userId, email);
+      user = Users.findOne(userId);
+    }
+
+    const inviteCode = Random.id();
+    Users.update(user._id, { $set: {
+      inviteCode: inviteCode
+    }})
+
+    slack.send({
+      icon_emoji: slackEmoji,
+      text: `${user.firstName} ${user.lastName} (${email}) signed up`,
+      username: slackUsername,
+    })
+
+    if (process.env.SKIP_CHECK_PRINCETON_EMAIL || /.*@alumni.princeton.edu$/.test(email)) {
+      const inviteUrl = `${stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`;
+      const postmark = Meteor.npmRequire("postmark");
+      const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426';
+      const client = new postmark.Client(postmarkKey);
+
+      const Future = Npm.require('fibers/future')
+      const future = new Future()
+      const onComplete = future.resolver()
+
+      client.sendEmailWithTemplate({
+        "From": "notifications@princeton.chat",
+        "To": email,
+        "TemplateId": 354341,
+        "TemplateModel": {
+          inviteLink: inviteUrl
+        }
+      }, onComplete)
+
+      Future.wait(future)
+      try {
+        future.get();
+      } catch (err) {
+        console.error(err);
+        console.log(err.stack);
+        return;
+      }
+
+      slack.send({
+        icon_emoji: slackEmoji,
+        text: `Sent a welcome email to ${email}.`,
+        username: slackUsername,
+      })
+
+      return true;
+    }
+
+    // did not pass validation.
+    return false;
+  },
+
   'topics/users/import': (topicId, emails) => {
     check(topicId, String);
     check(emails, [String]);
@@ -135,6 +229,19 @@ Meteor.methods({
 
       TopicManager.follow({ topicId, user: existingUser });
     })
+  },
+
+  'signup/test': (emailOverride) => {
+    check(emailOverride, Match.Optional(String))
+    const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results;
+    const email = emailOverride || user.email;
+
+    Meteor.call('signup', {
+      firstName: user.name.first,
+      lastName: user.name.last,
+      classYear: '2012',
+      emailAddress: email,
+    });
   },
 
   'signup/randomuser': () => {
@@ -307,103 +414,6 @@ Meteor.methods({
     const user = CurrentUser.get();
     Accounts.unlinkService(user._id, serviceName);
   },
-
-  // 'reset': () => {
-  //   const user = CurrentUser.get();
-  //   Users.update(user._id, { $set: {
-  //     status: 'pending'
-  //   }});
-  //
-  //   Messages.remove({
-  //     ownerId: user._id,
-  //   });
-  //   Messages.insert({
-  //     senderId: 'system',
-  //     ownerId: user._id,
-  //     postId: user.tigerbotPostId,
-  //     type: "welcome",
-  //   })
-  // },
-  //
-  // 'welcome/triggerSelectTopicPrompt': () => {
-  //   const user = CurrentUser.get();
-  //
-  //   if (Messages.find({ ownerId: user._id, qnum: 'welcome/triggerSelectTopicPrompt' }).count() > 0) {
-  //     // the user has answered this question already;
-  //     return;
-  //   }
-  //
-  //   send("I'm here! Now what?")
-  //
-  //   return pause(1000).then(() => {
-  //     return systemSend('topics', 'welcome/triggerSelectTopicPrompt', 3500);
-  //   });
-  // },
-  //
-  // 'welcome/topic/follow': (topicId) => {
-  //   check(topicId, String);
-  //
-  //   const user = CurrentUser.get();
-  //   const topic = Topics.findOne(topicId);
-  //
-  //   const hasSeenThisMessageBefore = Messages.find({ ownerId: user._id, qnum: 'welcome/topic/follow' }).count() > 0;
-  //
-  //   // we check that the following topics length is not 1, to prevent the message from being sent
-  //   // multiple times while the user clicks follow multiple times in a row.
-  //   if ((user.followingTopics && user.followingTopics.length != 1) || hasSeenThisMessageBefore) {
-  //     return;
-  //   }
-  //
-  //   var sendMessageFeedback;
-  //   if (topic) {
-  //     sendMessageFeedback = systemSendRaw(`Nice. I'm following ${ topic.displayName } too 😊 You will now get a notification anytime someone tags a post with ${ topic.displayName }.`,
-  //       'welcome/topic/follow', undefined, 1500).then(() => pause(2000));
-  //   } else {
-  //     sendMessageFeedback = Promise.resolve(true);
-  //   }
-  //
-  //   return sendMessageFeedback.then(() => systemSend('linkservice', 'welcome/topic/follow', 1500));
-  // },
-  //
-  // 'welcome/setLoginService': (serviceName) => {
-  //   check(serviceName, String);
-  //
-  //   const user = CurrentUser.get();
-  //   if (Messages.find({ ownerId: user._id, qnum: 'welcome/setLoginService' }).count() > 0) {
-  //     return;
-  //   }
-  //
-  //   Users.update(user._id, { $set: {
-  //     username: UsernameGenerator.generate(user),
-  //     emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
-  //     avatar: {
-  //       url: '/images/princeton.svg'
-  //     },
-  //     status: 'active',
-  //   }})
-  //
-  //   const slack = Meteor.npmRequire('slack-notify')(slackUrl);
-  //   slack.send({
-  //     icon_emoji: slackEmoji,
-  //     text: `${user.firstName} ${user.lastName} just signed up. Total count: ${ Users.find().count() + 1 }.`,
-  //     username: slackUsername,
-  //   })
-  //
-  //   switch (serviceName) {
-  //     case 'facebook':
-  //       systemSendRaw('Got it. You can log in with Facebook next time.')
-  //       .then(() => {
-  //         return systemSend('thanks', 'welcome/setLoginService', 1500)
-  //       })
-  //       break;
-  //     case 'password':
-  //       systemSendRaw('Got it. You can log in with your new password next time.')
-  //       .then(() => {
-  //         return systemSend('thanks', 'welcome/setLoginService', 2500)
-  //       })
-  //       break;
-  //   }
-  // },
 
   'get/followers': (userIds) => {
     check(userIds, Array);

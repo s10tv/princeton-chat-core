@@ -6,10 +6,12 @@ import onboarding from './onboarding';
 import settings from './settings';
 import profile from './profile';
 import postfollowers from './postfollowers';
+import signup from './signup';
 
 export default {
   posts,
   messages,
+  signup,
   login,
   topics,
   onboarding,

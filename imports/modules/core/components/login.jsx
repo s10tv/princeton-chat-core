@@ -4,6 +4,7 @@ import Card from 'material-ui/lib/card/card'
 import TextField from 'material-ui/lib/text-field'
 import Colors from 'material-ui/lib/styles/colors'
 import RaisedButton from 'material-ui/lib/raised-button'
+import FlatButton from 'material-ui/lib/flat-button'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 import {primaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
 
@@ -39,7 +40,10 @@ export default React.createClass({
     return (
       <Flex minHeight='100vh' minWidth='100vw'
         justifyContent='center' alignItems='center'
-        backgroundColor={Colors.grey900}>
+        backgroundImage="url('/assets/background-tile.png')"
+        position='relative'
+        backgroundRepeat='repeat'>
+        <a className='login-link' href='/'>No account yet? Signup here.</a>
         <Flex flexDirection='column'
           backgroundColor='white'
           borderRadius={5}
@@ -67,7 +71,7 @@ export default React.createClass({
             }}>
             <TextField floatingLabelText='Email' fullWidth={true} valueLink={this.linkState('email') }/>
             <TextField floatingLabelText='Password' type='password' fullWidth={true} valueLink={this.linkState('password')} />
-            <RaisedButton label='Login' primary={true} style={{margin: '30px 0'}} type='submit' />
+            <RaisedButton label='Login' primary={true} style={{margin: '30px 5px'}} type='submit' />
           </form>
         </Flex>
       </Flex>
