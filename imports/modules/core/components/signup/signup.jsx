@@ -183,6 +183,12 @@ class Home extends React.Component {
               onBlur: this.validateClassYear.bind(this)
             })}
             <Button label="Let's do it" onClick={this.verifyEmail.bind(this)} />
+
+            <FlatButton
+              label="Login"
+              style={{ backgroundColor: '#cccccc', color: '#fff', marginTop: 32 }}
+              onClick={(event) => { event.preventDefault(); window.location = '/login'; }} />
+
             { loader }
           </section>
           <a href='#' onClick={(e) => {

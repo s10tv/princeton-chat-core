@@ -69,18 +69,7 @@ export default React.createClass({
             }}>
             <TextField floatingLabelText='Email' fullWidth={true} valueLink={this.linkState('email') }/>
             <TextField floatingLabelText='Password' type='password' fullWidth={true} valueLink={this.linkState('password')} />
-
-            <Flex flexDirection='row'>
-              <RaisedButton label='Login' primary={true} style={{margin: '30px 5px'}} type='submit' />
-              <FlatButton label='Register' primary={false} style={{
-                  margin: '30px 5px',
-                  backgroundColor: '#cccccc',
-                  color: '#ffffff',
-              }} onClick={(event) => {
-                event.preventDefault();
-                window.location='/signup';
-              }} />
-            </Flex>
+            <RaisedButton label='Login' primary={true} style={{margin: '30px 5px'}} type='submit' />
           </form>
         </Flex>
       </Flex>

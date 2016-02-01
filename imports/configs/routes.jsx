@@ -47,7 +47,7 @@ export default function (injectDeps) {
     this.register('userData', Meteor.subscribe('userData'));
   };
 
-  FlowRouter.route('/', {
+  FlowRouter.route('/login', {
     name: 'home',
     action() {
       mount(LoginWithCtx);
@@ -151,7 +151,7 @@ export default function (injectDeps) {
     }
   });
 
-  FlowRouter.route('/signup', {
+  FlowRouter.route('/', {
     name: 'signup',
     action() {
       mount(SignupWithCtx);
@@ -183,10 +183,10 @@ export default function (injectDeps) {
 
   Tracker.autorun(() => {
     const isInvite = /\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href);
-    const isSignup = /\/signup$/.test(window.location.href);
+    const isLogin = /\/login$/.test(window.location.href);
     const isSignupDone = /\/signed-up$/.test(window.location.href);
 
-    if (!Meteor.userId() && !isInvite && !isSignup && !isSignupDone) {
+    if (!Meteor.userId() && !isInvite && !isLogin && !isSignupDone) {
       return FlowRouter.go('/');
     }
 
