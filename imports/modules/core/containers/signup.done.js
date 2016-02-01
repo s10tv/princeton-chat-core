@@ -3,7 +3,11 @@ import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra';
 
 export const composer = ({context, actions}, onData) => {
   const { LocalState } = context();
-  onData(null, { emailAddress: LocalState.get('EMAIL_SIGNING_UP') });
+  const email = LocalState.get('EMAIL_SIGNING_UP')
+  onData(null, { 
+    emailAddress: email,
+    fromApprovedDomain: /.*@alumni.princeton.edu$/.test(email)
+  });
 };
 
 export default composeAll(
