@@ -8,6 +8,8 @@ import PostSingle from '/imports/modules/core/containers/post.details.js'
 import DirectMessage from '/imports/modules/core/components/directMessage.jsx'
 import TopicList from '/imports/modules/core/containers/topic.list.js'
 import Onboarding from '/imports/modules/core/containers/onboarding.js'
+import Signup from '/imports/modules/core/containers/signup.js'
+import SignupDone from '/imports/modules/core/containers/signup.done.js'
 
 import Login from '/imports/modules/core/containers/login.js'
 
@@ -34,8 +36,10 @@ export default function (injectDeps) {
 
   const LayoutMainCtx = injectDeps(LayoutMain);
   const LoginWithCtx = injectDeps(Login);
+  const SignupWithCtx = injectDeps(Signup);
+  const SignupDoneWithCtx = injectDeps(SignupDone);
 
-  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite" ]});
+  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite", "signup", "signup-done" ]});
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {
@@ -147,6 +151,20 @@ export default function (injectDeps) {
     }
   });
 
+  FlowRouter.route('/signup', {
+    name: 'signup',
+    action() {
+      mount(SignupWithCtx);
+    }
+  })
+
+  FlowRouter.route('/signed-up', {
+    name: 'signup-done',
+    action() {
+      mount(SignupDoneWithCtx);
+    }
+  })
+
   FlowRouter.route('/x-directmessage', {
     action() {
       mount(LayoutMainCtx, {
@@ -164,7 +182,11 @@ export default function (injectDeps) {
   });
 
   Tracker.autorun(() => {
-    if (!Meteor.userId() && !/\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href)) {
+    const isInvite = /\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href);
+    const isSignup = /\/signup$/.test(window.location.href);
+    const isSignupDone = /\/signed-up$/.test(window.location.href);
+
+    if (!Meteor.userId() && !isInvite && !isSignup && !isSignupDone) {
       return FlowRouter.go('/');
     }
 
