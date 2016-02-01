@@ -181,7 +181,12 @@ Meteor.methods({
       }, onComplete)
 
       Future.wait(future)
-      future.get();
+      try {
+        future.get();
+      } catch (err) {
+        console.log(err);
+        return;
+      }
 
       slack.send({
         icon_emoji: slackEmoji,
