@@ -174,7 +174,7 @@ Meteor.methods({
       client.sendEmailWithTemplate({
         "From": "notifications@princeton.chat",
         "To": email,
-        "TemplateId": 354341,
+        "TemplateId": process.env.POSTMARK_WELCOME_TEMPLATE_ID || 354341,
         "TemplateModel": {
           inviteLink: inviteUrl
         }
