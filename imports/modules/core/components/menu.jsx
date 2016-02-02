@@ -146,26 +146,30 @@ export default React.createClass({
     }
 
     return (
-      <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd'}}>
+      <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000}}>
 
         { this.props.sidebarOpen ? null :
           <ToolbarGroup firstChild={true}>
-            <IconButton iconClassName='material-icons' tooltip='Menu'>menu</IconButton>
+            <IconButton iconClassName='material-icons' tooltip='Menu' onTouchTap={() => {
+                console.log('clicked menu');
+              }}>menu</IconButton>
           </ToolbarGroup>
         }
 
         { this.props.hideTitleSection ? null :
           <ToolbarGroup >
-            <ToolbarTitle text={this.getTitleText()} />
+            <a className='topic-header-link-button' href='#' onClick={this.props.showFollowersFn}>
+              <ToolbarTitle text={this.getTitleText()} />
+            </a>
           </ToolbarGroup>
         }
 
         { this.props.hideFollowerSection ? null :
           <ToolbarGroup style={{height: '100%'}}>
             <Flex alignItems='center' height='100%'>
-              <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
-              <a href='#' onClick={this.props.showFollowersFn}>
-                <span>{ this.props.followersCount }</span>
+              <a className='topic-header-link-button' href='#' onClick={this.props.showFollowersFn} style={{display: 'flex', alignItems: 'center'}}>
+                <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
+                <span style={{marginLeft: 5}}>{ this.props.followersCount }</span>
               </a>
             </Flex>
           </ToolbarGroup>

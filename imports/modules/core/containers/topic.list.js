@@ -5,15 +5,13 @@ import {Loading} from '/imports/modules/core/components/helpers.jsx'
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context();
 
-  if (Meteor.subscribe('topicsToFollow').ready()) {
-    const topics = Topics.find().map(topic => {
-      topic.followersCount = topic.followers.length;
-      topic.isFollowed = topic.followers.filter(follower => follower.userId == Meteor.userId()).length > 0;
-      return topic;
-    })
+  const topics = Topics.find().map(topic => {
+    topic.followersCount = topic.followers.length;
+    topic.isFollowed = topic.followers.filter(follower => follower.userId == Meteor.userId()).length > 0;
+    return topic;
+  })
 
-    onData(null, { topics });
-  }
+  onData(null, { topics });
 };
 
 export const TopicGridContainer = composeAll(

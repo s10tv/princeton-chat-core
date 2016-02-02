@@ -8,9 +8,9 @@ import PostSingle from '/imports/modules/core/containers/post.details.js'
 import DirectMessage from '/imports/modules/core/components/directMessage.jsx'
 import TopicList from '/imports/modules/core/containers/topic.list.js'
 import Onboarding from '/imports/modules/core/containers/onboarding.js'
+import SignupForm from '/imports/modules/core/containers/signup.form.js';
 import Signup from '/imports/modules/core/containers/signup.js'
 import SignupDone from '/imports/modules/core/containers/signup.done.js'
-
 import Login from '/imports/modules/core/containers/login.js'
 
 import WebFontLoader from 'webfontloader';
@@ -43,17 +43,16 @@ export default function (injectDeps) {
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {
-    this.register('topicsToFollow', Meteor.subscribe('topicsToFollow'));
     this.register('userData', Meteor.subscribe('userData'));
   };
-  
+
   FlowRouter.route('/', {
     name: 'signup',
     action() {
       mount(SignupWithCtx);
     }
   })
-  
+
   FlowRouter.route('/signed-up', {
     name: 'signup-done',
     action() {
@@ -132,20 +131,20 @@ export default function (injectDeps) {
             return FlowRouter.go('home');
           }
 
-          FlowRouter.go('onboarding')
+          FlowRouter.go('signupForm')
         }
       })
     }
   });
 
-  FlowRouter.route('/welcome', {
-    name: 'onboarding',
+  FlowRouter.route('/hello', {
+    name: 'signupForm',
     action() {
       mount(LayoutMainCtx, {
-        content: (props) => <Onboarding {...props} isDirectMessage={false} />
-      })
+        content: (props) => <SignupForm {...props} />
+      });
     }
-  });
+  })
 
   FlowRouter.route('/users/tigerbot', {
     name: 'tigercub-directmessage',
@@ -167,15 +166,17 @@ export default function (injectDeps) {
 
   Tracker.autorun(() => {
     const isInvite = /\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href);
+    const isSignupForm = /\/hello$/.test(window.location.href);
+    const isSignupPassword = /\account$/.test(window.location.href);
     const isLogin = /\/login$/.test(window.location.href);
     const isSignupDone = /\/signed-up$/.test(window.location.href);
 
-    if (!Meteor.userId() && !isInvite && !isLogin && !isSignupDone) {
+    if (!Meteor.userId() && !isInvite && !isSignupForm && !isSignupPassword && !isLogin && !isSignupDone) {
       return FlowRouter.go('/');
     }
 
     if (Meteor.user() && Meteor.user().status === 'pending') {
-      return FlowRouter.go('onboarding');
+      return FlowRouter.go('signupForm');
     }
   })
 }

@@ -15,6 +15,7 @@ export default React.createClass({
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <Menu {...this.props}
             title={'Follow some topics'}
+            hideAddNewUsersButton={true}
             hideFollowerSection={true}
             hideAddNewUsersButton={true}
             hideFollowActionSection={true} />
@@ -56,7 +57,7 @@ export const TopicGrid = React.createClass({
 
   render() {
     return (
-      <Flex overflowY='scroll' flex={1} flexWrap='wrap' justifyContent='center' {...this.props}>
+      <Flex className="topic-list-container" flexWrap='wrap' justifyContent='center' {...this.props}>
         { this.props.topics.map((topic) =>
           <TopicListItem
             key={topic._id}

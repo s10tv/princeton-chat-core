@@ -367,13 +367,23 @@ Meteor.methods({
   },
 
   'topic/follow': (topicId) => {
-    check(topicId, String)
-    TopicManager.follow({ topicId, user: CurrentUser.get()})
+    check(topicId, String);
+
+    try {
+      TopicManager.follow({ topicId, user: CurrentUser.get()})
+    } catch(err) {
+      throw new Meteor.Error(500, 'There was a problem with following this topic.');
+    }
   },
 
   'topic/unfollow': (topicId) => {
-    check(topicId, String)
-    TopicManager.unfollow({ topicId, user: CurrentUser.get()})
+    check(topicId, String);
+
+    try {
+      TopicManager.unfollow({ topicId, user: CurrentUser.get()})
+    } catch(err) {
+      throw new Meteor.Error(500, 'There was a problem with unfollowing this topic.');
+    }
   },
 
   'post/follow': (postId) => {
@@ -415,99 +425,22 @@ Meteor.methods({
     Accounts.unlinkService(user._id, serviceName);
   },
 
-  'reset': () => {
-    const user = CurrentUser.get();
-    Users.update(user._id, { $set: {
-      status: 'pending'
-    }});
-
-    Messages.remove({
-      ownerId: user._id,
-    });
-    Messages.insert({
-      senderId: 'system',
-      ownerId: user._id,
-      postId: user.tigerbotPostId,
-      type: "welcome",
-    })
-  },
-
-  'welcome/triggerSelectTopicPrompt': () => {
-    const user = CurrentUser.get();
-
-    if (Messages.find({ ownerId: user._id, qnum: 'welcome/triggerSelectTopicPrompt' }).count() > 0) {
-      // the user has answered this question already;
-      return;
-    }
-
-    send("I'm here! Now what?")
-
-    return pause(1000).then(() => {
-      return systemSend('topics', 'welcome/triggerSelectTopicPrompt', 3500);
-    });
-  },
-
-  'welcome/topic/follow': (topicId) => {
-    check(topicId, String);
-
-    const user = CurrentUser.get();
-    const topic = Topics.findOne(topicId);
-
-    const hasSeenThisMessageBefore = Messages.find({ ownerId: user._id, qnum: 'welcome/topic/follow' }).count() > 0;
-
-    // we check that the following topics length is not 1, to prevent the message from being sent
-    // multiple times while the user clicks follow multiple times in a row.
-    if ((user.followingTopics && user.followingTopics.length != 1) || hasSeenThisMessageBefore) {
-      return;
-    }
-
-    var sendMessageFeedback;
-    if (topic) {
-      sendMessageFeedback = systemSendRaw(`Nice. I'm following ${ topic.displayName } too 😊 You will now get a notification anytime someone tags a post with ${ topic.displayName }.`,
-        'welcome/topic/follow', undefined, 1500).then(() => pause(2000));
-    } else {
-      sendMessageFeedback = Promise.resolve(true);
-    }
-
-    return sendMessageFeedback.then(() => systemSend('linkservice', 'welcome/topic/follow', 1500));
-  },
-
   'welcome/setLoginService': (serviceName) => {
     check(serviceName, String);
 
-    const user = CurrentUser.get();
-    if (Messages.find({ ownerId: user._id, qnum: 'welcome/setLoginService' }).count() > 0) {
-      return;
-    }
-
-    Users.update(user._id, { $set: {
-      username: UsernameGenerator.generate(user),
-      emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
-      avatar: {
-        url: '/images/princeton.svg'
-      },
-      status: 'active',
-    }})
-
-    slack.send({
-      icon_emoji: slackEmoji,
-      text: `${user.firstName} ${user.lastName} just signed up. Total count: ${ Users.find().count() + 1 }.`,
-      username: slackUsername,
-    })
-
-    switch (serviceName) {
-      case 'facebook':
-        systemSendRaw('Got it. You can log in with Facebook next time.')
-        .then(() => {
-          return systemSend('thanks', 'welcome/setLoginService', 1500)
-        })
-        break;
-      case 'password':
-        systemSendRaw('Got it. You can log in with your new password next time.')
-        .then(() => {
-          return systemSend('thanks', 'welcome/setLoginService', 2500)
-        })
-        break;
+    try {
+      const user = CurrentUser.get();
+      Users.update(user._id, { $set: {
+        username: UsernameGenerator.generate(user),
+        emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
+        avatar: {
+          url: '/images/princeton.svg'
+        },
+        status: 'active',
+      }})
+    } catch(error) {
+      console.error(error);
+      throw new Meteor.Error(500, `There was a problem setting up your ${serviceName}`);
     }
   },
 
@@ -516,6 +449,6 @@ Meteor.methods({
 
     return userIds.map(user => {
       return Users.findOne(user.userId);
-    });
+    }).filter((user) => user != undefined);
   }
 })

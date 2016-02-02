@@ -99,17 +99,6 @@ export default React.createClass({
               </SmallListItem>
             )}
           </List>
-
-          <List subheader={<SubHeader label='DIRECT MESSAGES' />}>
-             {this.props.directMessages.map(directMessage =>
-              <SmallListItem
-                style={this.giveListItemStyleForRoutePath(`users/tigerbot`)}
-                key={directMessage._id}
-                onTouchTap={directMessage.goToConversation}>
-                  {directMessage.displayName}
-              </SmallListItem>
-            )}
-          </List>
         </nav>
       </LeftNav>
     )

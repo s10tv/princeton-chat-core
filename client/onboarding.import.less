@@ -2,44 +2,32 @@
 @princeton-white: white;
 @grey: #cccccc;
 
-.ts-onboarding {
-  position: relative;
-  top: 25px;
-  padding-bottom: 150px;
-  margin: 0 20px;
+.onboarding-container {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  justify-content: center;
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  margin: 0px 16px;
+  -webkit-flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  -webkit-flex: 1;
+  margin: "0px 16px 16px 12px";
+}
 
-  .princeton-chat-header {
-    font-size: 24px;
-    font-weight: 100;
-  }
-
-  .ts-onboarding-question {
-    position: relative;
-    padding-top: 5px;
-
-    .question-container {
-      margin-top: -10px;
-
-      .question-title {
-        font-size: 16px;
-        font-weight: 300;
-        margin-bottom: 10px;
-
-        &.user-name {
-          font-weight: 500;
-        }
-      }
-    }
-
-    .timestamp {
-      font-weight: 100;
-      color: #cccccc;
-    }
+@media screen and (max-height: 720px) {
+  .onboarding-container {
+    justify-content: flex-start;
   }
 }
 
 .password-chooser {
   display: inline-block;
+  padding: 0px 8px;
 }
 
 .onboarding-sidebar-overlay {
@@ -50,10 +38,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .onboarding-sidebar-overlay {
-    display: none;
-  }
-
   .choose-password-section {
     height: 250px;
   }
@@ -62,5 +46,6 @@
     display: block;
     width: 100%;
     line-height: 50px;
+    text-align: center;
   }
 }

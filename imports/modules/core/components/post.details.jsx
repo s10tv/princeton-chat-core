@@ -36,24 +36,25 @@ export default React.createClass({
   },
 
   render() {
-    const { post, messages } = this.props;
+    const { post, messages, showUserProfilePost, showUserProfileMessage } = this.props;
 
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
-        <Menu {...this.props} hidePostButton={false} />
+        <Menu {...this.props} hidePostButton={false} hideAddNewUsersButton={true} />
 
         <ScrollingContainer child={
           <article className='post-details'>
             <header>
               <h1>{post.title}</h1>
             </header>
-            <MessageGroup owner={post.owner} timestamp={post.timestamp} content={post.content} />
+            <MessageGroup owner={post.owner} timestamp={post.timestamp} content={post.content} showUserProfile={() => showUserProfilePost(post)} />
             { messages.map(message =>
               <MessageGroup
                 key={message._id}
                 owner={message.owner}
                 timestamp={message.timestamp}
-                content={message.content} />
+                content={message.content}
+                showUserProfile={() => showUserProfileMessage(message)} />
             )}
           </article>
         } />

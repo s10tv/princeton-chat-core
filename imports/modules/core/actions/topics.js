@@ -46,18 +46,20 @@ export default {
     LocalState.set('FOLLOWERS_MODAL_OPEN', true);
   },
 
-  follow({Meteor}, topicId) {
+  follow({Meteor, LocalState}, topicId) {
     Meteor.call('topic/follow', topicId, (err) => {
-      switch (FlowRouter.current().route.name) {
-        case 'onboarding':
-        case 'tigercub-directmessage':
-          Meteor.call('welcome/topic/follow', topicId)
+      if (err) {
+        LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
       }
     });
   },
 
-  unfollow({Meteor}, topicId) {
-    Meteor.call('topic/unfollow', topicId);
+  unfollow({Meteor, LocalState}, topicId) {
+    Meteor.call('topic/unfollow', topicId, (err) => {
+      if (err) {
+        LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
+      }
+    });
   },
 
   showAddNewUsersModal({LocalState}, topicId) {

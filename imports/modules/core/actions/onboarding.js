@@ -1,46 +1,35 @@
 export default {
-  setMessageType({LocalState}, value) {
-    LocalState.set('type', value);
-  },
-
-  clickStartOnboarding({Meteor}) {
-    Meteor.call('welcome/triggerSelectTopicPrompt');
-  },
-
-  clickAbandonOnboarding({Meteor}) {
-    Meteor.call('welcome/no');
-  },
-
-  submitTextField({Meteor, LocalState}, event, textField) {
-    event.preventDefault();
-    const message = textField.getValue();
-    Meteor.call('message/add', message, LocalState.get('type'), (err) => {
-      textField.setValue('');
-
-      LocalState.set('type', undefined);
-    });
-  },
-
-  clickFacebook({Meteor}) {
+  clickFacebook({Meteor, LocalState}) {
     event.preventDefault();
     Meteor.linkWithFacebook({}, (err) => {
       if (err) {
-        console.log(err);
+        LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.message);
+        return;
       }
 
       Meteor.call('welcome/setLoginService', 'facebook');
     });
   },
 
-  addPassword({Meteor}, pwd) {
+  addPassword({Meteor, LocalState}, pwd) {
     event.preventDefault();
     if (pwd) {
-      Accounts.changePassword(Meteor.user().inviteCode, pwd);
-      Meteor.call('welcome/setLoginService', 'password');
+      Accounts.changePassword(Meteor.user().inviteCode, pwd, (err) => {
+        if (err) {
+          LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
+          return;
+        }
+
+        Meteor.call('welcome/setLoginService', 'password', (err) => {
+          if (err) {
+            LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
+          }
+        });
+      });
     }
   },
 
-  clickSkip({Meteor}) {
-    Meteor.call('share/skip');
+  closeSnackbar({LocalState}) {
+    LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', null);
   }
 }
