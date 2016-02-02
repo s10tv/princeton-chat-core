@@ -415,6 +415,20 @@ Meteor.methods({
     Accounts.unlinkService(user._id, serviceName);
   },
 
+  'welcome/setLoginService': (serviceName) => {
+    check(serviceName, String);
+
+    const user = CurrentUser.get();
+    Users.update(user._id, { $set: {
+      username: UsernameGenerator.generate(user),
+      emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
+      avatar: {
+        url: '/images/princeton.svg'
+      },
+      status: 'active',
+    }})
+  },
+
   'get/followers': (userIds) => {
     check(userIds, Array);
 

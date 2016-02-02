@@ -39,7 +39,7 @@ export default function (injectDeps) {
   const SignupWithCtx = injectDeps(Signup);
   const SignupDoneWithCtx = injectDeps(SignupDone);
 
-  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite", "signup", "signup-done", "signupForm" ]});
+  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite", "signup", "signup-done" ]});
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {

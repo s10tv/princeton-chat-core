@@ -1,8 +1,4 @@
 export default {
-  goToSetPasswordPage({ LocalState }) {
-    LocalState.set('GO_TO_SET_PASSWORD', true);
-  },
-
   clickFacebook({Meteor}) {
     event.preventDefault();
     Meteor.linkWithFacebook({}, (err) => {

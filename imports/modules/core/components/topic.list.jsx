@@ -56,7 +56,7 @@ export const TopicGrid = React.createClass({
 
   render() {
     return (
-      <Flex overflowY='scroll' flex={1} flexWrap='wrap' justifyContent='center' {...this.props}>
+      <Flex flexWrap='wrap' justifyContent='center' {...this.props}>
         { this.props.topics.map((topic) =>
           <TopicListItem
             key={topic._id}

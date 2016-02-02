@@ -6,16 +6,13 @@ export const composer = ({context}, onData) => {
   const { LocalState } = context();
   const currentUser = UserService.currentUser();
 
-  const proceededToSetPassword = LocalState.get('GO_TO_SET_PASSWORD') || false;
-
   onData(null, {
-    proceededToSetPassword,
+    proceededToFollowTopics: currentUser.status == 'active',
     hasntFollowedAnyTopics: currentUser.followingTopics.length == 0,
   });
 };
 
 const depsMapper = (context, actions) => ({
-  goToSetPasswordPage: actions.onboarding.goToSetPasswordPage,
   context: () => context
 });
 

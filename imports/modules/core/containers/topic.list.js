@@ -11,8 +11,6 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
     return topic;
   })
 
-  console.log(topics);
-
   onData(null, { topics });
 };
 

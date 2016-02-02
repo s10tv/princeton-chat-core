@@ -5,6 +5,12 @@ import styles from '/imports/modules/core/components/styles.jsx';
 
 export default React.createClass({
 
+  propTypes: {
+    addPassword: React.PropTypes.func.isRequired,
+    shouldShowPasswordFields: React.PropTypes.bool.isRequired,
+    clickFacebook: React.PropTypes.func.isRequired,
+  },
+
   getInitialState() {
     return {
       passwordText: '',
@@ -32,20 +38,20 @@ export default React.createClass({
             floatingLabelText='Choose Password'
             onChange={this.handleChange}
             disabled={!shouldShowPasswordFields} />
-
-          { this.state.passwordText.length == 0 ? null : (
-            <div style={{ display: 'inline-block', paddingLeft: 16 }}>
-              <FlatButton
-                label="Set Password"
-                style={shouldShowPasswordFields ? styles.primaryButton : styles.disabledButton}
-                disabled={!shouldShowPasswordFields}
-                onClick={this.setPassword} />
-            </div>
-          )}
         </div>
 
+        { this.state.passwordText.length == 0 ? null : (
+          <div className="password-chooser">
+          <FlatButton
+            label="Set Password"
+            style={shouldShowPasswordFields ? styles.primaryButton : styles.disabledButton}
+            disabled={!shouldShowPasswordFields}
+            onClick={this.setPassword} />
+          </div>
+        )}
+
         { this.state.passwordText.length > 0 ? null : (
-          <div className="password-chooser" style={{ padding: "0px 16px"}}>
+          <div className="password-chooser" style={{ padding: "0px 8px"}}>
             OR
           </div>
         )}
