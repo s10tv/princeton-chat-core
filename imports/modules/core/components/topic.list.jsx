@@ -15,6 +15,7 @@ export default React.createClass({
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <Menu {...this.props}
             title={'Follow some topics'}
+            hideAddNewUsersButton={true}
             hideFollowerSection={true}
             hideAddNewUsersButton={true}
             hideFollowActionSection={true} />

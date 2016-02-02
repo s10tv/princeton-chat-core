@@ -22,35 +22,39 @@ const styles = Object.assign(importedStyles, {
 
 const FollowTopicComponent = (props) => {
   return (
-    <div style={{margin: "0px 16px"}}>
-      <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
-      <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-        Princeton.Chat is a community for Princeton alums.
-      </h2>
-      <p style={styles.subTitle}>
-        Follow some topics to get started.
-      </p>
-      <TopicGridContainer style={{ marginTop: 16 }} />
+    <div className="onboarding-container">
+      <div>
+        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>Princeton.Chat</Block>
+        <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
+          Princeton.Chat is a community for Princeton alums.
+        </h2>
+        <p style={styles.subTitle}>
+          Follow some topics to get started.
+        </p>
+        <TopicGridContainer style={{ marginTop: 16 }} />
+      </div>
     </div>
   )
 }
 
 const SetPasswordComonent = (props) => {
   return (
-    <div style={{margin: "0px 16px"}}>
-      <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
-      <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
-        Welcome Tiger!
-      </h1>
-      <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-        How would you like to login to Princeton.chat in the future?
-      </h2>
-      <p style={styles.subTitle}>
-        You can either <b>set a password</b> or <b>link your account</b> with facebook.
-      </p>
-      <Flex alignItems='center' justifyContent="center">
-        <SetPasswordComponent style={{ display: 'inline-block' }}  />
-      </Flex>
+    <div className="onboarding-container">
+      <div>
+        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
+        <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
+          Welcome Tiger!
+        </h1>
+        <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
+          How would you like to login to Princeton.chat in the future?
+        </h2>
+        <p style={styles.subTitle}>
+          You can either <b>set a password</b> or <b>link your account</b> with facebook.
+        </p>
+        <Flex alignItems='center' justifyContent="center">
+          <SetPasswordComponent style={{ display: 'inline-block' }}  />
+        </Flex>
+      </div>
     </div>
   )
 }
