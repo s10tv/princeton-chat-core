@@ -7,7 +7,14 @@ export default {
         return;
       }
 
-      Meteor.call('welcome/setLoginService', 'facebook');
+      Meteor.call('welcome/setLoginService', 'facebook', (err) => {
+        if (err) {
+          LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
+          return;
+        }
+
+        LocalState.set('ONBOARDING_SHOW_FOLLOW_TOPIC', true);
+      });
     });
   },
 
@@ -23,7 +30,9 @@ export default {
         Meteor.call('welcome/setLoginService', 'password', (err) => {
           if (err) {
             LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
+            return
           }
+          LocalState.set('ONBOARDING_SHOW_FOLLOW_TOPIC', true);
         });
       });
     }

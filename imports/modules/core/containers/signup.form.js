@@ -4,13 +4,10 @@ import UserService from '/imports/libs/UserService';
 
 export const composer = ({context}, onData) => {
   const { LocalState } = context();
-  const currentUser = UserService.currentUser();
+  const proceededToFollowTopics = LocalState.get('ONBOARDING_SHOW_FOLLOW_TOPIC') || false;
 
   onData(null, {
-    isSnackbarOpen: LocalState.get('SHOW_GLOBAL_SNACKBAR_WITH_STRING') != undefined,
-    snackbarErrorString: LocalState.get('SHOW_GLOBAL_SNACKBAR_WITH_STRING') || '',
-    proceededToFollowTopics: currentUser.status == 'active',
-    hasntFollowedAnyTopics: currentUser.followingTopics.length == 0,
+    proceededToFollowTopics,
   });
 };
 
