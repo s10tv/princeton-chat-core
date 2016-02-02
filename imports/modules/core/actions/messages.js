@@ -12,4 +12,8 @@ export default {
       }
     });
   },
+
+  showUserProfile({LocalState}, message) {
+    LocalState.set('PROFILE_USER', message.owner);
+  }
 };
