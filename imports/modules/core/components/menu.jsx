@@ -150,7 +150,9 @@ export default React.createClass({
 
         { this.props.sidebarOpen ? null :
           <ToolbarGroup firstChild={true}>
-            <IconButton iconClassName='material-icons' tooltip='Menu'>menu</IconButton>
+            <IconButton iconClassName='material-icons' tooltip='Menu' onTouchTap={() => {
+                console.log('clicked menu');
+              }}>menu</IconButton>
           </ToolbarGroup>
         }
 

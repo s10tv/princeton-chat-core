@@ -37,7 +37,8 @@ export default React.createClass({
             type="password"
             floatingLabelText='Choose Password'
             onChange={this.handleChange}
-            disabled={!shouldShowPasswordFields} />
+            disabled={!shouldShowPasswordFields}
+            onEnterKeyDown={this.setPassword} />
         </div>
 
         { this.state.passwordText.length == 0 ? null : (

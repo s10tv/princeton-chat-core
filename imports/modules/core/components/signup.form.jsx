@@ -41,7 +41,7 @@ const SetPasswordComonent = (props) => {
   return (
     <div className="onboarding-container">
       <div>
-        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
+        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>Princeton.Chat</Block>
         <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
           Welcome Tiger!
         </h1>
