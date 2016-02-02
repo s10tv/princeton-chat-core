@@ -368,12 +368,22 @@ Meteor.methods({
 
   'topic/follow': (topicId) => {
     check(topicId, String);
-    TopicManager.follow({ topicId, user: CurrentUser.get()})
+
+    try {
+      TopicManager.follow({ topicId, user: CurrentUser.get()})
+    } catch(err) {
+      throw new Meteor.Error(500, 'There was a problem with following this topic.');
+    }
   },
 
   'topic/unfollow': (topicId) => {
-    check(topicId, String)
-    TopicManager.unfollow({ topicId, user: CurrentUser.get()})
+    check(topicId, String);
+
+    try {
+      TopicManager.unfollow({ topicId, user: CurrentUser.get()})
+    } catch(err) {
+      throw new Meteor.Error(500, 'There was a problem with unfollowing this topic.');
+    }
   },
 
   'post/follow': (postId) => {
@@ -418,15 +428,20 @@ Meteor.methods({
   'welcome/setLoginService': (serviceName) => {
     check(serviceName, String);
 
-    const user = CurrentUser.get();
-    Users.update(user._id, { $set: {
-      username: UsernameGenerator.generate(user),
-      emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
-      avatar: {
-        url: '/images/princeton.svg'
-      },
-      status: 'active',
-    }})
+    try {
+      const user = CurrentUser.get();
+      Users.update(user._id, { $set: {
+        username: UsernameGenerator.generate(user),
+        emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
+        avatar: {
+          url: '/images/princeton.svg'
+        },
+        status: 'active',
+      }})
+    } catch(error) {
+      console.error(error);
+      throw new Meteor.Error(500, `There was a problem setting up your ${serviceName}`);
+    }
   },
 
   'get/followers': (userIds) => {

@@ -12,7 +12,7 @@ import {Message, MessageGroup} from '/imports/modules/core/components/message.js
 import InputBox from '/imports/modules/core/containers/inputBox.js'
 import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
 import {TopicGridContainer} from '/imports/modules/core/containers/topic.list.js'
-import SetPasswordComponent from '/imports/modules/core/containers/setPassword.js';
+import SetPasswordComponentBox from '/imports/modules/core/containers/setPassword.js';
 
 const styles = Object.assign(importedStyles, {
   subTitle: {
@@ -37,7 +37,7 @@ const FollowTopicComponent = (props) => {
   )
 }
 
-const SetPasswordComonent = (props) => {
+const SetPasswordComponent = (props) => {
   return (
     <div className="onboarding-container">
       <div>
@@ -52,7 +52,7 @@ const SetPasswordComonent = (props) => {
           You can either <b>set a password</b> or <b>link your account</b> with facebook.
         </p>
         <Flex alignItems='center' justifyContent="center">
-          <SetPasswordComponent style={{ display: 'inline-block' }}  />
+          <SetPasswordComponentBox style={{ display: 'inline-block' }}  />
         </Flex>
       </div>
     </div>
@@ -85,7 +85,7 @@ export default React.createClass({
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         { this.props.proceededToFollowTopics
           ? <FollowTopicComponent {...this.props} />
-          : <SetPasswordComonent {...this.props} />
+          : <SetPasswordComponent {...this.props} />
         }
       </main>
     )
