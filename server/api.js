@@ -420,6 +420,6 @@ Meteor.methods({
 
     return userIds.map(user => {
       return Users.findOne(user.userId);
-    });
+    }).filter((user) => user != undefined);
   }
 })
