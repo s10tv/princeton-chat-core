@@ -69,6 +69,7 @@ const EmptyPostList = ({ showAddPostPopupFn }) => (
     <img src='/images/bg-empty-feed.png' alt='empty feed' style={{
         width: '50%',
         maxWidth: 468,
+        maxHeight: 320,
         marginTop: 36,
       }}/>
   </Flex>
