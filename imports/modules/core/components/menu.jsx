@@ -156,16 +156,18 @@ export default React.createClass({
 
         { this.props.hideTitleSection ? null :
           <ToolbarGroup >
-            <ToolbarTitle text={this.getTitleText()} />
+            <a className='topic-header-link-button' href='#' onClick={this.props.showFollowersFn}>
+              <ToolbarTitle text={this.getTitleText()} />
+            </a>
           </ToolbarGroup>
         }
 
         { this.props.hideFollowerSection ? null :
           <ToolbarGroup style={{height: '100%'}}>
             <Flex alignItems='center' height='100%'>
-              <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
-              <a href='#' onClick={this.props.showFollowersFn}>
-                <span>{ this.props.followersCount }</span>
+              <a className='topic-header-link-button' href='#' onClick={this.props.showFollowersFn} style={{display: 'flex', alignItems: 'center'}}>
+                <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
+                <span style={{marginLeft: 5}}>{ this.props.followersCount }</span>
               </a>
             </Flex>
           </ToolbarGroup>
