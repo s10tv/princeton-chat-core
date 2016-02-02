@@ -12,6 +12,7 @@ import {Message, MessageGroup} from '/imports/modules/core/components/message.js
 import InputBox from '/imports/modules/core/containers/inputBox.js'
 import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
 import {TopicGridContainer} from '/imports/modules/core/containers/topic.list.js'
+import SetPasswordComponent from '/imports/modules/core/components/onboarding/setPassword.jsx';
 
 export default React.createClass({
   propTypes: {
@@ -41,29 +42,35 @@ export default React.createClass({
     this.props.goToSetPasswordPage();
   },
 
+  getPasswordComponent() {
+    const {} = this.props;
+  },
+
   render() {
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <Flex flexDirection='column' flex={1} overflowY='hidden'>
           <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
-          <Block flex={1} overflowY='scroll'>
             <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
               Welcome Tiger!
             </h1>
             <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
               Princeton.Chat is a community for Princeton alums.
             </h2>
-            <TopicGridContainer style={{
-              marginTop: 16,
-            }} />
-          </Block>
-          <Block margin={24}>
-            <RaisedButton
-              label='Next'
-              disabled={this.props.hasntFollowedAnyTopics}
-              primary={true}
-              onTouchTap={this.goToSetPasswordPage} />
-          </Block>
+          { this.props.proceededToSetPassword ?
+            <SetPasswordComponent style={{ display: 'inline-block' }}  />
+            :
+            <Flex flexDirection='column' alignItems='center'>
+              <TopicGridContainer
+                style={{ marginTop: 16 }} />
+              <RaisedButton
+                style={{marginTop: 24}}
+                label='Next'
+                disabled={this.props.hasntFollowedAnyTopics}
+                primary={true}
+                onTouchTap={this.goToSetPasswordPage} />
+            </Flex>
+          }
         </Flex>
       </main>
     )

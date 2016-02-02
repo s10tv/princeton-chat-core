@@ -367,7 +367,7 @@ Meteor.methods({
   },
 
   'topic/follow': (topicId) => {
-    check(topicId, String)
+    check(topicId, String);
     TopicManager.follow({ topicId, user: CurrentUser.get()})
   },
 
