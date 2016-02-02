@@ -21,7 +21,7 @@ export const articleFont = 'medium-content-serif-font, Georgia, Cambria, "Times 
 // Helpers
 
 export const Loading = () => (
-  <Flex flex={1} justifyContent='center' alignItems='center' flexDirection='column'>
+  <Flex flex={1} justifyContent='center' alignItems='center' flexDirection='column' marginLeft={240} height='100vh'>
     <span style={{color: 'gray'}}>Loading...</span>
     <CircularProgress />
   </Flex>
