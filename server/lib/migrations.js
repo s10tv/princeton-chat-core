@@ -35,6 +35,7 @@ Migrations.add({
         displayName: topic.value,
         order: topic.order,
         followers: [],
+        numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
       }});
     })
   },

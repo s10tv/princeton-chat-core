@@ -70,20 +70,33 @@ export const TopicGrid = React.createClass({
   }
 })
 
-const TopicListItem = ({topic, followTopic, unfollowTopic}) => (
-  <Flex width={300} height={80} backgroundColor='#F2F6F9' padding='16px 4px 16px 16px' margin={8} alignItems='center'>
-    <Block flex={1}>
-      <Block fontWeight={600}>#{topic.displayName}</Block>
-      <Block color='#8899A6' fontSize={14}>{topic.numPosts} posts - {topic.followersCount} followers</Block>
-    </Block>
-
-    {
-      topic.isFollowed
-      ? <FlatButton primary={true}
-          label='Following' onTouchTap={() => { unfollowTopic(topic._id) }} />
-      : <FlatButton label='Follow' labelPosition='after'
-          icon={<FontIcon className='material-icons'>add</FontIcon>}
-          onTouchTap={() => { followTopic(topic._id) }} />
+const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
+  const topicPostsCountFollowersCountStr = () => {
+    var str = [];
+    if (topic.numPosts) {
+      str.push(`${topic.numPosts} posts`);
     }
-  </Flex>
-)
+    if (topic.followersCount) {
+      str.push(`${topic.followersCount} followers`);
+    }
+    return str.join(' - ')
+  }
+
+  return (
+    <Flex width={300} height={80} backgroundColor='#F2F6F9' padding='16px 4px 16px 16px' margin={8} alignItems='center'>
+      <Block flex={1}>
+        <Block fontWeight={600}>#{topic.displayName}</Block>
+        <Block color='#8899A6' fontSize={14}>{topicPostsCountFollowersCountStr()}</Block>
+      </Block>
+
+      {
+        topic.isFollowed
+        ? <FlatButton primary={true}
+            label='Following' onTouchTap={() => { unfollowTopic(topic._id) }} />
+        : <FlatButton label='Follow' labelPosition='after'
+            icon={<FontIcon className='material-icons'>add</FontIcon>}
+            onTouchTap={() => { followTopic(topic._id) }} />
+      }
+    </Flex>
+  )
+}
