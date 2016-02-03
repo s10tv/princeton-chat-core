@@ -57,9 +57,11 @@ export const composer = ({context, topicId, postListType}, onData) => {
       post.truncatedContent = truncate(post.content, 150);
 
       post.numFollowers = post.followers.length;
-      post.followerAvatars = post.followers.map(follower => {
-        return Users.findOne(follower.userId).avatar;
-      });
+      post.followerAvatars = post.followers.map(follower => ({
+          url: Users.findOne(follower.userId).avatar.url,
+          userId: follower.userId
+        })
+      );
       post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0;
 
       var currentTopicId;

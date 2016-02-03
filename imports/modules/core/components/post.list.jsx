@@ -140,9 +140,9 @@ const PostListItem = (props) => (
         </Flex>
       </Flex>
       <Flex flexDirection='row' justifyContent='space-between' marginTop={10}>
-        <Flex alignItems='center'>
+        <Flex alignItems='center' onClick={() => props.showPostFollowers(props.post.followers)}>
           <span style={{marginRight: 7}}>Followers:</span>
-          { props.post.followerAvatars.map(followerAvatar => <Avatar src={followerAvatar.url} size={30} style={{marginRight: 5}} />) }
+          { props.post.followerAvatars.map(followerAvatar => <Avatar key={followerAvatar.userId} src={followerAvatar.url} size={30} style={{marginRight: 5}} />) }
         </Flex>
         <Flex alignItems='center'>
           <FollowBtn {...props} style={{marginRight: 24}}/>
