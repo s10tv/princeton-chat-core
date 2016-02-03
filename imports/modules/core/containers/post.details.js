@@ -49,7 +49,6 @@ export const composer = ({context, topicId, postId}, onData) => {
 };
 
 const depsMapper = (context, actions) => ({
-  showAddPostPopupFn: actions.posts.showAddPostPopup,
   showUserProfilePost: actions.posts.showUserProfile,
   showUserProfileMessage: actions.messages.showUserProfile,
   showFollowersFn: actions.topics.showTopicFollowers,

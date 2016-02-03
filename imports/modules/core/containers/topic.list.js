@@ -27,7 +27,6 @@ export default composeAll(
   composeWithTracker(composer, Loading),
   useDeps((context, actions) => ({
     context: () => context,
-    showAddPostPopupFn: actions.posts.showAddPostPopup,
     followTopic: actions.topics.follow,
     unfollowTopic: actions.topics.unfollow,
   }))

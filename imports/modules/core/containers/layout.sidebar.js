@@ -67,9 +67,9 @@ export const composer = ({context}, onData) => {
 const depsMapper = (context, actions) => ({
   showAddPostPopupFn: actions.posts.showAddPostPopup,
   context: () => context
-})
+});
 
 export default composeAll(
   composeWithTracker(composer),
   useDeps(depsMapper)
-)(LayoutSidebar)
+)(LayoutSidebar);

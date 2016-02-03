@@ -75,11 +75,6 @@ export default React.createClass({
     hidePostButton: React.PropTypes.bool,
 
     /**
-    * Executing this function shows the post modal.
-    */
-    showAddPostPopupFn: React.PropTypes.func,
-
-    /**
     * Executing this function shows the import new users modal.
     */
     showAddNewUsersModal: React.PropTypes.func,
@@ -178,22 +173,6 @@ export default React.createClass({
         { this.props.hideFollowActionSection ? null :
           <ToolbarGroup>
             { this.getFollowerButton() }
-          </ToolbarGroup>
-        }
-
-        { this.props.hidePostButton ? null :
-          <ToolbarGroup float='right' lastChild={true}>
-            <ToolbarSeparator />
-              <RaisedButton primary={true}
-                label={ this.getAddPostButtonText() }
-                labelPosition='after'
-                onTouchTap={this.props.showAddPostPopupFn}>
-              <FontIcon className='material-icons' color='white' style={{
-                  verticalAlign: 'middle',
-                  height: '100%',
-                  marginLeft: 8,
-                 }}>add_circle</FontIcon>
-            </RaisedButton>
           </ToolbarGroup>
         }
 

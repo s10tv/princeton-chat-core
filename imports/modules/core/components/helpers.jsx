@@ -76,7 +76,6 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
   palette: {
     ...darkRawTheme.palette,
     accent1Color: '#F07621', // Princeton Orange,
-    textColor: Colors.white,
     alternateTextColor: Colors.white,
   },
 })

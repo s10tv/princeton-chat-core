@@ -56,6 +56,22 @@ const SubHeader = ({label, action, onClick}) => (
   </FlatButton>
 )
 
+const AddNewPostButton = ({ onClick }) => (
+  <Flex marginTop='15' marginBottom='7' alignItems='center'>
+    <RaisedButton
+        primary={true}
+        label="New Post"
+        labelPosition='after'
+        onTouchTap={onClick}>
+      <FontIcon className='material-icons' color='white' style={{
+          verticalAlign: 'middle',
+          height: '100%',
+          marginLeft: 8,
+         }}>add_circle</FontIcon>
+    </RaisedButton>
+  </Flex>
+)
+
 export default React.createClass({
   propTypes: {
     user: React.PropTypes.object.isRequired,
