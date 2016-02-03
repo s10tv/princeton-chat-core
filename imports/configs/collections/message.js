@@ -4,6 +4,9 @@ MessageSchema = new SimpleSchema({
   ownerId: { type: String },
   postId: { type: String }, // post id or direct message thread id.
   content: { type: String, optional: true },
+  source: { type: String, optional: true, defaultValue: 'web', allowedValues: [
+    'web', 'email', 'mobile'
+  ]},
 
   // for use during onboarding
   senderId: { type: String, optional: true },

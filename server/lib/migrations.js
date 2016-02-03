@@ -55,3 +55,17 @@ Migrations.add({
     }})
   },
 })
+
+Migrations.add({
+  version: 3,
+  name: 'Add source for existing messages',
+  up: function() {
+    Messages.find().forEach(message => {
+      if (!message.source) {
+        Messages.update(message._id, { $set: {
+          source: 'web'
+        }})
+      }
+    })
+  },
+})
