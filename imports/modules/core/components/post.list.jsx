@@ -141,8 +141,7 @@ const PostListItem = (props) => (
       </Flex>
       <Flex flexDirection='row' justifyContent='space-between' marginTop={10}>
         <Flex alignItems='center'>
-          <a href='#' onClick={() => props.showPostFollowers(props.post.followers)} style={{marginRight: 7}}>Followers:</a>
-          { props.post.followerAvatars.map(followerAvatar => <Avatar key={followerAvatar.userId} src={followerAvatar.url} size={30} style={{marginRight: 5}} />) }
+          <FollowersBtn {...props}/>
         </Flex>
         <Flex alignItems='center'>
           <FollowBtn {...props} style={{marginRight: 24}}/>
@@ -153,6 +152,16 @@ const PostListItem = (props) => (
       </Flex>
     </Flex>
   </ListItem>
+)
+
+const FollowersBtn = (props) => (
+  props.post.numFollowers === 0 ?
+    <Flex alignItems='center'>No Followers</Flex>
+    :
+    <Flex alignItems='center'>
+      <a href='#' onClick={() => props.showPostFollowers(props.post.followers)} style={{marginRight: 7}}>Followers:</a>
+      { props.post.followerAvatars.map(followerAvatar => <Avatar key={followerAvatar.userId} src={followerAvatar.url} size={30} style={{marginRight: 5}} />) }
+    </Flex>
 )
 
 const FollowBtn = (props) => (
