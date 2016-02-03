@@ -21,17 +21,18 @@ export default {
   addPassword({Meteor, LocalState}, pwd) {
     event.preventDefault();
     if (pwd) {
-      Accounts.changePassword(Meteor.user().inviteCode, pwd, (err) => {
+      Meteor.call('welcome/setLoginService', 'password', (err) => {
         if (err) {
           LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
           return;
         }
 
-        Meteor.call('welcome/setLoginService', 'password', (err) => {
+        Accounts.changePassword(Meteor.user().inviteCode, pwd, (err) => {
           if (err) {
             LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
-            return
+            return;
           }
+
           LocalState.set('ONBOARDING_SHOW_FOLLOW_TOPIC', true);
         });
       });
