@@ -177,7 +177,7 @@ const linkService = (props) => {
   return {
     comment: (
         <span>
-          One last thing. How would you like to login to Princeton.chat in the future? You can either <b>set a password</b> or <b>link your account</b> with facebook.
+          One last thing. How would you like to login to Princeton.Chat in the future? You can either <b>set a password</b> or <b>link your account</b> with facebook.
         </span>
     ),
 
