@@ -110,7 +110,7 @@ export default React.createClass({
         </Flex>
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
-            <MediumListItem style={this.giveListItemStyleForRoutePath('all-mine')} onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>Posts for me</MediumListItem>
+            <MediumListItem style={this.giveListItemStyleForRoutePath('all-mine')} onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>My Feed</MediumListItem>
             <MediumListItem style={this.giveListItemStyleForRoutePath('all')} onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>All Posts</MediumListItem>
           </List>
           <List subheader={<SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>}>
