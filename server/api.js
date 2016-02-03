@@ -360,7 +360,7 @@ Meteor.methods({
 
     if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
       new IronWorker().send({
-          taskName: 'job_user_post_handler',
+          taskName: 'new_post_handler',
         payload: { postId }
       })
     }
@@ -411,7 +411,7 @@ Meteor.methods({
 
     if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
       new IronWorker().send({
-          taskName: 'job_user_message_email_sender',
+          taskName: 'message_web_reply_handler',
         payload: { messageId: _id }
       })
     }
