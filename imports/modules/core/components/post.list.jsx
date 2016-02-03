@@ -5,6 +5,8 @@ import List from 'material-ui/lib/lists/list'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Menu from '/imports/modules/core/components/menu.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
+import ListItem from 'material-ui/lib/lists/list-item'
+import Avatar from 'material-ui/lib/avatar'
 
 export default React.createClass({
   propTypes: {
@@ -87,58 +89,74 @@ const PostList = (props) => (
 )
 
 const PostListItem = (props) => (
-  <NoPaddingListItem disabled={true}>
-    <article>
-      <a href='#' onClick={() => props.showUserProfile(props.post)}>
-        <SquareAvatar src={props.post.owner.avatar.url} length={60} />
-      </a>
-      <div className='right-container'>
-        <header>
-          <a href='#' onClick={() => props.showUserProfile(props.post)}>
-            <span className='display-name'>
-              { props.post.owner.displayName }
-            </span>
-          </a>
-          <a href='#' onClick={() => props.showUserProfile(props.post)}>
-            <span className='mention'>
-              @{ props.post.owner.username }
-            </span>
-          </a>
-          <span className='datetime'>{ props.post.timestamp }</span>
-        </header>
-        <a href={props.post.url}>
-          <h2>{ props.post.title }</h2>
-        </a>
-        <a href={props.post.url}>
-          <p>{ props.post.truncatedContent }</p>
-        </a>
-        <footer>
-          { props.post.topics.map(topic =>
-            <span key={topic._id} className='topic'>
-              <a href="#" onClick={() => {
-                props.navigateToTopic(topic._id);
-                return false;
-              }}>
-                { topic.displayName }
-              </a>
-            </span>
-          )}
-          <span className='spacer' />
-          <span className='comments-count'>{ props.post.numMsgs} comments</span>
-          <a href='#' onClick={() => props.showPostFollowers(props.post.followers)}>
-            <span className='followers-count'>{ props.post.numFollowers } followers</span>
-          </a>
-          <span className='follow-button'>
-            <FollowBtn {...props} />
+  <ListItem disabled={true} style={{
+      maxWidth: '70vh',
+      margin: '36px auto',
+      backgroundColor: '#f9f9f9',
+      border: '1px solid #979797',
+      borderRadius: 3,
+      padding: 24
+    }}>
+    <Flex flexDirection='column'>
+      <Flex flexDirection='row'>
+        { props.post.topics.map(topic =>
+          <span key={topic._id} style={{marginRight: 10}}>
+            <a href="#" onClick={() => {
+              props.navigateToTopic(topic._id);
+              return false;
+            }} style={{ color: '#d3d4d7'}}>
+              #{topic.displayName}
+            </a>
           </span>
-        </footer>
-      </div>
-    </article>
-  </NoPaddingListItem>
+        )}
+      </Flex>
+      <a href={props.post.url} style={{marginTop: 7}}>
+        <h2>{props.post.title}</h2>
+      </a>
+      <Flex flexDirection='row' style={{marginTop: 7}}>
+        <Avatar src={props.post.owner.avatar.url} size={50}/>
+        <Flex flexDirection='column' style={{marginLeft: 7}}>
+          <Flex flexDirection='row'>
+            <a href='#' onClick={() => props.showUserProfile(props.post)}>
+              <span className='display-name'>
+                { props.post.owner.displayName }
+              </span>
+            </a>
+            <a href='#' onClick={() => props.showUserProfile(props.post)}>
+              <span className='mention'>
+                @{ props.post.owner.username }
+              </span>
+            </a>
+            <span className='datetime'>{ props.post.timestamp }</span>
+          </Flex>
+          <a href={props.post.url} style={{marginTop: 4}}>
+            <p>{ props.post.truncatedContent }</p>
+          </a>
+          { props.post.numMsgs == 0 ? null :
+            <a href={props.post.url} style={{marginTop: 5, alignSelf: 'center', color: '#6A6A6A'}}>
+              <span>{ props.post.numMsgs } more messages </span>
+            </a>
+          }
+        </Flex>
+      </Flex>
+      <Flex flexDirection='row' justifyContent='space-between' marginTop={10}>
+        <Flex alignItems='center'>
+          <span style={{marginRight: 7}}>Followers:</span>
+          { props.post.followerAvatars.map(followerAvatar => <Avatar src={followerAvatar.url} size={30} style={{marginRight: 5}} />) }
+        </Flex>
+        <Flex alignItems='center'>
+          <FollowBtn {...props} style={{marginRight: 24}}/>
+          <a href={props.post.url}>
+            <b>reply</b>
+          </a>
+        </Flex>
+      </Flex>
+    </Flex>
+  </ListItem>
 )
 
 const FollowBtn = (props) => (
   props.post.isFollowingPost
-    ? <a href='#' onClick={() => props.unfollowPostFn(props.post._id)}>Following</a>
-    : <a href='#' onClick={() => props.followPostFn(props.post._id)}>Follow</a>
+    ? <a href='#' style={props.style} onClick={() => props.unfollowPostFn(props.post._id)}><b>unfollow</b></a>
+  : <a href='#' style={props.style} onClick={() => props.followPostFn(props.post._id)}><b>follow</b></a>
 )
