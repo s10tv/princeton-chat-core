@@ -19,3 +19,7 @@
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+.message-group:hover {
+  background-color: #F7F7F7;
+}

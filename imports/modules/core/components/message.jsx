@@ -10,12 +10,18 @@ export const Message = (props) => (
 )
 
 export const MessageGroup = (props) => (
-  <Flex className='message-group' margin='0 24px' padding='16px 0' borderBottom='1px solid #eceeef'>
-    <a href="#" onClick={props.showUserProfile}><SquareAvatar src={props.owner.avatar.url} length={36} /></a>
+  <Flex className='message-group' padding='8px 16px'>
+    <a href="#" onClick={props.showUserProfile}>
+      <SquareAvatar src={props.owner.avatar.url} length={50} />
+    </a>
     <Block flex={1} marginLeft={8}>
       <header>
-        <a href="#" onClick={props.showUserProfile}><span className='display-name'>{ props.owner.displayName }</span></a>
-        <a href="#" onClick={props.showUserProfile}><span className='mention'>{ props.owner.displayUsername }</span></a>
+        <a href="#" onClick={props.showUserProfile}>
+          <span className='display-name'>{ props.owner.displayName }</span>
+        </a>
+        <a href="#" onClick={props.showUserProfile}>
+          <span className='mention'>{ props.owner.displayUsername }</span>
+        </a>
         <span className='datetime'>{ props.timestamp }</span>
       </header>
       <Message {...props} />

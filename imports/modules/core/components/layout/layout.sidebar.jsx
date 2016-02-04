@@ -103,7 +103,7 @@ export default React.createClass({
     return (
       <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
-        <Flex padding='16px 16px 0 16px'>
+        <Flex padding='8px 16px 0 16px'>
           <RaisedButton primary={true}
             label='New Post'
             onTouchTap={this.props.showAddPostPopupFn} />
