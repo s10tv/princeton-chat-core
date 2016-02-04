@@ -67,7 +67,10 @@ Meteor.publishComposite('posts', function(topicId) {
     children: [
       {
         find: function(todo) {
-          return Users.find({ _id: todo.ownerId });
+          return Users.find({ $or: [
+            { _id: todo.ownerId },
+            { _id: { $in: todo.followers.map(user => user.userId) }},
+          ]});
         }
       }
     ]

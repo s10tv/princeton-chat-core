@@ -5,6 +5,7 @@ import PostList from '/imports/modules/core/components/post.list.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';
+import _ from 'underscore';
 
 export const composer = ({context, topicId, postListType}, onData) => {
   const {Meteor, Collections, FlowRouter, LocalState} = context();
@@ -25,7 +26,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
 
       case 'ALL_MINE':
         topic = {
-          displayName: 'Everything I follow',
+          displayName: 'My Feed',
           followers: [],
         };
         options['$or'] = [
@@ -57,11 +58,18 @@ export const composer = ({context, topicId, postListType}, onData) => {
       post.truncatedContent = truncate(post.content, 150);
 
       post.numFollowers = post.followers.length;
-      post.followerAvatars = post.followers.map(follower => ({
-          url: Users.findOne(follower.userId).avatar.url,
-          userId: follower.userId
-        })
-      );
+      post.followerAvatars = post.followers.map(follower => {
+        var obj = {};
+        const user = Users.findOne(follower.userId)
+        if (user) {
+          obj = {
+            url: Users.findOne(follower.userId).avatar.url,
+            userId: follower.userId
+          }
+        }
+        return obj;
+      }).filter(obj => !_.isEmpty(obj));
+
       post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0;
 
       var currentTopicId;
