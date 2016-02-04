@@ -7,7 +7,7 @@ import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
 import SidebarOverlay from '/imports/modules/core/components/onboarding/sidebar.overlay.jsx'
 import {SmallListItem, MediumListItem, SquareAvatar, secondaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
-
+import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 
 const SidebarHeader = (props) => {
@@ -62,6 +62,7 @@ export default React.createClass({
     followedTopics: React.PropTypes.array.isRequired,
     showTopic: React.PropTypes.func.isRequired,
     navigateTo: React.PropTypes.func.isRequired,
+    showAddPostPopupFn: React.PropTypes.func.isRequired,
   },
   childContextTypes: {
     muiTheme: React.PropTypes.object,
@@ -86,6 +87,11 @@ export default React.createClass({
     return (
       <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
+        <Flex padding='16px 16px 0 16px'>
+          <RaisedButton primary={true}
+            label='New Post'
+            onTouchTap={this.props.showAddPostPopupFn} />
+        </Flex>
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
             <MediumListItem style={this.giveListItemStyleForRoutePath('all-mine')} onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>Posts for me</MediumListItem>
