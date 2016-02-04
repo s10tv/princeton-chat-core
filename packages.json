@@ -1,5 +1,5 @@
 {
   "postmark": "1.2.1",
-  "iron_worker": "0.1.6",
+  "iron_mq": "0.9.2",
   "slack-notify": "0.1.4"
 }

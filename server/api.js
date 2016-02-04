@@ -358,9 +358,8 @@ Meteor.methods({
       }});
     })
 
-    if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
-      new IronWorker().send({
-          taskName: 'new_post_handler',
+    if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {
+      new IronMQ('web-post').send({
         payload: { postId }
       })
     }
@@ -409,9 +408,8 @@ Meteor.methods({
       ownerId: user._id,
     })
 
-    if (process.env.IRON_WORKER_TOKEN && process.env.IRON_WORKER_PROJECT_ID) {
-      new IronWorker().send({
-          taskName: 'message_web_reply_handler',
+    if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {
+      new IronMQ('web-message').send({
         payload: { messageId: _id }
       })
     }
