@@ -1,11 +1,12 @@
 import truncate from 'truncate';
-
 import {Loading} from '/imports/modules/core/components/helpers.jsx'
 import PostList from '/imports/modules/core/components/post.list.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '/imports/libs/UserService';
 import DateFormatter from '/imports/libs/DateFormatter';
 import _ from 'underscore';
+
+const NUM_MAX_DISPLAY_FOLLOWERS = 3;
 
 export const composer = ({context, topicId, postListType}, onData) => {
   const {Meteor, Collections, FlowRouter, LocalState} = context();
@@ -70,6 +71,8 @@ export const composer = ({context, topicId, postListType}, onData) => {
         return obj;
       }).filter(obj => !_.isEmpty(obj));
 
+      post.moreFollowersNumber = post.followerAvatars.length > NUM_MAX_DISPLAY_FOLLOWERS ? (post.followerAvatars.length - NUM_MAX_DISPLAY_FOLLOWERS) : 0;
+      post.followerAvatars.length = NUM_MAX_DISPLAY_FOLLOWERS;
       post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0;
 
       var currentTopicId;

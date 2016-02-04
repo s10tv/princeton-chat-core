@@ -7,6 +7,9 @@ import Menu from '/imports/modules/core/components/menu.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Avatar from 'material-ui/lib/avatar'
+import muiStyles from 'material-ui/lib/styles'
+
+const Colors = muiStyles.Colors;
 
 export default React.createClass({
   propTypes: {
@@ -93,7 +96,7 @@ const PostListItem = (props) => (
       maxWidth: '70vh',
       margin: '36px auto',
       backgroundColor: '#f9f9f9',
-      border: '1px solid #979797',
+      //border: '1px solid #979797',
       borderRadius: 3,
       padding: 24
     }}>
@@ -159,8 +162,11 @@ const FollowersBtn = (props) => (
     <Flex alignItems='center'>No Followers</Flex>
     :
     <Flex alignItems='center'>
-      <a href='#' onClick={() => props.showPostFollowers(props.post.followers)} style={{marginRight: 7}}>Followers:</a>
+      <a href='#' onClick={() => props.showPostFollowers(props.post.followers)} style={{display: 'flex', alignItems: 'center'}}>
+      <span style={{marginRight: 7}}>Followers:</span>
       { props.post.followerAvatars.map(followerAvatar => <Avatar key={followerAvatar.userId} src={followerAvatar.url} size={30} style={{marginRight: 5}} />) }
+      { props.post.moreFollowersNumber == 0 ? null : <Avatar size={30} backgroundColor={'rgba(0, 0, 0, 0)'} color='black' style={{ border: 'solid 1px ' + Colors.grey300, fontSize: 14 }}>+{props.post.moreFollowersNumber}</Avatar> }
+      </a>
     </Flex>
 )
 
