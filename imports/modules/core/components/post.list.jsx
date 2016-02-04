@@ -154,7 +154,7 @@ const PostListItem = (props) => (
       </a>
       <Flex flexDirection='row' style={{marginTop: 7}}>
         <Avatar src={props.post.owner.avatar.url} size={50}/>
-        <Flex flexDirection='column' style={{marginLeft: 7}}>
+        <Flex flexDirection='column' flexGrow={1} style={{marginLeft: 7}}>
           <Flex flexDirection='row'>
             <a href='#' onClick={() => props.showUserProfile(props.post)}>
               <span className='display-name'>
