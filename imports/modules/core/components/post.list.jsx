@@ -47,6 +47,16 @@ export default React.createClass({
      * The function to show a popup modal for adding new posts (in case of empty state).
      */
     showAddPostPopupFn: React.PropTypes.func.isRequired,
+
+    /**
+     * The post list type is needed to show specific errors for empty screens
+     */
+    postListType: React.PropTypes.string.isRequired,
+
+    /**
+     * The function navigates the user to the follow topics screen (used for the empty feed screen)
+     */
+    navigateToTopicListFn: React.PropTypes.func.isRequired
   },
 
   render() {
@@ -63,7 +73,15 @@ export default React.createClass({
   }
 })
 
-const EmptyPostList = ({ showAddPostPopupFn }) => (
+const EmptyPostList = (props) => {
+  if (props.postListType === 'ALL_MINE') {
+    return <EmptyPostListInFeed {...props} />
+  } else {
+    return <EmptyPostListNotInFeed {...props} />
+  }
+};
+
+const EmptyPostListNotInFeed = ({ showAddPostPopupFn }) => (
   <Flex className='post-list-empty' flex={1} flexDirection='column'
     justifyContent='center' alignItems='center'>
     <h2>It's awfully quiet in here</h2>
@@ -72,6 +90,24 @@ const EmptyPostList = ({ showAddPostPopupFn }) => (
       primary={true}
       onTouchTap={showAddPostPopupFn}
       label='Create a new post' />
+    <img src='/images/bg-empty-feed.png' alt='empty feed' style={{
+        width: '50%',
+        maxWidth: 468,
+        maxHeight: 320,
+        marginTop: 36,
+      }}/>
+  </Flex>
+)
+
+const EmptyPostListInFeed = ({ navigateToTopicListFn }) => (
+  <Flex className='post-list-empty' flex={1} flexDirection='column'
+    justifyContent='center' alignItems='center'>
+    <h2>Your feed is empty :c</h2>
+    <h3>Follow some topics to jumpstart your feed</h3>
+    <RaisedButton
+      primary={true}
+      onTouchTap={navigateToTopicListFn}
+      label='Follow Topics' />
     <img src='/images/bg-empty-feed.png' alt='empty feed' style={{
         width: '50%',
         maxWidth: 468,

@@ -17,8 +17,12 @@ export default {
     });
   },
 
-  navigateToTopic({}, topicId) {
+  navigateToTopic({ FlowRouter }, topicId) {
     return FlowRouter.go(`/topics/${topicId}`);
+  },
+
+  navigateToTopicList({ FlowRouter }) {
+    return FlowRouter.go('choose-topics');
   },
 
   updateTopicFollowers({ LocalState, Collections }, topicIds) {
