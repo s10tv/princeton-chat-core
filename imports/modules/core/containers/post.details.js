@@ -33,7 +33,7 @@ export const composer = ({context, topicId, postId}, onData) => {
     const topics = post.topicIds
       .map(topicId => Collections.Topics.findOne(topicId))
       .filter(topic => topic != undefined)
-    console.log('topics', topics)
+      
     onData(null, {
       post,
       messages,
