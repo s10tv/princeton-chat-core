@@ -86,7 +86,6 @@ export default React.createClass({
     return (
       <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
-        <Divider />
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
             <MediumListItem style={this.giveListItemStyleForRoutePath('all-mine')} onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>Posts for me</MediumListItem>

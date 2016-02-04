@@ -28,10 +28,16 @@ export const composer = ({context, topicId, postId}, onData) => {
       message.timestamp = DateFormatter.format(message);
       return message;
     });
-
+    
+    // WARNING: Assume topics are already published
+    const topics = post.topicIds
+      .map(topicId => Collections.Topics.findOne(topicId))
+      .filter(topic => topic != undefined)
+    console.log('topics', topics)
     onData(null, {
       post,
       messages,
+      topics,
       isDirectMessage: post.isDM,
       followFn: () => { Meteor.call('post/follow', post._id) },
       unfollowFn: () => { Meteor.call('post/unfollow', post._id) },
