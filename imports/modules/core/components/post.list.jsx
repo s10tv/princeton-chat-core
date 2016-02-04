@@ -93,7 +93,7 @@ const PostList = (props) => (
 
 const PostListItem = (props) => (
   <ListItem disabled={true} style={{
-      maxWidth: '70vh',
+      maxWidth: '900px',
       margin: '36px auto',
       backgroundColor: '#f9f9f9',
       //border: '1px solid #979797',
