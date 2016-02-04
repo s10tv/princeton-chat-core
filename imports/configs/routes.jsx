@@ -4,7 +4,7 @@ import {mount} from 'react-mounter';
 
 import LayoutMain from '/imports/modules/core/components/layout/layout.jsx'
 import PostList from '/imports/modules/core/containers/post.list.js'
-import PostSingle from '/imports/modules/core/containers/post.details.js'
+import PostDetails from '/imports/modules/core/containers/post.details.js'
 import DirectMessage from '/imports/modules/core/components/directMessage.jsx'
 import TopicList from '/imports/modules/core/containers/topic.list.js'
 import Onboarding from '/imports/modules/core/containers/onboarding.js'
@@ -108,7 +108,7 @@ export default function (injectDeps) {
     name: 'postDetails',
     action({ topicId, postId }) {
       mount(LayoutMainCtx, {
-        content: (props) => <PostSingle topicId={topicId} postId={postId} {...props } />
+        content: (props) => <PostDetails topicId={topicId} postId={postId} {...props } />
       })
     }
   });
@@ -116,7 +116,7 @@ export default function (injectDeps) {
   FlowRouter.route('/postdetails', {
     action() {
       mount(LayoutMainCtx, {
-        content: (props) => <PostSingle {...props} />
+        content: (props) => <PostDetails {...props} />
       })
     }
   });
@@ -159,7 +159,7 @@ export default function (injectDeps) {
     name: 'directmessage',
     action({ postId }) {
       mount(LayoutMainCtx, {
-        content: (props) => <PostSingle postId={postId} {...props} />
+        content: (props) => <PostDetails postId={postId} {...props} />
       })
     }
   });
