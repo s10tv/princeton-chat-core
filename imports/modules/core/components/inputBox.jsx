@@ -4,6 +4,7 @@ import TextField from 'material-ui/lib/text-field'
 import Avatar from 'material-ui/lib/avatar'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Checkbox from 'material-ui/lib/checkbox'
+import linkState from 'react-link-state'
 
 export default class InputBox extends React.Component {
   constructor(props) {
@@ -12,14 +13,19 @@ export default class InputBox extends React.Component {
       text: '', 
       followToggleMouseOver: false,
       inputFocused: false,
+      pressEnterToSend: true,
     }
   }
   
+  sendMessage() {
+    this.props.create(this.state.text, this.props.postId)
+    this.setState({text: ''})
+  }
+  
   handleEnterKeyDown(event) {
-    if (!event.shiftKey) {
-      event.preventDefault();
-      this.props.create(this.state.text, this.props.postId);
-      this.setState({text: ''})
+    if (!event.shiftKey && this.state.pressEnterToSend) {
+      event.preventDefault()
+      this.sendMessage()
     }
   }
   
@@ -29,10 +35,6 @@ export default class InputBox extends React.Component {
   
   handleInputFocus() {
     this.setState({inputFocused: true})
-  }
-
-  handleChange(event) {
-    this.setState({text: event.target.value})
   }
   
   handleFollowToggleClick(e) {
@@ -85,8 +87,9 @@ export default class InputBox extends React.Component {
             ? 'will be notified'
             : 'No one will be notified' }
         </Inline>
-        <Checkbox label='Press enter to send' style={{maxWidth: 210}} />
-        <RaisedButton label='Send' primary={true} />
+        <Checkbox checkedLink={linkState(this, 'pressEnterToSend')} label='Press enter to send' style={{maxWidth: 210}} />
+        { this.state.pressEnterToSend ? null 
+          : <RaisedButton disabled={this.state.text.length == 0} label='Send' primary={true} onTouchTap={this.sendMessage.bind(this)} /> }
       </Flex>
     )
   }
@@ -98,8 +101,7 @@ export default class InputBox extends React.Component {
         <Flex className='input-box' padding='0px 12px' border='2px solid #d9d9d9' borderRadius={5}>
           <TextField multiLine={true} fullWidth={true} underlineShow={false} rowsMax={8}
             hintText='Type a message...'
-            value={this.state.text}
-            onChange={this.handleChange.bind(this)}
+            valueLink={linkState(this, 'text')}
             onBlur={this.handleInputBlur.bind(this)}
             onFocus={this.handleInputFocus.bind(this)}
             onEnterKeyDown={this.handleEnterKeyDown.bind(this)} />
