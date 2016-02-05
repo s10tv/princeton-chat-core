@@ -57,7 +57,12 @@ export default React.createClass({
     /**
      * The function navigates the user to the follow topics screen (used for the empty feed screen)
      */
-    navigateToTopicListFn: React.PropTypes.func.isRequired
+    navigateToTopicListFn: React.PropTypes.func.isRequired,
+
+    /**
+     * Function to show topic followers modal from a ready list of followers
+     */
+    showTopicFollowersFromFollowersListFn: React.PropTypes.func.isRequired
   },
 
   render() {

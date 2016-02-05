@@ -94,15 +94,6 @@ export const composer = ({context, topicId, postListType}, onData) => {
       return post
     })
 
-    // populate the cache of post followers.
-    if (topic.followers.length > 0) {
-      Meteor.call('get/followers', topic.followers, (err, res) => {
-        LocalState.set('POST_FOLLOWERS', res);
-      });
-    } else {
-      LocalState.set('POST_FOLLOWERS', []);
-    }
-
     onData(null, {
       topic,
       posts,
@@ -127,6 +118,7 @@ const depsMapper = (context, actions) => ({
   navigateToTopicListFn: actions.topics.navigateToTopicList,
   showPostFollowers: actions.posts.showPostFollowers,
   showAddNewUsersModal: actions.topics.showAddNewUsersModal,
+  showTopicFollowersFromFollowersListFn: actions.topics.showTopicFollowersFromFollowersList,
   followPostFn: actions.posts.follow,
   unfollowPostFn: actions.posts.unfollow,
   context: () => context

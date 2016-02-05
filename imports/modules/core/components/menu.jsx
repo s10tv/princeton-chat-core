@@ -84,6 +84,11 @@ export default React.createClass({
      */
     isAtLastTablet: React.PropTypes.bool,
     isAtLastDesktop: React.PropTypes.bool,
+
+    /**
+     * Function to show topic followers modal from a ready list of followers
+     */
+    showTopicFollowersFromFollowersListFn: React.PropTypes.func
   },
 
   getTitleText() {
@@ -153,7 +158,7 @@ export default React.createClass({
 
         { this.props.hideTitleSection ? null :
           <ToolbarGroup >
-            <a className='topic-header-link-button' href='#' onClick={this.props.showFollowersFn}>
+            <a className='topic-header-link-button' href='#' onClick={() => this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}>
               <ToolbarTitle text={this.getTitleText()} />
             </a>
           </ToolbarGroup>
@@ -162,7 +167,7 @@ export default React.createClass({
         { this.props.hideFollowerSection ? null :
           <ToolbarGroup style={{height: '100%'}}>
             <Flex alignItems='center' height='100%'>
-              <a className='topic-header-link-button' href='#' onClick={this.props.showFollowersFn} style={{display: 'flex', alignItems: 'center'}}>
+              <a className='topic-header-link-button' href='#' onClick={() => this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)} style={{display: 'flex', alignItems: 'center'}}>
                 <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
                 <span style={{marginLeft: 5}}>{ this.props.followersCount }</span>
               </a>

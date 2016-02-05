@@ -50,6 +50,11 @@ export default {
     LocalState.set('FOLLOWERS_MODAL_OPEN', true);
   },
 
+  showTopicFollowersFromFollowersList({ LocalState }, followerList) {
+    LocalState.set('POST_FOLLOWERS', followerList);
+    LocalState.set('FOLLOWERS_MODAL_OPEN', true);
+  },
+
   follow({Meteor, LocalState}, topicId) {
     Meteor.call('topic/follow', topicId, (err) => {
       if (err) {
