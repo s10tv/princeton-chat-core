@@ -47,7 +47,12 @@ export default React.createClass({
     /**
      * Number of people who will be notified about this post
      */
-    numFollowersNotified: React.PropTypes.number.isRequired
+    numFollowersNotified: React.PropTypes.number.isRequired,
+
+    /**
+     * Function to show snackbar with an error string
+     */
+    showSnackbarErrorOnNewPost: React.PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -58,10 +63,37 @@ export default React.createClass({
     const title = this.refs.title.getValue();
     const content = this.refs.content.getValue();
     const topics = this.state.selectedTopicIds;
-    this.props.create(title, content, topics);
-    this.setState({
-      selectedTopicIds: null
-    });
+    const errors = this.props.create(title, content, topics);
+
+    if (errors.length != 0) {
+      this.setState({
+        titleError: null,
+        contentError: null
+      })
+      errors.forEach(error => {
+        switch (error.type) {
+          case 'title':
+            this.setState({
+              titleError: error.reason
+            })
+            break;
+          case 'content':
+            this.setState({
+              contentError: error.reason
+            });
+            break;
+          case 'topics':
+            this.props.showSnackbarErrorOnNewPost(error.reason);
+            break;
+        }
+      })
+    } else {
+      this.setState({
+        selectedTopicIds: null,
+        titleError: null,
+        contentError: null
+      });
+    }
   },
 
   modifyTopicsList(value) {
@@ -107,10 +139,17 @@ export default React.createClass({
          modal={true}
          open={isOpen}>
          <Flex flexDirection='column'>
-           <TextField ref="title" fullWidth={true} floatingLabelText='Subject' />
+           { !this.state.titleError ? <TextField ref="title" fullWidth={true} floatingLabelText='Subject' />
+         : <TextField ref="title" errorStyle={{ color: '#F07621', borderColor: '#F07621' }} fullWidth={true} floatingLabelText='Subject' errorText={this.state.titleError} /> }
+
+           { !this.state.contentError ?
            <TextField ref="content" fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
              hintText='Start a conversation...'
              floatingLabelText='Content' />
+           : <TextField ref="content" errorStyle={{ color: '#F07621', borderColor: '#F07621' }} fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
+                        hintText='Start a conversation...'
+                        floatingLabelText='Content'
+                        errorText={this.state.contentError} /> }
 
            <Select
              ref='topics'

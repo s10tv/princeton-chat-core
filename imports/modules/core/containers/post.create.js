@@ -19,6 +19,7 @@ export const depsMapper = (context, actions) => ({
   handleClose: actions.posts.closeAddPostPopup,
   showTopicFollowers: actions.topics.showTopicFollowers,
   updateTopicFollowers: actions.topics.updateTopicFollowers,
+  showSnackbarErrorOnNewPost: actions.posts.showSnackbarErrorOnNewPost,
   context: () => context
 });
 
