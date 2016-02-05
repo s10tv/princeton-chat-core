@@ -11,6 +11,7 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import {Flex} from 'jsxstyle'
 import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
+import LinearProgress from 'material-ui/lib/linear-progress'
 
 export default React.createClass({
   propTypes: {
@@ -65,11 +66,16 @@ export default React.createClass({
     const topics = this.state.selectedTopicIds;
 
     // create action makes a callback with appropriate errors
+    this.setState({
+      loading: true
+    });
+
     const errors = this.props.create(title, content, topics, (errors) => {
       if (errors) {
         this.setState({
           titleError: null,
-          contentError: null
+          contentError: null,
+          loading: false
         });
         errors.forEach(error => {
           switch (error.type) {
@@ -94,7 +100,8 @@ export default React.createClass({
         this.setState({
           selectedTopicIds: null,
           titleError: null,
-          contentError: null
+          contentError: null,
+          loading: false
         })
       }
     });
@@ -137,14 +144,14 @@ export default React.createClass({
            <RaisedButton
              label='Post'
              primary={true}
-             onTouchTap={this.onAddPost} />,
+             onTouchTap={this.onAddPost} />
          ]}
-         actionsContainerStyle={{padding: 24}}
+         actionsContainerStyle={{padding: '0px 24px', paddingBottom: 24}}
          modal={true}
          open={isOpen}>
          <Flex flexDirection='column'>
            { !this.state.titleError ? <TextField ref="title" fullWidth={true} floatingLabelText='Subject' />
-         : <TextField ref="title" errorStyle={{ color: '#F07621', borderColor: '#F07621' }} fullWidth={true} floatingLabelText='Subject' errorText={this.state.titleError} /> }
+           : <TextField ref="title" errorStyle={{ color: '#F07621', borderColor: '#F07621' }} fullWidth={true} floatingLabelText='Subject' errorText={this.state.titleError} /> }
 
            { !this.state.contentError ?
            <TextField ref="content" fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
@@ -165,8 +172,9 @@ export default React.createClass({
              value={this.state.selectedTopicIds}
              onChange={this.modifyTopicsList}
            />
+           { !this.state.loading ? null : <LinearProgress mode='indeterminate' style={{marginTop: 20}}/> }
          </Flex>
-       </Dialog>
+      </Dialog>
     )
   }
 })
