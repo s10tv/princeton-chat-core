@@ -16,6 +16,7 @@ Topics.defaultName = function() {
 
 TopicSchema = new SimpleSchema({
   displayName: { type: String },
+  description: { type: String },
   followers: { type: [FollowerSchema], defaultValue: [], optional: true},
   numPosts: { type: Number, defaultValue: 0, optional: true},
   parentTopicId: { type: String, optional: true },

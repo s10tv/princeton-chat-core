@@ -69,3 +69,17 @@ Migrations.add({
     })
   },
 })
+
+Migrations.add({
+  version: 4,
+  name: 'Add description to topics',
+  up: function() {
+    Topics.find().forEach(topic => {
+      if (!topic.description) {
+        Topics.update(topic._id, { $set: {
+          description: 'This topic needs a description.'
+        }})
+      }
+    })
+  },
+})

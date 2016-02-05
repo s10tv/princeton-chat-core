@@ -44,7 +44,7 @@ const PostListContent = (props) => (
   <Flex flexDirection='column' padding='15px 20px'>
     <h3>About #{props.topic.displayName}</h3>
     <p>
-      A forum for TigerNet members to discuss any issues related to Parenthood: Princeton in the Nation's Service. This forum focuses on our roles as parents: from becoming a parent, to balancing work and family roles, to caring for our own parents. Members will share experiences, provide moral support and encouragement for each other, and facilitate each others success in this extremely important but too often isolated arena.
+      {props.topic.description}
     </p>
 
     <h4>List Address</h4>
