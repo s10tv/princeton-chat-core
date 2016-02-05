@@ -12,7 +12,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
   const {Meteor, Collections, FlowRouter, LocalState} = context();
   const currentUser = UserService.currentUser();
 
-  if (Meteor.subscribe('posts', topicId).ready()) {
+  if (Meteor.subscribe('posts', topicId).ready() && Meteor.subscribe('topic', topicId).ready()) {
     var topic;
     var options = {};
     options.isDM = { $ne: true };
@@ -42,6 +42,10 @@ export const composer = ({context, topicId, postListType}, onData) => {
         break;
     }
 
+    topic.followersList = Collections.Users.find({
+      _id: { $in: topic.followers.map(follower => follower.userId) }
+    }).map(user => UserService.getUserView(user));
+
     const posts = Collections.Posts.find(options, { sort: { createdAt: -1 }}).map(post => {
       post.owner = UserService.getUserView(Collections.Users.findOne(post.ownerId));
 
@@ -61,10 +65,10 @@ export const composer = ({context, topicId, postListType}, onData) => {
       post.numFollowers = post.followers.length;
       post.followerAvatars = post.followers.map(follower => {
         var obj = {};
-        const user = Users.findOne(follower.userId)
+        const user = Collections.Users.findOne(follower.userId)
         if (user) {
           obj = {
-            url: Users.findOne(follower.userId).avatar.url,
+            url: Collections.Users.findOne(follower.userId).avatar.url,
             userId: follower.userId
           }
         }
@@ -117,7 +121,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
 
 const depsMapper = (context, actions) => ({
   showAddPostPopupFn: actions.posts.showAddPostPopup,
-  showUserProfile: actions.posts.showUserProfile,
+  showUserProfile: actions.profile.showUserProfile,
   showFollowersFn: actions.topics.showTopicFollowers,
   navigateToTopic: actions.topics.navigateToTopic,
   navigateToTopicListFn: actions.topics.navigateToTopicList,

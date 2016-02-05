@@ -8,6 +8,7 @@ import styles from '/imports/modules/core/components/styles.jsx'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Avatar from 'material-ui/lib/avatar'
 import muiStyles from 'material-ui/lib/styles'
+import RightBar from '/imports/modules/core/components/layout.rightbar.jsx'
 
 const Colors = muiStyles.Colors;
 
@@ -51,7 +52,7 @@ export default React.createClass({
     /**
      * The post list type is needed to show specific errors for empty screens
      */
-    postListType: React.PropTypes.string.isRequired,
+    postListType: React.PropTypes.string,
 
     /**
      * The function navigates the user to the follow topics screen (used for the empty feed screen)
@@ -60,14 +61,16 @@ export default React.createClass({
   },
 
   render() {
+    const isRightBarOpen = this.props.postListType == null;
     return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
+      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0, marginRight: isRightBarOpen ? 320 : 0 })}>
         <Menu
           hideAddNewUsersButton={true}
           hidePostButton={this.props.isEmpty}
           {...this.props} />
 
         { this.props.isEmpty ? <EmptyPostList {...this.props} /> : <PostList {...this.props} /> }
+        <RightBar isOpen={isRightBarOpen} {...this.props} />
       </main>
     )
   }
@@ -119,7 +122,7 @@ const EmptyPostListInFeed = ({ navigateToTopicListFn }) => (
 
 const PostList = (props) => (
   <section className='post-list' style={{flexGrow: 1}}>
-    <List style={{paddingTop: 0, paddingBottom: 0}}>
+    <List style={{padding: '0px 20px'}}>
       { props.posts.map(post =>
         <PostListItem key={post._id} post={post} {...props} />
       )}
@@ -156,12 +159,12 @@ const PostListItem = (props) => (
         <Avatar src={props.post.owner.avatar.url} size={50}/>
         <Flex flexDirection='column' flexGrow={1} style={{marginLeft: 7}}>
           <Flex flexDirection='row'>
-            <a href='#' onClick={() => props.showUserProfile(props.post)}>
+            <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
               <span className='display-name'>
                 { props.post.owner.displayName }
               </span>
             </a>
-            <a href='#' onClick={() => props.showUserProfile(props.post)}>
+            <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
               <span className='mention'>
                 @{ props.post.owner.username }
               </span>

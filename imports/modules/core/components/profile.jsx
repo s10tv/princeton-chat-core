@@ -30,7 +30,7 @@ export default React.createClass({
 
     return (
       <Dialog
-        open={this.props.isOpen && this.props.user }
+        open={this.props.isOpen && this.props.user != undefined}
         modal={false}
         onRequestClose={this.props.handleClose}>
         <Paper>

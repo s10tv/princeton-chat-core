@@ -2,7 +2,7 @@ import { Topics, Posts, Users, Messages } from '/imports/configs/collections'
 
 Meteor.publish('topics', function() {
   if (this.userId) {
-    return Topics.find()
+    return Topics.find();
   } else {
     this.ready();
   }
@@ -49,6 +49,29 @@ Meteor.publish("usersData", function(tigerId) {
   }
 });
 
+Meteor.publishComposite('topic', function(topicId) {
+  if (this.userId) {
+    return {
+      find: function() {
+        check(topicId, Match.OneOf(null, String));
+        return Topics.find({ _id: topicId })
+      },
+
+      children: [
+        {
+          find: function(topic) {
+            return Users.find({
+              _id: { $in: topic.followers.map(follower => follower.userId) }
+            });
+          }
+        }
+      ]
+    }
+  } else {
+    this.ready();
+  }
+});
+
 Meteor.publishComposite('posts', function(topicId) {
   return {
     find: function() {
@@ -72,7 +95,7 @@ Meteor.publishComposite('posts', function(topicId) {
             { _id: { $in: todo.followers.map(user => user.userId) }},
           ]});
         }
-      }
+      },
     ]
   }
 });
@@ -82,7 +105,6 @@ Meteor.publishComposite('messages', function(postId) {
     find: function() {
       check(postId, Match.Optional(String));
       return Posts.find({ _id: postId })
-
     },
     children: [
       {
