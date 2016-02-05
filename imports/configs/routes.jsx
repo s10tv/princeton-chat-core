@@ -15,12 +15,6 @@ import Login from '/imports/modules/core/containers/login.js'
 
 import WebFontLoader from 'webfontloader';
 
-function requireLogin(context) {
-  if (!Meteor.userId()) {
-    return FlowRouter.go('home');
-  }
-}
-
 function redirectToAllMine(context) {
   if (Meteor.userId()) {
     return FlowRouter.go('all-mine');
@@ -39,7 +33,7 @@ export default function (injectDeps) {
   const SignupWithCtx = injectDeps(Signup);
   const SignupDoneWithCtx = injectDeps(SignupDone);
 
-  FlowRouter.triggers.enter([requireLogin], {except: ["home", "invite", "signup", "signup-done" ]});
+  // logged in users should be redirected to all-mine when they visit '/'
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
   FlowRouter.subscriptions = function() {
@@ -171,12 +165,30 @@ export default function (injectDeps) {
     const isLogin = /\/login$/.test(window.location.href);
     const isSignupDone = /\/signed-up$/.test(window.location.href);
 
-    if (!Meteor.userId() && !isInvite && !isSignupForm && !isSignupPassword && !isLogin && !isSignupDone) {
-      return FlowRouter.go('/');
+    const isPostsPath = /\/topics\/[0-9A-Za-z_-]+\/[0-9A-Za-z_-]+$/.test(window.location.href);
+    const isTopicsPath = /\/topics\/[0-9A-Za-z_-]+$/.test(window.location.href);
+
+    if (!Meteor.userId() &&
+        !isInvite &&
+        !isSignupForm &&
+        !isSignupPassword &&
+        !isLogin &&
+        !isSignupDone) {
+
+      let redirectPath = '/';
+      if (isPostsPath || isTopicsPath) {
+        redirectPath = `/login?ol=${window.location.href}`
+      }
+
+      return FlowRouter.go(redirectPath);
     }
 
-    if (Meteor.user() && Meteor.user().status === 'pending') {
-      return FlowRouter.go('signupForm');
+    if (Meteor.user()) {
+      if (Meteor.user().status === 'pending') {
+        return FlowRouter.go('signupForm');
+      } else {
+        return FlowRouter.go('all-mine');
+      }
     }
   })
 }
