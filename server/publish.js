@@ -73,10 +73,10 @@ Meteor.publishComposite('topic', function(topicId) {
 });
 
 Meteor.publishComposite('posts', function(topicId) {
+  check(topicId, Match.OneOf(null, String));
+
   return {
     find: function() {
-      check(topicId, Match.OneOf(null, String));
-
       var options = {}
       options.isDM = { $ne: true }; // don't get the direct messages
 
