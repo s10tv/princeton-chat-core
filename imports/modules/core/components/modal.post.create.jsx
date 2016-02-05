@@ -9,6 +9,8 @@ import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import {Flex} from 'jsxstyle'
+import IconButton from 'material-ui/lib/icon-button'
+import FontIcon from 'material-ui/lib/font-icon'
 
 export default React.createClass({
   propTypes: {
@@ -41,6 +43,11 @@ export default React.createClass({
      * Updates the list of followers whenever a new topic is selected.
      */
     updateTopicFollowers: React.PropTypes.func.isRequired,
+
+    /**
+     * Number of people who will be notified about this post
+     */
+    numFollowersNotified: React.PropTypes.number.isRequired
   },
 
   getInitialState() {
@@ -73,14 +80,12 @@ export default React.createClass({
           <ToolbarTitle text="New Post" />
         </ToolbarGroup>
 
-        { isFollowersDisabled ? null :
-          <ToolbarGroup float="right" lastChild={true}>
-            <RaisedButton
-              label="Show Followers"
-              primary={true}
-              onTouchTap={showTopicFollowers}  />
-          </ToolbarGroup>
-        }
+        <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
+          <IconButton tooltip="Close" onTouchTap={handleClose}>
+            <FontIcon className="material-icons">clear</FontIcon>
+          </IconButton>
+        </ToolbarGroup>
+
       </Toolbar>
 
     return (
@@ -88,35 +93,42 @@ export default React.createClass({
          title={toolbar}
          bodyStyle={{ overflow: 'visible' }}
          actions={[
-           <FlatButton
-                 label='Cancel'
-                 secondary={true}
-                 onTouchTap={handleClose} />,
-           <FlatButton
+           !this.state.selectedTopicIds ? null :
+           <a href='#' onClick={this.props.showTopicFollowers} style={{marginRight: 10}}>{this.props.numFollowersNotified} people will be notified</a>
+           ,
+           <RaisedButton
              label='Post'
              primary={true}
              onTouchTap={this.onAddPost} />,
          ]}
+         actionsContainerStyle={{padding: 24}}
          modal={true}
          open={isOpen}>
          <Flex flexDirection='column'>
-           <TextField ref="title" fullWidth={true} floatingLabelText='Title' />
+           <TextField ref="title" fullWidth={true} floatingLabelText='Subject' />
            <TextField ref="content" fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
-             hintText='What do you want to say to other Princetonians?'
+             hintText='Start a conversation...'
              floatingLabelText='Content' />
 
-            <Select
-              ref='topics'
-              name='postTopics'
-              placeholder='Add topics ... '
-              options={allTopics}
-              multi={true}
-              simpleValue={true}
-              value={this.state.selectedTopicIds}
-              onChange={this.modifyTopicsList}
-            />
+           <Select
+             ref='topics'
+             name='postTopics'
+             placeholder='Add topics ... '
+             options={allTopics}
+             multi={true}
+             simpleValue={true}
+             value={this.state.selectedTopicIds}
+             onChange={this.modifyTopicsList}
+           />
          </Flex>
        </Dialog>
     )
   }
 })
+
+// { isFollowersDisabled ? null :
+//   <ToolbarGroup float="right" lastChild={true}>
+//     <RaisedButton
+//       label="Show Followers"
+//       primary={true}
+//       onTouchTap={showTopicFollowers}  />

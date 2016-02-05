@@ -9,7 +9,9 @@ export const composer = ({context}, onData) => {
     return { value: topic._id , label: topic.displayName };
   });
 
-  onData(null, { isOpen, allTopics });
+  const numFollowersNotified = LocalState.get('POST_FOLLOWERS') ? LocalState.get('POST_FOLLOWERS').length : 0;
+
+  onData(null, { isOpen, allTopics, numFollowersNotified });
 };
 
 export const depsMapper = (context, actions) => ({
