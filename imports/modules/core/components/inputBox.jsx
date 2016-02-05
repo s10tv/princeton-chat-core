@@ -101,7 +101,8 @@ export default class InputBox extends React.Component {
         <Flex className='input-box' padding='0px 12px' border='2px solid #d9d9d9' borderRadius={5}>
           <TextField multiLine={true} fullWidth={true} underlineShow={false} rowsMax={8}
             hintText='Type a message...'
-            valueLink={linkState(this, 'text')}
+            value={this.state.text}
+            onChange={(e) => this.setState({text: e.target.value})}
             onBlur={this.handleInputBlur.bind(this)}
             onFocus={this.handleInputFocus.bind(this)}
             onEnterKeyDown={this.handleEnterKeyDown.bind(this)} />
