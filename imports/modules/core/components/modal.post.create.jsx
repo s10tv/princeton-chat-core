@@ -59,6 +59,9 @@ export default React.createClass({
     const content = this.refs.content.getValue();
     const topics = this.state.selectedTopicIds;
     this.props.create(title, content, topics);
+    this.setState({
+      selectedTopicIds: null
+    });
   },
 
   modifyTopicsList(value) {
@@ -85,7 +88,6 @@ export default React.createClass({
             <FontIcon className="material-icons">clear</FontIcon>
           </IconButton>
         </ToolbarGroup>
-
       </Toolbar>
 
     return (
