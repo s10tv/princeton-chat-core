@@ -50,10 +50,11 @@ Meteor.publish("usersData", function(tigerId) {
 });
 
 Meteor.publishComposite('topic', function(topicId) {
+  check(topicId, Match.OneOf(null, String));
+  
   if (this.userId) {
     return {
       find: function() {
-        check(topicId, Match.OneOf(null, String));
         return Topics.find({ _id: topicId })
       },
 
