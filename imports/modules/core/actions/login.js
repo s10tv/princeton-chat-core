@@ -1,4 +1,5 @@
 import UserService from '/imports/libs/UserService';
+import { getParameterByName } from '/imports/libs/urlutil'
 
 export default {
   loginWithPassword({LocalState, FlowRouter}, email, password) {
@@ -11,7 +12,14 @@ export default {
       }
 
       LocalState.set('LOGIN_ERROR', false);
-      FlowRouter.go('all-mine');
+
+      const redirectUrl = getParameterByName('ol')
+      if (redirectUrl && redirectUrl.length > 0) {
+        window.location = redirectUrl;
+        return;
+      }
+
+      return FlowRouter.go('all-mine');
     })
   },
 
@@ -24,7 +32,14 @@ export default {
       }
 
       LocalState.set('LOGIN_ERROR', false);
-      FlowRouter.go('all-mine');
+
+      const redirectUrl = getParameterByName('ol')
+      if (redirectUrl && redirectUrl.length > 0) {
+        window.location = redirectUrl;
+        return;
+      }
+
+      return FlowRouter.go('all-mine');
     })
   },
 };

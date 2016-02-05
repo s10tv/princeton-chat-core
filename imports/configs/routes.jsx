@@ -162,7 +162,7 @@ export default function (injectDeps) {
     const isInvite = /\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href);
     const isSignupForm = /\/hello$/.test(window.location.href);
     const isSignupPassword = /\account$/.test(window.location.href);
-    const isLogin = /\/login$/.test(window.location.href);
+    const isLogin = /\/login.+$/.test(window.location.href);
     const isSignupDone = /\/signed-up$/.test(window.location.href);
 
     const isPostsPath = /\/topics\/[0-9A-Za-z_-]+\/[0-9A-Za-z_-]+$/.test(window.location.href);
@@ -177,7 +177,7 @@ export default function (injectDeps) {
 
       let redirectPath = '/';
       if (isPostsPath || isTopicsPath) {
-        redirectPath = `/login?ol=${window.location.href}`
+        redirectPath = `/login?ol=${encodeURIComponent(window.location.href)}`
       }
 
       return FlowRouter.go(redirectPath);
@@ -186,8 +186,6 @@ export default function (injectDeps) {
     if (Meteor.user()) {
       if (Meteor.user().status === 'pending') {
         return FlowRouter.go('signupForm');
-      } else {
-        return FlowRouter.go('all-mine');
       }
     }
   })
