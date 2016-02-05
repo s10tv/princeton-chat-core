@@ -2,10 +2,10 @@ import UserService from '/imports/libs/UserService';
 import NewPostService from '/imports/libs/NewPostService';
 
 export default {
-  create({Collections, LocalState, handleClose}, title, content, topics) {
-    var error = NewPostService.validateNewPost({title, content, topics});
+  create({Collections, LocalState, handleClose}, title, content, topics, cb) {
+    var errors = NewPostService.validateNewPost({title, content, topics});
 
-    if (error.length == 0) {
+    if (errors.length == 0) {
       const id = Meteor.uuid();
       const topicIds = topics.split(',');
 
@@ -13,15 +13,15 @@ export default {
       // That's how we are doing latency compensation
       Meteor.call('post/insert', id, title, content, topicIds, (err) => {
         if (err) {
-          console.log(err.message);
-          return LocalState.set('SAVING_ERROR', err.message);
+          return cb([{ type: 'server', reason: "We couldn't add your post for some peculiar reason. Probably the tiger ate it." }]);
         }
 
         LocalState.set('ADD_POST_POPUP_SHOWING', false);
         FlowRouter.go(`/topics/${topicIds[0]}/${id}`)
+        return cb();
       });
     } else {
-      return error;
+      cb(errors);
     }
   },
 

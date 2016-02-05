@@ -63,37 +63,41 @@ export default React.createClass({
     const title = this.refs.title.getValue();
     const content = this.refs.content.getValue();
     const topics = this.state.selectedTopicIds;
-    const errors = this.props.create(title, content, topics);
 
-    if (errors.length != 0) {
-      this.setState({
-        titleError: null,
-        contentError: null
-      })
-      errors.forEach(error => {
-        switch (error.type) {
-          case 'title':
-            this.setState({
-              titleError: error.reason
-            })
-            break;
-          case 'content':
-            this.setState({
-              contentError: error.reason
-            });
-            break;
-          case 'topics':
-            this.props.showSnackbarErrorOnNewPost(error.reason);
-            break;
-        }
-      })
-    } else {
-      this.setState({
-        selectedTopicIds: null,
-        titleError: null,
-        contentError: null
-      });
-    }
+    // create action makes a callback with appropriate errors
+    const errors = this.props.create(title, content, topics, (errors) => {
+      if (errors) {
+        this.setState({
+          titleError: null,
+          contentError: null
+        });
+        errors.forEach(error => {
+          switch (error.type) {
+            case 'title':
+              this.setState({
+                titleError: error.reason
+              })
+              break;
+            case 'content':
+              this.setState({
+                contentError: error.reason
+              });
+              break;
+            // fall through intentional
+            case 'topics':
+            case 'server':
+              this.props.showSnackbarErrorOnNewPost(error.reason);
+              break;
+          }
+        });
+      } else {
+        this.setState({
+          selectedTopicIds: null,
+          titleError: null,
+          contentError: null
+        })
+      }
+    });
   },
 
   modifyTopicsList(value) {
