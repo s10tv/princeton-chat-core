@@ -1,6 +1,7 @@
 import { Topics, Posts, Users, Messages } from '/imports/configs/collections';
 import TopicManager from '/imports/server/TopicManager';
 import PostManager from '/imports/server/PostManager';
+import _ from 'underscore';
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev';
@@ -211,9 +212,23 @@ Meteor.methods({
       throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`);
     }
 
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const filteredUserInfos = userInfos.filter(userInfo => re.test(userInfo.email))
+
+    const groupedUserInfos = _.groupBy(filteredUserInfos, (userInfo) => userInfo.email);
+    var hasDuplicateEmails = false;
+    _.each(groupedUserInfos, (userInfosArr, key) => {
+      if (userInfosArr.length > 1) {
+        hasDuplicateEmails = key;
+      }
+    });
+
+    if (hasDuplicateEmails) {
+      throw new Meteor.Error(500, `You typed the same email ${hasDuplicateEmails} more than once, please check.`)
+    }
+
     try {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      userInfos.filter(userInfo => re.test(userInfo.email)).forEach(userInfo => {
+      filteredUserInfos.forEach(userInfo => {
         const email = userInfo.email;
         const firstName = userInfo.firstName || '';
         const lastName = userInfo.lastName || '';
