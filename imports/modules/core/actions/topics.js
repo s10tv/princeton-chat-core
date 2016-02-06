@@ -75,13 +75,14 @@ export default {
     });
   },
 
-  addNewUsers({Meteor, LocalState}, topicId, userInfos) {
+  addNewUsers({Meteor, LocalState, FlowRouter}, topicId, userInfos) {
     Meteor.call('topics/users/import', topicId, userInfos, (err) => {
       if (err) {
         return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
       }
 
       LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', 'Followers successfully added!');
+      FlowRouter.go(`/topics/${topicId}`);
     });
   },
 
