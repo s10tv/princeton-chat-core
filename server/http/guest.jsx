@@ -7,14 +7,14 @@ import GuestToggleFollow from '/imports/modules/guest/components/toggleFollowing
 import htmlPage from './html'
 
 HTTP.methods({
-  'guest/posts/:userId/:hash/:postId/:action': function() {
-    const user = Users.findOne(this.params.userId)
+  'guest/posts/:postId/:action': function() {
+    const user = Users.findOne(this.query.userId)
     if (!user) {
       this.setStatusCode(404)
       return 'Not Found'
     }
 
-    if (!isValidHash(user, this.params.hash)) {
+    if (!isValidHash(user, this.query.hash)) {
       this.setStatusCode(404)
       return 'Not Found'
     }
@@ -38,7 +38,7 @@ HTTP.methods({
       return 'Not Found - Action not allowed'
     }
     return htmlPage({
-      title: 'My page',
+      title: 'Princeton.Chat',
       body: ReactDOMServer.renderToStaticMarkup(
         <GuestToggleFollow
           title={post.title}
