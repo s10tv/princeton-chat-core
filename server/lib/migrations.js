@@ -83,3 +83,17 @@ Migrations.add({
     })
   },
 })
+
+Migrations.add({
+  version: 5,
+  name: 'Add description to topics',
+  up: function() {
+    Users.find().forEach(user => {
+      if (user.isFullMember == undefined) {
+        Users.update(user._id, { $set: {
+          isFullMember: true
+        }})
+      }
+    })
+  },
+})
