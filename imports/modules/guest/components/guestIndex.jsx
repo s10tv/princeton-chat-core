@@ -19,7 +19,10 @@ class FollowButton extends React.Component {
   }
   toggleFollow() {
     if (this.props.isFollowing) {
-      this.props.unfollowFn(this.props.itemId)
+      // TODO: Is this really the best way to do it?
+      if (window.confirm("Are you sure you want to unfollow? You won't be able to follow it back until you login.")) { 
+        this.props.unfollowFn(this.props.itemId)
+      }
     } else {
       this.props.followFn(this.props.itemId)
     }
