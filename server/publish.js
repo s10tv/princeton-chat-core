@@ -1,16 +1,20 @@
 import { Topics, Posts, Users, Messages } from '/imports/configs/collections'
 
-// TODO:  XXXX FIXME XXXX Make posts.mine and topics.mine actually publish mine 
 Meteor.publish('posts.mine', function() {
   if (this.userId) {
-    return Posts.find()
+    return Posts.find({
+      'followers.userId': this.userId,
+      isDM: false,
+    })
   } else {
     this.ready()
   }
 })
 Meteor.publish('topics.mine', function() {
   if (this.userId) {
-    return Topics.find()
+    return Topics.find({
+      'followers.userId': this.userId
+    })
   } else {
     this.ready()
   }
@@ -67,7 +71,7 @@ Meteor.publish("usersData", function(tigerId) {
 
 Meteor.publishComposite('topic', function(topicId) {
   check(topicId, Match.OneOf(null, String));
-  
+
   if (this.userId) {
     return {
       find: function() {
