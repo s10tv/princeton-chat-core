@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import _ from 'underscore';
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon';
+import IconButton from 'material-ui/lib/icon-button';
 
 export default React.createClass({
   propTypes: {
@@ -33,18 +34,23 @@ export default React.createClass({
     /**
      * Func to show a snackbar with an error string
      */
-    showSnackbarWithString: React.PropTypes.func.isRequired
+    showSnackbarWithString: React.PropTypes.func.isRequired,
+
+    /**
+     * Generates a uuid, used for storing text field refs
+     */
+    generateRandomString: React.PropTypes.func.isRequired
   },
 
   getInitialState() {
     return {
-      numFields: 1
+      textFieldRowRefs: [this.props.generateRandomString()]
     }
   },
 
   addNewFollower() {
     this.setState({
-      numFields: this.state.numFields + 1
+      textFieldRowRefs: this.state.textFieldRowRefs.concat([this.props.generateRandomString()])
     });
   },
 
@@ -55,8 +61,8 @@ export default React.createClass({
   },
 
   sendInvitations() {
-    const textFieldRows = _.range(this.state.numFields).map(num => {
-      return textFieldRow = this.refs['textfieldrow' + num];
+    const textFieldRows = this.state.textFieldRowRefs.map(textFieldRowRef => {
+      return textFieldRow = this.refs[textFieldRowRef];
     });
 
     const hasValidationError = textFieldRows.reduce((acc, curTextFieldRow) => {
@@ -74,6 +80,12 @@ export default React.createClass({
     } else {
       this.props.showSnackbarWithString("One of your fields has errors. Please check.");
     }
+  },
+
+  removeRow(id) {
+    this.setState({
+      textFieldRowRefs: _.without(this.state.textFieldRowRefs, id)
+    });
   },
 
   render() {
@@ -98,11 +110,19 @@ export default React.createClass({
                     <th>Email Address</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th><div style={{width: 50, height: 50}}></div></th> {/* so the table doesn't shift when clear buttons are added */}
                   </tr>
                 </thead>
                 <tbody>
-                  { _.range(this.state.numFields).map(num => (
-                    <TextFieldRow ref={'textfieldrow' + num} key={num} validateEmail={this.props.validateEmail} validateName={this.props.validateName} />
+                  { this.state.textFieldRowRefs.map((textFieldRowRef, index) => (
+                    <TextFieldRow
+                      id={textFieldRowRef}
+                      removeRow={this.removeRow}
+                      ref={textFieldRowRef}
+                      key={textFieldRowRef}
+                      validateEmail={this.props.validateEmail}
+                      validateName={this.props.validateName}
+                      isRemoveButtonHidden={index == 0} />
                   )) }
                 </tbody>
               </table>
@@ -117,7 +137,7 @@ export default React.createClass({
           </Flex >
 
           <Flex marginBottom={20}>
-            <RaisedButton label={giveAddFollowersLabel(this.state.numFields)} primary={true} onTouchTap={this.sendInvitations} />
+            <RaisedButton label={giveAddFollowersLabel(this.state.textFieldRowRefs.length)} primary={true} onTouchTap={this.sendInvitations} />
           </Flex>
         </Flex>
       </main>
@@ -135,7 +155,22 @@ const TextFieldRow = React.createClass({
     /**
      * Func to validate name
      */
-    validateName: React.PropTypes.func.isRequired
+    validateName: React.PropTypes.func.isRequired,
+
+    /**
+     * Bool to show/hide button
+     */
+    isRemoveButtonHidden: React.PropTypes.bool,
+
+    /**
+     * Unique identifier of row
+     */
+    id: React.PropTypes.string,
+
+    /**
+     * Func called from the parent to remove the row
+     */
+    removeRow: React.PropTypes.func.isRequired
   },
 
   hasValidationError() {
@@ -149,6 +184,7 @@ const TextFieldRow = React.createClass({
         <td><TextFieldEmail ref='emailWrapper' refComponent='email' validateEmail={this.props.validateEmail} /></td>
         <td><TextFieldName ref='firstNameWrapper' refComponent='firstName' hintText='Banana (optional)' validateName={this.props.validateName} /></td>
         <td><TextFieldName ref='lastNameWrapper' refComponent='lastName' hintText='Eater (optional)' validateName={this.props.validateName} /></td>
+        { this.props.isRemoveButtonHidden ? null : <td><IconButton onTouchTap={() => this.props.removeRow(this.props.id)}><FontIcon className='material-icons'>clear</FontIcon></IconButton></td> }
       </tr>
     )
   }

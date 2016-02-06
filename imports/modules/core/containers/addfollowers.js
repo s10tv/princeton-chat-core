@@ -10,7 +10,8 @@ export const composer = ({context, actions, topicId}, onData) => {
     const topic = Collections.Topics.findOne(topicId);
 
     onData(null, {
-      topic
+      topic,
+      generateRandomString: () => Meteor.uuid()
     });
   }
 }
