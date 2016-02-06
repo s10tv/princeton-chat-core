@@ -178,7 +178,7 @@ const PostListItem = (props) => (
           <a href={props.post.url} style={{marginTop: 4}}>
             <p>{ props.post.truncatedContent }</p>
           </a>
-          { props.post.numMsgs == 0 ? null :
+          { !props.post.numMsgs || props.post.numMsgs == 0 ? null :
             <a href={props.post.url} style={{marginTop: 5, alignSelf: 'center', color: '#6A6A6A'}}>
               <span>{ props.post.numMsgs } more messages </span>
             </a>
