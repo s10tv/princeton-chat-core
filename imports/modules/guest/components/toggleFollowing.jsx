@@ -20,8 +20,8 @@ const GuestToggleFollow = (props) => (
       }
     `}</style>
     <SimpleLogo />
-    {props.isFollowing 
-      ? <p>You are now <span style={{color: ORANGE}}>following</span></p> 
+    {props.isFollowing
+      ? <p>You are now <span style={{color: ORANGE}}>following</span></p>
       : <p>You just <span style={{color: RED}}>unfollowed</span></p>}
     <p>
       <strong>{props.title}</strong>
@@ -36,7 +36,7 @@ const GuestToggleFollow = (props) => (
     <br />
     <p>
       Changed your mind?
-      <a style={{marginLeft: 8}} 
+      <a style={{marginLeft: 8}}
         href={props.isFollowing ? props.unfollowLink : props.followLink}>
         { props.isFollowing
           ? 'Unfollow'
@@ -44,7 +44,7 @@ const GuestToggleFollow = (props) => (
       </a>
     </p>
     <p>
-      <a href='/guest'>Edit topics I follow</a>
+      <a href={props.editTopicsLink}>Edit topics I follow</a>
     </p>
   </Block>
 )

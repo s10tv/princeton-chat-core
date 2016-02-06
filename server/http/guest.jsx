@@ -44,7 +44,9 @@ HTTP.methods({
           title={post.title}
           isFollowing={isFollowing}
           followLink={`/guest/posts/${this.params.userId}/${this.params.hash}/${post._id}/follow`}
-          unfollowLink={`/guest/posts/${this.params.userId}/${this.params.hash}/${post._id}/unfollow`} />
+          unfollowLink={`/guest/posts/${this.params.userId}/${this.params.hash}/${post._id}/unfollow`}
+          editTopicsLink={`/guest/${this.params.userId}/${this.params.hash}`}
+        />
       )
     })
   }

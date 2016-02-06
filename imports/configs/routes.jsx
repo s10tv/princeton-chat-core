@@ -46,10 +46,20 @@ export default function (injectDeps) {
       mount(SignupWithCtx);
     }
   })
-  FlowRouter.route('/guest', {
+  FlowRouter.route('/guest/:userId/:hash', {
     name: 'guest',
-    action() {
-      mount(GuestIndexCtx)
+    action({ userId, hash }) {
+      Accounts.callLoginMethod({
+        methodArguments: [{ guest: { userId, hash }}],
+        userCallback: (err) => {
+          if (err) {
+            console.log(err);
+            // return FlowRouter.go('/login')
+          }
+
+          mount(GuestIndexCtx)
+        }
+      })
     }
   })
   FlowRouter.route('/signed-up', {
@@ -178,6 +188,7 @@ export default function (injectDeps) {
     const isSignupPassword = /\account$/.test(window.location.href);
     const isLogin = /\/login.+$/.test(window.location.href);
     const isSignupDone = /\/signed-up$/.test(window.location.href);
+    const isGuestPath = /\/guest.+$/.test(window.location.href);
 
     const isPostsPath = /\/topics\/[0-9A-Za-z_-]+\/[0-9A-Za-z_-]+$/.test(window.location.href);
     const isTopicsPath = /\/topics\/[0-9A-Za-z_-]+$/.test(window.location.href);
@@ -187,6 +198,7 @@ export default function (injectDeps) {
         !isSignupForm &&
         !isSignupPassword &&
         !isLogin &&
+        !isGuestPath &&
         !isSignupDone) {
 
       let redirectPath = '/';
