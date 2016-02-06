@@ -6,6 +6,7 @@ import TextField from 'material-ui/lib/text-field'
 import FlatButton from 'material-ui/lib/flat-button'
 import _ from 'underscore';
 import RaisedButton from 'material-ui/lib/raised-button'
+import FontIcon from 'material-ui/lib/font-icon';
 
 export default React.createClass({
   propTypes: {
@@ -78,33 +79,46 @@ export default React.createClass({
   render() {
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0})}>
-        <Flex flexDirection='column' alignItems='center'>
-          <h1>Add followers</h1>
-          <h4>Topics to follow</h4>
-          <h4>#{this.props.topic.displayName}</h4>
+        <Flex flexDirection='column' alignItems='center' className='add-followers' justifyContent='space-between' flexGrow={1}>
+          <Flex flexDirection='column' alignItems='center'>
+            <h1>Add followers</h1>
+            <h4>Topics to follow</h4>
+            <h4>#{this.props.topic.displayName}</h4>
 
-          <p>New followers do not need to register for Princeton.Chat in order to participate. Each topic is analogous to a mailing list.</p>
-          <p><span style={{color: '#9B9B9B'}}>To create a new post:</span> Send an email to ParentNet@topics.princeton.chat</p>
-          <p><span style={{color: '#9B9B9B'}}>To reply to a post:</span> Simply reply to the email notification</p>
+            <Flex flexDirection='column' alignItems='center' maxWidth='700px' marginTop={30}>
+              <p>New followers do not need to register for Princeton.Chat in order to participate. Each topic is analogous to a mailing list.</p>
+              <p><span style={{color: '#9B9B9B'}}>To create a new post:</span> Send an email to ParentNet@topics.princeton.chat</p>
+              <p><span style={{color: '#9B9B9B'}}>To reply to a post:</span> Simply reply to the email notification</p>
+            </Flex>
 
-          <form style={{maxHeight: 300, overflowY: 'scroll'}}>
-            <table>
-              <thead>
-                <tr>
-                  <th>Email Address</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                { _.range(this.state.numFields).map(num => (
-                  <TextFieldRow ref={'textfieldrow' + num} key={num} validateEmail={this.props.validateEmail} validateName={this.props.validateName} />
-                )) }
-              </tbody>
-            </table>
-          </form>
-          <FlatButton label='Add Another' primary={true} onTouchTap={this.addNewFollower} alignSelf='flex-start'/>
-          <RaisedButton label={giveAddFollowersLabel(this.state.numFields)} primary={true} onTouchTap={this.sendInvitations} />
+            <form style={{maxHeight: 300, overflowY: 'scroll', marginTop: 50}}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Email Address</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  { _.range(this.state.numFields).map(num => (
+                    <TextFieldRow ref={'textfieldrow' + num} key={num} validateEmail={this.props.validateEmail} validateName={this.props.validateName} />
+                  )) }
+                </tbody>
+              </table>
+            </form>
+            <FlatButton
+              label='Add Another'
+              labelPosition='after'
+              primary={true}
+              onTouchTap={this.addNewFollower}
+              icon={<FontIcon className='material-icons'>add</FontIcon>}
+              style={{marginTop: 10}}/>
+          </Flex >
+
+          <Flex marginBottom={20}>
+            <RaisedButton label={giveAddFollowersLabel(this.state.numFields)} primary={true} onTouchTap={this.sendInvitations} />
+          </Flex>
         </Flex>
       </main>
     )
