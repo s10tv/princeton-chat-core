@@ -395,12 +395,12 @@ Meteor.methods({
 
   'post/follow': (postId) => {
     check(postId, String);
-    PostManager.follow({ post: Posts.findOne(postId), user: CurrentUser.get()})
+    PostManager.follow({ postId, user: CurrentUser.get()})
   },
 
   'post/unfollow': (postId) => {
     check(postId, String);
-    PostManager.unfollow({ post: Posts.findOne(postId), user: CurrentUser.get()})
+    PostManager.unfollow({ postId, user: CurrentUser.get()})
   },
 
   'messages/insert': (_id, postId, commentText) => {

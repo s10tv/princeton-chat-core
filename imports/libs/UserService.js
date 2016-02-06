@@ -22,7 +22,7 @@ export default class UserService {
     } else {
       user.classDisplay= ''
     }
-    
+
     user.displayUsername = user.username ? `@${user.username}` : '';
 
     user.displayName = "";

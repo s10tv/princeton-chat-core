@@ -2,9 +2,11 @@ import { Topics, Posts, Users} from '/imports/configs/collections';
 
 export default class PostManager {
 
-  static follow({ user, post }) {
+  static follow({ user, postId }) {
     check(user, Object);
-    check(post, Object);
+    check(postId, String);
+
+    const post = Posts.findOne(postId)
 
     if (!post) {
       return;
@@ -28,9 +30,11 @@ export default class PostManager {
     });
   }
 
-  static unfollow({ post, user }) {
-    check(post, Object);
+  static unfollow({ postId, user }) {
     check(user, Object);
+    check(postId, String);
+
+    const post = Posts.findOne(postId)
 
     if (!post) {
       return;
