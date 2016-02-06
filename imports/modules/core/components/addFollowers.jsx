@@ -87,7 +87,7 @@ export default React.createClass({
 
             <Flex flexDirection='column' alignItems='center' maxWidth='700px' marginTop={30}>
               <p>New followers do not need to register for Princeton.Chat in order to participate. Each topic is analogous to a mailing list.</p>
-              <p><span style={{color: '#9B9B9B'}}>To create a new post:</span> Send an email to ParentNet@topics.princeton.chat</p>
+              <p><span style={{color: '#9B9B9B'}}>To create a new post:</span> Send an email to {this.props.topic._id}@topics.princeton.chat</p>
               <p><span style={{color: '#9B9B9B'}}>To reply to a post:</span> Simply reply to the email notification</p>
             </Flex>
 
