@@ -73,6 +73,6 @@ const PostListContent = (props) => (
       )}
     </List>
 
-    <a>Add Followers</a>
+    <a href='#' onClick={() => props.navigateToAddFollowers(props.topic._id)}>Add Followers</a>
   </Flex>
 )

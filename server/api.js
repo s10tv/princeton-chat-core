@@ -202,33 +202,41 @@ Meteor.methods({
     return false;
   },
 
-  'topics/users/import': (topicId, emails) => {
+  'topics/users/import': (topicId, userInfos) => {
     check(topicId, String);
-    check(emails, [String]);
+    check(userInfos, [Object]);
 
     const topic = Topics.findOne(topicId);
     if (!topic) {
       throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`);
     }
 
-    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    emails.filter(email => re.test(email))
-    .forEach(email => {
-      let existingUser = Accounts.findUserByEmail(email);
-      if (!existingUser) {
-        // assign the user a username equal to their email username
-        let username = email.substring(0, email.indexOf('@'));
-        let newUserId = Accounts.createUser({ username, email, password: email, profile: {} });
+    try {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      userInfos.filter(userInfo => re.test(userInfo.email)).forEach(userInfo => {
+        const email = userInfo.email;
+        const firstName = userInfo.firstName || '';
+        const lastName = userInfo.lastName || '';
+        let existingUser = Accounts.findUserByEmail(email);
+        if (!existingUser) {
+          // assign the user a username equal to their email username
+          let username = email.substring(0, email.indexOf('@'));
+          let newUserId = Accounts.createUser({ username, email, password: email, profile: {} });
 
-        Users.update(newUserId, { $set: {
-          firstName: username,
-        }})
+          Users.update(newUserId, { $set: {
+            firstName,
+            lastName,
+            username
+          }});
 
-        existingUser = Users.findOne(newUserId);
-      }
+          existingUser = Users.findOne(newUserId);
+        }
 
-      TopicManager.follow({ topicId, user: existingUser });
-    })
+        TopicManager.follow({ topicId, user: existingUser });
+      })
+    } catch(e) {
+      throw new Meteor.Error(500, "Sorry, we messed up. We couldn't add your followers, but we tried very hard :/")
+    }
   },
 
   'signup/test': (emailOverride) => {

@@ -12,9 +12,8 @@ import SignupForm from '/imports/modules/core/containers/signup.form.js';
 import Signup from '/imports/modules/core/containers/signup.js'
 import SignupDone from '/imports/modules/core/containers/signup.done.js'
 import Login from '/imports/modules/core/containers/login.js'
-
 import GuestIndex from '/imports/modules/guest/containers/guestIndex.js'
-
+import AddFollowers from '/imports/modules/core/containers/addfollowers.js'
 import WebFontLoader from 'webfontloader';
 
 function redirectToAllMine(context) {
@@ -100,6 +99,15 @@ export default function (injectDeps) {
     action() {
       mount(LayoutMainCtx, {
         content: (props) => <TopicList {...props} {...props} />
+      })
+    }
+  });
+
+  FlowRouter.route('/add-followers/:topicId', {
+    name: 'add-followers',
+    action({ topicId }) {
+      mount(LayoutMainCtx, {
+        content: (props) => <AddFollowers topicId={topicId} {...props} />
       })
     }
   });

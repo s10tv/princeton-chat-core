@@ -25,6 +25,10 @@ export default {
     return FlowRouter.go('choose-topics');
   },
 
+  navigateToAddFollowers({ FlowRouter }, topicId) {
+    return FlowRouter.go(`/add-followers/${topicId}`);
+  },
+
   updateTopicFollowers({ LocalState, Collections }, topicIds) {
     const userIdMap = Collections.Topics.find({ _id: { $in: topicIds }}).fetch().reduce((acc, topic) => {
       topic.followers.forEach(follower => {
@@ -79,17 +83,17 @@ export default {
     LocalState.set('SHOW_ADD_NEW_USERS', null);
   },
 
-  addNewUsers({Meteor, LocalState}, topicId, emails) {
-    Meteor.call('topics/users/import', topicId, emails, (err) => {
+  addNewUsers({Meteor, LocalState}, topicId, userInfos) {
+    Meteor.call('topics/users/import', topicId, userInfos, (err) => {
       if (err) {
-        console.log(err);
+        return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason);
       }
 
-      LocalState.set("SHOW_ADD_NEW_USERS_SNACKBAR", true);
+      LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', 'Followers successfully added!');
     });
   },
 
-  closeAddNewUsersSnackbar({LocalState}) {
-    LocalState.set("SHOW_ADD_NEW_USERS_SNACKBAR", false);
+  showSnackbarWithString({ LocalState }, str) {
+    LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', str);
   }
 }
