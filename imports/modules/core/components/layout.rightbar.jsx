@@ -53,7 +53,7 @@ const PostListContent = (props) => (
     <h4>Topic Followers ({props.topic.followers.length})</h4>
     <List style={{paddingTop: 0, paddingBottom: 0}}>
       {
-        props.topic.followersList.map(follower => (
+        props.topic.truncatedFollowersList.map(follower => (
         <ListItem key={follower._id} disabled={true} style={{padding: '15px 0px'}}>
           <a href='#' onClick={() => props.showUserProfile(follower)}>
             <Flex alignItems='center'>
