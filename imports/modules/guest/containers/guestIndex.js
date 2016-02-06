@@ -1,5 +1,6 @@
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
 import GuestIndex from '../components/guestIndex.jsx'
+import {Loading} from '/imports/modules/core/components/helpers.jsx'
 
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context()
@@ -7,22 +8,22 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   // TODO: Filter by only what I subscribe to
   if (Meteor.subscribe('posts.mine').ready() && Meteor.subscribe('topics.mine').ready()) {
     const topics = Collections.Topics.find().map(topic => {
-      topic.followersCount = topic.followers.length
-      topic.isFollowing = topic.followers.filter(follower => follower.userId == Meteor.userId()).length > 0
+      topic.numFollowers = topic.followers.length
+      topic.isFollowing = topic.followers.some(f => f.userId == Meteor.userId())
       return topic
     })
     const posts = Collections.Posts.find({isDM: false}).map(post => {
-      // post.followersCount = post.followers.length
-      // TODO: Obvious fix me...
-      post.isFollowing = true
+      post.numFollowers = post.followers.length
+      post.isFollowing = post.followers.some(f => f.userId == Meteor.userId())
       return post
     })
     onData(null, { topics, posts })
   }
 }
 
+
 export default composeAll(
-  composeWithTracker(composer),
+  composeWithTracker(composer, Loading),
   useDeps((context, actions) => ({
     context: () => context,
     followTopic: actions.topics.follow,

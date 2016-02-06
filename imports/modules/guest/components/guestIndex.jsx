@@ -1,26 +1,16 @@
 import React from 'react'
+import moment from 'moment'
+import truncate from 'truncate'
+import pluralize from 'pluralize'
 import {Flex, Block} from 'jsxstyle'
+import {postShape, topicShape} from '/imports/libs/shapes.js'
 
 const ORANGE = '#F07621'
 const WHITE = 'white'
 const RED = 'red'
 
 const SimpleLogo = ({style, ...props}) =>
-  <h1 style={{color: ORANGE, fontSize: 20, fontWeight: 600, margin: 0, ...style}} {...props}>Princeton.chat</h1>
-  
-const postShape = React.PropTypes.shape({
-  _id: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string.isRequired,
-  isFollowing: React.PropTypes.bool.isRequired,
-})
-
-const topicShape = React.PropTypes.shape({
-  _id: React.PropTypes.string.isRequired,
-  displayName: React.PropTypes.string.isRequired,
-  description: React.PropTypes.string.isRequired,
-  isFollowing: React.PropTypes.bool.isRequired,
-})
-
+  <h1 style={{color: ORANGE, fontSize: 20, fontWeight: 600, margin: 0, ...style}} {...props}>Princeton.Chat</h1>
 
 class FollowButton extends React.Component {
   constructor(props) {
@@ -69,13 +59,19 @@ const Section = ({children, ...props}) => (
 const PostItem = (props) => (
   <ListItem>
     <Flex>
-      <h4>{props.post.title}</h4>
+      <Block>
+        <h4>{props.post.title}</h4>
+        <span>{moment(props.post.createdAt).format("M/D h:mm a")}</span>
+        <span> - </span>
+        <span>{pluralize('follower', props.post.numFollowers, true)}</span>
+      </Block>
       <FollowButton style={{marginLeft: 'auto'}} 
         itemId={props.post._id}
         isFollowing={props.post.isFollowing}
         followFn={props.followPost}
         unfollowFn={props.unfollowPost} />
     </Flex>
+    <p>{truncate(props.post.content, 150)}</p>
   </ListItem>
 )
 PostItem.propTypes = {
@@ -87,13 +83,19 @@ PostItem.propTypes = {
 const TopicItem = (props) => (
   <ListItem>
     <Flex>
-      <h4># {props.topic.displayName}</h4>
+      <Block>
+        <h4># {props.topic.displayName}</h4>
+        <span>{pluralize('follower', props.topic.numFollowers, true)}</span>
+        <span> - </span>
+        <span>{pluralize('post', props.topic.numPosts, true)}</span>
+      </Block>
       <FollowButton style={{marginLeft: 'auto'}} 
         itemId={props.topic._id}
         isFollowing={props.topic.isFollowing}
         followFn={props.followTopic}
         unfollowFn={props.unfollowTopic} />
     </Flex>
+    
     <p>{props.topic.description}</p>
   </ListItem>
 )
@@ -112,6 +114,7 @@ const GuestIndex = (props) => (
         font-weight: 500;
       }
       .guest-index h4 {
+        margin: 0;
         font-size: 16px;
         font-weight: 500;
       }
