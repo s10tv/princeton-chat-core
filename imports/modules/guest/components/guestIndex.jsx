@@ -21,9 +21,42 @@ const topicShape = React.PropTypes.shape({
   isFollowing: React.PropTypes.bool.isRequired,
 })
 
-const FollowButton = props => (
-  <Block {...props}>[Follow]</Block>
-)
+
+class FollowButton extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {mouseOver: false}
+  }
+  toggleFollow() {
+    if (this.props.isFollowing) {
+      this.props.unfollowFn(this.props.itemId)
+    } else {
+      this.props.followFn(this.props.itemId)
+    }
+  }
+  render() {
+    return (
+      <a onClick={this.toggleFollow.bind(this)} 
+        onMouseOver={() => this.setState({mouseOver: true})}
+        onMouseOut={() => this.setState({mouseOver: false})}
+        style={{
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          color: (this.props.isFollowing && this.state.mouseOver) ? 'red' : 'inherit',
+          ...this.props.style,
+        }}>
+        {this.props.isFollowing ? (this.state.mouseOver ? 'Unfollow' : 'Following') : 'Follow'}
+      </a>
+    )
+  }
+}
+FollowButton.propTypes = {
+  itemId: React.PropTypes.string.isRequired,
+  isFollowing: React.PropTypes.bool.isRequired,
+  unfollowFn: React.PropTypes.func.isRequired,
+  followFn: React.PropTypes.func.isRequired,
+  style: React.PropTypes.object,
+}
 
 const ListItem = ({children, ...props}) => (
   <Block border='1px solid #8899A6' borderRadius={5} padding={8} margin='8px 0' {...props}>{children}</Block>
@@ -37,7 +70,11 @@ const PostItem = (props) => (
   <ListItem>
     <Flex>
       <h4>{props.post.title}</h4>
-      <FollowButton marginLeft='auto' />
+      <FollowButton style={{marginLeft: 'auto'}} 
+        itemId={props.post._id}
+        isFollowing={props.post.isFollowing}
+        followFn={props.followPost}
+        unfollowFn={props.unfollowPost} />
     </Flex>
   </ListItem>
 )
@@ -50,8 +87,12 @@ PostItem.propTypes = {
 const TopicItem = (props) => (
   <ListItem>
     <Flex>
-      <h4>{props.topic.displayName}</h4>
-      <FollowButton marginLeft='auto' />
+      <h4># {props.topic.displayName}</h4>
+      <FollowButton style={{marginLeft: 'auto'}} 
+        itemId={props.topic._id}
+        isFollowing={props.topic.isFollowing}
+        followFn={props.followTopic}
+        unfollowFn={props.unfollowTopic} />
     </Flex>
     <p>{props.topic.description}</p>
   </ListItem>

@@ -13,6 +13,7 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
     })
     const posts = Collections.Posts.find({isDM: false}).map(post => {
       // post.followersCount = post.followers.length
+      // TODO: Obvious fix me...
       post.isFollowing = true
       return post
     })
