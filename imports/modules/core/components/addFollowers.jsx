@@ -82,7 +82,7 @@ export default React.createClass({
         <Flex flexDirection='column' alignItems='center' className='add-followers' justifyContent='space-between' flexGrow={1}>
           <Flex flexDirection='column' alignItems='center'>
             <h1>Add followers</h1>
-            <h4>Topics to follow</h4>
+            <h4>Topic to follow</h4>
             <h4>#{this.props.topic.displayName}</h4>
 
             <Flex flexDirection='column' alignItems='center' maxWidth='700px' marginTop={30}>
