@@ -8,30 +8,32 @@ import htmlPage from './html'
 
 HTTP.methods({
   'guest/posts/:postId/:action': function() {
-    const user = Users.findOne(this.query.userId)
+    const {postId, action} = this.params;
+    const {userId, hash} = this.query;
+
+    const user = Users.findOne(userId)
     if (!user) {
       this.setStatusCode(404)
       return 'Not Found'
     }
 
-    if (!isValidHash(user, this.query.hash)) {
+    if (!isValidHash(user, hash)) {
       this.setStatusCode(404)
       return 'Not Found'
     }
 
-    const post = Posts.findOne(this.params.postId)
+    const post = Posts.findOne(postId)
     if (!post) {
       this.setStatusCode(404)
       return 'Not Found'
     }
-    const action = this.params.action
     let isFollowing = false
 
     if (action === 'follow') {
-      PostManager.follow({ user, postId: this.params.postId })
+      PostManager.follow({ user, postId: postId })
       isFollowing = true
     } else if (action === 'unfollow') {
-      PostManager.unfollow({ user, postId: this.params.postId })
+      PostManager.unfollow({ user, postId: postId })
       isFollowing = false
     } else {
       this.setStatusCode(404)
@@ -43,9 +45,9 @@ HTTP.methods({
         <GuestToggleFollow
           title={post.title}
           isFollowing={isFollowing}
-          followLink={`/guest/posts/${this.params.userId}/${this.params.hash}/${post._id}/follow`}
-          unfollowLink={`/guest/posts/${this.params.userId}/${this.params.hash}/${post._id}/unfollow`}
-          editTopicsLink={`/guest/${this.params.userId}/${this.params.hash}`}
+          followLink={`/guest/posts/${postId}/follow?userId=${userId}&hash=${hash}`}
+          unfollowLink={`/guest/posts/${postId}/unfollow?userId=${userId}&hash=${hash}`}
+          editTopicsLink={`/guest?userId=${userId}&hash=${hash}`}
         />
       )
     })
