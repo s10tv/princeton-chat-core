@@ -30,9 +30,9 @@ class FollowButton extends React.Component {
         onMouseOver={() => this.setState({mouseOver: true})}
         onMouseOut={() => this.setState({mouseOver: false})}
         style={{
-          fontWeight: 'bold',
+          fontWeight: 600,
           cursor: 'pointer',
-          color: (this.props.isFollowing && this.state.mouseOver) ? 'red' : 'inherit',
+          color: this.props.isFollowing ? (this.state.mouseOver ? RED : ORANGE) : 'inherit',
           ...this.props.style,
         }}>
         {this.props.isFollowing ? (this.state.mouseOver ? 'Unfollow' : 'Following') : 'Follow'}
