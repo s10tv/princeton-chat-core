@@ -23,6 +23,7 @@ bozhao:link-accounts@1.2.5
 caching-compiler@1.0.1-modules.4
 caching-html-compiler@1.0.3-modules.4
 callback-hook@1.0.5-modules.4
+cfs:http-methods@0.0.30
 check@1.1.1-modules.4
 coffeescript@1.0.12-modules.4
 cosmos:browserify@0.9.3

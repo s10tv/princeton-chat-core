@@ -10,6 +10,15 @@ const SimpleLogo = ({style, ...props}) =>
 
 const GuestToggleFollow = (props) => (
   <Block className='guest' padding={30}>
+    <style type='text/css' scoped={true}>{`
+      .guest a {
+        color: #4A90E2; /* Blue */
+        text-decoration: underline;
+      }
+      .guest a:hover {
+        color: #F07621; /* Princeton Orange */
+      }
+    `}</style>
     <SimpleLogo />
     {props.isFollowing 
       ? <p>You are now <span style={{color: ORANGE}}>following</span></p> 

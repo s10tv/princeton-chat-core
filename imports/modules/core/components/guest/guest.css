@@ -1,8 +1,0 @@
-.guest a {
-  color: #4A90E2; /* Blue */
-  text-decoration: underline;
-}
-
-.guest a:hover {
-  color: #F07621; /* Princeton Orange */
-}
