@@ -1,16 +1,21 @@
 import React from 'react'
 import {Flex, Block} from 'jsxstyle'
 
+const ORANGE = '#F07621'
+const WHITE = 'white'
+const RED = 'red'
+
 const SimpleLogo = ({style, ...props}) =>
-  <h1 style={{color: '#F07621', fontSize: 20, fontWeight: 600, margin: 0, ...style}} {...props}>Princeton.chat</h1>
+  <h1 style={{color: ORANGE, fontSize: 20, fontWeight: 600, margin: 0, ...style}} {...props}>Princeton.chat</h1>
 
 const GuestToggleFollow = (props) => (
   <Block className='guest' padding={30}>
     <SimpleLogo />
-    <p>{props.isFollowing ? 'You are now following' : 'You just unfollowed'}</p>
+    {props.isFollowing 
+      ? <p>You are now <span style={{color: ORANGE}}>following</span></p> 
+      : <p>You just <span style={{color: RED}}>unfollowed</span></p>}
     <p>
       <strong>{props.title}</strong>
-      {props.isFollowing ? '[Following]' : '[Follow]'}
     </p>
     <p>
       { props.isFollowing
