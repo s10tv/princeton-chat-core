@@ -12,7 +12,8 @@ import SignupForm from '/imports/modules/core/containers/signup.form.js';
 import Signup from '/imports/modules/core/containers/signup.js'
 import SignupDone from '/imports/modules/core/containers/signup.done.js'
 import Login from '/imports/modules/core/containers/login.js'
-
+import GuestToggleFollow from '/imports/modules/core/components/guest/toggleFollowing.jsx'
+import GuestIndex from '/imports/modules/core/components/guest/index.jsx'
 import WebFontLoader from 'webfontloader';
 
 function redirectToAllMine(context) {
@@ -27,7 +28,8 @@ export default function (injectDeps) {
       families: ['Roboto']
     }
   });
-
+  const GuestToggleFollowCtx = injectDeps(GuestToggleFollow)
+  const GuestIndexCtx = injectDeps(GuestIndex)
   const LayoutMainCtx = injectDeps(LayoutMain);
   const LoginWithCtx = injectDeps(Login);
   const SignupWithCtx = injectDeps(Signup);
@@ -39,6 +41,35 @@ export default function (injectDeps) {
   FlowRouter.subscriptions = function() {
     this.register('userData', Meteor.subscribe('userData'));
   };
+  FlowRouter.route('/guest', {
+    name: 'guestIndex',
+    action({}) {
+      mount(GuestIndexCtx, {
+      })
+    }
+  })
+  FlowRouter.route('/guest/follow/:postId', {
+    name: 'guestFollowPost',
+    action({postId}) {
+      mount(GuestToggleFollowCtx, {
+        title: 'WWS ‘12, now computer science proficient, looking for technical roles',
+        isFollowing: true,
+        followLink: `/guest/follow/${postId}`,
+        unfollowLink: `/guest/unfollow/${postId}`,
+      })
+    }
+  })
+  FlowRouter.route('/guest/unfollow/:postId', {
+    name: 'guestunfollowPost',
+    action({postId}) {
+      mount(GuestToggleFollowCtx, {
+        title: 'WWS ‘12, now computer science proficient, looking for technical roles',
+        isFollowing: false,
+        followLink: `/guest/follow/${postId}`,
+        unfollowLink: `/guest/unfollow/${postId}`,
+      })
+    }
+  })
 
   FlowRouter.route('/', {
     name: 'signup',
