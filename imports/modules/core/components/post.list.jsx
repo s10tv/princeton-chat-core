@@ -70,7 +70,6 @@ export default React.createClass({
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0, marginRight: isRightBarOpen ? 320 : 0 })}>
         <Menu
-          hideAddNewUsersButton={true}
           hidePostButton={this.props.isEmpty}
           {...this.props} />
 

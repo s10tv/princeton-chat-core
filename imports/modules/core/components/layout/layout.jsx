@@ -7,7 +7,6 @@ import Sidebar from '/imports/modules/core/containers/layout.sidebar.js';
 import Profile from '/imports/modules/core/containers/profile.js'
 import EditProfileModal from '/imports/modules/core/containers/editprofile.modal.js';
 import PostFollowersModal from '/imports/modules/core/containers/post.followers.modal.js'
-import AddNewUsersModal from '/imports/modules/core/containers/addnewusers.modal.js';
 import GlobalSnackbar from '/imports/modules/core/containers/globalsnackbar.js';
 
 // TODO: Figure out a better way that does not involve using Mixin
@@ -40,7 +39,6 @@ export default React.createClass({
         <LogoutModal />
         <EditProfileModal />
         <PostFollowersModal />
-        <AddNewUsersModal />
         <Profile />
         <GlobalSnackbar />
       </div>

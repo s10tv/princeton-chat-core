@@ -14,7 +14,7 @@ export default React.createClass({
      * Proptypes are also indirectly passed to Menu
      */
     ...Menu.propTypes,
-    
+
     title: React.PropTypes.string.isRequired,
     topics: React.PropTypes.array.isRequired,
 
@@ -42,13 +42,13 @@ export default React.createClass({
 
   render() {
     const { post, messages, showUserProfilePost, showUserProfileMessage } = this.props;
-// <Menu {...this.props} hidePostButton={false} hideAddNewUsersButton={true} />
+// <Menu {...this.props} hidePostButton={false} />
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <NavBar>
           <Flex alignSelf='stretch' flexDirection='column'>
             <Flex flex={1} alignItems='center'>
-              { this.props.topics.map(topic => 
+              { this.props.topics.map(topic =>
                 <span key={topic._id}>{`#${topic.displayName}`}</span>
               )}
             </Flex>

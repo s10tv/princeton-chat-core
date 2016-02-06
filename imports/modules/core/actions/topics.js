@@ -75,14 +75,6 @@ export default {
     });
   },
 
-  showAddNewUsersModal({LocalState}, topicId) {
-    LocalState.set('SHOW_ADD_NEW_USERS', topicId);
-  },
-
-  closeAddNewUsersModal({LocalState}) {
-    LocalState.set('SHOW_ADD_NEW_USERS', null);
-  },
-
   addNewUsers({Meteor, LocalState}, topicId, userInfos) {
     Meteor.call('topics/users/import', topicId, userInfos, (err) => {
       if (err) {
