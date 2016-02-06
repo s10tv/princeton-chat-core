@@ -1,7 +1,7 @@
 import invariant from 'invariant'
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
-import GuestToggleFollow from '/imports/modules/guest/toggleFollowing.jsx'
+import GuestToggleFollow from '/imports/modules/guest/components/toggleFollowing.jsx'
 import htmlPage from './html'
 
 HTTP.methods({

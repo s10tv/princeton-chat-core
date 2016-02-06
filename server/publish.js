@@ -1,5 +1,21 @@
 import { Topics, Posts, Users, Messages } from '/imports/configs/collections'
 
+// TODO:  XXXX FIXME XXXX Make posts.mine and topics.mine actually publish mine 
+Meteor.publish('posts.mine', function() {
+  if (this.userId) {
+    return Posts.find()
+  } else {
+    this.ready()
+  }
+})
+Meteor.publish('topics.mine', function() {
+  if (this.userId) {
+    return Topics.find()
+  } else {
+    this.ready()
+  }
+})
+
 Meteor.publish('topics', function() {
   if (this.userId) {
     return Topics.find();

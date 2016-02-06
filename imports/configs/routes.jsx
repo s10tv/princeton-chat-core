@@ -12,6 +12,9 @@ import SignupForm from '/imports/modules/core/containers/signup.form.js';
 import Signup from '/imports/modules/core/containers/signup.js'
 import SignupDone from '/imports/modules/core/containers/signup.done.js'
 import Login from '/imports/modules/core/containers/login.js'
+
+import GuestIndex from '/imports/modules/guest/containers/guestIndex.js'
+
 import WebFontLoader from 'webfontloader';
 
 function redirectToAllMine(context) {
@@ -30,6 +33,7 @@ export default function (injectDeps) {
   const LoginWithCtx = injectDeps(Login);
   const SignupWithCtx = injectDeps(Signup);
   const SignupDoneWithCtx = injectDeps(SignupDone);
+  const GuestIndexCtx = injectDeps(GuestIndex)
 
   // logged in users should be redirected to all-mine when they visit '/'
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
@@ -43,7 +47,12 @@ export default function (injectDeps) {
       mount(SignupWithCtx);
     }
   })
-
+  FlowRouter.route('/guest', {
+    name: 'guest',
+    action() {
+      mount(GuestIndexCtx)
+    }
+  })
   FlowRouter.route('/signed-up', {
     name: 'signup-done',
     action() {
