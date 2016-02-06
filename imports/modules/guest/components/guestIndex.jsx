@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import truncate from 'truncate'
 import pluralize from 'pluralize'
+import sweetalert from 'sweetalert'
 import {Flex, Block} from 'jsxstyle'
 import {postShape, topicShape} from '/imports/libs/shapes.js'
 
@@ -19,10 +20,18 @@ class FollowButton extends React.Component {
   }
   toggleFollow() {
     if (this.props.isFollowing) {
-      // TODO: Is this really the best way to do it?
-      if (window.confirm("Are you sure you want to unfollow? You won't be able to follow it back until you login.")) { 
+      sweetalert({
+        title: `Unfollow ${this.props.itemName}?`,
+        text: 'You will need login before you can follow it back!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes, unfollow!',
+        closeOnConfirm: true,
+        html: false,
+      }, () => {
         this.props.unfollowFn(this.props.itemId)
-      }
+      })
     } else {
       this.props.followFn(this.props.itemId)
     }
@@ -45,6 +54,7 @@ class FollowButton extends React.Component {
 }
 FollowButton.propTypes = {
   itemId: React.PropTypes.string.isRequired,
+  itemName: React.PropTypes.string.isRequired,
   isFollowing: React.PropTypes.bool.isRequired,
   unfollowFn: React.PropTypes.func.isRequired,
   followFn: React.PropTypes.func.isRequired,
@@ -64,12 +74,13 @@ const PostItem = (props) => (
     <Flex>
       <Block>
         <h4>{props.post.title}</h4>
-        <span>{moment(props.post.createdAt).format("M/D h:mm a")}</span>
+        <span>{moment(props.post.createdAt).format('M/D h:mm a')}</span>
         <span> - </span>
         <span>{pluralize('follower', props.post.numFollowers, true)}</span>
       </Block>
       <FollowButton style={{marginLeft: 'auto'}} 
         itemId={props.post._id}
+        itemName={truncate(props.post.title, 50)}
         isFollowing={props.post.isFollowing}
         followFn={props.followPost}
         unfollowFn={props.unfollowPost} />
@@ -94,6 +105,7 @@ const TopicItem = (props) => (
       </Block>
       <FollowButton style={{marginLeft: 'auto'}} 
         itemId={props.topic._id}
+        itemName={`# ${props.topic.displayName}`}
         isFollowing={props.topic.isFollowing}
         followFn={props.followTopic}
         unfollowFn={props.unfollowTopic} />
@@ -128,13 +140,15 @@ const GuestIndex = (props) => (
       <Section>
         <h2>Topics I follow</h2>
         {props.topics.map(topic => 
-          <TopicItem key={topic._id} topic={topic} followTopic={props.followTopic} unfollowTopic={props.unfollowTopic} />
+          <TopicItem key={topic._id} topic={topic} 
+            followTopic={props.followTopic} unfollowTopic={props.unfollowTopic} />
         )}
       </Section>
       <Section>
         <h2>Posts I follow</h2>
         {props.posts.map(post => 
-          <PostItem key={post._id} post={post} followPost={props.followPost} unfollowPost={props.unfollowPost} />
+          <PostItem key={post._id} post={post} 
+            followPost={props.followPost} unfollowPost={props.unfollowPost} />
         )}
       </Section>
     </Flex>
