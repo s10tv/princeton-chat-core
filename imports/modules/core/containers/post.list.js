@@ -47,7 +47,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
     }).map(user => UserService.getUserView(user));
 
     // used to show on the right nav bar
-    topic.truncatedFollowersList = topic.followersList;
+    topic.truncatedFollowersList = _.clone(topic.followersList);
     if (topic.truncatedFollowersList.length > 4) {
       topic.truncatedFollowersList.length = 4;
     }
