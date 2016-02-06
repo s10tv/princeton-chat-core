@@ -30,6 +30,11 @@ export default React.createClass({
      * A function to show the followers of the post.
      */
     showPostFollowers: React.PropTypes.func,
+
+    /**
+     * Func to show topic followers modal from already fetched follower list
+     */
+    showTopicFollowersFromFollowersListFn: React.PropTypes.func
   },
 
   render() {
@@ -51,7 +56,12 @@ const PostListContent = (props) => (
     <h4>List Address</h4>
     <a href={'mailto:' + props.topic._id + '@topics.princeton.chat'}>{props.topic._id}@topics.princeton.chat</a>
 
-    <h4>Topic Followers ({props.topic.followers.length})</h4>
+    <h4>
+      <a href='#' onClick={() => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)}>
+        Topic Followers ({props.topic.followers.length})
+      </a>
+    </h4>
+
     <List style={{paddingTop: 0, paddingBottom: 0}}>
       {
         props.topic.truncatedFollowersList.map(follower => (
