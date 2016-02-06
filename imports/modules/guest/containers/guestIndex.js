@@ -4,6 +4,7 @@ import GuestIndex from '../components/guestIndex.jsx'
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context()
   
+  // TODO: Filter by only what I subscribe to
   if (Meteor.subscribe('posts.mine').ready() && Meteor.subscribe('topics.mine').ready()) {
     const topics = Collections.Topics.find().map(topic => {
       topic.followersCount = topic.followers.length
