@@ -46,9 +46,9 @@ export default function (injectDeps) {
       mount(SignupWithCtx);
     }
   })
-  FlowRouter.route('/guest/:userId/:hash', {
+  FlowRouter.route('/guest', {
     name: 'guest',
-    action({ userId, hash }) {
+    action({ userId }, { userId, hash }) {
       Accounts.callLoginMethod({
         methodArguments: [{ guest: { userId, hash }}],
         userCallback: (err) => {
