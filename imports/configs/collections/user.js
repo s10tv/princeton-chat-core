@@ -36,7 +36,8 @@ UserSchema = new SimpleSchema({
   // the DM channel used to communicate with tigerbot.
   tigerbotPostId: { type: String, optional: true },
 
-  isEmailVerified: { type: Boolean, optional: true, defaultValue: false },
+  // true if the user is a full member. False if the user is a guest (affiliation unverified)
+  isFullMember: { type: Boolean, optional: true, defaultValue: false },
   status: {
     type: String,
     optional: true,
