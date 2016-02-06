@@ -4,6 +4,7 @@ import LeftNav from 'material-ui/lib/left-nav';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Avatar from 'material-ui/lib/avatar';
+import FlatButton from 'material-ui/lib/flat-button';
 
 export default React.createClass({
   propTypes: {
@@ -41,7 +42,7 @@ export default React.createClass({
 });
 
 const PostListContent = (props) => (
-  <Flex flexDirection='column' padding='15px 20px'>
+  <Flex flexDirection='column' padding='15px 20px' flexGrow={1}>
     <h3>About #{props.topic.displayName}</h3>
     <p>
       {props.topic.description}
@@ -73,6 +74,11 @@ const PostListContent = (props) => (
       )}
     </List>
 
-    <a href='#' onClick={() => props.navigateToAddFollowers(props.topic._id)}>Add Followers</a>
+    <FlatButton
+      primary={true}
+      onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
+      label='Add Followers'
+      style={{marginTop: 10, alignSelf: 'center'}}
+      />
   </Flex>
 )
