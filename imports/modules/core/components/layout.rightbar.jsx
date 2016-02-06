@@ -70,11 +70,15 @@ const PostListContent = (props) => (
             <Flex alignItems='center'>
               <Avatar src={follower.avatar.url} size={40}/>
               <Flex flexDirection='column' marginLeft={15}>
-                <span style={{fontWeight: 500}}>
-                  { follower.displayName }
-                </span>
-                <span style={{color: '#57A3F0', marginTop: 15}}>
-                  @{ follower.username }
+                { follower.displayName ?
+                  <span style={{fontWeight: 500}}>
+                    { follower.displayName }
+                  </span>
+                  :
+                  null
+                }
+                <span style={Object.assign({color: '#57A3F0'}, follower.displayName && {marginTop: 15})}>
+                  { follower.displayEmail }
                 </span>
               </Flex>
             </Flex>
