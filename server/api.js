@@ -226,7 +226,8 @@ Meteor.methods({
           Users.update(newUserId, { $set: {
             firstName,
             lastName,
-            username
+            username,
+            isFullMember: false
           }});
 
           existingUser = Users.findOne(newUserId);
