@@ -1,5 +1,6 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
+import {i18n} from '/imports/libs/mantra'
 
 const envelopeIcon = '/assets/ic-envelope.png';
 
@@ -20,13 +21,13 @@ export default class EmailSubmitted extends React.Component {
           </div>
           <div className='lowerItemContainer'>
             <p className='email'>{ this.props.emailAddress }</p>
-            { 
+            {
               this.props.fromApprovedDomain
               ? <p>(The email contains a magic link to get you set up.)</p>
               : <p>We will send you an email in a bit to get you set up
-                after we verify your association with Princeton.</p>
+                after we verify your association with {i18n('community')}.</p>
             }
-            
+
           </div>
         </div>
       </div>

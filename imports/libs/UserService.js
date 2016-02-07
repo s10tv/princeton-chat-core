@@ -1,3 +1,5 @@
+import { i18n } from '/imports/libs/mantra'
+
 // gets the current user, with default values filled in.
 export default class UserService {
 
@@ -11,7 +13,7 @@ export default class UserService {
     user.expertTopics = user.expertTopics || [];
 
     user.status = user.status || 'pending';
-    user.avatar = user.avatar || { url: '/images/princeton.svg' };
+    user.avatar = user.avatar || { url: i18n('defaultAvatar') };
 
     if (user.classYear) {
       const shortClassYear = (/^[0-9]{4}$/.test(user.classYear)) ?

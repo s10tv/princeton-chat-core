@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 import MUITextField from 'material-ui/lib/text-field';
 import COLORS from 'material-ui/lib/styles/colors';
 import CircularProgress from 'material-ui/lib/circular-progress';
+import { i18n } from '/imports/libs/mantra'
 
 // Images
 const upArrow = '/assets/Up_Arrow.png';
@@ -156,11 +157,11 @@ class Home extends React.Component {
         <a className='login-link' href='/login'>Have an account? Login here.</a>
         <div className='splash'>
           <section>
-            <h1 className='h1-logo'>Princeton.Chat</h1>
-            <h2 className='h2-slogan'>Better TigerNet</h2>
+            <h1 className='h1-logo'>{i18n('title')}</h1>
+            <h2 className='h2-slogan'>{i18n('tagline')}</h2>
 
             { getTextField({ ref:"emailInput",
-              hintText: 'e.g. tonyx@alumni.princeton.edu',
+              hintText: `e.g. tonyx@${i18n('placeholderEmailDomain')}`,
               floatingLabelText:"Email",
               errorText: this.state.errorEmail,
               onBlur: this.validateEmail.bind(this)
@@ -203,8 +204,7 @@ class Home extends React.Component {
                 <img className='q' src={icQ} />
                 <div>
                   <p>
-                    Should a San Francisco alumus get notified that a New York tiger listed an
-                      apartment for rent?
+                    {i18n('homePageQA')}
                   </p>
                   <p>
                     No, but we <a href='https://www.facebook.com/groups/180883032032220/permalink/802919829828534/'
@@ -217,7 +217,7 @@ class Home extends React.Component {
 
             <div className='purpose'>
               <p>
-                <span className='logo-inline'>Princeton.Chat</span> is a community built for Princeton alums by
+                <span className='logo-inline'>{i18n('title')}</span> is a community built for Princeton alums by
                   Princeton alums. You only get notified
                   on <b>topics you follow</b>. We help you reach exactly the <b>right people</b> so we can do
                   great things together.
@@ -278,7 +278,7 @@ class Home extends React.Component {
             <a target='_blank' href='https://twitter.com/PrincetonChat'><img src={icTwitter} /></a>
             <a target='_blank' href='mailto:tony@princeton.chat?subject=rawrrr'><img src={icEmail} /></a>
           </div>
-          <span className='footer-logo'>© Princeton.Chat 2016</span>
+          <span className='footer-logo'>© {i18n('title')} 2016</span>
         </footer>
       </div>
     );

@@ -6,6 +6,8 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Avatar from 'material-ui/lib/avatar';
 import FlatButton from 'material-ui/lib/flat-button';
 
+import { i18n } from '/imports/libs/mantra'
+
 export default React.createClass({
   propTypes: {
     /**
@@ -54,8 +56,9 @@ const PostListContent = (props) => (
     </p>
 
     <h4>List Address</h4>
-    <a href={'mailto:' + props.topic._id + '@topics.princeton.chat'}>{props.topic._id}@topics.princeton.chat</a>
-
+    <a href={`mailto: ${props.topic._id}@${i18n('topicMailServer')}`}>
+      {`${props.topic._id}@${i18n('topicMailServer')}`}
+    </a>
     <h4>
       <a href='#' onClick={() => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)}>
         Topic Followers ({props.topic.followers.length})

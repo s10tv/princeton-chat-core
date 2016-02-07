@@ -10,6 +10,8 @@ import {SmallListItem, MediumListItem, SquareAvatar, secondaryMuiTheme} from '/i
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 
+import { i18n } from '/imports/libs/mantra'
+
 const SidebarHeader = (props) => {
   return (
     <ListItem id='sidebar-header' innerDivStyle={{
@@ -21,7 +23,7 @@ const SidebarHeader = (props) => {
       <Flex>
         <SquareAvatar src={ props.user.avatar.url } length={60} />
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
-          <h3>Princeton.Chat</h3>
+          <h3>{ i18n('title') }</h3>
           <Flex alignItems='center'>
             <span className='online-status' />
             <span>{ props.user.displayUsername }</span>

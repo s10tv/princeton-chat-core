@@ -1,6 +1,7 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
 import styles from '/imports/modules/core/components/styles.jsx'
+import { i18n } from '/imports/libs/mantra'
 import {Table, TableHeaderColumn, TableRow, TableHeader, TableRowColumn, TableBody} from 'material-ui/lib/table';
 import TextField from 'material-ui/lib/text-field'
 import FlatButton from 'material-ui/lib/flat-button'
@@ -8,6 +9,7 @@ import _ from 'underscore';
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon';
 import IconButton from 'material-ui/lib/icon-button';
+
 
 export default React.createClass({
   propTypes: {
@@ -98,8 +100,8 @@ export default React.createClass({
             <h4>#{this.props.topic.displayName}</h4>
 
             <Flex flexDirection='column' alignItems='center' maxWidth='700px' marginTop={30}>
-              <p>New followers do not need to register for Princeton.Chat in order to participate. Each topic is analogous to a mailing list.</p>
-              <p><span style={{color: '#9B9B9B'}}>To create a new post:</span> Send an email to {this.props.topic._id}@topics.princeton.chat</p>
+              <p>New followers do not need to register for {i18n('title')} in order to participate. Each topic is analogous to a mailing list.</p>
+              <p><span style={{color: '#9B9B9B'}}>To create a new post:</span> Send an email to {this.props.topic._id}@{i18n('topicMailServer')}</p>
               <p><span style={{color: '#9B9B9B'}}>To reply to a post:</span> Simply reply to the email notification</p>
             </Flex>
 

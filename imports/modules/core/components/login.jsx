@@ -8,6 +8,8 @@ import FlatButton from 'material-ui/lib/flat-button'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 import {primaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
 
+import { i18n } from '/imports/libs/mantra'
+
 export default React.createClass({
   propTypes: {
     /**
@@ -54,7 +56,7 @@ export default React.createClass({
           }}>
           <h1 style={{
               fontSize: 30, color: '#F07621', textAlign: 'center', fontWeight: 600,
-          }}>Princeton.Chat</h1>
+          }}>{i18n('title')}</h1>
           <RaisedButton label='Login with Facebook'
             secondary={true} backgroundColor='#3b5998'
             onTouchTap={this.props.loginWithFacebook}

@@ -9,6 +9,7 @@ import coreModule from '/imports/modules/core'
 const context = initContext()
 
 const app = createApp(context, actions)
+app.localize()
 app.loadModule(coreModule)
 app.loadRoutes(routes)
 

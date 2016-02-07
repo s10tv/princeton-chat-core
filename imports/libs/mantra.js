@@ -11,11 +11,18 @@ import {
   composeAll as _composeAll
 } from 'react-komposer';
 
+import {i18n as _i18n} from 'meteor/anti:i18n';
+
 class App {
   constructor(context, actions = {}) {
     this.context = context;
     this.actions = actions;
     this._routesLoaded = false;
+  }
+
+  localize() {
+    i18n.setLanguage(Meteor.settings.public.audience)
+    document.title = i18n('title')
   }
 
   loadRoutes(routes) {
@@ -65,3 +72,4 @@ export const composeWithTracker = _composeWithTracker;
 export const composeWithPromise = _composeWithPromise;
 export const composeWithObservable = _composeWithObservable;
 export const composeAll = _composeAll;
+export const i18n = _i18n;

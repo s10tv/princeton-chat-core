@@ -14,6 +14,8 @@ import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx
 import {TopicGridContainer} from '/imports/modules/core/containers/topic.list.js'
 import SetPasswordComponentBox from '/imports/modules/core/containers/setPassword.js';
 
+import {i18n} from '/imports/libs/mantra'
+
 const styles = Object.assign(importedStyles, {
   subTitle: {
     textAlign: 'center',
@@ -24,9 +26,9 @@ const FollowTopicComponent = (props) => {
   return (
     <div className="onboarding-container">
       <div>
-        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>Princeton.Chat</Block>
+        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>{i18n('title')}</Block>
         <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-          Princeton.Chat is a community for Princeton alums.
+          {i18n('onboardingDesc')}
         </h2>
         <p style={styles.subTitle}>
           Follow some topics to get started.
@@ -41,12 +43,12 @@ const SetPasswordComponent = (props) => {
   return (
     <div className="onboarding-container">
       <div>
-        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>Princeton.Chat</Block>
+        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>{i18n('title')}</Block>
         <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
           Welcome Tiger!
         </h1>
         <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-          How would you like to login to Princeton.chat in the future?
+          How would you like to login to {i18n('title')} in the future?
         </h2>
         <p style={styles.subTitle}>
           You can either <b>set a password</b> or <b>link your account</b> with facebook.

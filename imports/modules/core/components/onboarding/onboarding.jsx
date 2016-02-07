@@ -11,6 +11,7 @@ import { welcome, followTopics, thanks, linkService, raw } from './tigerBotMessa
 import {Message, MessageGroup} from '/imports/modules/core/components/message.jsx'
 import InputBox from '/imports/modules/core/containers/inputBox.js'
 import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
+import { i18n } from '/imports/libs/mantra'
 
 export default React.createClass({
   propTypes: {
@@ -62,14 +63,14 @@ export default React.createClass({
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <Flex flexDirection='column' flex={1} overflowY='hidden'>
-          <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>Princeton.Chat</Block>
+          <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30}>{i18n('title')}</Block>
           <ScrollingContainer alwaysScrollToBottom={true} child={
             <Block flex={1} overflowY='scroll'>
               <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
-                Welcome Tiger!
+                { i18n('onboardingGreeting')}
               </h1>
               <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-                Princeton.Chat is a community for Princeton alums.
+
               </h2>
               { messages.map(message => {
 
