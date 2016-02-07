@@ -6,7 +6,7 @@ ImageSchema = new SimpleSchema({
   height: { type: Number, optional: true},
 });
 
-let defaultAvatar = '/images/image-placeholder.png';
+let defaultAvatar = '/images/avatar-placeholder.png';
 if (process.env.AUDIENCE) {
   switch (process.env.AUDIENCE) {
     case 'princeton':
@@ -14,11 +14,11 @@ if (process.env.AUDIENCE) {
       break;
 
     case 's10':
-      defaultAvatar = '/images/image-placeholder.png'
+      defaultAvatar = '/images/avatar-placeholder.png'
       break;
 
     default:
-      defaultAvatar = '/images/image-placeholder.png'
+      defaultAvatar = '/images/avatar-placeholder.png'
       break;
   }
 }
