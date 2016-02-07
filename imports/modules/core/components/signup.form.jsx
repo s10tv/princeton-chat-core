@@ -45,7 +45,7 @@ const SetPasswordComponent = (props) => {
       <div>
         <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>{i18n('title')}</Block>
         <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
-          Welcome Tiger!
+          {i18n('onboardingGreeting')}
         </h1>
         <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
           How would you like to login to {i18n('title')} in the future?
