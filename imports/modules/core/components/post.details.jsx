@@ -40,9 +40,9 @@ export default React.createClass({
     isDirectMessage: React.PropTypes.bool.isRequired,
 
     /**
-     * The function navigates the user to the follow topics screen (used for the empty feed screen)
+     * The function navigates the user to the topic list screen.
      */
-    navigateToTopicListFn: React.PropTypes.func.isRequired,
+    navigateToTopic: React.PropTypes.func.isRequired,
   },
 
   render() {
