@@ -3,7 +3,7 @@ import React from 'react'
 export default class NavBar extends React.Component {
   render() {
     const s = {
-      height: 76,
+      height: 72,
       width: '100%', // For static containers
       alignSelf: 'stretch', // For flex containers
       boxSizing: 'border-box',
@@ -12,9 +12,14 @@ export default class NavBar extends React.Component {
       display: 'flex',
       alignItems: 'center',
     }
+    const sInner = {
+      paddingTop: 5,
+    }
     return (
       <header style={{...s, ...this.props.style}}>
-        {this.props.children}
+        <div style={{...sInner}}>
+          {this.props.children}
+        </div>
       </header>
     )
   }

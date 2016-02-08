@@ -38,6 +38,11 @@ export default React.createClass({
      * Determines whether this is a direct message or a post detail.
      */
     isDirectMessage: React.PropTypes.bool.isRequired,
+
+    /**
+     * The function navigates the user to the follow topics screen (used for the empty feed screen)
+     */
+    navigateToTopicListFn: React.PropTypes.func.isRequired,
   },
 
   render() {
@@ -47,12 +52,15 @@ export default React.createClass({
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <NavBar>
           <Flex alignSelf='stretch' flexDirection='column'>
+            <h1 style={{margin: 0, flex: 1, fontWeight: 500, fontSize: 24}}>{this.props.title}</h1>
             <Flex flex={1} alignItems='center'>
               { this.props.topics.map(topic =>
-                <span key={topic._id}>{`#${topic.displayName}`}</span>
+                <a
+                  key={topic._id}
+                  style={{ color:'#cccccc', cursor: 'pointer' }}
+                  onClick={ () => this.props.navigateToTopic(topic._id) }>{`#${topic.displayName}`}</a>
               )}
             </Flex>
-            <h1 style={{margin: 0, flex: 1, fontWeight: 500, fontSize: 24}}>{this.props.title}</h1>
           </Flex>
         </NavBar>
         <ScrollingContainer child={

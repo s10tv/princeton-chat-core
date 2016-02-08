@@ -28,12 +28,12 @@ export const composer = ({context, topicId, postId}, onData) => {
       message.timestamp = DateFormatter.format(message);
       return message;
     });
-    
+
     // WARNING: Assume topics are already published
     const topics = post.topicIds
       .map(topicId => Collections.Topics.findOne(topicId))
       .filter(topic => topic != undefined)
-      
+
     onData(null, {
       post,
       messages,
@@ -52,6 +52,7 @@ const depsMapper = (context, actions) => ({
   showUserProfilePost: actions.posts.showUserProfile,
   showUserProfileMessage: actions.messages.showUserProfile,
   showFollowersFn: actions.topics.showTopicFollowers,
+  navigateToTopic: actions.topics.navigateToTopic,
   context: () => context
 });
 
