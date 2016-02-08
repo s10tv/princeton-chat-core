@@ -47,10 +47,10 @@ export const composer = ({context, topicId, postListType}, onData) => {
     }).map(user => UserService.getUserView(user));
 
     // used to show on the right nav bar
-    topic.truncatedFollowersList = _.clone(topic.followersList);
-    if (topic.truncatedFollowersList.length > 4) {
-      topic.truncatedFollowersList.length = 4;
-    }
+    // topic.truncatedFollowersList = _.clone(topic.followersList);
+    // if (topic.truncatedFollowersList.length > 4) {
+    //   topic.truncatedFollowersList.length = 4;
+    // }
 
     const posts = Collections.Posts.find(options, { sort: { createdAt: -1 }}).map(post => {
       post.owner = UserService.getUserView(Collections.Users.findOne(post.ownerId));
