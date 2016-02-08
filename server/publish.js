@@ -43,7 +43,7 @@ Meteor.publish("userData", function () {
       status: 1,
       followingTopics: 1,
       followingPosts: 1,
-      tigerbotPostId: 1,
+      topicAdmins: 1,
       'services.facebook.id': 1,
     }});
   } else {
