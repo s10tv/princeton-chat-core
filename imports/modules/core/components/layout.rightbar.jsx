@@ -1,5 +1,5 @@
 import React from 'react';
-import {Flex} from 'jsxstyle';
+import {Flex, Block} from 'jsxstyle';
 import LeftNav from 'material-ui/lib/left-nav';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
@@ -49,7 +49,7 @@ export default React.createClass({
 });
 
 const PostListContent = (props) => (
-  <Flex flexDirection='column' padding='15px 20px' flexGrow={1}>
+  <Block padding='15px 20px'>
     <h3>About #{props.topic.displayName}</h3>
     <p>
       {props.topic.description}
@@ -64,6 +64,13 @@ const PostListContent = (props) => (
         Topic Followers ({props.topic.followers.length})
       </a>
     </h4>
+
+    <FlatButton
+      primary={true}
+      onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
+      label='Add Followers'
+      style={{marginTop: 10}}
+    />
 
     <List style={{paddingTop: 0, paddingBottom: 0}}>
       {
@@ -90,12 +97,5 @@ const PostListContent = (props) => (
         )
       )}
     </List>
-
-    <FlatButton
-      primary={true}
-      onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
-      label='Add Followers'
-      style={{marginTop: 10, alignSelf: 'center'}}
-      />
-  </Flex>
+  </Block>
 )
