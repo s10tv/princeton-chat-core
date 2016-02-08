@@ -5,8 +5,9 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Avatar from 'material-ui/lib/avatar';
 import FlatButton from 'material-ui/lib/flat-button';
-
+import FontIcon from 'material-ui/lib/font-icon';
 import { i18n } from '/imports/libs/mantra'
+import Badge from 'material-ui/lib/badge';
 
 export default React.createClass({
   propTypes: {
@@ -78,8 +79,18 @@ const PostListContent = (props) => (
         <ListItem key={follower._id} disabled={true} style={{padding: '15px 0px'}}>
           <a href='#' onClick={() => props.showUserProfile(follower)}>
             <Flex alignItems='center'>
-              <Avatar src={follower.avatar.url} size={40}/>
-              <Flex flexDirection='column' marginLeft={15}>
+              {
+                follower.isFullMember ?
+                <Avatar src={follower.avatar.url} size={40} />
+                :
+                <Badge
+                  style={{padding: '15px 15px 0px 0px'}}
+                  badgeContent={<FontIcon className='material-icons' style={{fontSize: 20}}>language</FontIcon>}
+                  >
+                  <Avatar src={follower.avatar.url} size={40}/>
+                </Badge>
+              }
+              <Flex flexDirection='column' style={Object.assign({}, follower.isFullMember && { marginLeft: 15})}>
                 { follower.displayName ?
                   <span style={{fontWeight: 500}}>
                     { follower.displayName }
