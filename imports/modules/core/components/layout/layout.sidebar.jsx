@@ -59,7 +59,7 @@ const SubHeader = ({label, action, onClick}) => (
 )
 
 const AddNewPostButton = ({ onClick }) => (
-  <Flex marginTop='10' marginBottom='10'>
+  <Flex marginTop='10' marginBottom='2'>
     <RaisedButton
         primary={true}
         label="New Post"
