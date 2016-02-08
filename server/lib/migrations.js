@@ -86,7 +86,7 @@ Migrations.add({
 
 Migrations.add({
   version: 5,
-  name: 'Add description to topics',
+  name: 'Add isFullMember field to users',
   up: function() {
     Users.find().forEach(user => {
       if (user.isFullMember == undefined) {
