@@ -25,7 +25,7 @@ function redirectToAllMine(context) {
 export default function (injectDeps) {
   WebFontLoader.load({
     google: {
-      families: ['Roboto']
+      families: ['Lato']
     }
   });
   const LayoutMainCtx = injectDeps(LayoutMain);
