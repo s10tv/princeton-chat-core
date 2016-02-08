@@ -215,6 +215,7 @@ Meteor.methods({
       ],
       classYear: "2012",
       inviteCode: inviteCode,
+      isFullMember: true,
     })
 
     console.log(`http://localhost:3000/invite/${inviteCode}`);
