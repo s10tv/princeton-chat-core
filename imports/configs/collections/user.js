@@ -56,6 +56,10 @@ UserSchema = new SimpleSchema({
 
   // true if the user is a full member. False if the user is a guest (affiliation unverified)
   isFullMember: { type: Boolean, optional: true, defaultValue: false },
+
+  // a list of topics that this user is an admin in.
+  topicAdmins: { type: [String], optional: true, defaultValue: []},
+
   status: {
     type: String,
     optional: true,
