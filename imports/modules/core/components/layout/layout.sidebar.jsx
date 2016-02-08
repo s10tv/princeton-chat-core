@@ -59,12 +59,14 @@ const SubHeader = ({label, action, onClick}) => (
 )
 
 const AddNewPostButton = ({ onClick }) => (
-  <Flex marginTop='15' marginBottom='7' alignItems='center'>
+  <Flex marginTop='10' marginBottom='10'>
     <RaisedButton
         primary={true}
         label="New Post"
         labelPosition='after'
-        onTouchTap={onClick}>
+        onTouchTap={onClick}
+        style={{margin: '0px auto'}}
+    >
       <FontIcon className='material-icons' color='white' style={{
           verticalAlign: 'middle',
           height: '100%',
@@ -105,11 +107,7 @@ export default React.createClass({
     return (
       <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
-        <Flex padding='8px 16px 0 16px'>
-          <RaisedButton primary={true}
-            label='New Post'
-            onTouchTap={this.props.showAddPostPopupFn} />
-        </Flex>
+        <AddNewPostButton onClick={this.props.showAddPostPopupFn}/>
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
             <MediumListItem style={this.giveListItemStyleForRoutePath('all-mine')} onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>My Feed</MediumListItem>
