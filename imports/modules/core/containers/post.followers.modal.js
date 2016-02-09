@@ -19,6 +19,7 @@ export const composer = ({context, actions}, onData) => {
 
 const depsMapper = (context, actions) => ({
   closeModal: actions.postfollowers.closeModal,
+  showUserProfile: actions.profile.showUserProfile,
   context: () => context
 });
 

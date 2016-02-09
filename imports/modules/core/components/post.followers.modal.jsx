@@ -26,7 +26,12 @@ export default class PostFollowersModal extends React.Component {
     followers: React.PropTypes.array.isRequired,
 
     // Show/Hide Modal view
-    isOpen: React.PropTypes.bool.isRequired
+    isOpen: React.PropTypes.bool.isRequired,
+
+    /**
+     * Func to show user profile modal
+     */
+    showUserProfile: React.PropTypes.func.isRequired
   }
 
   render() {
@@ -34,6 +39,7 @@ export default class PostFollowersModal extends React.Component {
       closeModal,
       followers,
       isOpen,
+      showUserProfile
     } = this.props;
 
     const toolbar =
@@ -59,6 +65,7 @@ export default class PostFollowersModal extends React.Component {
           { followers.map((follower) =>
             <ListItem
               key={follower._id}
+              onTouchTap={() => showUserProfile(follower)}
               primaryText={follower.displayEmail}
               leftAvatar={<Avatar src={follower.avatar.url} />}
             /> )}
