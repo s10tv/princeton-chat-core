@@ -107,7 +107,7 @@ export default function (injectDeps) {
 
   FlowRouter.route('/topics/:topicId', {
     name: 'postList',
-    subscriptions: () => {
+    subscriptions: function() {
       this.register('userData', Meteor.subscribe('userData'));
     },
     action({ topicId }) {
