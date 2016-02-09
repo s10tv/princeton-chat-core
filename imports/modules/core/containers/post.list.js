@@ -110,6 +110,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
       title: topic.displayName,
       isFollowing: currentUser.followingTopics.indexOf(topic._id) >= 0,
       isEmpty: posts.length == 0,
+      disableClickToShowFollowers: topic._id == undefined,
       hideFollowerSection: topic._id == undefined,
       hideFollowActionSection: topic._id == undefined,
     });

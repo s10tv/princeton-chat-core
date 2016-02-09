@@ -44,11 +44,6 @@ export default React.createClass({
     hideFollowerSection: React.PropTypes.bool,
 
     /**
-     * Shows who is following this topic
-     */
-    showFollowersFn: React.PropTypes.func,
-
-    /**
      * True if the Follow/Following action section will be hidden
      */
     hideFollowActionSection: React.PropTypes.bool,
@@ -78,7 +73,12 @@ export default React.createClass({
     /**
      * Function to show topic followers modal from a ready list of followers
      */
-    showTopicFollowersFromFollowersListFn: React.PropTypes.func
+    showTopicFollowersFromFollowersListFn: React.PropTypes.func,
+
+    /**
+     * True means the title is no longer clickable
+     */
+    disableClickToShowFollowers: React.PropTypes.bool,
   },
 
   getTitleText() {
@@ -130,6 +130,20 @@ export default React.createClass({
     }
   },
 
+  getOptionallyClickableTitleText(children) {
+    if (this.props.disableClickToShowFollowers) {
+      return <span>{ children }</span>
+    }
+
+    return (
+      <a className='topic-header-link-button'
+          href='#'
+          onClick={() => this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}>
+        {children}
+      </a>
+    )
+  },
+
   render() {
     if (this.props.hidden) {
       return null;
@@ -148,9 +162,7 @@ export default React.createClass({
 
         { this.props.hideTitleSection ? null :
           <ToolbarGroup >
-            <a className='topic-header-link-button' href='#' onClick={() => this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}>
-              <ToolbarTitle text={this.getTitleText()} />
-            </a>
+            { this.getOptionallyClickableTitleText(<ToolbarTitle text={this.getTitleText()} />)}
           </ToolbarGroup>
         }
 
