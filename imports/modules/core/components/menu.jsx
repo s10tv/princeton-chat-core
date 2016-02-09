@@ -111,7 +111,7 @@ export default React.createClass({
       return <FlatButton
         label={ this.props.sidebarOpen ? 'Following' : null }
         style={{
-          backgroundColor: '#4CAF50',
+          backgroundColor: '#8BC34A',
           color: '#ffffff'
         }}
         onTouchTap={this.props.unfollowFn}>
@@ -121,7 +121,7 @@ export default React.createClass({
       return <FlatButton
         label={ this.props.sidebarOpen ? 'Follow' : null }
         style={{
-          backgroundColor: '#cccccc',
+          backgroundColor: '#F06721',
           color: '#ffffff'
         }}
         onTouchTap={this.props.followFn}>
@@ -166,7 +166,9 @@ export default React.createClass({
         }
 
         { this.props.hideFollowActionSection ? null :
-          <ToolbarGroup>
+          <ToolbarGroup
+            float='right'
+            lastChild={true}>
             { this.getFollowerButton() }
           </ToolbarGroup>
         }
