@@ -14,7 +14,7 @@ import {
 import { DocHead } from 'meteor/kadira:dochead';
 
 // custom enviornment variables
-import Env from './deployments'
+import Env from './env'
 
 class App {
   constructor(context, actions = {}) {

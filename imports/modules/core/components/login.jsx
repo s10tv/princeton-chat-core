@@ -40,8 +40,10 @@ export default React.createClass({
   },
   render() {
     return (
-      <Flex minHeight='100vh' minWidth='100vw'
-        justifyContent='center' alignItems='center'
+      <Flex minHeight='100vh'
+        minWidth='100vw'
+        justifyContent='center'
+        alignItems='center'
         backgroundImage="url('/assets/background-tile.png')"
         position='relative'
         backgroundRepeat='repeat'>

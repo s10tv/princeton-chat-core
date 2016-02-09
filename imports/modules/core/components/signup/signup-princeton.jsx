@@ -204,7 +204,7 @@ class Home extends React.Component {
                 <img className='q' src={icQ} />
                 <div>
                   <p>
-                    {i18n('homePageQA')}
+                    Should a San Francisco alumus get notified that a New York tiger listed an apartment for rent?
                   </p>
                   <p>
                     No, but we <a href='https://www.facebook.com/groups/180883032032220/permalink/802919829828534/'
