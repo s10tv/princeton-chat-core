@@ -1,4 +1,5 @@
 import {Topics, TopicHeaders} from '/imports/configs/collections';
+import AvatarService from '/imports/libs/AvatarService';
 
 Migrations.add({
   version: 1,
@@ -92,6 +93,22 @@ Migrations.add({
       if (user.isFullMember == undefined) {
         Users.update(user._id, { $set: {
           isFullMember: true
+        }})
+      }
+    })
+  },
+})
+
+Migrations.add({
+  version: 6,
+  name: 'Every princeton shield avatar is changed to a different default one',
+  up: function() {
+    Users.find().forEach(user => {
+      if (user.avatar && user.avatar.url === '/images/princeton.svg') {
+        Users.update(user._id, { $set: {
+          avatar: {
+            url: AvatarService.generateDefaultAvatarForAudience('princeton')
+          }
         }})
       }
     })
