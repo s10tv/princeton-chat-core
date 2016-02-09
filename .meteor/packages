@@ -42,6 +42,5 @@ meteorhacks:npm
 
 npm-container
 cfs:http-methods
-anti:i18n
 spiderable
 kadira:dochead
