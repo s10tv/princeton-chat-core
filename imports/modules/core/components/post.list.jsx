@@ -9,6 +9,7 @@ import ListItem from 'material-ui/lib/lists/list-item'
 import Avatar from 'material-ui/lib/avatar'
 import muiStyles from 'material-ui/lib/styles'
 import RightBar from '/imports/modules/core/components/layout.rightbar.jsx'
+import FlatButton from 'material-ui/lib/flat-button'
 
 const Colors = muiStyles.Colors;
 
@@ -135,30 +136,17 @@ const PostList = (props) => (
 )
 
 const PostListItem = (props) => (
-  <ListItem disabled={true} style={{
+  <ListItem
+    disabled={true}
+    style={{
       borderBottom: '1px solid #e0e0e0',
-      padding: 24
+      padding: 10
     }}>
     <Flex flexDirection='column'>
-      <Flex flexDirection='row'>
-        { props.post.topics.map(topic =>
-          <span key={topic._id} style={{marginRight: 10}}>
-            <a href="#" onClick={() => {
-              props.navigateToTopic(topic._id);
-              return false;
-            }} style={{ color: '#d3d4d7'}}>
-              #{topic.displayName}
-            </a>
-          </span>
-        )}
-      </Flex>
-      <a href={props.post.url} style={{marginTop: 7}}>
-        <h2>{props.post.title}</h2>
-      </a>
-      <Flex flexDirection='row' style={{marginTop: 7}}>
-        <Avatar src={props.post.owner.avatar.url} size={50}/>
-        <Flex flexDirection='column' flexGrow={1} style={{marginLeft: 7}}>
-          <Flex flexDirection='row'>
+
+      <Flex flexDirection='row' justifyContent='space-between' alignItems='center'>
+        <Flex alignItems='center'>
+          <Avatar src={props.post.owner.avatar.url} size={35} style={{marginRight: 10}}/>
             <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
               <span className='display-name'>
                 { props.post.owner.displayName }
@@ -170,26 +158,44 @@ const PostListItem = (props) => (
               </span>
             </a>
             <span className='datetime'>{ props.post.timestamp }</span>
-          </Flex>
-          <a href={props.post.url} style={{marginTop: 4}}>
-            <p>{ props.post.truncatedContent }</p>
+        </Flex>
+        <Flex marginRight={16}>
+          <a href={props.post.url}>
+            <Flex alignItems='center'>
+              <span style={{color: '#999', marginRight: 10}}>{ props.post.numMsgs }</span>
+              <img src='/images/chat-bubble.svg' />
+            </Flex>
           </a>
-          { !props.post.numMsgs || props.post.numMsgs == 0 ? null :
-            <a href={props.post.url} style={{marginTop: 5, alignSelf: 'center', color: '#6A6A6A'}}>
-              <span>{ props.post.numMsgs } more messages </span>
-            </a>
-          }
         </Flex>
       </Flex>
-      <Flex flexDirection='row' justifyContent='space-between' marginTop={10}>
+
+      <Flex style={{marginTop: 20}}>
+        { props.post.topics.map(topic =>
+          <span key={topic._id} style={{marginRight: 10}}>
+            <a href="#" onClick={() => {
+              props.navigateToTopic(topic._id);
+              return false;
+            }} style={{ color: '#d3d4d7'}}>
+              #{topic.displayName}
+            </a>
+          </span>
+        )}
+      </Flex>
+
+      <a href={props.post.url} style={{marginTop: 12}}>
+        <h2>{props.post.title}</h2>
+      </a>
+
+      <a href={props.post.url} style={{marginTop: 12}}>
+        <p>{ props.post.truncatedContent }</p>
+      </a>
+
+      <Flex flexDirection='row' justifyContent='space-between' marginTop={20}>
         <Flex alignItems='center'>
           <FollowersBtn {...props}/>
         </Flex>
         <Flex alignItems='center'>
-          <FollowBtn {...props} style={{marginRight: 24}}/>
-          <a href={props.post.url}>
-            <b>reply</b>
-          </a>
+          <FollowBtn {...props} />
         </Flex>
       </Flex>
     </Flex>
@@ -198,14 +204,14 @@ const PostListItem = (props) => (
 
 const FollowersBtn = (props) => (
   props.post.numFollowers === 0 ?
-    <Flex alignItems='center'>No Followers</Flex>
+    <Flex alignItems='center' fontSize={15}>No Followers</Flex>
     :
     <Flex alignItems='center'>
       <a href='#'
         onClick={() => props.showPostFollowers(props.post.followers)}
         style={{display: 'flex', alignItems: 'center'}}>
 
-      <span style={{marginRight: 7}}>
+      <span style={{marginRight: 7, fontSize: 15}}>
         {props.post.followers.length > 1 ? 'Followers:' : 'Follower:'}
       </span>
 
@@ -217,16 +223,17 @@ const FollowersBtn = (props) => (
       { props.post.moreFollowersNumber == 0
         ? null
         : <Avatar size={30} backgroundColor={'rgba(0, 0, 0, 0)'}
-            color='black'
-            style={{ border: 'solid 1px ' + Colors.grey300, fontSize: 14 }}>
+            color='#999'
+            style={{ border: 'solid 1px #999', fontSize: 14 }}>
               +{props.post.moreFollowersNumber}
           </Avatar> }
+
       </a>
     </Flex>
 )
 
 const FollowBtn = (props) => (
   props.post.isFollowingPost
-    ? <a href='#' style={props.style} onClick={() => props.unfollowPostFn(props.post._id)}><b>unfollow</b></a>
-  : <a href='#' style={props.style} onClick={() => props.followPostFn(props.post._id)}><b>follow</b></a>
+    ? <FlatButton primary={true} label='Unfollow' onTouchTap={() => props.unfollowPostFn(props.post._id)} />
+  : <FlatButton primary={true} label='Follow' onTouchTap={() => props.followPostFn(props.post._id)} />
 )

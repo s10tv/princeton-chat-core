@@ -66,7 +66,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
       }
 
       post.timestamp = DateFormatter.format(post);
-      post.truncatedContent = truncate(post.content, 150);
+      post.truncatedContent = truncate(post.content, 300);
 
       post.numFollowers = post.followers.length;
       post.followerAvatars = post.followers.map(follower => {

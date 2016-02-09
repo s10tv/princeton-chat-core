@@ -31,7 +31,7 @@
 }
 
 .post-list .display-name {
-  font-weight: 500;
+  font-weight: 600;
   margin-right: 8px;
 }
 
@@ -46,14 +46,13 @@
 }
 
 .post-list h2 {
-  margin: 8px 0 8px 0;
-  font-size: 16px;
-  font-weight: bold;
+  margin: 1px 0px;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 .post-list p {
-  margin-top: 4px;
-  margin-bottom: 4px;
+  margin: 0;
   font-size: 15px;
 }
 
