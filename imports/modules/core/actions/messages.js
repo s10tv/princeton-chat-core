@@ -12,6 +12,10 @@ export default {
       }
     });
   },
+  
+  delete({Collections, Meteor}, messageId) {
+    Meteor.call('messages/delete', messageId)
+  },
 
   showUserProfile({LocalState}, message) {
     LocalState.set('PROFILE_USER', message.owner);

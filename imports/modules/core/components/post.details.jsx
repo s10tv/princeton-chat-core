@@ -43,10 +43,12 @@ export default React.createClass({
      * The function navigates the user to the topic list screen.
      */
     navigateToTopic: React.PropTypes.func.isRequired,
+    
+    deleteMessage: React.PropTypes.func.isRequired,
   },
 
   render() {
-    const { post, messages, showUserProfilePost, showUserProfileMessage } = this.props;
+    const { post, messages, showUserProfilePost, showUserProfileMessage, deleteMessage } = this.props
 // <Menu {...this.props} hidePostButton={false} />
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
@@ -72,6 +74,7 @@ export default React.createClass({
                 owner={message.owner}
                 timestamp={message.timestamp}
                 content={message.content}
+                deleteMessage={message.canDelete ? () => deleteMessage(message._id) : null}
                 showUserProfile={() => showUserProfileMessage(message)} />
             )}
           </article>

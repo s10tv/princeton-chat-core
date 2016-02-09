@@ -374,6 +374,17 @@ Meteor.methods({
 
     Posts.update(postId, { $inc: { numMsgs: 1 }});
   },
+  
+  'messages/delete': _id => {
+    check(_id, String);
+    
+    const user = CurrentUser.get()
+    const message = Messages.findOne(_id)
+    if (message.ownerId !== user._id) {
+      throw new Meteor.Error('You can only delete your own messages')
+    }
+    Messages.remove({_id: _id})
+  },
 
   //onboarding related
   '_accounts/unlink/service': function (serviceName) {

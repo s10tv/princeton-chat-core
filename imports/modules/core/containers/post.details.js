@@ -24,8 +24,9 @@ export const composer = ({context, topicId, postId}, onData) => {
     }
 
     const messages = Messages.find({ postId: postId }, { sort: { createdAt: 1 }}).map(message => {
-      message.owner = UserService.getUserView(Collections.Users.findOne(message.ownerId));
-      message.timestamp = DateFormatter.format(message);
+      message.owner = UserService.getUserView(Collections.Users.findOne(message.ownerId))
+      message.timestamp = DateFormatter.format(message)
+      message.canDelete = currentUser._id === message.ownerId
       return message;
     });
 
@@ -53,6 +54,7 @@ const depsMapper = (context, actions) => ({
   showUserProfileMessage: actions.messages.showUserProfile,
   showFollowersFn: actions.topics.showTopicFollowers,
   navigateToTopic: actions.topics.navigateToTopic,
+  deleteMessage: actions.messages.delete,
   context: () => context
 });
 
