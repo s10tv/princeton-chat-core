@@ -114,6 +114,8 @@ export const composer = ({context, topicId, postListType}, onData) => {
       hideFollowerSection: topic._id == undefined,
       hideFollowActionSection: topic._id == undefined,
     });
+  } else {
+    return onData(null, null)
   }
 };
 
