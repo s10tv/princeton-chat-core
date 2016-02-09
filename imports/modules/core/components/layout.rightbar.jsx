@@ -98,7 +98,7 @@ const PostListContent = (props) => (
                   :
                   null
                 }
-                <span style={Object.assign({color: '#57A3F0'}, follower.displayName && {marginTop: 15})}>
+                <span style={Object.assign({color: '#F07621'}, follower.displayName && {marginTop: 15})}>
                   { follower.displayEmail }
                 </span>
               </Flex>
