@@ -34,6 +34,7 @@ export default class UserService {
     // temporary. This will be deprecated as soon as users are able to add their own uernames.
     // do not use unless you're working with the sidebar.
     user.shortDisplayName = "";
+    user.displayName = "";
 
     if (user.firstName) {
       user.displayName += `${user.firstName} `;
