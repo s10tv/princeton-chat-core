@@ -6,6 +6,10 @@ switch (Meteor.settings.public.audience) {
   case 'princeton':
     Signup = require(`/imports/modules/core/components/signup/signup-princeton.jsx`);
     break;
+  case 'ped':
+    Signup = require(`/imports/modules/core/components/signup/signup-ped.jsx`);
+    break;
+
   case 's10':
     Signup = require(`/imports/modules/core/components/signup/signup-s10.jsx`);
     break;

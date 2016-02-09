@@ -11,6 +11,7 @@ import {
   composeAll as _composeAll
 } from 'react-komposer';
 
+import { DocHead } from 'meteor/kadira:dochead';
 import {i18n as _i18n} from 'meteor/anti:i18n';
 
 class App {
@@ -22,7 +23,17 @@ class App {
 
   localize() {
     i18n.setLanguage(Meteor.settings.public.audience)
-    document.title = i18n('title')
+    DocHead.setTitle(i18n('title'));
+    DocHead.addMeta({ 'description': i18n('ogDescription') });
+    DocHead.addMeta({ 'fb:app_id': i18n('fbAppId') });
+    DocHead.addMeta({ 'og:url': i18n('ogUrl') });
+    DocHead.addMeta({ 'og:type': i18n('ogType') });
+    DocHead.addMeta({ 'og:title': i18n('ogTitle') });
+    DocHead.addMeta({ 'og:description': i18n('ogDescription') });
+    DocHead.addMeta({ 'og:image': i18n('ogImage') });
+
+    var linkInfo = {rel: "icon", type: "image/png", href: i18n('favicon')};
+    DocHead.addLink(linkInfo);
   }
 
   loadRoutes(routes) {
