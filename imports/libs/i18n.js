@@ -1,13 +1,17 @@
+
+const PRINCETON_ORANGE = '#F07621'
+const PED_BLUE = '#5477AD'
+const DARK_GRAY = '#grey800'
+
 module.exports = {
   princeton: {
+    primaryColor: PRINCETON_ORANGE,
+
     // home page title, left nav bar title
     title: 'Princeton.Chat',
 
     // home page tagline
     tagline: 'Better TigerNet',
-
-    // signup form help
-    placeholderEmail: 'tonyx@alumni.princeton.edu',
 
     // signup done screen
     community: 'Princeton',
@@ -31,12 +35,16 @@ module.exports = {
     // when new users sign up
     defaultAvatar: '/images/princeton.svg',
 
+    backgroundStyle: {
+      backgroundImage: "url('/assets/background-tile.png')",
+      backgroundRepeat: 'repeat',
+    }
   },
 
   s10: {
+    primaryColor: PRINCETON_ORANGE,
     title: 'S10.Chat',
     tagline: 'Better Private Communities',
-    placeholderEmail: 'tonyx.ca@gmail.com',
     homePageQA: 'Should a San Francisco resident get notified that a New Yoker listed an apartment for rent?',
     community: 'S10',
     favicon: 'images/taylr.png',
@@ -50,12 +58,16 @@ module.exports = {
     onboardingDesc: 'S10.Chat is a community for everyone interested in following along the development of Taylr.Chat',
     topicMailServer: 'topics.s10.chat',
     defaultAvatar: '/images/avatar-placeholder.png',
+    backgroundStyle: {
+      backgroundImage: "url('/assets/background-tile.png')",
+      backgroundRepeat: 'repeat',
+    }
   },
 
   ped: {
+    primaryColor: PED_BLUE,
     title: 'Pedagogy & Play',
     tagline: 'Young Professional Leadership Network',
-    placeholderEmail: 'email@gmail.com',
     community: 'Pedagogy & Play',
     favicon: 'images/taylr.png',
     fbAppId: '1150904264922616',
@@ -68,5 +80,12 @@ module.exports = {
     onboardingDesc: 'Meet new colleagues in the area, share pedagogy successes (and frustrations), sight-read duets, or perform any repertoire you are working on!',
     topicMailServer: 'topics.pedplay.com',
     defaultAvatar: '/images/avatar-placeholder.png',
+    backgroundStyle: {
+      background: PED_BLUE,
+    },
+    loginTitle: {
+      fontFamily: "'Quicksand', sans-serif",
+      color: DARK_GRAY,
+    },
   }
 }

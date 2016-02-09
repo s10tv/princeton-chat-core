@@ -11,6 +11,8 @@ import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
 import CircularProgress from 'material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
 
+import { i18n } from '/imports/libs/mantra'
+
 // export const systemFont = `-apple-system, BlinkMacSystemFont,
 //   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
 //   "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue",
@@ -67,7 +69,7 @@ export const primaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: systemFont,
   palette: {
     ...lightRawTheme.palette,
-    accent1Color: '#f07621', // Princeton Orange
+    accent1Color: i18n('primaryColor') // Princeton Orange
   },
 })
 

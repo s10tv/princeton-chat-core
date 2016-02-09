@@ -44,9 +44,9 @@ export default React.createClass({
         minWidth='100vw'
         justifyContent='center'
         alignItems='center'
-        backgroundImage="url('/assets/background-tile.png')"
         position='relative'
-        backgroundRepeat='repeat'>
+        style={i18n('backgroundStyle')}
+      >
         <a className='login-link' href='/'>No account yet? Signup here.</a>
         <Flex flexDirection='column'
           backgroundColor='white'
@@ -56,9 +56,10 @@ export default React.createClass({
             padding: 36,
             margin: 24,
           }}>
-          <h1 style={{
+          <h1 style={Object.assign({}, {
               fontSize: 30, color: '#F07621', textAlign: 'center', fontWeight: 600,
-          }}>{i18n('title')}</h1>
+          }, i18n('loginTitle'))}>{i18n('title')}</h1>
+
           <RaisedButton label='Login with Facebook'
             secondary={true} backgroundColor='#3b5998'
             onTouchTap={this.props.loginWithFacebook}

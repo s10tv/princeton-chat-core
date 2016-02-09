@@ -7,8 +7,7 @@ import CircularProgress from 'material-ui/lib/circular-progress';
 import { i18n } from '/imports/libs/mantra'
 
 const BLUE = '#5477AD';
-const PRINCETON_ORANGE = 'white';
-const PRINCETON_WHITE = 'white';
+const WHITE = 'white';
 
 const getTextField = ({ ref, hintText, floatingLabelText, onBlur, errorText}) => {
   return <MUITextField
@@ -18,8 +17,7 @@ const getTextField = ({ ref, hintText, floatingLabelText, onBlur, errorText}) =>
     onBlur={onBlur}
     errorText={errorText}
     inputStyle={{
-      color: PRINCETON_WHITE,
-      // color: COLORS.grey700,
+      color: WHITE,
     }}
     errorStyle={{
       color: '#16193B',
@@ -29,15 +27,12 @@ const getTextField = ({ ref, hintText, floatingLabelText, onBlur, errorText}) =>
     }}
     floatingLabelStyle={{
       color: COLORS.grey300,
-      // color: PRINCETON_WHITE,
-      // color: PRINCETON_ORANGE,
     }}
     underlineStyle={{
       color: COLORS.grey400,
-      // borderColor: PRINCETON_ORANGE,
     }}
     underlineFocusStyle={{
-      borderColor: PRINCETON_ORANGE,
+      borderColor: WHITE,
     }} />
 }
 
@@ -45,7 +40,7 @@ class Button extends React.Component {
   render() {
     return <FlatButton {...this.props}
       style={{
-      backgroundColor: PRINCETON_WHITE,
+      backgroundColor: WHITE,
       color: BLUE,
       padding: '4px 30px',
       fontSize: '18px',
@@ -115,7 +110,7 @@ class Home extends React.Component {
         <CircularProgress mode="indeterminate"
           ref="loader"
           size={0.5}
-          color={PRINCETON_WHITE}
+          color={WHITE}
           style={{ padding: '10px 0px' }}/>
     ));
 
@@ -125,7 +120,7 @@ class Home extends React.Component {
         <CircularProgress mode="indeterminate"
           ref="loader"
           size={0.5}
-          color={PRINCETON_ORANGE}
+          color={WHITE}
           style={{ padding: '10px 0px' }}/>
     ));
 
@@ -134,11 +129,11 @@ class Home extends React.Component {
         <a className='login-link' href='/login'>Have an account? Login here.</a>
         <div className='splash' style={{ background: BLUE }}>
           <section>
-            <h1 className='h1-logo' style={{color: PRINCETON_WHITE, fontFamily: "'Quicksand', sans-serif",}}>{i18n('title')}</h1>
-            <h2 className='h2-slogan' style={{color: PRINCETON_WHITE, fontFamily: "'Quicksand', sans-serif", paddingTop: 15}}>{i18n('tagline')}</h2>
+            <h1 className='h1-logo' style={{color: WHITE, fontFamily: "'Quicksand', sans-serif",}}>{i18n('title')}</h1>
+            <h2 className='h2-slogan' style={{color: WHITE, fontFamily: "'Quicksand', sans-serif", paddingTop: 15}}>{i18n('tagline')}</h2>
 
             { getTextField({ ref:"emailInput",
-              hintText: `e.g. ${i18n('placeholderEmail')}`,
+              hintText: `e.g. email@gmail.com`,
               floatingLabelText:"Email",
               errorText: this.state.errorEmail,
               onBlur: this.validateEmail.bind(this)
