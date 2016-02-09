@@ -14,7 +14,7 @@ export default class UserInfoService {
     if (!re.test(email)) {
       error = {
         type: 'email',
-        reason: 'Please type an actual email'
+        reason: 'Please enter a valid email address.'
       }
     }
 
@@ -27,12 +27,11 @@ export default class UserInfoService {
     if (!name) {
       return error;
     }
-
-    var re = /^[a-zA-Z]+$/;
-    if (!re.test(name)) {
+    
+    if (!name.length > 16) {
       error = {
         type: 'name',
-        reason: 'The field should only consist of letters'
+        reason: 'Name must consist of fewer than 16 characters.'
       }
     }
 
