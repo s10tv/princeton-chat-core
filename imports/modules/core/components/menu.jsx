@@ -136,7 +136,7 @@ export default React.createClass({
     }
 
     return (
-      <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000}}>
+      <Toolbar style={{ backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000}}>
 
         { this.props.sidebarOpen ? null :
           <ToolbarGroup firstChild={true}>

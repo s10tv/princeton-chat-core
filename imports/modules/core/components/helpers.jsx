@@ -67,7 +67,7 @@ export const primaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: systemFont,
   palette: {
     ...lightRawTheme.palette,
-    accent1Color: '#F07621', // Princeton Orange
+    accent1Color: '#f07621', // Princeton Orange
   },
 })
 
@@ -76,7 +76,7 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: systemFont,
   palette: {
     ...darkRawTheme.palette,
-    accent1Color: '#F07621', // Princeton Orange,
+    accent1Color: '#f07621', // Princeton Orange,
     alternateTextColor: Colors.white,
   },
 })
