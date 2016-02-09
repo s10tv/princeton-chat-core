@@ -25,7 +25,10 @@ function redirectToAllMine(context) {
 export default function (injectDeps) {
   WebFontLoader.load({
     google: {
-      families: ['Lato']
+      families: [
+        'Lato',
+        'Quicksand',  // for ped & play home page
+      ]
     }
   });
   const LayoutMainCtx = injectDeps(LayoutMain);

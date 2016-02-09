@@ -153,7 +153,7 @@ class Home extends React.Component {
             <h2 className='h2-slogan' style={{color: PRINCETON_WHITE, fontFamily: "'Quicksand', sans-serif", paddingTop: 15}}>{i18n('tagline')}</h2>
 
             { getTextField({ ref:"emailInput",
-              hintText: `e.g. tonyx@${i18n('placeholderEmailDomain')}`,
+              hintText: `e.g. ${i18n('placeholderEmail')}`,
               floatingLabelText:"Email",
               errorText: this.state.errorEmail,
               onBlur: this.validateEmail.bind(this)
