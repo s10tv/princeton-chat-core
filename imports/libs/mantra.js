@@ -12,7 +12,9 @@ import {
 } from 'react-komposer';
 
 import { DocHead } from 'meteor/kadira:dochead';
-import {i18n as _i18n} from 'meteor/anti:i18n';
+
+// custom enviornment variables
+import Env from './deployments'
 
 class App {
   constructor(context, actions = {}) {
@@ -22,17 +24,19 @@ class App {
   }
 
   localize() {
-    i18n.setLanguage(Meteor.settings.public.audience)
-    DocHead.setTitle(i18n('title'));
-    DocHead.addMeta({ property: 'description', content: i18n('ogDescription') });
-    DocHead.addMeta({ property: 'fb:app_id', content: i18n('fbAppId') });
-    DocHead.addMeta({ property: 'og:url', content: i18n('ogUrl') });
-    DocHead.addMeta({ property: 'og:type', content: i18n('ogType') });
-    DocHead.addMeta({ property: 'og:title', content: i18n('ogTitle') });
-    DocHead.addMeta({ property: 'og:description', content: i18n('ogDescription') });
-    DocHead.addMeta({ property: 'og:image', content: i18n('ogImage') });
+    const audience = Meteor.settings.public.audience || 'princeton'
+    const env = Env[audience]
 
-    var linkInfo = {rel: "icon", type: "image/png", href: i18n('favicon')};
+    DocHead.setTitle(env.title);
+    DocHead.addMeta({ property: 'description', content: env.ogDescription });
+    DocHead.addMeta({ property: 'fb:app_id', content: env.fbAppId });
+    DocHead.addMeta({ property: 'og:url', content: env.ogUrl });
+    DocHead.addMeta({ property: 'og:type', content: env.ogType });
+    DocHead.addMeta({ property: 'og:title', content: env.ogTitle });
+    DocHead.addMeta({ property: 'og:description', content: env.ogDescription });
+    DocHead.addMeta({ property: 'og:image', content: env.ogImage });
+
+    var linkInfo = {rel: "icon", type: "image/png", href: env.favicon};
     DocHead.addLink(linkInfo);
   }
 
@@ -83,4 +87,8 @@ export const composeWithTracker = _composeWithTracker;
 export const composeWithPromise = _composeWithPromise;
 export const composeWithObservable = _composeWithObservable;
 export const composeAll = _composeAll;
-export const i18n = _i18n;
+
+export const i18n = (tag) => {
+  const audience = Meteor.settings.public.audience || 'princeton'
+  return Env[audience][tag]
+}
