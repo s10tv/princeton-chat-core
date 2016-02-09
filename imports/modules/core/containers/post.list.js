@@ -130,6 +130,7 @@ const depsMapper = (context, actions) => ({
   showTopicFollowersFromFollowersListFn: actions.topics.showTopicFollowersFromFollowersList,
   followPostFn: actions.posts.follow,
   unfollowPostFn: actions.posts.unfollow,
+  removeFollower: actions.topics.removeFollower,
   context: () => context
 });
 

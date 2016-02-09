@@ -342,6 +342,17 @@ Meteor.methods({
       throw new Meteor.Error(500, 'There was a problem with unfollowing this topic.');
     }
   },
+  
+  'topic/removeFollower': (topicId, userId) => {
+    check(topicId, String)
+    check(userId, String)
+
+    try {
+      TopicManager.unfollow({ topicId, user: {_id: userId}})
+    } catch(err) {
+      throw new Meteor.Error(500, 'There was a problem removing follower.')
+    }
+  },
 
   'post/follow': (postId) => {
     check(postId, String);

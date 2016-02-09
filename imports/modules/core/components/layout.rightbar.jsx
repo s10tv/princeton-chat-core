@@ -8,6 +8,11 @@ import FlatButton from 'material-ui/lib/flat-button';
 import FontIcon from 'material-ui/lib/font-icon';
 import { i18n } from '/imports/libs/mantra'
 import Badge from 'material-ui/lib/badge';
+import Colors from 'material-ui/lib/styles/colors';
+import IconButton from 'material-ui/lib/icon-button';
+import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 
 export default React.createClass({
   propTypes: {
@@ -41,72 +46,82 @@ export default React.createClass({
   },
 
   render() {
+    const props = this.props
     return (
-      <LeftNav width={320} openRight={true} open={this.props.isOpen} style={{display:'flex'}}>
-        <PostListContent {...this.props} />
+      <LeftNav width={320} openRight={true} open={this.props.isOpen} style={{display:'flex', flexDirection:'column', alignItems:'stretch', padding:'15px 20px'}}>
+        <h3>About #{props.topic.displayName}</h3>
+        <p>
+          {props.topic.description}
+        </p>
+
+        <h4>List Address</h4>
+        <a href={`mailto: ${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
+          {`${props.topic._id}@${i18n('topicMailServer')}`}
+        </a>
+        <h4>
+          <a href='#' onClick={() => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)}>
+            Topic Followers ({props.topic.followers.length})
+          </a>
+        </h4>
+
+        <FlatButton
+          primary={true}
+          onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
+          label='Add Followers'
+          style={{marginTop: 10}}
+        />
+
+        <List style={{paddingTop: 0, paddingBottom: 0}}>
+          {props.topic.followersList.map(f => 
+            <FollowerListItem key={f._id} follower={f} 
+              removeFollower={() => props.removeFollower(props.topic._id, f._id)}
+              showUserProfile={props.showUserProfile} />
+          )}
+        </List>
       </LeftNav>
     )
   }
 });
 
-const PostListContent = (props) => (
-  <Block padding='15px 20px'>
-    <h3>About #{props.topic.displayName}</h3>
-    <p>
-      {props.topic.description}
-    </p>
 
-    <h4>List Address</h4>
-    <a href={`mailto: ${props.topic._id}@${i18n('topicMailServer')}`}>
-      {`${props.topic._id}@${i18n('topicMailServer')}`}
+const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
+  <ListItem disabled={true} style={{padding: '15px 0px'}} rightIconButton={
+    <IconMenu iconButtonElement={
+      <IconButton
+        touch={true}
+        tooltip='more'
+        tooltipPosition='bottom-left'>
+        <MoreVertIcon color={Colors.grey400} />
+      </IconButton>}>
+      <MenuItem style={{color: 'red'}} onTouchTap={removeFollower}>Remove follower</MenuItem>
+    </IconMenu>
+    }>
+    <a href='#' onClick={() => showUserProfile(follower)}>
+      <Flex alignItems='center'>
+        {
+          follower.isFullMember ?
+          <Avatar src={follower.avatar.url} size={40} />
+          :
+          <Badge
+            style={{padding: '15px 15px 0px 0px'}}
+            badgeContent={<FontIcon className='material-icons' style={{fontSize: 20}}>language</FontIcon>}
+            >
+            <Avatar src={follower.avatar.url} size={40}/>
+          </Badge>
+        }
+        <Flex flexDirection='column' style={Object.assign({}, follower.isFullMember && { marginLeft: 15})}>
+          { follower.displayName ?
+            <span style={{fontWeight: 500}}>
+              { follower.displayName }
+            </span>
+            :
+            null
+          }
+          <span style={Object.assign({color: '#F07621'}, follower.displayName && {marginTop: 15})}>
+            { follower.displayEmail }
+          </span>
+        </Flex>
+      </Flex>
     </a>
-    <h4>
-      <a href='#' onClick={() => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)}>
-        Topic Followers ({props.topic.followers.length})
-      </a>
-    </h4>
-
-    <FlatButton
-      primary={true}
-      onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
-      label='Add Followers'
-      style={{marginTop: 10}}
-    />
-
-    <List style={{paddingTop: 0, paddingBottom: 0}}>
-      {
-        props.topic.followersList.map(follower => (
-        <ListItem key={follower._id} disabled={true} style={{padding: '15px 0px'}}>
-          <a href='#' onClick={() => props.showUserProfile(follower)}>
-            <Flex alignItems='center'>
-              {
-                follower.isFullMember ?
-                <Avatar src={follower.avatar.url} size={40} />
-                :
-                <Badge
-                  style={{padding: '15px 15px 0px 0px'}}
-                  badgeContent={<FontIcon className='material-icons' style={{fontSize: 20}}>language</FontIcon>}
-                  >
-                  <Avatar src={follower.avatar.url} size={40}/>
-                </Badge>
-              }
-              <Flex flexDirection='column' style={Object.assign({}, follower.isFullMember && { marginLeft: 15})}>
-                { follower.displayName ?
-                  <span style={{fontWeight: 500}}>
-                    { follower.displayName }
-                  </span>
-                  :
-                  null
-                }
-                <span style={Object.assign({color: '#F07621'}, follower.displayName && {marginTop: 15})}>
-                  { follower.displayEmail }
-                </span>
-              </Flex>
-            </Flex>
-          </a>
-        </ListItem>
-        )
-      )}
-    </List>
-  </Block>
+  </ListItem>
 )
