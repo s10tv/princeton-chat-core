@@ -25,8 +25,8 @@ export default {
     }
   },
 
-  showSnackbarErrorOnNewPost({LocalState}, errReason) {
-    LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', errReason);
+  showSnackbarError({LocalState}, error) {
+    LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', error);
   },
 
   showAddPostPopup({ LocalState }) {

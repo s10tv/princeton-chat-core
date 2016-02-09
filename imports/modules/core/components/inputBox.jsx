@@ -25,6 +25,15 @@ export default class InputBox extends React.Component {
   handleEnterKeyDown(event) {
     if (!event.shiftKey && this.state.pressEnterToSend) {
       event.preventDefault()
+
+      if (this.state.text.length == 0) {
+        return this.props.showSnackbarError('To add a newline, press [Shift] with [Enter]')
+      }
+
+      if (this.state.text.trim().length == 0) {
+        return this.props.showSnackbarError('Until everyone can communicate through whitespace, please input some text :)')
+      }
+
       this.sendMessage()
     }
   }
@@ -127,6 +136,7 @@ InputBox.propTypes = {
   isFollowing: React.PropTypes.bool.isRequired,
   follow: React.PropTypes.func.isRequired,
   unfollow: React.PropTypes.func.isRequired,
+  showSnackbarError: React.PropTypes.func.isRequired,
   /**
    * The function called to create a message.
    */

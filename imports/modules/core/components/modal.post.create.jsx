@@ -53,7 +53,7 @@ export default React.createClass({
     /**
      * Function to show snackbar with an error string
      */
-    showSnackbarErrorOnNewPost: React.PropTypes.func.isRequired
+    showSnackbarError: React.PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -92,7 +92,7 @@ export default React.createClass({
             // fall through intentional
             case 'topics':
             case 'server':
-              this.props.showSnackbarErrorOnNewPost(error.reason);
+              this.props.showSnackbarError(error.reason);
               break;
           }
         });

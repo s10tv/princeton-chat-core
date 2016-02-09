@@ -25,7 +25,8 @@ const depsMapper = (context, actions) => ({
   follow: actions.posts.follow,
   unfollow: actions.posts.unfollow,
   showPostFollowers: actions.posts.showPostFollowers,
-  context: () => context
+  showSnackbarError: actions.posts.showSnackbarError,
+  context: () => context,
 })
 
 export default composeAll(

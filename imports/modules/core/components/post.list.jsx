@@ -201,10 +201,26 @@ const FollowersBtn = (props) => (
     <Flex alignItems='center'>No Followers</Flex>
     :
     <Flex alignItems='center'>
-      <a href='#' onClick={() => props.showPostFollowers(props.post.followers)} style={{display: 'flex', alignItems: 'center'}}>
-      <span style={{marginRight: 7}}>Followers:</span>
-      { props.post.followerAvatars.map(followerAvatar => <Avatar key={followerAvatar.userId} src={followerAvatar.url} size={30} style={{marginRight: 5}} />) }
-      { props.post.moreFollowersNumber == 0 ? null : <Avatar size={30} backgroundColor={'rgba(0, 0, 0, 0)'} color='black' style={{ border: 'solid 1px ' + Colors.grey300, fontSize: 14 }}>+{props.post.moreFollowersNumber}</Avatar> }
+      <a href='#'
+        onClick={() => props.showPostFollowers(props.post.followers)}
+        style={{display: 'flex', alignItems: 'center'}}>
+
+      <span style={{marginRight: 7}}>
+        {props.post.followers.length > 1 ? 'Followers:' : 'Follower:'}
+      </span>
+
+      { props.post.followerAvatars.map(followerAvatar =>
+          <Avatar key={followerAvatar.userId}
+            src={followerAvatar.url} size={30}
+            style={{marginRight: 5}} />) }
+
+      { props.post.moreFollowersNumber == 0
+        ? null
+        : <Avatar size={30} backgroundColor={'rgba(0, 0, 0, 0)'}
+            color='black'
+            style={{ border: 'solid 1px ' + Colors.grey300, fontSize: 14 }}>
+              +{props.post.moreFollowersNumber}
+          </Avatar> }
       </a>
     </Flex>
 )
