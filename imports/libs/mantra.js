@@ -24,13 +24,13 @@ class App {
   localize() {
     i18n.setLanguage(Meteor.settings.public.audience)
     DocHead.setTitle(i18n('title'));
-    DocHead.addMeta({ 'description': i18n('ogDescription') });
-    DocHead.addMeta({ 'fb:app_id': i18n('fbAppId') });
-    DocHead.addMeta({ 'og:url': i18n('ogUrl') });
-    DocHead.addMeta({ 'og:type': i18n('ogType') });
-    DocHead.addMeta({ 'og:title': i18n('ogTitle') });
-    DocHead.addMeta({ 'og:description': i18n('ogDescription') });
-    DocHead.addMeta({ 'og:image': i18n('ogImage') });
+    DocHead.addMeta({ property: 'description', content: i18n('ogDescription') });
+    DocHead.addMeta({ property: 'fb:app_id', content: i18n('fbAppId') });
+    DocHead.addMeta({ property: 'og:url', content: i18n('ogUrl') });
+    DocHead.addMeta({ property: 'og:type', content: i18n('ogType') });
+    DocHead.addMeta({ property: 'og:title', content: i18n('ogTitle') });
+    DocHead.addMeta({ property: 'og:description', content: i18n('ogDescription') });
+    DocHead.addMeta({ property: 'og:image', content: i18n('ogImage') });
 
     var linkInfo = {rel: "icon", type: "image/png", href: i18n('favicon')};
     DocHead.addLink(linkInfo);
