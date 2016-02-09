@@ -53,7 +53,7 @@ export default React.createClass({
         <NavBar>
           <Flex alignSelf='stretch' flexDirection='column'>
             <h1 style={{margin: 0, flex: 1, fontWeight: 500, fontSize: 24}}>{this.props.title}</h1>
-            <Flex flex={1} alignItems='center'>
+            <Flex flex={1} alignItems='center' style={{ lineHeight: '28px'}}>
               { this.props.topics.map(topic =>
                 <a
                   key={topic._id}
