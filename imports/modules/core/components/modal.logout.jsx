@@ -7,6 +7,8 @@ import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 import {Flex} from 'jsxstyle';
+import FontIcon from 'material-ui/lib/font-icon'
+import IconButton from 'material-ui/lib/icon-button'
 
 export default React.createClass({
   propTypes: {
@@ -49,8 +51,10 @@ export default React.createClass({
         <ToolbarGroup float="left">
           <ToolbarTitle text="Settings" />
         </ToolbarGroup>
-        <ToolbarGroup float="right" lastChild={true}>
-          <RaisedButton label="Done" primary={true} onTouchTap={handleClose} />
+        <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
+          <IconButton tooltip="Close" onTouchTap={handleClose}>
+            <FontIcon className="material-icons">clear</FontIcon>
+          </IconButton>
         </ToolbarGroup>
       </Toolbar>
 
