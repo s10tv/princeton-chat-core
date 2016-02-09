@@ -1,3 +1,4 @@
+import AvatarService from '/imports/libs/AvatarService';
 import { Topics, Posts, Users, Messages } from '/imports/configs/collections';
 import TopicManager from '/imports/server/TopicManager';
 import PostManager from '/imports/server/PostManager';
@@ -7,6 +8,7 @@ const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/T03E
 const slackUsername = process.env.ENV || 'dev';
 const slackEmoji = process.env.ENV == 'prod' ? ':beer:' : ':poop:';
 const slack = Meteor.npmRequire('slack-notify')(slackUrl);
+const audience = process.env.AUDIENCE || 'princeton';
 
 class CurrentUser {
   static get() {
@@ -81,6 +83,9 @@ Meteor.methods({
         classYear,
         userNumber: userNumber,
         status: 'pending',
+        avatar: {
+          url: AvatarService.generateDefaultAvatarForAudience(audience)
+        }
       })
 
       Accounts.addEmail(userId, email);
@@ -175,6 +180,9 @@ Meteor.methods({
           Users.update(newUserId, { $set: {
             firstName,
             lastName,
+            avatar: {
+              url: AvatarService.generateDefaultAvatarForAudience(audience)
+            },
             isFullMember: false
           }});
 
@@ -184,6 +192,7 @@ Meteor.methods({
         TopicManager.follow({ topicId, user: existingUser });
       })
     } catch(e) {
+      console.log(e);
       throw new Meteor.Error(500, "Sorry, we messed up. We couldn't add your followers, but we tried very hard :/")
     }
   },
@@ -213,6 +222,9 @@ Meteor.methods({
       classYear: "2012",
       inviteCode: inviteCode,
       isFullMember: true,
+      avatar: {
+        url: AvatarService.generateDefaultAvatarForAudience(audience)
+      }
     })
 
     console.log(`http://localhost:3000/invite/${inviteCode}`);
@@ -408,9 +420,6 @@ Meteor.methods({
       const user = CurrentUser.get();
       Users.update(user._id, { $set: {
         emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
-        avatar: {
-          url: '/images/princeton.svg'
-        },
         status: 'active',
       }})
     } catch(error) {

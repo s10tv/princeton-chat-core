@@ -62,6 +62,17 @@ export const SquareAvatar = ({children, length, ...props}) => (
   </Avatar>
 )
 
+export const LetterAvatar = ({children, ...props}) => (
+  <Avatar style={{
+      backgroundImage: `url(${props.user.avatar.url})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'contain'
+    }} {...props}>
+    {children}
+  </Avatar>
+)
+
 export const primaryMuiTheme = ThemeManager.getMuiTheme({
   spacing: Spacing,
   fontFamily: systemFont,

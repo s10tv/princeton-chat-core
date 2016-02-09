@@ -3,7 +3,7 @@ if (!Meteor.settings.public) {
 }
 
 _.extend(Meteor.settings.public, {
-  audience: process.env.AUDIENCE || 's10',
+  audience: process.env.AUDIENCE || 'princeton',
 })
 
 // if the database is empty on server start, create some sample data.

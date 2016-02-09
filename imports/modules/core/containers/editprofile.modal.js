@@ -1,6 +1,7 @@
 import EditProfileModal from '../components/editprofile.modal.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
 import UserService from '../../../libs/UserService';
+import AvatarService from '/imports/libs/AvatarService'
 
 export const composer = ({context, actions}, onData) => {
   const { Meteor, FlowRouter, LocalState } = context();
@@ -58,7 +59,7 @@ export const composer = ({context, actions}, onData) => {
   const currentAvatarUrl = LocalState.get('SETTINGS_EDIT_PROFILE_AVATAR') || user.avatar.url;
 
   const changeAvatarToDefault = () => {
-    LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', '/images/princeton.svg');
+    LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', AvatarService.generateDefaultAvatarForAudience(process.env.AUDIENCE || 'princeton'));
   }
 
   const changeAvatarToFacebook = () => {

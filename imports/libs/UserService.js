@@ -35,13 +35,16 @@ export default class UserService {
     // do not use unless you're working with the sidebar.
     user.shortDisplayName = "";
     user.displayName = "";
+    user.avatarInitials = "";
 
     if (user.firstName) {
       user.displayName += `${user.firstName} `;
+      user.avatarInitials += user.firstName.charAt(0).toUpperCase();
       user.shortDisplayName = UserService.capitalizeFirstLetter(user.firstName);
     }
 
     if (user.lastName) {
+      user.avatarInitials += user.lastName.charAt(0).toUpperCase();
       user.displayName += `${user.lastName} `;
     }
 
@@ -54,6 +57,10 @@ export default class UserService {
 
       if (user.shortDisplayName.length == 0) {
         user.shortDisplayName = user.emails[0].address;
+      }
+
+      if (user.avatarInitials.length == 0) {
+        user.avatarInitials = user.emails[0].address.charAt(0).toUpperCase();
       }
     } else {
       user.displayEmail = '';

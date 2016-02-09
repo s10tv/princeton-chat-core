@@ -6,32 +6,12 @@ ImageSchema = new SimpleSchema({
   height: { type: Number, optional: true},
 });
 
-let defaultAvatar = '/images/avatar-placeholder.png';
-if (process.env.AUDIENCE) {
-  switch (process.env.AUDIENCE) {
-    case 'princeton':
-      defaultAvatar = 'https://upload.wikimedia.org/wikipedia/en/thumb/7/71/Princeton_shield.svg/804px-Princeton_shield.svg.png'
-      break;
-
-    case 's10':
-      defaultAvatar = '/images/avatar-placeholder.png'
-      break;
-
-    default:
-      defaultAvatar = '/images/avatar-placeholder.png'
-      break;
-  }
-}
-
-
 UserSchema = new SimpleSchema({
   firstName: { type: String, optional: true },
   lastName: { type: String, optional: true },
   classYear: { type: String, optional: true },
   classType: { type: String, optional: true },
-  avatar: { type: ImageSchema, optional: true, defaultValue: {
-    url: defaultAvatar,
-  }},
+  avatar: { type: ImageSchema, optional: true },
   emailPreference: {
     type: String,
     optional: true,
