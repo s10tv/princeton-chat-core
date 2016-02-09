@@ -9,6 +9,8 @@ import Dialog from 'material-ui/lib/dialog';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Avatar from 'material-ui/lib/avatar';
 import Menu from '/imports/modules/core/components/menu.jsx';
+import IconButton from 'material-ui/lib/icon-button'
+import FontIcon from 'material-ui/lib/font-icon'
 
 export default class PostFollowersModal extends React.Component {
   propTypes: {
@@ -39,8 +41,10 @@ export default class PostFollowersModal extends React.Component {
         <ToolbarGroup float='left'>
           <ToolbarTitle text='Followers' />
         </ToolbarGroup>
-        <ToolbarGroup float='right' lastChild={true}>
-          <RaisedButton label='Close' secondary={true} onTouchTap={closeModal} />
+        <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
+          <IconButton tooltip="Close" onTouchTap={closeModal}>
+            <FontIcon className="material-icons">clear</FontIcon>
+          </IconButton>
         </ToolbarGroup>
       </Toolbar>
 
