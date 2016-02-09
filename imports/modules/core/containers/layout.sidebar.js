@@ -4,7 +4,7 @@ import UserService from '/imports/libs/UserService';
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter, LocalState} = context();
-  if (Meteor.subscribe('topics').ready() && Meteor.subscribe('directMessages').ready()) {
+  if (Meteor.subscribe('topics').ready()) {
     const user = UserService.currentUser();
     if (user) {
       const followedTopics = user ? Collections.Topics.find({
