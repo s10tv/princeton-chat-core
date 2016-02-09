@@ -6,21 +6,6 @@ import COLORS from 'material-ui/lib/styles/colors';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import { i18n } from '/imports/libs/mantra'
 
-// Images
-const upArrow = '/assets/Up_Arrow.png';
-const icBenefit1 = '/assets/Giveback.png';
-const icBenefit2 = '/assets/Housing_OfficeSpace.png';
-const icBenefit3 = '/assets/Jobs_and_Recommendations.png';
-const icBenefit4 = '/assets/Events.png';
-const icBenefit5 = '/assets/Discussions.png';
-const icBenefit6 = '/assets/Message.png';
-const icQ = '/assets/ic-q.png';
-const icFB = '/assets/ic-fb.png';
-const icTwitter = '/assets/ic-twitter.png';
-const icEmail = '/assets/ic-email.png';
-const fbShare = '/assets/facebook-share.png';
-const twitterShare = '/assets/twitter-share.png';
-
 const BLUE = '#5477AD';
 const PRINCETON_ORANGE = 'white';
 const PRINCETON_WHITE = 'white';
