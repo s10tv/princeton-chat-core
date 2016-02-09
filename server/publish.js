@@ -68,7 +68,7 @@ Meteor.publishComposite('topic', function(topicId) {
       ]
     }
   }
-  
+
   this.ready();
 });
 
@@ -99,74 +99,74 @@ Meteor.publishComposite('posts', function(topicId) {
     ]
   }
 });
-//
-// Meteor.publishComposite('messages', function(postId) {
-//   return {
-//     find: function() {
-//       check(postId, Match.Optional(String));
-//       return Posts.find({ _id: postId })
-//     },
-//     children: [
-//       {
-//         find: function(todo) {
-//           return Messages.find({ postId: postId })
-//         },
-//
-//         children: [
-//           {
-//             find: function(comment) {
-//               return Users.find({ _id: comment.ownerId })
-//             }
-//           }
-//         ]
-//       },
-//
-//       {
-//         find: function(todo) {
-//           return Users.find({ _id: todo.ownerId });
-//         }
-//       }
-//     ]
-//   }
-// });
-//
-// Meteor.publishComposite('directMessages', function() {
-//   const myUserId = this.userId;
-//   if (myUserId) {
-//     return {
-//       find: function() {
-//         return Posts.find({
-//           isDM: true,
-//           'followers.userId': myUserId,
-//         });
-//       },
-//
-//       children: [
-//         {
-//           find: function(post) {
-//             const otherUserIds = _.reject(post.followers, function(follower) {
-//               return follower.userId == myUserId;
-//             }).map(user => user.userId);
-//
-//             return Users.find({ _id: { $in: otherUserIds } });
-//           }
-//         }
-//       ]
-//     }
-//   } else {
-//     this.ready();
-//   }
-// })
-//
-// Meteor.publish('onboardingMessages', function() {
-//   if (this.userId) {
-//     const user = Users.findOne(this.userId);
-//     return [
-//       Users.find({ _id: 'system' }),
-//       Posts.find({ _id: user.tigerbotPostId}),
-//       Messages.find({ postId: user.tigerbotPostId }),
-//     ]
-//   } else {
-//     this.ready();
-//   }
-// });
+
+Meteor.publishComposite('messages', function(postId) {
+  return {
+    find: function() {
+      check(postId, Match.Optional(String));
+      return Posts.find({ _id: postId })
+    },
+    children: [
+      {
+        find: function(todo) {
+          return Messages.find({ postId: postId })
+        },
+
+        children: [
+          {
+            find: function(comment) {
+              return Users.find({ _id: comment.ownerId })
+            }
+          }
+        ]
+      },
+
+      {
+        find: function(todo) {
+          return Users.find({ _id: todo.ownerId });
+        }
+      }
+    ]
+  }
+});
+
+Meteor.publishComposite('directMessages', function() {
+  const myUserId = this.userId;
+  if (myUserId) {
+    return {
+      find: function() {
+        return Posts.find({
+          isDM: true,
+          'followers.userId': myUserId,
+        });
+      },
+
+      children: [
+        {
+          find: function(post) {
+            const otherUserIds = _.reject(post.followers, function(follower) {
+              return follower.userId == myUserId;
+            }).map(user => user.userId);
+
+            return Users.find({ _id: { $in: otherUserIds } });
+          }
+        }
+      ]
+    }
+  } else {
+    this.ready();
+  }
+})
+
+Meteor.publish('onboardingMessages', function() {
+  if (this.userId) {
+    const user = Users.findOne(this.userId);
+    return [
+      Users.find({ _id: 'system' }),
+      Posts.find({ _id: user.tigerbotPostId}),
+      Messages.find({ postId: user.tigerbotPostId }),
+    ]
+  } else {
+    this.ready();
+  }
+});
