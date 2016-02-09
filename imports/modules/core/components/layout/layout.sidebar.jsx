@@ -25,7 +25,6 @@ const SidebarHeader = (props) => {
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
           <h3>{ i18n('title') }</h3>
           <Flex alignItems='center'>
-            <span className='online-status' />
             <span>{ props.user.displayUsername }</span>
             <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
           </Flex>
