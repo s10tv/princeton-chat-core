@@ -127,7 +127,7 @@ const EmptyPostListInFeed = ({ navigateToTopicListFn }) => (
 
 const PostList = (props) => (
   <section className='post-list' style={{flexGrow: 1}}>
-    <List style={{padding: '0px 20px'}}>
+    <List style={{padding: '0px 0px', paddingLeft: 10}}>
       { props.posts.map(post =>
         <PostListItem key={post._id} post={post} {...props} />
       )}
