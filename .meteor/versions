@@ -95,6 +95,7 @@ session@1.1.2-modules.4
 sha@1.0.4
 spacebars@1.0.8-modules.4
 spacebars-compiler@1.0.8-modules.4
+spiderable@1.0.10-modules.4
 srp@1.0.5-modules.4
 standard-minifiers@1.0.3-modules.4
 standard-minifiers-css@1.0.3-modules.4

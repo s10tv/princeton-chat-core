@@ -37,15 +37,13 @@ export default function (injectDeps) {
   // logged in users should be redirected to all-mine when they visit '/'
   FlowRouter.triggers.enter([redirectToAllMine], {only: ["home"]});
 
-  FlowRouter.subscriptions = function() {
-    this.register('userData', Meteor.subscribe('userData'));
-  };
   FlowRouter.route('/', {
     name: 'signup',
     action() {
       mount(SignupWithCtx);
     }
   })
+
   FlowRouter.route('/guest', {
     name: 'guest',
     action({ userId }, { userId, hash }) {
@@ -62,6 +60,7 @@ export default function (injectDeps) {
       })
     }
   })
+
   FlowRouter.route('/signed-up', {
     name: 'signup-done',
     action() {
@@ -70,72 +69,9 @@ export default function (injectDeps) {
   })
 
   FlowRouter.route('/login', {
-    name: 'home',
+    name: 'login',
     action() {
       mount(LoginWithCtx);
-    }
-  });
-
-  FlowRouter.route('/topics/:topicId', {
-    name: 'postList',
-    action({ topicId }) {
-      mount(LayoutMainCtx, {
-        content: (props) => <PostList topicId={topicId} {...props} />
-      })
-    }
-  });
-
-  FlowRouter.route('/all-mine', {
-    name: 'all-mine',
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <PostList postListType={'ALL_MINE'} {...props} />
-      })
-    }
-  });
-
-  FlowRouter.route('/all', {
-    name: 'all',
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <PostList postListType={'ALL'} {...props} />
-      })
-    }
-  });
-
-
-  FlowRouter.route('/choose-topics', {
-    name: 'choose-topics',
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <TopicList {...props} {...props} />
-      })
-    }
-  });
-
-  FlowRouter.route('/add-followers/:topicId', {
-    name: 'add-followers',
-    action({ topicId }) {
-      mount(LayoutMainCtx, {
-        content: (props) => <AddFollowers topicId={topicId} {...props} />
-      })
-    }
-  });
-
-  FlowRouter.route('/topics/:topicId/:postId', {
-    name: 'postDetails',
-    action({ topicId, postId }) {
-      mount(LayoutMainCtx, {
-        content: (props) => <PostDetails topicId={topicId} postId={postId} {...props } />
-      })
-    }
-  });
-
-  FlowRouter.route('/postdetails', {
-    action() {
-      mount(LayoutMainCtx, {
-        content: (props) => <PostDetails {...props} />
-      })
     }
   });
 
@@ -164,20 +100,76 @@ export default function (injectDeps) {
     }
   })
 
-  FlowRouter.route('/users/tigerbot', {
-    name: 'tigercub-directmessage',
-    action() {
+  // Paths below needs auth
+
+  FlowRouter.route('/topics/:topicId', {
+    name: 'postList',
+    subscriptions: () => {
+      this.register('userData', Meteor.subscribe('userData'));
+    },
+    action({ topicId }) {
       mount(LayoutMainCtx, {
-        content: (props) => <Onboarding {...props} isDirectMessage={true} />
+        content: (props) => <PostList topicId={topicId} {...props} />
       })
     }
   });
 
-  FlowRouter.route('/users/:postId', {
-    name: 'directmessage',
-    action({ postId }) {
+  FlowRouter.route('/all-mine', {
+    name: 'all-mine',
+    subscriptions: function() {
+      this.register('userData', Meteor.subscribe('userData'));
+    },
+    action() {
       mount(LayoutMainCtx, {
-        content: (props) => <PostDetails postId={postId} {...props} />
+        content: (props) => <PostList postListType={'ALL_MINE'} {...props} />
+      })
+    }
+  });
+
+  FlowRouter.route('/all', {
+    name: 'all',
+    subscriptions: function() {
+      this.register('userData', Meteor.subscribe('userData'));
+    },
+    action() {
+      mount(LayoutMainCtx, {
+        content: (props) => <PostList postListType={'ALL'} {...props} />
+      })
+    }
+  });
+
+  FlowRouter.route('/choose-topics', {
+    name: 'choose-topics',
+    subscriptions: function() {
+      this.register('userData', Meteor.subscribe('userData'));
+    },
+    action() {
+      mount(LayoutMainCtx, {
+        content: (props) => <TopicList {...props} {...props} />
+      })
+    }
+  });
+
+  FlowRouter.route('/add-followers/:topicId', {
+    name: 'add-followers',
+    subscriptions: function() {
+      this.register('userData', Meteor.subscribe('userData'));
+    },
+    action({ topicId }) {
+      mount(LayoutMainCtx, {
+        content: (props) => <AddFollowers topicId={topicId} {...props} />
+      })
+    }
+  });
+
+  FlowRouter.route('/topics/:topicId/:postId', {
+    name: 'postDetails',
+    subscriptions: function() {
+      this.register('userData', Meteor.subscribe('userData'));
+    },
+    action({ topicId, postId }) {
+      mount(LayoutMainCtx, {
+        content: (props) => <PostDetails topicId={topicId} postId={postId} {...props } />
       })
     }
   });
