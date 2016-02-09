@@ -37,7 +37,7 @@ export default class UserService {
 
     if (user.firstName) {
       user.displayName += `${user.firstName} `;
-      // user.shortDisplayName = UserService.capitalizeFirstLetter(user.firstName);
+      user.shortDisplayName = UserService.capitalizeFirstLetter(user.firstName);
     }
 
     if (user.lastName) {
