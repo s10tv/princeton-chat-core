@@ -24,8 +24,12 @@ const SidebarHeader = (props) => {
         <SquareAvatar src={ props.user.avatar.url } length={60} />
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
           <h3>{ i18n('title') }</h3>
-          <Flex alignItems='center'>
-            <span>{ props.user.displayUsername }</span>
+          <Flex alignItems='center' style={{ overflow: 'hidden' }}>
+            <span style={{
+                width: '120px',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+              }}>{ props.user.shortDisplayName }</span>
             <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
           </Flex>
         </Flex>

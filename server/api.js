@@ -170,14 +170,11 @@ Meteor.methods({
         const lastName = userInfo.lastName || '';
         let existingUser = Accounts.findUserByEmail(email);
         if (!existingUser) {
-          // assign the user a username equal to their email username
-          let username = email.substring(0, email.indexOf('@'));
-          let newUserId = Accounts.createUser({ username, email, password: email, profile: {} });
+          let newUserId = Accounts.createUser({ email, password: email, profile: {} });
 
           Users.update(newUserId, { $set: {
             firstName,
             lastName,
-            username,
             isFullMember: false
           }});
 
@@ -390,7 +387,6 @@ Meteor.methods({
     try {
       const user = CurrentUser.get();
       Users.update(user._id, { $set: {
-        username: UsernameGenerator.generate(user),
         emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
         avatar: {
           url: '/images/princeton.svg'

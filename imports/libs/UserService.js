@@ -3,6 +3,10 @@ import { i18n } from '/imports/libs/mantra'
 // gets the current user, with default values filled in.
 export default class UserService {
 
+  static capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   static getUserView(user) {
     if (!user) {
       user = {};
@@ -27,9 +31,13 @@ export default class UserService {
 
     user.displayUsername = user.username ? `@${user.username}` : '';
 
-    user.displayName = "";
+    // temporary. This will be deprecated as soon as users are able to add their own uernames.
+    // do not use unless you're working with the sidebar.
+    user.shortDisplayName = "";
+
     if (user.firstName) {
       user.displayName += `${user.firstName} `;
+      // user.shortDisplayName = UserService.capitalizeFirstLetter(user.firstName);
     }
 
     if (user.lastName) {
@@ -42,6 +50,10 @@ export default class UserService {
 
     if (user.emails && user.emails.length > 0) {
       user.displayEmail = user.emails[0].address;
+
+      if (user.shortDisplayName.length == 0) {
+        user.shortDisplayName = user.emails[0].address;
+      }
     } else {
       user.displayEmail = '';
     }
