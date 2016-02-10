@@ -2,19 +2,23 @@ import React from 'react'
 import {Flex} from 'jsxstyle'
 import styles from '/imports/modules/core/components/styles.jsx'
 import { i18n } from '/imports/libs/mantra'
-import {Table, TableHeaderColumn, TableRow, TableHeader, TableRowColumn, TableBody} from 'material-ui/lib/table';
 import TextField from 'material-ui/lib/text-field'
 import FlatButton from 'material-ui/lib/flat-button'
-import _ from 'underscore';
+import _ from 'underscore'
 import RaisedButton from 'material-ui/lib/raised-button'
-import FontIcon from 'material-ui/lib/font-icon';
-import IconButton from 'material-ui/lib/icon-button';
+import FontIcon from 'material-ui/lib/font-icon'
+import IconButton from 'material-ui/lib/icon-button'
 
-const theme = i18n('primaryMuiTheme');
-const accent1Color = theme.baseTheme.palette.accent1Color;
+const theme = i18n('primaryMuiTheme')
+const accent1Color = theme.baseTheme.palette.accent1Color
 
 export default React.createClass({
   propTypes: {
+    /**
+     * Boolean to show/hide sidebar
+     */
+    sidebarOpen: React.PropTypes.bool.isRequired,
+
     /**
      * Topic to add followers to
      */
@@ -46,55 +50,55 @@ export default React.createClass({
     generateRandomString: React.PropTypes.func.isRequired
   },
 
-  getInitialState() {
+  getInitialState () {
     return {
       textFieldRowRefs: [this.props.generateRandomString()]
     }
   },
 
-  addNewFollower() {
+  addNewFollower () {
     this.setState({
       textFieldRowRefs: this.state.textFieldRowRefs.concat([this.props.generateRandomString()])
-    });
+    })
   },
 
-  handleChange(e) {
-    var nextState = this.state;
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
+  handleChange (e) {
+    var nextState = this.state
+    nextState[e.target.name] = e.target.value
+    this.setState(nextState)
   },
 
-  sendInvitations() {
+  sendInvitations () {
     const textFieldRows = this.state.textFieldRowRefs.map(textFieldRowRef => {
-      return textFieldRow = this.refs[textFieldRowRef];
-    });
+      return this.refs[textFieldRowRef]
+    })
 
     const hasValidationError = textFieldRows.reduce((acc, curTextFieldRow) => {
-      return acc || curTextFieldRow.hasValidationError();
-    }, false);
+      return acc || curTextFieldRow.hasValidationError()
+    }, false)
 
     if (!hasValidationError) {
       const userInfos = textFieldRows.map(textFieldRow => {
-        const email = textFieldRow.refs.emailWrapper.refs.email.getValue();
-        const firstName = textFieldRow.refs.firstNameWrapper.refs.firstName.getValue();
-        const lastName = textFieldRow.refs.lastNameWrapper.refs.lastName.getValue();
-        return { email, firstName, lastName };
-      });
-      this.props.sendInvitations(this.props.topic._id, userInfos);
+        const email = textFieldRow.refs.emailWrapper.refs.email.getValue()
+        const firstName = textFieldRow.refs.firstNameWrapper.refs.firstName.getValue()
+        const lastName = textFieldRow.refs.lastNameWrapper.refs.lastName.getValue()
+        return { email, firstName, lastName }
+      })
+      this.props.sendInvitations(this.props.topic._id, userInfos)
     } else {
-      this.props.showSnackbarWithString("One of your fields has errors. Please check.");
+      this.props.showSnackbarWithString('One of your fields has errors. Please check.')
     }
   },
 
-  removeRow(id) {
+  removeRow (id) {
     this.setState({
       textFieldRowRefs: _.without(this.state.textFieldRowRefs, id)
-    });
+    })
   },
 
-  render() {
+  render () {
     return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0})}>
+      <main style={Object.assign({}, styles.main, {marginLeft: this.props.sidebarOpen ? 240 : 0})}>
         <Flex flexDirection='column' alignItems='center' className='add-followers' justifyContent='space-between' flexGrow={1}>
           <Flex flexDirection='column' alignItems='center'>
             <h1>Add followers</h1>
@@ -114,7 +118,8 @@ export default React.createClass({
                     <th>Email Address</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th><div style={{width: 50, height: 50}}></div></th> {/* so the table doesn't shift when clear buttons are added */}
+                    <th><div style={{width: 50, height: 50}}></div></th>
+                    {/* width and height are hardcoded so the table doesn't shift when clear buttons are added */}
                   </tr>
                 </thead>
                 <tbody>
@@ -126,7 +131,7 @@ export default React.createClass({
                       key={textFieldRowRef}
                       validateEmail={this.props.validateEmail}
                       validateName={this.props.validateName}
-                      isRemoveButtonHidden={index == 0} />
+                      isRemoveButtonHidden={index === 0} />
                   )) }
                 </tbody>
               </table>
@@ -146,7 +151,7 @@ export default React.createClass({
         </Flex>
       </main>
     )
-  },
+  }
 })
 
 const TextFieldRow = React.createClass({
@@ -177,12 +182,12 @@ const TextFieldRow = React.createClass({
     removeRow: React.PropTypes.func.isRequired
   },
 
-  hasValidationError() {
+  hasValidationError () {
     return (this.refs.emailWrapper.hasValidationError() || this.refs.firstNameWrapper.hasValidationError() ||
             this.refs.lastNameWrapper.hasValidationError())
   },
 
-  render() {
+  render () {
     return (
       <tr>
         <td><TextFieldEmail ref='emailWrapper' refComponent='email'
@@ -204,7 +209,7 @@ const TextFieldRow = React.createClass({
       </tr>
     )
   }
-});
+})
 
 const TextFieldEmail = React.createClass({
   propTypes: {
@@ -219,33 +224,33 @@ const TextFieldEmail = React.createClass({
     refComponent: React.PropTypes.string.isRequired
   },
 
-  hasValidationError() {
-    const textField = this.refs[this.props.refComponent];
-    const error = this.props.validateEmail(textField.getValue());
+  hasValidationError () {
+    const textField = this.refs[this.props.refComponent]
+    const error = this.props.validateEmail(textField.getValue())
     if (error.reason) {
-      this.setState({ error: error.reason });
+      this.setState({ error: error.reason })
     } else {
-      this.setState({ error: null });
+      this.setState({ error: null })
     }
-    return this.state.error != null || error.reason;
+    return this.state.error != null || error.reason
   },
 
-  getInitialState() {
+  getInitialState () {
     return {
       error: null
     }
   },
 
-  handleBlur(e) {
-    const error = this.props.validateEmail(e.target.value);
+  handleBlur (e) {
+    const error = this.props.validateEmail(e.target.value)
     if (error.reason) {
-      this.setState({ error: error.reason });
+      this.setState({ error: error.reason })
     } else {
-      this.setState({ error: null });
+      this.setState({ error: null })
     }
   },
 
-  render() {
+  render () {
     return !this.state.error
       ? <TextField ref={this.props.refComponent}
           hintText='name@domain.com'
@@ -256,7 +261,7 @@ const TextFieldEmail = React.createClass({
           errorText={this.state.error}
           errorStyle={{ color: accent1Color, borderColor: accent1Color }} />
   }
-});
+})
 
 const TextFieldName = React.createClass({
   propTypes: {
@@ -276,34 +281,34 @@ const TextFieldName = React.createClass({
     refComponent: React.PropTypes.string.isRequired
   },
 
-  hasValidationError() {
-    const textField = this.refs[this.props.refComponent];
-    const error = this.props.validateName(textField.getValue());
+  hasValidationError () {
+    const textField = this.refs[this.props.refComponent]
+    const error = this.props.validateName(textField.getValue())
     if (error.reason) {
-      this.setState({ error: error.reason });
+      this.setState({ error: error.reason })
     } else {
-      this.setState({ error: null });
+      this.setState({ error: null })
     }
 
-    return this.state.error != null || error.reason;
+    return this.state.error != null || error.reason
   },
 
-  getInitialState() {
+  getInitialState () {
     return {
       error: null
     }
   },
 
-  handleBlur(e) {
-    const error = this.props.validateName(e.target.value);
+  handleBlur (e) {
+    const error = this.props.validateName(e.target.value)
     if (error.reason) {
-      this.setState({ error: error.reason });
+      this.setState({ error: error.reason })
     } else {
-      this.setState({ error: null });
+      this.setState({ error: null })
     }
   },
 
-  render() {
+  render () {
     return !this.state.error
       ? <TextField
             ref={this.props.refComponent}
@@ -315,14 +320,14 @@ const TextFieldName = React.createClass({
             errorText={this.state.error}
             errorStyle={{ color: accent1Color, borderColor: accent1Color }} />
   }
-});
+})
 
 const giveAddFollowersLabel = (numFollowers) => {
-  var str = `Add ${numFollowers} `;
-  if (numFollowers == 1) {
-    str = str.concat('follower');
+  var str = `Add ${numFollowers} `
+  if (numFollowers === 1) {
+    str = str.concat('follower')
   } else {
-    str = str.concat('followers');
+    str = str.concat('followers')
   }
-  return str;
+  return str
 }
