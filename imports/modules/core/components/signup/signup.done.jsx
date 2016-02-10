@@ -1,7 +1,7 @@
 import React from 'react'
 import {i18n} from '/imports/libs/mantra'
 
-const envelopeIcon = '/assets/ic-envelope.png'
+const envelopeIcon = '/images/ic-envelope.png'
 
 export default React.createClass({
   propTypes: {

@@ -46,10 +46,13 @@ class Button extends React.Component {
 }
 
 export default React.createClass({
-
   propTypes: {
-    isOnboardingSpinnerLoading: React.PropTypes.func,
+    isOnboardingSpinnerLoading: React.PropTypes.bool,
     signup: React.PropTypes.func
+  },
+
+  getInitialState () {
+    return {}
   },
 
   verifyEmail (event) {
@@ -120,21 +123,21 @@ export default React.createClass({
               hintText: 'e.g. tonyx@gmail.com',
               floatingLabelText: 'Email',
               errorText: this.state.errorEmail,
-              onBlur: this.validateEmail.bind(this)
+              onBlur: this.validateEmail
             })}
             {getTextField({ ref: 'firstNameInput',
               hintText: '',
               floatingLabelText: 'First Name',
               errorText: this.state.errorFirstName,
-              onBlur: this.validateFirstName.bind(this)
+              onBlur: this.validateFirstName
             })}
             {getTextField({ ref: 'lastNameInput',
               hintText: '',
               floatingLabelText: 'Last Name',
               errorText: this.state.errorLastName,
-              onBlur: this.validateLastName.bind(this)
+              onBlur: this.validateLastName
             })}
-            <Button label="Let's do it" onClick={this.verifyEmail.bind(this)} />
+            <Button label="Let's do it" onClick={this.verifyEmail} />
 
             {loader}
           </section>

@@ -145,12 +145,12 @@ const PostListItem = (props) => (
         <Flex alignItems='center'>
           {props.post.owner.avatar.isDefaultAvatar
             ? <LetterAvatar
-                color='white'
-                backgroundColor={props.post.owner.avatar.color}
-                size={35}
-                style={{marginRight: 10}}>
-                  {props.post.owner.avatarInitials}
-              </LetterAvatar>
+              color='white'
+              backgroundColor={props.post.owner.avatar.color}
+              size={35}
+              style={{marginRight: 10}}>
+                {props.post.owner.avatarInitials}
+            </LetterAvatar>
             : <Avatar src={props.post.owner.avatar.url} size={35} style={{marginRight: 10}} />
           }
           <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>

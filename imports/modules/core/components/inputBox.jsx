@@ -97,9 +97,9 @@ export default React.createClass({
         <Flex marginLeft='auto'>
           <a
             style={{cursor: 'pointer'}}
-            onClick={this.handleFollowToggleClick.bind(this)}
-            onMouseOver={this.handleFollowToggleMouseOver.bind(this)}
-            onMouseOut={this.handleFollowToggleMouseOut.bind(this)}>
+            onClick={this.handleFollowToggleClick}
+            onMouseOver={this.handleFollowToggleMouseOver}
+            onMouseOut={this.handleFollowToggleMouseOut}>
             {this.props.isFollowing
                ? (this.state.followToggleMouseOver ? 'Unfollow' : 'Following')
                : 'Follow'}
@@ -129,7 +129,7 @@ export default React.createClass({
         {this.state.pressEnterToSend
           ? null
           : <RaisedButton disabled={this.state.text.length === 0} label='Send' primary
-            onTouchTap={this.sendMessage.bind(this)} />}
+            onTouchTap={this.sendMessage} />}
       </Flex>
     )
   },
@@ -151,9 +151,9 @@ export default React.createClass({
             hintText='Type a message...'
             value={this.state.text}
             onChange={(e) => this.setState({text: e.target.value})}
-            onBlur={this.handleInputBlur.bind(this)}
-            onFocus={this.handleInputFocus.bind(this)}
-            onEnterKeyDown={this.handleEnterKeyDown.bind(this)} />
+            onBlur={this.handleInputBlur}
+            onFocus={this.handleInputFocus}
+            onEnterKeyDown={this.handleEnterKeyDown} />
         </Flex>
         {showInputControls ? this.renderInputControls() : this.renderFollowerControls()}
       </Flex>

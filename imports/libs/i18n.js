@@ -35,7 +35,7 @@ module.exports = {
     defaultAvatar: '/images/princeton.svg',
 
     backgroundStyle: {
-      backgroundImage: "url('/assets/background-tile.png')",
+      backgroundImage: "url('/images/background-tile.png')",
       backgroundRepeat: 'repeat'
     }
   },
@@ -58,7 +58,7 @@ module.exports = {
     topicMailServer: 'topics.s10.chat',
     defaultAvatar: '/images/avatar-placeholder.png',
     backgroundStyle: {
-      backgroundImage: "url('/assets/background-tile.png')",
+      backgroundImage: "url('/images/background-tile.png')",
       backgroundRepeat: 'repeat'
     }
   },

@@ -6,19 +6,19 @@ import CircularProgress from 'material-ui/lib/circular-progress'
 import { i18n } from '/imports/libs/mantra'
 
 // Images
-const upArrow = '/assets/Up_Arrow.png'
-const icBenefit1 = '/assets/Giveback.png'
-const icBenefit2 = '/assets/Housing_OfficeSpace.png'
-const icBenefit3 = '/assets/Jobs_and_Recommendations.png'
-const icBenefit4 = '/assets/Events.png'
-const icBenefit5 = '/assets/Discussions.png'
-const icBenefit6 = '/assets/Message.png'
-const icQ = '/assets/ic-q.png'
-const icFB = '/assets/ic-fb.png'
-const icTwitter = '/assets/ic-twitter.png'
-const icEmail = '/assets/ic-email.png'
-const fbShare = '/assets/facebook-share.png'
-const twitterShare = '/assets/twitter-share.png'
+const upArrow = '/images/Up_Arrow.png'
+const icBenefit1 = '/images/Giveback.png'
+const icBenefit2 = '/images/Housing_OfficeSpace.png'
+const icBenefit3 = '/images/Jobs_and_Recommendations.png'
+const icBenefit4 = '/images/Events.png'
+const icBenefit5 = '/images/Discussions.png'
+const icBenefit6 = '/images/Message.png'
+const icQ = '/images/ic-q.png'
+const icFB = '/images/ic-fb.png'
+const icTwitter = '/images/ic-twitter.png'
+const icEmail = '/images/ic-email.png'
+const fbShare = '/images/facebook-share.png'
+const twitterShare = '/images/twitter-share.png'
 
 const PRINCETON_ORANGE = '#F07621'
 const PRINCETON_WHITE = 'white'
@@ -62,8 +62,12 @@ class Button extends React.Component {
 
 export default React.createClass({
   propTypes: {
-    isOnboardingSpinnerLoading: React.PropTypes.func,
+    isOnboardingSpinnerLoading: React.PropTypes.bool,
     signup: React.PropTypes.func
+  },
+
+  getInitialState () {
+    return {}
   },
 
   verifyEmail (event) {
@@ -147,27 +151,27 @@ export default React.createClass({
               hintText: 'e.g. tonyx@alumni.princeton.edu',
               floatingLabelText: 'Email',
               errorText: this.state.errorEmail,
-              onBlur: this.validateEmail.bind(this)
+              onBlur: this.validateEmail
             })}
             {getTextField({ ref: 'firstNameInput',
               hintText: '',
               floatingLabelText: 'First Name',
               errorText: this.state.errorFirstName,
-              onBlur: this.validateFirstName.bind(this)
+              onBlur: this.validateFirstName
             })}
             {getTextField({ ref: 'lastNameInput',
               hintText: '',
               floatingLabelText: 'Last Name',
               errorText: this.state.errorLastName,
-              onBlur: this.validateLastName.bind(this)
+              onBlur: this.validateLastName
             })}
             {getTextField({ ref: 'classYearInput',
               hintText: 'e.g. 2012',
               floatingLabelText: 'Class Year',
               errorText: this.state.errorClassYear,
-              onBlur: this.validateClassYear.bind(this)
+              onBlur: this.validateClassYear
             })}
-            <Button label="Let's do it" onClick={this.verifyEmail.bind(this)} />
+            <Button label="Let's do it" onClick={this.verifyEmail} />
 
             {loader}
           </section>

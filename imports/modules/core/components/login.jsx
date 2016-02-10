@@ -3,6 +3,7 @@ import {Flex} from 'jsxstyle'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
+import GlobalSnackbar from '/imports/modules/core/containers/global.snackbar.js'
 
 import { i18n } from '/imports/libs/mantra'
 
@@ -84,6 +85,8 @@ export default React.createClass({
             <RaisedButton label='Login' primary style={{margin: '30px 5px'}} type='submit' />
           </form>
         </Flex>
+
+        <GlobalSnackbar />
       </Flex>
     )
   }

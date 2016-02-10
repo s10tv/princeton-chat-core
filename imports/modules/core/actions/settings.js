@@ -5,6 +5,10 @@ export default {
     FlowRouter.go('home')
   },
 
+  showSettingsModal ({ LocalState }) {
+    LocalState.set('SETTINGS_DIALOG_SHOWING', true)
+  },
+
   closeSettingsModal ({ LocalState }) {
     LocalState.set('SETTINGS_DIALOG_SHOWING', false)
   },

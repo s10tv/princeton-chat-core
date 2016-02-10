@@ -34,7 +34,7 @@ const depsMapper = (context, actions) => ({
   showAddPostPopupFn: actions.posts.showAddPostPopup,
   showTopic: actions.topics.navigateToTopic,
   showAllTopics: actions.topics.navigateToTopicList,
-  onTapSettings: actions.settings.editProfile,
+  onTapSettings: actions.settings.showSettingsModal,
   context: () => context
 })
 

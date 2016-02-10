@@ -4,9 +4,14 @@ import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
 export const composer = ({context}, onData) => {
   const { LocalState } = context()
 
+  const snackbarString = LocalState.get('SHOW_GLOBAL_SNACKBAR_WITH_STRING')
+  const isSnackbarOpen = snackbarString !== undefined &&
+    typeof snackbarString === 'string' &&
+    snackbarString.length > 0
+
   onData(null, {
-    isSnackbarOpen: LocalState.get('SHOW_GLOBAL_SNACKBAR_WITH_STRING') !== undefined,
-    snackbarErrorString: LocalState.get('SHOW_GLOBAL_SNACKBAR_WITH_STRING') || ''
+    isSnackbarOpen,
+    snackbarErrorString: snackbarString || ''
   })
 }
 
