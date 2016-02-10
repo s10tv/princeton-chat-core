@@ -53,7 +53,8 @@
   "standard": {
     "ignore": [
       "packages/**",
-      "server/**"
+      "server/**",
+      "private/**"
     ]
   }
 }
