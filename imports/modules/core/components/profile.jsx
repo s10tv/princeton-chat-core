@@ -5,7 +5,7 @@ import Card from 'material-ui/lib/card/card'
 import Dialog from 'material-ui/lib/dialog';
 import { i18n } from '/imports/libs/mantra'
 
-const theme = i18n('secondaryMuiTheme');
+const theme = i18n('primaryMuiTheme');
 const accent1Color = theme.baseTheme.palette.accent1Color;
 
 export default React.createClass({

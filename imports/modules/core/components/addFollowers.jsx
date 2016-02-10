@@ -10,8 +10,8 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon';
 import IconButton from 'material-ui/lib/icon-button';
 
-const theme = i18n('secondaryMuiTheme');
-const primaryAccent = theme.baseTheme.palette.accent1Color;
+const theme = i18n('primaryMuiTheme');
+const accent1Color = theme.baseTheme.palette.accent1Color;
 
 export default React.createClass({
   propTypes: {
@@ -185,10 +185,22 @@ const TextFieldRow = React.createClass({
   render() {
     return (
       <tr>
-        <td><TextFieldEmail ref='emailWrapper' refComponent='email' validateEmail={this.props.validateEmail} /></td>
-        <td><TextFieldName ref='firstNameWrapper' refComponent='firstName' hintText='Banana (optional)' validateName={this.props.validateName} /></td>
-        <td><TextFieldName ref='lastNameWrapper' refComponent='lastName' hintText='Eater (optional)' validateName={this.props.validateName} /></td>
-        { this.props.isRemoveButtonHidden ? null : <td><IconButton onTouchTap={() => this.props.removeRow(this.props.id)}><FontIcon className='material-icons'>clear</FontIcon></IconButton></td> }
+        <td><TextFieldEmail ref='emailWrapper' refComponent='email'
+              validateEmail={this.props.validateEmail} /></td>
+        <td><TextFieldName ref='firstNameWrapper' refComponent='firstName'
+              hintText='Banana (optional)' validateName={this.props.validateName} />
+        </td>
+        <td><TextFieldName ref='lastNameWrapper' refComponent='lastName'
+              hintText='Eater (optional)' validateName={this.props.validateName} />
+        </td>
+        { this.props.isRemoveButtonHidden
+          ? null
+          : (<td>
+              <IconButton onTouchTap={() => this.props.removeRow(this.props.id)}>
+                <FontIcon className='material-icons'>clear</FontIcon>
+              </IconButton>
+            </td>)
+        }
       </tr>
     )
   }
@@ -242,7 +254,7 @@ const TextFieldEmail = React.createClass({
           hintText='name@domain.com'
           onBlur={this.handleBlur}
           errorText={this.state.error}
-          errorStyle={{ color: primaryAccent, borderColor: primaryAccent }} />
+          errorStyle={{ color: accent1Color, borderColor: accent1Color }} />
   }
 });
 
@@ -292,8 +304,16 @@ const TextFieldName = React.createClass({
   },
 
   render() {
-    return !this.state.error ? <TextField ref={this.props.refComponent} hintText={this.props.hintText} onBlur={this.handleBlur} /> :
-      <TextField ref={this.props.refComponent} hintText={this.props.hintText} onBlur={this.handleBlur} errorText={this.state.error} errorStyle={{ color: primaryAccent, borderColor: primaryAccent }} />
+    return !this.state.error
+      ? <TextField
+            ref={this.props.refComponent}
+            hintText={this.props.hintText}
+            onBlur={this.handleBlur} />
+      : <TextField ref={this.props.refComponent}
+            hintText={this.props.hintText}
+            onBlur={this.handleBlur}
+            errorText={this.state.error}
+            errorStyle={{ color: accent1Color, borderColor: accent1Color }} />
   }
 });
 

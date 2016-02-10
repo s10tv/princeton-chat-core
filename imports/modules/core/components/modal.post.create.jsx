@@ -14,7 +14,7 @@ import FontIcon from 'material-ui/lib/font-icon'
 import LinearProgress from 'material-ui/lib/linear-progress'
 import { i18n } from '/imports/libs/mantra'
 
-const theme = i18n('secondaryMuiTheme');
+const theme = i18n('primaryMuiTheme');
 const primaryAccent = theme.baseTheme.palette.accent1Color;
 
 export default React.createClass({

@@ -15,9 +15,8 @@ import {TopicGridContainer} from '/imports/modules/core/containers/topic.list.js
 import SetPasswordComponentBox from '/imports/modules/core/containers/setPassword.js';
 import {i18n} from '/imports/libs/mantra'
 
-const theme = i18n('secondaryMuiTheme');
-const primaryAccent = theme.baseTheme.palette.accent1Color;
-console.log(primaryAccent)
+const theme = i18n('primaryMuiTheme');
+const accent1Color = theme.baseTheme.palette.accent1Color;
 
 const styles = Object.assign(importedStyles, {
   subTitle: {
@@ -30,7 +29,7 @@ const FollowTopicComponent = (props) => {
     <div className="onboarding-container">
       <div>
         <Block margin={24}
-            color={primaryAccent}
+            color={accent1Color}
             fontWeight='bold'
             fontSize={30}
             textAlign='center'>{i18n('title')}</Block>
@@ -51,7 +50,7 @@ const SetPasswordComponent = (props) => {
   return (
     <div className="onboarding-container">
       <div>
-        <Block margin={24} color={primaryAccent} fontWeight='bold' fontSize={30} textAlign='center'>
+        <Block margin={24} color={accent1Color} fontWeight='bold' fontSize={30} textAlign='center'>
           {i18n('title')}
         </Block>
         <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>

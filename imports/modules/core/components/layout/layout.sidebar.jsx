@@ -13,7 +13,7 @@ import FontIcon from 'material-ui/lib/font-icon'
 import { i18n } from '/imports/libs/mantra'
 
 const theme = i18n('secondaryMuiTheme');
-const accent3Color = theme.baseTheme.palette.accent3Color;
+const accent1Color = theme.baseTheme.palette.accent1Color;
 const primary3Color = theme.baseTheme.palette.primary3Color;
 
 const SidebarHeader = (props) => {
@@ -27,7 +27,7 @@ const SidebarHeader = (props) => {
       <Flex>
         <SquareAvatar src={ props.user.avatar.url } length={60} />
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
-          <h3 style={Object.assign({}, { color: theme.baseTheme.palette.alternateTextColor })}>
+          <h3 style={Object.assign({}, { color: accent1Color })}>
             { i18n('title') }
           </h3>
           <Flex alignItems='center' style={{ overflow: 'hidden' }}>
@@ -57,7 +57,7 @@ const SubHeader = ({label, action, onClick}) => (
       width: '100%',
       paddingLeft: 4,
       paddingRight: 16,
-      color: accent3Color,
+      color: primary3Color,
       fontWeight: 'normal',
     }} onTouchTap={onClick}>
     <Flex justifyContent='space-between'>

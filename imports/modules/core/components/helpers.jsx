@@ -77,7 +77,6 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
   palette: {
     ...darkRawTheme.palette,
     accent1Color: '#F07621', // princeton orange
-    accent3Color: Colors.grey400,
     alternateTextColor: Colors.white,
   },
 })
@@ -97,8 +96,7 @@ export const pedSecondaryMuiTheme = ThemeManager.getMuiTheme({
   palette: {
     ...darkRawTheme.palette,
     accent1Color: '#5477AD', // ped blue
-    accent3Color: Colors.grey400,
-    primary3Color: '#5477AD', // ped blue
+    primary3Color: '#4E6A93', // not-so-dark blue
     alternateTextColor: Colors.white,
     canvasColor: '#1B293D', // dark blue
   },

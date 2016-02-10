@@ -14,7 +14,8 @@ import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import { i18n } from '/imports/libs/mantra'
 
-const theme = i18n('secondaryMuiTheme');
+const theme = i18n('primaryMuiTheme')
+const accent1Color = theme.baseTheme.palette.accent1Color
 
 export default React.createClass({
   propTypes: {
@@ -120,7 +121,7 @@ const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
             null
           }
           <span style={Object.assign({}, { marginTop: 15}, {
-              color: theme.baseTheme.palette.accent1Color
+              color: accent1Color
             })}>
             { follower.displayEmail }
           </span>
