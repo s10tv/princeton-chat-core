@@ -32,7 +32,8 @@ const SidebarHeader = (props) => {
           </h3>
           <Flex alignItems='center' style={{ overflow: 'hidden' }}>
             <span style={{
-                width: '120px',
+                width: 120,
+                lineHeight: '24px',
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
               }}>{ props.user.shortDisplayName }</span>
