@@ -35,7 +35,8 @@ export default class EditProfileModal extends React.Component {
       classYear,
       currentAvatarUrl,
       changeAvatarToFacebook,
-      changeAvatarToDefault } = this.props;
+      changeAvatarToDefault,
+      isDefaultAvatar } = this.props;
 
     const toolbar =
       <Toolbar>
@@ -66,7 +67,7 @@ export default class EditProfileModal extends React.Component {
               </SelectField>
              </Flex>
             <Flex flexDirection='column' alignItems='center' justifyContent='space-around'>
-              { user.avatar.isDefaultAvatar ?
+              { isDefaultAvatar ?
                 <LetterAvatar
                   size={150}
                   color='white'

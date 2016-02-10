@@ -56,20 +56,26 @@ export const composer = ({context, actions}, onData) => {
     LocalState.set('SETTINGS_EDIT_PROFILE_NEW_PASSWORD', event.target.value);
   }
 
+  const isDefaultAvatar = LocalState.get('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR')
+    || user.avatar.isDefaultAvatar;
+
   const currentAvatarUrl = LocalState.get('SETTINGS_EDIT_PROFILE_AVATAR') || user.avatar.url;
 
   const changeAvatarToDefault = () => {
+    LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', true);
     LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', AvatarService.generateDefaultAvatarForAudience(process.env.AUDIENCE || 'princeton'));
   }
 
   const changeAvatarToFacebook = () => {
     if (user.services.facebook) {
+      LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', false);
       LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`);
     } else {
       Meteor.linkWithFacebook({}, (err) => {
         if (err) {
           alert(err.reason);
         } else {
+          LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', false);
           LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`);
         }
       });
@@ -84,7 +90,8 @@ export const composer = ({context, actions}, onData) => {
       lastName: lastName,
       username: username,
       classYear: classYear,
-      avatarUrl: currentAvatarUrl
+      avatarUrl: currentAvatarUrl,
+      isDefaultAvatar: isDefaultAvatar
     }
 
     Meteor.call('profile/update', profile, (err) => {
@@ -120,8 +127,10 @@ export const composer = ({context, actions}, onData) => {
     handleOldPasswordChange,
     handleNewPasswordChange,
     changePassword,
+    isDefaultAvatar,
     classYear,
     handleClassYearChange,
+    isDefaultAvatar,
     currentAvatarUrl,
     changeAvatarToFacebook,
     changeAvatarToDefault });

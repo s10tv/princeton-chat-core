@@ -260,6 +260,7 @@ Meteor.methods({
     check(profile.lastName, String);
     check(profile.classYear, Number);
     check(profile.avatarUrl, String);
+    check(profile.isDefaultAvatar, Boolean);
 
     Users.update(user._id, {
       $set: {
@@ -267,7 +268,8 @@ Meteor.methods({
         lastName: profile.lastName,
         classYear: profile.classYear,
         avatar: {
-          url: profile.avatarUrl
+          url: profile.avatarUrl,
+          isDefaultAvatar: profile.isDefaultAvatar
         },
       }
     });
