@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import Menu from '/imports/modules/core/components/menu.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
 import ListItem from 'material-ui/lib/lists/list-item'
-import RightBar from '/imports/modules/core/components/layout/layout.rightbar.jsx'
+// import RightBar from '/imports/modules/core/components/layout/layout.rightbar.jsx'
 import FlatButton from 'material-ui/lib/flat-button'
 import { i18n } from '/imports/libs/mantra'
 import Avatar from 'material-ui/lib/avatar'
@@ -61,16 +61,28 @@ export default React.createClass({
     sidebarOpen: React.PropTypes.bool.isRequired
   },
 
+  // render () {
+  //   const isRightBarOpen = this.props.postListType == null
+  //   return (
+  //     <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0, marginRight: isRightBarOpen ? 320 : 0 })}>
+  //       <Menu
+  //         hidePostButton={this.props.isEmpty}
+  //         {...this.props} />
+  //
+  //       {this.props.isEmpty ? <EmptyPostList {...this.props} /> : <PostList {...this.props} />}
+  //       <RightBar isOpen={isRightBarOpen} {...this.props} />
+  //     </main>
+  //   )
+  // }
   render () {
-    const isRightBarOpen = this.props.postListType == null
     return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0, marginRight: isRightBarOpen ? 320 : 0 })}>
+      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <Menu
           hidePostButton={this.props.isEmpty}
+          isPostListScreen
           {...this.props} />
 
         {this.props.isEmpty ? <EmptyPostList {...this.props} /> : <PostList {...this.props} />}
-        <RightBar isOpen={isRightBarOpen} {...this.props} />
       </main>
     )
   }

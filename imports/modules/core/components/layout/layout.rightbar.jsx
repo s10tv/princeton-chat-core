@@ -64,19 +64,23 @@ export default React.createClass({
         <a href={`mailto: ${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
           {`${props.topic._id}@${i18n('topicMailServer')}`}
         </a>
-        <h4>
-          <a href='#'
-            onClick={() => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)}>
-            Topic Followers ({props.topic.followers.length})
-          </a>
-        </h4>
 
-        <FlatButton
-          primary
-          onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
-          label='Add Followers'
-          style={{marginTop: 10}}
-        />
+        <Flex alignItems='center' justifyContent='space-between'>
+          <h4>
+            <a href='#'
+              onClick={
+                () => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)
+              }>
+              Topic Followers ({props.topic.followers.length})
+            </a>
+          </h4>
+
+          <FlatButton
+            primary
+            onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
+            label='Add'
+          />
+        </Flex>
 
         <List style={{paddingTop: 0, paddingBottom: 0}}>
           {props.topic.followersList.map((f) =>

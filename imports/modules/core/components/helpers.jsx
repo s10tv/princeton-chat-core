@@ -77,6 +77,7 @@ export const primaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: systemFont,
   palette: {
     ...lightRawTheme.palette,
+    primary1Color: '#8BC34A',
     accent1Color: '#F07621' // princeton orange
   }
 })
