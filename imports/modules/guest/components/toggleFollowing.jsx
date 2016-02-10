@@ -1,16 +1,21 @@
 import React from 'react'
-import {Flex, Block} from 'jsxstyle'
+import {Block} from 'jsxstyle'
 
 const ORANGE = '#F07621'
-const WHITE = 'white'
 const RED = 'red'
 
-const SimpleLogo = ({style, ...props}) =>
-  <h1 style={{color: ORANGE, fontSize: 20, fontWeight: 600, margin: 0, ...style}} {...props}>Princeton.chat</h1>
+const SimpleLogo = (props) => (
+  <h1 style={Object.assign({}, {
+    color: ORANGE,
+    fontSize: 20,
+    fontWeight: 600,
+    margin: 0
+  }, props.style)} {...props}>Princeton.chat</h1>
+)
 
 const GuestToggleFollow = (props) => (
   <Block className='guest' padding={30}>
-    <style type='text/css' scoped={true}>{`
+    <style type='text/css' scoped>{`
       .guest a {
         color: #4A90E2; /* Blue */
         text-decoration: underline;
@@ -27,9 +32,9 @@ const GuestToggleFollow = (props) => (
       <strong>{props.title}</strong>
     </p>
     <p>
-      { props.isFollowing
+      {props.isFollowing
         ? 'and will be notified when others reply'
-        : 'and will stop receiving notifications.' }
+        : 'and will stop receiving notifications.'}
     </p>
     <br />
     <br />
@@ -38,9 +43,9 @@ const GuestToggleFollow = (props) => (
       Changed your mind?
       <a style={{marginLeft: 8}}
         href={props.isFollowing ? props.unfollowLink : props.followLink}>
-        { props.isFollowing
+        {props.isFollowing
           ? 'Unfollow'
-          : 'Follow again' }
+          : 'Follow again'}
       </a>
     </p>
     <p>
@@ -52,7 +57,7 @@ GuestToggleFollow.propTypes = {
   title: React.PropTypes.string.isRequired,
   isFollowing: React.PropTypes.bool.isRequired,
   followLink: React.PropTypes.string.isRequired,
-  unfollowLink: React.PropTypes.string.isRequired,
+  unfollowLink: React.PropTypes.string.isRequired
 }
 
 export default GuestToggleFollow
