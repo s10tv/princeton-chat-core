@@ -1,5 +1,5 @@
 export default {
-  signup ({Meteor, LocalState, FlowRouter}, emailAddress, firstName, lastName, classYear) {
+  signup ({Meteor, LocalState, FlowRouter}, emailAddress = '', firstName = '', lastName = '', classYear = '') {
     LocalState.set('SIGNING_UP', true)
 
     Meteor.call('signup', { emailAddress, firstName, lastName, classYear }, (err) => {
