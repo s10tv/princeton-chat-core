@@ -1,10 +1,7 @@
 import React from 'react'
-import {Flex, Block} from 'jsxstyle'
-import Card from 'material-ui/lib/card/card'
+import {Flex} from 'jsxstyle'
 import TextField from 'material-ui/lib/text-field'
-import Colors from 'material-ui/lib/styles/colors'
 import RaisedButton from 'material-ui/lib/raised-button'
-import FlatButton from 'material-ui/lib/flat-button'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 
 import { i18n } from '/imports/libs/mantra'
@@ -19,27 +16,34 @@ export default React.createClass({
     /**
      * The function to call to attempt login with facebook.
      */
-    loginWithFacebook: React.PropTypes.func.isRequired,
+    loginWithFacebook: React.PropTypes.func.isRequired
   },
+
   mixins: [LinkedStateMixin],
-  getInitialState() {
+
+  getInitialState () {
     return {}
   },
+
   childContextTypes: {
-    muiTheme: React.PropTypes.object,
+    muiTheme: React.PropTypes.object
   },
-  getChildContext() {
+
+  getChildContext () {
     return {
-      muiTheme: i18n('primaryMuiTheme'),
+      muiTheme: i18n('primaryMuiTheme')
     }
   },
-  handleSubmit(event) {
+
+  handleSubmit (event) {
     event.preventDefault()
     this.props.loginWithPassword(this.state['email'], this.state['password'])
   },
-  render() {
+
+  render () {
     return (
-      <Flex minHeight='100vh'
+      <Flex
+        minHeight='100vh'
         minWidth='100vw'
         justifyContent='center'
         alignItems='center'
@@ -53,17 +57,17 @@ export default React.createClass({
           style={{
             width: '80%', height: '80%', maxWidth: 360, maxHeight: 480,
             padding: 36,
-            margin: 24,
+            margin: 24
           }}>
           <h1 style={Object.assign({}, {
-              fontSize: 30, color: '#F07621', textAlign: 'center', fontWeight: 600,
+            fontSize: 30, color: '#F07621', textAlign: 'center', fontWeight: 600
           }, i18n('loginTitle'))}>{i18n('title')}</h1>
 
           <RaisedButton label='Login with Facebook'
             secondary={true} backgroundColor='#3b5998'
             onTouchTap={this.props.loginWithFacebook}
             style={{
-              alignSelf: 'center',
+              alignSelf: 'center'
             }} />
           <Flex alignItems='center' marginTop={32}>
             <hr style={{flex: 1}} />
@@ -71,10 +75,12 @@ export default React.createClass({
             <hr style={{flex: 1}} />
           </Flex>
           <form action='/login' onSubmit={this.handleSubmit} style={{
-              display: 'flex', flexDirection: 'column', alignItems: 'center'
-            }}>
-            <TextField floatingLabelText='Email' fullWidth={true} valueLink={this.linkState('email') }/>
-            <TextField floatingLabelText='Password' type='password' fullWidth={true} valueLink={this.linkState('password')} />
+            display: 'flex', flexDirection: 'column', alignItems: 'center'
+          }}>
+            <TextField floatingLabelText='Email' fullWidth={true}
+              valueLink={this.linkState('email') }/>
+            <TextField floatingLabelText='Password' type='password' fullWidth={true}
+              valueLink={this.linkState('password')} />
             <RaisedButton label='Login' primary={true} style={{margin: '30px 5px'}} type='submit' />
           </form>
         </Flex>
