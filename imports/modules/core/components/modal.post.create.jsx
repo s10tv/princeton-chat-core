@@ -1,12 +1,10 @@
 import React from 'react'
 import Dialog from 'material-ui/lib/dialog'
-import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
 import TextField from 'material-ui/lib/text-field'
 import Select from 'react-select'
 import Toolbar from 'material-ui/lib/toolbar/toolbar'
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
-import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import {Flex} from 'jsxstyle'
 import IconButton from 'material-ui/lib/icon-button'
@@ -14,8 +12,8 @@ import FontIcon from 'material-ui/lib/font-icon'
 import LinearProgress from 'material-ui/lib/linear-progress'
 import { i18n } from '/imports/libs/mantra'
 
-const theme = i18n('primaryMuiTheme');
-const primaryAccent = theme.baseTheme.palette.accent1Color;
+const theme = i18n('primaryMuiTheme')
+const primaryAccent = theme.baseTheme.palette.accent1Color
 
 export default React.createClass({
   propTypes: {
@@ -60,46 +58,46 @@ export default React.createClass({
     showSnackbarError: React.PropTypes.func.isRequired
   },
 
-  getInitialState() {
-    return { selectedTopicIds: '' };
+  getInitialState () {
+    return { selectedTopicIds: '' }
   },
 
-  onAddPost() {
-    const title = this.refs.title.getValue();
-    const content = this.refs.content.getValue();
-    const topics = this.state.selectedTopicIds;
+  onAddPost () {
+    const title = this.refs.title.getValue()
+    const content = this.refs.content.getValue()
+    const topics = this.state.selectedTopicIds
 
     // create action makes a callback with appropriate errors
     this.setState({
       loading: true
-    });
+    })
 
-    const errors = this.props.create(title, content, topics, (errors) => {
+    this.props.create(title, content, topics, (errors) => {
       if (errors) {
         this.setState({
           titleError: null,
           contentError: null,
           loading: false
-        });
+        })
         errors.forEach(error => {
           switch (error.type) {
             case 'title':
               this.setState({
                 titleError: error.reason
               })
-              break;
+              break
             case 'content':
               this.setState({
                 contentError: error.reason
-              });
-              break;
+              })
+              break
             // fall through intentional
             case 'topics':
             case 'server':
-              this.props.showSnackbarError(error.reason);
-              break;
+              this.props.showSnackbarError(error.reason)
+              break
           }
-        });
+        })
       } else {
         this.setState({
           selectedTopicIds: null,
@@ -108,31 +106,29 @@ export default React.createClass({
           loading: false
         })
       }
-    });
+    })
   },
 
-  modifyTopicsList(value) {
+  modifyTopicsList (value) {
     this.setState({
       selectedTopicIds: value
     })
 
-    this.props.updateTopicFollowers(value.split(','));
+    this.props.updateTopicFollowers(value.split(','))
   },
 
-  render() {
-    const { isOpen, handleClose, allTopics, showTopicFollowers } = this.props;
-
-    const isFollowersDisabled = this.state.selectedTopicIds == '';
+  render () {
+    const { isOpen, handleClose, allTopics, showTopicFollowers } = this.props
 
     const toolbar =
       <Toolbar>
-        <ToolbarGroup float="left">
-          <ToolbarTitle text="New Post" />
+        <ToolbarGroup float='left'>
+          <ToolbarTitle text='New Post' />
         </ToolbarGroup>
 
         <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
-          <IconButton tooltip="Close" onTouchTap={handleClose}>
-            <FontIcon className="material-icons">clear</FontIcon>
+          <IconButton tooltip='Close' onTouchTap={handleClose}>
+            <FontIcon className='material-icons'>clear</FontIcon>
           </IconButton>
         </ToolbarGroup>
       </Toolbar>
@@ -142,10 +138,10 @@ export default React.createClass({
          title={toolbar}
          bodyStyle={{ overflow: 'visible' }}
          actions={[
-           !this.state.selectedTopicIds ? null :
-           <a href='#' onClick={this.props.showTopicFollowers} style={{marginRight: 10}}>
-             {this.props.numFollowersNotified} people will be notified</a>
-           ,
+           !this.state.selectedTopicIds ? null
+           : <a href='#' onClick={showTopicFollowers} style={{marginRight: 10}}>
+               {this.props.numFollowersNotified} people will be notified
+             </a>,
            <RaisedButton
              label='Post'
              primary={true}
@@ -156,44 +152,37 @@ export default React.createClass({
          open={isOpen}>
          <Flex flexDirection='column'>
            { !this.state.titleError
-             ? <TextField ref="title" fullWidth={true} floatingLabelText='Subject' />
-             : <TextField ref="title"
+             ? <TextField ref='title' fullWidth={true} floatingLabelText='Subject' />
+             : <TextField ref='title'
                 errorStyle={{ color: primaryAccent, borderColor: primaryAccent }}
                 fullWidth={true}
                 floatingLabelText='Subject'
                 errorText={this.state.titleError} /> }
 
-           { !this.state.contentError ?
-           <TextField ref="content" fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
-              hintText='Start a conversation...'
-              floatingLabelText='Content' />
-           : <TextField ref="content"
-              errorStyle={{ color: primaryAccent, borderColor: '#F07621' }}
-              fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
-              hintText='Start a conversation...'
-              floatingLabelText='Content'
-              errorText={this.state.contentError} /> }
+           { !this.state.contentError
+             ? <TextField ref='content' fullWidth={true} multiLine={true} rowsMax={5} rows={5}
+                multiLine={true}
+                hintText='Start a conversation...'
+                floatingLabelText='Content' />
+             : <TextField ref='content'
+                errorStyle={{ color: primaryAccent, borderColor: '#F07621' }}
+                fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
+                hintText='Start a conversation...'
+                floatingLabelText='Content'
+                errorText={this.state.contentError} /> }
 
-           <Select
-             ref='topics'
-             name='postTopics'
-             placeholder='Add topics ... '
-             options={allTopics}
-             multi={true}
-             simpleValue={true}
-             value={this.state.selectedTopicIds}
-             onChange={this.modifyTopicsList}
-           />
+             <Select
+               ref='topics'
+               name='postTopics'
+               placeholder='Add topics ... '
+               options={allTopics}
+               multi={true}
+               simpleValue={true}
+               value={this.state.selectedTopicIds}
+               onChange={this.modifyTopicsList} />
            { !this.state.loading ? null : <LinearProgress mode='indeterminate' style={{marginTop: 20}}/> }
          </Flex>
       </Dialog>
     )
   }
 })
-
-// { isFollowersDisabled ? null :
-//   <ToolbarGroup float="right" lastChild={true}>
-//     <RaisedButton
-//       label="Show Followers"
-//       primary={true}
-//       onTouchTap={showTopicFollowers}  />
