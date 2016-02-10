@@ -11,7 +11,7 @@ export default class TopicManager {
     }})
 
     const topic = Topics.findOne(topicId)
-    if (topic.followers.filter(follower => follower.userId === user._id).length === 0) {
+    if (topic.followers.filter((follower) => follower.userId === user._id).length === 0) {
       Topics.update(topicId, { $addToSet: {
         followers: { userId: user._id, unreadCount: 0 }
       }})

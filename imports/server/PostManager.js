@@ -17,13 +17,13 @@ export default class PostManager {
       followingPosts: post._id
     }})
 
-    if (post.followers.filter(follower => follower.userId === user._id).length === 0) {
+    if (post.followers.filter((follower) => follower.userId === user._id).length === 0) {
       Posts.update(post._id, { $addToSet: {
         followers: { userId: user._id, unreadCount: 0 }
       }})
     }
 
-    post.topicIds.forEach(topicId => {
+    post.topicIds.forEach((topicId) => {
       Topics.update(topicId, { $set: {
         numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
       }})
@@ -48,7 +48,7 @@ export default class PostManager {
       followers: { userId: user._id }
     }})
 
-    post.topicIds.forEach(topicId => {
+    post.topicIds.forEach((topicId) => {
       Topics.update(topicId, { $set: {
         numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
       }})

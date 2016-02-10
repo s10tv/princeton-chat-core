@@ -1,4 +1,4 @@
-const crypto = Npm.require('crypto')
+import crypto from 'crypto'
 
 /**
  * NOTE: This hash is used across our mail and API servers.
@@ -7,7 +7,7 @@ const crypto = Npm.require('crypto')
  */
 const SALT = 'A8xu2aeHxVduuHWJgnBuUFoWZMQ(cacr'
 
-export function isValidHash(user, hash) {
+export function isValidHash (user, hash) {
   const userIdWithSalt = `${user._id}${SALT}`
   return crypto.createHash('sha256').update(userIdWithSalt).digest('hex') === hash
 }

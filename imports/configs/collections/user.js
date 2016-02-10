@@ -1,14 +1,17 @@
-Users = Meteor.users;
+import {Meteor} from 'meteor/meteor'
+import {SimpleSchema} from 'meteor/aldeed:simple-schema'
 
-ImageSchema = new SimpleSchema({
+const Users = Meteor.users
+
+const ImageSchema = new SimpleSchema({
   url: { type: String },
   isDefaultAvatar: { type: Boolean, optional: true, defaultValue: true },
   color: { type: String, optional: true },
   width: { type: Number, optional: true },
-  height: { type: Number, optional: true},
-});
+  height: { type: Number, optional: true }
+})
 
-UserSchema = new SimpleSchema({
+const UserSchema = new SimpleSchema({
   firstName: { type: String, optional: true },
   lastName: { type: String, optional: true },
   classYear: { type: String, optional: true },
@@ -18,7 +21,7 @@ UserSchema = new SimpleSchema({
     type: String,
     optional: true,
     allowedValues: ['digest', 'all', 'none'],
-    defaultValue: 'all',
+    defaultValue: 'all'
   },
   emails: { type: [Object], blackbox: true, optional: true },
   inviteCode: { type: String, optional: true },
@@ -40,66 +43,17 @@ UserSchema = new SimpleSchema({
   isFullMember: { type: Boolean, optional: true, defaultValue: false },
 
   // a list of topics that this user is an admin in.
-  topicAdmins: { type: [String], optional: true, defaultValue: []},
+  topicAdmins: { type: [String], optional: true, defaultValue: [] },
 
   status: {
     type: String,
     optional: true,
     allowedValues: ['disabled', 'active', 'pending', 'review'],
-    defaultValue: 'pending',
-  },
-})
-
-Users.attachBehaviour('timestampable');
-Users.attachSchema(UserSchema);
-
-Users.allow({
-  update: function (userId, doc, fields, modifier) {
-    if (userId !== doc._id) {
-      return false;
-    }
-
-    const checkFollowPost = {
-      $addToSet: {
-        followingPosts: String
-      }
-    };
-
-    const checkunfollowPost = {
-      $pull: {
-        followingPosts: String
-      }
-    };
-
-    const checkFollowTopic = {
-      $addToSet: {
-        followingTopics: String
-      }
-    };
-
-    const checkUnfollowTopic = {
-      $pull: {
-        followingTopics: String
-      }
-    };
-
-    try {
-      check(modifier, Match.OneOf(
-        checkFollowTopic,
-        checkUnfollowTopic,
-        checkFollowPost,
-        checkunfollowPost));
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
-
-    return true;
+    defaultValue: 'pending'
   }
 })
 
-Users.displayName = (user) => {
-  return `${user.firstName} ${user.lastName}`
-}
+Users.attachBehaviour('timestampable')
+Users.attachSchema(UserSchema)
 
-export default Users;
+export default Users

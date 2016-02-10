@@ -1,6 +1,5 @@
 import Comment from './comment'
 import Messages from './message'
-import Notification from './notification'
 import Post from './post'
 import Topic from './topic'
 import TopicHeader from './topicHeader'
@@ -13,5 +12,5 @@ export {
   Post,
   Topic,
   TopicHeader,
-  User,
+  User
 }

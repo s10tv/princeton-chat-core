@@ -1,15 +1,15 @@
-import Collections from './collections';
-import {Meteor} from 'meteor/meteor';
-import {FlowRouter} from 'meteor/kadira:flow-router';
-import {ReactiveDict} from 'meteor/reactive-dict';
-import {Tracker} from 'meteor/tracker';
+import Collections from './collections'
+import {Meteor} from 'meteor/meteor'
+import {FlowRouter} from 'meteor/kadira:flow-router'
+import {ReactiveDict} from 'meteor/reactive-dict'
+import {Tracker} from 'meteor/tracker'
 
-export function initContext() {
+export function initContext () {
   return {
     Meteor,
     FlowRouter,
     Collections,
-    LocalState: new ReactiveDict(),
-    Tracker
-  };
+    Tracker,
+    LocalState: new ReactiveDict()
+  }
 }

@@ -1,6 +1,9 @@
-Messages = new Mongo.Collection('messages');
+import {Mongo} from 'meteor/mongo'
+import {SimpleSchema} from 'meteor/aldeed:simple-schema'
 
-MessageSchema = new SimpleSchema({
+const Messages = new Mongo.Collection('messages')
+
+const MessageSchema = new SimpleSchema({
   ownerId: { type: String },
   postId: { type: String }, // post id or direct message thread id.
   content: { type: String, optional: true },
@@ -23,16 +26,16 @@ MessageSchema = new SimpleSchema({
     'linkservice']
   },
   qnum: { type: String, optional: true },
-  resumeType: { type: String, optional: true },
-});
+  resumeType: { type: String, optional: true }
+})
 
-Messages.attachBehaviour('timestampable');
-Messages.attachSchema(MessageSchema);
+Messages.attachBehaviour('timestampable')
+Messages.attachSchema(MessageSchema)
 
 Messages.allow({
-  insert: function(userId, doc, fields, modifier) {
-    return doc.ownerId == userId;
+  insert: function (userId, doc, fields, modifier) {
+    return doc.ownerId === userId
   }
 })
 
-export default Messages;
+export default Messages
