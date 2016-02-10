@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 4.0.0
+
+test:
+  override:
+    - npm test
+
+deployment:
+  dev:
+    branch: master
+    heroku:
+      appname: taylr-chat-dev
