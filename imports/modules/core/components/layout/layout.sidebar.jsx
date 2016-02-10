@@ -45,14 +45,6 @@ const SidebarHeader = (props) => {
   )
 }
 
-const DirectMessageList = (props) => (
-  <List subheader={<SubHeader label='DIRECT MESSAGES' action='ALL' />}>
-    {this.props.directMessages.map(directMessage =>
-      <SmallListItem key={directMessage._id}>{directMessage.displayName}</SmallListItem>
-    )}
-  </List>
-)
-
 const SubHeader = ({label, action, onClick}) => (
   <FlatButton style={{
       width: '100%',
@@ -110,7 +102,10 @@ export default React.createClass({
   render() {
     if (this.props.showOverlay) {
       return (
-        <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
+        <LeftNav
+            open={this.props.sidebarOpen}
+            style={{display: 'flex', flexDirection: 'column'}}
+            width={240} >
           <SidebarOverlay />
         </LeftNav>
       )
@@ -123,13 +118,25 @@ export default React.createClass({
         <AddNewPostButton onClick={this.props.showAddPostPopupFn}/>
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
-            <MediumListItem style={this.giveListItemStyleForRoutePath('all-mine')} onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>My Feed</MediumListItem>
-            <MediumListItem style={this.giveListItemStyleForRoutePath('all')} onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>All Posts</MediumListItem>
+            <MediumListItem
+                style={this.giveListItemStyleForRoutePath('all-mine')}
+                onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>
+                    My Feed
+            </MediumListItem>
+
+            <MediumListItem
+              style={this.giveListItemStyleForRoutePath('all')}
+              onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>
+                  All Posts
+            </MediumListItem>
           </List>
           <List subheader={<SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>}>
             {this.props.followedTopics.map((topic) =>
-              <SmallListItem style={this.giveListItemStyleForRoutePath(`topics/${topic._id}`)}key={topic._id} onTouchTap={this.props.showTopic.bind({ topic })}>
-                # {topic.displayName}
+              <SmallListItem
+                key={topic._id}
+                style={this.giveListItemStyleForRoutePath(`topics/${topic._id}`)}
+                onTouchTap={this.props.showTopic.bind({ topic })}>
+                    # {topic.displayName}
               </SmallListItem>
             )}
           </List>

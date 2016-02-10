@@ -19,28 +19,6 @@ export const composer = ({context}, onData) => {
         return FlowRouter.go(`/${this.location}`);
       }
 
-      const directMessages = Posts.find({ isDM: true }).map(post => {
-        const otherUsers = _.reject(post.followers, (follower) => {
-          return follower.userId == Meteor.userId();
-        }).map(follower => {
-          return Users.findOne(follower.userId);
-        }).filter(user => {
-          return user != undefined;
-        }).map(user => {
-          return UserService.getUserView(user);
-        })
-
-        post.displayName = otherUsers.map(otherUser => `${otherUser.displayUsername}`).join(',');
-        post.goToConversation = () => {
-          if (post.displayName == '@tigerbot') {
-            FlowRouter.go('/users/tigerbot')
-          } else {
-            FlowRouter.go(`/users/${post._id}`)
-          }
-        }
-        return post;
-      })
-
       const showAllTopics = () => {
         return FlowRouter.go('choose-topics');
       }
@@ -54,7 +32,6 @@ export const composer = ({context}, onData) => {
         followedTopics,
         showTopic,
         navigateTo,
-        directMessages,
         showAllTopics,
         onTapSettings,
         FlowRouter,
