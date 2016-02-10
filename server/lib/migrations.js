@@ -1,4 +1,4 @@
-import {Topics, TopicHeaders} from '/imports/configs/collections';
+import {Topics} from '/imports/configs/collections';
 import AvatarService from '/imports/libs/AvatarService';
 
 Migrations.add({
