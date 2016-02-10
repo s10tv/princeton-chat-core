@@ -1,4 +1,4 @@
-import Profile from '/imports/modules/core/components/profile.jsx'
+import Profile from '/imports/modules/core/components/modal.profile.jsx'
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
 
 export const composer = ({context}, onData) => {

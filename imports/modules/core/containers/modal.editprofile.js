@@ -1,4 +1,4 @@
-import EditProfileModal from '../components/editprofile.modal.jsx'
+import EditProfileModal from '../components/modal.editprofile.jsx'
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
 import UserService from '../../../libs/user.service'
 import AvatarService from '/imports/libs/avatar.service'

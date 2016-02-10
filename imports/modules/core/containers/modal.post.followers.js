@@ -1,4 +1,4 @@
-import PostFollowersModal from '../components/post.followers.modal.jsx'
+import PostFollowersModal from '../components/modal.post.followers.jsx'
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
 import UserService from '../../../libs/user.service'
 

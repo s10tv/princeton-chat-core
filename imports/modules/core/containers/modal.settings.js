@@ -1,4 +1,4 @@
-import LogoutModal from '/imports/modules/core/components/modal.logout.jsx'
+import SettingsModal from '/imports/modules/core/components/modal.settings.jsx'
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
 import UserService from '../../../libs/user.service'
 
@@ -20,4 +20,4 @@ const depsMapper = (context, actions) => ({
 export default composeAll(
   composeWithTracker(composer),
   useDeps(depsMapper)
-)(LogoutModal)
+)(SettingsModal)

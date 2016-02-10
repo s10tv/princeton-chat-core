@@ -1,11 +1,11 @@
 import React from 'react'
 import {StyleResizable} from 'material-ui/lib/mixins'
 import CreatePost from '/imports/modules/core/containers/post.create.js'
-import LogoutModal from '/imports/modules/core/containers/logout.modal.js'
+import SettingsModal from '/imports/modules/core/containers/modal.settings.js'
 import Sidebar from '/imports/modules/core/containers/layout.sidebar.js'
-import Profile from '/imports/modules/core/containers/profile.js'
-import EditProfileModal from '/imports/modules/core/containers/editprofile.modal.js'
-import PostFollowersModal from '/imports/modules/core/containers/post.followers.modal.js'
+import Profile from '/imports/modules/core/containers/modal.profile.js'
+import EditProfileModal from '/imports/modules/core/containers/modal.editprofile.js'
+import PostFollowersModal from '/imports/modules/core/containers/modal.post.followers.js'
 import GlobalSnackbar from '/imports/modules/core/containers/global.snackbar.js'
 import { i18n } from '/imports/libs/mantra'
 
@@ -44,7 +44,7 @@ export default React.createClass({
         <Sidebar sidebarOpen={sidebarOpen} />
         {content({ sidebarOpen, isAtLastTablet, isAtLeastDesktop })}
         <CreatePost />
-        <LogoutModal />
+        <SettingsModal />
         <EditProfileModal />
         <PostFollowersModal />
         <Profile />
