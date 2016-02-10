@@ -1,9 +1,9 @@
 export default {
-  closeModal({ LocalState }) {
-    LocalState.set('PROFILE_USER', null);
+  closeModal ({ LocalState }) {
+    LocalState.set('PROFILE_USER', null)
   },
 
-  showUserProfile({ LocalState }, user) {
-    LocalState.set('PROFILE_USER', user);
+  showUserProfile ({ LocalState }, user) {
+    LocalState.set('PROFILE_USER', user)
   }
 }
