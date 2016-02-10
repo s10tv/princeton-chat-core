@@ -2,7 +2,6 @@ import React from 'react'
 import {Flex} from 'jsxstyle'
 import InputBox from '/imports/modules/core/containers/inputBox.js'
 import {ScrollingContainer} from '/imports/modules/core/components/helpers.jsx'
-import Menu from '/imports/modules/core/components/menu.jsx'
 import {MessageGroup} from '/imports/modules/core/components/message.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
 import NavBar from './navbar.jsx'
@@ -13,11 +12,8 @@ export default React.createClass({
     /**
      * Proptypes are also indirectly passed to Menu
      */
-    ...Menu.propTypes,
-
     title: React.PropTypes.string.isRequired,
     topics: React.PropTypes.array.isRequired,
-
 
     /**
      * Post detail to render.
@@ -45,22 +41,26 @@ export default React.createClass({
     navigateToTopic: React.PropTypes.func.isRequired,
 
     deleteMessage: React.PropTypes.func.isRequired,
+
+    showUserProfileMessage: React.PropTypes.func.isRequired,
+
+    showUserProfilePost: React.PropTypes.func.isRequired
   },
 
-  render() {
+  render () {
     const { post, messages, showUserProfilePost, showUserProfileMessage, deleteMessage } = this.props
-// <Menu {...this.props} hidePostButton={false} />
+
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <NavBar>
           <Flex alignSelf='stretch' flexDirection='column'>
             <h1 style={{margin: 0, flex: 1, fontWeight: 500, fontSize: 24}}>{this.props.title}</h1>
-            <Flex flex={1} alignItems='center' style={{ lineHeight: '28px'}}>
+            <Flex flex={1} alignItems='center' style={{ lineHeight: '28px' }}>
               { this.props.topics.map(topic =>
-                <a
-                  key={topic._id}
-                  style={{ color:'#cccccc', cursor: 'pointer' }}
-                  onClick={ () => this.props.navigateToTopic(topic._id) }>{`#${topic.displayName}`}</a>
+                <a key={topic._id} style={{ color: '#cccccc', cursor: 'pointer' }}
+                  onClick={ () => this.props.navigateToTopic(topic._id) }>
+                  {`#${topic.displayName}`}
+                </a>
               )}
             </Flex>
           </Flex>
