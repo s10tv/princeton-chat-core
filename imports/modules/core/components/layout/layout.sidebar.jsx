@@ -25,23 +25,23 @@ const SidebarHeader = (props) => {
         paddingLeft: 8
       }} onTouchTap={props.onTapSettings}>
       <Flex>
-        { props.user.avatar.isDefaultAvatar
+        {props.user.avatar.isDefaultAvatar
           ? <LetterAvatar
-              color='white'
-              backgroundColor={props.user.avatar.color}
-              size={60}>
-                {props.user.avatarInitials}
-            </LetterAvatar>
+            color='white'
+            backgroundColor={props.user.avatar.color}
+            size={60}>
+              {props.user.avatarInitials}
+          </LetterAvatar>
           : <Avatar src={props.user.avatar.url} size={60} />
         }
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
           <h3 style={Object.assign({}, { color: accent1Color })}>
-            { i18n('title') }
+            {i18n('title')}
           </h3>
           <Flex alignItems='center' style={{ overflow: 'hidden' }}>
             <span style={{ width: 120, lineHeight: '24px', textOverflow: 'ellipsis',
               overflow: 'hidden'}}>
-              { props.user.shortDisplayName }
+              {props.user.shortDisplayName}
             </span>
             <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
           </Flex>
@@ -65,7 +65,7 @@ const SubHeader = ({label, action, onClick}) => (
 const AddNewPostButton = ({ onClick }) => (
   <Flex marginTop='15' marginBottom='7'>
     <RaisedButton primary label='New Post' labelPosition='after' onTouchTap={onClick}
-        style={{margin: '0px auto'}}>
+      style={{margin: '0px auto'}}>
       <FontIcon className='material-icons' color='white'
         style={{
           verticalAlign: 'middle',
@@ -73,7 +73,7 @@ const AddNewPostButton = ({ onClick }) => (
           marginLeft: 8
         }}>
          add_circle
-       </FontIcon>
+      </FontIcon>
     </RaisedButton>
   </Flex>
 )
@@ -111,8 +111,10 @@ export default React.createClass({
   render () {
     if (this.props.showOverlay) {
       return (
-        <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}}
-            width={240} >
+        <LeftNav
+          open={this.props.sidebarOpen}
+          style={{display: 'flex', flexDirection: 'column'}}
+          width={240} >
           <SidebarOverlay />
         </LeftNav>
       )
@@ -126,20 +128,20 @@ export default React.createClass({
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
             <MediumListItem
-                style={this.giveListItemStyleForRoutePath('all-mine')}
-                onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>
-                    My Feed
+              style={this.giveListItemStyleForRoutePath('all-mine')}
+              onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>
+                My Feed
             </MediumListItem>
 
             <MediumListItem
               style={this.giveListItemStyleForRoutePath('all')}
               onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>
-                  All Posts
+                All Posts
             </MediumListItem>
           </List>
           <List subheader={
-              <SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>
-            }>
+            <SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>
+          }>
             {this.props.followedTopics.map((topic) =>
               <SmallListItem
                 key={topic._id}

@@ -79,58 +79,58 @@ export default React.createClass({
 
   renderFollowerControls () {
     return (
-    <Flex alignItems='center' marginTop='12px' height={30}>
-      <a href='#' onClick={() => this.props.showPostFollowers(this.props.post.followers)}
-        style={{display: 'flex', alignItems: 'center'}}>
-        <Inline component='span' marginRight='8px'>
-          {this.props.followers.length > 0
-             ? (this.props.followers.length > 1 ? 'Followers:' : 'Follower:')
-             : 'No followers'} </Inline>
-        { this.props.followers.map(user => user.avatar.isDefaultAvatar
-          ? <LetterAvatar key={user._id} style={{marginRight: 3}} size={30} color='white'
-              backgroundColor={user.avatar.color}>
-              {user.avatarInitials}
-            </LetterAvatar>
-          : <Avatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
-        )}
-      </a>
-      <Flex marginLeft='auto'>
-        <a
-          style={{cursor: 'pointer'}}
-          onClick={this.handleFollowToggleClick.bind(this)}
-          onMouseOver={this.handleFollowToggleMouseOver.bind(this)}
-          onMouseOut={this.handleFollowToggleMouseOut.bind(this)}>
-          {this.props.isFollowing
-             ? (this.state.followToggleMouseOver ? 'Unfollow' : 'Following')
-             : 'Follow'}
+      <Flex alignItems='center' marginTop='12px' height={30}>
+        <a href='#' onClick={() => this.props.showPostFollowers(this.props.post.followers)}
+          style={{display: 'flex', alignItems: 'center'}}>
+          <Inline component='span' marginRight='8px'>
+            {this.props.followers.length > 0
+              ? (this.props.followers.length > 1 ? 'Followers:' : 'Follower:')
+              : 'No followers'} </Inline>
+            {this.props.followers.map((user) => user.avatar.isDefaultAvatar
+              ? <LetterAvatar key={user._id} style={{marginRight: 3}} size={30} color='white'
+                backgroundColor={user.avatar.color}>
+                {user.avatarInitials}
+              </LetterAvatar>
+              : <Avatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
+          )}
         </a>
+        <Flex marginLeft='auto'>
+          <a
+            style={{cursor: 'pointer'}}
+            onClick={this.handleFollowToggleClick.bind(this)}
+            onMouseOver={this.handleFollowToggleMouseOver.bind(this)}
+            onMouseOut={this.handleFollowToggleMouseOut.bind(this)}>
+            {this.props.isFollowing
+               ? (this.state.followToggleMouseOver ? 'Unfollow' : 'Following')
+               : 'Follow'}
+          </a>
+        </Flex>
       </Flex>
-    </Flex>
     )
   },
 
   renderInputControls () {
     return (
-    <Flex alignItems='center' marginTop='12px' height={30}>
-      {this.props.followers.map(user => user.avatar.isDefaultAvatar
-        ? <LetterAvatar key={user._id} size={30} style={{marginRight: 3}} color='white'
+      <Flex alignItems='center' marginTop='12px' height={30}>
+        {this.props.followers.map((user) => user.avatar.isDefaultAvatar
+          ? <LetterAvatar key={user._id} size={30} style={{marginRight: 3}} color='white'
             backgroundColor={user.avatar.color}>
             {user.avatarInitials}
           </LetterAvatar>
-        : <Avatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
-      )}
-      <Inline component='span' marginLeft='8px' marginRight='auto'>
-        {this.props.followers.length > 0
-           ? 'will be notified'
-           : 'No one will be notified'}
-      </Inline>
-      <Checkbox checkedLink={linkState(this, 'pressEnterToSend')} label='Press enter to send'
-        style={{maxWidth: 210}} />
-      { this.state.pressEnterToSend
-        ? null
-        : <RaisedButton disabled={this.state.text.length === 0} label='Send' primary
+          : <Avatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
+        )}
+        <Inline component='span' marginLeft='8px' marginRight='auto'>
+          {this.props.followers.length > 0
+             ? 'will be notified'
+             : 'No one will be notified'}
+        </Inline>
+        <Checkbox checkedLink={linkState(this, 'pressEnterToSend')} label='Press enter to send'
+          style={{maxWidth: 210}} />
+        {this.state.pressEnterToSend
+          ? null
+          : <RaisedButton disabled={this.state.text.length === 0} label='Send' primary
             onTouchTap={this.sendMessage.bind(this)} />}
-    </Flex>
+      </Flex>
     )
   },
 

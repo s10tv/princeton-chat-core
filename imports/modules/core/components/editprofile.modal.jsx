@@ -83,16 +83,16 @@ export default React.createClass({
               <TextField floatingLabelText='Username' onChange={usernameUpdate}
                 defaultValue={username} maxLength={20} />
               <SelectField floatingLabelText='Class Year' value={classYear}
-                 onChange={handleClassYearChange} maxHeight={300}>
+                onChange={handleClassYearChange} maxHeight={300}>
                 {_.range(1920, (new Date()).getFullYear())
                   .map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
               </SelectField>
-             </Flex>
+            </Flex>
             <Flex flexDirection='column' alignItems='center' justifyContent='space-around'>
-              { isDefaultAvatar
+              {isDefaultAvatar
                 ? <LetterAvatar size={150} color='white' backgroundColor={user.avatar.color}>
                     {user.avatarInitials}
-                  </LetterAvatar>
+                </LetterAvatar>
                 : <Avatar size={150} src={currentAvatarUrl} />
               }
               <RaisedButton label='Use Default Avatar' primary

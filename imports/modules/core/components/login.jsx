@@ -78,7 +78,7 @@ export default React.createClass({
             display: 'flex', flexDirection: 'column', alignItems: 'center'
           }}>
             <TextField floatingLabelText='Email' fullWidth
-              valueLink={this.linkState('email') }/>
+              valueLink={this.linkState('email')}/>
             <TextField floatingLabelText='Password' type='password' fullWidth
               valueLink={this.linkState('password')} />
             <RaisedButton label='Login' primary style={{margin: '30px 5px'}} type='submit' />

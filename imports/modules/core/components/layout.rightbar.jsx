@@ -80,7 +80,7 @@ export default React.createClass({
         />
 
         <List style={{paddingTop: 0, paddingBottom: 0}}>
-          {props.topic.followersList.map(f =>
+          {props.topic.followersList.map((f) =>
             <FollowerListItem key={f._id} follower={f}
               removeFollower={() => props.removeFollower(props.topic._id, f._id)}
               showUserProfile={props.showUserProfile} />
@@ -105,27 +105,27 @@ const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
     }>
     <a href='#' onClick={() => showUserProfile(follower)}>
       <Flex alignItems='center'>
-        { follower.isFullMember
+        {follower.isFullMember
           ? <UserAvatar user={follower} />
           : <Badge style={{padding: '15px 15px 0px 0px'}}
             badgeContent={
               <FontIcon className='material-icons' style={{fontSize: 20}}>language</FontIcon>
             }>
-              <UserAvatar user={follower} />
-            </Badge>
+            <UserAvatar user={follower} />
+          </Badge>
         }
         <Flex flexDirection='column'
           style={Object.assign({}, follower.isFullMember && { marginLeft: 15 })}>
-          { follower.displayName
+          {follower.displayName
             ? <span style={{fontWeight: 500}}>
-                { follower.displayName }
-              </span>
+              {follower.displayName}
+            </span>
             : null
           }
           <span style={Object.assign({}, { marginTop: 15 }, {
             color: accent1Color
           })}>
-            { follower.displayEmail }
+            {follower.displayEmail}
           </span>
         </Flex>
       </Flex>
@@ -136,7 +136,7 @@ const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
 const UserAvatar = ({user}) => (
   user.avatar.isDefaultAvatar
   ? <LetterAvatar size={40} color='white' backgroundColor={user.avatar.color}>
-      {user.avatarInitials}
-    </LetterAvatar>
+    {user.avatarInitials}
+  </LetterAvatar>
   : <Avatar size={40} src={user.avatar.url} />
 )
