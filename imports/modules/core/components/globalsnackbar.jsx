@@ -1,5 +1,5 @@
 import React from 'react'
-import Snackbar from 'material-ui/lib/snackbar';
+import Snackbar from 'material-ui/lib/snackbar'
 
 export default React.createClass({
   propTypes: {
@@ -19,14 +19,12 @@ export default React.createClass({
     snackbarErrorString: React.PropTypes.string.isRequired
   },
 
-  render() {
+  render () {
     return (
-      <Snackbar
-        open={this.props.isSnackbarOpen}
-        message={this.props.snackbarErrorString}
+      <Snackbar open={this.props.isSnackbarOpen} message={this.props.snackbarErrorString}
         autoHideDuration={4000}
         onRequestClose={this.props.closeSnackbar}
       />
     )
   }
-});
+})
