@@ -1,22 +1,21 @@
 import SignupForm from '/imports/modules/core/components/signup.form.jsx'
 import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
-import UserService from '/imports/libs/user.service'
 
 export const composer = ({context}, onData) => {
-  const { LocalState } = context();
-  const proceededToFollowTopics = LocalState.get('ONBOARDING_SHOW_FOLLOW_TOPIC') || false;
+  const { LocalState } = context()
+  const proceededToFollowTopics = LocalState.get('ONBOARDING_SHOW_FOLLOW_TOPIC') || false
 
   onData(null, {
-    proceededToFollowTopics,
-  });
-};
+    proceededToFollowTopics
+  })
+}
 
 const depsMapper = (context, actions) => ({
   closeSnackbar: actions.onboarding.closeSnackbar,
-  context: () => context,
-});
+  context: () => context
+})
 
 export default composeAll(
   composeWithTracker(composer),
   useDeps(depsMapper)
-)(SignupForm);
+)(SignupForm)

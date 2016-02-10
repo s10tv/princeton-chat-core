@@ -1,18 +1,18 @@
-import CreatePost from '/imports/modules/core/components/modal.post.create.jsx';
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
+import CreatePost from '/imports/modules/core/components/modal.post.create.jsx'
+import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
 
 export const composer = ({context}, onData) => {
-  const { Collections, LocalState } = context();
+  const { Collections, LocalState } = context()
 
-  const isOpen = LocalState.get('ADD_POST_POPUP_SHOWING') || false;
-  const allTopics = Collections.Topics.find().map(topic => {
-    return { value: topic._id , label: topic.displayName };
-  });
+  const isOpen = LocalState.get('ADD_POST_POPUP_SHOWING') || false
+  const allTopics = Collections.Topics.find().map((topic) => {
+    return { value: topic._id, label: topic.displayName }
+  })
 
-  const numFollowersNotified = LocalState.get('POST_FOLLOWERS') ? LocalState.get('POST_FOLLOWERS').length : 0;
+  const numFollowersNotified = LocalState.get('POST_FOLLOWERS') ? LocalState.get('POST_FOLLOWERS').length : 0
 
-  onData(null, { isOpen, allTopics, numFollowersNotified });
-};
+  onData(null, { isOpen, allTopics, numFollowersNotified })
+}
 
 export const depsMapper = (context, actions) => ({
   create: actions.posts.create,
@@ -21,10 +21,9 @@ export const depsMapper = (context, actions) => ({
   updateTopicFollowers: actions.topics.updateTopicFollowers,
   showSnackbarError: actions.posts.showSnackbarError,
   context: () => context
-});
-
+})
 
 export default composeAll(
   composeWithTracker(composer),
   useDeps(depsMapper)
-)(CreatePost);
+)(CreatePost)

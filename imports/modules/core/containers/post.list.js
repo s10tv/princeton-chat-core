@@ -6,71 +6,64 @@ import UserService from '/imports/libs/user.service'
 import DateFormatter from '/imports/libs/date.formatter'
 import _ from 'underscore'
 
-const NUM_MAX_DISPLAY_FOLLOWERS = 3;
+const NUM_MAX_DISPLAY_FOLLOWERS = 3
 
 export const composer = ({context, topicId, postListType}, onData) => {
-  const {Meteor, Collections, FlowRouter, LocalState} = context();
-  const currentUser = UserService.currentUser();
+  const {Meteor, Collections} = context()
+  const currentUser = UserService.currentUser()
 
   if (Meteor.subscribe('posts', topicId).ready() && Meteor.subscribe('topic', topicId).ready()) {
-    var topic;
-    var options = {};
-    options.isDM = { $ne: true };
+    var topic
+    var options = {isDM: {$ne: true}}
 
     switch (postListType) {
       case 'ALL':
-        topic =  {
+        topic = {
           displayName: 'All Posts',
-          followers: [],
-        };
-        break;
+          followers: []
+        }
+        break
 
       case 'ALL_MINE':
         topic = {
           displayName: 'My Feed',
-          followers: [],
-        };
+          followers: []
+        }
         options['$or'] = [
-          { _id: { $in: currentUser.followingPosts }},
-          { topicIds: { $in: currentUser.followingTopics }},
-        ];
-        break;
+          {_id: { $in: currentUser.followingPosts }},
+          {topicIds: { $in: currentUser.followingTopics }}
+        ]
+        break
 
       default:
-        topic = Collections.Topics.findOne(topicId);
-        options.topicIds = topicId;
-        break;
+        topic = Collections.Topics.findOne(topicId)
+        options.topicIds = topicId
+        break
     }
 
     topic.followersList = Collections.Users.find({
-      _id: { $in: topic.followers.map(follower => follower.userId) }
-    }).map(user => UserService.getUserView(user));
+      _id: { $in: topic.followers.map((follower) => follower.userId) }
+    }).map((user) => UserService.getUserView(user))
 
-    // used to show on the right nav bar
-    // topic.truncatedFollowersList = _.clone(topic.followersList);
-    // if (topic.truncatedFollowersList.length > 4) {
-    //   topic.truncatedFollowersList.length = 4;
-    // }
-
-    const posts = Collections.Posts.find(options, { sort: { createdAt: -1 }}).map(post => {
-      post.owner = UserService.getUserView(Collections.Users.findOne(post.ownerId));
+    const posts = Collections.Posts.find(options, {sort: { createdAt: -1 }}).map((post) => {
+      post.owner = UserService.getUserView(Collections.Users.findOne(post.ownerId))
 
       if (post.topicIds) {
-        post.topics = post.topicIds.map(topicId => {
-          return Collections.Topics.findOne(topicId);
-        }).filter(topic => {
-          return topic != undefined;
-        });
+        post.topics = post.topicIds.map((topicId) => {
+          return Collections.Topics.findOne(topicId)
+        }).filter((topic) => {
+          return topic !== undefined
+        })
       } else {
-        post.topics = [];
+        post.topics = []
       }
 
-      post.timestamp = DateFormatter.format(post);
-      post.truncatedContent = truncate(post.content, 300);
+      post.timestamp = DateFormatter.format(post)
+      post.truncatedContent = truncate(post.content, 300)
 
-      post.numFollowers = post.followers.length;
-      post.followerAvatars = post.followers.map(follower => {
-        var obj = {};
+      post.numFollowers = post.followers.length
+      post.followerAvatars = post.followers.map((follower) => {
+        var obj = {}
         const user = UserService.getUserView(Collections.Users.findOne(follower.userId))
         if (user) {
           obj = {
@@ -79,21 +72,23 @@ export const composer = ({context, topicId, postListType}, onData) => {
             userId: follower.userId
           }
         }
-        return obj;
-      }).filter(obj => !_.isEmpty(obj));
+        return obj
+      }).filter((obj) => !_.isEmpty(obj))
 
-      post.moreFollowersNumber = post.followerAvatars.length > NUM_MAX_DISPLAY_FOLLOWERS ? (post.followerAvatars.length - NUM_MAX_DISPLAY_FOLLOWERS) : 0;
-      post.followerAvatars.length = NUM_MAX_DISPLAY_FOLLOWERS;
-      post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0;
+      post.moreFollowersNumber = post.followerAvatars.length > NUM_MAX_DISPLAY_FOLLOWERS
+        ? (post.followerAvatars.length - NUM_MAX_DISPLAY_FOLLOWERS)
+        : 0
+      post.followerAvatars.length = NUM_MAX_DISPLAY_FOLLOWERS
+      post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0
 
-      var currentTopicId;
-      var currentPostId = post._id;
+      var currentTopicId
+      var currentPostId = post._id
 
       if (topicId) { // topicid is passed as arg to this whole function. (from URL)
-        currentTopicId = topicId; // user clicked on a post detail from a topic
+        currentTopicId = topicId // user clicked on a post detail from a topic
       } else {
         // the user clicked on a post detail from /all or /all-mine
-        [ currentTopicId ] = post.topicIds;
+        [ currentTopicId ] = post.topicIds
       }
 
       post.url = `/topics/${currentTopicId}/${currentPostId}`
@@ -110,15 +105,15 @@ export const composer = ({context, topicId, postListType}, onData) => {
       postListType,
       title: topic.displayName,
       isFollowing: currentUser.followingTopics.indexOf(topic._id) >= 0,
-      isEmpty: posts.length == 0,
-      disableClickToShowFollowers: topic._id == undefined,
-      hideFollowerSection: topic._id == undefined,
-      hideFollowActionSection: topic._id == undefined,
-    });
+      isEmpty: posts.length === 0,
+      disableClickToShowFollowers: topic._id === undefined,
+      hideFollowerSection: topic._id === undefined,
+      hideFollowActionSection: topic._id === undefined
+    })
   } else {
     return onData(null, null)
   }
-};
+}
 
 const depsMapper = (context, actions) => ({
   showAddPostPopupFn: actions.posts.showAddPostPopup,
@@ -133,9 +128,9 @@ const depsMapper = (context, actions) => ({
   unfollowPostFn: actions.posts.unfollow,
   removeFollower: actions.topics.removeFollower,
   context: () => context
-});
+})
 
 export default composeAll(
   composeWithTracker(composer, Loading),
   useDeps(depsMapper)
-)(PostList);
+)(PostList)
