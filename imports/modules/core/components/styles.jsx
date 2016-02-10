@@ -1,12 +1,12 @@
-const PRINCETON_ORANGE = '#F07621';
-const PRINCETON_WHITE = 'white';
-const GREY = '#cccccc';
+const PRINCETON_ORANGE = '#F07621'
+const PRINCETON_WHITE = 'white'
+const GREY = '#cccccc'
 
 export default {
   main: {
     height: '100vh',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
 
   primaryButton: {
@@ -50,4 +50,4 @@ export default {
   avatar: {
     objectFit: 'scale-down'
   }
-};
+}
