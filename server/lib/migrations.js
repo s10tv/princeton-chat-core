@@ -1,4 +1,4 @@
-import {Users, Topics, Messages} from '/imports/configs/collections';
+import {Users, Topics, Posts, Messages} from '/imports/configs/collections';
 import AvatarService from '/imports/libs/avatar.service';
 
 Migrations.add({
