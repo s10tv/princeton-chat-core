@@ -1,7 +1,7 @@
 // validates emails/firstnames/lastnames
 export default class UserInfoService {
-  static validateEmail(email) {
-    var error = {};
+  static validateEmail (email) {
+    var error = {}
 
     if (!email) {
       error = {
@@ -10,7 +10,7 @@ export default class UserInfoService {
       }
     }
 
-    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     if (!re.test(email)) {
       error = {
         type: 'email',
@@ -18,16 +18,16 @@ export default class UserInfoService {
       }
     }
 
-    return error;
+    return error
   }
 
-  static validateName(name) {
-    var error = {};
-    
+  static validateName (name) {
+    var error = {}
+
     if (!name) {
-      return error;
+      return error
     }
-    
+
     if (!name.length > 16) {
       error = {
         type: 'name',
@@ -35,6 +35,6 @@ export default class UserInfoService {
       }
     }
 
-    return error;
+    return error
   }
 }
