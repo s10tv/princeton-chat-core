@@ -135,7 +135,7 @@ export default React.createClass({
               <SmallListItem
                 key={topic._id}
                 style={this.giveListItemStyleForRoutePath(`topics/${topic._id}`)}
-                onTouchTap={this.props.showTopic.bind({ topic })}>
+                onTouchTap={() => { this.props.showTopic(topic._id)}}>
                     # {topic.displayName}
               </SmallListItem>
             )}

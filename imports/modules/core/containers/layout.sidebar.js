@@ -11,29 +11,14 @@ export const composer = ({context}, onData) => {
         _id: { $in : user.followingTopics}
       }).fetch() : [];
 
-      const showTopic = function() {
-        return FlowRouter.go(`/topics/${this.topic._id}`)
-      }
-
       const navigateTo = function() {
         return FlowRouter.go(`/${this.location}`);
-      }
-
-      const showAllTopics = () => {
-        return FlowRouter.go('choose-topics');
-      }
-
-      const onTapSettings = () => {
-        return LocalState.set('SETTINGS_DIALOG_SHOWING', true);
       }
 
       onData(null, {
         user,
         followedTopics,
-        showTopic,
         navigateTo,
-        showAllTopics,
-        onTapSettings,
         FlowRouter,
         showOverlay: user.status != 'active',
       });
@@ -43,6 +28,9 @@ export const composer = ({context}, onData) => {
 
 const depsMapper = (context, actions) => ({
   showAddPostPopupFn: actions.posts.showAddPostPopup,
+  showTopic: actions.topics.navigateToTopic,
+  showAllTopics: actions.topics.navigateToTopicList,
+  onTapSettings: actions.settings.editProfile,
   context: () => context
 });
 

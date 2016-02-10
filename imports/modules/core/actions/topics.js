@@ -85,7 +85,7 @@ export default {
       FlowRouter.go(`/topics/${topicId}`);
     });
   },
-  
+
   removeFollower({Meteor}, topicId, userId) {
     Meteor.call('topic/removeFollower', topicId, userId, (err) => {
       LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', 'Follower successfully removed!');
