@@ -56,27 +56,33 @@ export const composer = ({context, actions}, onData) => {
     LocalState.set('SETTINGS_EDIT_PROFILE_NEW_PASSWORD', event.target.value)
   }
 
-  const isDefaultAvatar = LocalState.get('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR') ||
-    user.avatar.isDefaultAvatar
-
+  var isDefaultAvatar = LocalState.get('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR')
+  if (isDefaultAvatar === undefined) {
+    isDefaultAvatar = user.avatar.isDefaultAvatar
+  }
+  const currentAvatarColor = LocalState.get('SETTINGS_EDIT_PROFILE_DEFAULT_AVATAR_COLOR') ||
+    user.avatar.color
   const currentAvatarUrl = LocalState.get('SETTINGS_EDIT_PROFILE_AVATAR') || user.avatar.url
 
   const changeAvatarToDefault = () => {
+    LocalState.set('SETTINGS_EDIT_PROFILE_DEFAULT_AVATAR_COLOR',
+      AvatarService.generateRandomColorForDefaultAvatar())
     LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', true)
-    LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', AvatarService.generateDefaultAvatarForAudience(process.env.AUDIENCE || 'princeton'))
+    LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR',
+      AvatarService.generateDefaultAvatarForAudience(process.env.AUDIENCE || 'princeton'))
   }
 
   const changeAvatarToFacebook = () => {
     if (user.services.facebook) {
-      LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', false)
       LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`)
+      LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', false)
     } else {
       Meteor.linkWithFacebook({}, (err) => {
         if (err) {
           return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
         } else {
-          LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', false)
           LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`)
+          LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', false)
         }
       })
     }
@@ -91,7 +97,8 @@ export const composer = ({context, actions}, onData) => {
       username: username,
       classYear: classYear,
       avatarUrl: currentAvatarUrl,
-      isDefaultAvatar: isDefaultAvatar
+      isDefaultAvatar: isDefaultAvatar,
+      avatarColor: currentAvatarColor
     }
 
     Meteor.call('profile/update', profile, (err) => {
@@ -129,6 +136,7 @@ export const composer = ({context, actions}, onData) => {
     changePassword,
     isDefaultAvatar,
     classYear,
+    currentAvatarColor,
     handleClassYearChange,
     currentAvatarUrl,
     changeAvatarToFacebook,

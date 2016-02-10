@@ -1,11 +1,10 @@
 import React from 'react'
 import { Flex, Inline } from 'jsxstyle'
 import TextField from 'material-ui/lib/text-field'
-import Avatar from 'material-ui/lib/avatar'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Checkbox from 'material-ui/lib/checkbox'
 import linkState from 'react-link-state'
-import { LetterAvatar } from '/imports/modules/core/components/helpers.jsx'
+import { LetterAvatar, CoverAvatar } from '/imports/modules/core/components/helpers.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -91,7 +90,7 @@ export default React.createClass({
                 backgroundColor={user.avatar.color}>
                 {user.avatarInitials}
               </LetterAvatar>
-              : <Avatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
+              : <CoverAvatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
           )}
         </a>
         <Flex marginLeft='auto'>
@@ -117,7 +116,7 @@ export default React.createClass({
             backgroundColor={user.avatar.color}>
             {user.avatarInitials}
           </LetterAvatar>
-          : <Avatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
+          : <CoverAvatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
         )}
         <Inline component='span' marginLeft='8px' marginRight='auto'>
           {this.props.followers.length > 0

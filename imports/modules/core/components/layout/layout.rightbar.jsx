@@ -3,7 +3,6 @@ import {Flex} from 'jsxstyle'
 import LeftNav from 'material-ui/lib/left-nav'
 import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
-import Avatar from 'material-ui/lib/avatar'
 import FlatButton from 'material-ui/lib/flat-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import Badge from 'material-ui/lib/badge'
@@ -13,7 +12,7 @@ import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert'
 import IconMenu from 'material-ui/lib/menus/icon-menu'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import { i18n } from '/imports/libs/mantra'
-import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
+import {LetterAvatar, CoverAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -138,5 +137,5 @@ const UserAvatar = ({user}) => (
   ? <LetterAvatar size={40} color='white' backgroundColor={user.avatar.color}>
     {user.avatarInitials}
   </LetterAvatar>
-  : <Avatar size={40} src={user.avatar.url} />
+  : <CoverAvatar size={40} src={user.avatar.url} />
 )

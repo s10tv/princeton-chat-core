@@ -1,15 +1,15 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
+import {LetterAvatar, CoverAvatar} from '/imports/modules/core/components/helpers.jsx'
 import List from 'material-ui/lib/lists/list'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Menu from '/imports/modules/core/components/menu.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
 import ListItem from 'material-ui/lib/lists/list-item'
-import Avatar from 'material-ui/lib/avatar'
 import RightBar from '/imports/modules/core/components/layout/layout.rightbar.jsx'
 import FlatButton from 'material-ui/lib/flat-button'
 import { i18n } from '/imports/libs/mantra'
+import Avatar from 'material-ui/lib/avatar'
 
 const theme = i18n('secondaryMuiTheme')
 
@@ -151,7 +151,7 @@ const PostListItem = (props) => (
               style={{marginRight: 10}}>
                 {props.post.owner.avatarInitials}
             </LetterAvatar>
-            : <Avatar src={props.post.owner.avatar.url} size={35} style={{marginRight: 10}} />
+            : <CoverAvatar src={props.post.owner.avatar.url} size={35} style={{marginRight: 10}} />
           }
           <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
             <span className='display-name'>
@@ -231,7 +231,7 @@ const FollowersBtn = (props) => (
           style={{marginRight: 5}}>
           {followerAvatar.avatarInitials}
         </LetterAvatar>
-        : <Avatar key={followerAvatar.userId}
+        : <CoverAvatar key={followerAvatar.userId}
           src={followerAvatar.avatar.url}
           size={30}
           style={{marginRight: 5}} />

@@ -6,8 +6,7 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import { Flex } from 'jsxstyle'
 import FontIcon from 'material-ui/lib/font-icon'
 import IconButton from 'material-ui/lib/icon-button'
-import { LetterAvatar } from '/imports/modules/core/components/helpers.jsx'
-import Avatar from 'material-ui/lib/avatar'
+import { LetterAvatar, CoverAvatar } from '/imports/modules/core/components/helpers.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -76,7 +75,7 @@ export default React.createClass({
               ? <LetterAvatar size={150} color='white' backgroundColor={user.avatar.color}>
                  {user.avatarInitials}
               </LetterAvatar>
-              : <Avatar size={150} src={user.avatar.url} />}
+              : <CoverAvatar size={150} src={user.avatar.url} />}
             <h1>{user.displayName}</h1>
             <h3>{user.displayUsername}</h3>
             <p>

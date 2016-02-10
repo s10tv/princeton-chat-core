@@ -5,8 +5,7 @@ import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import FlatButton from 'material-ui/lib/flat-button'
 import SidebarOverlay from '/imports/modules/core/components/onboarding/sidebar.overlay.jsx'
-import Avatar from 'material-ui/lib/avatar'
-import {SmallListItem, MediumListItem, LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
+import {SmallListItem, MediumListItem, LetterAvatar, CoverAvatar} from '/imports/modules/core/components/helpers.jsx'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import { i18n } from '/imports/libs/mantra'
@@ -32,7 +31,7 @@ const SidebarHeader = (props) => {
             size={60}>
               {props.user.avatarInitials}
           </LetterAvatar>
-          : <Avatar src={props.user.avatar.url} size={60} />
+          : <CoverAvatar src={props.user.avatar.url} size={60} />
         }
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
           <h3 style={Object.assign({}, { color: accent1Color })}>

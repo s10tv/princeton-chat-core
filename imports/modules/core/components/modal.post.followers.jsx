@@ -5,10 +5,9 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Dialog from 'material-ui/lib/dialog'
-import Avatar from 'material-ui/lib/avatar'
 import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
-import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
+import {LetterAvatar, CoverAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 export default class PostFollowersModal extends React.Component {
   render () {
@@ -48,7 +47,7 @@ export default class PostFollowersModal extends React.Component {
                 ? <LetterAvatar color='white' backgroundColor={follower.avatar.color}>
                     {follower.avatarInitials}
                 </LetterAvatar>
-                : <Avatar src={follower.avatar.src} />
+                : <CoverAvatar src={follower.avatar.src} />
               }
             />
           )}

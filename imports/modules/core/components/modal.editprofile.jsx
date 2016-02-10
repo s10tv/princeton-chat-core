@@ -11,8 +11,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import Divider from 'material-ui/lib/divider'
 import {Flex} from 'jsxstyle'
 import _ from 'underscore'
-import Avatar from 'material-ui/lib/avatar'
-import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
+import {LetterAvatar, CoverAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -34,7 +33,8 @@ export default React.createClass({
     currentAvatarUrl: React.PropTypes.string,
     changeAvatarToFacebook: React.PropTypes.func,
     changeAvatarToDefault: React.PropTypes.func,
-    isDefaultAvatar: React.PropTypes.bool
+    isDefaultAvatar: React.PropTypes.bool,
+    currentAvatarColor: React.PropTypes.string
   },
 
   render () {
@@ -57,6 +57,7 @@ export default React.createClass({
       currentAvatarUrl,
       changeAvatarToFacebook,
       changeAvatarToDefault,
+      currentAvatarColor,
       isDefaultAvatar } = this.props
 
     const toolbar =
@@ -90,10 +91,10 @@ export default React.createClass({
             </Flex>
             <Flex flexDirection='column' alignItems='center' justifyContent='space-around'>
               {isDefaultAvatar
-                ? <LetterAvatar size={150} color='white' backgroundColor={user.avatar.color}>
+                ? <LetterAvatar size={150} color='white' backgroundColor={currentAvatarColor}>
                     {user.avatarInitials}
                 </LetterAvatar>
-                : <Avatar size={150} src={currentAvatarUrl} />
+                : <CoverAvatar size={150} src={currentAvatarUrl} />
               }
               <RaisedButton label='Use Default Avatar' primary
                 onTouchTap={changeAvatarToDefault} />

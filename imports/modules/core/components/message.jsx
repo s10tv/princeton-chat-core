@@ -5,8 +5,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import IconButton from 'material-ui/lib/icon-button'
 import MoreHorizIcon from 'material-ui/lib/svg-icons/navigation/more-horiz'
 import {i18n} from '/imports/libs/mantra'
-import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
-import Avatar from 'material-ui/lib/avatar'
+import {LetterAvatar, CoverAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 const theme = i18n('secondaryMuiTheme')
 
@@ -54,7 +53,7 @@ export class MessageGroup extends React.Component {
               backgroundColor={props.owner.avatar.color}>
               {props.owner.avatarInitials}
             </LetterAvatar>
-            : <Avatar size={50} src={props.owner.avatar.url} />
+            : <CoverAvatar size={50} src={props.owner.avatar.url} />
           }
         </a>
         <Block flex={1} marginLeft={8}>

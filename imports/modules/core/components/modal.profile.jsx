@@ -3,8 +3,7 @@ import { Flex } from 'jsxstyle'
 import Paper from 'material-ui/lib/paper'
 import Dialog from 'material-ui/lib/dialog'
 import { i18n } from '/imports/libs/mantra'
-import Avatar from 'material-ui/lib/avatar'
-import { LetterAvatar } from '/imports/modules/core/components/helpers.jsx'
+import { LetterAvatar, CoverAvatar } from '/imports/modules/core/components/helpers.jsx'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -49,7 +48,7 @@ export default React.createClass({
                   backgroundColor={this.props.user.avatar.color}>
                    {this.props.user.avatarInitials}
                 </LetterAvatar>
-                : <Avatar size={150} src={this.props.user.avatar.url} />}
+                : <CoverAvatar size={150} src={this.props.user.avatar.url} />}
               <h1>{this.props.user.displayName}</h1>
               <h3 style={{ color: accent1Color }}>@{this.props.user.username}</h3>
               <p>

@@ -52,16 +52,22 @@ export const MediumListItem = (props) => (
 )
 
 export const SquareAvatar = (props) => (
-  <Avatar {...props} size={props.length} style={Object.assign({
+  <CoverAvatar {...props} size={props.length} style={Object.assign({
     borderRadius: 5,
     fontWeight: 300
   }, props.style)}>
     {props.children}
-  </Avatar>
+  </CoverAvatar>
 )
 
 export const LetterAvatar = (props) => (
   <Avatar {...props} style={Object.assign({}, {fontWeight: 300}, props.style)}>
+    {props.children}
+  </Avatar>
+)
+
+export const CoverAvatar = (props) => (
+  <Avatar {...props} style={Object.assign({objectFit: 'cover'}, props.style)}>
     {props.children}
   </Avatar>
 )
