@@ -10,8 +10,10 @@ import Avatar from 'material-ui/lib/avatar'
 import muiStyles from 'material-ui/lib/styles'
 import RightBar from '/imports/modules/core/components/layout.rightbar.jsx'
 import FlatButton from 'material-ui/lib/flat-button'
+import { i18n } from '/imports/libs/mantra'
 
 const Colors = muiStyles.Colors;
+const theme = i18n('secondaryMuiTheme');
 
 export default React.createClass({
   propTypes: {
@@ -148,7 +150,9 @@ const PostListItem = (props) => (
               </span>
             </a>
             <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
-              <span className='mention'>
+              <span className='mention' style={Object.assign({}, {
+                color: theme.baseTheme.palette.accent1Color
+              })}>
                 @{ props.post.owner.username }
               </span>
             </a>

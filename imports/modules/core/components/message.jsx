@@ -6,6 +6,9 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import IconButton from 'material-ui/lib/icon-button'
 import MoreHorizIcon from 'material-ui/lib/svg-icons/navigation/more-horiz'
 
+import { i18n } from '/imports/libs/mantra'
+const theme = i18n('secondaryMuiTheme');
+
 export const Message = (props) => (
   <div className='message'>
     <div className='message-content'>{ props.content }</div>
@@ -21,7 +24,7 @@ export class MessageGroup extends React.Component {
   render() {
     const props = this.props
     return (
-      <div className='message-group' 
+      <div className='message-group'
         onMouseEnter={() => this.setState({hover: true})}
         onMouseLeave={() => this.setState({hover: false})}
         style={{
@@ -49,7 +52,9 @@ export class MessageGroup extends React.Component {
               <span className='display-name'>{ props.owner.displayName }</span>
             </a>
             <a href="#" onClick={props.showUserProfile}>
-              <span className='mention'>{ props.owner.displayUsername }</span>
+              <span className='mention' style={Object.assign({}, {
+                  color: theme.baseTheme.palette.accent1Color
+                })}>{ props.owner.displayUsername }</span>
             </a>
             <span className='datetime'>{ props.timestamp }</span>
           </header>

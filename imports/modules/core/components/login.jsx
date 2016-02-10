@@ -6,7 +6,6 @@ import Colors from 'material-ui/lib/styles/colors'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FlatButton from 'material-ui/lib/flat-button'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
-import {primaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
 
 import { i18n } from '/imports/libs/mantra'
 
@@ -31,7 +30,7 @@ export default React.createClass({
   },
   getChildContext() {
     return {
-      muiTheme: primaryMuiTheme,
+      muiTheme: i18n('primaryMuiTheme'),
     }
   },
   handleSubmit(event) {

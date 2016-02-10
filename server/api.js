@@ -241,7 +241,6 @@ Meteor.methods({
     check(profile.firstName, String);
     check(profile.lastName, String);
     check(profile.classYear, Number);
-    check(profile.username, String);
     check(profile.avatarUrl, String);
 
     Users.update(user._id, {
@@ -249,7 +248,6 @@ Meteor.methods({
         firstName: profile.firstName,
         lastName: profile.lastName,
         classYear: profile.classYear,
-        username: profile.username,
         avatar: {
           url: profile.avatarUrl
         },
@@ -342,7 +340,7 @@ Meteor.methods({
       throw new Meteor.Error(500, 'There was a problem with unfollowing this topic.');
     }
   },
-  
+
   'topic/removeFollower': (topicId, userId) => {
     check(topicId, String)
     check(userId, String)
@@ -385,10 +383,10 @@ Meteor.methods({
 
     Posts.update(postId, { $inc: { numMsgs: 1 }});
   },
-  
+
   'messages/delete': _id => {
     check(_id, String);
-    
+
     const user = CurrentUser.get()
     const message = Messages.findOne(_id)
     if (message.ownerId !== user._id) {

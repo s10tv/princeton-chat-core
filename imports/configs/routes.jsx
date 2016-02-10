@@ -96,6 +96,9 @@ export default function (injectDeps) {
 
   FlowRouter.route('/hello', {
     name: 'signupForm',
+    subscriptions: function() {
+      this.register('userData', Meteor.subscribe('userData'));
+    },
     action() {
       mount(LayoutMainCtx, {
         content: (props) => <SignupForm {...props} />

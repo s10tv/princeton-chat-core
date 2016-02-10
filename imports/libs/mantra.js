@@ -89,6 +89,8 @@ export const composeWithObservable = _composeWithObservable;
 export const composeAll = _composeAll;
 
 export const i18n = (tag) => {
+  console.log(tag)
   const audience = Meteor.settings.public.audience || 'princeton'
+  console.log(Env[audience][tag])
   return Env[audience][tag]
 }

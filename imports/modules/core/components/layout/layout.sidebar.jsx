@@ -6,11 +6,15 @@ import ListItem from 'material-ui/lib/lists/list-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
 import SidebarOverlay from '/imports/modules/core/components/onboarding/sidebar.overlay.jsx'
-import {SmallListItem, MediumListItem, SquareAvatar, secondaryMuiTheme} from '/imports/modules/core/components/helpers.jsx'
+import {SmallListItem, MediumListItem, SquareAvatar } from '/imports/modules/core/components/helpers.jsx'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 
 import { i18n } from '/imports/libs/mantra'
+
+const theme = i18n('secondaryMuiTheme');
+const accent3Color = theme.baseTheme.palette.accent3Color;
+const primary3Color = theme.baseTheme.palette.primary3Color;
 
 const SidebarHeader = (props) => {
   return (
@@ -23,7 +27,9 @@ const SidebarHeader = (props) => {
       <Flex>
         <SquareAvatar src={ props.user.avatar.url } length={60} />
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
-          <h3>{ i18n('title') }</h3>
+          <h3 style={Object.assign({}, { color: theme.baseTheme.palette.alternateTextColor })}>
+            { i18n('title') }
+          </h3>
           <Flex alignItems='center' style={{ overflow: 'hidden' }}>
             <span style={{
                 width: '120px',
@@ -51,7 +57,7 @@ const SubHeader = ({label, action, onClick}) => (
       width: '100%',
       paddingLeft: 4,
       paddingRight: 16,
-      color: 'gray',
+      color: accent3Color,
       fontWeight: 'normal',
     }} onTouchTap={onClick}>
     <Flex justifyContent='space-between'>
@@ -92,11 +98,13 @@ export default React.createClass({
   },
   getChildContext() {
     return {
-      muiTheme: secondaryMuiTheme,
+      muiTheme: theme,
     }
   },
   giveListItemStyleForRoutePath(routeName) {
-    return (`/${routeName}` === FlowRouter.current().path) ? {backgroundColor: 'grey'} : {}
+    return (`/${routeName}` === FlowRouter.current().path) ? {
+      backgroundColor: primary3Color
+    } : {}
   },
   render() {
     if (this.props.showOverlay) {
@@ -108,7 +116,8 @@ export default React.createClass({
     }
 
     return (
-      <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}} width={240} >
+      <LeftNav open={this.props.sidebarOpen} width={240} style={
+          Object.assign({}, {display: 'flex', flexDirection: 'column'})}>
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
         <AddNewPostButton onClick={this.props.showAddPostPopupFn}/>
         <nav style={{flexGrow: 1, overflow: 'scroll'}}>

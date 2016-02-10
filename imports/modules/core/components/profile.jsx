@@ -3,6 +3,10 @@ import {Flex, Block} from 'jsxstyle'
 import Paper from 'material-ui/lib/paper'
 import Card from 'material-ui/lib/card/card'
 import Dialog from 'material-ui/lib/dialog';
+import { i18n } from '/imports/libs/mantra'
+
+const theme = i18n('secondaryMuiTheme');
+const accent1Color = theme.baseTheme.palette.accent1Color;
 
 export default React.createClass({
   propTypes: {
@@ -39,7 +43,7 @@ export default React.createClass({
               padding='36px'>
               <img src={this.props.user.avatar.url} className='profile-avatar' />
               <h1>{this.props.user.displayName}</h1>
-              <h3>@{this.props.user.username}</h3>
+              <h3 style={{ color: accent1Color }}>@{this.props.user.username}</h3>
               <p>{this.props.user.emails[0].address}</p>
             </Flex>
           </section>

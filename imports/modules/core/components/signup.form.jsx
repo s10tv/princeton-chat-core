@@ -13,8 +13,11 @@ import InputBox from '/imports/modules/core/containers/inputBox.js'
 import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
 import {TopicGridContainer} from '/imports/modules/core/containers/topic.list.js'
 import SetPasswordComponentBox from '/imports/modules/core/containers/setPassword.js';
-
 import {i18n} from '/imports/libs/mantra'
+
+const theme = i18n('secondaryMuiTheme');
+const primaryAccent = theme.baseTheme.palette.accent1Color;
+console.log(primaryAccent)
 
 const styles = Object.assign(importedStyles, {
   subTitle: {
@@ -26,7 +29,12 @@ const FollowTopicComponent = (props) => {
   return (
     <div className="onboarding-container">
       <div>
-        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>{i18n('title')}</Block>
+        <Block margin={24}
+            color={primaryAccent}
+            fontWeight='bold'
+            fontSize={30}
+            textAlign='center'>{i18n('title')}</Block>
+
         <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
           {i18n('onboardingDesc')}
         </h2>
@@ -43,7 +51,9 @@ const SetPasswordComponent = (props) => {
   return (
     <div className="onboarding-container">
       <div>
-        <Block margin={24} color='#F07621' fontWeight='bold' fontSize={30} textAlign='center'>{i18n('title')}</Block>
+        <Block margin={24} color={primaryAccent} fontWeight='bold' fontSize={30} textAlign='center'>
+          {i18n('title')}
+        </Block>
         <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
           {i18n('onboardingGreeting')}
         </h1>

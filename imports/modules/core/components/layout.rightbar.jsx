@@ -6,13 +6,15 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Avatar from 'material-ui/lib/avatar';
 import FlatButton from 'material-ui/lib/flat-button';
 import FontIcon from 'material-ui/lib/font-icon';
-import { i18n } from '/imports/libs/mantra'
 import Badge from 'material-ui/lib/badge';
 import Colors from 'material-ui/lib/styles/colors';
 import IconButton from 'material-ui/lib/icon-button';
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import { i18n } from '/imports/libs/mantra'
+
+const theme = i18n('secondaryMuiTheme');
 
 export default React.createClass({
   propTypes: {
@@ -72,8 +74,8 @@ export default React.createClass({
         />
 
         <List style={{paddingTop: 0, paddingBottom: 0}}>
-          {props.topic.followersList.map(f => 
-            <FollowerListItem key={f._id} follower={f} 
+          {props.topic.followersList.map(f =>
+            <FollowerListItem key={f._id} follower={f}
               removeFollower={() => props.removeFollower(props.topic._id, f._id)}
               showUserProfile={props.showUserProfile} />
           )}
@@ -117,7 +119,9 @@ const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
             :
             null
           }
-          <span style={Object.assign({color: '#F07621'}, follower.displayName && {marginTop: 15})}>
+          <span style={Object.assign({}, { marginTop: 15}, {
+              color: theme.baseTheme.palette.accent1Color
+            })}>
             { follower.displayEmail }
           </span>
         </Flex>

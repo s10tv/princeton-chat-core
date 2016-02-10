@@ -10,6 +10,8 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon';
 import IconButton from 'material-ui/lib/icon-button';
 
+const theme = i18n('secondaryMuiTheme');
+const primaryAccent = theme.baseTheme.palette.accent1Color;
 
 export default React.createClass({
   propTypes: {
@@ -232,8 +234,15 @@ const TextFieldEmail = React.createClass({
   },
 
   render() {
-    return !this.state.error ? <TextField ref={this.props.refComponent} hintText='name@domain.com' onBlur={this.handleBlur} />
-  : <TextField ref={this.props.refComponent} hintText='name@domain.com' onBlur={this.handleBlur} errorText={this.state.error} errorStyle={{ color: '#F07621', borderColor: '#F07621' }} />
+    return !this.state.error
+      ? <TextField ref={this.props.refComponent}
+          hintText='name@domain.com'
+          onBlur={this.handleBlur} />
+      : <TextField ref={this.props.refComponent}
+          hintText='name@domain.com'
+          onBlur={this.handleBlur}
+          errorText={this.state.error}
+          errorStyle={{ color: primaryAccent, borderColor: primaryAccent }} />
   }
 });
 
@@ -284,7 +293,7 @@ const TextFieldName = React.createClass({
 
   render() {
     return !this.state.error ? <TextField ref={this.props.refComponent} hintText={this.props.hintText} onBlur={this.handleBlur} /> :
-      <TextField ref={this.props.refComponent} hintText={this.props.hintText} onBlur={this.handleBlur} errorText={this.state.error} errorStyle={{ color: '#F07621', borderColor: '#F07621' }} />
+      <TextField ref={this.props.refComponent} hintText={this.props.hintText} onBlur={this.handleBlur} errorText={this.state.error} errorStyle={{ color: primaryAccent, borderColor: primaryAccent }} />
   }
 });
 

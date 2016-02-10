@@ -4,18 +4,29 @@ import SignupPrinceton from '/imports/modules/core/components/signup/signup-prin
 import SignupPed from '/imports/modules/core/components/signup/signup-ped.jsx'
 import SignupS10 from '/imports/modules/core/components/signup/signup-s10.jsx'
 
-_.extend(i18n.princeton, {
+import {
+  primaryMuiTheme,
+  secondaryMuiTheme,
+  pedPrimaryMuiTheme,
+  pedSecondaryMuiTheme } from '/imports/modules/core/components/helpers.jsx'
+
+i18n.princeton = _.extend(i18n.princeton, {
   signupComponent: SignupPrinceton,
+  primaryMuiTheme,
+  secondaryMuiTheme,
 })
 
-_.extend(i18n.s10, {
+i18n.s10 = _.extend(i18n.s10, {
   signupComponent: SignupS10,
+  primaryMuiTheme,
+  secondaryMuiTheme,
 
 })
 
-_.extend(i18n.ped, {
+i18n.ped = _.extend(i18n.ped, {
   signupComponent: SignupPed,
-
+  primaryMuiTheme: pedPrimaryMuiTheme,
+  secondaryMuiTheme: pedSecondaryMuiTheme,
 })
 
 export default i18n

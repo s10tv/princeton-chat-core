@@ -11,8 +11,6 @@ import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
 import CircularProgress from 'material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
 
-import { i18n } from '/imports/libs/mantra'
-
 // export const systemFont = `-apple-system, BlinkMacSystemFont,
 //   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
 //   "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue",
@@ -69,7 +67,7 @@ export const primaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: systemFont,
   palette: {
     ...lightRawTheme.palette,
-    accent1Color: i18n('primaryColor') // Princeton Orange
+    accent1Color: '#F07621', // princeton orange
   },
 })
 
@@ -78,10 +76,33 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: systemFont,
   palette: {
     ...darkRawTheme.palette,
-    accent1Color: '#f07621', // Princeton Orange,
+    accent1Color: '#F07621', // princeton orange
+    accent3Color: Colors.grey400,
     alternateTextColor: Colors.white,
   },
 })
+
+export const pedPrimaryMuiTheme = ThemeManager.getMuiTheme({
+  spacing: Spacing,
+  fontFamily: systemFont,
+  palette: {
+    ...lightRawTheme.palette,
+    accent1Color: '#5477AD', // ped blue
+  },
+});
+
+export const pedSecondaryMuiTheme = ThemeManager.getMuiTheme({
+  spacing: Spacing,
+  fontFamily: systemFont,
+  palette: {
+    ...darkRawTheme.palette,
+    accent1Color: '#5477AD', // ped blue
+    accent3Color: Colors.grey400,
+    primary3Color: '#5477AD', // ped blue
+    alternateTextColor: Colors.white,
+    canvasColor: '#1B293D', // dark blue
+  },
+});
 
 export class ScrollingContainer extends React.Component {
   scrollToBottom() {

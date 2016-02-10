@@ -12,6 +12,10 @@ import {Flex} from 'jsxstyle'
 import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import LinearProgress from 'material-ui/lib/linear-progress'
+import { i18n } from '/imports/libs/mantra'
+
+const theme = i18n('secondaryMuiTheme');
+const primaryAccent = theme.baseTheme.palette.accent1Color;
 
 export default React.createClass({
   propTypes: {
@@ -139,7 +143,8 @@ export default React.createClass({
          bodyStyle={{ overflow: 'visible' }}
          actions={[
            !this.state.selectedTopicIds ? null :
-           <a href='#' onClick={this.props.showTopicFollowers} style={{marginRight: 10}}>{this.props.numFollowersNotified} people will be notified</a>
+           <a href='#' onClick={this.props.showTopicFollowers} style={{marginRight: 10}}>
+             {this.props.numFollowersNotified} people will be notified</a>
            ,
            <RaisedButton
              label='Post'
@@ -150,17 +155,24 @@ export default React.createClass({
          modal={true}
          open={isOpen}>
          <Flex flexDirection='column'>
-           { !this.state.titleError ? <TextField ref="title" fullWidth={true} floatingLabelText='Subject' />
-           : <TextField ref="title" errorStyle={{ color: '#F07621', borderColor: '#F07621' }} fullWidth={true} floatingLabelText='Subject' errorText={this.state.titleError} /> }
+           { !this.state.titleError
+             ? <TextField ref="title" fullWidth={true} floatingLabelText='Subject' />
+             : <TextField ref="title"
+                errorStyle={{ color: primaryAccent, borderColor: primaryAccent }}
+                fullWidth={true}
+                floatingLabelText='Subject'
+                errorText={this.state.titleError} /> }
 
            { !this.state.contentError ?
            <TextField ref="content" fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
-             hintText='Start a conversation...'
-             floatingLabelText='Content' />
-           : <TextField ref="content" errorStyle={{ color: '#F07621', borderColor: '#F07621' }} fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
-                        hintText='Start a conversation...'
-                        floatingLabelText='Content'
-                        errorText={this.state.contentError} /> }
+              hintText='Start a conversation...'
+              floatingLabelText='Content' />
+           : <TextField ref="content"
+              errorStyle={{ color: primaryAccent, borderColor: '#F07621' }}
+              fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
+              hintText='Start a conversation...'
+              floatingLabelText='Content'
+              errorText={this.state.contentError} /> }
 
            <Select
              ref='topics'
