@@ -16,54 +16,54 @@ const styles = Object.assign(importedStyles, {
 
 const FollowTopicComponent = (props) => {
   return (
-  <div className='onboarding-container'>
-    <div>
-      <Block
-        margin={24}
-        color={accent1Color}
-        fontWeight='bold'
-        fontSize={30}
-        textAlign='center'>
-        {i18n('title')}
-      </Block>
-      <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-        {i18n('onboardingDesc')}
-      </h2>
-      <p style={styles.subTitle}>
-        Follow some topics to get started.
-      </p>
-      <TopicGridContainer style={{ marginTop: 16 }} />
+    <div className='onboarding-container'>
+      <div>
+        <Block
+          margin={24}
+          color={accent1Color}
+          fontWeight='bold'
+          fontSize={30}
+          textAlign='center'>
+          {i18n('title')}
+        </Block>
+        <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
+          {i18n('onboardingDesc')}
+        </h2>
+        <p style={styles.subTitle}>
+          Follow some topics to get started.
+        </p>
+        <TopicGridContainer style={{ marginTop: 16 }} />
+      </div>
     </div>
-  </div>
   )
 }
 
 const SetPasswordComponent = (props) => {
   return (
-  <div className='onboarding-container'>
-    <div>
-      <Block
-        margin={24}
-        color={accent1Color}
-        fontWeight='bold'
-        fontSize={30}
-        textAlign='center'>
-        {i18n('title')}
-      </Block>
-      <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
-        {i18n('onboardingGreeting')}
-      </h1>
-      <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
-        How would you like to login to {i18n('title')} in the future?
-      </h2>
-      <p style={styles.subTitle}>
-        You can either <b>set a password</b> or <b>link your account</b> with facebook.
-      </p>
-      <Flex alignItems='center' justifyContent='center'>
-        <SetPasswordComponentBox style={{ display: 'inline-block' }} />
-      </Flex>
+    <div className='onboarding-container'>
+      <div>
+        <Block
+          margin={24}
+          color={accent1Color}
+          fontWeight='bold'
+          fontSize={30}
+          textAlign='center'>
+          {i18n('title')}
+        </Block>
+        <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
+          {i18n('onboardingGreeting')}
+        </h1>
+        <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
+          How would you like to login to {i18n('title')} in the future?
+        </h2>
+        <p style={styles.subTitle}>
+          You can either <b>set a password</b> or <b>link your account</b> with facebook.
+        </p>
+        <Flex alignItems='center' justifyContent='center'>
+          <SetPasswordComponentBox style={{ display: 'inline-block' }} />
+        </Flex>
+      </div>
     </div>
-  </div>
   )
 }
 
@@ -82,11 +82,11 @@ export default React.createClass({
 
   render () {
     return (
-    <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
-      {this.props.proceededToFollowTopics
-         ? <FollowTopicComponent {...this.props} />
-         : <SetPasswordComponent {...this.props} />}
-    </main>
+      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
+        {this.props.proceededToFollowTopics
+           ? <FollowTopicComponent {...this.props} />
+           : <SetPasswordComponent {...this.props} />}
+      </main>
     )
   }
 })

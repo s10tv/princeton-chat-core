@@ -69,7 +69,7 @@ export default React.createClass({
           hidePostButton={this.props.isEmpty}
           {...this.props} />
 
-        { this.props.isEmpty ? <EmptyPostList {...this.props} /> : <PostList {...this.props} /> }
+        {this.props.isEmpty ? <EmptyPostList {...this.props} /> : <PostList {...this.props} />}
         <RightBar isOpen={isRightBarOpen} {...this.props} />
       </main>
     )
@@ -90,7 +90,7 @@ const EmptyPostListNotInFeed = ({ showAddPostPopupFn }) => (
     <h2>It's awfully quiet in here</h2>
     <h3>Let's break the ice</h3>
     <RaisedButton
-      primary={true}
+      primary
       onTouchTap={showAddPostPopupFn}
       label='Create a new post' />
     <img src='/images/bg-empty-feed.png' alt='empty feed'
@@ -109,7 +109,7 @@ const EmptyPostListInFeed = ({ navigateToTopicListFn }) => (
     <h2>Your feed is empty :c</h2>
     <h3>Follow some topics to jumpstart your feed</h3>
     <RaisedButton
-      primary={true}
+      primary
       onTouchTap={navigateToTopicListFn}
       label='Follow Topics' />
     <img src='/images/bg-empty-feed.png' alt='empty feed'
@@ -125,7 +125,7 @@ const EmptyPostListInFeed = ({ navigateToTopicListFn }) => (
 const PostList = (props) => (
   <section className='post-list' style={{flexGrow: 1}}>
     <List style={{padding: '0px 0px', paddingLeft: 10}}>
-      { props.posts.map(post =>
+      {props.posts.map((post) =>
         <PostListItem key={post._id} post={post} {...props} />
       )}
     </List>
@@ -134,7 +134,7 @@ const PostList = (props) => (
 
 const PostListItem = (props) => (
   <ListItem
-    disabled={true}
+    disabled
     style={{
       borderBottom: '1px solid #e0e0e0',
       padding: 10
@@ -143,34 +143,34 @@ const PostListItem = (props) => (
 
       <Flex flexDirection='row' justifyContent='space-between' alignItems='center'>
         <Flex alignItems='center'>
-          { props.post.owner.avatar.isDefaultAvatar
+          {props.post.owner.avatar.isDefaultAvatar
             ? <LetterAvatar
-                color='white'
-                backgroundColor={props.post.owner.avatar.color}
-                size={35}
-                style={{marginRight: 10}}>
-                {props.post.owner.avatarInitials}
-              </LetterAvatar>
+              color='white'
+              backgroundColor={props.post.owner.avatar.color}
+              size={35}
+              style={{marginRight: 10}}>
+              {props.post.owner.avatarInitials}
+            </LetterAvatar>
             : <Avatar src={props.post.owner.avatar.url} size={35} style={{marginRight: 10}} />
           }
           <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
             <span className='display-name'>
-              { props.post.owner.displayName }
+              {props.post.owner.displayName}
             </span>
           </a>
           <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
             <span className='mention' style={Object.assign({}, {
               color: theme.baseTheme.palette.accent1Color
             })}>
-              @{ props.post.owner.username }
+              @{props.post.owner.username}
             </span>
           </a>
-          <span className='datetime'>{ props.post.timestamp }</span>
+          <span className='datetime'>{props.post.timestamp}</span>
         </Flex>
         <Flex marginRight={16}>
           <a href={props.post.url}>
             <Flex alignItems='center'>
-              <span style={{color: '#999', marginRight: 10}}>{ props.post.numMsgs }</span>
+              <span style={{color: '#999', marginRight: 10}}>{props.post.numMsgs}</span>
               <img src='/images/chat-bubble.svg' />
             </Flex>
           </a>
@@ -178,7 +178,7 @@ const PostListItem = (props) => (
       </Flex>
 
       <Flex style={{marginTop: 20}}>
-        { props.post.topics.map(topic =>
+        {props.post.topics.map((topic) =>
           <span key={topic._id} style={{marginRight: 10}}>
             <a href='#' onClick={() => {
               props.navigateToTopic(topic._id)
@@ -195,7 +195,7 @@ const PostListItem = (props) => (
       </a>
 
       <a href={props.post.url} style={{marginTop: 12}}>
-        <p>{ props.post.truncatedContent }</p>
+        <p>{props.post.truncatedContent}</p>
       </a>
 
       <Flex flexDirection='row' justifyContent='space-between' marginTop={20}>
@@ -214,45 +214,44 @@ const FollowersBtn = (props) => (
   props.post.numFollowers === 0
   ? <Flex alignItems='center' fontSize={15}>No Followers</Flex>
   : <Flex alignItems='center'>
-      <a href='#'
-        onClick={() => props.showPostFollowers(props.post.followers)}
-        style={{display: 'flex', alignItems: 'center'}}>
+    <a href='#'
+      onClick={() => props.showPostFollowers(props.post.followers)}
+      style={{display: 'flex', alignItems: 'center'}}>
 
       <span style={{marginRight: 7, fontSize: 15}}>
         {props.post.followers.length > 1 ? 'Followers:' : 'Follower:'}
       </span>
 
-      { props.post.followerAvatars.map(followerAvatar =>
+      {props.post.followerAvatars.map((followerAvatar) =>
         followerAvatar.avatar.isDefaultAvatar
         ? <LetterAvatar key={followerAvatar.userId}
-            size={30}
-            color='white'
-            backgroundColor={followerAvatar.avatar.color}
-            style={{marginRight: 5}}>
-            {followerAvatar.avatarInitials}
-          </LetterAvatar>
+          size={30}
+          color='white'
+          backgroundColor={followerAvatar.avatar.color}
+          style={{marginRight: 5}}>
+          {followerAvatar.avatarInitials}
+        </LetterAvatar>
         : <Avatar key={followerAvatar.userId}
-            src={followerAvatar.avatar.url}
-            size={30}
-            style={{marginRight: 5}} />
+          src={followerAvatar.avatar.url}
+          size={30}
+          style={{marginRight: 5}} />
       )}
 
-      { props.post.moreFollowersNumber === 0
+      {props.post.moreFollowersNumber === 0
         ? null
         : <Avatar size={30} backgroundColor={'rgba(0, 0, 0, 0)'}
-            color='#999'
-            style={{ border: 'solid 1px #999', fontSize: 14 }}>
-              +{props.post.moreFollowersNumber}
-          </Avatar> }
-
-      </a>
-    </Flex>
+          color='#999'
+          style={{ border: 'solid 1px #999', fontSize: 14 }}>
+            +{props.post.moreFollowersNumber}
+        </Avatar>}
+    </a>
+  </Flex>
 )
 
 const FollowBtn = (props) => (
   props.post.isFollowingPost
-    ? <FlatButton primary={true} label='Unfollow'
-        onTouchTap={() => props.unfollowPostFn(props.post._id)} />
-    : <FlatButton primary={true} label='Follow'
-        onTouchTap={() => props.followPostFn(props.post._id)} />
+    ? <FlatButton primary label='Unfollow'
+      onTouchTap={() => props.unfollowPostFn(props.post._id)} />
+    : <FlatButton primary label='Follow'
+      onTouchTap={() => props.followPostFn(props.post._id)} />
 )

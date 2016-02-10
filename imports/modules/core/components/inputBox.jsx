@@ -128,7 +128,7 @@ export default React.createClass({
         style={{maxWidth: 210}} />
       { this.state.pressEnterToSend
         ? null
-        : <RaisedButton disabled={this.state.text.length === 0} label='Send' primary={true}
+        : <RaisedButton disabled={this.state.text.length === 0} label='Send' primary
             onTouchTap={this.sendMessage.bind(this)} />}
     </Flex>
     )
@@ -144,8 +144,8 @@ export default React.createClass({
           border='2px solid #d9d9d9'
           borderRadius={5}>
           <TextField
-            multiLine={true}
-            fullWidth={true}
+            multiLine
+            fullWidth
             underlineShow={false}
             rowsMax={8}
             hintText='Type a message...'

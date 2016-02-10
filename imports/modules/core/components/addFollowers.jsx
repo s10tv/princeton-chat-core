@@ -69,7 +69,7 @@ export default React.createClass({
   },
 
   sendInvitations () {
-    const textFieldRows = this.state.textFieldRowRefs.map(textFieldRowRef => {
+    const textFieldRows = this.state.textFieldRowRefs.map((textFieldRowRef) => {
       return this.refs[textFieldRowRef]
     })
 
@@ -78,7 +78,7 @@ export default React.createClass({
     }, false)
 
     if (!hasValidationError) {
-      const userInfos = textFieldRows.map(textFieldRow => {
+      const userInfos = textFieldRows.map((textFieldRow) => {
         const email = textFieldRow.refs.emailWrapper.refs.email.getValue()
         const firstName = textFieldRow.refs.firstNameWrapper.refs.firstName.getValue()
         const lastName = textFieldRow.refs.lastNameWrapper.refs.lastName.getValue()
@@ -123,7 +123,7 @@ export default React.createClass({
                   </tr>
                 </thead>
                 <tbody>
-                  { this.state.textFieldRowRefs.map((textFieldRowRef, index) => (
+                  {this.state.textFieldRowRefs.map((textFieldRowRef, index) => (
                     <TextFieldRow
                       id={textFieldRowRef}
                       removeRow={this.removeRow}
@@ -139,14 +139,14 @@ export default React.createClass({
             <FlatButton
               label='Add Another'
               labelPosition='after'
-              primary={true}
+              primary
               onTouchTap={this.addNewFollower}
               icon={<FontIcon className='material-icons'>add</FontIcon>}
               style={{marginTop: 10}}/>
           </Flex >
 
           <Flex marginBottom={20}>
-            <RaisedButton label={giveAddFollowersLabel(this.state.textFieldRowRefs.length)} primary={true} onTouchTap={this.sendInvitations} />
+            <RaisedButton label={giveAddFollowersLabel(this.state.textFieldRowRefs.length)} primary onTouchTap={this.sendInvitations} />
           </Flex>
         </Flex>
       </main>
@@ -198,7 +198,7 @@ const TextFieldRow = React.createClass({
         <td><TextFieldName ref='lastNameWrapper' refComponent='lastName'
               hintText='Eater (optional)' validateName={this.props.validateName} />
         </td>
-        { this.props.isRemoveButtonHidden
+        {this.props.isRemoveButtonHidden
           ? null
           : (<td>
               <IconButton onTouchTap={() => this.props.removeRow(this.props.id)}>

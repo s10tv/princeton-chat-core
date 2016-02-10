@@ -44,51 +44,52 @@ export default React.createClass({
       return null
     }
 
-    const toolbar =
-    <Toolbar>
-      <ToolbarGroup float='left'>
-        <ToolbarTitle text='Settings' />
-      </ToolbarGroup>
-      <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
-        <IconButton tooltip='Close' onTouchTap={handleClose}>
-          <FontIcon className='material-icons'>
-            clear
-          </FontIcon>
-        </IconButton>
-      </ToolbarGroup>
-    </Toolbar>
+    const toolbar = (
+      <Toolbar>
+        <ToolbarGroup float='left'>
+          <ToolbarTitle text='Settings' />
+        </ToolbarGroup>
+        <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
+          <IconButton tooltip='Close' onTouchTap={handleClose}>
+            <FontIcon className='material-icons'>
+              clear
+            </FontIcon>
+          </IconButton>
+        </ToolbarGroup>
+      </Toolbar>
+    )
 
     return (
-    <Dialog
-      title={toolbar}
-      modal={false}
-      open={isOpen}
-      onRequestClose={handleClose}>
-      <section className='profile-header'>
-        <Flex
-          flexDirection='column'
-          alignItems='center'
-          justifyContent='center'
-          position='relative'
-          padding='36px'>
-          { user.avatar.isDefaultAvatar
-            ? <LetterAvatar size={150} color='white' backgroundColor={user.avatar.color}>
-               {user.avatarInitials}
+      <Dialog
+        title={toolbar}
+        modal={false}
+        open={isOpen}
+        onRequestClose={handleClose}>
+        <section className='profile-header'>
+          <Flex
+            flexDirection='column'
+            alignItems='center'
+            justifyContent='center'
+            position='relative'
+            padding='36px'>
+            {user.avatar.isDefaultAvatar
+              ? <LetterAvatar size={150} color='white' backgroundColor={user.avatar.color}>
+                 {user.avatarInitials}
               </LetterAvatar>
-            : <Avatar size={150} src={user.avatar.url} /> }
-          <h1>{user.displayName}</h1>
-          <h3>{user.displayUsername}</h3>
-          <p>
-            {user.displayEmail}
-          </p>
-          <p className='profile-edit'>
-            <a href='#' onClick={editProfile}>Edit Profile</a> | <a href='#' onClick={onLogout}>
-              Logout
-            </a>
-          </p>
-        </Flex>
-      </section>
-    </Dialog>
+              : <Avatar size={150} src={user.avatar.url} />}
+            <h1>{user.displayName}</h1>
+            <h3>{user.displayUsername}</h3>
+            <p>
+              {user.displayEmail}
+            </p>
+            <p className='profile-edit'>
+              <a href='#' onClick={editProfile}>Edit Profile</a> | <a href='#' onClick={onLogout}>
+                Logout
+              </a>
+            </p>
+          </Flex>
+        </section>
+      </Dialog>
     )
   }
 })

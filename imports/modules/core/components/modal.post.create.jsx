@@ -79,7 +79,7 @@ export default React.createClass({
           contentError: null,
           loading: false
         })
-        errors.forEach(error => {
+        errors.forEach((error) => {
           switch (error.type) {
             case 'title':
               this.setState({
@@ -135,53 +135,58 @@ export default React.createClass({
 
     return (
       <Dialog
-         title={toolbar}
-         bodyStyle={{ overflow: 'visible' }}
-         actions={[
-           !this.state.selectedTopicIds ? null
-           : <a href='#' onClick={showTopicFollowers} style={{marginRight: 10}}>
-               {this.props.numFollowersNotified} people will be notified
-             </a>,
-           <RaisedButton
-             label='Post'
-             primary={true}
-             onTouchTap={this.onAddPost} />
-         ]}
-         actionsContainerStyle={{padding: '0px 24px', paddingBottom: 24}}
-         modal={true}
-         open={isOpen}>
-         <Flex flexDirection='column'>
-           { !this.state.titleError
-             ? <TextField ref='title' fullWidth={true} floatingLabelText='Subject' />
-             : <TextField ref='title'
-                errorStyle={{ color: primaryAccent, borderColor: primaryAccent }}
-                fullWidth={true}
-                floatingLabelText='Subject'
-                errorText={this.state.titleError} /> }
+        title={toolbar}
+        bodyStyle={{ overflow: 'visible' }}
+        actions={[
+          !this.state.selectedTopicIds ? null
+            : <a href='#' onClick={showTopicFollowers} style={{marginRight: 10}}>
+              {this.props.numFollowersNotified} people will be notified
+            </a>,
+          <RaisedButton
+            label='Post'
+            primary
+            onTouchTap={this.onAddPost} />
+        ]}
+        actionsContainerStyle={{padding: '0px 24px', paddingBottom: 24}}
+        modal
+        open={isOpen}>
+        <Flex flexDirection='column'>
+          {!this.state.titleError
+            ? <TextField ref='title' fullWidth floatingLabelText='Subject' />
+            : <TextField ref='title'
+              errorStyle={{ color: primaryAccent, borderColor: primaryAccent }}
+              fullWidth
+              floatingLabelText='Subject'
+              errorText={this.state.titleError} />}
 
-           { !this.state.contentError
-             ? <TextField ref='content' fullWidth={true} multiLine={true} rowsMax={5} rows={5}
-                multiLine={true}
-                hintText='Start a conversation...'
-                floatingLabelText='Content' />
-             : <TextField ref='content'
-                errorStyle={{ color: primaryAccent, borderColor: '#F07621' }}
-                fullWidth={true} multiLine={true} rowsMax={5} rows={5} multiLine={true}
-                hintText='Start a conversation...'
-                floatingLabelText='Content'
-                errorText={this.state.contentError} /> }
+          {!this.state.contentError
+            ? <TextField ref='content' fullWidth
+              rowsMax={5}
+              rows={5}
+              multiLine
+              hintText='Start a conversation...'
+              floatingLabelText='Content' />
+            : <TextField ref='content'
+              errorStyle={{ color: primaryAccent, borderColor: '#F07621' }}
+              fullWidth
+              rowsMax={5}
+              rows={5}
+              multiLine
+              hintText='Start a conversation...'
+              floatingLabelText='Content'
+              errorText={this.state.contentError} />}
 
-             <Select
-               ref='topics'
-               name='postTopics'
-               placeholder='Add topics ... '
-               options={allTopics}
-               multi={true}
-               simpleValue={true}
-               value={this.state.selectedTopicIds}
-               onChange={this.modifyTopicsList} />
-           { !this.state.loading ? null : <LinearProgress mode='indeterminate' style={{marginTop: 20}}/> }
-         </Flex>
+          <Select
+            ref='topics'
+            name='postTopics'
+            placeholder='Add topics ... '
+            options={allTopics}
+            multi
+            simpleValue
+            value={this.state.selectedTopicIds}
+            onChange={this.modifyTopicsList} />
+          {!this.state.loading ? null : <LinearProgress mode='indeterminate' style={{marginTop: 20}}/>}
+        </Flex>
       </Dialog>
     )
   }

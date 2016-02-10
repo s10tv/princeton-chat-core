@@ -64,7 +64,7 @@ const SubHeader = ({label, action, onClick}) => (
 
 const AddNewPostButton = ({ onClick }) => (
   <Flex marginTop='15' marginBottom='7'>
-    <RaisedButton primary={true} label='New Post' labelPosition='after' onTouchTap={onClick}
+    <RaisedButton primary label='New Post' labelPosition='after' onTouchTap={onClick}
         style={{margin: '0px auto'}}>
       <FontIcon className='material-icons' color='white'
         style={{

@@ -64,7 +64,7 @@ export default React.createClass({
           }, i18n('loginTitle'))}>{i18n('title')}</h1>
 
           <RaisedButton label='Login with Facebook'
-            secondary={true} backgroundColor='#3b5998'
+            secondary backgroundColor='#3b5998'
             onTouchTap={this.props.loginWithFacebook}
             style={{
               alignSelf: 'center'
@@ -77,11 +77,11 @@ export default React.createClass({
           <form action='/login' onSubmit={this.handleSubmit} style={{
             display: 'flex', flexDirection: 'column', alignItems: 'center'
           }}>
-            <TextField floatingLabelText='Email' fullWidth={true}
+            <TextField floatingLabelText='Email' fullWidth
               valueLink={this.linkState('email') }/>
-            <TextField floatingLabelText='Password' type='password' fullWidth={true}
+            <TextField floatingLabelText='Password' type='password' fullWidth
               valueLink={this.linkState('password')} />
-            <RaisedButton label='Login' primary={true} style={{margin: '30px 5px'}} type='submit' />
+            <RaisedButton label='Login' primary style={{margin: '30px 5px'}} type='submit' />
           </form>
         </Flex>
       </Flex>

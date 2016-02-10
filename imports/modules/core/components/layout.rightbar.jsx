@@ -50,7 +50,7 @@ export default React.createClass({
   render () {
     const props = this.props
     return (
-      <LeftNav width={320} openRight={true} open={this.props.isOpen}
+      <LeftNav width={320} openRight open={this.props.isOpen}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -73,7 +73,7 @@ export default React.createClass({
         </h4>
 
         <FlatButton
-          primary={true}
+          primary
           onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
           label='Add Followers'
           style={{marginTop: 10}}
@@ -92,10 +92,10 @@ export default React.createClass({
 })
 
 const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
-  <ListItem disabled={true} style={{padding: '15px 0px'}} rightIconButton={
+  <ListItem disabled style={{padding: '15px 0px'}} rightIconButton={
     <IconMenu iconButtonElement={
       <IconButton
-        touch={true}
+        touch
         tooltip='more'
         tooltipPosition='bottom-left'>
         <MoreVertIcon color={Colors.grey400} />

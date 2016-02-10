@@ -56,9 +56,9 @@ export default React.createClass({
           <Flex alignSelf='stretch' flexDirection='column'>
             <h1 style={{margin: 0, flex: 1, fontWeight: 500, fontSize: 24}}>{this.props.title}</h1>
             <Flex flex={1} alignItems='center' style={{ lineHeight: '28px' }}>
-              { this.props.topics.map(topic =>
+              {this.props.topics.map((topic) =>
                 <a key={topic._id} style={{ color: '#cccccc', cursor: 'pointer' }}
-                  onClick={ () => this.props.navigateToTopic(topic._id) }>
+                  onClick={() => this.props.navigateToTopic(topic._id)}>
                   {`#${topic.displayName}`}
                 </a>
               )}
@@ -68,7 +68,7 @@ export default React.createClass({
         <ScrollingContainer child={
           <article className='post-details'>
             <MessageGroup owner={post.owner} timestamp={post.timestamp} content={post.content} showUserProfile={() => showUserProfilePost(post)} />
-            { messages.map(message =>
+            {messages.map((message) =>
               <MessageGroup
                 key={message._id}
                 owner={message.owner}

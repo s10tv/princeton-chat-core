@@ -17,9 +17,9 @@ export default React.createClass({
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <Menu {...this.props}
-            title={'Follow some topics'}
-            hideFollowerSection={true}
-            hideFollowActionSection={true} />
+          title={'Follow some topics'}
+          hideFollowerSection
+          hideFollowActionSection />
 
         <Flex flex={1} flexDirection='column' alignItems='center'>
           <h1>Browse all topics</h1>
@@ -54,7 +54,7 @@ export const TopicGrid = React.createClass({
   render () {
     return (
       <Flex className='topic-list-container' flexWrap='wrap' justifyContent='center' {...this.props}>
-        { this.props.topics.map((topic) =>
+        {this.props.topics.map((topic) =>
           <TopicListItem
             key={topic._id}
             topic={topic}
@@ -87,11 +87,11 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
 
       {
         topic.isFollowed
-        ? <FlatButton primary={true}
-            label='Following' onTouchTap={() => { unfollowTopic(topic._id) }} />
+        ? <FlatButton primary
+          label='Following' onTouchTap={() => { unfollowTopic(topic._id) }} />
         : <FlatButton label='Follow' labelPosition='after'
-            icon={<FontIcon className='material-icons'>add</FontIcon>}
-            onTouchTap={() => { followTopic(topic._id) }} />
+          icon={<FontIcon className='material-icons'>add</FontIcon>}
+          onTouchTap={() => { followTopic(topic._id) }} />
       }
     </Flex>
   )

@@ -64,10 +64,10 @@ export default React.createClass({
         <ToolbarGroup float='left'>
           <ToolbarTitle text='Edit Profile' />
         </ToolbarGroup>
-        <ToolbarGroup float='right' lastChild={true}>
-          <RaisedButton label='Cancel' secondary={true} onTouchTap={handleClose}
+        <ToolbarGroup float='right' lastChild>
+          <RaisedButton label='Cancel' secondary onTouchTap={handleClose}
             style={{marginRight: 0}} />
-          <RaisedButton label='Done' primary={true} onTouchTap={handleSubmit} />
+          <RaisedButton label='Done' primary onTouchTap={handleSubmit} />
         </ToolbarGroup>
       </Toolbar>
 
@@ -95,9 +95,9 @@ export default React.createClass({
                   </LetterAvatar>
                 : <Avatar size={150} src={currentAvatarUrl} />
               }
-              <RaisedButton label='Use Default Avatar' primary={true}
+              <RaisedButton label='Use Default Avatar' primary
                 onTouchTap={changeAvatarToDefault} />
-              <RaisedButton label='Use Facebook Photo' secondary={true} backgroundColor='#3b5998'
+              <RaisedButton label='Use Facebook Photo' secondary backgroundColor='#3b5998'
                 onTouchTap={changeAvatarToFacebook} />
             </Flex>
           </Flex>
@@ -107,7 +107,7 @@ export default React.createClass({
               onChange={handleOldPasswordChange} />
             <TextField type='password' floatingLabelText='New Password'
               onChange={handleNewPasswordChange} />
-            <FlatButton primary={true} label='Change Password' onTouchTap={changePassword}
+            <FlatButton primary label='Change Password' onTouchTap={changePassword}
               style={{marginTop: 10}}/>
           </Flex>
         </Flex>

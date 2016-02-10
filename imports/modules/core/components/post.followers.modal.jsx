@@ -39,15 +39,15 @@ export default class PostFollowersModal extends React.Component {
         onRequestClose={closeModal}
         bodyStyle={{overflow: 'scroll'}}>
         <List>
-          { followers.map((follower) =>
+          {followers.map((follower) =>
             <ListItem
               key={follower._id}
               onTouchTap={() => showUserProfile(follower)}
               primaryText={follower.displayEmail}
-              leftAvatar={ follower.avatar.isDefaultAvatar
+              leftAvatar={follower.avatar.isDefaultAvatar
                 ? <LetterAvatar color='white' backgroundColor={follower.avatar.color}>
                     {follower.avatarInitials}
-                  </LetterAvatar>
+                </LetterAvatar>
                 : <Avatar src={follower.avatar.src} />
               }
             />

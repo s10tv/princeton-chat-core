@@ -97,47 +97,47 @@ export default React.createClass({
   getFollowerButton () {
     const emailIcon = this.props.sidebarOpen ? null
     : <FontIcon className='material-icons' color='white'
-        style={{
-          verticalAlign: 'middle',
-          height: '100%',
-          marginLeft: (this.props.sidebarOpen ? 8 : 0)
-        }}>
-          email
-      </FontIcon>
+      style={{
+        verticalAlign: 'middle',
+        height: '100%',
+        marginLeft: (this.props.sidebarOpen ? 8 : 0)
+      }}>
+      email
+    </FontIcon>
 
     if (this.props.isFollowing) {
       return <FlatButton
-        label={ this.props.sidebarOpen ? 'Following' : null }
+        label={this.props.sidebarOpen ? 'Following' : null}
         style={{
           backgroundColor: '#8BC34A',
           color: '#ffffff'
         }}
         onTouchTap={this.props.unfollowFn}>
-          { emailIcon }
+          {emailIcon}
       </FlatButton>
     } else {
       return <FlatButton
-        label={ this.props.sidebarOpen ? 'Follow' : null }
+        label={this.props.sidebarOpen ? 'Follow' : null}
         style={{
           backgroundColor: '#F06721',
           color: '#ffffff'
         }}
         onTouchTap={this.props.followFn}>
-          { emailIcon }
+          {emailIcon}
       </FlatButton>
     }
   },
 
   getOptionallyClickableTitleText (children) {
     if (this.props.disableClickToShowFollowers) {
-      return <span>{ children }</span>
+      return <span>{children}</span>
     }
 
     return (
       <a className='topic-header-link-button'
-          href='#'
-          onClick={() =>
-            this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}>
+        href='#'
+        onClick={() =>
+          this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}>
         {children}
       </a>
     )
@@ -149,45 +149,45 @@ export default React.createClass({
     }
 
     return (
-      <Toolbar style={{ backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000 }}>
+      <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000}}>
 
-        { this.props.sidebarOpen ? null
-          : <ToolbarGroup firstChild={true}>
-              <IconButton iconClassName='material-icons' tooltip='Menu'
-                onTouchTap={() => {
-                  console.log('clicked menu')
-                }}>
-                menu
-              </IconButton>
-            </ToolbarGroup>
+        {this.props.sidebarOpen ? null
+          : <ToolbarGroup firstChild>
+            <IconButton iconClassName='material-icons' tooltip='Menu'
+              onTouchTap={() => {
+                console.log('clicked menu')
+              }}>
+              menu
+            </IconButton>
+          </ToolbarGroup>
         }
 
-        { this.props.hideTitleSection ? null
+        {this.props.hideTitleSection ? null
           : <ToolbarGroup >
-              { this.getOptionallyClickableTitleText(<ToolbarTitle text={this.getTitleText()} />)}
-            </ToolbarGroup>
+            {this.getOptionallyClickableTitleText(<ToolbarTitle text={this.getTitleText()} />)}
+          </ToolbarGroup>
         }
 
-        { this.props.hideFollowerSection ? null
+        {this.props.hideFollowerSection ? null
           : <ToolbarGroup style={{height: '100%'}}>
-              <Flex alignItems='center' height='100%'>
-                <a className='topic-header-link-button' href='#'
-                  onClick={() =>
-                    this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}
-                  style={{display: 'flex', alignItems: 'center'}}>
-                  <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
-                  <span style={{marginLeft: 5}}>{ this.props.followersCount }</span>
-                </a>
-              </Flex>
-            </ToolbarGroup>
+            <Flex alignItems='center' height='100%'>
+              <a className='topic-header-link-button' href='#'
+                onClick={() =>
+                  this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}
+                style={{display: 'flex', alignItems: 'center'}}>
+                <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
+                <span style={{marginLeft: 5}}>{this.props.followersCount}</span>
+              </a>
+            </Flex>
+          </ToolbarGroup>
         }
 
-        { this.props.hideFollowActionSection ? null
+        {this.props.hideFollowActionSection ? null
           : <ToolbarGroup
-              float='right'
-              lastChild={true}>
-              { this.getFollowerButton() }
-            </ToolbarGroup>
+            float='right'
+            lastChild>
+            {this.getFollowerButton()}
+          </ToolbarGroup>
         }
 
       </Toolbar>
