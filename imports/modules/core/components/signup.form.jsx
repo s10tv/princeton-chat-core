@@ -26,7 +26,9 @@ const FollowTopicComponent = (props) => {
         textAlign='center'>
         {i18n('title')}
       </Block>
-      <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>{i18n('onboardingDesc')}</h2>
+      <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
+        {i18n('onboardingDesc')}
+      </h2>
       <p style={styles.subTitle}>
         Follow some topics to get started.
       </p>
@@ -48,8 +50,12 @@ const SetPasswordComponent = (props) => {
         textAlign='center'>
         {i18n('title')}
       </Block>
-      <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>{i18n('onboardingGreeting')}</h1>
-      <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>How would you like to login to {i18n('title')} in the future?</h2>
+      <h1 style={{fontSize: 48, fontWeight: 'normal', textAlign: 'center'}}>
+        {i18n('onboardingGreeting')}
+      </h1>
+      <h2 style={{fontSize: 20, fontWeight: 'normal', textAlign: 'center', padding: '0 16px'}}>
+        How would you like to login to {i18n('title')} in the future?
+      </h2>
       <p style={styles.subTitle}>
         You can either <b>set a password</b> or <b>link your account</b> with facebook.
       </p>
