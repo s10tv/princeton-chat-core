@@ -132,7 +132,7 @@
       }
     },
     "postmark": {
-      "version": "http://registry.npmjs.org/postmark/-/postmark-1.2.1.tgz",
+      "version": "1.2.1",
       "dependencies": {
         "git-rev": {
           "version": "0.2.1"

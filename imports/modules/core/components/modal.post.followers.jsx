@@ -47,7 +47,7 @@ export default class PostFollowersModal extends React.Component {
                 ? <LetterAvatar color='white' backgroundColor={follower.avatar.color}>
                     {follower.avatarInitials}
                 </LetterAvatar>
-                : <CoverAvatar src={follower.avatar.src} />
+                : <CoverAvatar src={follower.avatar.url} />
               }
             />
           )}
