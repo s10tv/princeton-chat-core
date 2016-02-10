@@ -1,9 +1,7 @@
 import React from 'react'
-import {Flex, Block} from 'jsxstyle'
-import {Message, MessageGroup} from './message.jsx'
+import {Flex} from 'jsxstyle'
 import InputBox from '../containers/inputBox.js'
 import Paper from 'material-ui/lib/paper'
-import Card from 'material-ui/lib/card/card'
 
 export default (props) => (
   <Flex {...props}>
@@ -32,19 +30,19 @@ export default (props) => (
           <li>#random</li>
         </ul>
         <div className='profile-info-table'>
-          <div className="row">
+          <div className='row'>
             <label>User #</label>
             <span>3</span>
           </div>
-          <div className="row">
+          <div className='row'>
             <label>Email that is super long</label>
             <span>tonyx.xiddda.h2222.sa@alumni.princeton.edu</span>
           </div>
-          <div className="row">
+          <div className='row'>
             <label>Last active</label>
             <span>Yesterday</span>
           </div>
-          <div className="row">
+          <div className='row'>
             <label>Email</label>
             <span>tonyx.ca@alumni.princeton.edu</span>
           </div>
