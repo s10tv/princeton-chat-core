@@ -1,16 +1,19 @@
 import React from 'react'
 import {Flex, Block} from 'jsxstyle'
-import List from 'material-ui/lib/lists/list'
-import ListItem from 'material-ui/lib/lists/list-item'
-import Checkbox from 'material-ui/lib/checkbox'
 import FlatButton from 'material-ui/lib/flat-button'
-import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import Menu from '/imports/modules/core/components/menu.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
 
 export default React.createClass({
-  render() {
+  propTypes: {
+    /**
+     * Boolean to show/hide siderbar
+     */
+    sidebarOpen: React.PropTypes.bool.isRequired
+  },
+
+  render () {
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <Menu {...this.props}
@@ -28,15 +31,10 @@ export default React.createClass({
       </main>
     )
   }
-});
+})
 
 export const TopicGrid = React.createClass({
   propTypes: {
-    /**
-     * Proptypes will also be passed to Flex layout.
-     */
-    ...Flex.propTypes,
-
     /**
      * The list of topics you can subscribe to.
      */
@@ -50,12 +48,12 @@ export const TopicGrid = React.createClass({
     /**
      * The function that is called when I want to unfollow a topic.
      */
-    unfollowTopic: React.PropTypes.func.isRequired,
+    unfollowTopic: React.PropTypes.func.isRequired
   },
 
-  render() {
+  render () {
     return (
-      <Flex className="topic-list-container" flexWrap='wrap' justifyContent='center' {...this.props}>
+      <Flex className='topic-list-container' flexWrap='wrap' justifyContent='center' {...this.props}>
         { this.props.topics.map((topic) =>
           <TopicListItem
             key={topic._id}
@@ -70,12 +68,12 @@ export const TopicGrid = React.createClass({
 
 const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
   const topicPostsCountFollowersCountStr = () => {
-    var str = [];
+    var str = []
     if (topic.numPosts) {
-      str.push(`${topic.numPosts} posts`);
+      str.push(`${topic.numPosts} posts`)
     }
     if (topic.followersCount) {
-      str.push(`${topic.followersCount} followers`);
+      str.push(`${topic.followersCount} followers`)
     }
     return str.join(' - ')
   }
