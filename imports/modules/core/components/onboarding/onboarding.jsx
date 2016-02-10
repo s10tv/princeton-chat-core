@@ -9,7 +9,7 @@ import {Flex, Block} from 'jsxstyle'
 import styles from '/imports/modules/core/components/styles.jsx'
 import { welcome, followTopics, thanks, linkService, raw } from './tigerBotMessages.jsx'
 import {Message, MessageGroup} from '/imports/modules/core/components/message.jsx'
-import InputBox from '/imports/modules/core/containers/inputbox.js'
+import InputBox from '/imports/modules/core/containers/inputBox.js'
 import { ScrollingContainer } from '/imports/modules/core/components/helpers.jsx'
 import { i18n } from '/imports/libs/mantra'
 

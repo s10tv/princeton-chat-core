@@ -1,19 +1,21 @@
+import {Accounts} from 'meteor/accounts-base'
+import {Users} from '/imports/configs/collections'
+
 Accounts.registerLoginHandler('invite', (serviceData) => {
   if (!serviceData.invite) {
-    return undefined;
+    return undefined
   }
-  console.log('invite code: ', serviceData.invite);
+  console.log('invite code: ', serviceData.invite)
 
-  user = Users.findOne({ inviteCode: serviceData.invite })
+  const user = Users.findOne({ inviteCode: serviceData.invite })
   if (user) {
-    console.log('found user')
-    console.log(user)
+    console.log('found user', user)
 
-    Accounts.setPassword(user._id, serviceData.invite);
+    Accounts.setPassword(user._id, serviceData.invite)
     return {
-      userId: user._id,
+      userId: user._id
     }
   }
 
-  return undefined;
-});
+  return undefined
+})

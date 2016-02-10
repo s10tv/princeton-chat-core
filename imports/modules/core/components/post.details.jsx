@@ -1,6 +1,6 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import InputBox from '/imports/modules/core/containers/inputbox.js'
+import InputBox from '/imports/modules/core/containers/inputBox.js'
 import {ScrollingContainer} from '/imports/modules/core/components/helpers.jsx'
 import Menu from '/imports/modules/core/components/menu.jsx'
 import {MessageGroup} from '/imports/modules/core/components/message.jsx'
@@ -43,7 +43,7 @@ export default React.createClass({
      * The function navigates the user to the topic list screen.
      */
     navigateToTopic: React.PropTypes.func.isRequired,
-    
+
     deleteMessage: React.PropTypes.func.isRequired,
   },
 

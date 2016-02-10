@@ -1,4 +1,4 @@
-import check from 'meteor/check'
+import { check } from 'meteor/check'
 import { Topics, Posts, Users } from '/imports/configs/collections'
 
 export default class PostManager {
