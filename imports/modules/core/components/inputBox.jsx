@@ -5,6 +5,7 @@ import Avatar from 'material-ui/lib/avatar'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Checkbox from 'material-ui/lib/checkbox'
 import linkState from 'react-link-state'
+import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 export default class InputBox extends React.Component {
   constructor(props) {
@@ -72,7 +73,11 @@ export default class InputBox extends React.Component {
               }
             </Inline>
             {this.props.followers.map(user =>
-              <Avatar key={user._id} style={{width: 30, height: 30}} src={user.avatar.url} />
+              user.avatar.isDefaultAvatar ?
+              <LetterAvatar key={user._id} style={{marginRight: 3}} size={30} color='white'
+                backgroundColor={user.avatar.color}>{user.avatarInitials}</LetterAvatar>
+              :
+              <Avatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
             )}
           </a>
         <Flex marginLeft='auto'>
@@ -93,7 +98,11 @@ export default class InputBox extends React.Component {
     return (
       <Flex alignItems='center' marginTop='12px' height={30}>
         {this.props.followers.map(user =>
-          <Avatar key={user._id} style={{width: 30, height: 30}} src={user.avatar.url} />
+          user.avatar.isDefaultAvatar ?
+          <LetterAvatar key={user._id} size={30} style={{marginRight: 3}} color='white'
+            backgroundColor={user.avatar.color}>{user.avatarInitials}</LetterAvatar>
+          :
+          <Avatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
         )}
         <Inline component='span' marginLeft='8px' marginRight='auto'>
           { this.props.followers.length > 0

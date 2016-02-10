@@ -1,5 +1,6 @@
 import InputBox from '/imports/modules/core/components/inputBox.jsx'
 import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
+import UserService from '/imports/libs/UserService'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 
@@ -8,7 +9,7 @@ const composer = ({context, postId, follow, unfollow}, onData) => {
   const post = Collections.Posts.findOne(postId)
 
   const followers = post.followers
-    .map(follower => Users.findOne(follower.userId))
+    .map(follower => UserService.getUserView(Users.findOne(follower.userId)))
     .filter(user => user != undefined) // TODO: investigate correct use of equal sign
 
   onData(null, {

@@ -123,7 +123,10 @@ Meteor.publishComposite('messages', function(postId) {
 
       {
         find: function(todo) {
-          return Users.find({ _id: todo.ownerId });
+          return Users.find({ $or: [
+            { _id: todo.ownerId },
+            { _id: { $in: todo.followers.map(follower => follower.userId) } }
+          ]});
         }
       }
     ]
