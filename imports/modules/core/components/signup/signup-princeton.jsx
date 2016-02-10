@@ -1,30 +1,29 @@
-import React from 'react';
-import CSSModules from 'react-css-modules';
-import FlatButton from 'material-ui/lib/flat-button';
-import MUITextField from 'material-ui/lib/text-field';
-import COLORS from 'material-ui/lib/styles/colors';
-import CircularProgress from 'material-ui/lib/circular-progress';
+import React from 'react'
+import FlatButton from 'material-ui/lib/flat-button'
+import MUITextField from 'material-ui/lib/text-field'
+import COLORS from 'material-ui/lib/styles/colors'
+import CircularProgress from 'material-ui/lib/circular-progress'
 import { i18n } from '/imports/libs/mantra'
 
 // Images
-const upArrow = '/assets/Up_Arrow.png';
-const icBenefit1 = '/assets/Giveback.png';
-const icBenefit2 = '/assets/Housing_OfficeSpace.png';
-const icBenefit3 = '/assets/Jobs_and_Recommendations.png';
-const icBenefit4 = '/assets/Events.png';
-const icBenefit5 = '/assets/Discussions.png';
-const icBenefit6 = '/assets/Message.png';
-const icQ = '/assets/ic-q.png';
-const icFB = '/assets/ic-fb.png';
-const icTwitter = '/assets/ic-twitter.png';
-const icEmail = '/assets/ic-email.png';
-const fbShare = '/assets/facebook-share.png';
-const twitterShare = '/assets/twitter-share.png';
+const upArrow = '/assets/Up_Arrow.png'
+const icBenefit1 = '/assets/Giveback.png'
+const icBenefit2 = '/assets/Housing_OfficeSpace.png'
+const icBenefit3 = '/assets/Jobs_and_Recommendations.png'
+const icBenefit4 = '/assets/Events.png'
+const icBenefit5 = '/assets/Discussions.png'
+const icBenefit6 = '/assets/Message.png'
+const icQ = '/assets/ic-q.png'
+const icFB = '/assets/ic-fb.png'
+const icTwitter = '/assets/ic-twitter.png'
+const icEmail = '/assets/ic-email.png'
+const fbShare = '/assets/facebook-share.png'
+const twitterShare = '/assets/twitter-share.png'
 
-const PRINCETON_ORANGE = '#F07621';
-const PRINCETON_WHITE = 'white';
+const PRINCETON_ORANGE = '#F07621'
+const PRINCETON_WHITE = 'white'
 
-const getTextField = ({ ref, hintText, floatingLabelText, onBlur, errorText}) => {
+const getTextField = ({ref, hintText, floatingLabelText, onBlur, errorText}) => {
   return <MUITextField
     ref={ref}
     hintText={hintText}
@@ -32,125 +31,109 @@ const getTextField = ({ ref, hintText, floatingLabelText, onBlur, errorText}) =>
     onBlur={onBlur}
     errorText={errorText}
     inputStyle={{
-      color: PRINCETON_WHITE,
-      // color: COLORS.grey700,
+      color: PRINCETON_WHITE
     }}
     hintStyle={{
-      color: COLORS.grey600,
+      color: COLORS.grey600
     }}
     floatingLabelStyle={{
-      color: COLORS.grey400,
-      // color: PRINCETON_WHITE,
-      // color: PRINCETON_ORANGE,
+      color: COLORS.grey400
     }}
     underlineStyle={{
-      color: COLORS.grey400,
-      // borderColor: PRINCETON_ORANGE,
+      color: COLORS.grey400
     }}
     underlineFocusStyle={{
-      borderColor: PRINCETON_ORANGE,
+      borderColor: PRINCETON_ORANGE
     }} />
 }
 
 class Button extends React.Component {
-  render() {
+  render () {
     return <FlatButton {...this.props}
       style={{
-      backgroundColor: PRINCETON_ORANGE,
-      color: PRINCETON_WHITE,
-      padding: '4px 30px',
-      fontSize: '18px',
-      marginTop: '32px',
-    }} />
+        backgroundColor: PRINCETON_ORANGE,
+        color: PRINCETON_WHITE,
+        padding: '4px 30px',
+        fontSize: '18px',
+        marginTop: '32px'
+      }} />
   }
 }
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.validateEmail = this.validateEmail.bind(this);
-  }
+export default React.createClass({
+  propTypes: {
+    isOnboardingSpinnerLoading: React.PropTypes.func,
+    signup: React.PropTypes.func
+  },
 
-  verifyEmail(event) {
+  verifyEmail (event) {
     // mixpanel.track('Click: VerifyEmail')
-    const email = this.refs.emailInput.getValue();
-    const firstName = this.refs.firstNameInput.getValue();
-    const lastName = this.refs.lastNameInput.getValue();
-    const classYear = this.refs.classYearInput.getValue();
+    const email = this.refs.emailInput.getValue()
+    const firstName = this.refs.firstNameInput.getValue()
+    const lastName = this.refs.lastNameInput.getValue()
+    const classYear = this.refs.classYearInput.getValue()
 
     if (email && firstName && lastName && classYear &&
         email.length > 0 && firstName .length > 0 && lastName.length > 0 && classYear.length > 0 &&
         this.validateEmail() && this.validateFirstName() && this.validateLastName() && this.validateClassYear()) {
-
-        return this.props.signup(email, firstName, lastName, classYear);
+      return this.props.signup(email, firstName, lastName, classYear)
     }
-  }
+  },
 
-  validateEmail() {
-    const email = this.refs.emailInput.getValue();
+  validateEmail () {
+    const email = this.refs.emailInput.getValue()
     if (!/\S+@\S+\.\S+/.test(email)) {
-      this.setState({errorEmail: 'Email is required'});
-      return false;
+      this.setState({errorEmail: 'Email is required'})
+      return false
     } else {
-      this.setState({errorEmail: ""});
-      return true;
+      this.setState({errorEmail: ''})
+      return true
     }
-  }
+  },
 
-  validateFirstName() {
-    const firstName = this.refs.firstNameInput.getValue();
-    if (!firstName || firstName.trim().length == 0) {
-      this.setState({errorFirstName: "C'mon, all tigers are given a first name!"});
-      return false;
+  validateFirstName () {
+    const firstName = this.refs.firstNameInput.getValue()
+    if (!firstName || firstName.trim().length === 0) {
+      this.setState({errorFirstName: "C'mon, all tigers are given a first name!"})
+      return false
     } else {
-      this.setState({errorFirstName: ""});
-      return true;
+      this.setState({errorFirstName: ''})
+      return true
     }
-  }
+  },
 
-  validateLastName() {
-    const lastName = this.refs.lastNameInput.getValue();
-    if (!lastName || lastName.trim().length == 0) {
-      this.setState({errorLastName: "How do you get called in the army?"});
-      return false;
+  validateLastName () {
+    const lastName = this.refs.lastNameInput.getValue()
+    if (!lastName || lastName.trim().length === 0) {
+      this.setState({errorLastName: 'How do you get called in the army?'})
+      return false
     } else {
-      this.setState({ errorLastName: ""});
-      return true;
+      this.setState({errorLastName: ''})
+      return true
     }
-  }
+  },
 
-  validateClassYear() {
-    const classYear = this.refs.classYearInput.getValue();
+  validateClassYear () {
+    const classYear = this.refs.classYearInput.getValue()
     if (!/^[0-9]{4}$/.test(classYear)) {
-      this.setState({errorClassYear: "Try entering a 4 digit year, such as 2012."});
-      return false;
+      this.setState({errorClassYear: 'Try entering a 4 digit year, such as 2012.'})
+      return false
     } else {
-      this.setState({errorClassYear: ""});
-      return true;
+      this.setState({errorClassYear: ''})
+      return true
     }
-  }
+  },
 
-  render() {
-    const loader = (!this.props.isOnboardingSpinnerLoading ?  (
-        <div></div>
-      ) : (
-        <CircularProgress mode="indeterminate"
-          ref="loader"
-          size={0.5}
-          color={PRINCETON_WHITE}
-          style={{ padding: '10px 0px' }}/>
-    ));
-
-    const footerLoader = (!this.props.isOnboardingSpinnerLoading ?  (
-        null
-      ) : (
-        <CircularProgress mode="indeterminate"
-          ref="loader"
-          size={0.5}
-          color={PRINCETON_ORANGE}
-          style={{ padding: '10px 0px' }}/>
-    ));
+  render () {
+    const loader = (!this.props.isOnboardingSpinnerLoading ? (
+      <div></div>
+    ) : (
+      <CircularProgress mode='indeterminate'
+        ref='loader'
+        size={0.5}
+        color={PRINCETON_WHITE}
+        style={{ padding: '10px 0px' }}/>
+    ))
 
     return (
       <div className='signup-container'>
@@ -160,39 +143,39 @@ class Home extends React.Component {
             <h1 className='h1-logo'>{i18n('title')}</h1>
             <h2 className='h2-slogan'>{i18n('tagline')}</h2>
 
-            { getTextField({ ref:"emailInput",
-              hintText: `e.g. tonyx@alumni.princeton.edu`,
-              floatingLabelText:"Email",
+            {getTextField({ ref: 'emailInput',
+              hintText: 'e.g. tonyx@alumni.princeton.edu',
+              floatingLabelText: 'Email',
               errorText: this.state.errorEmail,
               onBlur: this.validateEmail.bind(this)
             })}
-            { getTextField({ ref:"firstNameInput",
+            {getTextField({ ref: 'firstNameInput',
               hintText: '',
-              floatingLabelText:"First Name",
+              floatingLabelText: 'First Name',
               errorText: this.state.errorFirstName,
               onBlur: this.validateFirstName.bind(this)
             })}
-            { getTextField({ ref:"lastNameInput",
+            {getTextField({ ref: 'lastNameInput',
               hintText: '',
-              floatingLabelText:"Last Name",
+              floatingLabelText: 'Last Name',
               errorText: this.state.errorLastName,
               onBlur: this.validateLastName.bind(this)
             })}
-            { getTextField({ ref:"classYearInput",
+            {getTextField({ ref: 'classYearInput',
               hintText: 'e.g. 2012',
-              floatingLabelText:"Class Year",
+              floatingLabelText: 'Class Year',
               errorText: this.state.errorClassYear,
               onBlur: this.validateClassYear.bind(this)
             })}
             <Button label="Let's do it" onClick={this.verifyEmail.bind(this)} />
 
-            { loader }
+            {loader}
           </section>
           <a href='#' onClick={(e) => {
-              e.preventDefault();
-              console.log(window.innherHeight);
-              window.scroll(0, window.innerHeight, {duration: 1500});
-            }}>
+            e.preventDefault()
+            console.log(window.innherHeight)
+            window.scroll(0, window.innerHeight, {duration: 1500})
+          }}>
             <img className='caret' src={upArrow} />
           </a>
         </div>
@@ -207,8 +190,13 @@ class Home extends React.Component {
                     Should a San Francisco alumus get notified that a New York tiger listed an apartment for rent?
                   </p>
                   <p>
-                    No, but we <a href='https://www.facebook.com/groups/180883032032220/permalink/802919829828534/'
-                    target='_blank' title='Not picking on you Laura, I promise!'>do it anyways</a>.
+                    No, but we
+                    <a
+                      href='https://www.facebook.com/groups/180883032032220/permalink/802919829828534/'
+                      target='_blank'
+                      title='Not picking on you Laura, I promise!'>
+                        do it anyways
+                    </a>.
                     Now there is a better way.
                   </p>
                 </div>
@@ -218,9 +206,11 @@ class Home extends React.Component {
             <div className='purpose'>
               <p>
                 <span className='logo-inline'>{i18n('title')}</span> is a community built for Princeton alums by
-                  Princeton alums. You only get notified
-                  on <b>topics you follow</b>. We help you reach exactly the <b>right people</b> so we can do
-                  great things together.
+                  Princeton alums. You only get notified on
+                <b>topics you follow</b>.
+                  We help you reach exactly the
+                <b>right people</b>
+                  so we can do great things together.
               </p>
             </div>
           </div>
@@ -260,7 +250,7 @@ class Home extends React.Component {
             </section>
           </div>
           <div className='bottom-cta'>
-          <h2>PS: Help spread the word</h2>
+            <h2>PS: Help spread the word</h2>
             <div className='spread-word'>
               <a target='_blank' href='https://www.facebook.com/sharer/sharer.php?u=princeton.chat'><img src={fbShare} /></a>
               <a target='_blank' href='https://twitter.com/home?status=Princeton%20alums%20out%20there,%20join%20me%20on%20Princeton.Chat%20%40PrincetonChat%20%40Princeton'><img src={twitterShare} /></a>
@@ -281,8 +271,6 @@ class Home extends React.Component {
           <span className='footer-logo'>© {i18n('title')} 2016</span>
         </footer>
       </div>
-    );
+    )
   }
-}
-
-export default Home
+})

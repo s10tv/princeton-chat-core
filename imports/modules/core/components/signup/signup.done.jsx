@@ -1,26 +1,28 @@
-import React from 'react';
-import CSSModules from 'react-css-modules';
+import React from 'react'
 import {i18n} from '/imports/libs/mantra'
 
-const envelopeIcon = '/assets/ic-envelope.png';
+const envelopeIcon = '/assets/ic-envelope.png'
 
-export default class EmailSubmitted extends React.Component {
+export default React.createClass({
+  propTypes: {
+    fromApprovedDomain: React.PropTypes.bool,
+    emailAddress: React.PropTypes.string
+  },
 
-  render() {
+  render () {
     return (
       <div className='signedup-container'>
         <div className='itemContainer'>
           <div className='upperItemContainer'>
             <div><img alt='Envelope Icon' src={envelopeIcon}/></div>
-            {
-              this.props.fromApprovedDomain
+            {this.props.fromApprovedDomain
                ? (<h1>You are signed up!</h1>)
                : <h1>All set for now</h1>
             }
-            { this.props.fromApprovedDomain ? <h3>Now go check your email</h3> : null }
+            {this.props.fromApprovedDomain ? <h3>Now go check your email</h3> : null}
           </div>
           <div className='lowerItemContainer'>
-            <p className='email'>{ this.props.emailAddress }</p>
+            <p className='email'>{this.props.emailAddress}</p>
             {
               this.props.fromApprovedDomain
               ? <p>(The email contains a magic link to get you set up.)</p>
@@ -31,6 +33,6 @@ export default class EmailSubmitted extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
-}
+})
