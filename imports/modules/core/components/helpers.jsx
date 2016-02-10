@@ -7,7 +7,6 @@ import lightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Colors from 'material-ui/lib/styles/colors'
 import Spacing from 'material-ui/lib/styles/spacing'
-import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
 import CircularProgress from 'material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
 
@@ -15,7 +14,7 @@ import ReactDOM from 'react-dom'
 //   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
 //   "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue",
 //   sans-serif`
-export const systemFont= 'Lato, sans-serif';
+export const systemFont = 'Lato, sans-serif'
 
 export const articleFont = 'medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif'
 
@@ -28,44 +27,44 @@ export const Loading = () => (
   </Flex>
 )
 
-export const NoPaddingListItem = ({children, ...props}) => (
+export const NoPaddingListItem = (props) => (
   <ListItem innerDivStyle={{
-      paddingLeft: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
-      paddingRight: 0,
-    }} {...props} >{children}</ListItem>
+    paddingLeft: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingRight: 0
+  }} {...props} >{props.children}</ListItem>
 )
 
-export const SmallListItem = ({children, ...props}) => (
+export const SmallListItem = (props) => (
   <ListItem innerDivStyle={{
-      paddingLeft: 24,
-      paddingTop: 4,
-      paddingBottom: 4,
-    }} {...props} >{children}</ListItem>
+    paddingLeft: 24,
+    paddingTop: 4,
+    paddingBottom: 4
+  }} {...props} >{props.children}</ListItem>
 )
 
-export const MediumListItem = ({children, ...props}) => (
+export const MediumListItem = (props) => (
   <ListItem innerDivStyle={{
-      paddingTop: 8,
-      paddingBottom: 8,
-    }} {...props} >{children}</ListItem>
+    paddingTop: 8,
+    paddingBottom: 8
+  }} {...props} >{props.children}</ListItem>
 )
 
-export const SquareAvatar = ({children, length, style, ...props}) => (
+export const SquareAvatar = (props) => (
   <Avatar style={Object.assign({
-      borderRadius: 5,
-      fontWeight: 300
-    }, style)} size={length} {...props}>
-    {children}
+    borderRadius: 5,
+    fontWeight: 300
+  }, props.style)} size={props.length} {...props}>
+    {props.children}
   </Avatar>
 )
 
-export const LetterAvatar = ({children, style, ...props}) => (
+export const LetterAvatar = (props) => (
   <Avatar style={Object.assign({
     fontWeight: 300
-  }, style)} {...props}>
-    {children}
+  }, props.style)} {...props}>
+    {props.children}
   </Avatar>
 )
 
@@ -74,8 +73,8 @@ export const primaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: systemFont,
   palette: {
     ...lightRawTheme.palette,
-    accent1Color: '#F07621', // princeton orange
-  },
+    accent1Color: '#F07621' // princeton orange
+  }
 })
 
 export const secondaryMuiTheme = ThemeManager.getMuiTheme({
@@ -84,8 +83,8 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
   palette: {
     ...darkRawTheme.palette,
     accent1Color: '#F07621', // princeton orange
-    alternateTextColor: Colors.white,
-  },
+    alternateTextColor: Colors.white
+  }
 })
 
 export const pedPrimaryMuiTheme = ThemeManager.getMuiTheme({
@@ -93,9 +92,9 @@ export const pedPrimaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: systemFont,
   palette: {
     ...lightRawTheme.palette,
-    accent1Color: '#5477AD', // ped blue
-  },
-});
+    accent1Color: '#5477AD' // ped blue
+  }
+})
 
 export const pedSecondaryMuiTheme = ThemeManager.getMuiTheme({
   spacing: Spacing,
@@ -105,36 +104,36 @@ export const pedSecondaryMuiTheme = ThemeManager.getMuiTheme({
     accent1Color: '#5477AD', // ped blue
     primary3Color: '#4E6A93', // not-so-dark blue
     alternateTextColor: Colors.white,
-    canvasColor: '#1B293D', // dark blue
-  },
-});
+    canvasColor: '#1B293D' // dark blue
+  }
+})
 
 export class ScrollingContainer extends React.Component {
-  scrollToBottom() {
+  scrollToBottom () {
     const node = ReactDOM.findDOMNode(this)
     node.scrollTop = node.scrollHeight
   }
-  componentDidMount() {
+  componentDidMount () {
     this.scrollToBottom()
   }
-  componentWillUpdate() {
+  componentWillUpdate () {
     const node = ReactDOM.findDOMNode(this)
 
     if (this.props.alwaysScrollToBottom) {
       // sometimes (in case with onboarding) it is important to always scroll to the bottom
       // whenever a component is about to update.
-      this.shouldScrollBottom = true;
+      this.shouldScrollBottom = true
     } else {
       // Sometimes scrollTop + offsetHeight is greater than scrollHeight.. Maybe border? >= for workaround
       this.shouldScrollBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight
     }
   }
-  componentDidUpdate() {
+  componentDidUpdate () {
     if (this.shouldScrollBottom) {
       this.scrollToBottom()
     }
   }
-  render() {
+  render () {
     return this.props.child
   }
 }
