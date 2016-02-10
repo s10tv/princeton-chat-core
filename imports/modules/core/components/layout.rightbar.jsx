@@ -13,6 +13,7 @@ import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import { i18n } from '/imports/libs/mantra'
+import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -103,13 +104,13 @@ const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
       <Flex alignItems='center'>
         {
           follower.isFullMember ?
-          <Avatar src={follower.avatar.url} size={40} />
+          <UserAvatar user={follower} />
           :
           <Badge
             style={{padding: '15px 15px 0px 0px'}}
             badgeContent={<FontIcon className='material-icons' style={{fontSize: 20}}>language</FontIcon>}
             >
-            <Avatar src={follower.avatar.url} size={40}/>
+            <UserAvatar user={follower} />
           </Badge>
         }
         <Flex flexDirection='column' style={Object.assign({}, follower.isFullMember && { marginLeft: 15})}>
@@ -129,4 +130,17 @@ const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
       </Flex>
     </a>
   </ListItem>
+)
+
+const UserAvatar = ({user}) => (
+  user.avatar.isDefaultAvatar ?
+  <LetterAvatar
+    size={40}
+    color='white'
+    backgroundColor={user.avatar.color}
+  >{user.avatarInitials}</LetterAvatar>
+  :
+  <Avatar
+    size={40}
+    src={user.avatar.url} />
 )
