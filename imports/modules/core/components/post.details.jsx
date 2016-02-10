@@ -1,6 +1,6 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import InputBox from '/imports/modules/core/containers/inputBox.js'
+import InputBox from '/imports/modules/core/containers/inputbox.js'
 import {ScrollingContainer} from '/imports/modules/core/components/helpers.jsx'
 import Menu from '/imports/modules/core/components/menu.jsx'
 import {MessageGroup} from '/imports/modules/core/components/message.jsx'

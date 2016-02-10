@@ -14,7 +14,7 @@ import Signup from '/imports/modules/core/containers/signup.js'
 import SignupDone from '/imports/modules/core/containers/signup.done.js'
 import Login from '/imports/modules/core/containers/login.js'
 import GuestIndex from '/imports/modules/guest/containers/guestIndex.js'
-import AddFollowers from '/imports/modules/core/containers/addfollowers.js'
+import AddFollowers from '/imports/modules/core/containers/add.followers.js'
 import WebFontLoader from 'webfontloader'
 
 function redirectToAllMine (context) {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Flex, Block } from 'jsxstyle'
 import importedStyles from '/imports/modules/core/components/styles.jsx'
 import { TopicGridContainer } from '/imports/modules/core/containers/topic.list.js'
-import SetPasswordComponentBox from '/imports/modules/core/containers/setPassword.js'
+import SetPasswordComponentBox from '/imports/modules/core/containers/set.password.js'
 import { i18n } from '/imports/libs/mantra'
 
 const theme = i18n('primaryMuiTheme')

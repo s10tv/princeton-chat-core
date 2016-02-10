@@ -1,6 +1,6 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import InputBox from '../containers/inputBox.js'
+import InputBox from '../containers/inputbox.js'
 import Paper from 'material-ui/lib/paper'
 
 export default (props) => (

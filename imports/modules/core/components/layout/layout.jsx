@@ -6,7 +6,7 @@ import Sidebar from '/imports/modules/core/containers/layout.sidebar.js';
 import Profile from '/imports/modules/core/containers/profile.js'
 import EditProfileModal from '/imports/modules/core/containers/editprofile.modal.js';
 import PostFollowersModal from '/imports/modules/core/containers/post.followers.modal.js'
-import GlobalSnackbar from '/imports/modules/core/containers/globalsnackbar.js';
+import GlobalSnackbar from '/imports/modules/core/containers/global.snackbar.js';
 import { i18n } from '/imports/libs/mantra'
 
 
