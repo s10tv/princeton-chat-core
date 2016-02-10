@@ -11,38 +11,38 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import { i18n } from '/imports/libs/mantra'
 
-const theme = i18n('secondaryMuiTheme');
-const accent1Color = theme.baseTheme.palette.accent1Color;
-const primary3Color = theme.baseTheme.palette.primary3Color;
+const theme = i18n('secondaryMuiTheme')
+const accent1Color = theme.baseTheme.palette.accent1Color
+const primary3Color = theme.baseTheme.palette.primary3Color
 
 const SidebarHeader = (props) => {
   return (
-    <ListItem id='sidebar-header' innerDivStyle={{
+    <ListItem id='sidebar-header'
+      innerDivStyle={{
         paddingTop: 8,
         paddingRight: 8,
         paddingBottom: 8,
-        paddingLeft: 8,
+        paddingLeft: 8
       }} onTouchTap={props.onTapSettings}>
       <Flex>
-        { props.user.avatar.isDefaultAvatar ?
-          <LetterAvatar
-            color='white'
-            backgroundColor={props.user.avatar.color}
-            size={60}>{props.user.avatarInitials}</LetterAvatar>
-          :
-          <Avatar src={props.user.avatar.url} size={60} />
+        { props.user.avatar.isDefaultAvatar
+          ? <LetterAvatar
+              color='white'
+              backgroundColor={props.user.avatar.color}
+              size={60}>
+                {props.user.avatarInitials}
+            </LetterAvatar>
+          : <Avatar src={props.user.avatar.url} size={60} />
         }
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
           <h3 style={Object.assign({}, { color: accent1Color })}>
             { i18n('title') }
           </h3>
           <Flex alignItems='center' style={{ overflow: 'hidden' }}>
-            <span style={{
-                width: 120,
-                lineHeight: '24px',
-                textOverflow: 'ellipsis',
-                overflow: 'hidden',
-              }}>{ props.user.shortDisplayName }</span>
+            <span style={{ width: 120, lineHeight: '24px', textOverflow: 'ellipsis',
+              overflow: 'hidden'}}>
+              { props.user.shortDisplayName }
+            </span>
             <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
           </Flex>
         </Flex>
@@ -52,12 +52,8 @@ const SidebarHeader = (props) => {
 }
 
 const SubHeader = ({label, action, onClick}) => (
-  <FlatButton style={{
-      width: '100%',
-      paddingLeft: 4,
-      paddingRight: 16,
-      color: primary3Color,
-      fontWeight: 'normal',
+  <FlatButton style={{ width: '100%', paddingLeft: 4, paddingRight: 16, color: primary3Color,
+      fontWeight: 'normal'
     }} onTouchTap={onClick}>
     <Flex justifyContent='space-between'>
       <span>{label}</span>
@@ -68,18 +64,16 @@ const SubHeader = ({label, action, onClick}) => (
 
 const AddNewPostButton = ({ onClick }) => (
   <Flex marginTop='15' marginBottom='7'>
-    <RaisedButton
-        primary={true}
-        label="New Post"
-        labelPosition='after'
-        onTouchTap={onClick}
-        style={{margin: '0px auto'}}
-    >
-      <FontIcon className='material-icons' color='white' style={{
+    <RaisedButton primary={true} label='New Post' labelPosition='after' onTouchTap={onClick}
+        style={{margin: '0px auto'}}>
+      <FontIcon className='material-icons' color='white'
+        style={{
           verticalAlign: 'middle',
           height: '100%',
-          marginLeft: 8,
-         }}>add_circle</FontIcon>
+          marginLeft: 8
+        }}>
+         add_circle
+       </FontIcon>
     </RaisedButton>
   </Flex>
 )
@@ -91,26 +85,33 @@ export default React.createClass({
     showTopic: React.PropTypes.func.isRequired,
     navigateTo: React.PropTypes.func.isRequired,
     showAddPostPopupFn: React.PropTypes.func.isRequired,
+    currentRouterPath: React.PropTypes.string.isRequired,
+    showOverlay: React.PropTypes.bool.isRequired,
+    sidebarOpen: React.PropTypes.bool.isRequired,
+    onTapSettings: React.PropTypes.func.isRequired,
+    showAllTopics: React.PropTypes.func.isRequired
   },
+
   childContextTypes: {
-    muiTheme: React.PropTypes.object,
+    muiTheme: React.PropTypes.object
   },
-  getChildContext() {
+
+  getChildContext () {
     return {
-      muiTheme: theme,
+      muiTheme: theme
     }
   },
-  giveListItemStyleForRoutePath(routeName) {
-    return (`/${routeName}` === FlowRouter.current().path) ? {
+
+  giveListItemStyleForRoutePath (routeName) {
+    return (`/${routeName}` === this.props.currentRouterPath) ? {
       backgroundColor: primary3Color
     } : {}
   },
-  render() {
+
+  render () {
     if (this.props.showOverlay) {
       return (
-        <LeftNav
-            open={this.props.sidebarOpen}
-            style={{display: 'flex', flexDirection: 'column'}}
+        <LeftNav open={this.props.sidebarOpen} style={{display: 'flex', flexDirection: 'column'}}
             width={240} >
           <SidebarOverlay />
         </LeftNav>
@@ -136,12 +137,14 @@ export default React.createClass({
                   All Posts
             </MediumListItem>
           </List>
-          <List subheader={<SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>}>
+          <List subheader={
+              <SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>
+            }>
             {this.props.followedTopics.map((topic) =>
               <SmallListItem
                 key={topic._id}
                 style={this.giveListItemStyleForRoutePath(`topics/${topic._id}`)}
-                onTouchTap={() => { this.props.showTopic(topic._id)}}>
+                onTouchTap={() => { this.props.showTopic(topic._id) }}>
                     # {topic.displayName}
               </SmallListItem>
             )}

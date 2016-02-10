@@ -6,6 +6,9 @@ export const composer = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context()
   if (Meteor.subscribe('topics').ready()) {
     const user = UserService.currentUser()
+
+    const currentRouterPath = FlowRouter.current().path
+
     if (user) {
       const followedTopics = user ? Collections.Topics.find({
         _id: {$in: user.followingTopics}
@@ -20,6 +23,7 @@ export const composer = ({context}, onData) => {
         followedTopics,
         navigateTo,
         FlowRouter,
+        currentRouterPath,
         showOverlay: user.status !== 'active'
       })
     }
