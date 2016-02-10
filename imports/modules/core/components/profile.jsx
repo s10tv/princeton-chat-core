@@ -4,6 +4,8 @@ import Paper from 'material-ui/lib/paper'
 import Card from 'material-ui/lib/card/card'
 import Dialog from 'material-ui/lib/dialog';
 import { i18n } from '/imports/libs/mantra'
+import Avatar from 'material-ui/lib/avatar';
+import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 const theme = i18n('primaryMuiTheme');
 const accent1Color = theme.baseTheme.palette.accent1Color;
@@ -41,7 +43,19 @@ export default React.createClass({
           <section className='profile-header'>
             <Flex flexDirection='column' alignItems='center' justifyContent='center' position='relative'
               padding='36px'>
-              <img src={this.props.user.avatar.url} className='profile-avatar' />
+              { this.props.user.avatar.isDefaultAvatar ?
+                <LetterAvatar
+                  size={150}
+                  color='white'
+                  backgroundColor={this.props.user.avatar.color}
+                >
+                  {this.props.user.avatarInitials}
+                </LetterAvatar>
+                :
+                <Avatar
+                  size={150}
+                  src={this.props.user.avatar.url} />
+              }
               <h1>{this.props.user.displayName}</h1>
               <h3 style={{ color: accent1Color }}>@{this.props.user.username}</h3>
               <p>{this.props.user.emails[0].address}</p>
