@@ -7,8 +7,7 @@
   "scripts": {
     "lint": "eslint ./libs ./client ./server --ext .js --ext .jsx",
     "lintfix": "npm run lint -- --fix",
-    "test": "mocha --recursive ./tests --compilers js:babel-register",
-    "watch-tests": "mocha $npm_package_options_mocha --watch"
+    "test": "standard"
   },
   "devDependencies": {
     "babel-core": "6.x.x",
@@ -21,7 +20,8 @@
     "enzyme": "1.x.x",
     "eslint": "1.10.x",
     "eslint-plugin-react": "3.15.x",
-    "react-addons-test-utils": ">=0.14.3 <=0.15.0"
+    "react-addons-test-utils": ">=0.14.3 <=0.15.0",
+    "standard": "^6.0.4"
   },
   "dependencies": {
     "component-raf": "^1.2.0",
@@ -49,5 +49,11 @@
     "underscore": "^1.8.3",
     "webfontloader": "^1.6.20"
   },
-  "private": true
+  "private": true,
+  "standard": {
+    "ignore": [
+      "packages/**",
+      "server/**"
+    ]
+  }
 }
