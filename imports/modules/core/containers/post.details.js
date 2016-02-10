@@ -1,8 +1,8 @@
 import truncate from 'truncate'
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
-import UserService from '/imports/libs/UserService';
-import DateFormatter from '/imports/libs/DateFormatter';
-import PostDetails from '/imports/modules/core/components/post.details.jsx';
+import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
+import UserService from '/imports/libs/user.service'
+import DateFormatter from '/imports/libs/date.formatter'
+import PostDetails from '/imports/modules/core/components/post.details.jsx'
 import {Loading} from '/imports/modules/core/components/helpers.jsx'
 
 export const composer = ({context, topicId, postId}, onData) => {

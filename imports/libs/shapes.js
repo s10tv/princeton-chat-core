@@ -8,7 +8,7 @@ export const postShape = shape({
   isFollowing: bool.isRequired,
   numFollowers: number.isRequired,
   content: string.isRequired,
-  createdAt: instanceOf(Date).isRequired,
+  createdAt: instanceOf(Date).isRequired
 })
 
 export const topicShape = shape({
@@ -17,5 +17,5 @@ export const topicShape = shape({
   description: string.isRequired,
   isFollowing: bool.isRequired,
   numPosts: number.isRequired,
-  numFollowers: number.isRequired,
+  numFollowers: number.isRequired
 })

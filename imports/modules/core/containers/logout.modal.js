@@ -1,6 +1,6 @@
-import LogoutModal from '/imports/modules/core/components/modal.logout.jsx';
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
-import UserService from '../../../libs/UserService';
+import LogoutModal from '/imports/modules/core/components/modal.logout.jsx'
+import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
+import UserService from '../../../libs/user.service'
 
 export const composer = ({context, actions}, onData) => {
   const { Meteor, FlowRouter, LocalState } = context();

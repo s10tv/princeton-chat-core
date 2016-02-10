@@ -1,4 +1,3 @@
-
 const PRINCETON_ORANGE = '#F07621'
 const PED_BLUE = '#5477AD'
 const DARK_GRAY = '#grey800'
@@ -37,7 +36,7 @@ module.exports = {
 
     backgroundStyle: {
       backgroundImage: "url('/assets/background-tile.png')",
-      backgroundRepeat: 'repeat',
+      backgroundRepeat: 'repeat'
     }
   },
 
@@ -60,7 +59,7 @@ module.exports = {
     defaultAvatar: '/images/avatar-placeholder.png',
     backgroundStyle: {
       backgroundImage: "url('/assets/background-tile.png')",
-      backgroundRepeat: 'repeat',
+      backgroundRepeat: 'repeat'
     }
   },
 
@@ -81,11 +80,11 @@ module.exports = {
     topicMailServer: 'topics.pedplay.com',
     defaultAvatar: '/images/avatar-placeholder.png',
     backgroundStyle: {
-      background: PED_BLUE,
+      background: PED_BLUE
     },
     loginTitle: {
       fontFamily: "'Quicksand', sans-serif",
-      color: DARK_GRAY,
-    },
+      color: DARK_GRAY
+    }
   }
 }

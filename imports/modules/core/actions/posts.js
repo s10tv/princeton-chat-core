@@ -1,5 +1,4 @@
-import UserService from '/imports/libs/UserService';
-import NewPostService from '/imports/libs/NewPostService';
+import NewPostService from '/imports/libs/newpost.service'
 
 export default {
   create({Collections, LocalState, handleClose}, title, content, topics, cb) {

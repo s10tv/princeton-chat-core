@@ -1,6 +1,6 @@
-import SignupForm from '/imports/modules/core/components/signup.form.jsx';
-import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra';
-import UserService from '/imports/libs/UserService';
+import SignupForm from '/imports/modules/core/components/signup.form.jsx'
+import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
+import UserService from '/imports/libs/user.service'
 
 export const composer = ({context}, onData) => {
   const { LocalState } = context();

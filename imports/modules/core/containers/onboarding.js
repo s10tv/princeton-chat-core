@@ -1,7 +1,7 @@
-import Onboarding from '/imports/modules/core/components/onboarding/onboarding.jsx';
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
-import UserService from '/imports/libs/UserService';
-import DateFormatter from '/imports/libs/DateFormatter';
+import Onboarding from '/imports/modules/core/components/onboarding/onboarding.jsx'
+import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
+import UserService from '/imports/libs/user.service'
+import DateFormatter from '/imports/libs/date.formatter'
 
 export const composer = ({context}, onData) => {
   const currentUser = UserService.currentUser();

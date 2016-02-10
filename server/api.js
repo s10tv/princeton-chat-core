@@ -1,4 +1,4 @@
-import AvatarService from '/imports/libs/AvatarService';
+import AvatarService from '/imports/libs/avatar.service';
 import { Topics, Posts, Users, Messages } from '/imports/configs/collections';
 import TopicManager from '/imports/server/TopicManager';
 import PostManager from '/imports/server/PostManager';

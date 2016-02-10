@@ -1,7 +1,7 @@
 import EditProfileModal from '../components/editprofile.modal.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
-import UserService from '../../../libs/UserService';
-import AvatarService from '/imports/libs/AvatarService'
+import UserService from '../../../libs/user.service';
+import AvatarService from '/imports/libs/avatar.service'
 
 export const composer = ({context, actions}, onData) => {
   const { Meteor, FlowRouter, LocalState } = context();
@@ -133,10 +133,11 @@ export const composer = ({context, actions}, onData) => {
     isDefaultAvatar,
     currentAvatarUrl,
     changeAvatarToFacebook,
-    changeAvatarToDefault });
+    changeAvatarToDefault
+  })
 }
 
 export default composeAll(
   composeWithTracker(composer),
-  useDeps(),
-)(EditProfileModal);
+  useDeps()
+)(EditProfileModal)
