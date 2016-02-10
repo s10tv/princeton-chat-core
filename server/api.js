@@ -61,8 +61,8 @@ Meteor.methods({
 
     check(firstName, String);
     check(lastName, String);
-    check(classYear, String);
     check(emailAddress, String);
+    check(classYear, Match.Optional(String));
 
     var email = (emailAddress || "").trim();
     if (email.length == 0) {
@@ -116,7 +116,7 @@ Meteor.methods({
       const onComplete = future.resolver()
 
       client.sendEmailWithTemplate({
-        "From": "notifications@princeton.chat",
+        "From": process.env.POSTMARK_SENDER_SIG || 'notifications@princeton.chat',
         "To": email,
         "TemplateId": process.env.POSTMARK_WELCOME_TEMPLATE_ID || 354341,
         "TemplateModel": {
@@ -128,6 +128,7 @@ Meteor.methods({
       try {
         future.get();
       } catch (err) {
+        console.log('Received error from Postmark. Perhaps templateId or sender sig is wrong?')
         console.error(err);
         console.log(err.stack);
         return;
