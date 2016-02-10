@@ -9,6 +9,7 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 import {Flex} from 'jsxstyle';
 import FontIcon from 'material-ui/lib/font-icon'
 import IconButton from 'material-ui/lib/icon-button'
+import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -67,7 +68,8 @@ export default React.createClass({
         <section className='profile-header'>
           <Flex flexDirection='column' alignItems='center' justifyContent='center' position='relative'
             padding='36px'>
-            <img src={user.avatar.url} className='profile-avatar' />
+            <LetterAvatar src={user.avatar.url} size={150}>{user.avatarInitials}</LetterAvatar>
+            {/*<img src={user.avatar.url} className='profile-avatar' />*/}
             <h1>{user.displayName}</h1>
             <h3>{user.displayUsername}</h3>
             <p>{user.displayEmail}</p>

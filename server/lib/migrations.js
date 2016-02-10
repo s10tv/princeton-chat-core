@@ -107,7 +107,9 @@ Migrations.add({
       if (user.avatar && user.avatar.url === '/images/princeton.svg') {
         Users.update(user._id, { $set: {
           avatar: {
-            url: AvatarService.generateDefaultAvatarForAudience('princeton')
+            url: AvatarService.generateDefaultAvatarForAudience(),
+            isDefaultAvatar: true,
+            color: AvatarService.generateRandomColorForDefaultAvatar()
           }
         }})
       }

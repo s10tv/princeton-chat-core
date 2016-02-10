@@ -1,6 +1,6 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import {SquareAvatar, NoPaddingListItem} from '/imports/modules/core/components/helpers.jsx'
+import {LetterAvatar, NoPaddingListItem} from '/imports/modules/core/components/helpers.jsx'
 import List from 'material-ui/lib/lists/list'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Menu from '/imports/modules/core/components/menu.jsx'
@@ -143,20 +143,30 @@ const PostListItem = (props) => (
 
       <Flex flexDirection='row' justifyContent='space-between' alignItems='center'>
         <Flex alignItems='center'>
-          <Avatar src={props.post.owner.avatar.url} size={35} style={{marginRight: 10}}/>
-            <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
-              <span className='display-name'>
-                { props.post.owner.displayName }
-              </span>
-            </a>
-            <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
-              <span className='mention' style={Object.assign({}, {
-                color: theme.baseTheme.palette.accent1Color
-              })}>
-                @{ props.post.owner.username }
-              </span>
-            </a>
-            <span className='datetime'>{ props.post.timestamp }</span>
+          { props.post.owner.avatar.isDefaultAvatar ?
+            <LetterAvatar
+              color='white'
+              backgroundColor={props.post.owner.avatar.color}
+              size={35}
+              style={{marginRight: 10}}>
+              {props.post.owner.avatarInitials}
+            </LetterAvatar>
+            :
+            <Avatar src={props.post.owner.avatar.url} size={35} style={{marginRight: 10}} />
+          }
+          <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
+            <span className='display-name'>
+              { props.post.owner.displayName }
+            </span>
+          </a>
+          <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
+            <span className='mention' style={Object.assign({}, {
+              color: theme.baseTheme.palette.accent1Color
+            })}>
+              @{ props.post.owner.username }
+            </span>
+          </a>
+          <span className='datetime'>{ props.post.timestamp }</span>
         </Flex>
         <Flex marginRight={16}>
           <a href={props.post.url}>
@@ -215,9 +225,20 @@ const FollowersBtn = (props) => (
       </span>
 
       { props.post.followerAvatars.map(followerAvatar =>
+        followerAvatar.avatar.isDefaultAvatar ?
+          <LetterAvatar key={followerAvatar.userId}
+            size={30}
+            color='white'
+            backgroundColor={followerAvatar.avatar.color}
+            style={{marginRight: 5}}>
+            {followerAvatar.avatarInitials}
+          </LetterAvatar>
+          :
           <Avatar key={followerAvatar.userId}
-            src={followerAvatar.url} size={30}
-            style={{marginRight: 5}} />) }
+            src={followerAvatar.avatar.url}
+            size={30}
+            style={{marginRight: 5}} />
+      )}
 
       { props.post.moreFollowersNumber == 0
         ? null

@@ -26,7 +26,7 @@ export default function (injectDeps) {
   WebFontLoader.load({
     google: {
       families: [
-        'Lato',
+        'Lato:300, 400, 700',
         'Quicksand',  // for ped & play home page
       ]
     }

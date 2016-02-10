@@ -52,23 +52,19 @@ export const MediumListItem = ({children, ...props}) => (
     }} {...props} >{children}</ListItem>
 )
 
-export const SquareAvatar = ({children, length, ...props}) => (
-  <Avatar style={{
+export const SquareAvatar = ({children, length, style, ...props}) => (
+  <Avatar style={Object.assign({
       borderRadius: 5,
-      width: length,
-      height: length,
-    }} {...props}>
+      fontWeight: 300
+    }, style)} size={length} {...props}>
     {children}
   </Avatar>
 )
 
-export const LetterAvatar = ({children, ...props}) => (
-  <Avatar style={{
-      backgroundImage: `url(${props.user.avatar.url})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundSize: 'contain'
-    }} {...props}>
+export const LetterAvatar = ({children, style, ...props}) => (
+  <Avatar style={Object.assign({
+    fontWeight: 300
+  }, style)} {...props}>
     {children}
   </Avatar>
 )

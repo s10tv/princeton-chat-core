@@ -9,7 +9,6 @@ import SidebarOverlay from '/imports/modules/core/components/onboarding/sidebar.
 import {SmallListItem, MediumListItem, SquareAvatar } from '/imports/modules/core/components/helpers.jsx'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
-
 import { i18n } from '/imports/libs/mantra'
 
 const theme = i18n('secondaryMuiTheme');
@@ -25,7 +24,14 @@ const SidebarHeader = (props) => {
         paddingLeft: 8,
       }} onTouchTap={props.onTapSettings}>
       <Flex>
-        <SquareAvatar src={ props.user.avatar.url } length={60} />
+        { props.user.avatar.isDefaultAvatar ?
+          <SquareAvatar
+            color='white'
+            backgroundColor={props.user.avatar.color}
+            size={60}>{props.user.avatarInitials}</SquareAvatar>
+          :
+          <SquareAvatar src={props.user.avatar.url} size={60} />
+        }
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
           <h3 style={Object.assign({}, { color: accent1Color })}>
             { i18n('title') }

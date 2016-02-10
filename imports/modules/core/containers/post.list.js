@@ -71,10 +71,11 @@ export const composer = ({context, topicId, postListType}, onData) => {
       post.numFollowers = post.followers.length;
       post.followerAvatars = post.followers.map(follower => {
         var obj = {};
-        const user = Collections.Users.findOne(follower.userId)
+        const user = UserService.getUserView(Collections.Users.findOne(follower.userId))
         if (user) {
           obj = {
-            url: Collections.Users.findOne(follower.userId).avatar.url,
+            avatar: user.avatar,
+            avatarInitials: user.avatarInitials,
             userId: follower.userId
           }
         }

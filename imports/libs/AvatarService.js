@@ -1,3 +1,4 @@
+import randomColor from 'randomcolor';
 
 export default class AvatarService {
   static generateRandPrincetonAvatarSrc() {
@@ -21,5 +22,9 @@ export default class AvatarService {
         return '/images/avatar-placeholder.png';
         break;
     }
+  }
+
+  static generateRandomColorForDefaultAvatar() {
+    return randomColor({luminosity: 'dark'})
   }
 }

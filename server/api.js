@@ -84,7 +84,9 @@ Meteor.methods({
         userNumber: userNumber,
         status: 'pending',
         avatar: {
-          url: AvatarService.generateDefaultAvatarForAudience(audience)
+          url: AvatarService.generateDefaultAvatarForAudience(audience),
+          isDefaultAvatar: true,
+          color: AvatarService.generateRandomColorForDefaultAvatar()
         }
       })
 
@@ -181,7 +183,9 @@ Meteor.methods({
             firstName,
             lastName,
             avatar: {
-              url: AvatarService.generateDefaultAvatarForAudience(audience)
+              url: AvatarService.generateDefaultAvatarForAudience(audience),
+              isDefaultAvatar: true,
+              color: AvatarService.generateRandomColorForDefaultAvatar()
             },
             isFullMember: false
           }});
@@ -223,7 +227,9 @@ Meteor.methods({
       inviteCode: inviteCode,
       isFullMember: true,
       avatar: {
-        url: AvatarService.generateDefaultAvatarForAudience(audience)
+        url: AvatarService.generateDefaultAvatarForAudience(audience),
+        isDefaultAvatar: true,
+        color: AvatarService.generateRandomColorForDefaultAvatar()
       }
     })
 

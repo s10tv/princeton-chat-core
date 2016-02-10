@@ -11,6 +11,7 @@ import Avatar from 'material-ui/lib/avatar';
 import Menu from '/imports/modules/core/components/menu.jsx';
 import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
+import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx';
 
 export default class PostFollowersModal extends React.Component {
   propTypes: {
@@ -67,7 +68,17 @@ export default class PostFollowersModal extends React.Component {
               key={follower._id}
               onTouchTap={() => showUserProfile(follower)}
               primaryText={follower.displayEmail}
-              leftAvatar={<Avatar src={follower.avatar.url} />}
+              leftAvatar={
+                follower.avatar.isDefaultAvatar ?
+                <LetterAvatar
+                  color='white'
+                  backgroundColor={follower.avatar.color}
+                >
+                {follower.avatarInitials}
+                </LetterAvatar>
+                :
+                <Avatar src={follower.avatar.src} />
+              }
             /> )}
         </List>
       </Dialog>
