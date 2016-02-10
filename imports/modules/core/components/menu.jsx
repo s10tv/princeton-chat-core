@@ -2,12 +2,10 @@ import React from 'react'
 import {Flex} from 'jsxstyle'
 import Toolbar from 'material-ui/lib/toolbar/toolbar'
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
-import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import FlatButton from 'material-ui/lib/flat-button'
-import RaisedButton from 'material-ui/lib/raised-button'
 import truncate from 'truncate'
 
 export default React.createClass({
@@ -69,7 +67,7 @@ export default React.createClass({
      */
     isAtLastTablet: React.PropTypes.bool,
     isAtLastDesktop: React.PropTypes.bool,
-
+    sidebarOpen: React.PropTypes.bool,
     /**
      * Function to show topic followers modal from a ready list of followers
      */
@@ -79,33 +77,33 @@ export default React.createClass({
      * True means the title is no longer clickable
      */
     disableClickToShowFollowers: React.PropTypes.bool,
+
+    /**
+     * Topic
+     */
+    topic: React.PropTypes.object
   },
 
-  getTitleText() {
+  getTitleText () {
     if (this.props.isAtLastTablet) {
-      return truncate(this.props.title, 50);
-    } else if (this.props.isAtLastTablet)  {
-      return truncate(this.props.title, 30);
+      return truncate(this.props.title, 50)
+    } else if (this.props.isAtLastTablet) {
+      return truncate(this.props.title, 30)
     } else {
-      return ''; // mobile devices are too small to display titles.
+      return '' // mobile devices are too small to display titles.
     }
   },
 
-  getAddPostButtonText() {
-    if (this.props.isDesktop || this.props.isTablet) {
-      return 'New Post';
-    }
-
-    return 'Post';
-  },
-
-  getFollowerButton() {
-    const emailIcon = this.props.sidebarOpen ? null :
-      <FontIcon className='material-icons' color='white' style={{
-        verticalAlign: 'middle',
-        height: '100%',
-        marginLeft: (this.props.sidebarOpen ? 8 : 0),
-      }}>email</FontIcon>
+  getFollowerButton () {
+    const emailIcon = this.props.sidebarOpen ? null
+    : <FontIcon className='material-icons' color='white'
+        style={{
+          verticalAlign: 'middle',
+          height: '100%',
+          marginLeft: (this.props.sidebarOpen ? 8 : 0)
+        }}>
+          email
+      </FontIcon>
 
     if (this.props.isFollowing) {
       return <FlatButton
@@ -130,7 +128,7 @@ export default React.createClass({
     }
   },
 
-  getOptionallyClickableTitleText(children) {
+  getOptionallyClickableTitleText (children) {
     if (this.props.disableClickToShowFollowers) {
       return <span>{ children }</span>
     }
@@ -138,51 +136,58 @@ export default React.createClass({
     return (
       <a className='topic-header-link-button'
           href='#'
-          onClick={() => this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}>
+          onClick={() =>
+            this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}>
         {children}
       </a>
     )
   },
 
-  render() {
+  render () {
     if (this.props.hidden) {
-      return null;
+      return null
     }
 
     return (
-      <Toolbar style={{ backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000}}>
+      <Toolbar style={{ backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000 }}>
 
-        { this.props.sidebarOpen ? null :
-          <ToolbarGroup firstChild={true}>
-            <IconButton iconClassName='material-icons' tooltip='Menu' onTouchTap={() => {
-                console.log('clicked menu');
-              }}>menu</IconButton>
-          </ToolbarGroup>
+        { this.props.sidebarOpen ? null
+          : <ToolbarGroup firstChild={true}>
+              <IconButton iconClassName='material-icons' tooltip='Menu'
+                onTouchTap={() => {
+                  console.log('clicked menu')
+                }}>
+                menu
+              </IconButton>
+            </ToolbarGroup>
         }
 
-        { this.props.hideTitleSection ? null :
-          <ToolbarGroup >
-            { this.getOptionallyClickableTitleText(<ToolbarTitle text={this.getTitleText()} />)}
-          </ToolbarGroup>
+        { this.props.hideTitleSection ? null
+          : <ToolbarGroup >
+              { this.getOptionallyClickableTitleText(<ToolbarTitle text={this.getTitleText()} />)}
+            </ToolbarGroup>
         }
 
-        { this.props.hideFollowerSection ? null :
-          <ToolbarGroup style={{height: '100%'}}>
-            <Flex alignItems='center' height='100%'>
-              <a className='topic-header-link-button' href='#' onClick={() => this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)} style={{display: 'flex', alignItems: 'center'}}>
-                <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
-                <span style={{marginLeft: 5}}>{ this.props.followersCount }</span>
-              </a>
-            </Flex>
-          </ToolbarGroup>
+        { this.props.hideFollowerSection ? null
+          : <ToolbarGroup style={{height: '100%'}}>
+              <Flex alignItems='center' height='100%'>
+                <a className='topic-header-link-button' href='#'
+                  onClick={() =>
+                    this.props.showTopicFollowersFromFollowersListFn(this.props.topic.followersList)}
+                  style={{display: 'flex', alignItems: 'center'}}>
+                  <FontIcon className='material-icons' tooltip='Followers'>group</FontIcon>
+                  <span style={{marginLeft: 5}}>{ this.props.followersCount }</span>
+                </a>
+              </Flex>
+            </ToolbarGroup>
         }
 
-        { this.props.hideFollowActionSection ? null :
-          <ToolbarGroup
-            float='right'
-            lastChild={true}>
-            { this.getFollowerButton() }
-          </ToolbarGroup>
+        { this.props.hideFollowActionSection ? null
+          : <ToolbarGroup
+              float='right'
+              lastChild={true}>
+              { this.getFollowerButton() }
+            </ToolbarGroup>
         }
 
       </Toolbar>
