@@ -1,12 +1,13 @@
 import React from 'react'
 import {Flex, Block} from 'jsxstyle'
-import {SquareAvatar} from '/imports/modules/core/components/helpers.jsx'
 import IconMenu from 'material-ui/lib/menus/icon-menu'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import IconButton from 'material-ui/lib/icon-button'
 import MoreHorizIcon from 'material-ui/lib/svg-icons/navigation/more-horiz'
-
 import { i18n } from '/imports/libs/mantra'
+import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
+import Avatar from 'material-ui/lib/avatar'
+
 const theme = i18n('secondaryMuiTheme');
 
 export const Message = (props) => (
@@ -44,7 +45,17 @@ export class MessageGroup extends React.Component {
           </IconMenu> : null
         }
         <a href="#" onClick={props.showUserProfile}>
-          <SquareAvatar src={props.owner.avatar.url} length={50} />
+          { props.owner.avatar.isDefaultAvatar ?
+            <LetterAvatar
+              size={50}
+              color='white'
+              backgroundColor={props.owner.avatar.color}
+            >{props.owner.avatarInitials}</LetterAvatar>
+            :
+            <Avatar
+              size={50}
+              src={props.owner.avatar.url} />
+            }
         </a>
         <Block flex={1} marginLeft={8}>
           <header>
