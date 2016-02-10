@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default class NavBar extends React.Component {
-  render() {
+  render () {
     const s = {
       height: 72,
       width: '100%', // For static containers
@@ -10,10 +10,10 @@ export default class NavBar extends React.Component {
       padding: '0 16px',
       borderBottom: '1px solid #eee',
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'center'
     }
     const sInner = {
-      paddingTop: 5,
+      paddingTop: 5
     }
     return (
       <header style={{...s, ...this.props.style}}>
@@ -26,4 +26,5 @@ export default class NavBar extends React.Component {
 }
 NavBar.propTypes = {
   style: React.PropTypes.object,
+  children: React.PropTypes.object
 }
