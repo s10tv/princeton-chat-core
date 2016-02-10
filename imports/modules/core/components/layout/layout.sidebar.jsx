@@ -6,7 +6,7 @@ import ListItem from 'material-ui/lib/lists/list-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
 import SidebarOverlay from '/imports/modules/core/components/onboarding/sidebar.overlay.jsx'
-import {SmallListItem, MediumListItem, SquareAvatar } from '/imports/modules/core/components/helpers.jsx'
+import {SmallListItem, MediumListItem, LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import { i18n } from '/imports/libs/mantra'
@@ -25,12 +25,12 @@ const SidebarHeader = (props) => {
       }} onTouchTap={props.onTapSettings}>
       <Flex>
         { props.user.avatar.isDefaultAvatar ?
-          <SquareAvatar
+          <LetterAvatar
             color='white'
             backgroundColor={props.user.avatar.color}
-            size={60}>{props.user.avatarInitials}</SquareAvatar>
+            size={60}>{props.user.avatarInitials}</LetterAvatar>
           :
-          <SquareAvatar src={props.user.avatar.url} size={60} />
+          <Avatar src={props.user.avatar.url} size={60} />
         }
         <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
           <h3 style={Object.assign({}, { color: accent1Color })}>
