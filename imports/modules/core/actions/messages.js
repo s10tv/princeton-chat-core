@@ -1,5 +1,3 @@
-import UserService from '/imports/libs/UserService';
-
 export default {
   create({Collections, LocalState, handleClose}, content, postId) {
     const id = Meteor.uuid();
@@ -12,7 +10,7 @@ export default {
       }
     });
   },
-  
+
   delete({Collections, Meteor}, messageId) {
     Meteor.call('messages/delete', messageId)
   },

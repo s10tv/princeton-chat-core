@@ -1,7 +1,7 @@
-import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
-import {Messages} from '/imports/configs/collections';
-import UserService from '/imports/libs/UserService';
+import {Meteor} from 'meteor/meteor'
+import {check} from 'meteor/check'
+import {Messages} from '/imports/configs/collections'
+import UserService from '/imports/libs/user.service'
 
 export default function () {
   Meteor.methods({

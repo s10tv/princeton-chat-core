@@ -1,10 +1,10 @@
-import truncate from 'truncate';
+import truncate from 'truncate'
 import {Loading} from '/imports/modules/core/components/helpers.jsx'
-import PostList from '/imports/modules/core/components/post.list.jsx';
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
-import UserService from '/imports/libs/UserService';
-import DateFormatter from '/imports/libs/DateFormatter';
-import _ from 'underscore';
+import PostList from '/imports/modules/core/components/post.list.jsx'
+import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
+import UserService from '/imports/libs/user.service'
+import DateFormatter from '/imports/libs/date.formatter'
+import _ from 'underscore'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3;
 

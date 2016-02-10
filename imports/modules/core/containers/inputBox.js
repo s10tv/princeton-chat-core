@@ -1,6 +1,6 @@
 import InputBox from '/imports/modules/core/components/inputBox.jsx'
 import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
-import UserService from '/imports/libs/UserService'
+import UserService from '/imports/libs/user.service'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 

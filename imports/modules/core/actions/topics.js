@@ -1,5 +1,3 @@
-import UserService from '/imports/libs/UserService';
-
 export default {
   create({Collections, LocalState, FlowRouter, handleClose}, title, content, topics) {
     const id = Meteor.uuid();

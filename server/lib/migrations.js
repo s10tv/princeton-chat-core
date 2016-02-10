@@ -1,5 +1,5 @@
 import {Topics} from '/imports/configs/collections';
-import AvatarService from '/imports/libs/AvatarService';
+import AvatarService from '/imports/libs/avatar.service';
 
 Migrations.add({
   version: 1,

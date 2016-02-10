@@ -1,6 +1,6 @@
-import PostFollowersModal from '../components/post.followers.modal.jsx';
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
-import UserService from '../../../libs/UserService';
+import PostFollowersModal from '../components/post.followers.modal.jsx'
+import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
+import UserService from '../../../libs/user.service'
 
 export const composer = ({context, actions}, onData) => {
   const { Meteor, Collections, FlowRouter, LocalState } = context();

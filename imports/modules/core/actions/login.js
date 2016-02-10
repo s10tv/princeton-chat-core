@@ -1,4 +1,3 @@
-import UserService from '/imports/libs/UserService';
 import { getParameterByName } from '/imports/libs/urlutil'
 
 export default {

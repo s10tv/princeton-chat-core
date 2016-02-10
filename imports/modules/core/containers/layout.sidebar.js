@@ -1,6 +1,6 @@
 import LayoutSidebar from '/imports/modules/core/components/layout/layout.sidebar.jsx';
 import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra';
-import UserService from '/imports/libs/UserService';
+import UserService from '/imports/libs/user.service';
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter, LocalState} = context();
