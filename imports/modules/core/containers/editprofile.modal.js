@@ -107,6 +107,7 @@ export const composer = ({context, actions}, onData) => {
   };
 
   onData(null, {
+    user,
     handleClose,
     isOpen,
     handleSubmit,

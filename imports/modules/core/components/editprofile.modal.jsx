@@ -12,10 +12,13 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import Divider from 'material-ui/lib/divider';
 import {Flex} from 'jsxstyle';
 import _ from 'underscore';
+import Avatar from 'material-ui/lib/avatar';
+import {LetterAvatar} from '/imports/modules/core/components/helpers.jsx'
 
 export default class EditProfileModal extends React.Component {
   render() {
     const {
+      user,
       handleClose,
       isOpen,
       handleSubmit,
@@ -63,7 +66,20 @@ export default class EditProfileModal extends React.Component {
               </SelectField>
              </Flex>
             <Flex flexDirection='column' alignItems='center' justifyContent='space-around'>
-              <img src={currentAvatarUrl} className='profile-avatar' />
+              { user.avatar.isDefaultAvatar ?
+                <LetterAvatar
+                  size={150}
+                  color='white'
+                  backgroundColor={user.avatar.color}
+                >
+                  {user.avatarInitials}
+                </LetterAvatar>
+                :
+                <Avatar
+                  size={150}
+                  src={currentAvatarUrl}
+                />
+              }
               <RaisedButton label="Use Default Avatar" primary={true} onTouchTap={changeAvatarToDefault} />
               <RaisedButton label="Use Facebook Photo" secondary={true} backgroundColor='#3b5998' onTouchTap={changeAvatarToFacebook} />
             </Flex>
