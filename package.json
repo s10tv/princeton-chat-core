@@ -7,8 +7,10 @@
   "scripts": {
     "lint": "eslint ./libs ./client ./server --ext .js --ext .jsx",
     "lintfix": "npm run lint -- --fix",
-    "test": "standard"
+    "test": "standard",
+    "validate": "npm ls"
   },
+  "pre-commit": ["test"],
   "devDependencies": {
     "babel-core": "6.x.x",
     "babel-plugin-react-require": "2.x.x",
@@ -20,6 +22,7 @@
     "enzyme": "1.x.x",
     "eslint": "1.10.x",
     "eslint-plugin-react": "3.15.x",
+    "precommit-hook": "^3.0.0",
     "react-addons-test-utils": ">=0.14.3 <=0.15.0",
     "standard": "^6.0.4"
   },
