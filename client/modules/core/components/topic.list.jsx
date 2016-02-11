@@ -1,9 +1,7 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
-import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
 import styles from '/client/modules/core/components/styles.jsx'
-import { RaisedButton } from '/client/lib/ui'
+import { RaisedButton, FontIcon } from '/client/lib/ui'
 
 export default React.createClass({
   propTypes: {
@@ -60,9 +58,7 @@ export const TopicGrid = React.createClass({
               unfollowTopic={this.props.unfollowTopic} />
           )}
 
-          <FlatButton label='New Topic'
-            icon={<FontIcon className='material-icons'>add</FontIcon>}
-            onTouchTap={() => { this.props.showAddTopicModal() }} />
+          <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
         </Flex>
       </div>
     )
@@ -120,5 +116,26 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
       </Flex>
       <p style={{marginTop: 15, fontWeight: 300}}>{topic.description}</p>
     </Flex>
+  )
+}
+
+const NewTopicButton = ({ showAddTopicModal }) => {
+  return (
+    <a href='#' onClick={showAddTopicModal}>
+      <Flex width={400} flexDirection='column' margin={10}>
+        <Flex alignItems='center'>
+          <Flex width={200} height={150} backgroundColor='#e0e0e0'
+            borderRadius={5} justifyContent='center' alignItems='center'>
+            <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
+          </Flex>
+          <h3 style={{ marginLeft: 30, fontWeight: 400, marginTop: 0, marginBottom: 0 }}>
+            Create a new topic
+          </h3>
+        </Flex>
+        <p style={{marginTop: 15, fontWeight: 300}}>Can't find what you are looking for? No problem.
+        Topics in Princeton.Chat are curated by the community. Create your own and we'll help
+        you invite other people to follow your topic.</p>
+      </Flex>
+    </a>
   )
 }
