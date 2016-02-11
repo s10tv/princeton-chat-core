@@ -1,5 +1,5 @@
 import Profile from '/imports/modules/core/components/modal.profile.jsx'
-import {useDeps, composeWithTracker, composeAll} from '/client/config/mantra'
+import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 
 export const composer = ({context}, onData) => {
   const { LocalState } = context()

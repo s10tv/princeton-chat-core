@@ -1,5 +1,5 @@
 import EditProfileModal from '../components/modal.editprofile.jsx'
-import {useDeps, composeWithTracker, composeAll} from '/client/config/mantra'
+import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '../../../libs/user.service'
 import AvatarService from '/imports/libs/avatar.service'
 

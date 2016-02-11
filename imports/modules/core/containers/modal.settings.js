@@ -1,5 +1,5 @@
 import SettingsModal from '/imports/modules/core/components/modal.settings.jsx'
-import {useDeps, composeWithTracker, composeAll} from '/client/config/mantra'
+import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '../../../libs/user.service'
 
 export const composer = ({context, actions}, onData) => {

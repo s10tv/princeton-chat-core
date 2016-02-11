@@ -1,5 +1,5 @@
 import SetPassword from '/imports/modules/core/components/onboarding/setPassword.jsx'
-import {useDeps, composeWithTracker, composeAll} from '/client/config/mantra'
+import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '/imports/libs/user.service'
 
 export const composer = ({context}, onData) => {

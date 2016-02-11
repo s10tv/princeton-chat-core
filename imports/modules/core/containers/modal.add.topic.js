@@ -1,5 +1,5 @@
 import AddTopicModal from '/imports/modules/core/components/modal.add.topic.jsx'
-import {useDeps, composeAll, composeWithTracker} from '/client/config/mantra'
+import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 import NewTopicService from '/imports/libs/newtopic.service'
 
 const composer = ({context, postId, follow, unfollow}, onData) => {

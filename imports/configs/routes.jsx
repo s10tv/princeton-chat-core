@@ -1,9 +1,5 @@
 import React from 'react'
 import {mount} from 'react-mounter'
-import {Meteor} from 'meteor/meteor'
-import {Accounts} from 'meteor/accounts-base'
-import {Tracker} from 'meteor/tracker'
-import {FlowRouter} from 'meteor/kadira:flow-router'
 
 import LayoutMain from '/imports/modules/core/components/layout/layout.jsx'
 import PostList from '/imports/modules/core/containers/post.list.js'
@@ -20,13 +16,7 @@ import Landing from '/imports/modules/core/components/signup/landing.jsx'
 // This import has to be at the end for some reason else fails
 import WebFontLoader from 'webfontloader'
 
-function redirectToAllMine (context) {
-  if (Meteor.userId()) {
-    return FlowRouter.go('all-mine')
-  }
-}
-
-export default function (injectDeps) {
+export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
   WebFontLoader.load({
     google: {
       families: [
@@ -42,6 +32,11 @@ export default function (injectDeps) {
   const SignupDoneWithCtx = injectDeps(SignupDone)
   const GuestIndexCtx = injectDeps(GuestIndex)
 
+  function redirectToAllMine (context) {
+    if (Meteor.userId()) {
+      return FlowRouter.go('all-mine')
+    }
+  }
   // logged in users should be redirected to all-mine when they visit '/'
   FlowRouter.triggers.enter([redirectToAllMine], {only: ['signup']})
   FlowRouter.route('/landing', {

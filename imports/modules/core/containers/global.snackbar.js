@@ -1,5 +1,5 @@
 import GlobalSnackbar from '/imports/modules/core/components/globalsnackbar.jsx'
-import {useDeps, composeAll, composeWithTracker} from '/client/config/mantra'
+import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 
 export const composer = ({context}, onData) => {
   const { LocalState } = context()

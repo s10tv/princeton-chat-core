@@ -1,17 +1,14 @@
-import {initContext} from '/imports/configs/context'
-import routes from '/imports/configs/routes.jsx'
-import actions from '/imports/modules/core/actions/index.js'
-import {createApp} from '/client/config/mantra'
-import {localize} from '/client/config/env'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-
+import {createApp} from 'mantra-core'
+import {initContext} from '/imports/configs/context'
+import {localize} from '/client/config/env'
 import coreModule from '/imports/modules/core'
+
+injectTapEventPlugin()
+localize()
 
 const context = initContext()
 
-const app = createApp(context, actions)
-localize()
+const app = createApp(context)
 app.loadModule(coreModule)
-app.loadRoutes(routes)
-
-injectTapEventPlugin()
+app.init()

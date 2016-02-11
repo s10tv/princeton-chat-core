@@ -1,4 +1,4 @@
-import {useDeps, composeAll, composeWithTracker} from '/client/config/mantra'
+import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 import { i18n } from '/client/config/env'
 
 export const composer = ({context, actions}, onData) => {

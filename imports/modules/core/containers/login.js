@@ -1,5 +1,5 @@
 import Login from '/imports/modules/core/components/login.jsx'
-import {composeAll, useDeps} from '/client/config/mantra'
+import {composeAll, useDeps} from 'mantra-core'
 
 const depsMapper = (context, actions) => ({
   loginWithPassword: actions.login.loginWithPassword,
