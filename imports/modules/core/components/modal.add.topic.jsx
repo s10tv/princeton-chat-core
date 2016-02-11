@@ -149,17 +149,19 @@ const SearchPhoto = React.createClass({
           />
         </Flex>
 
-        <div>
-          {this.state.photos.map((photo) => (
-            <div key={photo.id} style={{
-              height: 150,
-              background: `url("${photo.url}")`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-            onTouchTap={() => this.selectPhoto(photo) }
-           />
-          ))}
+        <div style={{maxHeight: 300, overflowY: 'scroll'}}>
+          <Flex flexDirection='column'>
+            {this.state.photos.map((photo) => (
+              <div key={photo.id} style={{
+                height: 150,
+                background: `url("${photo.url}")`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+              onTouchTap={() => this.selectPhoto(photo) }
+             />
+            ))}
+          </Flex>
         </div>
       </Flex>
     )
