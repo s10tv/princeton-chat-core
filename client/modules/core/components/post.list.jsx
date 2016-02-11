@@ -171,7 +171,7 @@ const PostListItem = (props) => (
             <span className='mention' style={Object.assign({}, {
               color: theme.baseTheme.palette.accent1Color
             })}>
-              @{props.post.owner.username}
+              {props.post.owner.displayUsername}
             </span>
           </a>
           <span className='datetime'>{props.post.timestamp}</span>

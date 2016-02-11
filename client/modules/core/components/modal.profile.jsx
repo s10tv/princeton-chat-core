@@ -50,7 +50,11 @@ export default React.createClass({
                 </LetterAvatar>
                 : <CoverAvatar size={150} src={this.props.user.avatar.url} />}
               <h1>{this.props.user.displayName}</h1>
-              <h3 style={{ color: accent1Color }}>@{this.props.user.username}</h3>
+              {this.props.user.displayUsername.length === 0
+                ? null
+                : <h3 style={{ color: accent1Color }}>
+                  {this.props.user.displayUsername}
+                </h3>}
               <p>
                 {this.props.user.emails[0].address}
               </p>
