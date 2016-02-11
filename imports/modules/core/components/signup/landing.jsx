@@ -1,7 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React from 'react'
 import Radium from 'radium'
-import {onboarding as style} from '/client/theme'
+import style from './style'
 
 class Landing extends React.Component {
   render () {
