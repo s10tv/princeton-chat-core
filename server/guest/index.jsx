@@ -1,11 +1,11 @@
 import invariant from 'invariant'
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
-import {isValidHash} from '/server/lib/Auth'
-import PostManager from '/server/lib/PostManager'
-import GuestToggleFollow from '/server/http/toggleFollowing.jsx'
-import htmlPage from './html'
 import {Posts} from '/lib/collections'
+import {isValidHash} from '../lib/Auth'
+import PostManager from '../lib/PostManager'
+import GuestToggleFollow from './toggleFollowing.jsx'
+import htmlPage from './html'
 
 HTTP.methods({
   'guest/posts/:postId/:action': function() {
