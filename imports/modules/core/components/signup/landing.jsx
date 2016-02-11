@@ -1,8 +1,9 @@
 /*eslint-disable no-trailing-spaces */
 import React from 'react'
+import Radium from 'radium'
 import {onboarding as style} from '/client/theme'
 
-export default class Landing extends React.Component {
+class Landing extends React.Component {
   render () {
     return (
       <div style={style.pageWrapper}>
@@ -17,12 +18,12 @@ export default class Landing extends React.Component {
             <form style={style.verifyForm}>
               <p style={style.verifyLabel}>Verify your Princeton affiliation to enter.</p>
               <div style={style.inputGroup}>
-                <input type='text' style={style.inputText} />
+                <input key='input1' type='text' style={style.inputText} />
                 <span style={style.inputAddon}>@alumni.princeton.edu</span>
               </div>
               <div>OR</div>
               <div style={style.inputGroup}>
-                <input type='text' style={style.inputText} />
+                <input key='input2' type='text' style={style.inputText} />
                 <span style={style.inputAddon}>@princeton.edu</span>
               </div>
               <input style={style.enterButton} type='submit' value='Enter' />
@@ -35,3 +36,4 @@ export default class Landing extends React.Component {
     )
   }
 }
+export default Radium(Landing)

@@ -9,6 +9,7 @@ const color = {
   black: '#292F33', // Near black
   white: 'white',
   green: '#2AB27B',
+  gray: '#979797',
 }
 
 const fontSize = {
@@ -84,9 +85,17 @@ export const onboarding = {
   },
   inputGroup: {
     display: 'flex',
+    border: `1px solid ${color.gray}`,
+    borderRadius: 3,
+    padding: spacing.x1,
   },
   inputText: {
-    backgroundColor: 'none',
+    backgroundColor: 'transparent',
+    border: 'none',
+    width: 100,
+    ':focus': {
+      outline: 'none',
+    }
   },
   inputAddon: {
     
@@ -97,7 +106,7 @@ export const onboarding = {
     border: 'none',
     borderRadius: 3,
     backgroundColor: color.green,
-    padding: '12px 32px',
+    padding: '8px 24px',
     fontSize: fontSize.lg,
   },
   main: {
