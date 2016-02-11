@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor'
 import {_} from 'meteor/underscore'
-import SignupPrinceton from '/imports/modules/core/components/signup/signup-princeton.jsx'
-import SignupPed from '/imports/modules/core/components/signup/signup-ped.jsx'
-import SignupS10 from '/imports/modules/core/components/signup/signup-s10.jsx'
+import SignupPrinceton from '/client/modules/core/components/signup/signup-princeton.jsx'
+import SignupPed from '/client/modules/core/components/signup/signup-ped.jsx'
+import SignupS10 from '/client/modules/core/components/signup/signup-s10.jsx'
 import { DocHead } from 'meteor/kadira:dochead'
 
 import {

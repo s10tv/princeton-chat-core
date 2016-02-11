@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server'
 import React from 'react'
 import {isValidHash} from '/server/lib/Auth'
 import PostManager from '/server/lib/PostManager'
-import GuestToggleFollow from '/imports/modules/guest/components/toggleFollowing.jsx'
+import GuestToggleFollow from '/server/http/toggleFollowing.jsx'
 import htmlPage from './html'
 
 HTTP.methods({
