@@ -1,36 +1,36 @@
-import AvatarService from '/imports/libs/avatar.service';
-import { Topics, Posts, Users, Messages } from '/imports/configs/collections';
-import TopicManager from '/imports/server/TopicManager';
-import PostManager from '/imports/server/PostManager';
-import _ from 'underscore';
+import AvatarService from '/imports/libs/avatar.service'
+import { Topics, Posts, Users, Messages } from '/imports/configs/collections'
+import TopicManager from '/imports/server/TopicManager'
+import PostManager from '/imports/server/PostManager'
+import _ from 'underscore'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
-const slackUsername = process.env.ENV || 'dev';
-const slackEmoji = process.env.ENV == 'prod' ? ':beer:' : ':poop:';
-const slack = Meteor.npmRequire('slack-notify')(slackUrl);
-const audience = process.env.AUDIENCE || 'princeton';
+const slackUsername = process.env.ENV || 'dev'
+const slackEmoji = process.env.ENV == 'prod' ? ':beer:' : ':poop:'
+const slack = Meteor.npmRequire('slack-notify')(slackUrl)
+const audience = process.env.AUDIENCE || 'princeton'
 
 class CurrentUser {
   static get() {
-    user = Meteor.user();
+    user = Meteor.user()
     if (!user) {
-      throw new Meteor.Error(401, 'Unauthorized');
+      throw new Meteor.Error(401, 'Unauthorized')
     }
-    return user;
+    return user
   }
 }
 
 class UsernameGenerator {
   static generate(user) {
     if (user.emails.length > 0) {
-      const [ email ] = user.emails;
-      return email.address.substring(0, email.address.indexOf('@'));
+      const [ email ] = user.emails
+      return email.address.substring(0, email.address.indexOf('@'))
     } else if (user.firstName && user.lastName) {
-      return `${user.firstName.toLowerCase()}.${user.lastName.toLowerCase()}`;
+      return `${user.firstName.toLowerCase()}.${user.lastName.toLowerCase()}`
     } else if (user.firstName) {
-      return `${user.firstName.toLowerCase()}`;
+      return `${user.firstName.toLowerCase()}`
     } else {
-      return Meteor.uuid();
+      return Meteor.uuid()
     }
   }
 }
@@ -38,45 +38,45 @@ class UsernameGenerator {
 getLargestUserNumber = () => {
   const [ userWithHighestNumber ] = Users
     .find({}, { sort: { userNumber: 1 }, limit: 1 })
-    .fetch();
+    .fetch()
 
   if (userWithHighestNumber && userWithHighestNumber.userNumber) {
-    return userWithHighestNumber.userNumber + 1;
+    return userWithHighestNumber.userNumber + 1
   } else {
-    return 1;
+    return 1
   }
 }
 
 stripTrailingSlash = (str) => {
   if(str.substr(-1) === '/') {
-      return str.substr(0, str.length - 1);
+      return str.substr(0, str.length - 1)
   }
-  return str;
+  return str
 }
 
 Meteor.methods({
   'signup': (options) => {
-    check(options, Object);
-    const { firstName, lastName, classYear, emailAddress } = options;
+    check(options, Object)
+    const { firstName, lastName, classYear, emailAddress } = options
 
-    check(firstName, String);
-    check(lastName, String);
-    check(emailAddress, String);
-    check(classYear, Match.Optional(String));
+    check(firstName, String)
+    check(lastName, String)
+    check(emailAddress, String)
+    check(classYear, Match.Optional(String))
 
-    var email = (emailAddress || "").trim();
+    var email = (emailAddress || "").trim()
     if (email.length == 0) {
-      throw new Meteor.Error(400, 'To sign up, you need to enter your email.');
+      throw new Meteor.Error(400, 'To sign up, you need to enter your email.')
     }
 
-    var user = Accounts.findUserByEmail(email);
+    var user = Accounts.findUserByEmail(email)
     if (!user) {
       // our onboarding using react has a field called `email` on user, instead of meteor `emails`
-      user = Users.findOne({ email: email });
+      user = Users.findOne({ email: email })
     }
 
     if (!user) {
-      var userNumber = getLargestUserNumber();
+      var userNumber = getLargestUserNumber()
       const userId = Users.insert({
         firstName,
         lastName,
@@ -90,11 +90,11 @@ Meteor.methods({
         }
       })
 
-      Accounts.addEmail(userId, email);
-      user = Users.findOne(userId);
+      Accounts.addEmail(userId, email)
+      user = Users.findOne(userId)
     }
 
-    const inviteCode = Random.id();
+    const inviteCode = Random.id()
     Users.update(user._id, { $set: {
       inviteCode: inviteCode
     }})
@@ -106,10 +106,10 @@ Meteor.methods({
     })
 
     if (process.env.SKIP_CHECK_PRINCETON_EMAIL || /.*@alumni.princeton.edu$/.test(email)) {
-      const inviteUrl = `${stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`;
-      const postmark = Meteor.npmRequire("postmark");
-      const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426';
-      const client = new postmark.Client(postmarkKey);
+      const inviteUrl = `${stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
+      const postmark = Meteor.npmRequire("postmark")
+      const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426'
+      const client = new postmark.Client(postmarkKey)
 
       const Future = Npm.require('fibers/future')
       const future = new Future()
@@ -126,12 +126,12 @@ Meteor.methods({
 
       Future.wait(future)
       try {
-        future.get();
+        future.get()
       } catch (err) {
         console.log('Received error from Postmark. Perhaps templateId or sender sig is wrong?')
-        console.error(err);
-        console.log(err.stack);
-        return;
+        console.error(err)
+        console.log(err.stack)
+        return
       }
 
       slack.send({
@@ -140,32 +140,32 @@ Meteor.methods({
         username: slackUsername,
       })
 
-      return true;
+      return true
     }
 
     // did not pass validation.
-    return false;
+    return false
   },
 
   'topics/users/import': (topicId, userInfos) => {
-    check(topicId, String);
-    check(userInfos, [Object]);
+    check(topicId, String)
+    check(userInfos, [Object])
 
-    const topic = Topics.findOne(topicId);
+    const topic = Topics.findOne(topicId)
     if (!topic) {
-      throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`);
+      throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`)
     }
 
-    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     const filteredUserInfos = userInfos.filter(userInfo => re.test(userInfo.email))
 
-    const groupedUserInfos = _.groupBy(filteredUserInfos, (userInfo) => userInfo.email);
-    var hasDuplicateEmails = false;
+    const groupedUserInfos = _.groupBy(filteredUserInfos, (userInfo) => userInfo.email)
+    var hasDuplicateEmails = false
     _.each(groupedUserInfos, (userInfosArr, key) => {
       if (userInfosArr.length > 1) {
-        hasDuplicateEmails = key;
+        hasDuplicateEmails = key
       }
-    });
+    })
 
     if (hasDuplicateEmails) {
       throw new Meteor.Error(500, `You typed the same email ${hasDuplicateEmails} more than once, please check.`)
@@ -173,12 +173,12 @@ Meteor.methods({
 
     try {
       filteredUserInfos.forEach(userInfo => {
-        const email = userInfo.email;
-        const firstName = userInfo.firstName || '';
-        const lastName = userInfo.lastName || '';
-        let existingUser = Accounts.findUserByEmail(email);
+        const email = userInfo.email
+        const firstName = userInfo.firstName || ''
+        const lastName = userInfo.lastName || ''
+        let existingUser = Accounts.findUserByEmail(email)
         if (!existingUser) {
-          let newUserId = Accounts.createUser({ email, password: email, profile: {} });
+          let newUserId = Accounts.createUser({ email, password: email, profile: {} })
 
           Users.update(newUserId, { $set: {
             firstName,
@@ -189,34 +189,34 @@ Meteor.methods({
               color: AvatarService.generateRandomColorForDefaultAvatar()
             },
             isFullMember: false
-          }});
+          }})
 
-          existingUser = Users.findOne(newUserId);
+          existingUser = Users.findOne(newUserId)
         }
 
-        TopicManager.follow({ topicId, user: existingUser });
+        TopicManager.follow({ topicId, user: existingUser })
       })
     } catch(e) {
-      console.log(e);
+      console.log(e)
       throw new Meteor.Error(500, "Sorry, we messed up. We couldn't add your followers, but we tried very hard :/")
     }
   },
 
   'signup/test': (emailOverride) => {
     check(emailOverride, Match.Optional(String))
-    const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results;
-    const email = emailOverride || user.email;
+    const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results
+    const email = emailOverride || user.email
 
     Meteor.call('signup', {
       firstName: user.name.first,
       lastName: user.name.last,
       classYear: '2012',
       emailAddress: email,
-    });
+    })
   },
 
   'signup/randomuser': () => {
-    const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results;
+    const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results
     const inviteCode = Meteor.uuid()
     Users.insert({
       firstName: user.name.first,
@@ -234,18 +234,18 @@ Meteor.methods({
       }
     })
 
-    console.log(`http://localhost:3000/invite/${inviteCode}`);
+    console.log(`http://localhost:3000/invite/${inviteCode}`)
   },
 
   'topics/follow': (topicIds) => {
-    const user = CurrentUser.get();
+    const user = CurrentUser.get()
 
     const curatedTopicIds = topicIds.map(topicId => {
-      return Topics.findOne(topicId);
+      return Topics.findOne(topicId)
     }).filter(topic => {
-      return topic != undefined && topic != null;
+      return topic != undefined && topic != null
     }).map(topic => {
-      return topic._id;
+      return topic._id
     })
 
     Users.update(user._id, { $set: {
@@ -254,15 +254,15 @@ Meteor.methods({
   },
 
   'profile/update': (profile) => {
-    const user = CurrentUser.get();
+    const user = CurrentUser.get()
 
-    check(profile, Object);
-    check(profile.firstName, String);
-    check(profile.lastName, String);
-    check(profile.classYear, Number);
-    check(profile.avatarUrl, String);
-    check(profile.isDefaultAvatar, Boolean);
-    check(profile.avatarColor, String);
+    check(profile, Object)
+    check(profile.firstName, String)
+    check(profile.lastName, String)
+    check(profile.classYear, Number)
+    check(profile.avatarUrl, String)
+    check(profile.isDefaultAvatar, Boolean)
+    check(profile.avatarColor, String)
 
     Users.update(user._id, {
       $set: {
@@ -275,7 +275,7 @@ Meteor.methods({
           color: profile.avatarColor
         },
       }
-    });
+    })
   },
 
   'emailPreference/update': (preference) => {
@@ -288,29 +288,29 @@ Meteor.methods({
   'post/insert': (_id, title, content, topicIds) => {
     user = CurrentUser.get()
 
-    check(_id, String);
-    check(title, String);
-    check(content, String);
-    check(topicIds, [String]);
+    check(_id, String)
+    check(title, String)
+    check(content, String)
+    check(topicIds, [String])
 
     try {
-      title = title.trim();
-      content = content.trim();
+      title = title.trim()
+      content = content.trim()
     } catch (e) {
-      throw new Meteor.Error(400, 'Every post needs to have a title and content.');
+      throw new Meteor.Error(400, 'Every post needs to have a title and content.')
     }
 
     if (title.length == 0 || content.length == 0) {
-      throw new Meteor.Error(400, 'Every post needs to have a title and content.');
+      throw new Meteor.Error(400, 'Every post needs to have a title and content.')
     }
 
-    // make sure that the topic ids entered are legit;
+    // make sure that the topic ids entered are legit
     const filteredTopicIds = topicIds.filter(topicId => {
       return Topics.findOne(topicId) != undefined
     })
 
     if (filteredTopicIds.length == 0) {
-      throw new Meteor.Error(400, 'Please enter at least one valid topicId.');
+      throw new Meteor.Error(400, 'Please enter at least one valid topicId.')
     }
 
     // We are good to insert the post.
@@ -328,13 +328,13 @@ Meteor.methods({
     })
 
     // The current user follows the current post they just posted
-    Meteor.call('post/follow', postId);
+    Meteor.call('post/follow', postId)
 
     // update the num posts after posting.
     filteredTopicIds.forEach(topicId => {
       Topics.update(topicId, { $set: {
         numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId}).count()
-      }});
+      }})
     })
 
     if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {
@@ -345,22 +345,22 @@ Meteor.methods({
   },
 
   'topic/follow': (topicId) => {
-    check(topicId, String);
+    check(topicId, String)
 
     try {
       TopicManager.follow({ topicId, user: CurrentUser.get()})
     } catch(err) {
-      throw new Meteor.Error(500, 'There was a problem with following this topic.');
+      throw new Meteor.Error(500, 'There was a problem with following this topic.')
     }
   },
 
   'topic/unfollow': (topicId) => {
-    check(topicId, String);
+    check(topicId, String)
 
     try {
       TopicManager.unfollow({ topicId, user: CurrentUser.get()})
     } catch(err) {
-      throw new Meteor.Error(500, 'There was a problem with unfollowing this topic.');
+      throw new Meteor.Error(500, 'There was a problem with unfollowing this topic.')
     }
   },
 
@@ -376,21 +376,21 @@ Meteor.methods({
   },
 
   'post/follow': (postId) => {
-    check(postId, String);
+    check(postId, String)
     PostManager.follow({ postId, user: CurrentUser.get()})
   },
 
   'post/unfollow': (postId) => {
-    check(postId, String);
+    check(postId, String)
     PostManager.unfollow({ postId, user: CurrentUser.get()})
   },
 
   'messages/insert': (_id, postId, commentText) => {
-    check(_id, String);
-    check(postId, String);
-    check(commentText, String);
+    check(_id, String)
+    check(postId, String)
+    check(commentText, String)
 
-    const user = CurrentUser.get();
+    const user = CurrentUser.get()
     Messages.insert({
       _id,
       postId,
@@ -404,11 +404,11 @@ Meteor.methods({
       })
     }
 
-    Posts.update(postId, { $inc: { numMsgs: 1 }});
+    Posts.update(postId, { $inc: { numMsgs: 1 }})
   },
 
   'messages/delete': _id => {
-    check(_id, String);
+    check(_id, String)
 
     const user = CurrentUser.get()
     const message = Messages.findOne(_id)
@@ -420,30 +420,30 @@ Meteor.methods({
 
   //onboarding related
   '_accounts/unlink/service': function (serviceName) {
-    const user = CurrentUser.get();
-    Accounts.unlinkService(user._id, serviceName);
+    const user = CurrentUser.get()
+    Accounts.unlinkService(user._id, serviceName)
   },
 
   'welcome/setLoginService': (serviceName) => {
-    check(serviceName, String);
+    check(serviceName, String)
 
     try {
-      const user = CurrentUser.get();
+      const user = CurrentUser.get()
       Users.update(user._id, { $set: {
         emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
         status: 'active',
       }})
     } catch(error) {
-      console.error(error);
-      throw new Meteor.Error(500, `There was a problem setting up your ${serviceName}`);
+      console.error(error)
+      throw new Meteor.Error(500, `There was a problem setting up your ${serviceName}`)
     }
   },
 
   'get/followers': (userIds) => {
-    check(userIds, Array);
+    check(userIds, Array)
 
     return userIds.map(user => {
-      return Users.findOne(user.userId);
-    }).filter((user) => user != undefined);
+      return Users.findOne(user.userId)
+    }).filter((user) => user != undefined)
   }
 })

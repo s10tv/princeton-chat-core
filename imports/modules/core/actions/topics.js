@@ -1,3 +1,4 @@
+import UnsplashService from '/imports/libs/unsplash.service'
 import { _ } from 'meteor/underscore'
 
 export default {
@@ -15,6 +16,17 @@ export default {
       LocalState.set('ADD_POST_POPUP_SHOWING', false)
       FlowRouter.go(`/topics/${topicIds[0]}/${id}`)
     })
+  },
+
+  showAddTopicModal ({ LocalState }) {
+    LocalState.set('SHOW_ADD_TOPIC_MODAL', true)
+    // new UnsplashService().search('music').then(photos => {
+    //   console.log(photos)
+    // })
+  },
+
+  hideAddTopicModal ({ LocalState }) {
+    LocalState.set('SHOW_ADD_TOPIC_MODAL', false)
   },
 
   navigateToTopic ({ FlowRouter }, topicId) {

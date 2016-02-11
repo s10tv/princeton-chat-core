@@ -5,6 +5,7 @@ import SettingsModal from '/imports/modules/core/containers/modal.settings.js'
 import Sidebar from '/imports/modules/core/containers/layout.sidebar.js'
 import Profile from '/imports/modules/core/containers/modal.profile.js'
 import EditProfileModal from '/imports/modules/core/containers/modal.editprofile.js'
+import AddTopicModal from '/imports/modules/core/containers/modal.add.topic.js'
 import PostFollowersModal from '/imports/modules/core/containers/modal.post.followers.js'
 import GlobalSnackbar from '/imports/modules/core/containers/global.snackbar.js'
 import { i18n } from '/imports/libs/mantra'
@@ -47,6 +48,7 @@ export default React.createClass({
         <SettingsModal />
         <EditProfileModal />
         <PostFollowersModal />
+        <AddTopicModal />
         <Profile />
         <GlobalSnackbar />
       </div>

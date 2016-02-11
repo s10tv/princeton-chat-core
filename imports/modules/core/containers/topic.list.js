@@ -20,6 +20,7 @@ export const TopicGridContainer = composeAll(
   composeWithTracker(composer, Loading),
   useDeps((context, actions) => ({
     context: () => context,
+    showAddTopicModal: actions.topics.showAddTopicModal,
     followTopic: actions.topics.follow,
     unfollowTopic: actions.topics.unfollow
   }))
@@ -29,6 +30,7 @@ export default composeAll(
   composeWithTracker(composer, Loading),
   useDeps((context, actions) => ({
     context: () => context,
+    showAddTopicModal: actions.topics.showAddTopicModal,
     followTopic: actions.topics.follow,
     unfollowTopic: actions.topics.unfollow
   }))

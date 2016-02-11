@@ -3,6 +3,7 @@ import {Flex, Block} from 'jsxstyle'
 import FlatButton from 'material-ui/lib/flat-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import Menu from '/imports/modules/core/components/menu.jsx'
+import { SearchPhoto } from '/imports/modules/core/components/modal.add.topic.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
 
 export default React.createClass({
@@ -48,20 +49,34 @@ export const TopicGrid = React.createClass({
     /**
      * The function that is called when I want to unfollow a topic.
      */
-    unfollowTopic: React.PropTypes.func.isRequired
+    unfollowTopic: React.PropTypes.func.isRequired,
+
+    /**
+     * Shows new topic modal
+     */
+    showAddTopicModal: React.PropTypes.func.isRequired
   },
 
   render () {
     return (
-      <Flex className='topic-list-container' flexWrap='wrap' justifyContent='center' {...this.props}>
-        {this.props.topics.map((topic) =>
-          <TopicListItem
-            key={topic._id}
-            topic={topic}
-            followTopic={this.props.followTopic}
-            unfollowTopic={this.props.unfollowTopic} />
-        )}
-      </Flex>
+      <div>
+        <Flex className='topic-list-container' flexWrap='wrap' justifyContent='center' {...this.props}>
+          {this.props.topics.map((topic) =>
+            <TopicListItem
+              key={topic._id}
+              topic={topic}
+              followTopic={this.props.followTopic}
+              unfollowTopic={this.props.unfollowTopic} />
+          )}
+
+          <FlatButton label='New Topic'
+            icon={<FontIcon className='material-icons'>add</FontIcon>}
+            onTouchTap={() => { this.props.showAddTopicModal() }} />
+        </Flex>
+        <div style={{ width: 480 }}>
+          <SearchPhoto />
+        </div>
+      </div>
     )
   }
 })
