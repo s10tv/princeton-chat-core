@@ -48,6 +48,7 @@
     "react-mounter": "1.x.x",
     "react-select": "^0.9.1",
     "react-simple-di": "1.x.x",
+    "react-styling": "^1.4.0",
     "react-tap-event-plugin": "^0.2.1",
     "scroll-to": "0.0.2",
     "sweetalert": "^1.1.3",

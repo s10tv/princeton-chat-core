@@ -4,6 +4,7 @@ import importedStyles from '/imports/modules/core/components/styles.jsx'
 import { TopicGridContainer } from '/imports/modules/core/containers/topic.list.js'
 import SetPasswordComponentBox from '/imports/modules/core/containers/set.password.js'
 import { i18n } from '/imports/libs/mantra'
+import styler from 'react-styling'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -14,9 +15,28 @@ const styles = Object.assign(importedStyles, {
   }
 })
 
+const style = styler`
+.container {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  justify-content: center;
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  margin: 0px 16px;
+  -webkit-flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  -webkit-flex: 1;
+  margin: "0px 16px 16px 12px";
+}
+`
+
 const FollowTopicComponent = (props) => {
   return (
-    <div className='onboarding-container'>
+    <div className='onboarding-container' style={style.container}>
       <div>
         <Block
           margin={24}
@@ -40,7 +60,7 @@ const FollowTopicComponent = (props) => {
 
 const SetPasswordComponent = (props) => {
   return (
-    <div className='onboarding-container'>
+    <div className='onboarding-container' style={style.container}>
       <div>
         <Block
           margin={24}
