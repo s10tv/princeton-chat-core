@@ -199,13 +199,11 @@ const PostListItem = (props) => (
         )}
       </Flex>
 
-      <a href={props.post.url} style={{marginTop: 12}}>
+      <a href={props.post.url} style={{marginTop: 12, color: 'black'}}>
         <h2>{props.post.title}</h2>
       </a>
 
-      <a href={props.post.url} style={{marginTop: 12, letterSpacing: '0.1px'}}>
-        <p>{props.post.truncatedContent}</p>
-      </a>
+      <p style={{marginTop: 12, letterSpacing: '0.1px'}}>{props.post.truncatedContent}</p>
 
       <Flex flexDirection='row' justifyContent='space-between' marginTop={20}>
         <Flex alignItems='center'>
@@ -222,11 +220,7 @@ const PostListItem = (props) => (
 const FollowersBtn = (props) => (
   props.post.numFollowers === 0
   ? <Flex alignItems='center' fontSize={15}>No Followers</Flex>
-  : <Flex alignItems='center'>
-    <a href='#'
-      onClick={() => props.showPostFollowers(props.post.followers)}
-      style={{display: 'flex', alignItems: 'center'}}>
-
+  : <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer',}} onClick={() => props.showPostFollowers(props.post.followers)}> 
       <span style={{marginRight: 7, fontSize: 15, fontWeight: 300, color: '#999'}}>
         {props.post.followers.length > 1 ? 'Followers:' : 'Follower:'}
       </span>
@@ -253,8 +247,7 @@ const FollowersBtn = (props) => (
           style={{ border: 'solid 1px #999', fontSize: 14, fontWeight: 300 }}>
             +{props.post.moreFollowersNumber}
         </Avatar>}
-    </a>
-  </Flex>
+  </div>
 )
 
 const FollowBtn = (props) => (
