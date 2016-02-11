@@ -112,7 +112,7 @@ export default React.createClass({
             </Flex>
 
             <form style={{maxHeight: 300, overflowY: 'scroll', marginTop: 50}}>
-              <table>
+              <table className='no-scrollbar'>
                 <thead>
                   <tr>
                     <th>Email Address</th>
