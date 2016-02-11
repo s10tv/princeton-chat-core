@@ -261,22 +261,26 @@ Meteor.methods({
     check(profile, Object)
     check(profile.firstName, String)
     check(profile.lastName, String)
-    check(profile.classYear, Number)
     check(profile.avatarUrl, String)
     check(profile.isDefaultAvatar, Boolean)
     check(profile.avatarColor, String)
 
-    Users.update(user._id, {
-      $set: {
-        firstName: profile.firstName,
-        lastName: profile.lastName,
-        classYear: profile.classYear,
-        avatar: {
-          url: profile.avatarUrl,
-          isDefaultAvatar: profile.isDefaultAvatar,
-          color: profile.avatarColor
-        },
+    const updateValues = {
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      avatar: {
+        url: profile.avatarUrl,
+        isDefaultAvatar: profile.isDefaultAvatar,
+        color: profile.avatarColor
       }
+    }
+
+    if (profile.classYear) {
+      updateValues.classYear = profile.classYear
+    }
+
+    Users.update(user._id, {
+      $set: updateValues
     })
   },
 
