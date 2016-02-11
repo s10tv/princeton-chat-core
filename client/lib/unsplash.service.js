@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor'
 
 export default class UnsplashService {
   constructor () {
-    this.key = Meteor.settings.public.unsplash || '3b28c5415d07e18260e66e9d5bc3f2434c2aa64bed071d52e8c62c3da800612e'
+    this.key = Meteor.settings.public.unsplashKey || '3b28c5415d07e18260e66e9d5bc3f2434c2aa64bed071d52e8c62c3da800612e'
   }
 
   /**
