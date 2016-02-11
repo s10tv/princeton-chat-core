@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor'
-import { i18n } from '/client/config/env'
+// importing env causes a problem. 
+// import { i18n } from '/client/config/env'
 
 // gets the current user, with default values filled in.
 export default class UserService {
@@ -18,8 +19,7 @@ export default class UserService {
     user.expertTopics = user.expertTopics || []
 
     user.status = user.status || 'pending'
-    user.avatar = user.avatar || { url: i18n('defaultAvatar') }
-
+    user.avatar = user.avatar || { url: '/images/princeton.svg' }
     if (user.classYear) {
       const shortClassYear = (/^[0-9]{4}$/.test(user.classYear))
         ? user.classYear.substring(2)

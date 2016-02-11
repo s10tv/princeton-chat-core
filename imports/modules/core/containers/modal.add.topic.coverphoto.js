@@ -1,5 +1,5 @@
 import AddTopicModal from '/imports/modules/core/components/modal.add.topic.coverphoto.jsx'
-import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
+import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 
 const composer = ({context, postId, follow, unfollow}, onData) => {
   const {LocalState} = context()
