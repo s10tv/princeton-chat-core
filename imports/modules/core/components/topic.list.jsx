@@ -73,9 +73,6 @@ export const TopicGrid = React.createClass({
             icon={<FontIcon className='material-icons'>add</FontIcon>}
             onTouchTap={() => { this.props.showAddTopicModal() }} />
         </Flex>
-        <div style={{ width: 480 }}>
-          <SearchPhoto />
-        </div>
       </div>
     )
   }

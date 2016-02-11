@@ -6,6 +6,7 @@ import Sidebar from '/imports/modules/core/containers/layout.sidebar.js'
 import Profile from '/imports/modules/core/containers/modal.profile.js'
 import EditProfileModal from '/imports/modules/core/containers/modal.editprofile.js'
 import AddTopicModal from '/imports/modules/core/containers/modal.add.topic.js'
+import AddTopicCoverPhotoModal from '/imports/modules/core/containers/modal.add.topic.coverphoto.js'
 import PostFollowersModal from '/imports/modules/core/containers/modal.post.followers.js'
 import GlobalSnackbar from '/imports/modules/core/containers/global.snackbar.js'
 import { i18n } from '/client/config/env'
@@ -49,6 +50,7 @@ export default React.createClass({
         <EditProfileModal />
         <PostFollowersModal />
         <AddTopicModal />
+        <AddTopicCoverPhotoModal />
         <Profile />
         <GlobalSnackbar />
       </div>

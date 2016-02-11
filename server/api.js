@@ -3,6 +3,8 @@ import { Topics, Posts, Users, Messages } from '/imports/configs/collections'
 import TopicManager from '/imports/server/TopicManager'
 import PostManager from '/imports/server/PostManager'
 import _ from 'underscore'
+import NewTopicService from '/imports/libs/newtopic.service'
+import UserService from '/imports/libs/user.service'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
@@ -373,6 +375,47 @@ Meteor.methods({
     } catch(err) {
       throw new Meteor.Error(500, 'There was a problem removing follower.')
     }
+  },
+
+  'topic/create': (topicInfo) => {
+    const user = CurrentUser.get()
+    check(topicInfo, Object)
+
+    if (!topicInfo.name) {
+      throw new Meteor.Error(400, 'The topic needs to have a name.')
+    }
+
+    if (!topicInfo.description) {
+      throw new Meteor.Error(400, 'The topic needs to have a description.')
+    }
+
+    if (!topicInfo.cover && !topicInfo.cover.url) {
+      throw new Meteor.Error(400, 'The topic needs to have a cover photo.')
+    }
+
+    const topicNameError = NewTopicService.validateTopicName(topicInfo.name)
+    if (topicNameError.reason) {
+      throw new Meteor.Error(400, 'The topic name you entered has an error. Please check.')
+    }
+
+    const topicDescriptionError = NewTopicService.validateTopicDescription(topicInfo.description)
+    if (topicDescriptionError.reason) {
+      throw new Meteor.Error(400, 'The topic description you entered has an error. Please check.')
+    }
+
+    const topicId = topicInfo.name.toLowerCase()
+    Topics.insert({
+      _id: topicId,
+      displayName: UserService.capitalizeFirstLetter(topicInfo.name),
+      description: topicInfo.description,
+      followers: [],
+      numPosts: 0,
+      cover: {
+        url: topicInfo.cover.url
+      }
+    })
+    Meteor.call('topic/follow', topicId)
+    return topicId
   },
 
   'post/follow': (postId) => {

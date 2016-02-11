@@ -123,13 +123,13 @@ const numberOfFollowersText = (numFollowers) => {
 
 const CoverPhotoMenu = (props) => (
   <Flex minHeight={200} height={200} justifyContent='space-between' alignItems='flex-end' padding={25}
-    background='linear-gradient(
+    background={`linear-gradient(
       to bottom,
       rgba(0,0,0,0) 40%,
       rgba(0,0,0,0.3) 80%,
       rgba(0,0,0,0.6) 100%),
-      url("https://images.unsplash.com/photo-1431887773042-803ed52bed26?crop=entropy&fit=crop&fm=jpg&h=300&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=800")
-      no-repeat center' backgroundSize='100%' style={props.style}>
+      url(${props.topic.cover.url})
+      no-repeat center`} backgroundSize='100%' style={props.style}>
     <Flex flexDirection='column' color='white'>
       <span style={
         Object.assign(

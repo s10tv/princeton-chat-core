@@ -18,6 +18,17 @@ export default {
     })
   },
 
+  createTopic ({Meteor, LocalState, FlowRouter}, topicInfo) {
+    Meteor.call('topic/create', topicInfo, (err, topicId) => {
+      if (err) {
+        return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+      }
+
+      LocalState.set('SHOW_ADD_TOPIC_MODAL', false)
+      FlowRouter.go(`/topics/${topicId}`)
+    })
+  },
+
   showAddTopicModal ({ LocalState }) {
     LocalState.set('SHOW_ADD_TOPIC_MODAL', true)
     // new UnsplashService().search('music').then(photos => {
@@ -27,6 +38,18 @@ export default {
 
   hideAddTopicModal ({ LocalState }) {
     LocalState.set('SHOW_ADD_TOPIC_MODAL', false)
+  },
+
+  showAddTopicCoverPhotoModal ({ LocalState }) {
+    LocalState.set('SHOW_ADD_TOPIC_MODAL_COVER_PHOTO', true)
+  },
+
+  hideAddTopicCoverPhotoModal ({ LocalState }) {
+    LocalState.set('SHOW_ADD_TOPIC_MODAL_COVER_PHOTO', false)
+  },
+
+  chooseCoverPhoto ({ LocalState }, photo) {
+    LocalState.set('ADD_TOPIC_MODAL_CURRENT_COVER_PHOTO', photo)
   },
 
   navigateToTopic ({ FlowRouter }, topicId) {
