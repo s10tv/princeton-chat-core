@@ -11,7 +11,6 @@ import SignupDone from '/client/modules/core/containers/signup.done.js'
 import Login from '/client/modules/core/containers/login.js'
 import GuestIndex from '/client/modules/guest/containers/guestIndex.js'
 import AddFollowers from '/client/modules/core/containers/add.followers.js'
-import Landing from '/client/modules/core/components/signup/landing.jsx'
 
 // This import has to be at the end for some reason else fails
 import WebFontLoader from 'webfontloader'
@@ -39,12 +38,6 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
   }
   // logged in users should be redirected to all-mine when they visit '/'
   FlowRouter.triggers.enter([redirectToAllMine], {only: ['signup']})
-  FlowRouter.route('/landing', {
-    name: 'landing',
-    action () {
-      mount(Landing)
-    }
-  })
 
   FlowRouter.route('/', {
     name: 'signup',

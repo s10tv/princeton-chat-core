@@ -4,9 +4,9 @@ import Radium from 'radium'
 import {i18n} from '/client/config/env'
 import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui'
 import {color} from '/client/config/theme'
-import style from './style'
+import style from './../../core/components/signup/style'
 
-class Landing extends React.Component {
+class Home extends React.Component {
   getChildContext () {
     return { muiTheme: i18n('secondaryMuiTheme') }
   }
@@ -44,7 +44,7 @@ class Landing extends React.Component {
     )
   }
 }
-Landing.childContextTypes = {
+Home.childContextTypes = {
   muiTheme: React.PropTypes.object
 }
-export default Radium(Landing)
+export default Radium(Home)
