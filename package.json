@@ -61,7 +61,8 @@
     "ignore": [
       "packages/**",
       "server/**",
-      "private/**"
+      "private/**",
+      "client/modules/onboarding/**"
     ]
   }
 }
