@@ -31,15 +31,17 @@
 }
 
 .post-list .display-name {
-  font-weight: 600;
+  font-weight: 400;
   margin-right: 8px;
 }
 
 .post-list .mention {
+  font-weight: 300;
   margin-right: 8px;
 }
 
 .post-list .datetime {
+  font-weight: 300;
   font-size: 14px;
   color: #888;
 }
@@ -47,12 +49,13 @@
 .post-list h2 {
   margin: 1px 0px;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .post-list p {
   margin: 0;
   font-size: 15px;
+  font-weight: 300;
 }
 
 .post-list footer {

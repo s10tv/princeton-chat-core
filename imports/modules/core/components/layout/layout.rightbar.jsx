@@ -1,6 +1,5 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import LeftNav from 'material-ui/lib/left-nav'
 import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import FlatButton from 'material-ui/lib/flat-button'
@@ -19,11 +18,6 @@ const accent1Color = theme.baseTheme.palette.accent1Color
 
 export default React.createClass({
   propTypes: {
-    /**
-     * Boolean to show/hide right bar
-     */
-    isOpen: React.PropTypes.bool.isRequired,
-
     // FOR POST LIST SCREEN
     /**
      * Topic to render
@@ -49,32 +43,31 @@ export default React.createClass({
   render () {
     const props = this.props
     return (
-      <LeftNav width={320} openRight open={this.props.isOpen}
+      <Flex width={320} minWidth={320}
         style={{
-          display: 'flex',
           flexDirection: 'column',
-          alignItems: 'stretch',
-          padding: '15px 20px'}}>
-        <h3>About #{props.topic.displayName}</h3>
-        <p>
+          padding: '15px 20px',
+          overflow: 'scroll'
+        }}>
+        <h3 style={{fontWeight: 400, marginTop: 10, marginBottom: 0}}>About #{props.topic.displayName}</h3>
+        <p style={{fontWeight: 300, marginTop: 10, marginBottom: 0}}>
           {props.topic.description}
         </p>
 
-        <h4>List Address</h4>
-        <a href={`mailto: ${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
+        <h4 style={{fontWeight: 400, marginTop: 35, marginBottom: 0}}>List Address</h4>
+        <a style={{fontWeight: 300, marginTop: 10, marginBottom: 0}} href={`mailto: ${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
           {`${props.topic._id}@${i18n('topicMailServer')}`}
         </a>
 
-        <Flex alignItems='center' justifyContent='space-between'>
-          <h4>
-            <a href='#'
+        <Flex justifyContent='space-between' alignItems='center' minHeight={36} marginTop={35}>
+          <h4 style={{fontWeight: 400, marginTop: 0, marginBottom: 0}}>
+            <a href='#' style={{}}
               onClick={
                 () => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)
               }>
               Topic Followers ({props.topic.followers.length})
             </a>
           </h4>
-
           <FlatButton
             primary
             onTouchTap={() => props.navigateToAddFollowers(props.topic._id)}
@@ -82,17 +75,26 @@ export default React.createClass({
           />
         </Flex>
 
-        <List style={{paddingTop: 0, paddingBottom: 0}}>
+        <List style={{marginTop: 5, marginBottom: 0, paddingTop: 0, paddingBottom: 0}}>
           {props.topic.followersList.map((f) =>
             <FollowerListItem key={f._id} follower={f}
               removeFollower={() => props.removeFollower(props.topic._id, f._id)}
               showUserProfile={props.showUserProfile} />
           )}
         </List>
-      </LeftNav>
+      </Flex>
     )
   }
 })
+
+/* <Flex width={320}
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    padding: '15px 20px'}}>
+
+</Flex> */
 
 const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
   <ListItem disabled style={{padding: '15px 0px'}} rightIconButton={
@@ -120,13 +122,14 @@ const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
         <Flex flexDirection='column'
           style={Object.assign({}, follower.isFullMember && { marginLeft: 15 })}>
           {follower.displayName
-            ? <span style={{fontWeight: 500}}>
+            ? <span style={{fontWeight: 300}}>
               {follower.displayName}
             </span>
             : null
           }
           <span style={Object.assign({}, { marginTop: 15 }, {
-            color: accent1Color
+            color: accent1Color,
+            fontWeight: 300
           })}>
             {follower.displayEmail}
           </span>

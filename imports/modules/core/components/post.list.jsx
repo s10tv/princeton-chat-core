@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import Menu from '/imports/modules/core/components/menu.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
 import ListItem from 'material-ui/lib/lists/list-item'
-// import RightBar from '/imports/modules/core/components/layout/layout.rightbar.jsx'
+import RightBar from '/imports/modules/core/components/layout/layout.rightbar.jsx'
 import FlatButton from 'material-ui/lib/flat-button'
 import { i18n } from '/imports/libs/mantra'
 import Avatar from 'material-ui/lib/avatar'
@@ -75,14 +75,23 @@ export default React.createClass({
   //   )
   // }
   render () {
+    const isRightBarOpen = this.props.postListType == null
     return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
-        <Menu
-          hidePostButton={this.props.isEmpty}
-          isPostListScreen
-          {...this.props} />
-
-        {this.props.isEmpty ? <EmptyPostList {...this.props} /> : <PostList {...this.props} />}
+      <main style={Object.assign({}, styles.main, {
+        marginLeft: this.props.sidebarOpen ? 240 : 0
+      })}>
+        <Flex flexDirection='column' flexGrow='1'>
+          <Menu
+            hidePostButton={this.props.isEmpty}
+            isPostListScreen
+            {...this.props} />
+          <Flex>
+            {this.props.isEmpty
+              ? <EmptyPostList {...this.props} />
+              : <PostList {...this.props} />}
+            {isRightBarOpen ? <RightBar {...this.props} /> : null}
+          </Flex>
+        </Flex>
       </main>
     )
   }
@@ -182,7 +191,7 @@ const PostListItem = (props) => (
         <Flex marginRight={16}>
           <a href={props.post.url}>
             <Flex alignItems='center'>
-              <span style={{color: '#999', marginRight: 10}}>{props.post.numMsgs}</span>
+              <span style={{color: '#999', marginRight: 10, fontWeight: 300}}>{props.post.numMsgs}</span>
               <img src='/images/chat-bubble.svg' />
             </Flex>
           </a>
@@ -195,7 +204,7 @@ const PostListItem = (props) => (
             <a href='#' onClick={() => {
               props.navigateToTopic(topic._id)
               return false
-            }} style={{ color: '#d3d4d7' }}>
+            }} style={{ fontWeight: 300, color: '#d3d4d7' }}>
               #{topic.displayName}
             </a>
           </span>
@@ -206,7 +215,7 @@ const PostListItem = (props) => (
         <h2>{props.post.title}</h2>
       </a>
 
-      <a href={props.post.url} style={{marginTop: 12}}>
+      <a href={props.post.url} style={{marginTop: 12, letterSpacing: '0.1px'}}>
         <p>{props.post.truncatedContent}</p>
       </a>
 
@@ -230,7 +239,7 @@ const FollowersBtn = (props) => (
       onClick={() => props.showPostFollowers(props.post.followers)}
       style={{display: 'flex', alignItems: 'center'}}>
 
-      <span style={{marginRight: 7, fontSize: 15}}>
+      <span style={{marginRight: 7, fontSize: 15, fontWeight: 300, color: '#999'}}>
         {props.post.followers.length > 1 ? 'Followers:' : 'Follower:'}
       </span>
 
@@ -253,7 +262,7 @@ const FollowersBtn = (props) => (
         ? null
         : <Avatar size={30} backgroundColor={'rgba(0, 0, 0, 0)'}
           color='#999'
-          style={{ border: 'solid 1px #999', fontSize: 14 }}>
+          style={{ border: 'solid 1px #999', fontSize: 14, fontWeight: 300 }}>
             +{props.post.moreFollowersNumber}
         </Avatar>}
     </a>

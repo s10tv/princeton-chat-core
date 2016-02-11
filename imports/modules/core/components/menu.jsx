@@ -122,7 +122,7 @@ const numberOfFollowersText = (numFollowers) => {
 }
 
 const CoverPhotoMenu = (props) => (
-  <Flex height={200} justifyContent='space-between' alignItems='flex-end' padding={25}
+  <Flex minHeight={200} height={200} justifyContent='space-between' alignItems='flex-end' padding={25}
     background='linear-gradient(
       to bottom,
       rgba(0,0,0,0) 40%,
