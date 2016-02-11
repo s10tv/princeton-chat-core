@@ -19,19 +19,15 @@ export default {
   sidebarHeader: {
     alignSelf: 'stretch',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     padding: spacing.x2,
-  },
-  logo: {
-    fontWeight: 600,
-    fontSize: fontSize.h4,
-    color: color.brandPrimary,
   },
   login: {
     color: color.white,
-    fontSize: fontSize.h5,
+    fontSize: fontSize.h6,
   },
   sidebarInner: {
+    flex: 1,
     marginTop: spacing.x6,
     maxWidth: 320,
     alignSelf: 'center',
@@ -41,40 +37,26 @@ export default {
   h1: {
     fontWeight: 'normal',
     marginBottom: spacing.x2,
+    // fontSize: fontSize.h4,
+    color: color.brandPrimary,
   },
   verifyForm: {
-    marginTop: spacing.x6,
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
   },
-  verifyLabel: {
-    fontSize: fontSize.sm,
-  },
-  inputGroup: {
+  emailContainer: {
     display: 'flex',
-    border: `1px solid ${color.gray}`,
-    borderRadius: 3,
-    padding: spacing.x1,
+    alignItems: 'center',
   },
-  inputText: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    width: 100,
-    ':focus': {
-      outline: 'none',
-    }
+  manualInvite: {
+    color: color.white,
+    fontSize: fontSize.xs,
   },
-  inputAddon: {
-    
-  },
-  enterButton: {
-    marginTop: spacing.x2,
-    alignSelf: 'center',
-    border: 'none',
-    borderRadius: 3,
-    backgroundColor: color.green,
-    padding: '8px 24px',
-    fontSize: fontSize.lg,
+  submitButton: {
+    marginLeft: spacing.x2,
+    marginRight: spacing.x2,
   },
   main: {
     flex: 6,

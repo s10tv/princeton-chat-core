@@ -1,32 +1,40 @@
 /*eslint-disable no-trailing-spaces */
 import React from 'react'
 import Radium from 'radium'
+import {i18n} from '/client/config/env'
+import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui'
+import {color} from '/client/config/theme'
 import style from './style'
 
 class Landing extends React.Component {
+  getChildContext () {
+    return { muiTheme: i18n('secondaryMuiTheme') }
+  }
   render () {
     return (
       <div style={style.pageWrapper}>
         <div style={style.sidebar}>
           <header style={style.sidebarHeader}>
-            <span style={style.logo}>Princeton.Chat</span>
             <a style={style.login} href='/login'>Log in</a>
           </header>
           <div style={style.sidebarInner}>
-            <h1 style={style.h1}>Welcome Tiger</h1>
-            <p>Princeton.Chat is a private community that connects Princetonians based on shared interests and common needs.</p>
+            <h1 style={style.h1}>Princeton.Chat</h1>
+            <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
             <form style={style.verifyForm}>
-              <p style={style.verifyLabel}>Verify your Princeton affiliation to enter.</p>
-              <div style={style.inputGroup}>
-                <input key='input1' type='text' style={style.inputText} />
-                <span style={style.inputAddon}>@alumni.princeton.edu</span>
+              <div style={style.emailContainer}>
+                <TextField hintText='netid' />
+                <span>@</span>
+                <SelectField value='alumni.princeton.edu'>
+                  <MenuItem value='alumni.princeton.edu' primaryText='alumni.princeton.edu' />
+                  <MenuItem value='princeton.edu' primaryText='princeton.edu' />
+                </SelectField>
               </div>
-              <div>OR</div>
-              <div style={style.inputGroup}>
-                <input key='input2' type='text' style={style.inputText} />
-                <span style={style.inputAddon}>@princeton.edu</span>
-              </div>
-              <input style={style.enterButton} type='submit' value='Enter' />
+              <a style={style.manualInvite} href='/manual_invite' tooltip='No worries. We can verify you manually.'>
+                Don't have access to your Princeton email?
+              </a>
+              <br />
+              <FlatButton style={style.submitButton} label='Get Invited' 
+                backgroundColor={color.green} hoverColor={color.lightGreen} />
             </form>
           </div>
         </div>
@@ -35,5 +43,8 @@ class Landing extends React.Component {
       </div>
     )
   }
+}
+Landing.childContextTypes = {
+  muiTheme: React.PropTypes.object
 }
 export default Radium(Landing)

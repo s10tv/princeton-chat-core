@@ -8,6 +8,7 @@ import lightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Colors from 'material-ui/lib/styles/colors'
 import Spacing from 'material-ui/lib/styles/spacing'
+import tinycolor from 'tinycolor2'
 
 export const fontFamily = {
   base: '-apple-system, BlinkMacSystemFont, "Avenir Next", sans-serif',
@@ -19,10 +20,12 @@ export const fontFamily = {
 }
 
 export const color = {
+  ...Colors,
   brandPrimary: '#F07621', // Princeton orange
   black: '#292F33', // Near black
   white: 'white',
   green: '#2AB27B',
+  lightGreen: tinycolor('#2AB27B').lighten(10).toString(),
   gray: '#979797',
 }
 
