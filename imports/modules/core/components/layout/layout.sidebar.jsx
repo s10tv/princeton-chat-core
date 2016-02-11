@@ -33,7 +33,11 @@ const SidebarHeader = (props) => {
           </LetterAvatar>
           : <CoverAvatar src={props.user.avatar.url} size={60} />
         }
-        <Flex flexGrow={1} marginLeft={8} flexDirection='column' justifyContent='space-around'>
+        <Flex
+          flexGrow={1}
+          marginLeft={8}
+          flexDirection='column'
+          justifyContent='space-around'>
           <h3 style={Object.assign({}, { color: accent1Color })}>
             {i18n('title')}
           </h3>
@@ -124,7 +128,7 @@ export default React.createClass({
           Object.assign({}, {display: 'flex', flexDirection: 'column'})}>
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
         <AddNewPostButton onClick={this.props.showAddPostPopupFn}/>
-        <nav style={{flexGrow: 1, overflow: 'scroll'}}>
+        <nav className='no-scrollbar' style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
             <MediumListItem
               style={this.giveListItemStyleForRoutePath('all-mine')}
