@@ -60,8 +60,7 @@
     "ignore": [
       "packages/**",
       "server/**",
-      "private/**",
-      "imports/modules/core/components/modal.add.topic.jsx"
+      "private/**"
     ]
   }
 }

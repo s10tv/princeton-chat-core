@@ -3,7 +3,6 @@ import {Flex, Block} from 'jsxstyle'
 import FlatButton from 'material-ui/lib/flat-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import Menu from '/imports/modules/core/components/menu.jsx'
-import { SearchPhoto } from '/imports/modules/core/components/modal.add.topic.jsx'
 import styles from '/imports/modules/core/components/styles.jsx'
 
 export default React.createClass({

@@ -24,7 +24,7 @@ export default class NewTopicService {
 
     if (name.indexOf(' ') !== -1) {
       return {
-        reason: `You can't have spaces in the name!`
+        reason: "You can't have spaces in the name!"
       }
     }
 
