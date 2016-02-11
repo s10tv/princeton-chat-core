@@ -48,7 +48,7 @@ const SearchPhoto = React.createClass({
   render () {
     return (
       <Flex flexDirection='column'>
-        <Flex flexDirection='row'>
+        <Flex flexDirection='row' alignSelf='center'>
           <TextField ref='searchPhoto'
             hintText='Search for cover photos ... '
           />
@@ -62,7 +62,7 @@ const SearchPhoto = React.createClass({
           />
         </Flex>
 
-        <div style={{maxHeight: 400, overflowY: 'scroll'}}>
+        <div style={{marginTop: 20, maxHeight: 400, overflowY: 'scroll'}}>
           <Flex flexDirection='column'>
             {this.state.photos.map((photo) => (
               <div key={photo.id} style={{
