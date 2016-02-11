@@ -1,19 +1,16 @@
 /*eslint-disable no-trailing-spaces */
 import React from 'react'
 import Radium from 'radium'
-import {i18n} from '/client/config/env'
 import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui'
 import {color} from '/client/config/theme'
 import style from './style'
+import Layout from './layout'
 
 class Home extends React.Component {
-  getChildContext () {
-    return { muiTheme: i18n('secondaryMuiTheme') }
-  }
   render () {
     return (
-      <div style={style.pageWrapper}>
-        <div style={style.sidebar}>
+      <Layout.Window>
+        <Layout.Sidebar>
           <header style={style.sidebarHeader}>
             <a style={style.login} href='/login'>Log in</a>
           </header>
@@ -37,14 +34,11 @@ class Home extends React.Component {
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
             </form>
           </div>
-        </div>
-        <div style={style.main}>
-        </div>
-      </div>
+        </Layout.Sidebar>
+        <Layout.Main>
+        </Layout.Main>
+      </Layout.Window>
     )
   }
-}
-Home.childContextTypes = {
-  muiTheme: React.PropTypes.object
 }
 export default Radium(Home)
