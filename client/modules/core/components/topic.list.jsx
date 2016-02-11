@@ -97,16 +97,16 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
             {
               topic.followersCount !== undefined
               ? <Flex flexDirection='column' marginRight={25} alignItems='center'>
-                  <span style={{fontWeight: 300}}>{topic.followersCount}</span>
-                  <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getFollowerText()}</span>
-                </Flex> : null
+                <span style={{fontWeight: 300}}>{topic.followersCount}</span>
+                <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getFollowerText()}</span>
+              </Flex> : null
             }
             {
               topic.numPosts !== undefined
               ? <Flex flexDirection='column' alignItems='center'>
-                  <span style={{fontWeight: 300}}>{topic.numPosts}</span>
-                  <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getPostsText()}</span>
-                </Flex> : null
+                <span style={{fontWeight: 300}}>{topic.numPosts}</span>
+                <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getPostsText()}</span>
+              </Flex> : null
             }
           </Flex>
           {
