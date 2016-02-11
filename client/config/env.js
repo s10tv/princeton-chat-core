@@ -81,7 +81,7 @@ let Env = {
     title: 'Pedagogy & Play',
     tagline: 'Young Professional Leadership Network',
     community: 'Pedagogy & Play',
-    favicon: 'images/taylr.png',
+    favicon: 'images/pedplay.png',
     fbAppId: '1150904264922616',
     ogUrl: 'https://pedplay.com',
     ogType: 'website',
