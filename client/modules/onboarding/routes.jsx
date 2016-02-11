@@ -1,16 +1,20 @@
 import React from 'react'
 import {mount} from 'react-mounter'
 
-import MainLayout from './components/main_layout.jsx'
-import Home from './components/home.jsx'
+import Home from './containers/home'
+import RequestInvite from './components/request-invite.jsx'
 
 export default function (injectDeps, {FlowRouter}) {
-  const MainLayoutCtx = injectDeps(MainLayout)
-  
   FlowRouter.route('/o/', {
-    name: 'landing',
+    name: 'onboarding-home',
     action () {
-      mount(Home)
+      mount(injectDeps(Home))
+    }
+  })
+  FlowRouter.route('/o/request-invite', {
+    name: 'request-invite',
+    action () {
+      mount(injectDeps(RequestInvite))
     }
   })
 }

@@ -4,7 +4,7 @@ import Radium from 'radium'
 import {i18n} from '/client/config/env'
 import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui'
 import {color} from '/client/config/theme'
-import style from './../../core/components/signup/style'
+import style from './style'
 
 class Home extends React.Component {
   getChildContext () {
@@ -29,7 +29,7 @@ class Home extends React.Component {
                   <MenuItem value='princeton.edu' primaryText='princeton.edu' />
                 </SelectField>
               </div>
-              <a style={style.manualInvite} href='/manual_invite' tooltip='No worries. We can verify you manually.'>
+              <a style={style.manualInvite} href='/o/request-invite' tooltip='No worries. We can verify you manually.'>
                 Don't have access to your Princeton email?
               </a>
               <br />

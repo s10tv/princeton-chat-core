@@ -22,6 +22,12 @@ export default {
     justifyContent: 'flex-end',
     padding: spacing.x2,
   },
+  logo: {
+    fontWeight: 600,
+    fontSize: fontSize.h4,
+    color: color.brandPrimary,
+    marginRight: 'auto',
+  },
   login: {
     color: color.white,
     fontSize: fontSize.h6,
