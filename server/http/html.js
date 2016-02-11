@@ -12,14 +12,6 @@ export default ({title, body}) => {
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <link href="/css/normalize.css" media="all" rel="stylesheet" />
         <title>${title}</title>
-        <style>
-          body {
-            font-family: "Avenir Next", -apple-system, BlinkMacSystemFont,
-            "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-            "Fira Sans", "Droid Sans", "Helvetica Neue",
-            sans-serif;
-          }
-        </style>
       </head>
       <body>
         ${body}

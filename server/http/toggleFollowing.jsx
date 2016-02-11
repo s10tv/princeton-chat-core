@@ -1,5 +1,6 @@
 import React from 'react'
 import {Block} from 'jsxstyle'
+import Radium, { Style } from 'radium'
 
 const ORANGE = '#F07621'
 const RED = 'red'
@@ -15,15 +16,21 @@ const SimpleLogo = (props) => (
 
 const GuestToggleFollow = (props) => (
   <Block className='guest' padding={30}>
-    <style type='text/css' scoped>{`
-      .guest a {
-        color: #4A90E2; /* Blue */
-        text-decoration: underline;
-      }
-      .guest a:hover {
-        color: #F07621; /* Princeton Orange */
-      }
-    `}</style>
+    <Style rules={{
+        body: {
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Avenir Next", sans-serif',
+        }
+    }} />
+    <Style scopeSelector='.guest' rules={{
+        a: {
+          color: '#4A90E2',
+          textDecoration: 'underline',
+        },
+        'a:hover': {
+          color: '#F07621',
+        }
+    }} />
+    
     <SimpleLogo />
     {props.isFollowing
       ? <p>You are now <span style={{color: ORANGE}}>following</span></p>
