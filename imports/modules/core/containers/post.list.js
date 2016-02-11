@@ -4,7 +4,7 @@ import PostList from '/imports/modules/core/components/post.list.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '/lib/user.service.js'
 import DateFormatter from '/client/lib/date.formatter'
-import { GenericCoverPhoto } from '/client/libs/unsplash.service'
+import { GenericCoverPhoto } from '/client/lib/unsplash.service'
 import _ from 'underscore'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
