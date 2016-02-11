@@ -1,7 +1,7 @@
 import truncate from 'truncate'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import UserService from '/imports/libs/user.service'
-import DateFormatter from '/imports/libs/date.formatter'
+import UserService from '/lib/user.service.js'
+import DateFormatter from '/client/lib/date.formatter'
 import PostDetails from '/imports/modules/core/components/post.details.jsx'
 import {Loading} from '/imports/modules/core/components/helpers.jsx'
 

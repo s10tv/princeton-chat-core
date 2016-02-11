@@ -1,8 +1,8 @@
 import invariant from 'invariant'
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
-import {isValidHash} from '/imports/server/Auth'
-import PostManager from '/imports/server/PostManager'
+import {isValidHash} from '/server/lib/Auth'
+import PostManager from '/server/lib/PostManager'
 import GuestToggleFollow from '/imports/modules/guest/components/toggleFollowing.jsx'
 import htmlPage from './html'
 

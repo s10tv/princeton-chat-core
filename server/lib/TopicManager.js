@@ -1,5 +1,5 @@
 import { check } from 'meteor/check'
-import { Topics, Users } from '/imports/configs/collections'
+import { Topics, Users } from '/lib/collections'
 
 export default class TopicManager {
   static follow ({ topicId, user }) {

@@ -1,4 +1,4 @@
-import { isValidHash } from '/imports/server/Auth'
+import { isValidHash } from '/server/lib/Auth'
 
 Accounts.registerLoginHandler('guest', (serviceData) => {
   if (!serviceData.guest) {

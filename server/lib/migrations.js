@@ -1,5 +1,5 @@
-import {Users, Topics, Posts, Messages} from '/imports/configs/collections';
-import AvatarService from '/imports/libs/avatar.service';
+import {Users, Topics, Posts, Messages} from '/lib/collections';
+import AvatarService from '/lib/avatar.service.js';
 
 Migrations.add({
   version: 1,

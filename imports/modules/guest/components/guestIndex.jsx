@@ -4,7 +4,7 @@ import truncate from 'truncate'
 import pluralize from 'pluralize'
 import sweetalert from 'sweetalert'
 import {Flex, Block} from 'jsxstyle'
-import {postShape, topicShape} from '/imports/libs/shapes.js'
+import {postShape, topicShape} from '/client/lib/shapes.js'
 
 const ORANGE = '#F07621'
 const RED = 'red'

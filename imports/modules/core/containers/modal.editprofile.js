@@ -1,7 +1,7 @@
 import EditProfileModal from '../components/modal.editprofile.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import UserService from '../../../libs/user.service'
-import AvatarService from '/imports/libs/avatar.service'
+import UserService from '../../../../lib/user.service.js'
+import AvatarService from '/lib/avatar.service.js'
 
 export const composer = ({context, actions}, onData) => {
   const { Meteor, LocalState, Accounts } = context()

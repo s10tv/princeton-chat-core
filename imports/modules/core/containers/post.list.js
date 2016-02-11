@@ -2,9 +2,9 @@ import truncate from 'truncate'
 import {Loading} from '/imports/modules/core/components/helpers.jsx'
 import PostList from '/imports/modules/core/components/post.list.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import UserService from '/imports/libs/user.service'
-import DateFormatter from '/imports/libs/date.formatter'
-import { GenericCoverPhoto } from '/imports/libs/unsplash.service'
+import UserService from '/lib/user.service.js'
+import DateFormatter from '/client/lib/date.formatter'
+import { GenericCoverPhoto } from '/client/libs/unsplash.service'
 import _ from 'underscore'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3

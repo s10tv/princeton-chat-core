@@ -1,6 +1,6 @@
 import PostFollowersModal from '../components/modal.post.followers.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import UserService from '../../../libs/user.service'
+import UserService from '../../../../lib/user.service.js'
 
 export const composer = ({context, actions}, onData) => {
   const { LocalState } = context()

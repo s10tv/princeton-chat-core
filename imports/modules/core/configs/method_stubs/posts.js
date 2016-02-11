@@ -1,7 +1,7 @@
-import {Posts, Topics, Users} from '/imports/configs/collections'
+import {Posts, Topics, Users} from '/lib/collections'
 import {Meteor} from 'meteor/meteor'
 import {check} from 'meteor/check'
-import UserService from '/imports/libs/user.service'
+import UserService from '/lib/user.service.js'
 
 export default function () {
   Meteor.methods({

@@ -1,5 +1,5 @@
 import LayoutSidebar from '/imports/modules/core/components/layout/layout.sidebar.jsx'
-import UserService from '/imports/libs/user.service'
+import UserService from '/lib/user.service.js'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 
 export const composer = ({context}, onData) => {

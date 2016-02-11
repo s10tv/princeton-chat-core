@@ -1,4 +1,4 @@
-import NewPostService from '/imports/libs/newpost.service'
+import NewPostService from '/client/lib/newpost.service'
 
 export default {
   create ({Collections, Meteor, LocalState, FlowRouter}, title, content, topics, cb) {

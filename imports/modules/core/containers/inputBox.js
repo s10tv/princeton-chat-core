@@ -1,6 +1,6 @@
 import InputBox from '/imports/modules/core/components/inputBox.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
-import UserService from '/imports/libs/user.service'
+import UserService from '/lib/user.service.js'
 
 const composer = ({context, postId, follow, unfollow}, onData) => {
   const {Meteor, Collections} = context()

@@ -1,6 +1,6 @@
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import {createApp} from 'mantra-core'
-import {initContext} from '/imports/configs/context'
+import {initContext} from '/client/config/context'
 import {localize} from '/client/config/env'
 import coreModule from '/imports/modules/core'
 

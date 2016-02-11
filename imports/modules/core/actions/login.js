@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { getParameterByName } from '/imports/libs/urlutil'
+import { getParameterByName } from '/client/lib/urlutil'
 
 export default {
   loginWithPassword ({LocalState, FlowRouter}, email, password) {

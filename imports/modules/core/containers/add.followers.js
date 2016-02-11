@@ -1,6 +1,6 @@
 import AddFollowers from '/imports/modules/core/components/addFollowers.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import UserInfoService from '/imports/libs/userinfo.service'
+import UserInfoService from '/client/lib/userinfo.service'
 
 export const composer = ({context, actions, topicId}, onData) => {
   const { Meteor, Collections } = context()

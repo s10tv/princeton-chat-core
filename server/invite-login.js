@@ -1,5 +1,5 @@
 import {Accounts} from 'meteor/accounts-base'
-import {Users} from '/imports/configs/collections'
+import {Users} from '/lib/collections'
 
 Accounts.registerLoginHandler('invite', (serviceData) => {
   if (!serviceData.invite) {
