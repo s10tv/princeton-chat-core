@@ -56,7 +56,7 @@ export default React.createClass({
         </p>
 
         <h4 style={{fontWeight: 400, marginTop: 35, marginBottom: 0}}>List Address</h4>
-        <a style={{fontWeight: 300, marginTop: 10, marginBottom: 0}} href={`mailto: ${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
+        <a style={{fontWeight: 300, marginTop: 10, marginBottom: 0}} href={`mailto:${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
           {`${props.topic._id}@${i18n('topicMailServer')}`}
         </a>
 
@@ -87,15 +87,6 @@ export default React.createClass({
     )
   }
 })
-
-/* <Flex width={320}
-  style={{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    padding: '15px 20px'}}>
-
-</Flex> */
 
 const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
   <ListItem disabled style={{padding: '15px 0px'}} rightIconButton={
