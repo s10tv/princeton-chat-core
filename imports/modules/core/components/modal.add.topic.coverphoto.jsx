@@ -104,7 +104,7 @@ export default React.createClass({
     const toolbar = (
       <Toolbar>
         <ToolbarGroup float='left'>
-          <ToolbarTitle text='Add Topic' />
+          <ToolbarTitle text='Change Cover' />
         </ToolbarGroup>
         <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
           <IconButton tooltip='Close' onTouchTap={handleClose}>
