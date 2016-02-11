@@ -15,6 +15,23 @@
   overflow: scroll;
 }
 
+.post-list::-webkit-scrollbar {
+  display: block;
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+.post-list::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #a9a9a9;
+    box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.post-list::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
 .post-list article {
   display: flex;
   padding: 24px;

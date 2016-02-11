@@ -129,7 +129,7 @@ const CoverPhotoMenu = (props) => (
       rgba(0,0,0,0.3) 80%,
       rgba(0,0,0,0.6) 100%),
       url("https://images.unsplash.com/photo-1438962136829-452260720431")
-      no-repeat fixed center' backgroundSize='100%'>
+      no-repeat fixed center' backgroundSize='100%' style={props.style}>
     <Flex flexDirection='column' color='white'>
       <span style={{fontWeight: 300, marginBottom: 20, fontSize: 30}}>#{props.title}</span>
       <Flex flexDirection='row'>
@@ -215,7 +215,9 @@ const ToolbarMenu = (props) => {
   }
 
   return (
-    <Toolbar style={{backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000}}>
+    <Toolbar style={Object.assign({
+      backgroundColor: 'white', borderBottom: '1px solid #ddd', zIndex: 1000
+    }, props.style)}>
 
       {props.sidebarOpen ? null
         : <ToolbarGroup firstChild>

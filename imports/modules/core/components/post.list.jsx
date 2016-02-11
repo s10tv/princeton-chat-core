@@ -80,10 +80,11 @@ export default React.createClass({
       <main style={Object.assign({}, styles.main, {
         marginLeft: this.props.sidebarOpen ? 240 : 0
       })}>
-        <Flex flexDirection='column' flexGrow='1'>
+        <Flex flexDirection='column' flexGrow={1}>
           <Menu
             hidePostButton={this.props.isEmpty}
             isPostListScreen
+            style={{marginBottom: 20}}
             {...this.props} />
           <Flex>
             {this.props.isEmpty
@@ -144,8 +145,8 @@ const EmptyPostListInFeed = ({ navigateToTopicListFn }) => (
 )
 
 const PostList = (props) => (
-  <section className='post-list' style={{flexGrow: 1}}>
-    <List style={{padding: '0px 0px', paddingLeft: 10}}>
+  <section className='post-list' style={{flexGrow: 1, overflowX: 'hidden'}}>
+    <List style={{paddingTop: 0, paddingBottom: 0, paddingLeft: 10}}>
       {props.posts.map((post) =>
         <PostListItem key={post._id} post={post} {...props} />
       )}

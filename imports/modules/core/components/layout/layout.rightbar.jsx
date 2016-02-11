@@ -43,11 +43,12 @@ export default React.createClass({
   render () {
     const props = this.props
     return (
-      <Flex width={320} minWidth={320}
+      <Flex width={320} minWidth={320} className='no-scrollbar'
         style={{
           flexDirection: 'column',
-          padding: '15px 20px',
-          overflow: 'scroll'
+          padding: '0px 20px',
+          paddingBottom: '15px',
+          overflowY: 'scroll'
         }}>
         <h3 style={{fontWeight: 400, marginTop: 10, marginBottom: 0}}>About #{props.topic.displayName}</h3>
         <p style={{fontWeight: 300, marginTop: 10, marginBottom: 0}}>
