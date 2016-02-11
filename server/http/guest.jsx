@@ -5,6 +5,7 @@ import {isValidHash} from '/server/lib/Auth'
 import PostManager from '/server/lib/PostManager'
 import GuestToggleFollow from '/server/http/toggleFollowing.jsx'
 import htmlPage from './html'
+import {Posts} from '/lib/collections'
 
 HTTP.methods({
   'guest/posts/:postId/:action': function() {
