@@ -1,15 +1,8 @@
 import {Meteor} from 'meteor/meteor'
 import {SimpleSchema} from 'meteor/aldeed:simple-schema'
+import ImageSchema from './common/image'
 
 const Users = Meteor.users
-
-const ImageSchema = new SimpleSchema({
-  url: { type: String },
-  isDefaultAvatar: { type: Boolean, optional: true, defaultValue: true },
-  color: { type: String, optional: true },
-  width: { type: Number, optional: true },
-  height: { type: Number, optional: true }
-})
 
 const UserSchema = new SimpleSchema({
   firstName: { type: String, optional: true },

@@ -128,7 +128,7 @@ const CoverPhotoMenu = (props) => (
       rgba(0,0,0,0) 40%,
       rgba(0,0,0,0.3) 80%,
       rgba(0,0,0,0.6) 100%),
-      url("https://images.unsplash.com/photo-1438962136829-452260720431")
+      url("https://images.unsplash.com/photo-1431887773042-803ed52bed26?crop=entropy&fit=crop&fm=jpg&h=300&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=800")
       no-repeat center' backgroundSize='100%' style={props.style}>
     <Flex flexDirection='column' color='white'>
       <span style={
