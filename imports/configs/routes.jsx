@@ -43,7 +43,7 @@ export default function (injectDeps) {
   const GuestIndexCtx = injectDeps(GuestIndex)
 
   // logged in users should be redirected to all-mine when they visit '/'
-  FlowRouter.triggers.enter([redirectToAllMine], {only: ['home']})
+  FlowRouter.triggers.enter([redirectToAllMine], {only: ['signup']})
   FlowRouter.route('/landing', {
     name: 'landing',
     action () {
@@ -95,7 +95,7 @@ export default function (injectDeps) {
         methodArguments: [{ invite: inviteId }],
         userCallback: (err) => {
           if (err) {
-            return FlowRouter.go('home')
+            return FlowRouter.go('login')
           }
 
           FlowRouter.go('signupForm')
