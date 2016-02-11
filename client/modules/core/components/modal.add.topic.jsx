@@ -8,6 +8,7 @@ import Dialog from '../../../../node_modules/material-ui/lib/dialog'
 import {Flex} from 'jsxstyle'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
 import TextField from '../../../../node_modules/material-ui/lib/text-field'
+import { i18n } from '/client/config/env'
 
 export default React.createClass({
   propTypes: {
@@ -117,9 +118,9 @@ export default React.createClass({
             ref='topicNameContainer' refComponent='topicName' onChange={this.handleTopicNameChange}
             validateField={this.props.validateTopicName}/>
           <TextField fullWidth disabled floatingLabelText='Topic URL'
-            value={this.state.topicName ? `princeton.chat/topics/${this.state.topicName}` : ''} />
+            value={this.state.topicName ? `${i18n('ogUrl')}/topics/${this.state.topicName}` : ''} />
           <TextField fullWidth disabled floatingLabelText='Topic Email'
-            value={this.state.topicName ? `${this.state.topicName}@topics.princeton.chat` : ''} />
+            value={this.state.topicName ? `${this.state.topicName}@${i18n('topicMailServer')}` : ''} />
           <ValidatableTextField fullWidth floatingLabelText='Description'
             hintText="I can't live without bananas. Bananas are the only reason I stay
             on this planet. Share my love for bananas? Join Bananaland!"
