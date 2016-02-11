@@ -7,7 +7,6 @@ export default {
   pageWrapper: {
     height: '100vh',
     display: 'flex',
-    fontFamily: '"Avenir Next", sans-serif',
   },
   sidebar: {
     flex: 4,

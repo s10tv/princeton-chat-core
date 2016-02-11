@@ -1,8 +1,22 @@
 // TODO: Figure out a more permanent solution, comma-dangle is actually very important
 // Trailing spaces is used to separate stuff into logical chunks
-
 /*eslint-disable comma-dangle */
 /*eslint-disable no-trailing-spaces */
+
+import darkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
+import lightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import Colors from 'material-ui/lib/styles/colors'
+import Spacing from 'material-ui/lib/styles/spacing'
+
+export const fontFamily = {
+  base: '-apple-system, BlinkMacSystemFont, "Avenir Next", sans-serif',
+  system: `-apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue",
+    sans-serif`,
+  article: 'medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif'
+}
 
 export const color = {
   brandPrimary: '#F07621', // Princeton orange
@@ -35,4 +49,43 @@ export const spacing = {
   x6: 48,
 }
 
-export default {color, fontSize, spacing}
+export const primaryMuiTheme = ThemeManager.getMuiTheme({
+  spacing: Spacing,
+  fontFamily: fontFamily.base,
+  palette: {
+    ...lightRawTheme.palette,
+    primary1Color: '#8BC34A',
+    accent1Color: '#F07621' // princeton orange
+  }
+})
+
+export const secondaryMuiTheme = ThemeManager.getMuiTheme({
+  spacing: Spacing,
+  fontFamily: fontFamily.base,
+  palette: {
+    ...darkRawTheme.palette,
+    accent1Color: '#F07621', // princeton orange
+    alternateTextColor: Colors.white
+  }
+})
+
+export const pedPrimaryMuiTheme = ThemeManager.getMuiTheme({
+  spacing: Spacing,
+  fontFamily: fontFamily.base,
+  palette: {
+    ...lightRawTheme.palette,
+    accent1Color: '#5477AD' // ped blue
+  }
+})
+
+export const pedSecondaryMuiTheme = ThemeManager.getMuiTheme({
+  spacing: Spacing,
+  fontFamily: fontFamily.base,
+  palette: {
+    ...darkRawTheme.palette,
+    accent1Color: '#5477AD', // ped blue
+    primary3Color: '#4E6A93', // not-so-dark blue
+    alternateTextColor: Colors.white,
+    canvasColor: '#1B293D' // dark blue
+  }
+})

@@ -9,7 +9,7 @@ import {
   primaryMuiTheme,
   secondaryMuiTheme,
   pedPrimaryMuiTheme,
-  pedSecondaryMuiTheme } from '/imports/modules/core/components/helpers.jsx'
+  pedSecondaryMuiTheme } from '/client/config/theme'
 
 i18n.princeton = _.extend(i18n.princeton, {
   signupComponent: SignupPrinceton,

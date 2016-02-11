@@ -2,21 +2,8 @@ import React from 'react'
 import {Flex} from 'jsxstyle'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Avatar from 'material-ui/lib/avatar'
-import darkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
-import lightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme'
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
-import Colors from 'material-ui/lib/styles/colors'
-import Spacing from 'material-ui/lib/styles/spacing'
 import CircularProgress from 'material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
-
-// export const systemFont = `-apple-system, BlinkMacSystemFont,
-//   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-//   "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue",
-//   sans-serif`
-export const systemFont = 'Lato, sans-serif'
-
-export const articleFont = 'medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif'
 
 // Helpers
 
@@ -71,47 +58,6 @@ export const CoverAvatar = (props) => (
     {props.children}
   </Avatar>
 )
-
-export const primaryMuiTheme = ThemeManager.getMuiTheme({
-  spacing: Spacing,
-  fontFamily: systemFont,
-  palette: {
-    ...lightRawTheme.palette,
-    primary1Color: '#8BC34A',
-    accent1Color: '#F07621' // princeton orange
-  }
-})
-
-export const secondaryMuiTheme = ThemeManager.getMuiTheme({
-  spacing: Spacing,
-  fontFamily: systemFont,
-  palette: {
-    ...darkRawTheme.palette,
-    accent1Color: '#F07621', // princeton orange
-    alternateTextColor: Colors.white
-  }
-})
-
-export const pedPrimaryMuiTheme = ThemeManager.getMuiTheme({
-  spacing: Spacing,
-  fontFamily: systemFont,
-  palette: {
-    ...lightRawTheme.palette,
-    accent1Color: '#5477AD' // ped blue
-  }
-})
-
-export const pedSecondaryMuiTheme = ThemeManager.getMuiTheme({
-  spacing: Spacing,
-  fontFamily: systemFont,
-  palette: {
-    ...darkRawTheme.palette,
-    accent1Color: '#5477AD', // ped blue
-    primary3Color: '#4E6A93', // not-so-dark blue
-    alternateTextColor: Colors.white,
-    canvasColor: '#1B293D' // dark blue
-  }
-})
 
 export class ScrollingContainer extends React.Component {
   scrollToBottom () {
