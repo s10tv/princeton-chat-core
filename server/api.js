@@ -1,3 +1,9 @@
+import { Meteor } from 'meteor/meteor'
+import { Match, check } from 'meteor/check'
+import { HTTP } from 'meteor/http'
+import { Random } from 'meteor/random'
+import { Accounts } from 'meteor/accounts-base'
+
 import AvatarService from '/lib/avatar.service.js'
 import { Topics, Posts, Users, Messages } from '/lib/collections'
 import TopicManager from '/server/lib/TopicManager'
@@ -8,13 +14,13 @@ import UserService from '/lib/user.service.js'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
-const slackEmoji = process.env.ENV == 'prod' ? ':beer:' : ':poop:'
+const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
 const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 const audience = process.env.AUDIENCE || 'princeton'
 
 class CurrentUser {
-  static get() {
-    user = Meteor.user()
+  static get () {
+    const user = Meteor.user()
     if (!user) {
       throw new Meteor.Error(401, 'Unauthorized')
     }
@@ -22,22 +28,7 @@ class CurrentUser {
   }
 }
 
-class UsernameGenerator {
-  static generate(user) {
-    if (user.emails.length > 0) {
-      const [ email ] = user.emails
-      return email.address.substring(0, email.address.indexOf('@'))
-    } else if (user.firstName && user.lastName) {
-      return `${user.firstName.toLowerCase()}.${user.lastName.toLowerCase()}`
-    } else if (user.firstName) {
-      return `${user.firstName.toLowerCase()}`
-    } else {
-      return Meteor.uuid()
-    }
-  }
-}
-
-getLargestUserNumber = () => {
+const getLargestUserNumber = () => {
   const [ userWithHighestNumber ] = Users
     .find({}, { sort: { userNumber: 1 }, limit: 1 })
     .fetch()
@@ -49,9 +40,9 @@ getLargestUserNumber = () => {
   }
 }
 
-stripTrailingSlash = (str) => {
-  if(str.substr(-1) === '/') {
-      return str.substr(0, str.length - 1)
+const stripTrailingSlash = (str) => {
+  if (str.substr(-1) === '/') {
+    return str.substr(0, str.length - 1)
   }
   return str
 }
@@ -66,8 +57,8 @@ Meteor.methods({
     check(emailAddress, String)
     check(classYear, Match.Optional(String))
 
-    var email = (emailAddress || "").trim()
-    if (email.length == 0) {
+    var email = (emailAddress || '').trim()
+    if (email.length === 0) {
       throw new Meteor.Error(400, 'To sign up, you need to enter your email.')
     }
 
@@ -104,12 +95,12 @@ Meteor.methods({
     slack.send({
       icon_emoji: slackEmoji,
       text: `${user.firstName} ${user.lastName} (${email}) signed up`,
-      username: slackUsername,
+      username: slackUsername
     })
 
     if (process.env.SKIP_CHECK_PRINCETON_EMAIL || /.*@alumni.princeton.edu$/.test(email)) {
       const inviteUrl = `${stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
-      const postmark = Meteor.npmRequire("postmark")
+      const postmark = Meteor.npmRequire('postmark')
       const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426'
       const client = new postmark.Client(postmarkKey)
 
@@ -118,10 +109,10 @@ Meteor.methods({
       const onComplete = future.resolver()
 
       client.sendEmailWithTemplate({
-        "From": process.env.POSTMARK_SENDER_SIG || 'notifications@princeton.chat',
-        "To": email,
-        "TemplateId": process.env.POSTMARK_WELCOME_TEMPLATE_ID || 354341,
-        "TemplateModel": {
+        'From': process.env.POSTMARK_SENDER_SIG || 'notifications@princeton.chat',
+        'To': email,
+        'TemplateId': process.env.POSTMARK_WELCOME_TEMPLATE_ID || 354341,
+        'TemplateModel': {
           inviteLink: inviteUrl
         }
       }, onComplete)
@@ -139,7 +130,7 @@ Meteor.methods({
       slack.send({
         icon_emoji: slackEmoji,
         text: `Sent a welcome email to ${email}.`,
-        username: slackUsername,
+        username: slackUsername
       })
 
       return true
@@ -198,7 +189,7 @@ Meteor.methods({
 
         TopicManager.follow({ topicId, user: existingUser })
       })
-    } catch(e) {
+    } catch (e) {
       console.log(e)
       throw new Meteor.Error(500, "Sorry, we messed up. We couldn't add your followers, but we tried very hard :/")
     }
@@ -206,19 +197,19 @@ Meteor.methods({
 
   'signup/test': (emailOverride) => {
     check(emailOverride, Match.Optional(String))
-    const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results
+    const [{user}] = JSON.parse(HTTP.call('GET', 'https://randomuser.me/api/').content).results
     const email = emailOverride || user.email
 
     Meteor.call('signup', {
       firstName: user.name.first,
       lastName: user.name.last,
       classYear: '2012',
-      emailAddress: email,
+      emailAddress: email
     })
   },
 
   'signup/randomuser': () => {
-    const [{user}] = JSON.parse(HTTP.call("GET", "https://randomuser.me/api/").content).results
+    const [{user}] = JSON.parse(HTTP.call('GET', 'https://randomuser.me/api/').content).results
     const inviteCode = Meteor.uuid()
     Users.insert({
       firstName: user.name.first,
@@ -226,7 +217,7 @@ Meteor.methods({
       emails: [
         { address: user.email, verified: false }
       ],
-      classYear: "2012",
+      classYear: '2012',
       inviteCode: inviteCode,
       isFullMember: true,
       avatar: {
@@ -245,13 +236,13 @@ Meteor.methods({
     const curatedTopicIds = topicIds.map(topicId => {
       return Topics.findOne(topicId)
     }).filter(topic => {
-      return topic != undefined && topic != null
+      return topic !== undefined && topic != null
     }).map(topic => {
       return topic._id
     })
 
     Users.update(user._id, { $set: {
-      followingTopics: curatedTopicIds,
+      followingTopics: curatedTopicIds
     }})
   },
 
@@ -285,14 +276,14 @@ Meteor.methods({
   },
 
   'emailPreference/update': (preference) => {
-    user = CurrentUser.get()
+    const user = CurrentUser.get()
     Users.update(user._id, { $set: {
       emailPreference: preference
     }})
   },
 
   'post/insert': (_id, title, content, topicIds) => {
-    user = CurrentUser.get()
+    const user = CurrentUser.get()
 
     check(_id, String)
     check(title, String)
@@ -306,16 +297,16 @@ Meteor.methods({
       throw new Meteor.Error(400, 'Every post needs to have a title and content.')
     }
 
-    if (title.length == 0 || content.length == 0) {
+    if (title.length === 0 || content.length === 0) {
       throw new Meteor.Error(400, 'Every post needs to have a title and content.')
     }
 
     // make sure that the topic ids entered are legit
-    const filteredTopicIds = topicIds.filter(topicId => {
-      return Topics.findOne(topicId) != undefined
+    const filteredTopicIds = topicIds.filter((topicId) => {
+      return Topics.findOne(topicId) !== undefined
     })
 
-    if (filteredTopicIds.length == 0) {
+    if (filteredTopicIds.length === 0) {
       throw new Meteor.Error(400, 'Please enter at least one valid topicId.')
     }
 
@@ -328,9 +319,9 @@ Meteor.methods({
       topicIds: filteredTopicIds,
       followers: [{
         userId: user._id,
-        unreadCount: 0,
+        unreadCount: 0
       }],
-      numMsgs: 0,
+      numMsgs: 0
     })
 
     // The current user follows the current post they just posted
@@ -339,7 +330,7 @@ Meteor.methods({
     // update the num posts after posting.
     filteredTopicIds.forEach(topicId => {
       Topics.update(topicId, { $set: {
-        numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId}).count()
+        numPosts: Posts.find({isDM: { $ne: true }, topicIds: topicId}).count()
       }})
     })
 
@@ -354,8 +345,8 @@ Meteor.methods({
     check(topicId, String)
 
     try {
-      TopicManager.follow({ topicId, user: CurrentUser.get()})
-    } catch(err) {
+      TopicManager.follow({topicId, user: CurrentUser.get()})
+    } catch (err) {
       throw new Meteor.Error(500, 'There was a problem with following this topic.')
     }
   },
@@ -364,8 +355,8 @@ Meteor.methods({
     check(topicId, String)
 
     try {
-      TopicManager.unfollow({ topicId, user: CurrentUser.get()})
-    } catch(err) {
+      TopicManager.unfollow({topicId, user: CurrentUser.get()})
+    } catch (err) {
       throw new Meteor.Error(500, 'There was a problem with unfollowing this topic.')
     }
   },
@@ -375,8 +366,8 @@ Meteor.methods({
     check(userId, String)
 
     try {
-      TopicManager.unfollow({ topicId, user: {_id: userId}})
-    } catch(err) {
+      TopicManager.unfollow({topicId, user: {_id: userId}})
+    } catch (err) {
       throw new Meteor.Error(500, 'There was a problem removing follower.')
     }
   },
@@ -414,6 +405,7 @@ Meteor.methods({
       description: topicInfo.description,
       followers: [],
       numPosts: 0,
+      ownerId: user._id,
       cover: {
         url: topicInfo.cover.url
       }
@@ -424,12 +416,12 @@ Meteor.methods({
 
   'post/follow': (postId) => {
     check(postId, String)
-    PostManager.follow({ postId, user: CurrentUser.get()})
+    PostManager.follow({postId, user: CurrentUser.get()})
   },
 
   'post/unfollow': (postId) => {
     check(postId, String)
-    PostManager.unfollow({ postId, user: CurrentUser.get()})
+    PostManager.unfollow({postId, user: CurrentUser.get()})
   },
 
   'messages/insert': (_id, postId, commentText) => {
@@ -442,7 +434,7 @@ Meteor.methods({
       _id,
       postId,
       content: commentText,
-      ownerId: user._id,
+      ownerId: user._id
     })
 
     if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {
@@ -451,7 +443,7 @@ Meteor.methods({
       })
     }
 
-    Posts.update(postId, { $inc: { numMsgs: 1 }})
+    Posts.update(postId, {$inc: { numMsgs: 1 }})
   },
 
   'messages/delete': _id => {
@@ -465,7 +457,7 @@ Meteor.methods({
     Messages.remove({_id: _id})
   },
 
-  //onboarding related
+  // onboarding related
   '_accounts/unlink/service': function (serviceName) {
     const user = CurrentUser.get()
     Accounts.unlinkService(user._id, serviceName)
@@ -478,9 +470,9 @@ Meteor.methods({
       const user = CurrentUser.get()
       Users.update(user._id, { $set: {
         emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
-        status: 'active',
+        status: 'active'
       }})
-    } catch(error) {
+    } catch (error) {
       console.error(error)
       throw new Meteor.Error(500, `There was a problem setting up your ${serviceName}`)
     }
@@ -491,6 +483,6 @@ Meteor.methods({
 
     return userIds.map(user => {
       return Users.findOne(user.userId)
-    }).filter((user) => user != undefined)
+    }).filter((user) => user !== undefined)
   }
 })
