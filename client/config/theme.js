@@ -11,11 +11,8 @@ import Spacing from 'material-ui/lib/styles/spacing'
 import tinycolor from 'tinycolor2'
 
 export const fontFamily = {
-  base: '-apple-system, BlinkMacSystemFont, "Avenir Next", sans-serif',
-  system: `-apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Avenir Next", "Helvetica Neue",
-    sans-serif`,
+  base: 'Lato, sans-serif',
+  system: 'Lato, sans-serif',
   article: 'medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif'
 }
 
@@ -36,7 +33,7 @@ export const fontSize = {
   h4: '1.5rem',
   h5: '1.25rem',
   h6: '1rem',
-  
+
   base: '1rem', // 16px in practice
   lg: '1.25rem',
   sm: '0.875rem', // 14px in practice
