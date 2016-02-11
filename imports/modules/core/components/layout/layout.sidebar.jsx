@@ -8,7 +8,7 @@ import SidebarOverlay from '/imports/modules/core/components/onboarding/sidebar.
 import {SmallListItem, MediumListItem, LetterAvatar, CoverAvatar} from '/imports/modules/core/components/helpers.jsx'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
-import { i18n } from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 
 const theme = i18n('secondaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color

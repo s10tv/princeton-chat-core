@@ -2,7 +2,7 @@ import React from 'react'
 import { Flex } from 'jsxstyle'
 import Paper from 'material-ui/lib/paper'
 import Dialog from 'material-ui/lib/dialog'
-import { i18n } from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 import { LetterAvatar, CoverAvatar } from '/imports/modules/core/components/helpers.jsx'
 
 const theme = i18n('primaryMuiTheme')

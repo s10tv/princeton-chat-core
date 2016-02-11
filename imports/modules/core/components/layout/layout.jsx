@@ -8,7 +8,7 @@ import EditProfileModal from '/imports/modules/core/containers/modal.editprofile
 import AddTopicModal from '/imports/modules/core/containers/modal.add.topic.js'
 import PostFollowersModal from '/imports/modules/core/containers/modal.post.followers.js'
 import GlobalSnackbar from '/imports/modules/core/containers/global.snackbar.js'
-import { i18n } from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 
 // TODO: Figure out a better way that does not involve using Mixin
 

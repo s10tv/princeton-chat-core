@@ -1,7 +1,7 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
 import styles from '/imports/modules/core/components/styles.jsx'
-import { i18n } from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 import TextField from 'material-ui/lib/text-field'
 import FlatButton from 'material-ui/lib/flat-button'
 import _ from 'underscore'

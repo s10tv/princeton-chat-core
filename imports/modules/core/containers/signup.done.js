@@ -1,5 +1,5 @@
 import SignupDone from '/imports/modules/core/components/signup/signup.done.jsx'
-import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
+import {useDeps, composeAll, composeWithTracker} from '/client/config/mantra'
 
 export const composer = ({context, actions}, onData) => {
   const { LocalState } = context()

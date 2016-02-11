@@ -1,5 +1,5 @@
 import InputBox from '/imports/modules/core/components/inputBox.jsx'
-import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
+import {useDeps, composeAll, composeWithTracker} from '/client/config/mantra'
 import UserService from '/imports/libs/user.service'
 
 const composer = ({context, postId, follow, unfollow}, onData) => {

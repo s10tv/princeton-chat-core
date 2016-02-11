@@ -1,5 +1,5 @@
 import React from 'react'
-import {i18n} from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 
 const envelopeIcon = '/images/ic-envelope.png'
 

@@ -10,7 +10,7 @@ import {Flex} from 'jsxstyle'
 import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import LinearProgress from 'material-ui/lib/linear-progress'
-import { i18n } from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 
 const theme = i18n('primaryMuiTheme')
 const primaryAccent = theme.baseTheme.palette.accent1Color

@@ -1,5 +1,5 @@
 import AddTopicModal from '/imports/modules/core/components/modal.add.topic.jsx'
-import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
+import {useDeps, composeAll, composeWithTracker} from '/client/config/mantra'
 
 const composer = ({context, postId, follow, unfollow}, onData) => {
   const {LocalState} = context()

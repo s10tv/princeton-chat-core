@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 import GlobalSnackbar from '/imports/modules/core/containers/global.snackbar.js'
 
-import { i18n } from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 
 export default React.createClass({
   propTypes: {

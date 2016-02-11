@@ -1,8 +1,21 @@
+import { Meteor } from 'meteor/meteor'
+import {_} from 'meteor/underscore'
+import SignupPrinceton from '/imports/modules/core/components/signup/signup-princeton.jsx'
+import SignupPed from '/imports/modules/core/components/signup/signup-ped.jsx'
+import SignupS10 from '/imports/modules/core/components/signup/signup-s10.jsx'
+import { DocHead } from 'meteor/kadira:dochead'
+
+import {
+    primaryMuiTheme,
+    secondaryMuiTheme,
+    pedPrimaryMuiTheme,
+    pedSecondaryMuiTheme } from '/client/config/theme'
+
 const PRINCETON_ORANGE = '#F07621'
 const PED_BLUE = '#5477AD'
 const DARK_GRAY = '#grey800'
 
-module.exports = {
+let Env = {
   princeton: {
     primaryColor: PRINCETON_ORANGE,
 
@@ -87,4 +100,43 @@ module.exports = {
       color: DARK_GRAY
     }
   }
+}
+
+Env.princeton = _.extend(Env.princeton, {
+  signupComponent: SignupPrinceton,
+  primaryMuiTheme,
+  secondaryMuiTheme
+})
+
+Env.s10 = _.extend(Env.s10, {
+  signupComponent: SignupS10,
+  primaryMuiTheme,
+  secondaryMuiTheme
+
+})
+
+Env.ped = _.extend(Env.ped, {
+  signupComponent: SignupPed,
+  primaryMuiTheme: pedPrimaryMuiTheme,
+  secondaryMuiTheme: pedSecondaryMuiTheme
+})
+
+export const i18n = (tag) => {
+  const audience = Meteor.settings.public.audience || 'princeton'
+  return Env[audience][tag]
+}
+
+export const localize = () => {
+  const audience = Meteor.settings.public.audience || 'princeton'
+  const env = Env[audience]
+
+  DocHead.setTitle(env.title)
+  DocHead.addMeta({ property: 'description', content: env.ogDescription })
+  DocHead.addMeta({ property: 'fb:app_id', content: env.fbAppId })
+  DocHead.addMeta({ property: 'og:url', content: env.ogUrl })
+  DocHead.addMeta({ property: 'og:type', content: env.ogType })
+  DocHead.addMeta({ property: 'og:title', content: env.ogTitle })
+  DocHead.addMeta({ property: 'og:description', content: env.ogDescription })
+  DocHead.addMeta({ property: 'og:image', content: env.ogImage })
+  DocHead.addLink({rel: 'icon', type: 'image/png', href: env.favicon})
 }

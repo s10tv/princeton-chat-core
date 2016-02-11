@@ -1,5 +1,5 @@
 import SignupForm from '/imports/modules/core/components/signup.form.jsx'
-import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
+import {useDeps, composeAll, composeWithTracker} from '/client/config/mantra'
 
 export const composer = ({context}, onData) => {
   const { LocalState } = context()

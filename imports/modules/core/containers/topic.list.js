@@ -1,4 +1,4 @@
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
+import {useDeps, composeWithTracker, composeAll} from '/client/config/mantra'
 import TopicList, {TopicGrid} from '/imports/modules/core/components/topic.list.jsx'
 import {Loading} from '/imports/modules/core/components/helpers.jsx'
 

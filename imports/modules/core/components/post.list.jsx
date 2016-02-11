@@ -8,7 +8,7 @@ import styles from '/imports/modules/core/components/styles.jsx'
 import ListItem from 'material-ui/lib/lists/list-item'
 import RightBar from '/imports/modules/core/components/layout/layout.rightbar.jsx'
 import FlatButton from 'material-ui/lib/flat-button'
-import { i18n } from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 import Avatar from 'material-ui/lib/avatar'
 
 const theme = i18n('secondaryMuiTheme')

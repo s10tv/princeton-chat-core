@@ -1,5 +1,5 @@
 import AddFollowers from '/imports/modules/core/components/addFollowers.jsx'
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
+import {useDeps, composeWithTracker, composeAll} from '/client/config/mantra'
 import UserInfoService from '/imports/libs/userinfo.service'
 
 export const composer = ({context, actions, topicId}, onData) => {

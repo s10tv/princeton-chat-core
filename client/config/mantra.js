@@ -1,5 +1,3 @@
-import { Meteor } from 'meteor/meteor'
-
 import {
   injectDeps,
   useDeps as _useDeps
@@ -13,31 +11,11 @@ import {
   composeAll as _composeAll
 } from 'react-komposer'
 
-import { DocHead } from 'meteor/kadira:dochead'
-
-// custom enviornment variables
-import Env from './env'
-
 class App {
   constructor (context, actions = {}) {
     this.context = context
     this.actions = actions
     this._routesLoaded = false
-  }
-
-  localize () {
-    const audience = Meteor.settings.public.audience || 'princeton'
-    const env = Env[audience]
-
-    DocHead.setTitle(env.title)
-    DocHead.addMeta({ property: 'description', content: env.ogDescription })
-    DocHead.addMeta({ property: 'fb:app_id', content: env.fbAppId })
-    DocHead.addMeta({ property: 'og:url', content: env.ogUrl })
-    DocHead.addMeta({ property: 'og:type', content: env.ogType })
-    DocHead.addMeta({ property: 'og:title', content: env.ogTitle })
-    DocHead.addMeta({ property: 'og:description', content: env.ogDescription })
-    DocHead.addMeta({ property: 'og:image', content: env.ogImage })
-    DocHead.addLink({rel: 'icon', type: 'image/png', href: env.favicon})
   }
 
   loadRoutes (routes) {
@@ -87,8 +65,3 @@ export const composeWithTracker = _composeWithTracker
 export const composeWithPromise = _composeWithPromise
 export const composeWithObservable = _composeWithObservable
 export const composeAll = _composeAll
-
-export const i18n = (tag) => {
-  const audience = Meteor.settings.public.audience || 'princeton'
-  return Env[audience][tag]
-}

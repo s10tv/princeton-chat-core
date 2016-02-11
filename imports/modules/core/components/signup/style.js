@@ -78,5 +78,7 @@ export default {
   },
   main: {
     flex: 6,
+    backgroundImage: 'url(/images/bg-blair-arch-people.jpg)',
+    backgroundSize: 'cover',
   },
 }

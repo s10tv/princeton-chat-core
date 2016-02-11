@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { i18n } from '/imports/libs/mantra'
+import { i18n } from '/client/config/env'
 
 // gets the current user, with default values filled in.
 export default class UserService {

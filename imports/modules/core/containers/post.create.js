@@ -1,5 +1,5 @@
 import CreatePost from '/imports/modules/core/components/modal.post.create.jsx'
-import {useDeps, composeWithTracker, composeAll} from '/imports/libs/mantra'
+import {useDeps, composeWithTracker, composeAll} from '/client/config/mantra'
 
 export const composer = ({context}, onData) => {
   const { Collections, LocalState } = context()

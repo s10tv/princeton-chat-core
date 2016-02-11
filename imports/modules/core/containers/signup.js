@@ -1,5 +1,5 @@
-import {useDeps, composeAll, composeWithTracker} from '/imports/libs/mantra'
-import {i18n} from '/imports/libs/mantra'
+import {useDeps, composeAll, composeWithTracker} from '/client/config/mantra'
+import { i18n } from '/client/config/env'
 
 export const composer = ({context, actions}, onData) => {
   const { LocalState } = context()
