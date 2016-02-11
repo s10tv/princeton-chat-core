@@ -1,9 +1,9 @@
 import React from 'react'
+import {mount} from 'react-mounter'
 import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base'
 import {Tracker} from 'meteor/tracker'
 import {FlowRouter} from 'meteor/kadira:flow-router'
-import {mount} from 'react-mounter'
 
 import LayoutMain from '/imports/modules/core/components/layout/layout.jsx'
 import PostList from '/imports/modules/core/containers/post.list.js'
@@ -15,6 +15,9 @@ import SignupDone from '/imports/modules/core/containers/signup.done.js'
 import Login from '/imports/modules/core/containers/login.js'
 import GuestIndex from '/imports/modules/guest/containers/guestIndex.js'
 import AddFollowers from '/imports/modules/core/containers/add.followers.js'
+import Landing from '/imports/modules/core/components/signup/landing.jsx'
+
+// This import has to be at the end for some reason else fails
 import WebFontLoader from 'webfontloader'
 
 function redirectToAllMine (context) {
@@ -41,6 +44,12 @@ export default function (injectDeps) {
 
   // logged in users should be redirected to all-mine when they visit '/'
   FlowRouter.triggers.enter([redirectToAllMine], {only: ['home']})
+  FlowRouter.route('/landing', {
+    name: 'landing',
+    action () {
+      mount(Landing)
+    }
+  })
 
   FlowRouter.route('/', {
     name: 'signup',
