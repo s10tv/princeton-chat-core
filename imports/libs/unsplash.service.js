@@ -171,3 +171,7 @@ export const UnsplashDefaultCoverPhotos = [{
   },
   'id': 'auIbTAcSH6E'
 }]
+
+export const GenericCoverPhoto = {
+  url: 'https://images.unsplash.com/photo-1447069387593-a5de0862481e?crop=entropy&dpr=2&fit=crop&fm=jpg&h=825&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1450'
+}

@@ -4,6 +4,7 @@ import PostList from '/imports/modules/core/components/post.list.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '/imports/libs/user.service'
 import DateFormatter from '/imports/libs/date.formatter'
+import { GenericCoverPhoto } from '/imports/libs/unsplash.service'
 import _ from 'underscore'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
@@ -20,6 +21,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
       case 'ALL':
         topic = {
           displayName: 'All Posts',
+          cover: GenericCoverPhoto,
           followers: []
         }
         break
@@ -27,6 +29,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
       case 'ALL_MINE':
         topic = {
           displayName: 'My Feed',
+          cover: GenericCoverPhoto,
           followers: []
         }
         options['$or'] = [
