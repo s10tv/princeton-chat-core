@@ -11,6 +11,6 @@ localize()
 const context = initContext()
 
 const app = createApp(context)
-app.loadModule(coreModule)
 app.loadModule(onboardingModule)
+app.loadModule(coreModule)
 app.init()
