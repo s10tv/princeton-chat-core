@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-// importing env causes a problem. 
+// importing env causes a problem.
 // import { i18n } from '/client/config/env'
 
 // gets the current user, with default values filled in.
