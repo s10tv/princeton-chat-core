@@ -38,6 +38,11 @@ export default React.createClass({
     allTopics: React.PropTypes.array,
 
     /**
+     * What the select box is rendered with initially.
+     */
+    topicIds: React.PropTypes.string,
+
+    /**
      * A function to show the followers of the post.
      */
     showTopicFollowers: React.PropTypes.func.isRequired,
@@ -55,17 +60,20 @@ export default React.createClass({
     /**
      * Function to show snackbar with an error string
      */
-    showSnackbarError: React.PropTypes.func.isRequired
+    showSnackbarError: React.PropTypes.func.isRequired,
+
+    modifyAddPostTopic: React.PropTypes.func.isRequired,
+    clearAddPostTopics: React.PropTypes.func.isRequired
   },
 
   getInitialState () {
-    return { selectedTopicIds: '' }
+    return {}
   },
 
   onAddPost () {
     const title = this.refs.title.getValue()
     const content = this.refs.content.getValue()
-    const topics = this.state.selectedTopicIds
+    const topics = this.props.topicIds
 
     // create action makes a callback with appropriate errors
     this.setState({
@@ -100,20 +108,18 @@ export default React.createClass({
         })
       } else {
         this.setState({
-          selectedTopicIds: null,
           titleError: null,
           contentError: null,
           loading: false
         })
+
+        this.props.clearAddPostTopics()
       }
     })
   },
 
   modifyTopicsList (value) {
-    this.setState({
-      selectedTopicIds: value
-    })
-
+    this.props.modifyAddPostTopic(value)
     this.props.updateTopicFollowers(value.split(','))
   },
 
@@ -138,7 +144,7 @@ export default React.createClass({
         title={toolbar}
         bodyStyle={{ overflow: 'visible' }}
         actions={[
-          !this.state.selectedTopicIds ? null
+          !this.props.topicIds ? null
             : <a href='#' onClick={showTopicFollowers} style={{marginRight: 10}}>
               {this.props.numFollowersNotified} people will be notified
             </a>,
@@ -183,7 +189,7 @@ export default React.createClass({
             options={allTopics}
             multi
             simpleValue
-            value={this.state.selectedTopicIds}
+            value={this.props.topicIds}
             onChange={this.modifyTopicsList} />
           {!this.state.loading ? null : <LinearProgress mode='indeterminate' style={{marginTop: 20}}/>}
         </Flex>

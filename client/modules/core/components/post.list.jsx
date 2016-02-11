@@ -100,7 +100,7 @@ const EmptyPostListNotInFeed = ({ showAddPostPopupFn }) => (
     <h3>Let's break the ice</h3>
     <RaisedButton
       primary
-      onTouchTap={showAddPostPopupFn}
+      onTouchTap={() => showAddPostPopupFn()}
       label='Create a new post' />
     <img src='/images/bg-empty-feed.png' alt='empty feed'
       style={{

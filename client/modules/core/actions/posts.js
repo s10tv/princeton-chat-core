@@ -28,8 +28,25 @@ export default {
     LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', error)
   },
 
-  showAddPostPopup ({ LocalState }) {
+  showAddPostPopup ({ LocalState, FlowRouter }) {
+    const currentRouterPath = FlowRouter.current().path
+
+    var currentTopic = ''
+    if (/topics\/.+/.test(currentRouterPath)) {
+      const splitted = currentRouterPath.split('/')
+      currentTopic = splitted[splitted.indexOf('topics') + 1]
+    }
+
     LocalState.set('ADD_POST_POPUP_SHOWING', true)
+    LocalState.set('ADD_POST_TOPICS', currentTopic)
+  },
+
+  modifyAddPostTopic ({LocalState}, newTopics) {
+    LocalState.set('ADD_POST_TOPICS', newTopics)
+  },
+
+  clearAddPostTopics ({LocalState}) {
+    LocalState.set('ADD_POST_TOPICS', '')
   },
 
   closeAddPostPopup ({ LocalState }) {
