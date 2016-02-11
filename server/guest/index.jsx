@@ -1,7 +1,7 @@
 import invariant from 'invariant'
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
-import {Posts} from '/lib/collections'
+import {Posts, Users} from '/lib/collections'
 import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
