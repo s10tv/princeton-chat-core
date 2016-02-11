@@ -131,25 +131,36 @@ const CoverPhotoMenu = (props) => (
       url("https://images.unsplash.com/photo-1438962136829-452260720431")
       no-repeat fixed center' backgroundSize='100%' style={props.style}>
     <Flex flexDirection='column' color='white'>
-      <span style={{fontWeight: 300, marginBottom: 20, fontSize: 30}}>#{props.title}</span>
-      <Flex flexDirection='row'>
-        <span style={{marginRight: 20, fontWeight: 300}}>
-          {numberOfPostsText(props.topic.numPosts)}
-        </span>
-        <span style={{fontWeight: 300}}>
-          {numberOfFollowersText(props.topic.followers.length)}
-        </span>
-      </Flex>
+      <span style={
+        Object.assign(
+          {fontWeight: 300, fontSize: 30},
+          (props.topic._id === undefined ? {} : {marginBottom: 20}))}>
+            #{props.title}
+      </span>
+
+      {props.topic._id === undefined
+        ? null
+        : <Flex flexDirection='row'>
+          <span style={{marginRight: 20, fontWeight: 300}}>
+            {numberOfPostsText(props.topic.numPosts)}
+          </span>
+          <span style={{fontWeight: 300}}>
+            {numberOfFollowersText(props.topic.followers.length)}
+          </span>
+        </Flex>
+      }
     </Flex>
-    {props.isFollowing
-      ? <RaisedButton
-        label='Following'
-        secondary
-        onTouchTap={props.unfollowFn} />
-      : <RaisedButton
-        label='Follow'
-        primary
-        onTouchTap={props.followFn} />
+    {props.topic._id === undefined
+      ? null
+      : props.isFollowing
+        ? <RaisedButton
+          label='Following'
+          secondary
+          onTouchTap={props.unfollowFn} />
+        : <RaisedButton
+          label='Follow'
+          primary
+          onTouchTap={props.followFn} />
     }
   </Flex>
 )

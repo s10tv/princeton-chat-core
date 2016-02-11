@@ -61,19 +61,6 @@ export default React.createClass({
     sidebarOpen: React.PropTypes.bool.isRequired
   },
 
-  // render () {
-  //   const isRightBarOpen = this.props.postListType == null
-  //   return (
-  //     <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0, marginRight: isRightBarOpen ? 320 : 0 })}>
-  //       <Menu
-  //         hidePostButton={this.props.isEmpty}
-  //         {...this.props} />
-  //
-  //       {this.props.isEmpty ? <EmptyPostList {...this.props} /> : <PostList {...this.props} />}
-  //       <RightBar isOpen={isRightBarOpen} {...this.props} />
-  //     </main>
-  //   )
-  // }
   render () {
     const isRightBarOpen = this.props.postListType == null
     return (
@@ -206,7 +193,7 @@ const PostListItem = (props) => (
               props.navigateToTopic(topic._id)
               return false
             }} style={{ fontWeight: 300, color: '#d3d4d7' }}>
-              #{topic.displayName}
+              {topic._id ? `#${topic.displayName}` : topic.displayName}
             </a>
           </span>
         )}
