@@ -1,17 +1,22 @@
 .message-group .display-name {
+  font-weight: 400;
   margin-right: 8px;
 }
 
 .message-group .mention {
+  font-weight: 300;
   margin-right: 8px;
 }
 
 .message-group .datetime {
+  font-weight: 300;
   font-size: 14px;
   color: #888;
 }
 
 .message-group p, .message-group .message-content {
+  font-weight: 300;
+  letter-spacing: 0.1px;
   margin-top: 4px;
   margin-bottom: 4px;
   font-size: 15px;

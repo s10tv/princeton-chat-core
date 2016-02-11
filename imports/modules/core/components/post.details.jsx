@@ -54,10 +54,10 @@ export default React.createClass({
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <NavBar>
           <Flex alignSelf='stretch' flexDirection='column'>
-            <h1 style={{margin: 0, flex: 1, fontWeight: 500, fontSize: 24}}>{this.props.title}</h1>
+            <h1 style={{margin: 0, flex: 1, fontWeight: 400, fontSize: 24}}>{this.props.title}</h1>
             <Flex flex={1} alignItems='center' style={{ lineHeight: '28px' }}>
               {this.props.topics.map((topic) =>
-                <a key={topic._id} style={{ color: '#cccccc', cursor: 'pointer' }}
+                <a key={topic._id} style={{ color: '#cccccc', cursor: 'pointer', fontWeight: 300 }}
                   onClick={() => this.props.navigateToTopic(topic._id)}>
                   {`#${topic.displayName}`}
                 </a>

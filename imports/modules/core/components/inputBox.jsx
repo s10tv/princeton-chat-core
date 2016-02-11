@@ -81,7 +81,7 @@ export default React.createClass({
       <Flex alignItems='center' marginTop='12px' height={30}>
         <a href='#' onClick={() => this.props.showPostFollowers(this.props.post.followers)}
           style={{display: 'flex', alignItems: 'center'}}>
-          <Inline component='span' marginRight='8px'>
+          <Inline component='span' marginRight='8px' fontWeight={300}>
             {this.props.followers.length > 0
               ? (this.props.followers.length > 1 ? 'Followers:' : 'Follower:')
               : 'No followers'} </Inline>
@@ -95,7 +95,7 @@ export default React.createClass({
         </a>
         <Flex marginLeft='auto'>
           <a
-            style={{cursor: 'pointer'}}
+            style={{cursor: 'pointer', fontWeight: 300}}
             onClick={this.handleFollowToggleClick}
             onMouseOver={this.handleFollowToggleMouseOver}
             onMouseOut={this.handleFollowToggleMouseOut}>
@@ -118,13 +118,13 @@ export default React.createClass({
           </LetterAvatar>
           : <CoverAvatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
         )}
-        <Inline component='span' marginLeft='8px' marginRight='auto'>
+        <Inline component='span' marginLeft='8px' marginRight='auto' fontWeight={300}>
           {this.props.followers.length > 0
              ? 'will be notified'
              : 'No one will be notified'}
         </Inline>
         <Checkbox checkedLink={linkState(this, 'pressEnterToSend')} label='Press enter to send'
-          style={{maxWidth: 210}} />
+          style={{maxWidth: 210, fontWeight: 300}} />
         {this.state.pressEnterToSend
           ? null
           : <RaisedButton disabled={this.state.text.length === 0} label='Send' primary
