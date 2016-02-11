@@ -13,7 +13,8 @@ export const composer = ({context, topicId, postListType}, onData) => {
   const {Meteor, Collections} = context()
   const currentUser = UserService.currentUser()
 
-  if (Meteor.subscribe('posts', topicId).ready() && Meteor.subscribe('topic', topicId).ready()) {
+  if (Meteor.subscribe('posts', topicId, postListType === 'ALL_MINE').ready() &&
+    Meteor.subscribe('topic', topicId).ready()) {
     var topic
     var options = {isDM: {$ne: true}}
 
