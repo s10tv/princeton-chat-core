@@ -5,6 +5,15 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", sans-serif;
 }
 
+a {
+  color: rgba(0, 0, 0, 0.87);
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.6;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
