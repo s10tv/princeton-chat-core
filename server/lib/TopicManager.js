@@ -27,4 +27,8 @@ export default class TopicManager {
       followers: { userId: user._id }
     }})
   }
+
+  static remove ({ topicId }) {
+    return Topics.remove(topicId)
+  }
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import {Flex} from 'jsxstyle'
 import List from '../../../../../node_modules/material-ui/lib/lists/list'
 import ListItem from '../../../../../node_modules/material-ui/lib/lists/list-item'
-import FlatButton from '../../../../../node_modules/material-ui/lib/flat-button'
 import FontIcon from '../../../../../node_modules/material-ui/lib/font-icon'
 import Badge from '../../../../../node_modules/material-ui/lib/badge'
 import Colors from '../../../../../node_modules/material-ui/lib/styles/colors'
@@ -12,6 +11,7 @@ import IconMenu from '../../../../../node_modules/material-ui/lib/menus/icon-men
 import MenuItem from '../../../../../node_modules/material-ui/lib/menus/menu-item'
 import { i18n } from '/client/config/env'
 import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
+import {FlatButton, Dialog} from '/client/lib/ui'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -37,7 +37,31 @@ export default React.createClass({
     /**
      * Func to show topic followers modal from already fetched follower list
      */
-    showTopicFollowersFromFollowersListFn: React.PropTypes.func
+    showTopicFollowersFromFollowersListFn: React.PropTypes.func,
+
+    /**
+     * Func to remove the topic.
+     */
+    removeTopic: React.PropTypes.func.isRequired,
+    isMyTopic: React.PropTypes.bool.isRequired
+  },
+
+  getInitialState () {
+    return {
+      isOpen: false
+    }
+  },
+
+  openConfirmation () {
+    this.setState({
+      isOpen: true
+    })
+  },
+
+  closeConfirmation () {
+    this.setState({
+      isOpen: false
+    })
   },
 
   render () {
@@ -83,6 +107,39 @@ export default React.createClass({
               showUserProfile={props.showUserProfile} />
           )}
         </List>
+
+        {!this.props.isMyTopic
+          ? null
+          : <div>
+            <FlatButton
+              label='Remove Topic'
+              labelPosition='after'
+              icon={<FontIcon className='material-icons'>remove</FontIcon>}
+              onTouchTap={this.openConfirmation}
+              style={{width: '100%', marginTop: 10, color: '#E0E0E0'}}/>
+
+            <Dialog
+              title={'Are you sure?'}
+              modal={false}
+              open={this.state.isOpen}
+              actions={[
+                <FlatButton
+                  label='Cancel'
+                  style={{ color: '#E0E0E0' }}
+                  onTouchTap={this.closeConfirmation} />,
+                <FlatButton
+                  label='Delete'
+                  style={{ color: '#F44336' }}
+                  onTouchTap={() => this.props.removeTopic(props.topic._id)} />
+              ]}
+              onRequestClose={this.closeConfirmation}>
+              <p>
+                Removing a topic cannot be undone. Users who have already gotten post emails
+                will not be able to view this topic.
+              </p>
+            </Dialog>
+          </div>
+        }
       </Flex>
     )
   }

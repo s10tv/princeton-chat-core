@@ -101,6 +101,7 @@ export const composer = ({context, topicId, postListType}, onData) => {
 
     onData(null, {
       topic,
+      isMyTopic: topic.ownerId === currentUser._id,
       posts,
       followFn: () => { Meteor.call('topic/follow', topic._id) },
       unfollowFn: () => { Meteor.call('topic/unfollow', topic._id) },
@@ -130,6 +131,7 @@ const depsMapper = (context, actions) => ({
   followPostFn: actions.posts.follow,
   unfollowPostFn: actions.posts.unfollow,
   removeFollower: actions.topics.removeFollower,
+  removeTopic: actions.topics.removeTopic,
   context: () => context
 })
 

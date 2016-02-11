@@ -52,6 +52,16 @@ export default {
     LocalState.set('ADD_TOPIC_MODAL_CURRENT_COVER_PHOTO', photo)
   },
 
+  removeTopic ({ Meteor, LocalState, FlowRouter }, topicId) {
+    Meteor.call('topic/remove', topicId, (err, res) => {
+      if (err) {
+        return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+      }
+    })
+
+    FlowRouter.go('all-mine')
+  },
+
   navigateToTopic ({ FlowRouter }, topicId) {
     return FlowRouter.go(`/topics/${topicId}`)
   },

@@ -372,6 +372,24 @@ Meteor.methods({
     }
   },
 
+  'topic/remove': (topicId) => {
+    console.log('topic/remove', topicId)
+    check(topicId, String)
+
+    const user = CurrentUser.get()
+    const topic = Topics.findOne(topicId)
+
+    if (!topic) {
+      throw new Meteor.Error(400, 'Seems like you are trying to remove an invalid topic')
+    }
+
+    if (topic.ownerId !== user._id) {
+      throw new Meteor.Error(400, 'You are not authorized to remove a topic that you do not own')
+    }
+
+    TopicManager.remove({ topicId })
+  },
+
   'topic/create': (topicInfo) => {
     const user = CurrentUser.get()
     check(topicInfo, Object)
