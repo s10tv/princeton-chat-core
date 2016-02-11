@@ -41,14 +41,14 @@ export const MediumListItem = (props) => (
 export const SquareAvatar = (props) => (
   <CoverAvatar {...props} size={props.length} style={Object.assign({
     borderRadius: 5,
-    fontWeight: 300
+    fontWeight: 200
   }, props.style)}>
     {props.children}
   </CoverAvatar>
 )
 
 export const LetterAvatar = (props) => (
-  <Avatar {...props} style={Object.assign({}, {fontWeight: 300}, props.style)}>
+  <Avatar {...props} style={Object.assign({}, {fontWeight: 200}, props.style)}>
     {props.children}
   </Avatar>
 )
