@@ -220,10 +220,10 @@ const PostListItem = (props) => (
 const FollowersBtn = (props) => (
   props.post.numFollowers === 0
   ? <Flex alignItems='center' fontSize={15}>No Followers</Flex>
-  : <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer',}} onClick={() => props.showPostFollowers(props.post.followers)}> 
-      <span style={{marginRight: 7, fontSize: 15, fontWeight: 300, color: '#999'}}>
+  : <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer'}} onClick={() => props.showPostFollowers(props.post.followers)}>
+    <span style={{marginRight: 7, fontSize: 15, fontWeight: 300, color: '#999'}}>
         {props.post.followers.length > 1 ? 'Followers:' : 'Follower:'}
-      </span>
+    </span>
 
       {props.post.followerAvatars.map((followerAvatar) =>
         followerAvatar.avatar.isDefaultAvatar

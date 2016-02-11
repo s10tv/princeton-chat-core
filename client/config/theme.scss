@@ -1,18 +1,10 @@
 @import "../vendor/bootstrap/bootstrap-reboot.scss";
 
-html {
-  overflow: hidden; // Globally disable overscrolling
-}
-
 body {
+  overflow: hidden; // Globally disable overscrolling
   font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", sans-serif;
 }
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
-}
-
-// TODO: Remove this kind of global behavior
-a {
-  text-decoration: none;
 }
