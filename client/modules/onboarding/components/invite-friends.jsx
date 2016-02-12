@@ -5,8 +5,8 @@ import {TextField, FlatButton, FontIcon, IconButton} from '/client/lib/ui.jsx'
 import {color, spacing} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
-import {degrees, classYears} from '../configs/data'
 
+// NOTE: addField / removeField provided by redux-form http://erikras.github.io/redux-form/#/examples/deep
 class InviteFriends extends React.Component {
 
   onVerifyAffiliation (event) {
@@ -36,9 +36,9 @@ class InviteFriends extends React.Component {
                   <TextField floatingLabelText='First Name' hintText='(optional)' {...firstName} />
                   <div style={style.horizontalSpacer} />
                   <TextField floatingLabelText='Last Name' hintText='(optional)' {...lastName} />
-                    <IconButton onTouchTap={() => invitees.removeField(index)}>
-                      <FontIcon className='material-icons'>close</FontIcon>
-                    </IconButton>
+                  <IconButton onTouchTap={() => invitees.removeField(index)}>
+                    <FontIcon className='material-icons'>close</FontIcon>
+                  </IconButton>
                 </div>
               )}
               <FlatButton label='Add Another' onTouchTap={() => invitees.addField()}/>
