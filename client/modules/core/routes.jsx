@@ -149,7 +149,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     },
     action () {
       mount(LayoutMainCtx, {
-        content: (props) => <TopicList isTopicClickable={true} {...props} />
+        content: (props) => <TopicList isTopicClickable {...props} />
       })
     }
   })

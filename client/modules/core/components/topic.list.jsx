@@ -152,7 +152,7 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
 
   return (
     <Flex margin='25px 0px' flexGrow={1}>
-      { isTopicClickable
+      {isTopicClickable
         ? <a href='#' onClick={(event) => {
           event.preventDefault()
           navigateToTopic(topic._id)
@@ -165,19 +165,19 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
           borderRadius: 5
         }} />
         : <Flex flex='0 0 250px' maxHeight={167} backgroundImage={`url("${topic.cover.url}")`}
-                backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
+          backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
       }
       <Flex flexGrow={1} flexDirection='column' marginLeft={30}>
         <Flex flexDirection='row' alignItems='center'>
           <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0,
             marginRight: 25 }}>
-            { isTopicClickable
+            {isTopicClickable
               ? <a href='#' onClick={(event) => {
                 event.preventDefault()
                 navigateToTopic(topic._id)
               }}>
                   #{topic.displayName}
-                </a>
+              </a>
               : <span>#{topic.displayName}</span>
             }
           </h3>
