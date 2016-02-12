@@ -90,7 +90,7 @@ export default React.createClass({
               onClick={
                 () => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)
               }>
-              Topic Followers ({props.topic.followers.length})
+              Subscribers ({props.topic.followers.length})
             </a>
           </h4>
           <FlatButton

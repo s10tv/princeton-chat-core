@@ -67,7 +67,7 @@ const numberOfPostsText = (numPosts) => {
 }
 
 const numberOfFollowersText = (numFollowers) => {
-  return pluralizeTextForNumber(numFollowers, 'follower')
+  return pluralizeTextForNumber(numFollowers, 'subscriber')
 }
 
 const CoverPhotoMenu = (props) => (
