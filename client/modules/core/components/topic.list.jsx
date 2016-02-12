@@ -109,7 +109,7 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic}) => 
   }
 
   const getFollowerText = () => {
-    return pluralizeTextForNumber('follower', topic.followersCount)
+    return pluralizeTextForNumber('subscriber', topic.followersCount)
   }
 
   const getPostsText = () => {
@@ -181,11 +181,11 @@ const NewTopicButton = ({ showAddTopicModal }) => {
         </Flex>
         <Flex width={500} marginLeft={30} flexDirection='column' alignItems='center'>
           <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0 }}>
-            Create a new topic
+            Create a new channel
           </h3>
           <p style={{marginTop: 15, fontWeight: 300}}>Can't find what you are looking for? No problem.
-          Topics in {i18n('title')} are curated by the community. Create your own and we'll help
-          you invite other people to follow your topic.</p>
+          Channels in {i18n('title')} are curated by the community. Create your own and we'll help
+          you invite other people to follow your channel.</p>
         </Flex>
       </Flex>
     </a>

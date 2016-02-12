@@ -85,7 +85,7 @@ export default React.createClass({
     const toolbar = (
       <Toolbar>
         <ToolbarGroup float='left'>
-          <ToolbarTitle text='Add Topic' />
+          <ToolbarTitle text='Create Channel' />
         </ToolbarGroup>
         <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
           <IconButton tooltip='Close' onTouchTap={this.props.handleClose}>
@@ -114,19 +114,18 @@ export default React.createClass({
               label='Choose Cover' />
           </Flex>
 
-          <ValidatableTextField fullWidth floatingLabelText='Name' hintText='Bananaland'
+          <ValidatableTextField fullWidth floatingLabelText='Name' hintText='What do you call this channel?'
             ref='topicNameContainer' refComponent='topicName' onChange={this.handleTopicNameChange}
             validateField={this.props.validateTopicName}/>
-          <TextField fullWidth disabled floatingLabelText='Topic URL'
+          <TextField fullWidth disabled floatingLabelText='Channel URL'
             value={this.state.topicName ? `${i18n('ogUrl')}/topics/${this.state.topicName}` : ''} />
-          <TextField fullWidth disabled floatingLabelText='Topic Email'
+          <TextField fullWidth disabled floatingLabelText='Channel Email'
             value={this.state.topicName ? `${this.state.topicName}@${i18n('topicMailServer')}` : ''} />
           <ValidatableTextField fullWidth floatingLabelText='Description'
-            hintText="I can't live without bananas. Bananas are the only reason I stay
-            on this planet. Share my love for bananas? Join Bananaland!"
+            hintText='What is this channel about?'
             multiLine rows={3} rowsMax={3} ref='topicDescriptionContainer'
             refComponent='topicDescription' validateField={this.props.validateTopicDescription} />
-          <RaisedButton primary label='Create Topic' onTouchTap={this.createTopic}
+          <RaisedButton primary label='Create Channel' onTouchTap={this.createTopic}
             style={{marginTop: 15, alignSelf: 'center'}}/>
         </Flex>
       </Dialog>

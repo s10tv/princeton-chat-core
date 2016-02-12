@@ -79,12 +79,15 @@ export default React.createClass({
           {props.topic.description}
         </p>
 
-        <h4 style={{fontWeight: 400, marginTop: 35, marginBottom: 0}}>List Address</h4>
+        <h4 style={{fontWeight: 400, marginTop: 35, marginBottom: 0}}>Channel Address</h4>
         <a style={{fontWeight: 300, marginTop: 10, marginBottom: 0}} href={`mailto:${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
           {`${props.topic._id}@${i18n('topicMailServer')}`}
         </a>
+        <p style={{fontWeight: 300, color: '#d3d4d7', marginTop: 10}}>
+          Emailing to this address will create a post and notify everyone subscribed to the channel.
+        </p>
 
-        <Flex justifyContent='space-between' alignItems='center' minHeight={36} marginTop={35}>
+        <Flex justifyContent='space-between' alignItems='center' minHeight={36} marginTop={15}>
           <h4 style={{fontWeight: 400, marginTop: 0, marginBottom: 0}}>
             <a href='#' style={{}}
               onClick={

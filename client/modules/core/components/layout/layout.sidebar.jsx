@@ -143,7 +143,7 @@ export default React.createClass({
             </MediumListItem>
           </List>
           <List subheader={
-            <SubHeader label='TOPICS' action='ALL' onClick={this.props.showAllTopics}/>
+            <SubHeader label='CHANNELS' action='ALL' onClick={this.props.showAllTopics}/>
           }>
             {this.props.followedTopics.map((topic) =>
               <SmallListItem
