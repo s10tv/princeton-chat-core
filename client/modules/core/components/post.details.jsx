@@ -55,9 +55,14 @@ export default React.createClass({
         <NavBar>
           <Flex alignSelf='stretch' flexDirection='column'>
             <h1 style={{margin: 0, flex: 1, fontWeight: 400, fontSize: 24}}>{this.props.title}</h1>
-            <Flex flex={1} alignItems='center' style={{ lineHeight: '28px' }}>
+            <Flex flex={1} alignItems='center' style={{lineHeight: '28px'}}>
               {this.props.topics.map((topic) =>
-                <a key={topic._id} style={{ color: '#cccccc', cursor: 'pointer', fontWeight: 300 }}
+                <a key={topic._id} style={{
+                  color: '#cccccc',
+                  cursor: 'pointer',
+                  fontWeight: 300,
+                  marginRight: 6
+                }}
                   onClick={() => this.props.navigateToTopic(topic._id)}>
                   {`#${topic.displayName}`}
                 </a>
@@ -66,8 +71,11 @@ export default React.createClass({
           </Flex>
         </NavBar>
         <ScrollingContainer child={
-          <article className='post-details'>
-            <MessageGroup owner={post.owner} timestamp={post.timestamp} content={post.content} showUserProfile={() => showUserProfilePost(post)} />
+          <article className='no-scrollbar post-details'>
+            <MessageGroup owner={post.owner}
+              timestamp={post.timestamp}
+              content={post.content}
+              showUserProfile={() => showUserProfilePost(post)} />
             {messages.map((message) =>
               <MessageGroup
                 key={message._id}
