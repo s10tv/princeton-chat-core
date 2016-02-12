@@ -138,10 +138,20 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
           <p style={{marginTop: 15, fontWeight: 300, marginBottom: 0}}>{topic.description}</p>
           {
             topic.isFollowed
-            ? <RaisedButton secondary style={{marginTop: 15}}
-              label='Following' onTouchTap={() => { unfollowTopic(topic._id) }} />
-            : <RaisedButton primary style={{marginTop: 15}}
-              label='Follow' onTouchTap={() => { followTopic(topic._id) }} />
+            ? <RaisedButton
+              labelPosition='after'
+              icon={<FontIcon className='material-icons'>done</FontIcon>}
+              secondary
+              style={{marginTop: 15}}
+              label='Subscribed'
+              onTouchTap={() => { unfollowTopic(topic._id) }} />
+            : <RaisedButton
+              labelPosition='after'
+              icon={<FontIcon className='material-icons'>add</FontIcon>}
+              primary
+              style={{marginTop: 15}}
+              label='Subscribe'
+              onTouchTap={() => { followTopic(topic._id) }} />
           }
         </Flex>
       </Flex>
