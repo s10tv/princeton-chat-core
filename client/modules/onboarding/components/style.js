@@ -34,6 +34,10 @@ export default {
     // fontSize: fontSize.h4,
     color: color.brandPrimary,
   },
+  divider: {
+    minWidth: spacing.x2,
+    minHeight: spacing.x2,
+  },
   verifyForm: {
     flex: 1,
     display: 'flex',
