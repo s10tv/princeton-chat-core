@@ -5,6 +5,8 @@ import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui.jsx'
 import {color} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
+import {Link} from 'react-router'
+
 
 const Home = (props) => {
   const {fields: {netid, domain}, handleSubmit} = props
@@ -27,6 +29,7 @@ const Home = (props) => {
               </SelectField>
             </div>
             <br />
+            <Link to='/o/request-invite'>Request Invite</Link>
             <a style={style.manualInvite} href='/o/request-invite' tooltip='No worries. We can verify you manually.'>
               Don't have access to your Princeton email?
             </a>

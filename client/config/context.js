@@ -1,9 +1,10 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import {reducer as formReducer} from 'redux-form'
+import { Router, Route, browserHistory } from 'react-router'
 import createLogger from 'redux-logger'
 import invariant from 'invariant'
 import {Meteor} from 'meteor/meteor'
-import {FlowRouter} from 'meteor/kadira:flow-router'
+// import {FlowRouter} from 'meteor/kadira:flow-router'
 import {ReactiveDict} from 'meteor/reactive-dict'
 import {Tracker} from 'meteor/tracker'
 import {Accounts} from 'meteor/accounts-base'
@@ -58,7 +59,10 @@ const createReduxStore = (modules) => {
 export function initContext (modules = {}) {
   return {
     Meteor,
-    FlowRouter,
+    Router,
+    Route,
+    browserHistory,
+    // FlowRouter,
     Collections,
     Tracker,
     Accounts,

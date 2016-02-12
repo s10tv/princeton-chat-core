@@ -47,6 +47,7 @@
     "react-link-state": "^0.1.1",
     "react-mounter": "1.x.x",
     "react-redux": "^4.4.0",
+    "react-router": "^2.0.0",
     "react-select": "^0.9.1",
     "react-styling": "^1.4.0",
     "react-tap-event-plugin": "^0.2.1",

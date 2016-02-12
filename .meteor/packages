@@ -21,7 +21,6 @@ matb33:collection-hooks
 zimme:collection-timestampable
 reywood:publish-composite
 
-kadira:flow-router
 reactive-dict
 audit-argument-checks
 check

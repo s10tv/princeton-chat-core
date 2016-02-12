@@ -6,6 +6,7 @@ import {color} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
 import {degrees, classYears} from './data'
+import {Link} from 'react-router'
 
 class RequestInvite extends React.Component {
   render () {
@@ -14,7 +15,8 @@ class RequestInvite extends React.Component {
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
             <span style={style.logo}>Princeton.Chat</span>
-            <a style={style.login} href='/o/'>Back</a>
+            <Link style={style.login} to='/o'>Back</Link>
+
           </header>
           <div style={style.sidebarInner}>
             <h2>Verify Affiliation</h2>
