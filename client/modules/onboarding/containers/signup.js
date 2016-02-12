@@ -23,7 +23,10 @@ export const formConfig = {
 }
 
 export const composer = ({context}, onData) => {
-  onData(null, {})
+  onData(null, {
+    // TODO: Obviously make this real
+    verifiedEmail: 'tonyx@alumni.princeton.edu',
+  })
 }
 
 const depsMapper = (context, actions) => ({

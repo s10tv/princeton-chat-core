@@ -1,4 +1,5 @@
 import React from 'react'
+import {Style} from 'radium'
 import _SelectField from 'material-ui/lib/select-field'
 import _TextField from 'material-ui/lib/text-field'
 import _FlatButton from 'material-ui/lib/flat-button'
@@ -35,3 +36,29 @@ export const SelectField = (props) => (
     {props.children}
   </_SelectField>
 )
+/*eslint-disable */
+export const OrDivider = ({margin}) => (
+  <div className='or-divider'>
+    <Style rules={{
+        '.or-divider': {
+          display: 'flex',
+          alignItems: 'center',
+          margin: margin,
+        },
+        '.or-divider hr': {
+          border: 0,
+          height: 0,
+          borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
+          flex: 1
+        },
+        '.or-divider span': {
+          margin: '0 8px'
+        }
+      }}/>
+    <hr/>
+    <span>or</span>
+    <hr/>
+  </div>
+)
+/*eslint-enable */

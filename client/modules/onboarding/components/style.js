@@ -19,8 +19,8 @@ export default {
     flexDirection: 'column',
   },
   logo: {
-    fontWeight: 600,
-    fontSize: fontSize.h4,
+    fontWeight: 'normal',
+    fontSize: fontSize.h5,
     color: color.brandPrimary,
     marginRight: 'auto',
   },
@@ -29,10 +29,9 @@ export default {
     fontSize: fontSize.h6,
   },
   h1: {
-    fontWeight: 'normal',
+    fontWeight: 'lighter',
     marginBottom: spacing.x2,
     // fontSize: fontSize.h4,
-    color: color.brandPrimary,
   },
   divider: {
     minWidth: spacing.x2,
@@ -53,8 +52,13 @@ export default {
     fontSize: fontSize.xs,
   },
   submitButton: {
-    marginLeft: spacing.x2,
-    marginRight: spacing.x2,
+    textTransform: 'inherit',
+    // marginLeft: spacing.x2,
+    // marginRight: spacing.x2,
   },
-  
+  fbButton: {
+    textTransform: 'inherit',
+    // marginLeft: spacing.x2,
+    // marginRight: spacing.x2,
+  },
 }

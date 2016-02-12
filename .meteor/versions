@@ -41,6 +41,7 @@ email@1.0.9-modules.4
 es5-shim@4.3.2-modules.4
 facebook@1.2.3-modules.4
 fastclick@1.0.8-modules.4
+fortawesome:fontawesome@4.5.0
 fourseven:scss@3.4.1
 geojson-utils@1.0.5-modules.4
 hot-code-push@1.0.1-modules.4

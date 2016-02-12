@@ -1,37 +1,14 @@
 /*eslint-disable no-trailing-spaces */
+/*eslint-disable comma-dangle */
 import React, {PropTypes} from 'react'
-import Radium, {Style} from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui.jsx'
-import {color} from '/client/config/theme'
+import Radium from 'radium'
+import {TextField, SelectField, MenuItem, FlatButton, OrDivider} from '/client/lib/ui.jsx'
+import {color, spacing, fontSize} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
 
-const OrDivider = () => (
-  <div className='or-divider'>
-    <Style rules={{
-        '.or-divider': {
-          display: 'flex',
-          alignItems: 'center',
-        },
-        '.or-divider hr': {
-          border: 0,
-          height: 0,
-          borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
-          flex: 1
-        },
-        '.or-divider span': {
-          margin: '0 8px'
-        }
-      }}/>
-    <hr/>
-    <span>or</span>
-    <hr/>
-  </div>
-)
-
 const Signup = (props) => {
-  const {fields: {firstName, lastName, email, password}, handleSubmit} = props
+  const {fields: {firstName, lastName, email, password}, handleSubmit, verifiedEmail} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -39,15 +16,14 @@ const Signup = (props) => {
           <span style={style.logo}>Princeton.Chat</span>
         </header>
         <div style={style.sidebarInner}>
-          <h1>Welcome Tiger</h1>
-          <p>We can't wait to have you onboard.</p>
-          <br/>
-          <br/>
-          <br/>
-          
-          <div>Signup with Facebook</div>
-          <OrDivider />
+          <h1 style={style.h1}>Welcome Tiger</h1>
+          <p>We have successfully verified your affiliation with Princeton.</p>
+          <p style={s.verifiedEmail}>{verifiedEmail}</p>
+          <p>Let’s get you signed up, this should only take a minute.</p>
           <form style={s.form}>
+            <FlatButton icon={<i className='fa fa-facebook' />} label='Continue with Facebook' labelPosition='after'
+              style={style.fbButton} backgroundColor={color.facebook.blue} hoverColor={color.facebook.mediumBlue} />
+            <OrDivider margin={`${spacing.x3}px ${spacing.x3}px 0 ${spacing.x3}px`} />
             <div style={s.nameRow}>
               <TextField floatingLabelText='First Name' {...firstName} />
               <div style={style.divider} />
@@ -68,6 +44,7 @@ const Signup = (props) => {
 }
 // TODO: Specify the shape of a field
 Signup.propTypes = {
+  verifiedEmail: PropTypes.string.isRequired,
   fields: PropTypes.shape({
     firstName: PropTypes.object.isRequired,
     lastName: PropTypes.object.isRequired,
@@ -82,6 +59,12 @@ const s = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+  },
+  verifiedEmail: {
+    textAlign: 'center',
+    marginTop: spacing.x2,
+    marginBottom: spacing.x4,
+    fontSize: fontSize.lg,
   },
   nameRow: {
     display: 'flex',

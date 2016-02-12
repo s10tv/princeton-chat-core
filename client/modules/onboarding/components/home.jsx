@@ -2,7 +2,7 @@
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
 import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui.jsx'
-import {color} from '/client/config/theme'
+import {color, spacing} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
 
@@ -15,7 +15,7 @@ const Home = (props) => {
           <a style={style.login} href='/login'>Log in</a>
         </header>
         <div style={style.sidebarInner}>
-          <h1 style={style.h1}>Princeton.Chat</h1>
+          <h1 style={s.mainLogo}>Princeton.Chat</h1>
           <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
           <form style={style.verifyForm} onsubmit={handleSubmit}>
             <div style={style.emailContainer}>
@@ -49,5 +49,12 @@ Home.propTypes = {
     domain: PropTypes.object.isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
+}
+const s = {
+  mainLogo: {
+    fontWeight: 'normal',
+    marginBottom: spacing.x2,
+    color: color.brandPrimary,
+  },
 }
 export default Radium(Home)
