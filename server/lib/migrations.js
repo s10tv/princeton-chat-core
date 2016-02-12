@@ -133,3 +133,17 @@ Migrations.add({
     })
   }
 })
+
+Migrations.add({
+  version: 9,
+  name: 'Every topic should have a createdAt',
+  up: function () {
+    Topics.find().forEach(topic => {
+      if (!topic.createdAt) {
+        Topics.update(topic._id, { $set: {
+          createdAt: new Date(0)
+        }})
+      }
+    })
+  }
+})
