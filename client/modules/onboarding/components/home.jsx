@@ -27,9 +27,11 @@ class Home extends React.Component {
                   <MenuItem value='princeton.edu' primaryText='princeton.edu' />
                 </SelectField>
               </div>
+              <br />
               <a style={style.manualInvite} href='/o/request-invite' tooltip='No worries. We can verify you manually.'>
                 Don't have access to your Princeton email?
               </a>
+              <br />
               <br />
               <FlatButton style={style.submitButton} label='Get Invited' 
                 backgroundColor={color.green} hoverColor={color.lightGreen} />

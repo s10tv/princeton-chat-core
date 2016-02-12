@@ -9,7 +9,6 @@ import _FontIcon from 'material-ui/lib/font-icon'
 import _DatePicker from 'material-ui/lib/date-picker'
 import _AutoComplete from 'material-ui/lib/auto-complete'
 
-export const TextField = _TextField
 export const FlatButton = _FlatButton
 export const RaisedButton = _RaisedButton
 export const MenuItem = _MenuItem
@@ -19,6 +18,12 @@ export const DatePicker = _DatePicker
 export const AutoComplete = _AutoComplete
 
 /** Wrapping MUI components for use with react-redux **/
+export const TextField = (props) => (
+  <_TextField {...props} errorText={props.touched && props.error}>
+    {props.children}
+  </_TextField>
+)
+
 export const SelectField = (props) => (
   <_SelectField {...props} onChange={(event, index, value) => {
     props.onChange && props.onChange(value)
