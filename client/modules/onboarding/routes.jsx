@@ -5,6 +5,8 @@ import Home from './containers/home'
 import RequestInvite from './containers/request-invite'
 import Signup from './containers/signup'
 
+import SubscribeChannels from './containers/subscribe-channels'
+
 export default function (injectDeps, {FlowRouter}) {
   FlowRouter.route('/o/', {
     name: 'onboarding-home',
@@ -22,6 +24,12 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'request-invite',
     action () {
       mount(injectDeps(RequestInvite))
+    }
+  })
+  FlowRouter.route('/o/subscribe-channels', {
+    name: 'subscribe-channels',
+    action () {
+      mount(injectDeps(SubscribeChannels))
     }
   })
 }

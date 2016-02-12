@@ -1,7 +1,9 @@
 $link-color: rgba(0, 0, 0, 0.87);
 $link-hover-decoration: none;
 $link-hover-color: rgba($link-color, 0.6);
-@import "../vendor/bootstrap/bootstrap-reboot.scss";
+@import "../vendor/bootstrap/bootstrap-reboot";
+@import "../vendor/bootstrap/mixins";
+@import "../vendor/bootstrap/type";
 
 body {
   overflow: hidden; // Globally disable overscrolling
