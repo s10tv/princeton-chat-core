@@ -21,8 +21,8 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
+  onSubmit: actions.requestInvite.verifyAffiliation,
   store: context.store,
-  verifyAffiliation: actions.requestInvite.verifyAffiliation,
   context: () => context
 })
 

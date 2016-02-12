@@ -9,13 +9,9 @@ import {degrees, classYears} from '../configs/data'
 
 class RequestInvite extends React.Component {
 
-  onVerifyAffiliation (event) {
-    event.preventDefault()
-    this.props.verifyAffiliation()
-  }
-
   render () {
-    const {fields: {firstName, lastName, birthDate, classYear, degree, email}} = this.props
+    console.log(this.props)
+    const {fields: {firstName, lastName, birthDate, classYear, degree, email}, handleSubmit} = this.props
     return (
       <Layout.Window>
         <Layout.Sidebar>
@@ -29,7 +25,7 @@ class RequestInvite extends React.Component {
               Please verify your affiliation to Princeton by providing your name,
               date of birth, Princeton degree and class year.
             </p>
-            <form style={style.form} onSubmit={this.onVerifyAffiliation.bind(this)}>
+            <form style={style.form} onSubmit={handleSubmit}>
               <div style={s.nameRow}>
                 <TextField floatingLabelText='First Name' {...firstName} />
                 <div style={style.horizontalSpacer} />
@@ -63,7 +59,7 @@ RequestInvite.propTypes = {
     classYear: PropTypes.object.isRequired,
     degree: PropTypes.object.isRequired
   }).isRequired,
-  verifyAffiliation: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired
 }
 
 const s = {
