@@ -20,22 +20,20 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   onData(null, { topics, topicsSortedByFollowers, topicsSortedByTime })
 }
 
+const depMapper = (context, actions) => ({
+  context: () => context,
+  showAddTopicModal: actions.topics.showAddTopicModal,
+  followTopic: actions.topics.follow,
+  unfollowTopic: actions.topics.unfollow,
+  navigateToTopic: actions.topics.navigateToTopic
+})
+
 export const TopicGridContainer = composeAll(
   composeWithTracker(composer, Loading),
-  useDeps((context, actions) => ({
-    context: () => context,
-    showAddTopicModal: actions.topics.showAddTopicModal,
-    followTopic: actions.topics.follow,
-    unfollowTopic: actions.topics.unfollow
-  }))
+  useDeps(depMapper)
 )(TopicGrid)
 
 export default composeAll(
   composeWithTracker(composer, Loading),
-  useDeps((context, actions) => ({
-    context: () => context,
-    showAddTopicModal: actions.topics.showAddTopicModal,
-    followTopic: actions.topics.follow,
-    unfollowTopic: actions.topics.unfollow
-  }))
+  useDeps(depMapper)
 )(TopicList)

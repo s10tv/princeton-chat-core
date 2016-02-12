@@ -55,7 +55,8 @@ export const TopicGrid = React.createClass({
     /**
      * Topics sorted by time
      */
-    topicsSortedByTime: React.PropTypes.array.isRequired
+    topicsSortedByTime: React.PropTypes.array.isRequired,
+    navigateToTopic: React.PropTypes.func.isRequired
   },
 
   render () {
@@ -68,6 +69,7 @@ export const TopicGrid = React.createClass({
                 <TopicListItem
                   key={topic._id}
                   topic={topic}
+                  navigateToTopic={this.props.navigateToTopic}
                   followTopic={this.props.followTopic}
                   unfollowTopic={this.props.unfollowTopic} />
               )}
@@ -97,7 +99,7 @@ export const TopicGrid = React.createClass({
   }
 })
 
-const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
+const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic}) => {
   const pluralizeTextForNumber = (text, number) => {
     if (number !== 1) {
       return text + 's'
@@ -122,7 +124,14 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
         <Flex width={500} flexDirection='column' marginLeft={30}>
           <Flex flexDirection='row' alignItems='center'>
             <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0,
-              marginRight: 25 }}>#{topic.displayName}</h3>
+              marginRight: 25 }}>
+              <a href='#' onClick={(event) => {
+                event.preventDefault()
+                navigateToTopic(topic._id)
+              }}>
+                #{topic.displayName}
+              </a>
+            </h3>
             {
               topic.followersCount !== undefined
               ? <Flex flexDirection='column' marginRight={25} alignItems='center'>
