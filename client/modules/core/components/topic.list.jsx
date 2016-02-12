@@ -2,6 +2,7 @@ import React from 'react'
 import {Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
 import { RaisedButton, FontIcon, Tabs, Tab } from '/client/lib/ui.jsx'
+import { i18n } from '/client/config/env'
 
 export default React.createClass({
   propTypes: {
@@ -174,7 +175,7 @@ const NewTopicButton = ({ showAddTopicModal }) => {
             Create a new topic
           </h3>
           <p style={{marginTop: 15, fontWeight: 300}}>Can't find what you are looking for? No problem.
-          Topics in Princeton.Chat are curated by the community. Create your own and we'll help
+          Topics in {i18n('title')} are curated by the community. Create your own and we'll help
           you invite other people to follow your topic.</p>
         </Flex>
       </Flex>
