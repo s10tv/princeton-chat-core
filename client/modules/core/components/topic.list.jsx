@@ -9,7 +9,12 @@ export default React.createClass({
     /**
      * Boolean to show/hide siderbar
      */
-    sidebarOpen: React.PropTypes.bool.isRequired
+    sidebarOpen: React.PropTypes.bool,
+
+    /**
+     * Boolean to make title/cover clickable
+     */
+    isTopicClickable: React.PropTypes.bool
   },
 
   render () {
@@ -62,7 +67,7 @@ export const TopicGrid = React.createClass({
     /**
      * Are the cover photos and the title clickable
      */
-    topicClickable: React.PropTypes.bool.isRequired
+    isTopicClickable: React.PropTypes.bool
   },
 
   getInitialState () {
@@ -89,6 +94,7 @@ export const TopicGrid = React.createClass({
                     <TopicListItem
                       key={topic._id}
                       topic={topic}
+                      isTopicClickable={this.props.isTopicClickable}
                       navigateToTopic={this.props.navigateToTopic}
                       followTopic={this.props.followTopic}
                       unfollowTopic={this.props.unfollowTopic} />
@@ -106,6 +112,7 @@ export const TopicGrid = React.createClass({
                     <TopicListItem
                       key={topic._id}
                       topic={topic}
+                      isTopicClickable={this.props.isTopicClickable}
                       followTopic={this.props.followTopic}
                       unfollowTopic={this.props.unfollowTopic} />
                   )}
@@ -126,7 +133,7 @@ export const TopicGrid = React.createClass({
   }
 })
 
-const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic}) => {
+const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTopicClickable}) => {
   const pluralizeTextForNumber = (text, number) => {
     if (number !== 1) {
       return text + 's'
@@ -145,18 +152,34 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic}) => 
 
   return (
     <Flex margin='25px 0px' flexGrow={1}>
-      <Flex flex='0 0 250px' maxHeight={167} backgroundImage={`url("${topic.cover.url}")`}
-        backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
+      { isTopicClickable
+        ? <a href='#' onClick={(event) => {
+          event.preventDefault()
+          navigateToTopic(topic._id)
+        }} style={{
+          flex: '0 0 250px',
+          maxHeight: 167,
+          backgroundImage: `url("${topic.cover.url}")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          borderRadius: 5
+        }} />
+        : <Flex flex='0 0 250px' maxHeight={167} backgroundImage={`url("${topic.cover.url}")`}
+                backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
+      }
       <Flex flexGrow={1} flexDirection='column' marginLeft={30}>
         <Flex flexDirection='row' alignItems='center'>
           <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0,
             marginRight: 25 }}>
-            <a href='#' onClick={(event) => {
-              event.preventDefault()
-              navigateToTopic(topic._id)
-            }}>
-              #{topic.displayName}
-            </a>
+            { isTopicClickable
+              ? <a href='#' onClick={(event) => {
+                event.preventDefault()
+                navigateToTopic(topic._id)
+              }}>
+                  #{topic.displayName}
+                </a>
+              : <span>#{topic.displayName}</span>
+            }
           </h3>
           {
             topic.followersCount !== undefined
