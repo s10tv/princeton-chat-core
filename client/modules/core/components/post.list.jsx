@@ -66,7 +66,6 @@ export default React.createClass({
         <Flex flexDirection='column' flexGrow={1}>
           <Menu
             hidePostButton={this.props.isEmpty}
-            isPostListScreen
             style={{marginBottom: 20}}
             {...this.props} />
           <Flex>
@@ -151,14 +150,17 @@ const PostListItem = (props) => (
             <h2 style={{fontSize: '20px'}}>{props.post.title}</h2>
           </a>
         </Flex>
-        <Flex marginRight={16}>
-          <a href={props.post.url}>
-            <Flex alignItems='center'>
-              <span style={{color: '#999', marginRight: 10, fontWeight: 300}}>{props.post.numMsgs}</span>
-              <img src='/images/chat-bubble.svg' />
-            </Flex>
-          </a>
-        </Flex>
+        {props.post.numMsgs === 0
+          ? null
+          : <Flex marginRight={16}>
+            <a href={props.post.url}>
+              <Flex alignItems='center'>
+                <span style={{color: '#999', marginRight: 10, fontWeight: 300}}>{props.post.numMsgs}</span>
+                <img src='/images/chat-bubble.svg' />
+              </Flex>
+            </a>
+          </Flex>
+        }
       </Flex>
 
       <p style={{marginTop: 5, fontSize: '12px'}}>
