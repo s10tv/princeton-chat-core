@@ -8,6 +8,7 @@ import AvatarService from '/lib/avatar.service.js'
 import { Topics, Posts, Users, Messages } from '/lib/collections'
 import TopicManager from '/server/lib/TopicManager'
 import PostManager from '/server/lib/PostManager'
+import OnboardManager from '/server/lib/OnboardManager'
 import _ from 'underscore'
 import NewTopicService from '/lib/newtopic.service.js'
 import UserService from '/lib/user.service.js'
@@ -138,6 +139,11 @@ Meteor.methods({
 
     // did not pass validation.
     return false
+  },
+
+  'signup/verifyAffiliation': (options) => {
+    check(options, Object)
+    return new OnboardManager().verifyAffiliation(options)
   },
 
   'topics/users/import': (topicId, userInfos) => {

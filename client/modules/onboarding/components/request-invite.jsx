@@ -1,5 +1,5 @@
 /*eslint-disable no-trailing-spaces */
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import {TextField, SelectField, MenuItem, FlatButton, AutoComplete} from '/client/lib/ui.jsx'
 import {color} from '/client/config/theme'
@@ -8,7 +8,14 @@ import Layout from './layout'
 import {degrees, classYears} from '../configs/data'
 
 class RequestInvite extends React.Component {
+
+  onVerifyAffiliation (event) {
+    event.preventDefault()
+    this.props.verifyAffiliation()
+  }
+
   render () {
+    const {fields: {firstName, lastName, birthDate, classYear, degree, email}} = this.props
     return (
       <Layout.Window>
         <Layout.Sidebar>
@@ -19,20 +26,24 @@ class RequestInvite extends React.Component {
           <div style={style.sidebarInner}>
             <h2>Verify Affiliation</h2>
             <p>
-              Please verify your affiliation to Princeton by providing your name, 
+              Please verify your affiliation to Princeton by providing your name,
               date of birth, Princeton degree and class year.
             </p>
-            <form style={style.form}>
+            <form style={style.form} onSubmit={this.onVerifyAffiliation.bind(this)}>
               <div style={s.nameRow}>
-                <TextField floatingLabelText='First Name' />
+                <TextField floatingLabelText='First Name' {...firstName} />
                 <div style={style.horizontalSpacer} />
-                <TextField floatingLabelText='Last Name' />
+                <TextField floatingLabelText='Last Name' {...lastName} />
               </div>
-              <TextField floatingLabelText='Birth Date' fullWidth={true} />
-              <TextField floatingLabelText='Princeton Class Year' fullWidth={true} />
-              <TextField floatingLabelText='Princeton Degree' fullWidth={true} />
+              <TextField floatingLabelText='Birth Date' fullWidth={true} {...birthDate} />
+              <TextField floatingLabelText='Princeton Class Year' fullWidth={true} {...classYear} />
+              <TextField floatingLabelText='Princeton Degree' fullWidth={true} {...degree} />
+              <TextField floatingLabelText='Personal Email'
+                hintText={'Where do we send the invite to?'}
+                fullWidth={true}
+                {...email} />
               <br />
-              <FlatButton style={style.button} label='Verify'
+              <FlatButton type='submit' style={style.button} label='Verify'
                           backgroundColor={color.green} hoverColor={color.lightGreen} />
             </form>
           </div>
@@ -44,14 +55,20 @@ class RequestInvite extends React.Component {
   }
 }
 
-//<AutoComplete
-//  fullWidth={true}
-//  floatingLabelText='Princeton Degree'
-//  filter={AutoComplete.fuzzyFilter}
-//  dataSource={degrees.map(d => d.label)} />
+RequestInvite.propTypes = {
+  fields: PropTypes.shape({
+    firstName: PropTypes.object.isRequired,
+    lastName: PropTypes.object.isRequired,
+    birthDate: PropTypes.object.isRequired,
+    classYear: PropTypes.object.isRequired,
+    degree: PropTypes.object.isRequired
+  }).isRequired,
+  verifyAffiliation: PropTypes.func.isRequired
+}
+
 const s = {
   nameRow: {
-    display: 'flex',
+    display: 'flex'
   }
 }
 export default Radium(RequestInvite)

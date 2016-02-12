@@ -2,7 +2,7 @@ import React from 'react'
 import {mount} from 'react-mounter'
 
 import Home from './containers/home'
-import RequestInvite from './components/request-invite.jsx'
+import RequestInvite from './containers/request-invite'
 import Signup from './containers/signup'
 
 export default function (injectDeps, {FlowRouter}) {

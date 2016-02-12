@@ -1,5 +1,5 @@
-import posts from './posts';
+import requestInvite from './request-invite'
 
 export default {
-  // posts
-};
+  requestInvite
+}
