@@ -1,6 +1,7 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import TopicList, {TopicGrid} from '/client/modules/core/components/topic.list.jsx'
 import {Loading} from '/client/modules/core/components/helpers.jsx'
+import _ from 'underscore'
 
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context()
@@ -13,7 +14,10 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
     return topic
   })
 
-  onData(null, { topics })
+  const topicsSortedByFollowers = _.sortBy(topics, (topic) => topic.followersCount).reverse()
+  const topicsSortedByTime = _.sortBy(topics, (topic) => topic.createdAt).reverse()
+
+  onData(null, { topics, topicsSortedByFollowers, topicsSortedByTime })
 }
 
 export const TopicGridContainer = composeAll(

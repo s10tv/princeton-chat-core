@@ -13,10 +13,9 @@ export default React.createClass({
 
   render () {
     return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0,
-        overflowY: 'scroll' })}>
-        <Flex flex={1} flexDirection='column' alignItems='center'>
-          <TopicGrid margin={36} {...this.props} />
+      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
+        <Flex flexGrow={1} flexDirection='column' alignItems='center' overflowY='scroll'>
+          <TopicGrid margin='20px 0px' {...this.props} />
         </Flex>
       </main>
     )
@@ -43,14 +42,24 @@ export const TopicGrid = React.createClass({
     /**
      * Shows new topic modal
      */
-    showAddTopicModal: React.PropTypes.func.isRequired
+    showAddTopicModal: React.PropTypes.func.isRequired,
+
+    /**
+     * Topics sorted by followers
+     */
+    topicsSortedByFollowers: React.PropTypes.object.isRequired,
+
+    /**
+     * Topics sorted by time
+     */
+    topicsSortedByTime: React.PropTypes.object.isRequired
   },
 
   render () {
     return (
       <div>
-        <Flex flexWrap='wrap' maxWidth={1000} justifyContent='center' {...this.props}>
-          {this.props.topics.map((topic) =>
+        <Flex flexDirection='column' justifyContent='center'>
+          {this.props.topicsSortedByFollowers.map((topic) =>
             <TopicListItem
               key={topic._id}
               topic={topic}
@@ -83,13 +92,14 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
   }
 
   return (
-    <Flex width={400} flexDirection='column' margin={10}>
+    <Flex flexDirection='column' margin={25}>
       <Flex>
-        <Flex width={200} backgroundImage={`url("${topic.cover.url}")`}
+        <Flex width={250} maxHeight={167} backgroundImage={`url("${topic.cover.url}")`}
           backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
-        <Flex flexDirection='column' marginLeft={30}>
-          <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0 }}>#{topic.displayName}</h3>
-          <Flex flexDirection='row' marginTop={15}>
+        <Flex width={500} flexDirection='column' marginLeft={30}>
+          <Flex flexDirection='row' alignItems='center'>
+            <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0,
+              marginRight: 25 }}>#{topic.displayName}</h3>
             {
               topic.followersCount !== undefined
               ? <Flex flexDirection='column' marginRight={25} alignItems='center'>
@@ -105,16 +115,16 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
               </Flex> : null
             }
           </Flex>
+          <p style={{marginTop: 15, fontWeight: 300, marginBottom: 0}}>{topic.description}</p>
           {
             topic.isFollowed
-            ? <RaisedButton secondary style={{marginTop: 15, width: 150}}
+            ? <RaisedButton secondary style={{marginTop: 15}}
               label='Following' onTouchTap={() => { unfollowTopic(topic._id) }} />
-            : <RaisedButton primary style={{marginTop: 15, width: 150}}
+            : <RaisedButton primary style={{marginTop: 15}}
               label='Follow' onTouchTap={() => { followTopic(topic._id) }} />
           }
         </Flex>
       </Flex>
-      <p style={{marginTop: 15, fontWeight: 300}}>{topic.description}</p>
     </Flex>
   )
 }
@@ -122,19 +132,19 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
 const NewTopicButton = ({ showAddTopicModal }) => {
   return (
     <a href='#' onClick={showAddTopicModal}>
-      <Flex width={400} flexDirection='column' margin={10}>
-        <Flex alignItems='center'>
-          <Flex width={200} height={150} backgroundColor='#e0e0e0'
-            borderRadius={5} justifyContent='center' alignItems='center'>
-            <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
-          </Flex>
-          <h3 style={{ marginLeft: 30, fontWeight: 400, marginTop: 0, marginBottom: 0 }}>
+      <Flex margin={25}>
+        <Flex width={250} height={150} backgroundColor='#e0e0e0'
+          borderRadius={5} justifyContent='center' alignItems='center'>
+          <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
+        </Flex>
+        <Flex width={500} marginLeft={30} flexDirection='column' alignItems='center'>
+          <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0 }}>
             Create a new topic
           </h3>
+          <p style={{marginTop: 15, fontWeight: 300}}>Can't find what you are looking for? No problem.
+          Topics in Princeton.Chat are curated by the community. Create your own and we'll help
+          you invite other people to follow your topic.</p>
         </Flex>
-        <p style={{marginTop: 15, fontWeight: 300}}>Can't find what you are looking for? No problem.
-        Topics in Princeton.Chat are curated by the community. Create your own and we'll help
-        you invite other people to follow your topic.</p>
       </Flex>
     </a>
   )
