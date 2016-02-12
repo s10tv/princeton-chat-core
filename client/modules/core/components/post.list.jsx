@@ -8,10 +8,7 @@ import styles from '/client/modules/core/components/styles.jsx'
 import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
 import RightBar from '/client/modules/core/components/layout/layout.rightbar.jsx'
 import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
-import { i18n } from '/client/config/env'
 import Avatar from '../../../../node_modules/material-ui/lib/avatar'
-
-const theme = i18n('secondaryMuiTheme')
 
 export default React.createClass({
   propTypes: {
@@ -149,32 +146,11 @@ const PostListItem = (props) => (
       padding: 10
     }}>
     <Flex flexDirection='column'>
-
       <Flex flexDirection='row' justifyContent='space-between' alignItems='center'>
         <Flex alignItems='center'>
-          {props.post.owner.avatar.isDefaultAvatar
-            ? <LetterAvatar
-              color='white'
-              backgroundColor={props.post.owner.avatar.color}
-              size={35}
-              style={{marginRight: 10}}>
-                {props.post.owner.avatarInitials}
-            </LetterAvatar>
-            : <CoverAvatar src={props.post.owner.avatar.url} size={35} style={{marginRight: 10}} />
-          }
-          <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
-            <span className='display-name'>
-              {props.post.owner.displayName}
-            </span>
+          <a href={props.post.url} style={{color: 'black'}}>
+            <h2 style={{fontSize: '20px'}}>{props.post.title}</h2>
           </a>
-          <a href='#' onClick={() => props.showUserProfile(props.post.owner)}>
-            <span className='mention' style={Object.assign({}, {
-              color: theme.baseTheme.palette.accent1Color
-            })}>
-              {props.post.owner.displayUsername}
-            </span>
-          </a>
-          <span className='datetime'>{props.post.timestamp}</span>
         </Flex>
         <Flex marginRight={16}>
           <a href={props.post.url}>
@@ -186,22 +162,19 @@ const PostListItem = (props) => (
         </Flex>
       </Flex>
 
-      <Flex style={{marginTop: 20}}>
-        {props.post.topics.map((topic) =>
-          <span key={topic._id} style={{marginRight: 10}}>
-            <a href='#' onClick={() => {
-              props.navigateToTopic(topic._id)
-              return false
-            }} style={{ fontWeight: 300, color: '#d3d4d7' }}>
-              {topic._id ? `#${topic.displayName}` : topic.displayName}
-            </a>
+      <p style={{marginTop: 5, fontSize: '12px'}}>
+        Posted by
+        <a href='#' style={{
+          marginLeft: 3,
+          marginRight: 3,
+          fontWeight: 400
+        }} onClick={() => props.showUserProfile(props.post.owner)}>
+          <span className='display-name'>
+            {props.post.owner.displayName}
           </span>
-        )}
-      </Flex>
-
-      <a href={props.post.url} style={{marginTop: 12, color: 'black'}}>
-        <h2>{props.post.title}</h2>
-      </a>
+        </a>
+        <span>{props.post.timestamp}</span>
+      </p>
 
       <p style={{marginTop: 12, letterSpacing: '0.1px'}}>{props.post.truncatedContent}</p>
 
@@ -210,6 +183,17 @@ const PostListItem = (props) => (
           <FollowersBtn {...props}/>
         </Flex>
         <Flex alignItems='center'>
+          {props.post.topics.map((topic) =>
+            <span key={topic._id} style={{marginRight: 10}}>
+              <a href='#' onClick={() => {
+                props.navigateToTopic(topic._id)
+                return false
+              }} style={{ fontWeight: 300, color: '#d3d4d7' }}>
+                {topic._id ? `#${topic.displayName}` : topic.displayName}
+              </a>
+            </span>
+          )}
+
           <FollowBtn {...props} />
         </Flex>
       </Flex>

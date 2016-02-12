@@ -47,20 +47,9 @@
   font-size: 16px;
 }
 
-.post-list .display-name {
-  font-weight: 400;
-  margin-right: 8px;
-}
-
 .post-list .mention {
   font-weight: 300;
   margin-right: 8px;
-}
-
-.post-list .datetime {
-  font-weight: 300;
-  font-size: 14px;
-  color: #888;
 }
 
 .post-list h2 {
