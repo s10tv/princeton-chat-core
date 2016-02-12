@@ -5,6 +5,9 @@ import Home from '../components/home.jsx'
 const formConfig = {
   form: 'home',
   fields: ['netid', 'domain'],
+  initialValues: {
+    domain: 'alumni.princeton.edu'
+  }
 }
 
 export const composer = ({context}, onData) => {

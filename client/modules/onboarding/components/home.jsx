@@ -1,7 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui'
+import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui.jsx'
 import {color} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'

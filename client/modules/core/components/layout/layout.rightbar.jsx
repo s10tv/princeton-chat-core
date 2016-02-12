@@ -11,7 +11,7 @@ import IconMenu from '../../../../../node_modules/material-ui/lib/menus/icon-men
 import MenuItem from '../../../../../node_modules/material-ui/lib/menus/menu-item'
 import { i18n } from '/client/config/env'
 import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
-import {FlatButton, Dialog} from '/client/lib/ui'
+import {FlatButton, Dialog} from '/client/lib/ui.jsx'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color

@@ -1,3 +1,4 @@
+import React from 'react'
 import _SelectField from 'material-ui/lib/select-field'
 import _TextField from 'material-ui/lib/text-field'
 import _FlatButton from 'material-ui/lib/flat-button'
@@ -8,7 +9,6 @@ import _FontIcon from 'material-ui/lib/font-icon'
 import _DatePicker from 'material-ui/lib/date-picker'
 import _AutoComplete from 'material-ui/lib/auto-complete'
 
-export const SelectField = _SelectField
 export const TextField = _TextField
 export const FlatButton = _FlatButton
 export const RaisedButton = _RaisedButton
@@ -17,3 +17,12 @@ export const Dialog = _Dialog
 export const FontIcon = _FontIcon
 export const DatePicker = _DatePicker
 export const AutoComplete = _AutoComplete
+
+/** Wrapping MUI components for use with react-redux **/
+export const SelectField = (props) => (
+  <_SelectField {...props} onChange={(event, index, value) => {
+    props.onChange && props.onChange(value)
+  }}>
+    {props.children}
+  </_SelectField>
+)

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
-import { RaisedButton, FontIcon } from '/client/lib/ui'
+import { RaisedButton, FontIcon } from '/client/lib/ui.jsx'
 
 export default React.createClass({
   propTypes: {
