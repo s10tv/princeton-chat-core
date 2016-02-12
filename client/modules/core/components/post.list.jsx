@@ -179,12 +179,12 @@ const PostListItem = (props) => (
 
       <Flex flexDirection='row' justifyContent='space-between' marginTop={20}>
         <Flex alignItems='center'>
-          <a href='#' style={{ color: '#d3d4d7', marginRight: 6 }} onClick={() => {
+          <a href='#' style={{ color: '#d3d4d7', marginRight: 12 }} onClick={() => {
             props.showPostFollowers(props.post.followers)
           }}>
             <Flex alignItems='center'>
-              <span style={{marginRight: 3}}>5</span>
               <FontIcon className='material-icons' color='#d3d4d7'>group</FontIcon>
+              <span style={{marginLeft: 3, fontWeight: 300}}>{props.post.followers.length}</span>
             </Flex>
           </a>
           {props.post.topics.map((topic) =>
