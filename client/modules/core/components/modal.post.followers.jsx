@@ -36,6 +36,7 @@ export default class PostFollowersModal extends React.Component {
         modal={false}
         open={isOpen}
         onRequestClose={closeModal}
+        bodyClassName={'no-scrollbar'}
         bodyStyle={{overflow: 'scroll'}}>
         <List>
           {followers.map((follower) =>
