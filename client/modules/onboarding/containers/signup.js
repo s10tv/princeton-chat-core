@@ -7,9 +7,6 @@ import Signup from '../components/signup.jsx'
 export const formConfig = {
   form: 'signup',
   fields: ['firstName', 'lastName', 'email', 'password'],
-  initialValues: {
-    email: '' // How do we populate this from initial data?
-  },
   validate: createValidator({
     firstName: [required, maxLength(16)],
     lastName: [required, maxLength(16)],
@@ -25,7 +22,12 @@ export const formConfig = {
 export const composer = ({context}, onData) => {
   onData(null, {
     // TODO: Obviously make this real
+    // Signup Component props
     verifiedEmail: 'tonyx@alumni.princeton.edu',
+    // redux-form props
+    initialValues: {
+      email: 'tonyx@alumni.princeton.edu'
+    }
   })
 }
 
