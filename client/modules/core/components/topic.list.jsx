@@ -62,7 +62,7 @@ export const TopicGrid = React.createClass({
   render () {
     return (
       <div>
-        <Tabs tabItemContainerStyle={{backgroundColor: 'transparent'}}>
+        <Tabs style={{marginTop: 10}} tabItemContainerStyle={{backgroundColor: 'transparent'}}>
           <Tab label='Top' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
             <Flex flexDirection='column' justifyContent='center'>
               {this.props.topicsSortedByFollowers.map((topic) =>
