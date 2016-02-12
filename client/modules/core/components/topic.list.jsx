@@ -14,8 +14,10 @@ export default React.createClass({
   render () {
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
-        <Flex flexGrow={1} flexDirection='column' alignItems='center' overflowY='scroll'>
-          <TopicGrid margin='20px 0px' {...this.props} />
+        <Flex flexGrow={1} flexDirection='column' alignItems='center' overflowY='scroll' style={{
+          marginTop: 20
+        }}>
+          <TopicGrid {...this.props} />
         </Flex>
       </main>
     )
