@@ -7,42 +7,47 @@ import style from './style'
 import Layout from './layout'
 import {Link} from 'react-router'
 
+import { RouteTransition, presets } from 'react-router-transition'
+
+
 
 const Home = (props) => {
   const {fields: {netid, domain}, handleSubmit} = props
   return (
-    <Layout.Window>
-      <Layout.Sidebar>
-        <header style={style.sidebarHeader}>
-          <a style={style.login} href='/login'>Log in</a>
-        </header>
-        <div style={style.sidebarInner}>
-          <h1 style={style.h1}>Princeton.Chat</h1>
-          <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
-          <form style={style.verifyForm} onsubmit={handleSubmit}>
-            <div style={style.emailContainer}>
-              <TextField hintText='netid' {...netid} />
-              <span>@</span>
-              <SelectField {...domain} >
-                <MenuItem value='alumni.princeton.edu' primaryText='alumni.princeton.edu' />
-                <MenuItem value='princeton.edu' primaryText='princeton.edu' />
-              </SelectField>
-            </div>
-            <br />
-            <Link to='/o/request-invite'>Request Invite</Link>
-            <a style={style.manualInvite} href='/o/request-invite' tooltip='No worries. We can verify you manually.'>
-              Don't have access to your Princeton email?
-            </a>
-            <br />
-            <br />
-            <FlatButton style={style.submitButton} label='Get Invited' 
-              backgroundColor={color.green} hoverColor={color.lightGreen} />
-          </form>
-        </div>
-      </Layout.Sidebar>
-      <Layout.Main>
-      </Layout.Main>
-    </Layout.Window>
+
+      <Layout.Window>
+        <Layout.Sidebar>
+          <header style={style.sidebarHeader}>
+            <a style={style.login} href='/login'>Log in</a>
+          </header>
+          <div style={style.sidebarInner}>
+            <h1 style={style.h1}>Princeton.Chat</h1>
+            <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
+            <form style={style.verifyForm} onsubmit={handleSubmit}>
+              <div style={style.emailContainer}>
+                <TextField hintText='netid' {...netid} />
+                <span>@</span>
+                <SelectField {...domain} >
+                  <MenuItem value='alumni.princeton.edu' primaryText='alumni.princeton.edu' />
+                  <MenuItem value='princeton.edu' primaryText='princeton.edu' />
+                </SelectField>
+              </div>
+              <br />
+              <Link to='/o/request-invite'>Request Invite</Link>
+              <a style={style.manualInvite} href='/o/request-invite' tooltip='No worries. We can verify you manually.'>
+                Don't have access to your Princeton email?
+              </a>
+              <br />
+              <br />
+              <FlatButton style={style.submitButton} label='Get Invited' 
+                backgroundColor={color.green} hoverColor={color.lightGreen} />
+            </form>
+          </div>
+        </Layout.Sidebar>
+        <Layout.Main>
+        </Layout.Main>
+      </Layout.Window>
+    
   )
 }
 Home.propTypes = {

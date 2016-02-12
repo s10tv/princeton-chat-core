@@ -7,7 +7,7 @@ import style from './style'
 import Layout from './layout'
 import {degrees, classYears} from './data'
 import {Link} from 'react-router'
-
+import { RouteTransition, presets } from 'react-router-transition'
 class RequestInvite extends React.Component {
   render () {
     return (
