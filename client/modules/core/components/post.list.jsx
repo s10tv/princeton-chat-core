@@ -1,6 +1,5 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 import List from '../../../../node_modules/material-ui/lib/lists/list'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
 import Menu from '/client/modules/core/components/menu.jsx'
@@ -8,7 +7,6 @@ import styles from '/client/modules/core/components/styles.jsx'
 import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
 import RightBar from '/client/modules/core/components/layout/layout.rightbar.jsx'
 import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
-import Avatar from '../../../../node_modules/material-ui/lib/avatar'
 
 export default React.createClass({
   propTypes: {
@@ -180,9 +178,6 @@ const PostListItem = (props) => (
 
       <Flex flexDirection='row' justifyContent='space-between' marginTop={20}>
         <Flex alignItems='center'>
-          <FollowersBtn {...props}/>
-        </Flex>
-        <Flex alignItems='center'>
           {props.post.topics.map((topic) =>
             <span key={topic._id} style={{marginRight: 10}}>
               <a href='#' onClick={() => {
@@ -193,45 +188,13 @@ const PostListItem = (props) => (
               </a>
             </span>
           )}
-
+        </Flex>
+        <Flex alignItems='center'>
           <FollowBtn {...props} />
         </Flex>
       </Flex>
     </Flex>
   </ListItem>
-)
-
-const FollowersBtn = (props) => (
-  props.post.numFollowers === 0
-  ? <Flex alignItems='center' fontSize={15}>No Followers</Flex>
-  : <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer'}} onClick={() => props.showPostFollowers(props.post.followers)}>
-    <span style={{marginRight: 7, fontSize: 15, fontWeight: 300, color: '#999'}}>
-        {props.post.followers.length > 1 ? 'Followers:' : 'Follower:'}
-    </span>
-
-      {props.post.followerAvatars.map((followerAvatar) =>
-        followerAvatar.avatar.isDefaultAvatar
-        ? <LetterAvatar key={followerAvatar.userId}
-          size={30}
-          color='white'
-          backgroundColor={followerAvatar.avatar.color}
-          style={{marginRight: 5}}>
-          {followerAvatar.avatarInitials}
-        </LetterAvatar>
-        : <CoverAvatar key={followerAvatar.userId}
-          src={followerAvatar.avatar.url}
-          size={30}
-          style={{marginRight: 5}} />
-      )}
-
-      {props.post.moreFollowersNumber === 0
-        ? null
-        : <Avatar size={30} backgroundColor={'rgba(0, 0, 0, 0)'}
-          color='#999'
-          style={{ border: 'solid 1px #999', fontSize: 14, fontWeight: 300 }}>
-            +{props.post.moreFollowersNumber}
-        </Avatar>}
-  </div>
 )
 
 const FollowBtn = (props) => (
