@@ -18,13 +18,13 @@ export default {
     display: 'flex',
     flexDirection: 'column',
   },
-  logo: {
+  sidebarLogo: {
     fontWeight: 'normal',
     fontSize: fontSize.h5,
     color: color.brandPrimary,
     marginRight: 'auto',
   },
-  login: {
+  sidebarLink: {
     color: color.white,
     fontSize: fontSize.h6,
   },
@@ -33,25 +33,17 @@ export default {
     marginBottom: spacing.x2,
     // fontSize: fontSize.h4,
   },
-  divider: {
+  horizontalSpacer: {
     minWidth: spacing.x2,
     minHeight: spacing.x2,
   },
-  verifyForm: {
+  form: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  emailContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  manualInvite: {
-    color: color.white,
-    fontSize: fontSize.xs,
-  },
-  submitButton: {
+  button: {
     textTransform: 'inherit',
     // marginLeft: spacing.x2,
     // marginRight: spacing.x2,

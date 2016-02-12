@@ -2,7 +2,7 @@
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
 import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui.jsx'
-import {color, spacing} from '/client/config/theme'
+import {color, spacing, fontSize} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
 
@@ -12,13 +12,13 @@ const Home = (props) => {
     <Layout.Window>
       <Layout.Sidebar>
         <header style={style.sidebarHeader}>
-          <a style={style.login} href='/login'>Log in</a>
+          <a style={style.sidebarLink} href='/login'>Log in</a>
         </header>
         <div style={style.sidebarInner}>
           <h1 style={s.mainLogo}>Princeton.Chat</h1>
           <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
-          <form style={style.verifyForm} onsubmit={handleSubmit}>
-            <div style={style.emailContainer}>
+          <form style={style.form} onsubmit={handleSubmit}>
+            <div style={s.emailContainer}>
               <TextField hintText='netid' {...netid} />
               <span>@</span>
               <SelectField {...domain} >
@@ -27,13 +27,13 @@ const Home = (props) => {
               </SelectField>
             </div>
             <br />
-            <a style={style.manualInvite} href='/o/request-invite' tooltip='No worries. We can verify you manually.'>
+            <a style={s.manualInvite} href='/o/request-invite' tooltip='No worries. We can verify you manually.'>
               Don't have access to your Princeton email?
             </a>
             <br />
             <br />
-            <FlatButton style={style.submitButton} label='Get Invited' 
-              backgroundColor={color.green} hoverColor={color.lightGreen} />
+            <FlatButton style={style.button} label='Get Invited'
+                        backgroundColor={color.green} hoverColor={color.lightGreen} />
           </form>
         </div>
       </Layout.Sidebar>
@@ -55,6 +55,14 @@ const s = {
     fontWeight: 'normal',
     marginBottom: spacing.x2,
     color: color.brandPrimary,
+  },
+  emailContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  manualInvite: {
+    color: color.white,
+    fontSize: fontSize.xs,
   },
 }
 export default Radium(Home)

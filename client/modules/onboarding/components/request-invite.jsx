@@ -13,8 +13,8 @@ class RequestInvite extends React.Component {
       <Layout.Window>
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
-            <span style={style.logo}>Princeton.Chat</span>
-            <a style={style.login} href='/o/'>Back</a>
+            <span style={style.sidebarLogo}>Princeton.Chat</span>
+            <a style={style.sidebarLink} href='/o/'>Back</a>
           </header>
           <div style={style.sidebarInner}>
             <h2>Verify Affiliation</h2>
@@ -22,18 +22,18 @@ class RequestInvite extends React.Component {
               Please verify your affiliation to Princeton by providing your name, 
               date of birth, Princeton degree and class year.
             </p>
-            <form style={s.form}>
+            <form style={style.form}>
               <div style={s.nameRow}>
                 <TextField floatingLabelText='First Name' />
-                <div style={style.divider} />
+                <div style={style.horizontalSpacer} />
                 <TextField floatingLabelText='Last Name' />
               </div>
               <TextField floatingLabelText='Birth Date' fullWidth={true} />
               <TextField floatingLabelText='Princeton Class Year' fullWidth={true} />
               <TextField floatingLabelText='Princeton Degree' fullWidth={true} />
               <br />
-              <FlatButton style={style.submitButton} label='Verify'
-                backgroundColor={color.green} hoverColor={color.lightGreen} />
+              <FlatButton style={style.button} label='Verify'
+                          backgroundColor={color.green} hoverColor={color.lightGreen} />
             </form>
           </div>
         </Layout.Sidebar>
@@ -50,12 +50,6 @@ class RequestInvite extends React.Component {
 //  filter={AutoComplete.fuzzyFilter}
 //  dataSource={degrees.map(d => d.label)} />
 const s = {
-  form: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
   nameRow: {
     display: 'flex',
   }

@@ -13,27 +13,27 @@ const Signup = (props) => {
     <Layout.Window>
       <Layout.Sidebar>
         <header style={style.sidebarHeader}>
-          <span style={style.logo}>Princeton.Chat</span>
+          <span style={style.sidebarLogo}>Princeton.Chat</span>
         </header>
         <div style={style.sidebarInner}>
           <h1 style={style.h1}>Welcome Tiger</h1>
           <p>We have successfully verified your affiliation with Princeton.</p>
           <p style={s.verifiedEmail}>{verifiedEmail}</p>
           <p>Let’s get you signed up, this should only take a minute.</p>
-          <form style={s.form}>
+          <form style={style.form}>
             <FlatButton icon={<i className='fa fa-facebook' />} label='Continue with Facebook' labelPosition='after'
               style={style.fbButton} backgroundColor={color.facebook.blue} hoverColor={color.facebook.mediumBlue} />
             <OrDivider margin={`${spacing.x3}px ${spacing.x3}px 0 ${spacing.x3}px`} />
             <div style={s.nameRow}>
               <TextField floatingLabelText='First Name' {...firstName} />
-              <div style={style.divider} />
+              <div style={style.horizontalSpacer} />
               <TextField floatingLabelText='Last Name' {...lastName} />
             </div>
             <TextField floatingLabelText='Primary Email' fullWidth={true} {...email} />
             <TextField floatingLabelText='Password' type='password' fullWidth={true} {...password} />
             <br />
-            <FlatButton style={style.submitButton} label='Signup'
-              backgroundColor={color.green} hoverColor={color.lightGreen} />
+            <FlatButton style={style.button} label='Signup'
+                        backgroundColor={color.green} hoverColor={color.lightGreen} />
           </form>
         </div>
       </Layout.Sidebar>
@@ -54,12 +54,6 @@ Signup.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 const s = {
-  form: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
   verifiedEmail: {
     textAlign: 'center',
     marginTop: spacing.x2,
