@@ -11,6 +11,7 @@ import _DatePicker from 'material-ui/lib/date-picker'
 import _AutoComplete from 'material-ui/lib/auto-complete'
 import _Tab from 'material-ui/lib/tabs/tab'
 import _Tabs from 'material-ui/lib/tabs/tabs'
+import _IconButton from 'material-ui/lib/icon-button'
 
 export const FlatButton = _FlatButton
 export const RaisedButton = _RaisedButton
@@ -21,6 +22,7 @@ export const DatePicker = _DatePicker
 export const AutoComplete = _AutoComplete
 export const Tab = _Tab
 export const Tabs = _Tabs
+export const IconButton = _IconButton
 
 /** Wrapping MUI components for use with react-redux **/
 export const TextField = (props) => (

@@ -4,8 +4,8 @@ import {mount} from 'react-mounter'
 import Home from './containers/home'
 import RequestInvite from './containers/request-invite'
 import Signup from './containers/signup'
-
 import SubscribeChannels from './containers/subscribe-channels'
+import InviteFriends from './containers/invite-friends'
 
 export default function (injectDeps, {FlowRouter}) {
   FlowRouter.route('/o/', {
@@ -30,6 +30,12 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'subscribe-channels',
     action () {
       mount(injectDeps(SubscribeChannels))
+    }
+  })
+  FlowRouter.route('/o/invite-friends', {
+    name: 'invite-friends',
+    action () {
+      mount(injectDeps(InviteFriends))
     }
   })
 }
