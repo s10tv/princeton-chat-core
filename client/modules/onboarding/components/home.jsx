@@ -42,6 +42,7 @@ const Home = (props) => {
     </Layout.Window>
   )
 }
+// TODO: Specify the shape of a field
 Home.propTypes = {
   fields: PropTypes.shape({
     netid: PropTypes.object.isRequired,

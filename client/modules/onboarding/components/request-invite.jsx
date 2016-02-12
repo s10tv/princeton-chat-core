@@ -5,7 +5,7 @@ import {TextField, SelectField, MenuItem, FlatButton, AutoComplete} from '/clien
 import {color} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
-import {degrees, classYears} from './data'
+import {degrees, classYears} from '../configs/data'
 
 class RequestInvite extends React.Component {
   render () {
