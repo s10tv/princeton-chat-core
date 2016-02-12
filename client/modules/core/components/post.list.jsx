@@ -7,6 +7,7 @@ import styles from '/client/modules/core/components/styles.jsx'
 import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
 import RightBar from '/client/modules/core/components/layout/layout.rightbar.jsx'
 import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
+import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
 
 export default React.createClass({
   propTypes: {
@@ -178,6 +179,14 @@ const PostListItem = (props) => (
 
       <Flex flexDirection='row' justifyContent='space-between' marginTop={20}>
         <Flex alignItems='center'>
+          <a href='#' style={{ color: '#d3d4d7', marginRight: 6 }} onClick={() => {
+            props.showPostFollowers(props.post.followers)
+          }}>
+            <Flex alignItems='center'>
+              <span style={{marginRight: 3}}>5</span>
+              <FontIcon className='material-icons' color='#d3d4d7'>group</FontIcon>
+            </Flex>
+          </a>
           {props.post.topics.map((topic) =>
             <span key={topic._id} style={{marginRight: 10}}>
               <a href='#' onClick={() => {
