@@ -20,8 +20,8 @@ Main.childContextTypes = {
 const style = {
   main: {
     flex: 6,
-    backgroundImage: 'url(/images/bg-blair-arch-people.jpg)',
-    backgroundSize: 'cover',
+    // backgroundImage: 'url(/images/bg-blair-arch-people.jpg)',
+    // backgroundSize: 'cover',
   }
 }
 

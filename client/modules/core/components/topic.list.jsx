@@ -65,39 +65,60 @@ export const TopicGrid = React.createClass({
     topicClickable: React.PropTypes.bool.isRequired
   },
 
+  getInitialState () {
+    return {
+      value: 'top'
+    }
+  },
+
+  handleChange (value) {
+    this.setState({
+      value
+    })
+  },
+
   render () {
     return (
       <div>
-        <Tabs style={{marginTop: 10}} tabItemContainerStyle={{backgroundColor: 'transparent'}}>
-          <Tab label='Top' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
-            <Flex flexDirection='column' justifyContent='center'>
-              {this.props.topicsSortedByFollowers.map((topic) =>
-                <TopicListItem
-                  key={topic._id}
-                  topic={topic}
-                  navigateToTopic={this.props.navigateToTopic}
-                  followTopic={this.props.followTopic}
-                  unfollowTopic={this.props.unfollowTopic} />
-              )}
+        <Tabs style={{marginTop: 10}} onChange={this.handleChange} tabItemContainerStyle={{backgroundColor: 'transparent'}}>
+          <Tab label='Top' value='top' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
+            {
+              !this.state.value === 'top' ? null
+              : <Flex flexDirection='column' justifyContent='center'>
+                  {this.props.topicsSortedByFollowers.map((topic) =>
+                    <TopicListItem
+                      key={topic._id}
+                      topic={topic}
+                      navigateToTopic={this.props.navigateToTopic}
+                      followTopic={this.props.followTopic}
+                      unfollowTopic={this.props.unfollowTopic} />
+                  )}
 
-              <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
-            </Flex>
+                <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+              </Flex>
+            }
           </Tab>
-          <Tab label='Recent' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
-            <Flex flexDirection='column' justifyContent='center'>
-              {this.props.topicsSortedByTime.map((topic) =>
-                <TopicListItem
-                  key={topic._id}
-                  topic={topic}
-                  followTopic={this.props.followTopic}
-                  unfollowTopic={this.props.unfollowTopic} />
-              )}
+          <Tab label='Recent' value='recent' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
+            {
+              !this.state.value === 'recent' ? null
+              : <Flex flexDirection='column' justifyContent='center'>
+                  {this.props.topicsSortedByTime.map((topic) =>
+                    <TopicListItem
+                      key={topic._id}
+                      topic={topic}
+                      followTopic={this.props.followTopic}
+                      unfollowTopic={this.props.unfollowTopic} />
+                  )}
 
-              <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
-            </Flex>
+                <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+              </Flex>
+            }
           </Tab>
-          <Tab label='Create New' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
-            <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+          <Tab label='Create New' value='create new' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
+            {
+              !this.state.value === 'create new' ? null
+              : <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+            }
           </Tab>
         </Tabs>
       </div>

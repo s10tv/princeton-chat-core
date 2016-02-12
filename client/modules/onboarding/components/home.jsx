@@ -5,6 +5,7 @@ import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
+import TopicList from '/client/modules/core/containers/topic.list'
 
 const Home = (props) => {
   const {fields: {netid, domain}, handleSubmit} = props
@@ -38,6 +39,7 @@ const Home = (props) => {
         </div>
       </Layout.Sidebar>
       <Layout.Main>
+        <TopicList />
       </Layout.Main>
     </Layout.Window>
   )
