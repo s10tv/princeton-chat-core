@@ -57,7 +57,12 @@ const createReduxStore = (modules) => {
 }
 
 export function initContext (modules = {}) {
+  let routes = []
   return {
+    routes,
+    addRoute: function(route) {
+      routes.push(route)
+    },
     Meteor,
     Router,
     Route,

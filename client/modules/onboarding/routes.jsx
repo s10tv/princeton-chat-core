@@ -29,18 +29,16 @@ class App extends React.Component {
     )
   }
 }
-export default function (injectDeps, {FlowRouter, Router, Route, browserHistory}) {
+export default function (injectDeps, {addRoute, FlowRouter, Router, Route, browserHistory}) {
   // mount(() => (<h1>Hello</h1>))
   // mount(<h1>Hello</h1>)
-
-  mount(() => (
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <Route path='o/request-invite' component={injectDeps(RequestInvite)}/>
-        <Route path='o' component={injectDeps(Home)}/>
-      </Route>
-    </Router>
-  ))
+  addRoute(
+    <Route path="/" component={App}>
+      <Route path='o/request-invite' component={injectDeps(RequestInvite)}/>
+      <Route path='o' component={injectDeps(Home)}/>
+    </Route>
+  )
+  
   // mount(
   //   injectDeps(<h1>Hello World</h1>)
   // )
