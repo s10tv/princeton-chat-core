@@ -1,5 +1,11 @@
-import Home from '../components/home.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
+import {reduxForm} from 'redux-form'
+import Home from '../components/home.jsx'
+
+const formConfig = {
+  form: 'home',
+  fields: ['netid', 'domain'],
+}
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections} = context()
@@ -11,7 +17,13 @@ export const composer = ({context}, onData) => {
   }
 }
 
+const depsMapper = (context, actions) => ({
+  store: context.store,
+  context: () => context,
+})
+
 export default composeAll(
+  reduxForm(formConfig),
   composeWithTracker(composer),
-  useDeps()
+  useDeps(depsMapper)
 )(Home)

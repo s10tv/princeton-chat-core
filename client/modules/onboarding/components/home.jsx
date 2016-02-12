@@ -8,6 +8,7 @@ import Layout from './layout'
 
 class Home extends React.Component {
   render () {
+    const {fields: {netid, domain}, handleSubmit} = this.props
     return (
       <Layout.Window>
         <Layout.Sidebar>
@@ -17,11 +18,11 @@ class Home extends React.Component {
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Princeton.Chat</h1>
             <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
-            <form style={style.verifyForm}>
+            <form style={style.verifyForm} onsubmit={handleSubmit}>
               <div style={style.emailContainer}>
-                <TextField hintText='netid' />
+                <TextField hintText='netid' {...netid} />
                 <span>@</span>
-                <SelectField value='alumni.princeton.edu'>
+                <SelectField {...domain} >
                   <MenuItem value='alumni.princeton.edu' primaryText='alumni.princeton.edu' />
                   <MenuItem value='princeton.edu' primaryText='princeton.edu' />
                 </SelectField>
