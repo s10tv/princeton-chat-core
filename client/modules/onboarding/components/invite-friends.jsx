@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import {TextField, FlatButton, FontIcon, IconButton} from '/client/lib/ui.jsx'
-import {color} from '/client/config/theme'
+import {color, spacing} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
 import {degrees, classYears} from '../configs/data'
@@ -28,7 +28,7 @@ class InviteFriends extends React.Component {
             <p>
               Who were your three best friends from Princeton? Get them to join you on Princeton.Chat.
             </p>
-            <form style={style.form} onSubmit={this.onVerifyAffiliation.bind(this)}>
+            <form style={s.inviteForm} onSubmit={this.onVerifyAffiliation.bind(this)}>
               {invitees.map(({email, firstName, lastName}, index) =>
                 <div key={index} style={s.row}>
                   <TextField floatingLabelText='Email' {...email} />
@@ -36,7 +36,7 @@ class InviteFriends extends React.Component {
                   <TextField floatingLabelText='First Name' hintText='(optional)' {...firstName} />
                   <div style={style.horizontalSpacer} />
                   <TextField floatingLabelText='Last Name' hintText='(optional)' {...lastName} />
-                    <IconButton tooltip='Font Icon' onTouchTap={() => invitees.removeField(index)}>
+                    <IconButton onTouchTap={() => invitees.removeField(index)}>
                       <FontIcon className='material-icons'>close</FontIcon>
                     </IconButton>
                 </div>
@@ -72,6 +72,13 @@ const s = {
   row: {
     display: 'flex',
     alignItems: 'flex-end',
-  }
+  },
+  inviteForm: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    marginBottom: spacing.x6,
+  },
 }
 export default Radium(InviteFriends)
