@@ -1,9 +1,10 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import {createValidator, maxLength, required} from '/lib/validation'
+import {trim} from '/lib/normalization'
 import Home from '../components/home.jsx'
 
-const formConfig = {
+export const formConfig = {
   form: 'home',
   fields: ['netid', 'domain'],
   initialValues: {
@@ -12,9 +13,11 @@ const formConfig = {
   validate: createValidator({
     netid: [required, maxLength(16)],
     domain: required,
-  })
+  }),
+  normalize: {
+    netid: trim,
+  }
 }
-
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections} = context()

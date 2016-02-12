@@ -2,15 +2,15 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import {createApp} from 'mantra-core'
 import {initContext} from '/client/config/context'
 import {localize} from '/client/config/env'
-import coreModule from '/client/modules/core'
-import onboardingModule from '/client/modules/onboarding'
+import core from '/client/modules/core'
+import onboarding from '/client/modules/onboarding'
 
 injectTapEventPlugin()
 localize()
 
-const context = initContext()
+const context = initContext({onboarding, core})
 
 const app = createApp(context)
-app.loadModule(onboardingModule)
-app.loadModule(coreModule)
+app.loadModule(onboarding)
+app.loadModule(core)
 app.init()

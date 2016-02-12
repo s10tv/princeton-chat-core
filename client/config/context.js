@@ -1,7 +1,7 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import {reducer as formReducer} from 'redux-form'
 import createLogger from 'redux-logger'
-
+import invariant from 'invariant'
 import {Meteor} from 'meteor/meteor'
 import {FlowRouter} from 'meteor/kadira:flow-router'
 import {ReactiveDict} from 'meteor/reactive-dict'
@@ -9,10 +9,31 @@ import {Tracker} from 'meteor/tracker'
 import {Accounts} from 'meteor/accounts-base'
 import Collections from '/lib/collections/index'
 
-export function initContext () {
-  const reducers = {
-    form: formReducer
+// TODO: Should probably add test for initModules function
+// as well as better description & validation of module shape
+export function initContext (modules = {}) {
+  invariant(!Array.isArray(modules), 'Modules must be an associative array')
+
+  // See http://erikras.github.io/redux-form/#/api/reducer/normalize
+  let formNormalizers = {}
+  for (const name of Object.keys(modules)) {
+    const formConfigs = modules[name].formConfigs || []
+    for (let {form: key, normalize: normalize} of formConfigs) {
+      invariant(!formNormalizers[key], `form of key '${key}' already exists`)
+      formNormalizers[key] = normalize
+    }
   }
+
+  // Let each module define its own reducer, we'll then combine them all together
+  // for use with redux store
+  let reducers = {
+    form: formReducer.normalize(formNormalizers)
+  }
+  for (const name of Object.keys(modules)) {
+    invariant(!reducers[name], `Module of name '${name}' already exists`)
+    reducers[name] = modules[name].reducer
+  }
+
   const logger = createLogger()
   const store = createStore(
     combineReducers(reducers),
