@@ -1,4 +1,4 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux'
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import {reducer as formReducer} from 'redux-form'
 import createLogger from 'redux-logger'
 
@@ -16,7 +16,11 @@ export function initContext () {
   const logger = createLogger()
   const store = createStore(
     combineReducers(reducers),
-    applyMiddleware(logger)
+    compose(
+      applyMiddleware(logger),
+      // Install https://github.com/zalmoxisus/redux-devtools-extension for pure magic!
+      typeof window === 'object' && window.devToolsExtension ? window.devToolsExtension() : (f) => f
+    )
   )
 
   return {
