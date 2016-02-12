@@ -14,6 +14,8 @@ export const formConfig = {
     netid: [required, maxLength(16)],
     domain: required,
   }),
+  // NOTE: not an officially supported property by redux-form
+  // However we concatenate this together ourselves in context.js
   normalize: {
     netid: trim,
   }

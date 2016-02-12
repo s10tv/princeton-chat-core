@@ -15,6 +15,15 @@ export function initContext (modules = {}) {
   invariant(!Array.isArray(modules), 'Modules must be an associative array')
 
   // See http://erikras.github.io/redux-form/#/api/reducer/normalize
+  /* Combineing form configs of the following shape
+    formConfig = {
+      form: 'home',
+      normalize: {
+        $key: $normalizer
+      },
+      ...
+    }
+  */
   let formNormalizers = {}
   for (const name of Object.keys(modules)) {
     const formConfigs = modules[name].formConfigs || []
