@@ -11,7 +11,7 @@ import Collections from '/lib/collections/index'
 
 // TODO: Should probably add test for initModules function
 // as well as better description & validation of module shape
-export function initContext (modules = {}) {
+const createReduxStore = (modules) => {
   invariant(!Array.isArray(modules), 'Modules must be an associative array')
 
   // See http://erikras.github.io/redux-form/#/api/reducer/normalize
@@ -43,8 +43,9 @@ export function initContext (modules = {}) {
     reducers[name] = modules[name].reducer
   }
 
+  // TODO: Let's disable logger middleware in production
   const logger = createLogger()
-  const store = createStore(
+  return createStore(
     combineReducers(reducers),
     compose(
       applyMiddleware(logger),
@@ -52,7 +53,9 @@ export function initContext (modules = {}) {
       typeof window === 'object' && window.devToolsExtension ? window.devToolsExtension() : (f) => f
     )
   )
+}
 
+export function initContext (modules = {}) {
   return {
     Meteor,
     FlowRouter,
@@ -60,6 +63,6 @@ export function initContext (modules = {}) {
     Tracker,
     Accounts,
     LocalState: new ReactiveDict(),
-    store
+    store: createReduxStore(modules)
   }
 }
