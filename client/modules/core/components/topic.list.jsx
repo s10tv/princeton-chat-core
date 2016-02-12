@@ -1,7 +1,7 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
-import { RaisedButton, FontIcon } from '/client/lib/ui.jsx'
+import { RaisedButton, FontIcon, Tabs, Tab } from '/client/lib/ui.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -47,28 +47,48 @@ export const TopicGrid = React.createClass({
     /**
      * Topics sorted by followers
      */
-    topicsSortedByFollowers: React.PropTypes.object.isRequired,
+    topicsSortedByFollowers: React.PropTypes.array.isRequired,
 
     /**
      * Topics sorted by time
      */
-    topicsSortedByTime: React.PropTypes.object.isRequired
+    topicsSortedByTime: React.PropTypes.array.isRequired
   },
 
   render () {
     return (
       <div>
-        <Flex flexDirection='column' justifyContent='center'>
-          {this.props.topicsSortedByFollowers.map((topic) =>
-            <TopicListItem
-              key={topic._id}
-              topic={topic}
-              followTopic={this.props.followTopic}
-              unfollowTopic={this.props.unfollowTopic} />
-          )}
+        <Tabs tabItemContainerStyle={{backgroundColor: 'transparent'}}>
+          <Tab label='Top' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
+            <Flex flexDirection='column' justifyContent='center'>
+              {this.props.topicsSortedByFollowers.map((topic) =>
+                <TopicListItem
+                  key={topic._id}
+                  topic={topic}
+                  followTopic={this.props.followTopic}
+                  unfollowTopic={this.props.unfollowTopic} />
+              )}
 
-          <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
-        </Flex>
+              <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+            </Flex>
+          </Tab>
+          <Tab label='Recent' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
+            <Flex flexDirection='column' justifyContent='center'>
+              {this.props.topicsSortedByTime.map((topic) =>
+                <TopicListItem
+                  key={topic._id}
+                  topic={topic}
+                  followTopic={this.props.followTopic}
+                  unfollowTopic={this.props.unfollowTopic} />
+              )}
+
+              <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+            </Flex>
+          </Tab>
+          <Tab label='Create New' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
+            <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+          </Tab>
+        </Tabs>
       </div>
     )
   }
@@ -92,7 +112,7 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
   }
 
   return (
-    <Flex flexDirection='column' margin={25}>
+    <Flex flexDirection='column' margin='25px 0px'>
       <Flex>
         <Flex width={250} maxHeight={167} backgroundImage={`url("${topic.cover.url}")`}
           backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
@@ -132,7 +152,7 @@ const TopicListItem = ({topic, followTopic, unfollowTopic}) => {
 const NewTopicButton = ({ showAddTopicModal }) => {
   return (
     <a href='#' onClick={showAddTopicModal}>
-      <Flex margin={25}>
+      <Flex margin='25px 0px'>
         <Flex width={250} height={150} backgroundColor='#e0e0e0'
           borderRadius={5} justifyContent='center' alignItems='center'>
           <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>

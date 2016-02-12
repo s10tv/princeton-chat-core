@@ -1,5 +1,6 @@
+$link-color: rgba(0, 0, 0, 0.87);
 $link-hover-decoration: none;
-$link-hover-color: !default;
+$link-hover-color: rgba($link-color, 0.6);
 @import "../vendor/bootstrap/bootstrap-reboot.scss";
 
 body {
@@ -7,13 +8,13 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-a {
-  color: rgba(0, 0, 0, 0.87);
-  text-decoration: none !important;
-}
-
 a:hover {
   opacity: 0.6;
+}
+
+a {
+  color: rgba(0, 0, 0, 0.87);
+  text-decoration: none;
 }
 
 .no-scrollbar::-webkit-scrollbar {
