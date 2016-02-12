@@ -84,7 +84,14 @@ Meteor.publishComposite('posts', function (topicId, isMine) {
       options.isDM = { $ne: true } // don't get the direct messages
 
       if (isMine) {
-        options.ownerId = this.userId
+        const user = Users.findOne(this.userId)
+        if (user) {
+          options['$or'] = [
+            { _id: {$in: user.followingPosts} },
+            { ownerId: this.userId },
+            { topicIds: {$in: user.followingTopics} }
+          ]
+        }
       }
 
       if (topicId != null) {
