@@ -6,24 +6,15 @@
 import darkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
 import lightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
-import Colors from 'material-ui/lib/styles/colors'
 import Spacing from 'material-ui/lib/styles/spacing'
-import tinycolor from 'tinycolor2'
+import _color from './color'
+
+export const color = _color
 
 export const fontFamily = {
   base: 'Lato, sans-serif',
   system: 'Lato, sans-serif',
   article: 'medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif'
-}
-
-export const color = {
-  ...Colors,
-  brandPrimary: '#F07621', // Princeton orange
-  black: '#292F33', // Near black
-  white: 'white',
-  green: '#2AB27B',
-  lightGreen: tinycolor('#2AB27B').lighten(10).toString(),
-  gray: '#979797',
 }
 
 export const fontSize = {
@@ -55,7 +46,7 @@ export const primaryMuiTheme = ThemeManager.getMuiTheme({
   palette: {
     ...lightRawTheme.palette,
     primary1Color: '#8BC34A',
-    accent1Color: '#F07621' // princeton orange
+    accent1Color: color.princeton.orange,
   }
 })
 
@@ -64,8 +55,8 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: fontFamily.base,
   palette: {
     ...darkRawTheme.palette,
-    accent1Color: '#F07621', // princeton orange
-    alternateTextColor: Colors.white
+    accent1Color: color.princeton.orange,
+    alternateTextColor: color.white
   }
 })
 
@@ -85,7 +76,7 @@ export const pedSecondaryMuiTheme = ThemeManager.getMuiTheme({
     ...darkRawTheme.palette,
     accent1Color: '#5477AD', // ped blue
     primary3Color: '#4E6A93', // not-so-dark blue
-    alternateTextColor: Colors.white,
+    alternateTextColor: color.white,
     canvasColor: '#1B293D' // dark blue
   }
 })
