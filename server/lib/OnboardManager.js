@@ -15,8 +15,10 @@ export default class OnboardManager {
 
   constructor () {
     const postmark = Meteor.npmRequire('postmark')
-    const postmarkKey = process.env.POSTMARK_API_KEY || ''
-    this.postmarkClient = new postmark.Client(postmarkKey)
+    this.postmarkKey = process.env.POSTMARK_API_KEY || ''
+    if (this.postmarkKey.length > 0) {
+      this.postmarkClient = new postmark.Client(postmarkKey)
+    }
   }
 
   verifyAlumni (options) {
