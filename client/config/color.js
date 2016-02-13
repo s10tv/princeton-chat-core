@@ -13,7 +13,7 @@ export default {
   // School colors
   princeton: {
     // Color picked not entirely accurate
-    orange: '#F58025',
+    orange: '#F07621',
     black: '#221E1F',
   },
   // Social media colors

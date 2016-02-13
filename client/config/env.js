@@ -112,7 +112,6 @@ Env.s10 = _.extend(Env.s10, {
   signupComponent: SignupS10,
   primaryMuiTheme,
   secondaryMuiTheme
-
 })
 
 Env.ped = _.extend(Env.ped, {

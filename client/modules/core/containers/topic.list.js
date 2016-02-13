@@ -1,5 +1,5 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import TopicList, {TopicGrid} from '/client/modules/core/components/topic.list.jsx'
+import TopicList from '/client/modules/core/components/topic.list.jsx'
 import {Loading} from '/client/modules/core/components/helpers.jsx'
 import _ from 'underscore'
 
@@ -27,11 +27,6 @@ const depMapper = (context, actions) => ({
   unfollowTopic: actions.topics.unfollow,
   navigateToTopic: actions.topics.navigateToTopic
 })
-
-export const TopicGridContainer = composeAll(
-  composeWithTracker(composer, Loading),
-  useDeps(depMapper)
-)(TopicGrid)
 
 export default composeAll(
   composeWithTracker(composer, Loading),

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
-import { RaisedButton, FontIcon, Tabs, Tab } from '/client/lib/ui.jsx'
+import { FlatButton, FontIcon } from '/client/lib/ui.jsx'
 import { i18n } from '/client/config/env'
 
 export default React.createClass({
@@ -14,121 +14,90 @@ export default React.createClass({
     /**
      * Boolean to make title/cover clickable
      */
-    isTopicClickable: React.PropTypes.bool
-  },
-
-  render () {
-    return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
-        <Flex flexGrow={1} flexDirection='column' alignItems='center' overflowY='scroll' style={{
-          marginTop: 20, marginLeft: 20, marginRight: 20
-        }}>
-          <TopicGrid {...this.props} />
-        </Flex>
-      </main>
-    )
-  }
-})
-
-export const TopicGrid = React.createClass({
-  propTypes: {
-    /**
-     * The list of topics you can subscribe to.
-     */
-    topics: React.PropTypes.array.isRequired,
-
-    /**
-     * The function that is called when I want to follow a topic.
-     */
-    followTopic: React.PropTypes.func.isRequired,
-
-    /**
-     * The function that is called when I want to unfollow a topic.
-     */
-    unfollowTopic: React.PropTypes.func.isRequired,
+    isTopicClickable: React.PropTypes.bool,
 
     /**
      * Shows new topic modal
      */
-    showAddTopicModal: React.PropTypes.func.isRequired,
-
-    /**
-     * Topics sorted by followers
-     */
-    topicsSortedByFollowers: React.PropTypes.array.isRequired,
-
-    /**
-     * Topics sorted by time
-     */
-    topicsSortedByTime: React.PropTypes.array.isRequired,
-
-    navigateToTopic: React.PropTypes.func.isRequired,
-
-    /**
-     * Are the cover photos and the title clickable
-     */
-    isTopicClickable: React.PropTypes.bool
+    showAddTopicModal: React.PropTypes.func.isRequired
   },
 
   getInitialState () {
     return {
-      value: 'top'
+      value: 'Top'
     }
   },
 
-  handleChange (value) {
+  tabItemClicked (e) {
+    console.log(e.currentTarget.text)
     this.setState({
-      value
+      value: e.currentTarget.text
     })
   },
 
   render () {
     return (
-      <div>
-        <Tabs style={{marginTop: 10}} onChange={this.handleChange} tabItemContainerStyle={{backgroundColor: 'transparent'}}>
-          <Tab label='Top' value='top' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
-            {
-              !this.state.value === 'top' ? null
-              : <Flex flexDirection='column' justifyContent='center'>
-                  {this.props.topicsSortedByFollowers.map((topic) =>
-                    <TopicListItem
-                      key={topic._id}
-                      topic={topic}
-                      isTopicClickable={this.props.isTopicClickable}
-                      navigateToTopic={this.props.navigateToTopic}
-                      followTopic={this.props.followTopic}
-                      unfollowTopic={this.props.unfollowTopic} />
-                  )}
+      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0,
+        padding: '0px 40px', alignItems: 'center'})}>
+        <Flex flexGrow={1} flexDirection='column' alignItems='center' style={{
+          maxWidth: 600,
+          maxHeight: '100vh'
+        }}>
+          <Flex flex='1 0 auto' alignSelf='stretch'
+            marginBottom={10} boxShadow='#dedede 0px -1px 0px 0px inset'>
+            <a onClick={this.tabItemClicked} href='#'>
+              <h3 style={Object.assign({},
+                  localStyle.tabItem,
+                  this.state.value !== 'Top' && localStyle.tabItemDeselected,
+                  this.state.value === 'Top' && localStyle.tabItemSelected)
+              }>Top</h3>
+            </a>
+            <a value='recent' href='#' onClick={this.tabItemClicked}>
+              <h3 style={Object.assign({},
+                  localStyle.tabItem,
+                  this.state.value !== 'Recent' && localStyle.tabItemDeselected,
+                  this.state.value === 'Recent' && localStyle.tabItemSelected)
+              }>Recent</h3>
+            </a>
+            <a href='#' onClick={this.props.showAddTopicModal}>
+              <h3 style={Object.assign({}, localStyle.tabItem, localStyle.tabItemDeselected)
+              }>Create New</h3>
+            </a>
+          </Flex>
+          <div className='no-scrollbar' style={{overflowY: 'scroll'}}>
+            {this.state.value === 'Top'
+              ? <Flex flexDirection='column' justifyContent='center'>
+                    {this.props.topicsSortedByFollowers.map((topic) =>
+                      <TopicListItem
+                        key={topic._id}
+                        topic={topic}
+                        isTopicClickable={this.props.isTopicClickable}
+                        navigateToTopic={this.props.navigateToTopic}
+                        followTopic={this.props.followTopic}
+                        unfollowTopic={this.props.unfollowTopic} />
+                    )}
 
                 <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
-              </Flex>
+              </Flex> : null
             }
-          </Tab>
-          <Tab label='Recent' value='recent' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
-            {
-              !this.state.value === 'recent' ? null
-              : <Flex flexDirection='column' justifyContent='center'>
-                  {this.props.topicsSortedByTime.map((topic) =>
-                    <TopicListItem
-                      key={topic._id}
-                      topic={topic}
-                      isTopicClickable={this.props.isTopicClickable}
-                      followTopic={this.props.followTopic}
-                      unfollowTopic={this.props.unfollowTopic} />
-                  )}
+            {this.state.value === 'Recent'
+              ? <Flex flexDirection='column' justifyContent='center'>
+                    {this.props.topicsSortedByTime.map((topic) =>
+                      <TopicListItem
+                        key={topic._id}
+                        topic={topic}
+                        isTopicClickable={this.props.isTopicClickable}
+                        navigateToTopic={this.props.navigateToTopic}
+                        followTopic={this.props.followTopic}
+                        unfollowTopic={this.props.unfollowTopic} />
+                    )}
 
                 <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
-              </Flex>
+              </Flex> : null
             }
-          </Tab>
-          <Tab label='Create New' value='create new' style={{color: 'rgba(0, 0, 0, 0.87)'}}>
-            {
-              !this.state.value === 'create new' ? null
-              : <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
-            }
-          </Tab>
-        </Tabs>
-      </div>
+          </div>
+        </Flex>
+      </main>
     )
   }
 })
@@ -151,26 +120,25 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
   }
 
   return (
-    <Flex margin='25px 0px' flexGrow={1}>
-      {isTopicClickable
-        ? <a href='#' onClick={(event) => {
-          event.preventDefault()
-          navigateToTopic(topic._id)
-        }} style={{
-          flex: '0 0 250px',
-          maxHeight: 167,
-          backgroundImage: `url("${topic.cover.url}")`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          borderRadius: 5
-        }} />
-        : <Flex flex='0 0 250px' maxHeight={167} backgroundImage={`url("${topic.cover.url}")`}
+    <Flex flexDirection='column' margin='25px 0px' flexGrow={1}>
+      <Flex flexGrow={1}>
+        {isTopicClickable
+          ? <a href='#' onClick={(event) => {
+            event.preventDefault()
+            navigateToTopic(topic._id)
+          }} style={{
+            flex: '0 0 250px',
+            maxHeight: 167,
+            backgroundImage: `url("${topic.cover.url}")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            borderRadius: 5
+          }} />
+        : <Flex flex='0 0 250px' maxHeight={166} backgroundImage={`url("${topic.cover.url}")`}
           backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
-      }
-      <Flex flexGrow={1} flexDirection='column' marginLeft={30}>
-        <Flex flexDirection='row' alignItems='center'>
-          <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0,
-            marginRight: 25 }}>
+        }
+        <Flex flexGrow={1} flexDirection='column' marginLeft={30}>
+          <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0 }}>
             {isTopicClickable
               ? <a href='#' onClick={(event) => {
                 event.preventDefault()
@@ -181,40 +149,58 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
               : <span>#{topic.displayName}</span>
             }
           </h3>
+          <h5 style={{fontWeight: 300, marginTop: 5, marginBottom: 0}}>
+            {isTopicClickable
+              ? <a href={`mailto:${topic._id}@${i18n('topicMailServer')}`}>
+                  {topic._id}@{i18n('topicMailServer')}
+              </a>
+              : <span>{topic._id}@{i18n('topicMailServer')}</span>
+            }
+          </h5>
+          <Flex marginTop={15} alignItems='center'>
+            {
+              topic.followersCount !== undefined
+              ? <Flex flexDirection='column' marginRight={25} alignItems='center'>
+                <span style={{fontWeight: 300}}>{topic.followersCount}</span>
+                <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getFollowerText()}</span>
+              </Flex> : null
+            }
+            {
+              topic.numPosts !== undefined
+              ? <Flex flexDirection='column' alignItems='center'>
+                <span style={{fontWeight: 300}}>{topic.numPosts}</span>
+                <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getPostsText()}</span>
+              </Flex> : null
+            }
+          </Flex>
           {
-            topic.followersCount !== undefined
-            ? <Flex flexDirection='column' marginRight={25} alignItems='center'>
-              <span style={{fontWeight: 300}}>{topic.followersCount}</span>
-              <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getFollowerText()}</span>
-            </Flex> : null
-          }
-          {
-            topic.numPosts !== undefined
-            ? <Flex flexDirection='column' alignItems='center'>
-              <span style={{fontWeight: 300}}>{topic.numPosts}</span>
-              <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getPostsText()}</span>
-            </Flex> : null
+            topic.isFollowed
+            ? <FlatButton
+              labelPosition='after'
+              icon={<FontIcon className='material-icons'>done</FontIcon>}
+              backgroundColor={i18n('primaryMuiTheme').rawTheme.palette.primary1Color}
+              hoverColor={i18n('primaryMuiTheme').rawTheme.palette.lightenedPrimary1Color}
+              style={{marginTop: 15,
+                color: 'white',
+                textTransform: 'inherit'
+              }}
+              label='Subscribed'
+              onTouchTap={() => { unfollowTopic(topic._id) }} />
+            : <FlatButton
+              labelPosition='after'
+              icon={<FontIcon className='material-icons'>add</FontIcon>}
+              backgroundColor={i18n('primaryMuiTheme').rawTheme.palette.accent1Color}
+              hoverColor={i18n('primaryMuiTheme').rawTheme.palette.lightenedAccent1Color}
+              style={{marginTop: 15,
+                color: 'white',
+                textTransform: 'inherit'
+              }}
+              label='Subscribe'
+              onTouchTap={() => { followTopic(topic._id) }} />
           }
         </Flex>
-        <p style={{marginTop: 15, fontWeight: 300, marginBottom: 0}}>{topic.description}</p>
-        {
-          topic.isFollowed
-          ? <RaisedButton
-            labelPosition='after'
-            icon={<FontIcon className='material-icons'>done</FontIcon>}
-            secondary
-            style={{marginTop: 15}}
-            label='Subscribed'
-            onTouchTap={() => { unfollowTopic(topic._id) }} />
-          : <RaisedButton
-            labelPosition='after'
-            icon={<FontIcon className='material-icons'>add</FontIcon>}
-            primary
-            style={{marginTop: 15}}
-            label='Subscribe'
-            onTouchTap={() => { followTopic(topic._id) }} />
-        }
       </Flex>
+      <p style={{marginTop: 20, fontWeight: 300, marginBottom: 0}}>{topic.description}</p>
     </Flex>
   )
 }
@@ -223,7 +209,7 @@ const NewTopicButton = ({ showAddTopicModal }) => {
   return (
     <a href='#' onClick={showAddTopicModal}>
       <Flex margin='25px 0px' flexGrow={1}>
-        <Flex flex='0 0 250px' height={150} backgroundColor='#e0e0e0'
+        <Flex flex='0 0 200px' height={150} backgroundColor='#e0e0e0'
           borderRadius={5} justifyContent='center' alignItems='center'>
           <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
         </Flex>
@@ -238,4 +224,22 @@ const NewTopicButton = ({ showAddTopicModal }) => {
       </Flex>
     </a>
   )
+}
+
+const localStyle = {
+  tabItem: {
+    margin: 0,
+    padding: '10px 20px',
+    fontWeight: 600
+  },
+
+  tabItemSelected: {
+    borderBottom: '1px solid rgba(0, 0, 0, 0.87)',
+    color: 'rgba(0, 0, 0, 0.87)'
+  },
+
+  tabItemDeselected: {
+    borderBottom: '',
+    color: '#dedede'
+  }
 }
