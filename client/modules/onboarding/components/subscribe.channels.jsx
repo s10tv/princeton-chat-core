@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react'
 import Radium from 'radium'
 import {FlatButton, PageControl} from '/client/lib/ui.jsx'
 import {color} from '/client/configs/theme'
-import style from './style'
+import style from '../configs/style'
 import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
 

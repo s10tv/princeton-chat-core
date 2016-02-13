@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import {TextField, FlatButton, FontIcon, IconButton, PageControl} from '/client/lib/ui.jsx'
 import {color, spacing} from '/client/configs/theme'
-import style from './style'
+import style from '../configs/style'
 import Layout from './layout'
 
 // NOTE: addField / removeField provided by redux-form http://erikras.github.io/redux-form/#/examples/deep
