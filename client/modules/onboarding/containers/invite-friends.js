@@ -13,12 +13,7 @@ export const formConfig = {
   initialValues: {
     invitees: [{}, {}, {}]
   },
-  validate: inviteValidator,
-  // NOTE: not an officially supported property by redux-form
-  // However we concatenate this together ourselves in context.js
-  normalize: {
-    invitees: (invitees) => invitees.filter((invitee) => invitee.email != null)
-  }
+  validate: inviteValidator
 }
 
 export const composer = ({context}, onData) => {
