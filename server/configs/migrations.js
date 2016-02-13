@@ -3,7 +3,7 @@ import { Migrations } from 'meteor/percolate:migrations'
 import {Users, Topics, Posts, Messages} from '/lib/collections'
 import AvatarService from '/lib/avatar.service.js'
 
-export default function() {
+export default function () {
   Migrations.add({
     version: 1,
     name: 'Adds default topics to the DB',

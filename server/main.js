@@ -1,13 +1,15 @@
-import { Meteor } from 'meteor/meteor'
-import { Migrations } from 'meteor/percolate:migrations'
+import {initContext} from './configs/context'
 import configs from './configs'
 import publications from './publications'
 import methods from './methods'
 import http from './http'
 
+const context = initContext()
+const {Meteor, Migrations} = context
+
 configs()
 publications()
-methods()
+methods(context)
 http()
 
 // if the database is empty on server start, create some sample data.

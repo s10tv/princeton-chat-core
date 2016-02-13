@@ -1,4 +1,3 @@
-import { Accounts } from 'meteor/accounts-base'
 import { Users } from '/lib/collections'
 import { isValidHash } from '/server/lib/Auth'
 

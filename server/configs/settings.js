@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { Users } from '/lib/collections'
 import { _ } from 'meteor/underscore'
 
-export default function() {
+export default function () {
   ServiceConfiguration.configurations.remove({
     service: 'facebook'
   })
