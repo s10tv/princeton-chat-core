@@ -2,7 +2,7 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import {trim} from '/lib/normalization'
 import Home from '../components/home.jsx'
-import { validator } from '/lib/validation/home-validation'
+import { autoAffiliationValidator } from '/lib/validation'
 
 export const formConfig = {
   form: 'home',
@@ -10,7 +10,7 @@ export const formConfig = {
   initialValues: {
     domain: 'alumni.princeton.edu'
   },
-  validate: validator,
+  validate: autoAffiliationValidator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {

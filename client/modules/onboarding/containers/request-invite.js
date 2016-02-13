@@ -1,7 +1,7 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import RequestInvite from '../components/request-invite.jsx'
-import { validator } from '/lib/validation/request-invite-validation'
+import { manualAffiliationValidator } from '/lib/validation/onboarding'
 
 export const formConfig = {
   form: 'request-invite',
@@ -9,7 +9,7 @@ export const formConfig = {
   initialValues: {
     email: '' // How do we populate this from initial data?
   },
-  validate: validator,
+  validate: manualAffiliationValidator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {

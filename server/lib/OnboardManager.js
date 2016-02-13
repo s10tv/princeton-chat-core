@@ -3,8 +3,7 @@ import { Accounts } from 'meteor/accounts-base'
 import { Random } from 'meteor/random'
 import { check } from 'meteor/check'
 import { Invites } from '/lib/collections'
-import { validator as validateNonAlumni } from '/lib/validation/request-invite-validation'
-import { validator as validateAlumni } from '/lib/validation/home-validation'
+import { autoAffiliationValidator, manualAffiliationValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
@@ -21,7 +20,7 @@ export default class OnboardManager {
   }
 
   verifyAlumni (options) {
-    const errors = validateAlumni(options)
+    const errors = autoAffiliationValidator(options)
     if (errors.length > 0) {
       throw new Meteor.Error(400, errors)
     }
@@ -31,7 +30,7 @@ export default class OnboardManager {
   }
 
   verifyAffiliation (options) {
-    const errors = validateNonAlumni(options)
+    const errors = manualAffiliationValidator(options)
     if (errors.length > 0) {
       throw new Meteor.Error(400, errors)
     }
