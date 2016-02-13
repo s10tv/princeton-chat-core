@@ -9,7 +9,7 @@ import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
 
 const SubscribeChannels = (props) => {
-  const {channels} = props
+  const {channels, onNext} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -21,12 +21,13 @@ const SubscribeChannels = (props) => {
           <p>You get notified when someone posts in a channel you subscribe.  Subscribe at least 3 channels to get started.</p>
           <h6>My Channels</h6>
           <ul>
-            {channels.map((channel) => 
+            {channels.map((channel) =>
               <li key={channel._id}>#{channel.displayName}</li>
             )}
           </ul>
           <FlatButton style={style.button} label='Next'
-                      backgroundColor={color.green} hoverColor={color.lightGreen} />
+                      backgroundColor={color.green} hoverColor={color.lightGreen}
+                      onTouchTap={onNext} />
           <PageControl total={3} current={1} />
         </div>
       </Layout.Sidebar>

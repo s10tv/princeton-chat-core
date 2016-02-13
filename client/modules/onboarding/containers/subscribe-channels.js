@@ -22,6 +22,7 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
+  onNext: actions.onboardChannels.next,
   store: context.store,
   context: () => context
 })
