@@ -4,7 +4,7 @@ import IconMenu from '../../../../node_modules/material-ui/lib/menus/icon-menu'
 import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'
 import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 import MoreHorizIcon from '../../../../node_modules/material-ui/lib/svg-icons/navigation/more-horiz'
-import { i18n } from '/client/config/env'
+import { i18n } from '/client/configs/env'
 import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 
 const theme = i18n('secondaryMuiTheme')

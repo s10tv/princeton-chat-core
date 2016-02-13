@@ -1,6 +1,6 @@
 import React from 'react'
-import {i18n} from '/client/config/env'
-import {color, spacing} from '/client/config/theme'
+import {i18n} from '/client/configs/env'
+import {color, spacing} from '/client/configs/theme'
 
 class Sidebar extends React.Component {
   getChildContext () {

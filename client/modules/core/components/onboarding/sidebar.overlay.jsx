@@ -1,6 +1,6 @@
 import React from 'react'
 import {Flex, Block} from 'jsxstyle'
-import { i18n } from '/client/config/env'
+import { i18n } from '/client/configs/env'
 
 const theme = i18n('secondaryMuiTheme')
 const canvasColor = theme.baseTheme.palette.canvasColor

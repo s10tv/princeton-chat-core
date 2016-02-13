@@ -9,7 +9,7 @@ import AddTopicModal from '/client/modules/core/containers/modal.add.topic.js'
 import AddTopicCoverPhotoModal from '/client/modules/core/containers/modal.add.topic.coverphoto.js'
 import PostFollowersModal from '/client/modules/core/containers/modal.post.followers.js'
 import GlobalSnackbar from '/client/modules/core/containers/global.snackbar.js'
-import { i18n } from '/client/config/env'
+import { i18n } from '/client/configs/env'
 
 // TODO: Figure out a better way that does not involve using Mixin
 

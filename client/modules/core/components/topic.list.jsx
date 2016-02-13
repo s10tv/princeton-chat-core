@@ -2,7 +2,7 @@ import React from 'react'
 import {Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
 import { FlatButton, FontIcon } from '/client/lib/ui.jsx'
-import { i18n } from '/client/config/env'
+import { i18n } from '/client/configs/env'
 
 export default React.createClass({
   propTypes: {

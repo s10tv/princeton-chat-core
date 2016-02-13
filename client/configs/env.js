@@ -9,7 +9,7 @@ import {
     primaryMuiTheme,
     secondaryMuiTheme,
     pedPrimaryMuiTheme,
-    pedSecondaryMuiTheme } from '/client/config/theme'
+    pedSecondaryMuiTheme } from '/client/configs/theme'
 
 const PRINCETON_ORANGE = '#F07621'
 const PED_BLUE = '#5477AD'

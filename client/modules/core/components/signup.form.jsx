@@ -3,7 +3,7 @@ import { Flex, Block } from 'jsxstyle'
 import importedStyles from '/client/modules/core/components/styles.jsx'
 import { TopicGridContainer } from '/client/modules/core/containers/topic.list.js'
 import SetPasswordComponentBox from '/client/modules/core/containers/set.password.js'
-import { i18n } from '/client/config/env'
+import { i18n } from '/client/configs/env'
 import styler from 'react-styling'
 
 const theme = i18n('primaryMuiTheme')

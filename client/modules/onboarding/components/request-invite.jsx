@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
-import {color} from '/client/config/theme'
+import {color} from '/client/configs/theme'
 import style from './style'
 import Layout from './layout'
 import {degrees, classYears} from '../configs/data'

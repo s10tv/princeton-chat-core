@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import {TextField, FlatButton, FontIcon, IconButton, PageControl} from '/client/lib/ui.jsx'
-import {color, spacing} from '/client/config/theme'
+import {color, spacing} from '/client/configs/theme'
 import style from './style'
 import Layout from './layout'
 

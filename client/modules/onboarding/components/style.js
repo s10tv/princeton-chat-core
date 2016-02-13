@@ -1,7 +1,7 @@
 /*eslint-disable comma-dangle */
 /*eslint-disable no-trailing-spaces */
 
-import {color, fontSize, spacing} from '/client/config/theme'
+import {color, fontSize, spacing} from '/client/configs/theme'
 
 export default {
   sidebarHeader: {

@@ -3,7 +3,7 @@ import FlatButton from '../../../../../node_modules/material-ui/lib/flat-button'
 import MUITextField from '../../../../../node_modules/material-ui/lib/text-field'
 import COLORS from '../../../../../node_modules/material-ui/lib/styles/colors'
 import CircularProgress from '../../../../../node_modules/material-ui/lib/circular-progress'
-import { i18n } from '/client/config/env'
+import { i18n } from '/client/configs/env'
 
 // Images
 const upArrow = '/images/Up_Arrow.png'
