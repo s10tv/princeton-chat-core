@@ -1,7 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton} from '/client/lib/ui.jsx'
+import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
@@ -9,7 +9,7 @@ import TopicList from '/client/modules/core/containers/topic.list'
 import AddTopicModal from '/client/modules/core/containers/modal.add.topic'
 
 const Home = (props) => {
-  const {fields: {netid, domain}, handleSubmit} = props
+  const {fields: {netid, domain}, handleSubmit, error, submitting} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -34,9 +34,11 @@ const Home = (props) => {
               Don't have access to your Princeton email?
             </a>
             <br />
+            {error && <p style={style.error}>{error}</p>}
             <br />
-            <FlatButton type='submit' style={style.button} label='Get Invited'
-                        backgroundColor={color.green} hoverColor={color.lightGreen} />
+            <FlatButton type='submit' style={style.button} label='Get Invited' disabled={submitting}
+              backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
+            {submitting && <LinearProgress color={color.brand.primary} />}
           </form>
         </div>
       </Layout.Sidebar>
@@ -47,6 +49,7 @@ const Home = (props) => {
     </Layout.Window>
   )
 }
+// icon={<CircularProgress size={0.4} />} labelPosition='after'
 // TODO: Specify the shape of a field
 Home.propTypes = {
   fields: PropTypes.shape({

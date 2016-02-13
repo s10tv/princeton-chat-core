@@ -14,6 +14,7 @@ import _Tab from 'material-ui/lib/tabs/tab'
 import _Tabs from 'material-ui/lib/tabs/tabs'
 import _IconButton from 'material-ui/lib/icon-button'
 import _LinearProgress from 'material-ui/lib/linear-progress'
+import _CircularProgress from 'material-ui/lib/circular-progress'
 
 export const FlatButton = _FlatButton
 export const RaisedButton = _RaisedButton
@@ -26,6 +27,7 @@ export const Tab = _Tab
 export const Tabs = _Tabs
 export const IconButton = _IconButton
 export const LinearProgress = _LinearProgress
+export const CircularProgress = _CircularProgress
 
 /** Wrapping MUI components for use with react-redux **/
 export const TextField = (props) => (
