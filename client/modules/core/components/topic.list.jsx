@@ -19,7 +19,24 @@ export default React.createClass({
     /**
      * Shows new topic modal
      */
-    showAddTopicModal: React.PropTypes.func.isRequired
+    showAddTopicModal: React.PropTypes.func.isRequired,
+
+    /**
+     * Arrays of sorted topics
+     */
+    topicsSortedByFollowers: React.PropTypes.array.isRequired,
+    topicsSortedByTime: React.PropTypes.array.isRequired,
+
+    /**
+     * Func to navigate to topic
+     */
+    navigateToTopic: React.PropTypes.func.isRequired,
+
+    /**
+     * Funcs to follow/unfollow topic
+     */
+    followTopic: React.PropTypes.func.isRequired,
+    unfollowTopic: React.PropTypes.func.isRequired
   },
 
   getInitialState () {
@@ -209,7 +226,7 @@ const NewTopicButton = ({ showAddTopicModal }) => {
   return (
     <a href='#' onClick={showAddTopicModal}>
       <Flex margin='25px 0px' flexGrow={1}>
-        <Flex flex='0 0 200px' height={150} backgroundColor='#e0e0e0'
+        <Flex flex='0 0 250px' maxHeight={166} backgroundColor='#e0e0e0'
           borderRadius={5} justifyContent='center' alignItems='center'>
           <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
         </Flex>
