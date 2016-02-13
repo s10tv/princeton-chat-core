@@ -1,9 +1,16 @@
+import { Meteor } from 'meteor/meteor'
+import { Migrations } from 'meteor/percolate:migrations'
+import configs from './configs'
 import publications from './publications'
 import methods from './methods'
 import http from './http'
-//import addInitialData from './configs/initial_adds.js'; // LOAD FIXTURES
 
+configs()
 publications()
 methods()
 http()
-//addInitialData();
+
+// if the database is empty on server start, create some sample data.
+Meteor.startup(function () {
+  Migrations.migrateTo('latest')
+})

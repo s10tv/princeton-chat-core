@@ -10,9 +10,10 @@ import PostManager from '/server/lib/PostManager'
 import OnboardManager from '/server/lib/OnboardManager'
 import NewTopicService from '/lib/newtopic.service.js'
 import UserService from '/lib/user.service.js'
-import {audience} from '../configs/config'
+import {audience} from '../configs/index'
 
 export default function () {
+  console.log('Core and onboarding initializing, meteor = ', Meteor)
   class CurrentUser {
     static get () {
       const user = Meteor.user()
