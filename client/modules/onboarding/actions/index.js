@@ -12,20 +12,20 @@ export default {
     })
   },
   onboardSignup: {
-    createAccount ({Meteor}, info) {
-    },
-    linkWithFacebook ({Meteor, FlowRouter}) {
-      Meteor.call('welcome/linkfacbeook', () => {
-        Meteor.loginWithFacebook({}, (err) => {
-          if (err) {
-            return ErrorHandler.error(err)
-          }
+    createAccount: createOnSubmit('welcome/signup', ({ FlowRouter }) => {
+      FlowRouter.go('onboard-subscribe-channels')
+    }),
+    linkWithFacebook ({Meteor, FlowRouter, sweetalert}) {
+      Meteor.linkWithFacebook({}, (err) => {
+        if (err) {
+          return sweetalert({ title: 'Problem linking Facebook', text: err.message })
+        }
 
-          if (Meteor.user().emails.length === 0) {
-            // make sure the user enters an email
-            return FlowRouter.go('/o')
+        Meteor.call('welcome/linkfacebook', (err) => {
+          if (err) {
+            return sweetalert({ title: 'Problem linking Facebook', text: err.reason })
           }
-          return FlowRouter.go('/o')
+          return FlowRouter.go('onboard-subscribe-channels')
         })
       })
     }

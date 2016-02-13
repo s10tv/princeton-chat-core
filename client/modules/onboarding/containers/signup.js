@@ -19,21 +19,19 @@ export const formConfig = {
 }
 
 export const composer = ({context}, onData) => {
-  const { Meteor, FlowRouter, Collections } = context()
+  const { UserService } = context()
 
-  const inviteCode = FlowRouter.current().params.inviteId
-  if (Meteor.subscribe('invite', inviteCode).ready()) {
-    const invite = Collections.Invites.findOne({ inviteCode })
-    if (invite) {
-      onData(null, {
-        verifiedEmail: invite.email,
-        inviteCode: invite.inviteCode,
-        initialValues: {
-          email: invite.email
-        }
-      })
+  const user = UserService.currentUser()
+
+  onData(null, {
+    facebookInfo: user.services.facebook,
+    verifiedEmail: user.displayEmail,
+    initialValues: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.displayEmail
     }
-  }
+  })
 }
 
 const depsMapper = (context, actions) => ({

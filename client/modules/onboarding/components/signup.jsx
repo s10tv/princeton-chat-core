@@ -2,14 +2,14 @@
 /*eslint-disable comma-dangle */
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton, OrDivider, PageControl} from '/client/lib/ui.jsx'
+import {TextField, FlatButton, OrDivider, PageControl} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/configs/theme'
 import style from './style'
 import Layout from './layout'
 
 const Signup = (props) => {
   const {fields: {firstName, lastName, email, password},
-    handleSubmit, verifiedEmail, linkFacebook} = props
+    handleSubmit, verifiedEmail, linkFacebook, facebookInfo} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -22,14 +22,23 @@ const Signup = (props) => {
           <p style={s.verifiedEmail}>{verifiedEmail}</p>
           <p>Let’s get you signed up, this should only take a minute.</p>
           <form style={style.form} onSubmit={handleSubmit}>
-            <FlatButton
-              icon={<i className='fa fa-facebook' />}
-              label='Continue with Facebook'
-              labelPosition='after'
-              onTouchTap={linkFacebook}
-              style={style.fbButton}
-              backgroundColor={color.facebook.blue}
-              hoverColor={color.facebook.mediumBlue} />
+            {facebookInfo
+              ? <FlatButton
+                icon={<i className='fa fa-facebook' />}
+                label={facebookInfo.name}
+                labelPosition='after'
+                disabled
+                backgroundColor={color.gray}
+                hoverColor={color.facebook.mediumBlue} />
+              : <FlatButton
+                icon={<i className='fa fa-facebook' />}
+                label='Continue with Facebook'
+                labelPosition='after'
+                onTouchTap={linkFacebook}
+                style={style.fbButton}
+                backgroundColor={color.facebook.blue}
+                hoverColor={color.facebook.mediumBlue} />
+            }
             <OrDivider margin={`${spacing.x3}px ${spacing.x3}px 0 ${spacing.x3}px`} />
             <div style={s.nameRow}>
               <TextField floatingLabelText='First Name' {...firstName} />

@@ -13,7 +13,6 @@ import UserService from '/lib/user.service.js'
 import {audience} from '../config'
 
 export default function () {
-
   class CurrentUser {
     static get () {
       const user = Meteor.user()
@@ -330,17 +329,22 @@ export default function () {
       Accounts.unlinkService(user._id, serviceName)
     },
 
-    'welcome/signup': () => {
-
+    'welcome/signup': (info) => {
+      check(info, Object)
+      const user = CurrentUser.get()
+      return new OnboardManager().handleSignup(user, info)
     },
 
-    'welcome/linkfacbeook': () => {
-      // TODO
+    'welcome/linkfacebook': () => {
+      const user = CurrentUser.get()
+      Users.update(user._id, { $set: {
+        firstName: user.firstName || user.services.facebook.first_name,
+        lastName: user.lastName || user.services.facebook.last_name
+      }})
     },
 
     'welcome/invite': ({invitees}) => {
       check(invitees, [Object])
-      //Meteor._sleepForMs(2000)
       return new OnboardManager().handleInvites(invitees)
     },
 

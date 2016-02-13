@@ -9,7 +9,7 @@ import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
 
 const SubscribeChannels = (props) => {
-  const {channels, onNext} = props
+  const {channels, onNext, isLoggedIn} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -32,7 +32,7 @@ const SubscribeChannels = (props) => {
         </div>
       </Layout.Sidebar>
       <Layout.Main>
-        <TopicList />
+        <TopicList isLoggedIn={isLoggedIn} />
       </Layout.Main>
     </Layout.Window>
   )

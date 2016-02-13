@@ -9,6 +9,7 @@ import {ReactiveDict} from 'meteor/reactive-dict'
 import {Tracker} from 'meteor/tracker'
 import {Accounts} from 'meteor/accounts-base'
 import Collections from '/lib/collections/index'
+import UserService from '/lib/user.service'
 
 // TODO: Should probably add test for initModules function
 // as well as better description & validation of module shape
@@ -65,6 +66,7 @@ export function initContext (modules = {}) {
     Accounts,
     LocalState: new ReactiveDict(),
     store: createReduxStore(modules),
-    sweetalert
+    sweetalert,
+    UserService
   }
 }

@@ -52,7 +52,8 @@ export default function () {
       followingTopics: 1,
       followingPosts: 1,
       topicAdmins: 1,
-      'services.facebook.id': 1
+      'services.facebook.id': 1,
+      'services.facebook.name': 1
     }})
   })
 

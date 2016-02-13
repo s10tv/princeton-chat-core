@@ -15,6 +15,7 @@ export const composer = ({context}, onData) => {
       }).fetch() : []
 
       onData(null, {
+        isLoggedIn: true,
         channels: channels
       })
     }

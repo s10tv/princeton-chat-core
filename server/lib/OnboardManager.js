@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
 import { Random } from 'meteor/random'
 import { check } from 'meteor/check'
-import { Invites } from '/lib/collections'
+import { Invites, Users } from '/lib/collections'
 import { autoAffiliationValidator, manualAffiliationValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
@@ -65,6 +65,16 @@ export default class OnboardManager {
         this.__sendNonPrincetonAlumInviteEmail({ email, firstName, lastName })
       }
     })
+  }
+
+  handleSignup (user, { firstName, lastName, password, email }) {
+    Users.update(user._id, { $set: {
+      firstName: user.firstName || firstName,
+      lastName: user.lastName || lastName
+    }})
+
+    Accounts.addEmail(user._id, email)
+    Accounts.setPassword(user._id, password, { logout: false })
   }
 
   __sendAlumInviteEmail ({ email, firstName, lastName }) {
