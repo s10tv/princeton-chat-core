@@ -2,7 +2,7 @@ import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base'
 import {Users, Invites} from '/lib/collections'
 import AvatarService from '/lib/avatar.service'
-import { audience } from './api'
+import { audience } from './config'
 
 Accounts.registerLoginHandler('invite', (serviceData) => {
   if (!serviceData.invite) {

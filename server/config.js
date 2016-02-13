@@ -27,3 +27,5 @@ Accounts.validateNewUser((user) => {
 
   return true;
 })
+
+export const audience = process.env.AUDIENCE || 'princeton'
