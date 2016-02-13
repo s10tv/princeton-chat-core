@@ -2,6 +2,7 @@ import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import {reducer as formReducer} from 'redux-form'
 import createLogger from 'redux-logger'
 import invariant from 'invariant'
+import sweetalert from 'sweetalert'
 import {Meteor} from 'meteor/meteor'
 import {FlowRouter} from 'meteor/kadira:flow-router'
 import {ReactiveDict} from 'meteor/reactive-dict'
@@ -63,6 +64,7 @@ export function initContext (modules = {}) {
     Tracker,
     Accounts,
     LocalState: new ReactiveDict(),
-    store: createReduxStore(modules)
+    store: createReduxStore(modules),
+    sweetalert
   }
 }

@@ -18,9 +18,10 @@ and set the `err.details` field to be field-specific description of errors. e.g.
 throw new Meteor.Error('invalid-input', 'Your input is invalid', {email: 'This is not a valid email'})
 ```
 */
-export const createOnSubmit = (method) => {
+export const createOnSubmit = (method, success) => {
   // Creates an action passed as onSubmit property into redux form
-  return ({Meteor}, data) => {
+  return (context, data) => {
+    const {Meteor} = context
     return new Promise((resolve, reject) => {
       Meteor.call(method, data, (err, res) => {
         if (err) {
@@ -31,6 +32,7 @@ export const createOnSubmit = (method) => {
           console.error(`Failure calling method ${method}`, err)
         } else {
           resolve(res)
+          success && success(context, res)
         }
       })
     })

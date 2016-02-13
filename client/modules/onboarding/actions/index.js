@@ -7,7 +7,9 @@ export default {
     verifyAffiliation: createOnSubmit('signup/verifyAffiliation')
   },
   onboardHome: {
-    verifyAlumni: createOnSubmit('signup/alumni')
+    verifyAlumni: createOnSubmit('signup/alumni', ({sweetalert}) => {
+      sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)'})
+    })
   },
   onboardSignup: {
     createAccount ({Meteor}, info) {
