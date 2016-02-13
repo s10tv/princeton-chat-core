@@ -334,6 +334,11 @@ Meteor.methods({
     // TODO
   },
 
+  'welcome/invite': (invitees) => {
+    check(invitees, [Object])
+    return new OnboardManager().handleInvites(invitees)
+  },
+
   'welcome/setLoginService': (serviceName) => {
     check(serviceName, String)
 

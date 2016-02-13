@@ -1,7 +1,7 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import InviteFriends from '../components/invite-friends.jsx'
-import { validator } from '/lib/validation/request-invite-validation'
+import { validator } from '/lib/validation/onboard-invite-validation'
 
 export const formConfig = {
   form: 'onboarding-invite',
@@ -25,6 +25,7 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
+  onSubmit: actions.onboardInvite.invite,
   store: context.store,
   verifyAffiliation: actions.requestInvite.verifyAffiliation,
   context: () => context

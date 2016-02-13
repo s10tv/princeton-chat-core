@@ -1,9 +1,12 @@
 import { Meteor } from 'meteor/meteor'
+import { Accounts } from 'meteor/accounts-base'
 import { Random } from 'meteor/random'
 import { check } from 'meteor/check'
 import { Invites } from '/lib/collections'
 import { validator as validateNonAlumni } from '/lib/validation/request-invite-validation'
 import { validator as validateAlumni } from '/lib/validation/home-validation'
+import { filterInvitees } from '/lib/validation/onboard-invite-validation'
+import { princeton } from '/lib/validation'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
@@ -12,6 +15,12 @@ const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
 export default class OnboardManager {
 
+  constructor () {
+    const postmark = Meteor.npmRequire('postmark')
+    const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426'
+    this.postmarkClient = new postmark.Client(postmarkKey)
+  }
+
   verifyAlumni (options) {
     const errors = validateAlumni(options)
     if (errors.length > 0) {
@@ -19,16 +28,7 @@ export default class OnboardManager {
     }
 
     const { netid, domain } = options
-    const invite = {
-      email: `${netid}@${domain}`,
-      inviteCode: Random.id(),
-      status: 'sent'
-    }
-
-    Invites.insert(invite)
-    this.__sendEmailInvite(invite)
-
-    return invite.inviteCode
+    return this.__generateInviteForPrincetonAlum({email: `${netid}@${domain}`})
   }
 
   verifyAffiliation (options) {
@@ -52,20 +52,54 @@ export default class OnboardManager {
     return invite.inviteCode
   }
 
+  handleInvites (invitees) {
+    const invites = filterInvitees(invitees)
+
+    invites.forEach(({ email, firstName, lastName }) => {
+      // pass validation
+      if (princeton(email) === undefined) {
+        const existingUser = Accounts.findUserByEmail(email)
+        if (!existingUser) {
+          this.__sendAlumInviteEmail({ email, firstName, lastName })
+        }
+      } else {
+        this.__sendNonPrincetonAlumInviteEmail({ email, firstName, lastName })
+      }
+    })
+  }
+
+  __sendAlumInviteEmail ({ email, firstName, lastName }) {
+    console.log('sending alum invite email to ' + email)
+  }
+
+  __sendNonPrincetonAlumInviteEmail ({ email, firstName, lastName }) {
+    console.log('sending non-alum invite email to ' + email)
+  }
+
+  __generateInviteForPrincetonAlum ({ email }) {
+    const invite = {
+      email,
+      inviteCode: Random.id(),
+      status: 'sent'
+    }
+
+    Invites.insert(invite)
+    this.__sendEmailInvite(invite)
+
+    return invite.inviteCode
+  }
+
   __sendEmailInvite ({ email, inviteCode }) {
     check(email, String)
     check(inviteCode, String)
 
     const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
-    const postmark = Meteor.npmRequire('postmark')
-    const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426'
-    const client = new postmark.Client(postmarkKey)
 
     const Future = Meteor.npmRequire('fibers/future')
     const future = new Future()
     const onComplete = future.resolver()
 
-    client.sendEmailWithTemplate({
+    this.postmarkClient.sendEmailWithTemplate({
       'From': process.env.POSTMARK_SENDER_SIG || 'notifications@princeton.chat',
       'To': email,
       'TemplateId': process.env.POSTMARK_WELCOME_TEMPLATE_ID || 354341,

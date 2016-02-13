@@ -9,13 +9,8 @@ import Layout from './layout'
 // NOTE: addField / removeField provided by redux-form http://erikras.github.io/redux-form/#/examples/deep
 class InviteFriends extends React.Component {
 
-  onVerifyAffiliation (event) {
-    event.preventDefault()
-    this.props.verifyAffiliation()
-  }
-
   render () {
-    const {fields: {invitees}} = this.props
+    const {fields: {invitees}, handleSubmit} = this.props
     return (
       <Layout.Window>
         <Layout.Sidebar>
@@ -27,7 +22,7 @@ class InviteFriends extends React.Component {
             <p>
               Who were your three best friends from Princeton? Get them to join you on Princeton.Chat.
             </p>
-            <form style={s.inviteForm} onSubmit={this.onVerifyAffiliation.bind(this)}>
+            <form style={s.inviteForm} onSubmit={handleSubmit}>
               {invitees.map(({email, firstName, lastName}, index) =>
                 <div key={index} style={s.row}>
                   <TextField floatingLabelText='Email' {...email} />
@@ -58,14 +53,15 @@ class InviteFriends extends React.Component {
 const inviteeShape = PropTypes.shape({
   firstName: PropTypes.object.isRequired,
   lastName: PropTypes.object.isRequired,
-  email: PropTypes.object.isRequired,
+  email: PropTypes.object.isRequired
 })
 
 InviteFriends.propTypes = {
   fields: PropTypes.shape({
     invitees: PropTypes.arrayOf(inviteeShape).isRequired
   }).isRequired,
-  verifyAffiliation: PropTypes.func.isRequired
+  verifyAffiliation: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 }
 
 const s = {
