@@ -1,8 +1,8 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import {createValidator, maxLength, required} from '/lib/validation'
 import {trim} from '/lib/normalization'
 import Home from '../components/home.jsx'
+import { validator } from '/lib/validation/home-validation'
 
 export const formConfig = {
   form: 'home',
@@ -10,14 +10,11 @@ export const formConfig = {
   initialValues: {
     domain: 'alumni.princeton.edu'
   },
-  validate: createValidator({
-    netid: [required, maxLength(16)],
-    domain: required,
-  }),
+  validate: validator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {
-    netid: trim,
+    netid: trim
   }
 }
 
@@ -32,8 +29,9 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
+  onSubmit: actions.onboardHome.verifyAlumni,
   store: context.store,
-  context: () => context,
+  context: () => context
 })
 
 export default composeAll(

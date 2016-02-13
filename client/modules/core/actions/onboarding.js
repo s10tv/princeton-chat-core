@@ -1,4 +1,6 @@
 export default {
+
+  // TODO: deprecated
   clickFacebook ({Meteor, LocalState}) {
     Meteor.linkWithFacebook({}, (err) => {
       if (err) {
@@ -17,6 +19,7 @@ export default {
     })
   },
 
+  // TODO: deprecated
   addPassword ({Meteor, Accounts, LocalState}, pwd) {
     if (pwd) {
       Meteor.call('welcome/setLoginService', 'password', (err) => {

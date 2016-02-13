@@ -1,4 +1,3 @@
-import React from 'react'
 import {mount} from 'react-mounter'
 
 import Home from './containers/home'
@@ -36,6 +35,12 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'invite-friends',
     action () {
       mount(injectDeps(InviteFriends))
+    }
+  })
+  FlowRouter.route('/invite/:inviteId', {
+    name: 'invite',
+    action ({ inviteId }) {
+      mount(injectDeps(Signup))
     }
   })
 }

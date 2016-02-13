@@ -18,13 +18,14 @@ const Home = (props) => {
         <div style={style.sidebarInner}>
           <h1 style={s.mainLogo}>Princeton.Chat</h1>
           <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
-          <form style={style.form} onsubmit={handleSubmit}>
+          <form style={style.form} onSubmit={handleSubmit}>
             <div style={s.emailContainer}>
               <TextField hintText='netid' {...netid} />
               <span>@</span>
-              <SelectField {...domain} >
+              <SelectField {...domain}>
                 <MenuItem value='alumni.princeton.edu' primaryText='alumni.princeton.edu' />
                 <MenuItem value='princeton.edu' primaryText='princeton.edu' />
+                <MenuItem value='cornell.edu' primaryText='cornell.edu' />
               </SelectField>
             </div>
             <br />
@@ -33,7 +34,7 @@ const Home = (props) => {
             </a>
             <br />
             <br />
-            <FlatButton style={style.button} label='Get Invited'
+            <FlatButton type='submit' style={style.button} label='Get Invited'
                         backgroundColor={color.green} hoverColor={color.lightGreen} />
           </form>
         </div>

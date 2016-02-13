@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { Match, check } from 'meteor/check'
 import { _ } from 'meteor/underscore'
-import { Topics, Posts, Users, Messages } from '/lib/collections'
+import { Topics, Posts, Users, Messages, Invites } from '/lib/collections'
 
 Meteor.publish('posts.mine', function () {
   if (this.userId) {
@@ -29,6 +29,11 @@ Meteor.publish('topics', function () {
   } else {
     this.ready()
   }
+})
+
+Meteor.publish('invite', function (inviteId) {
+  check(inviteId, Match.Optional(String))
+  return Invites.find({ inviteCode: inviteId })
 })
 
 Meteor.publish('userData', function () {

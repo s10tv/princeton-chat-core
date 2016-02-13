@@ -1,23 +1,17 @@
 import { Meteor } from 'meteor/meteor'
-import { Match, check } from 'meteor/check'
-import { HTTP } from 'meteor/http'
-import { Random } from 'meteor/random'
+import { check } from 'meteor/check'
 import { Accounts } from 'meteor/accounts-base'
+import { _ } from 'meteor/underscore'
 
-import AvatarService from '/lib/avatar.service.js'
 import { Topics, Posts, Users, Messages } from '/lib/collections'
+import AvatarService from '/lib/avatar.service.js'
 import TopicManager from '/server/lib/TopicManager'
 import PostManager from '/server/lib/PostManager'
 import OnboardManager from '/server/lib/OnboardManager'
-import _ from 'underscore'
 import NewTopicService from '/lib/newtopic.service.js'
 import UserService from '/lib/user.service.js'
 
-const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
-const slackUsername = process.env.ENV || 'dev'
-const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
-const slack = Meteor.npmRequire('slack-notify')(slackUrl)
-const audience = process.env.AUDIENCE || 'princeton'
+export const audience = process.env.AUDIENCE || 'princeton'
 
 class CurrentUser {
   static get () {
@@ -29,121 +23,17 @@ class CurrentUser {
   }
 }
 
-const getLargestUserNumber = () => {
-  const [ userWithHighestNumber ] = Users
-    .find({}, { sort: { userNumber: 1 }, limit: 1 })
-    .fetch()
-
-  if (userWithHighestNumber && userWithHighestNumber.userNumber) {
-    return userWithHighestNumber.userNumber + 1
-  } else {
-    return 1
-  }
-}
-
-const stripTrailingSlash = (str) => {
-  if (str.substr(-1) === '/') {
-    return str.substr(0, str.length - 1)
-  }
-  return str
-}
-
 Meteor.methods({
-  'signup': (options) => {
-    check(options, Object)
-    const { firstName, lastName, classYear, emailAddress } = options
-
-    check(firstName, String)
-    check(lastName, String)
-    check(emailAddress, String)
-    check(classYear, Match.Optional(String))
-
-    var email = (emailAddress || '').trim()
-    if (email.length === 0) {
-      throw new Meteor.Error(400, 'To sign up, you need to enter your email.')
-    }
-
-    var user = Accounts.findUserByEmail(email)
-    if (!user) {
-      // our onboarding using react has a field called `email` on user, instead of meteor `emails`
-      user = Users.findOne({ email: email })
-    }
-
-    if (!user) {
-      var userNumber = getLargestUserNumber()
-      const userId = Users.insert({
-        firstName,
-        lastName,
-        classYear,
-        userNumber: userNumber,
-        status: 'pending',
-        avatar: {
-          url: AvatarService.generateDefaultAvatarForAudience(audience),
-          isDefaultAvatar: true,
-          color: AvatarService.generateRandomColorForDefaultAvatar()
-        }
-      })
-
-      Accounts.addEmail(userId, email)
-      user = Users.findOne(userId)
-    }
-
-    const inviteCode = Random.id()
-    Users.update(user._id, { $set: {
-      inviteCode: inviteCode
-    }})
-
-    slack.send({
-      icon_emoji: slackEmoji,
-      text: `${user.firstName} ${user.lastName} (${email}) signed up`,
-      username: slackUsername
-    })
-
-    if (process.env.SKIP_CHECK_PRINCETON_EMAIL || /.*@alumni.princeton.edu$/.test(email)) {
-      const inviteUrl = `${stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
-      const postmark = Meteor.npmRequire('postmark')
-      const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426'
-      const client = new postmark.Client(postmarkKey)
-
-      const Future = Npm.require('fibers/future')
-      const future = new Future()
-      const onComplete = future.resolver()
-
-      client.sendEmailWithTemplate({
-        'From': process.env.POSTMARK_SENDER_SIG || 'notifications@princeton.chat',
-        'To': email,
-        'TemplateId': process.env.POSTMARK_WELCOME_TEMPLATE_ID || 354341,
-        'TemplateModel': {
-          inviteLink: inviteUrl
-        }
-      }, onComplete)
-
-      Future.wait(future)
-      try {
-        future.get()
-      } catch (err) {
-        console.log('Received error from Postmark. Perhaps templateId or sender sig is wrong?')
-        console.error(err)
-        console.log(err.stack)
-        return
-      }
-
-      slack.send({
-        icon_emoji: slackEmoji,
-        text: `Sent a welcome email to ${email}.`,
-        username: slackUsername
-      })
-
-      return true
-    }
-
-    // did not pass validation.
-    return false
-  },
-
+  // returns invite code
   'signup/verifyAffiliation': (options) => {
     check(options, Object)
     return new OnboardManager().verifyAffiliation(options)
+  },
+
+  // returns invite code
+  'signup/alumni': (options) => {
+    check(options, Object)
+    return new OnboardManager().verifyAlumni(options)
   },
 
   'topics/users/import': (topicId, userInfos) => {
@@ -199,57 +89,6 @@ Meteor.methods({
       console.log(e)
       throw new Meteor.Error(500, "Sorry, we messed up. We couldn't add your followers, but we tried very hard :/")
     }
-  },
-
-  'signup/test': (emailOverride) => {
-    check(emailOverride, Match.Optional(String))
-    const [{user}] = JSON.parse(HTTP.call('GET', 'https://randomuser.me/api/').content).results
-    const email = emailOverride || user.email
-
-    Meteor.call('signup', {
-      firstName: user.name.first,
-      lastName: user.name.last,
-      classYear: '2012',
-      emailAddress: email
-    })
-  },
-
-  'signup/randomuser': () => {
-    const [{user}] = JSON.parse(HTTP.call('GET', 'https://randomuser.me/api/').content).results
-    const inviteCode = Meteor.uuid()
-    Users.insert({
-      firstName: user.name.first,
-      lastName: user.name.last,
-      emails: [
-        { address: user.email, verified: false }
-      ],
-      classYear: '2012',
-      inviteCode: inviteCode,
-      isFullMember: true,
-      avatar: {
-        url: AvatarService.generateDefaultAvatarForAudience(audience),
-        isDefaultAvatar: true,
-        color: AvatarService.generateRandomColorForDefaultAvatar()
-      }
-    })
-
-    console.log(`http://localhost:3000/invite/${inviteCode}`)
-  },
-
-  'topics/follow': (topicIds) => {
-    const user = CurrentUser.get()
-
-    const curatedTopicIds = topicIds.map(topicId => {
-      return Topics.findOne(topicId)
-    }).filter(topic => {
-      return topic !== undefined && topic != null
-    }).map(topic => {
-      return topic._id
-    })
-
-    Users.update(user._id, { $set: {
-      followingTopics: curatedTopicIds
-    }})
   },
 
   'profile/update': (profile) => {
@@ -485,6 +324,10 @@ Meteor.methods({
   '_accounts/unlink/service': function (serviceName) {
     const user = CurrentUser.get()
     Accounts.unlinkService(user._id, serviceName)
+  },
+
+  'welcome/linkfacbeook': () => {
+
   },
 
   'welcome/setLoginService': (serviceName) => {
