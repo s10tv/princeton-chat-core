@@ -10,11 +10,9 @@ export const composer = ({context}, onData) => {
     // TODO: This should be part of context, mostly everything should be dependency injected
     const user = UserService.currentUser()
     if (user) {
-      // const channels = user ? Collections.Topics.find({
-      //   _id: {$in: user.followingTopics}
-      // }).fetch() : []
-      // TODO: This logic doesn't work for some reason
-      const channels = Collections.Topics.find().fetch()
+      const channels = user ? Collections.Topics.find({
+        _id: {$in: user.followingTopics}
+      }).fetch() : []
 
       onData(null, {
         channels: channels
