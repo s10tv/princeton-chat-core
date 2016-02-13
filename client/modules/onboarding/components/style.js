@@ -53,4 +53,7 @@ export default {
     // marginLeft: spacing.x2,
     // marginRight: spacing.x2,
   },
+  error: {
+    color: color.brand.danger,
+  }
 }

@@ -1,14 +1,5 @@
-export default {
-  verifyAffiliation ({Meteor}, data) {
-    Meteor.call('signup/verifyAffiliation', data, (err) => {
-      if (err) {
-        // TODO(tonyx): Display Error
-        console.log(err)
-        return
-      }
+import {createOnSubmit} from '/client/lib/helpers'
 
-      // TODO(tonyx): Display success indicator
-      console.log('inserted invite')
-    })
-  }
+export default {
+  verifyAffiliation: createOnSubmit('signup/verifyAffiliation')
 }

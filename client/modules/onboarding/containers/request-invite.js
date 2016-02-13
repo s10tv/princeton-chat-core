@@ -4,7 +4,7 @@ import RequestInvite from '../components/request-invite.jsx'
 import { validator } from '/lib/validation/request-invite-validation'
 
 export const formConfig = {
-  form: 'affiliation',
+  form: 'request-invite',
   fields: ['firstName', 'lastName', 'birthDate', 'classYear', 'degree', 'email'],
   initialValues: {
     email: '' // How do we populate this from initial data?

@@ -1,7 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton, AutoComplete} from '/client/lib/ui.jsx'
+import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
@@ -11,7 +11,9 @@ class RequestInvite extends React.Component {
 
   render () {
     console.log(this.props)
-    const {fields: {firstName, lastName, birthDate, classYear, degree, email}, handleSubmit} = this.props
+    const {fields: {
+      firstName, lastName, birthDate, classYear, degree, email
+    }, submitting, error, handleSubmit} = this.props
     return (
       <Layout.Window>
         <Layout.Sidebar>
@@ -39,8 +41,11 @@ class RequestInvite extends React.Component {
                 fullWidth={true}
                 {...email} />
               <br />
-              <FlatButton type='submit' style={style.button} label='Verify'
+              {error && <p style={style.error}>{error}</p>}
+              <br />
+              <FlatButton type='submit' style={style.button} label='Verify' disabled={submitting}
                           backgroundColor={color.green} hoverColor={color.lightGreen} />
+              {submitting && <LinearProgress />}
             </form>
           </div>
         </Layout.Sidebar>
