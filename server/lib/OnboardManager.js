@@ -15,7 +15,7 @@ export default class OnboardManager {
 
   constructor () {
     const postmark = Meteor.npmRequire('postmark')
-    const postmarkKey = process.env.POSTMARK_API_KEY || 'a7c4668c-6430-4333-b303-38a4b9fe7426'
+    const postmarkKey = process.env.POSTMARK_API_KEY || ''
     this.postmarkClient = new postmark.Client(postmarkKey)
   }
 
@@ -103,6 +103,9 @@ export default class OnboardManager {
     check(inviteCode, String)
 
     const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
+    if (this.postmarkKey.length === 0) {
+      return `[Dev] Would have sent invite link ${inviteUrl} to ${email}`
+    }
 
     const Future = Meteor.npmRequire('fibers/future')
     const future = new Future()
