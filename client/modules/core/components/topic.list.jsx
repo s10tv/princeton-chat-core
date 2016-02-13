@@ -144,14 +144,14 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
             event.preventDefault()
             navigateToTopic(topic._id)
           }} style={{
-            flex: '0 0 250px',
+            flex: '0 0 220px',
             maxHeight: 167,
             backgroundImage: `url("${topic.cover.url}")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             borderRadius: 5
           }} />
-        : <Flex flex='0 0 250px' maxHeight={166} backgroundImage={`url("${topic.cover.url}")`}
+        : <Flex flex='0 0 220px' maxHeight={147} backgroundImage={`url("${topic.cover.url}")`}
           backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
         }
         <Flex flexGrow={1} flexDirection='column' marginLeft={30}>
@@ -177,16 +177,14 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
           <Flex marginTop={15} alignItems='center'>
             {
               topic.followersCount !== undefined
-              ? <Flex flexDirection='column' marginRight={25} alignItems='center'>
-                <span style={{fontWeight: 300}}>{topic.followersCount}</span>
-                <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getFollowerText()}</span>
+              ? <Flex marginRight={25}>
+                <span style={{fontWeight: 300, color: '#c3c3c3'}}>{topic.followersCount} {getFollowerText()}</span>
               </Flex> : null
             }
             {
               topic.numPosts !== undefined
               ? <Flex flexDirection='column' alignItems='center'>
-                <span style={{fontWeight: 300}}>{topic.numPosts}</span>
-                <span style={{fontWeight: 300, color: '#c3c3c3'}}>{getPostsText()}</span>
+                <span style={{fontWeight: 300, color: '#c3c3c3'}}>{topic.numPosts} {getPostsText()}</span>
               </Flex> : null
             }
           </Flex>
@@ -226,7 +224,7 @@ const NewTopicButton = ({ showAddTopicModal }) => {
   return (
     <a href='#' onClick={showAddTopicModal}>
       <Flex margin='25px 0px' flexGrow={1}>
-        <Flex flex='0 0 250px' maxHeight={166} backgroundColor='#e0e0e0'
+        <Flex flex='0 0 220px' maxHeight={147} backgroundColor='#e0e0e0'
           borderRadius={5} justifyContent='center' alignItems='center'>
           <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
         </Flex>
