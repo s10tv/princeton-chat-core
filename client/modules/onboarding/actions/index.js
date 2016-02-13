@@ -1,6 +1,6 @@
 import {createOnSubmit} from '/client/lib/helpers'
-import ErrorHandler from '/client/modules/onboarding/lib/error.handler'
 import UserService from '/lib/user.service'
+import { i18n } from '/client/configs/env'
 
 export default {
   requestInvite: {
@@ -31,12 +31,16 @@ export default {
     }
   },
   onboardChannels: {
-    next ({FlowRouter}) {
+    next ({FlowRouter, sweetalert}) {
       // TODO: extract this into context
       const currentUser = UserService.currentUser()
 
-      if (currentUser.followingTopics.length === 0) {
-        return ErrorHandler.error('Please follow some topics')
+      if (currentUser.followingTopics.length < 3) {
+        return sweetalert({
+          title: 'Subscribe',
+          text: `${i18n('title')} will be a lot more interesting the more channels you subscribe. \
+            Please subscribe at least 3 before continuing.`
+        })
       }
 
       return FlowRouter.go('invite-friends')
