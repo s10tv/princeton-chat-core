@@ -26,6 +26,8 @@ class CurrentUser {
 Meteor.methods({
   // returns invite code
   'signup/verifyAffiliation': (options) => {
+    // Meteor._sleepForMs(2000)
+    // throw new Meteor.Error('Unexpected error', 'My fantastic reason', {email: 'This is not a valid email'})
     check(options, Object)
     return new OnboardManager().verifyAffiliation(options)
   },
@@ -334,7 +336,7 @@ Meteor.methods({
     // TODO
   },
 
-  'welcome/invite': (invitees) => {
+  'welcome/invite': ({invitees}) => {
     check(invitees, [Object])
     return new OnboardManager().handleInvites(invitees)
   },

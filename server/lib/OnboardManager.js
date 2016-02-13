@@ -5,7 +5,6 @@ import { check } from 'meteor/check'
 import { Invites } from '/lib/collections'
 import { validator as validateNonAlumni } from '/lib/validation/request-invite-validation'
 import { validator as validateAlumni } from '/lib/validation/home-validation'
-import { filterInvitees } from '/lib/validation/onboard-invite-validation'
 import { princeton } from '/lib/validation'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
@@ -53,9 +52,10 @@ export default class OnboardManager {
   }
 
   handleInvites (invitees) {
-    const invites = filterInvitees(invitees)
-
-    invites.forEach(({ email, firstName, lastName }) => {
+    invitees.forEach(({ email, firstName, lastName }) => {
+      if (!email) {
+        return
+      }
       // pass validation
       if (princeton(email) === undefined) {
         const existingUser = Accounts.findUserByEmail(email)

@@ -1,7 +1,7 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import InviteFriends from '../components/invite-friends.jsx'
-import { validator } from '/lib/validation/onboard-invite-validation'
+import { inviteValidator } from '/lib/validation/onboarding'
 
 export const formConfig = {
   form: 'onboarding-invite',
@@ -13,10 +13,11 @@ export const formConfig = {
   initialValues: {
     invitees: [{}, {}, {}]
   },
-  validate: validator,
+  validate: inviteValidator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {
+    invitees: (invitees) => invitees.filter((invitee) => invitee.email != null)
   }
 }
 

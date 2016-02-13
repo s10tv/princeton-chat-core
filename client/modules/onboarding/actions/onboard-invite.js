@@ -1,12 +1,4 @@
-import ErrorHandler from '/client/modules/onboarding/lib/error.handler'
-import { filterInvitees } from '/lib/validation/onboard-invite-validation'
-
+import {createOnSubmit} from '/client/lib/helpers'
 export default {
-  invite ({Meteor}, { invitees }) {
-    Meteor.call('welcome/invite', filterInvitees(invitees), (err) => {
-      if (err) {
-        return ErrorHandler.error(err)
-      }
-    })
-  }
+  invite: createOnSubmit('welcome/invite')
 }
