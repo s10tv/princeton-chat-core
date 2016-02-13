@@ -4,7 +4,6 @@ import inviteLogin from './invite-login'
 import coreAndOnboarding from './core-and-onboarding'
 
 export default function () {
-  console.log('methods initializating')
   // Other methods
   coreAndOnboarding()
 

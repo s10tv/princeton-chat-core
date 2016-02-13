@@ -13,7 +13,6 @@ import UserService from '/lib/user.service.js'
 import {audience} from '../configs/index'
 
 export default function () {
-  console.log('Core and onboarding initializing, meteor = ', Meteor)
   class CurrentUser {
     static get () {
       const user = Meteor.user()
