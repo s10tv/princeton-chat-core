@@ -1,7 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import {TextField, FlatButton, FontIcon, IconButton} from '/client/lib/ui.jsx'
+import {TextField, FlatButton, FontIcon, IconButton, PageControl} from '/client/lib/ui.jsx'
 import {color, spacing} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
@@ -21,7 +21,6 @@ class InviteFriends extends React.Component {
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
             <span style={style.sidebarLogo}>Princeton.Chat</span>
-            <a style={style.sidebarLink} href='/o/'>Back</a>
           </header>
           <div style={style.sidebarInner}>
             <h2>Better with friends</h2>
@@ -45,6 +44,7 @@ class InviteFriends extends React.Component {
               <br />
               <FlatButton type='submit' style={style.button} label='Invite'
                           backgroundColor={color.green} hoverColor={color.lightGreen} />
+                        <PageControl total={3} current={2} />
             </form>
           </div>
         </Layout.Sidebar>

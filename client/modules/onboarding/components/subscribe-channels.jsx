@@ -2,8 +2,8 @@
 /*eslint-disable comma-dangle */
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton, OrDivider} from '/client/lib/ui.jsx'
-import {color, spacing, fontSize} from '/client/config/theme'
+import {FlatButton, PageControl} from '/client/lib/ui.jsx'
+import {color} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
@@ -27,6 +27,7 @@ const SubscribeChannels = (props) => {
           </ul>
           <FlatButton style={style.button} label='Next'
                       backgroundColor={color.green} hoverColor={color.lightGreen} />
+          <PageControl total={3} current={1} />
         </div>
       </Layout.Sidebar>
       <Layout.Main>

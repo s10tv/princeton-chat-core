@@ -2,7 +2,7 @@
 /*eslint-disable comma-dangle */
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton, OrDivider} from '/client/lib/ui.jsx'
+import {TextField, SelectField, MenuItem, FlatButton, OrDivider, PageControl} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
@@ -34,6 +34,7 @@ const Signup = (props) => {
             <br />
             <FlatButton style={style.button} label='Signup'
                         backgroundColor={color.green} hoverColor={color.lightGreen} />
+            <PageControl total={3} current={0} />
           </form>
         </div>
       </Layout.Sidebar>

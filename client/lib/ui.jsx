@@ -1,5 +1,6 @@
 import React from 'react'
 import {Style} from 'radium'
+import _ from 'underscore'
 import _SelectField from 'material-ui/lib/select-field'
 import _TextField from 'material-ui/lib/text-field'
 import _FlatButton from 'material-ui/lib/flat-button'
@@ -63,4 +64,30 @@ export const OrDivider = ({margin}) => (
     <hr/>
   </div>
 )
+
+export const PageControl = ({current, total}) => {
+  const style = {
+    div: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    dot: {
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+      backgroundColor: '#8999A6',
+      margin: '8px 4px'
+    },
+    active: {
+      backgroundColor: 'white',
+    }
+  }
+  return (
+    <div style={style.div}>
+      {_.range(total).map((index) => 
+        <span key={index} style={{...style.dot, ...(index === current ? style.active : {})}} />
+      )}
+    </div>
+  )
+}
 /*eslint-enable */
