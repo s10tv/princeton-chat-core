@@ -6,6 +6,7 @@ import {color, spacing, fontSize} from '/client/config/theme'
 import style from './style'
 import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
+import AddTopicModal from '/client/modules/core/containers/modal.add.topic'
 
 const Home = (props) => {
   const {fields: {netid, domain}, handleSubmit} = props
@@ -40,8 +41,9 @@ const Home = (props) => {
         </div>
       </Layout.Sidebar>
       <Layout.Main>
-        <TopicList />
+        <TopicList isLoggedIn={false} />
       </Layout.Main>
+      <AddTopicModal />
     </Layout.Window>
   )
 }

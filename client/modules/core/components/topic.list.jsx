@@ -36,7 +36,17 @@ export default React.createClass({
      * Funcs to follow/unfollow topic
      */
     followTopic: React.PropTypes.func.isRequired,
-    unfollowTopic: React.PropTypes.func.isRequired
+    unfollowTopic: React.PropTypes.func.isRequired,
+
+    /**
+     * If false, all interactable buttons will show an alert to log in
+     */
+    isLoggedIn: React.PropTypes.bool.isRequired,
+
+    /**
+     * Func to show alert to login
+     */
+    showSweetAlertToLogin: React.PropTypes.func
   },
 
   getInitialState () {
@@ -50,6 +60,11 @@ export default React.createClass({
     this.setState({
       value: e.currentTarget.text
     })
+  },
+
+  ifLoggedInExecute (func) {
+    console.log(func, this.props.isLoggedIn)
+    return this.props.isLoggedIn ? func() : this.props.showSweetAlertToLogin()
   },
 
   render () {
@@ -76,7 +91,7 @@ export default React.createClass({
                   this.state.value === 'Recent' && localStyle.tabItemSelected)
               }>Recent</h3>
             </a>
-            <a href='#' onClick={this.props.showAddTopicModal}>
+            <a href='#' onClick={() => this.ifLoggedInExecute(this.props.showAddTopicModal)}>
               <h3 style={Object.assign({}, localStyle.tabItem, localStyle.tabItemDeselected)
               }>Create New</h3>
             </a>
@@ -87,6 +102,8 @@ export default React.createClass({
                     {this.props.topicsSortedByFollowers.map((topic) =>
                       <TopicListItem
                         key={topic._id}
+                        isLoggedIn={this.props.isLoggedIn}
+                        ifLoggedInExecute={this.ifLoggedInExecute}
                         topic={topic}
                         isTopicClickable={this.props.isTopicClickable}
                         navigateToTopic={this.props.navigateToTopic}
@@ -94,13 +111,15 @@ export default React.createClass({
                         unfollowTopic={this.props.unfollowTopic} />
                     )}
 
-                <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+                <NewTopicButton showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
               </Flex> : null
             }
             {this.state.value === 'Recent'
               ? <Flex flexDirection='column' justifyContent='center'>
                     {this.props.topicsSortedByTime.map((topic) =>
                       <TopicListItem
+                        ifLoggedInExecute={this.ifLoggedInExecute}
+                        isLoggedIn={this.props.isLoggedIn}
                         key={topic._id}
                         topic={topic}
                         isTopicClickable={this.props.isTopicClickable}
@@ -109,7 +128,7 @@ export default React.createClass({
                         unfollowTopic={this.props.unfollowTopic} />
                     )}
 
-                <NewTopicButton showAddTopicModal={() => this.props.showAddTopicModal()} />
+                <NewTopicButton showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
               </Flex> : null
             }
           </div>
@@ -119,7 +138,8 @@ export default React.createClass({
   }
 })
 
-const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTopicClickable}) => {
+const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
+  topic, followTopic, unfollowTopic, navigateToTopic, isTopicClickable}) => {
   const pluralizeTextForNumber = (text, number) => {
     if (number !== 1) {
       return text + 's'
@@ -139,40 +159,26 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
   return (
     <Flex flexDirection='column' margin='25px 0px' flexGrow={1}>
       <Flex flexGrow={1}>
-        {isTopicClickable
-          ? <a href='#' onClick={(event) => {
-            event.preventDefault()
-            navigateToTopic(topic._id)
-          }} style={{
-            flex: '0 0 220px',
-            maxHeight: 167,
-            backgroundImage: `url("${topic.cover.url}")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            borderRadius: 5
-          }} />
-        : <Flex flex='0 0 220px' maxHeight={147} backgroundImage={`url("${topic.cover.url}")`}
-          backgroundSize='cover' backgroundPosition='center' borderRadius={5} />
-        }
+        <a href='#' onClick={() => ifLoggedInExecute(() => {
+          navigateToTopic(topic._id)
+        })} style={{
+          flex: '0 0 220px',
+          maxHeight: 167,
+          backgroundImage: `url("${topic.cover.url}")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          borderRadius: 5
+        }} />
         <Flex flexGrow={1} flexDirection='column' marginLeft={30}>
           <h3 style={{ fontWeight: 400, marginTop: 0, marginBottom: 0 }}>
-            {isTopicClickable
-              ? <a href='#' onClick={(event) => {
-                event.preventDefault()
-                navigateToTopic(topic._id)
-              }}>
-                  #{topic.displayName}
-              </a>
-              : <span>#{topic.displayName}</span>
-            }
+            <a href='#' onClick={() => ifLoggedInExecute(() => {
+              navigateToTopic(topic._id)
+            })}>
+              #{topic.displayName}
+            </a>
           </h3>
           <h5 style={{fontWeight: 300, marginTop: 5, marginBottom: 0}}>
-            {isTopicClickable
-              ? <a href={`mailto:${topic._id}@${i18n('topicMailServer')}`}>
-                  {topic._id}@{i18n('topicMailServer')}
-              </a>
-              : <span>{topic._id}@{i18n('topicMailServer')}</span>
-            }
+            {topic._id}@{i18n('topicMailServer')}
           </h5>
           <Flex marginTop={15} alignItems='center'>
             {
@@ -200,7 +206,7 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
                 textTransform: 'inherit'
               }}
               label='Subscribed'
-              onTouchTap={() => { unfollowTopic(topic._id) }} />
+              onTouchTap={() => ifLoggedInExecute(() => unfollowTopic(topic._id))} />
             : <FlatButton
               labelPosition='after'
               icon={<FontIcon className='material-icons'>add</FontIcon>}
@@ -211,7 +217,7 @@ const TopicListItem = ({topic, followTopic, unfollowTopic, navigateToTopic, isTo
                 textTransform: 'inherit'
               }}
               label='Subscribe'
-              onTouchTap={() => { followTopic(topic._id) }} />
+              onTouchTap={() => ifLoggedInExecute(() => followTopic(topic._id))} />
           }
         </Flex>
       </Flex>
