@@ -4,10 +4,10 @@ import tinycolor from 'tinycolor2'
 
 export default {
   ...Colors,
-  brandPrimary: '#F07621', // Princeton orange
   brand: {
-    primary: '#F07621', // Bootstrap primary: #0275d8
-    success: '#5cb85c', // Bootstrap primary: #0275d8
+    // Bootstrap primary: #0275d8
+    primary: '#F07621', // Princeton Orange
+    success: '#5cb85c',
     info: '#5bc0de',
     warning: '#f0ad4e',
     danger: '#d9534f',

@@ -59,7 +59,7 @@ const s = {
   mainLogo: {
     fontWeight: 'normal',
     marginBottom: spacing.x2,
-    color: color.brandPrimary,
+    color: color.brand.primary,
   },
   emailContainer: {
     display: 'flex',

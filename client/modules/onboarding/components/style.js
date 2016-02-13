@@ -21,7 +21,7 @@ export default {
   sidebarLogo: {
     fontWeight: 'normal',
     fontSize: fontSize.h5,
-    color: color.brandPrimary,
+    color: color.brand.primary,
     marginRight: 'auto',
   },
   sidebarLink: {
