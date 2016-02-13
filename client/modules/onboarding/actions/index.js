@@ -11,6 +11,30 @@ export default {
       sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)'})
     })
   },
+  login: {
+    loginWithFacebook ({ Meteor, FlowRouter, sweetalert }) {
+      Meteor.loginWithFacebook({}, (err) => {
+        if (err) {
+          return sweetalert({
+            title: 'Facebook Login',
+            text: err.message
+          })
+        }
+        return FlowRouter.go('all-mine')
+      })
+    },
+    loginWithPassword ({Accounts}, info) {
+      Accounts.loginWithPassword(info.email, info.password, (err) => {
+        if (err) {
+          return sweetalert({
+            title: 'Login',
+            text: err.message
+          })
+        }
+        return FlowRouter.go('all-mine')
+      })
+    }
+  },
   onboardSignup: {
     createAccount: createOnSubmit('welcome/signup', ({ FlowRouter }) => {
       FlowRouter.go('onboard-subscribe-channels')

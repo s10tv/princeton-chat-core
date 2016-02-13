@@ -3,6 +3,7 @@ import {mount} from 'react-mounter'
 import Home from './containers/home'
 import RequestInvite from './containers/request-invite'
 import Signup from './containers/signup'
+import Login from './containers/login'
 import SubscribeChannels from './containers/subscribe-channels'
 import InviteFriends from './containers/invite-friends'
 
@@ -16,6 +17,18 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
   // need Meteor and FlowRouter to be used in before triggers to redirect non-authenticated users
   const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
 
+  FlowRouter.route('/', {
+    name: 'home',
+    action () {
+      mount(injectDeps(Home))
+    }
+  })
+  FlowRouter.route('/login', {
+    name: 'login',
+    action () {
+      mount(injectDeps(Login))
+    }
+  })
   FlowRouter.route('/invite/:inviteId', {
     name: 'invite',
     action ({ inviteId }) {
