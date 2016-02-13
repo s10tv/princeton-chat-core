@@ -44,13 +44,13 @@ export default function () {
       return htmlPage({
         title: 'Princeton.Chat',
         body: ReactDOMServer.renderToStaticMarkup(
-          <GuestToggleFollow
-            title={post.title}
-            isFollowing={isFollowing}
-            followLink={`/guest/posts/${postId}/follow?userId=${userId}&hash=${hash}`}
-            unfollowLink={`/guest/posts/${postId}/unfollow?userId=${userId}&hash=${hash}`}
-            editTopicsLink={`/guest?userId=${userId}&hash=${hash}`}
-          />
+          React.createElement(GuestToggleFollow, {
+            title: post.title,
+            isFollowing: isFollowing,
+            followLink: `/guest/posts/${postId}/follow?userId=${userId}&hash=${hash}`,
+            unfollowLink: `/guest/posts/${postId}/unfollow?userId=${userId}&hash=${hash}`,
+            editTopicsLink: `/guest?userId=${userId}&hash=${hash}`
+          })
         )
       })
     }
