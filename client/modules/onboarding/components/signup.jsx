@@ -21,7 +21,7 @@ const Signup = (props) => {
           <p>We have successfully verified your affiliation with Princeton.</p>
           <p style={s.verifiedEmail}>{verifiedEmail}</p>
           <p>Let’s get you signed up, this should only take a minute.</p>
-          <form style={style.form}>
+          <form style={style.form} onSubmit={handleSubmit}>
             <FlatButton
               icon={<i className='fa fa-facebook' />}
               label='Continue with Facebook'
@@ -39,7 +39,7 @@ const Signup = (props) => {
             <TextField floatingLabelText='Primary Email' fullWidth={true} {...email} />
             <TextField floatingLabelText='Password' type='password' fullWidth={true} {...password} />
             <br />
-            <FlatButton style={style.button} label='Signup'
+            <FlatButton type='submit' style={style.button} label='Signup'
                         backgroundColor={color.green} hoverColor={color.lightGreen} />
             <PageControl total={3} current={0} />
           </form>

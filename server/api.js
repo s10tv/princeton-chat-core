@@ -326,8 +326,12 @@ Meteor.methods({
     Accounts.unlinkService(user._id, serviceName)
   },
 
-  'welcome/linkfacbeook': () => {
+  'welcome/signup': () => {
 
+  },
+
+  'welcome/linkfacbeook': () => {
+    // TODO
   },
 
   'welcome/setLoginService': (serviceName) => {

@@ -1,6 +1,9 @@
 import ErrorHandler from '/client/modules/onboarding/lib/error.handler'
 
 export default {
+  createAccount ({Meteor}, info) {
+  },
+
   linkWithFacebook ({Meteor, FlowRouter}) {
     Meteor.call('welcome/linkfacbeook', () => {
       Meteor.loginWithFacebook({}, (err) => {
