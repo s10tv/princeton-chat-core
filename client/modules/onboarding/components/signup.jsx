@@ -8,7 +8,8 @@ import style from './style'
 import Layout from './layout'
 
 const Signup = (props) => {
-  const {fields: {firstName, lastName, email, password}, handleSubmit, verifiedEmail} = props
+  const {fields: {firstName, lastName, email, password},
+    handleSubmit, verifiedEmail, linkFacebook} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -21,8 +22,14 @@ const Signup = (props) => {
           <p style={s.verifiedEmail}>{verifiedEmail}</p>
           <p>Let’s get you signed up, this should only take a minute.</p>
           <form style={style.form}>
-            <FlatButton icon={<i className='fa fa-facebook' />} label='Continue with Facebook' labelPosition='after'
-              style={style.fbButton} backgroundColor={color.facebook.blue} hoverColor={color.facebook.mediumBlue} />
+            <FlatButton
+              icon={<i className='fa fa-facebook' />}
+              label='Continue with Facebook'
+              labelPosition='after'
+              onTouchTap={linkFacebook}
+              style={style.fbButton}
+              backgroundColor={color.facebook.blue}
+              hoverColor={color.facebook.mediumBlue} />
             <OrDivider margin={`${spacing.x3}px ${spacing.x3}px 0 ${spacing.x3}px`} />
             <div style={s.nameRow}>
               <TextField floatingLabelText='First Name' {...firstName} />
@@ -53,6 +60,7 @@ Signup.propTypes = {
     password: PropTypes.object.isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  linkFacebook: PropTypes.func.isRequired,
 }
 const s = {
   verifiedEmail: {
