@@ -4,11 +4,13 @@ import { i18n } from '/client/configs/env'
 
 export default {
   onboardingManualVerify: {
-    submit: createOnSubmit('signup/verifyAffiliation')
+    submit: createOnSubmit('signup/verifyAffiliation', ({sweetalert}) => {
+      sweetalert({title: 'All Set', text: 'We will email you to get in touch once we verify your affiliation', type: 'success'})
+    })
   },
   onboardingAutoVerify: {
     submit: createOnSubmit('signup/alumni', ({sweetalert}) => {
-      sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)'})
+      sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)', type: 'success'})
     })
   },
   onboardingLogin: {
@@ -17,7 +19,8 @@ export default {
         if (err) {
           return sweetalert({
             title: 'Facebook Login',
-            text: err.message
+            text: err.reason || err.message, // TODO: Be consistent
+            type: 'error',
           })
         }
         return FlowRouter.go('all-mine')
@@ -27,8 +30,9 @@ export default {
       Meteor.loginWithPassword(info.email, info.password, (err) => {
         if (err) {
           return sweetalert({
-            title: 'Login',
-            text: 'Your username or password is invalid.'
+            title: 'Invalid Login',
+            text: 'Please check your email and password and try again',
+            type: 'error',
           })
         }
         return FlowRouter.go('all-mine')
