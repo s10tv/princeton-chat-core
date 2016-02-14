@@ -22,8 +22,8 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
-  loginWithFacebook: actions.login.loginWithFacebook,
-  onSubmit: actions.login.loginWithPassword,
+  loginWithFacebook: actions.onboardingLogin.loginWithFacebook,
+  onSubmit: actions.onboardingLogin.loginWithPassword,
   store: context.store,
   context: () => context
 })

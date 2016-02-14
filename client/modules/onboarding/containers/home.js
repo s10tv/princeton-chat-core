@@ -43,7 +43,7 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
-  onSubmit: actions.onboardHome.verifyAlumni,
+  onSubmit: actions.onboardingAutoVerify.submit,
   store: context.store,
   context: () => context
 })

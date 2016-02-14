@@ -35,8 +35,8 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
-  linkFacebook: actions.onboardSignup.linkWithFacebook,
-  onSubmit: actions.onboardSignup.createAccount,
+  linkFacebook: actions.onboardingSignup.linkWithFacebook,
+  onSubmit: actions.onboardingSignup.createAccount,
   store: context.store,
   context: () => context
 })

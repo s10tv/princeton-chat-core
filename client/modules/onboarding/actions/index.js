@@ -3,15 +3,15 @@ import UserService from '/lib/user.service'
 import { i18n } from '/client/configs/env'
 
 export default {
-  requestInvite: {
-    verifyAffiliation: createOnSubmit('signup/verifyAffiliation')
+  onboardingManualVerify: {
+    submit: createOnSubmit('signup/verifyAffiliation')
   },
-  onboardHome: {
-    verifyAlumni: createOnSubmit('signup/alumni', ({sweetalert}) => {
+  onboardingAutoVerify: {
+    submit: createOnSubmit('signup/alumni', ({sweetalert}) => {
       sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)'})
     })
   },
-  login: {
+  onboardingLogin: {
     loginWithFacebook ({ Meteor, FlowRouter, sweetalert }) {
       Meteor.loginWithFacebook({}, (err) => {
         if (err) {
@@ -35,7 +35,7 @@ export default {
       })
     }
   },
-  onboardSignup: {
+  onboardingSignup: {
     createAccount: createOnSubmit('welcome/signup', ({ FlowRouter }) => {
       FlowRouter.go('onboard-subscribe-channels')
     }),
@@ -54,7 +54,7 @@ export default {
       })
     }
   },
-  onboardChannels: {
+  onboardingSubscribeChannels: {
     next ({FlowRouter, sweetalert}) {
       // TODO: extract this into context
       const currentUser = UserService.currentUser()
@@ -70,7 +70,7 @@ export default {
       return FlowRouter.go('invite-friends')
     }
   },
-  onboardInvite: {
-    invite: createOnSubmit('welcome/invite')
+  onboardingInviteFriends: {
+    submit: createOnSubmit('welcome/invite')
   }
 }
