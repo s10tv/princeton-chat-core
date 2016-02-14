@@ -1,11 +1,11 @@
 import {mount} from 'react-mounter'
 
 import Home from './containers/home'
-import RequestInvite from './containers/request-invite'
+import RequestInvite from './containers/invite.request'
 import Signup from './containers/signup'
 import Login from './containers/login'
-import SubscribeChannels from './containers/subscribe-channels'
-import InviteFriends from './containers/invite-friends'
+import SubscribeChannels from './containers/subscribe.channels'
+import InviteFriends from './containers/invite.friends'
 
 function requireUserInSession (context) {
   if (!this.Meteor.userId()) {

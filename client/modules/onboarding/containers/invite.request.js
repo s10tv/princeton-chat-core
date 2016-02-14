@@ -1,6 +1,6 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import RequestInvite from '../components/request-invite.jsx'
+import RequestInvite from '../components/invite.request.jsx'
 import { manualAffiliationValidator } from '/lib/validation/onboarding'
 
 export const formConfig = {

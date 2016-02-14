@@ -1,5 +1,5 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import SubscribeChannels from '../components/subscribe-channels.jsx'
+import SubscribeChannels from '../components/subscribe.channels.jsx'
 
 import UserService from '/lib/user.service.js'
 

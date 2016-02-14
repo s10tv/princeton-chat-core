@@ -1,4 +1,4 @@
-import AddFollowers from '/client/modules/core/components/addFollowers.jsx'
+import AddFollowers from '/client/modules/core/components/add.followers.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserInfoService from '/client/lib/userinfo.service.js'
 
