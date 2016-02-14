@@ -46,7 +46,7 @@ export default React.createClass({
     /**
      * Func to show alert to login
      */
-    showSweetAlertToLogin: React.PropTypes.func
+    showLoginAlert: React.PropTypes.func
   },
 
   getInitialState () {
@@ -62,7 +62,7 @@ export default React.createClass({
   },
 
   ifLoggedInExecute (func) {
-    return this.props.isLoggedIn ? func() : this.props.showSweetAlertToLogin()
+    return this.props.isLoggedIn ? func() : this.props.showLoginAlert()
   },
 
   render () {

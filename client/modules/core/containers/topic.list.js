@@ -2,7 +2,6 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import TopicList from '/client/modules/core/components/topic.list.jsx'
 import {PageLoader} from '/client/lib/ui.jsx'
 import _ from 'underscore'
-import sweetalert from 'sweetalert'
 
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context()
@@ -16,17 +15,10 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
       return topic
     })
 
-    const showSweetAlertToLogin = () => sweetalert({
-      imageUrl: '/images/coffee.svg',
-      imageSize: '100x100',
-      text: "We'd give you access and treat you with hot chocolate. We'd even wrap you in a warm blanket. We have one slight problem though. You're not logged in :c",
-      title: 'Please log in first'
-    })
-
     const topicsSortedByFollowers = _.sortBy(topics, (topic) => topic.followersCount).reverse()
     const topicsSortedByTime = _.sortBy(topics, (topic) => topic.createdAt).reverse()
 
-    onData(null, { topics, topicsSortedByFollowers, topicsSortedByTime, showSweetAlertToLogin })
+    onData(null, { topics, topicsSortedByFollowers, topicsSortedByTime })
   }
 }
 
@@ -35,7 +27,8 @@ const depMapper = (context, actions) => ({
   showAddTopicModal: actions.topics.showAddTopicModal,
   followTopic: actions.topics.follow,
   unfollowTopic: actions.topics.unfollow,
-  navigateToTopic: actions.topics.navigateToTopic
+  navigateToTopic: actions.topics.navigateToTopic,
+  showLoginAlert: actions.global.showLoginAlert
 })
 
 export default composeAll(
