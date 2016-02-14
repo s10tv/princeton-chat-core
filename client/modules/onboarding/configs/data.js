@@ -1,5 +1,10 @@
 import _ from 'underscore'
 
+export const domains = [
+  'alumni.princeton.edu',
+  'princeton.edu',
+]
+
 export const classYears = _.range(1920, 2021).map(year => `${year}`)
 
 export const degrees = [

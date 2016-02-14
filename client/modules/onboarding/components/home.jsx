@@ -9,6 +9,7 @@ import TopicList from '/client/modules/core/containers/topic.list'
 import AddTopicModal from '/client/modules/core/containers/modal.add.topic'
 
 const Home = (props) => {
+  const {domains} = props
   const {fields: {netid, domain}, handleSubmit, error, submitting} = props
   return (
     <Layout.Window>
@@ -24,9 +25,9 @@ const Home = (props) => {
               <TextField hintText='netid' {...netid} />
               <span>@</span>
               <SelectField {...domain}>
-                <MenuItem value='alumni.princeton.edu' primaryText='alumni.princeton.edu' />
-                <MenuItem value='princeton.edu' primaryText='princeton.edu' />
-                <MenuItem value='cornell.edu' primaryText='cornell.edu' />
+                {domains.map((d) =>
+                  <MenuItem key={d} value={d} primaryText={d} />
+                )}
               </SelectField>
             </div>
             <br />
@@ -37,7 +38,7 @@ const Home = (props) => {
             {error && <p style={style.error}>{error}</p>}
             <br />
             <FlatButton type='submit' style={style.button} label='Get Invited' disabled={submitting}
-              backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
+                        backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
             {submitting && <LinearProgress color={color.brand.primary} />}
           </form>
         </div>
@@ -52,11 +53,14 @@ const Home = (props) => {
 // icon={<CircularProgress size={0.4} />} labelPosition='after'
 // TODO: Specify the shape of a field
 Home.propTypes = {
+  domains: PropTypes.arrayOf(PropTypes.string).isRequired,
   fields: PropTypes.shape({
     netid: PropTypes.object.isRequired,
     domain: PropTypes.object.isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  error: PropTypes.string,
 }
 const s = {
   mainLogo: {

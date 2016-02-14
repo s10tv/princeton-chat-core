@@ -1,17 +1,18 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import {autoAffiliationValidator} from '/lib/validation'
+import {autoVerifyValidator} from '/lib/validation/onboarding'
 import {trim} from '/lib/normalization'
 import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
+import {domains} from '../configs/data'
 
 export const formConfig = {
   form: 'onboarding/auto-verify',
   fields: ['netid', 'domain'],
   initialValues: {
-    domain: 'alumni.princeton.edu'
+    domain: domains[0]
   },
-  validate: autoAffiliationValidator,
+  validate: autoVerifyValidator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {
@@ -37,7 +38,7 @@ export const composer = ({context}, onData) => {
     }
 
     const topics = Collections.Topics.find().fetch()
-    onData(null, {topics})
+    onData(null, {topics, domains})
   }
 }
 

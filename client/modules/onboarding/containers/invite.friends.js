@@ -1,7 +1,7 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import InviteFriends from '../components/invite.friends.jsx'
-import { inviteValidator } from '/lib/validation/onboarding'
+import { inviteFriendsValidator } from '/lib/validation/onboarding'
 
 export const formConfig = {
   form: 'onboarding/invite-friends',
@@ -13,7 +13,7 @@ export const formConfig = {
   initialValues: {
     invitees: [{}, {}, {}]
   },
-  validate: inviteValidator
+  validate: inviteFriendsValidator
 }
 
 export const composer = ({context}, onData) => {
