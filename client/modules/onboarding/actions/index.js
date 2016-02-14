@@ -37,7 +37,7 @@ export default {
   },
   onboardingSignup: {
     createAccount: createOnSubmit('welcome/signup', ({ FlowRouter }) => {
-      FlowRouter.go('onboard-subscribe-channels')
+      FlowRouter.go('onboarding-subscribe-channels')
     }),
     linkWithFacebook ({Meteor, FlowRouter, sweetalert}) {
       Meteor.linkWithFacebook({}, (err) => {
@@ -67,7 +67,7 @@ export default {
         })
       }
 
-      return FlowRouter.go('invite-friends')
+      return FlowRouter.go('onboarding-invite-friends')
     }
   },
   onboardingInviteFriends: {
