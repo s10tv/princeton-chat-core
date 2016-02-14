@@ -26,16 +26,17 @@ export default {
         return FlowRouter.go('all-mine')
       })
     },
-    loginWithPassword ({Meteor, sweetalert}, info) {
-      Meteor.loginWithPassword(info.email, info.password, (err) => {
-        if (err) {
-          return sweetalert({
-            title: 'Invalid Login',
-            text: 'Please check your email and password and try again',
-            type: 'error',
-          })
-        }
-        return FlowRouter.go('all-mine')
+    loginWithPassword ({Meteor}, info) {
+      return new Promise((resolve, reject) => {
+        Meteor.loginWithPassword(info.email, info.password, (err) => {
+          if (err) {
+            const msg = 'Invalid login. Please check your email and password and try again'
+            reject({_error: err.error === 403 ? msg : err.reason})
+          } else {
+            resolve()
+            FlowRouter.go('all-mine')
+          }
+        })
       })
     }
   },

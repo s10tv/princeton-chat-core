@@ -2,14 +2,14 @@
 /*eslint-disable comma-dangle */
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
-import {TextField, FlatButton, OrDivider, PageControl} from '/client/lib/ui.jsx'
+import {TextField, FlatButton, OrDivider, LinearProgress} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
 
 const Login = (props) => {
-  const {fields: {email, password},
-    handleSubmit, verifiedEmail, loginWithFacebook} = props
+  const {fields: {email, password}, handleSubmit, error, submitting} = props
+  const {loginWithFacebook} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -31,8 +31,11 @@ const Login = (props) => {
             <TextField floatingLabelText='Email' fullWidth={true} {...email} />
             <TextField floatingLabelText='Password' type='password' fullWidth={true} {...password} />
             <br />
-            <FlatButton type='submit' style={style.button} label='Login'
+            {error && <p style={style.error}>{error}</p>}
+            <br />
+            <FlatButton type='submit' style={style.button} label='Login' disabled={submitting}
                         backgroundColor={color.green} hoverColor={color.lightGreen} />
+            {submitting && <LinearProgress color={color.brand.primary} />}
           </form>
         </div>
       </Layout.Sidebar>
@@ -41,25 +44,16 @@ const Login = (props) => {
     </Layout.Window>
   )
 }
-// TODO: Specify the shape of a field
+
 Login.propTypes = {
   fields: PropTypes.shape({
     email: PropTypes.object.isRequired,
     password: PropTypes.object.isRequired
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  error: PropTypes.string,
   loginWithFacebook: PropTypes.func.isRequired
-}
-const s = {
-  verifiedEmail: {
-    textAlign: 'center',
-    marginTop: spacing.x2,
-    marginBottom: spacing.x4,
-    fontSize: fontSize.lg
-  },
-  nameRow: {
-    display: 'flex'
-  }
 }
 
 export default Radium(Login)
