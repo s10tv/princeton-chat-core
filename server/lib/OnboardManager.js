@@ -106,7 +106,7 @@ export default class OnboardManager {
 
     const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
     if (this.postmarkKey.length === 0) {
-      return `[Dev] Would have sent invite link ${inviteUrl} to ${email}`
+      return console.log(`[Dev] Would have sent invite link ${inviteUrl} to ${email}`)
     }
 
     const Future = Meteor.npmRequire('fibers/future')
