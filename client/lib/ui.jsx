@@ -103,7 +103,7 @@ export const PageLoader = () => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '100vw',
+      //width: '100vw',
       height: '100vh',
     },
     span: {

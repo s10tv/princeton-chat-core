@@ -15,9 +15,10 @@ const Login = (props) => {
       <Layout.Sidebar>
         <header style={style.sidebarHeader}>
           <span style={style.sidebarLogo}>Princeton.Chat</span>
+          <a style={style.sidebarLink} href='/'>Sign up</a>
         </header>
         <div style={style.sidebarInner}>
-          <h1 style={style.h1}>Welcome Back</h1>
+          <h1 style={style.h1}>Welcome Back Tiger</h1>
           <form style={style.form} onSubmit={handleSubmit}>
             <FlatButton
               icon={<i className='fa fa-facebook' />}

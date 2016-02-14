@@ -50,7 +50,6 @@ const Home = (props) => {
     </Layout.Window>
   )
 }
-// icon={<CircularProgress size={0.4} />} labelPosition='after'
 // TODO: Specify the shape of a field
 Home.propTypes = {
   domains: PropTypes.arrayOf(PropTypes.string).isRequired,
