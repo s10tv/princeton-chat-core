@@ -18,11 +18,11 @@ class InviteFriends extends React.Component {
             <span style={style.sidebarLogo}>Princeton.Chat</span>
           </header>
           <div style={style.sidebarInner}>
-            <h2>Better with friends</h2>
+            <h1 style={style.h1}>Better with friends</h1>
             <p>
               Who were your three best friends from Princeton? Get them to join you on Princeton.Chat.
             </p>
-            <form style={s.inviteForm} onSubmit={handleSubmit}>
+            <form style={style.form} onSubmit={handleSubmit}>
               {invitees.map(({email, firstName, lastName}, index) =>
                 <div key={index} style={s.row}>
                   <TextField floatingLabelText='Email' {...email} />
@@ -68,13 +68,6 @@ const s = {
   row: {
     display: 'flex',
     alignItems: 'flex-end',
-  },
-  inviteForm: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    marginBottom: spacing.x6,
   },
 }
 export default Radium(InviteFriends)

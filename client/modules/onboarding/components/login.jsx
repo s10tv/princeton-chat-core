@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react'
 import Radium from 'radium'
 import {TextField, FlatButton, OrDivider, PageControl} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/configs/theme'
-import style from './style'
+import style from '../configs/style'
 import Layout from './layout'
 
 const Login = (props) => {
