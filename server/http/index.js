@@ -6,6 +6,7 @@ import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
 import EmailSignup from '../emails/signup.jsx'
+import EmailInvite from '../emails/invite.jsx'
 import htmlEmail from '../emails/html.layout'
 import htmlPage from './html'
 
@@ -63,6 +64,20 @@ export default function () {
         body: ReactDOMServer.renderToStaticMarkup(
           React.createElement(EmailSignup, {
             inviteLink: 'http://localhost/fake-link'
+          })
+        )
+      })
+    },
+
+
+    '/e/invite-alum': function() {
+      return htmlEmail({
+        title: 'a title here',
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(EmailInvite, {
+            senderName: 'Tony',
+            firstName: 'Qiming',
+            inviteUrl: 'http://localhost/fake-link'
           })
         )
       })

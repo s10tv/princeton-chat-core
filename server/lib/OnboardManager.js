@@ -11,6 +11,8 @@ import { princeton } from '/lib/validation'
 
 import htmlEmail from '../emails/html.layout'
 import EmailSignup from '../emails/signup.jsx'
+import EmailInvite from '../emails/invite.jsx'
+import EmailNonAlumniInvite from '../emails/inviteNonAlum.jsx'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
@@ -19,6 +21,10 @@ const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
 export default class OnboardManager {
 
+  constructor() {
+    this.audience = 'Princeton.Chat'
+  }
+
   verifyAlumni (options) {
     const errors = autoVerifyValidator(options)
     if (errors.length > 0) {
@@ -26,7 +32,34 @@ export default class OnboardManager {
     }
 
     const { netid, domain } = options
-    return this.__generateInviteForPrincetonAlum({email: `${netid}@${domain}`})
+    const invite = this.__generateInvite({email: `${netid}@${domain}`})
+    const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${invite.inviteCode}`
+    const subject = process.env.INVITE_EMAIL_SUBJECT || `[${this.audience}] hurrah, hurrah, hurrah. Almost there.`
+
+    Email.send({
+      from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
+      to: invite.email,
+      subject: subject,
+      html: htmlEmail({
+        title: subject,
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(EmailSignup, {
+            inviteLink: inviteUrl
+          })
+        )
+      })
+    })
+
+    if (process.env.MAIL_URL) {
+      slack.send({
+        icon_emoji: slackEmoji,
+        text: `Sent a welcome email to ${email}.`,
+        username: slackUsername
+      })
+    }
+
+    this.__sendEmailInvite({ email: invite.email, inviteCode: invite.inviteCode })
+    return invite.inviteCode
   }
 
   verifyAffiliation (options) {
@@ -50,7 +83,7 @@ export default class OnboardManager {
     return invite.inviteCode
   }
 
-  handleInvites (invitees) {
+  handleInvites (user, invitees) {
     invitees.forEach(({ email, firstName, lastName }) => {
       if (!email) {
         return
@@ -59,10 +92,15 @@ export default class OnboardManager {
       if (princeton(email) === undefined) {
         const existingUser = Accounts.findUserByEmail(email)
         if (!existingUser) {
-          this.__sendAlumInviteEmail({ email, firstName, lastName })
+          this.__sendAffiliatedInviteEmail({ email, firstName, lastName, sender: user })
         }
       } else {
-        this.__sendNonPrincetonAlumInviteEmail({ email, firstName, lastName })
+        this.__sendNonAffiliatedInviteEmail({
+          email,
+          firstName,
+          lastName,
+          sender: user
+        })
       }
     })
   }
@@ -77,41 +115,24 @@ export default class OnboardManager {
     Accounts.setPassword(user._id, password, { logout: false })
   }
 
-  __sendAlumInviteEmail ({ email, firstName, lastName }) {
-    console.log('sending alum invite email to ' + email)
-  }
+  __sendAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
+    const subject = `[${this.audience}] Invite from ${sender.firstName}`
+    const invite = this.__generateInvite({email})
+    const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${invite.inviteCode}`
 
-  __sendNonPrincetonAlumInviteEmail ({ email, firstName, lastName }) {
-    console.log('sending non-alum invite email to ' + email)
-  }
-
-  __generateInviteForPrincetonAlum ({ email }) {
-    const invite = {
-      email,
-      inviteCode: Random.id(),
-      status: 'sent'
-    }
-
-    Invites.insert(invite)
-    this.__sendEmailInvite(invite)
-
-    return invite.inviteCode
-  }
-
-  __sendEmailInvite ({ email, inviteCode }) {
-    check(email, String)
-    check(inviteCode, String)
-
-    const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
     Email.send({
       from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
       to: email,
-      subject: process.env.INVITE_EMAIL_SUBJECT || '[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.',
+      subject: subject,
       html: htmlEmail({
-        title: '[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.',
+        title: subject,
         body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(EmailSignup, {
-            inviteLink: inviteUrl
+          React.createElement(EmailInvite, {
+            // TODO: firstName and/or lastName could be undefined (if user logged in with FB)
+            senderName: `${sender.firstName} ${sender.lastName}`,
+            firstName,
+            lastName,
+            inviteUrl
           })
         )
       })
@@ -119,11 +140,53 @@ export default class OnboardManager {
 
     if (process.env.MAIL_URL) {
       slack.send({
-        icon_emoji: slackEmoji,
-        text: `Sent a welcome email to ${email}.`,
+        icon_emoji: ':mailbox:',
+        text: `Sent alum-invite welcome email to ${email}.`,
         username: slackUsername
       })
     }
+  }
+
+  __sendNonAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
+    const subject = `[${this.audience}] Invite from ${sender.firstName}`
+
+    Email.send({
+      from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
+      to: email,
+      subject: subject,
+      html: htmlEmail({
+        title: subject,
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(EmailNonAlumniInvite, {
+            firstName,
+            lastName,
+            rootURL: this.__stripTrailingSlash(process.env.ROOT_URL)
+          })
+        )
+      })
+    })
+
+    if (process.env.MAIL_URL) {
+      slack.send({
+        icon_emoji: ':alien',
+        text: `Sent non-alum-invite welcome email to ${email}.`,
+        username: slackUsername
+      })
+    }
+  }
+
+  __generateInvite ({ email, firstName, lastName }) {
+    const invite = {
+      email,
+      firstName,
+      lastName,
+      inviteCode: Random.id(),
+      status: 'sent'
+    }
+
+    Invites.insert(invite)
+
+    return invite
   }
 
   __stripTrailingSlash (str) {

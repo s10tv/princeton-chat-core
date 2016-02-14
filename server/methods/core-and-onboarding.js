@@ -343,9 +343,11 @@ export default function () {
       }})
     },
 
-    'welcome/invite': ({invitees}) => {
-      check(invitees, [Object])
-      return new OnboardManager().handleInvites(invitees)
+    'welcome/invite': (options) => {
+      check(options, Object)
+      const { invitees } = options;
+      const user = CurrentUser.get()
+      return new OnboardManager().handleInvites(user, invitees)
     },
 
     'welcome/setLoginService': (serviceName) => {
