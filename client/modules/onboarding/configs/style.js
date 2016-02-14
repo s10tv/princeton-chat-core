@@ -42,7 +42,6 @@ export default {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
   },
   button: {
     textTransform: 'inherit',

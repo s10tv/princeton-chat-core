@@ -20,25 +20,28 @@ class InviteFriends extends React.Component {
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Better with friends</h1>
             <p>
-              Who were your three best friends from Princeton? Get them to join you on Princeton.Chat.
+              Who were your two best friends from Princeton? Get them to join you on Princeton.Chat.
             </p>
             <form style={style.form} onSubmit={handleSubmit}>
               {invitees.map(({email}, index) =>
                 <div key={index} style={s.row}>
                   <TextField floatingLabelText='Email' {...email} style={s.email}/>
-                  <IconButton onTouchTap={() => invitees.removeField(index)} tabIndex={-1}>
-                    <FontIcon className='material-icons'>close</FontIcon>
-                  </IconButton>
+                  {invitees.length > 1 ?
+                    <IconButton onTouchTap={() => invitees.removeField(index)} tabIndex={-1}>
+                      <FontIcon className='material-icons'>close</FontIcon>
+                    </IconButton> : 
+                    <div style={{width: 48}} />
+                  }
                 </div>
               )}
               <br />
               {error && <p style={style.error}>{error}</p>}
-              <FlatButton label='Add Another' onTouchTap={() => invitees.addField()}/>
+              <a href='#' style={s.addAnother} onClick={() => invitees.addField()}>Add another</a>
               <br />
               <FlatButton type='submit' style={style.button} label='Invite' disabled={submitting}
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
-              <a style={s.skip} href='/all-mine'>Or skip for now</a>
+              <a style={s.skip} href='/all-mine' tabIndex={-1}>Or skip for now</a>
               <PageControl total={3} current={2} />
             </form>
           </div>
@@ -77,10 +80,14 @@ const s = {
   email: {
     flex: 1,
   },
+  addAnother: {
+    color: color.white,
+    fontSize: fontSize.sm,
+  },
   skip: {
     alignSelf: 'flex-end',
     marginTop: spacing.x1,
-    color: color.gray,
+    color: color.white,
     fontSize: fontSize.xs,
   }
 }

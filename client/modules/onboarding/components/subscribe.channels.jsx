@@ -35,6 +35,7 @@ const SubscribeChannels = (props) => {
             backgroundColor={hasSelectedThreeChannels ? color.green : color.gray}
             hoverColor={color.lightGreen}
             onTouchTap={onNext} />
+          <br />
           <PageControl total={3} current={1} />
         </div>
       </Layout.Sidebar>
