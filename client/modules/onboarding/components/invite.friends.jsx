@@ -1,8 +1,8 @@
 /*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import {TextField, FlatButton, FontIcon, IconButton, PageControl} from '/client/lib/ui.jsx'
-import {color, spacing} from '/client/configs/theme'
+import {TextField, FlatButton, FontIcon, IconButton, PageControl, LinearProgress} from '/client/lib/ui.jsx'
+import {color, spacing, fontSize} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
 
@@ -10,7 +10,7 @@ import Layout from './layout'
 class InviteFriends extends React.Component {
 
   render () {
-    const {fields: {invitees}, handleSubmit} = this.props
+    const {fields: {invitees}, handleSubmit, error, submitting} = this.props
     return (
       <Layout.Window>
         <Layout.Sidebar>
@@ -23,23 +23,23 @@ class InviteFriends extends React.Component {
               Who were your three best friends from Princeton? Get them to join you on Princeton.Chat.
             </p>
             <form style={style.form} onSubmit={handleSubmit}>
-              {invitees.map(({email, firstName, lastName}, index) =>
+              {invitees.map(({email}, index) =>
                 <div key={index} style={s.row}>
-                  <TextField floatingLabelText='Email' {...email} />
-                  <div style={style.horizontalSpacer} />
-                  <TextField floatingLabelText='First Name' hintText='(optional)' {...firstName} />
-                  <div style={style.horizontalSpacer} />
-                  <TextField floatingLabelText='Last Name' hintText='(optional)' {...lastName} />
-                  <IconButton onTouchTap={() => invitees.removeField(index)}>
+                  <TextField floatingLabelText='Email' {...email} style={s.email}/>
+                  <IconButton onTouchTap={() => invitees.removeField(index)} tabIndex={-1}>
                     <FontIcon className='material-icons'>close</FontIcon>
                   </IconButton>
                 </div>
               )}
+              <br />
+              {error && <p style={style.error}>{error}</p>}
               <FlatButton label='Add Another' onTouchTap={() => invitees.addField()}/>
               <br />
-              <FlatButton type='submit' style={style.button} label='Invite'
-                          backgroundColor={color.green} hoverColor={color.lightGreen} />
-                        <PageControl total={3} current={2} />
+              <FlatButton type='submit' style={style.button} label='Invite' disabled={submitting}
+                backgroundColor={color.green} hoverColor={color.lightGreen} />
+              {submitting && <LinearProgress color={color.brand.primary} />}
+              <a style={s.skip} href='/all-mine'>Or skip for now</a>
+              <PageControl total={3} current={2} />
             </form>
           </div>
         </Layout.Sidebar>
@@ -49,7 +49,11 @@ class InviteFriends extends React.Component {
     )
   }
 }
-
+// NOTE: We are not currently using first and last name at the moment
+// <div style={style.horizontalSpacer} />
+// <TextField floatingLabelText='First Name' hintText='(optional)' {...firstName} />
+// <div style={style.horizontalSpacer} />
+// <TextField floatingLabelText='Last Name' hintText='(optional)' {...lastName} />
 const inviteeShape = PropTypes.shape({
   firstName: PropTypes.object.isRequired,
   lastName: PropTypes.object.isRequired,
@@ -60,7 +64,9 @@ InviteFriends.propTypes = {
   fields: PropTypes.shape({
     invitees: PropTypes.arrayOf(inviteeShape).isRequired
   }).isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  error: PropTypes.string,
 }
 
 const s = {
@@ -68,5 +74,14 @@ const s = {
     display: 'flex',
     alignItems: 'flex-end',
   },
+  email: {
+    flex: 1,
+  },
+  skip: {
+    alignSelf: 'flex-end',
+    marginTop: spacing.x1,
+    color: color.gray,
+    fontSize: fontSize.xs,
+  }
 }
 export default Radium(InviteFriends)
