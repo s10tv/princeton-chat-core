@@ -27,6 +27,12 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
       mount(injectDeps(Home))
     }
   })
+  FlowRouter.route('/request-invite', {
+    name: 'manual-invite',
+    action () {
+      mount(injectDeps(RequestInvite))
+    }
+  })
   FlowRouter.route('/login', {
     name: 'login',
     action () {
@@ -81,42 +87,6 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
-    action () {
-      mount(injectDeps(InviteFriends))
-    }
-  })
-
-  // begin private paths
-
-  FlowRouter.route('/o/', {
-    name: 'o-onboarding-home',
-    action () {
-      mount(injectDeps(Home))
-    }
-  })
-  FlowRouter.route('/o/signup', {
-    name: 'o-onboarding-signup',
-    action () {
-      mount(injectDeps(Signup))
-    }
-  })
-  FlowRouter.route('/o/request-invite', {
-    name: 'o-request-invite',
-    action () {
-      mount(injectDeps(RequestInvite))
-    }
-  })
-  FlowRouter.route('/o/subscribe-channels', {
-    name: 'o-subscribe-channels',
-    subscriptions: function () {
-      this.register('userData', Meteor.subscribe('userData'))
-    },
-    action () {
-      mount(injectDeps(SubscribeChannels))
-    }
-  })
-  FlowRouter.route('/o/invite-friends', {
-    name: 'o-invite-friends',
     action () {
       mount(injectDeps(InviteFriends))
     }
