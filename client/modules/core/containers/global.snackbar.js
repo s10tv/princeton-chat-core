@@ -16,7 +16,7 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
-  closeSnackbar: actions.onboarding.closeSnackbar,
+  closeSnackbar: actions.global.closeSnackbar,
   context: () => context
 })
 

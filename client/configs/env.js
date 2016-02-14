@@ -1,8 +1,5 @@
 import { Meteor } from 'meteor/meteor'
 import {_} from 'meteor/underscore'
-import SignupPrinceton from '/client/modules/core/components/signup/signup-princeton.jsx'
-import SignupPed from '/client/modules/core/components/signup/signup-ped.jsx'
-import SignupS10 from '/client/modules/core/components/signup/signup-s10.jsx'
 import { DocHead } from 'meteor/kadira:dochead'
 
 import {
@@ -103,19 +100,16 @@ let Env = {
 }
 
 Env.princeton = _.extend(Env.princeton, {
-  signupComponent: SignupPrinceton,
   primaryMuiTheme,
   secondaryMuiTheme
 })
 
 Env.s10 = _.extend(Env.s10, {
-  signupComponent: SignupS10,
   primaryMuiTheme,
   secondaryMuiTheme
 })
 
 Env.ped = _.extend(Env.ped, {
-  signupComponent: SignupPed,
   primaryMuiTheme: pedPrimaryMuiTheme,
   secondaryMuiTheme: pedSecondaryMuiTheme
 })

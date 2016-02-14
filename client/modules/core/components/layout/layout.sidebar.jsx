@@ -4,7 +4,6 @@ import LeftNav from '../../../../../node_modules/material-ui/lib/left-nav'
 import List from '../../../../../node_modules/material-ui/lib/lists/list'
 import ListItem from '../../../../../node_modules/material-ui/lib/lists/list-item'
 import FlatButton from '../../../../../node_modules/material-ui/lib/flat-button'
-import SidebarOverlay from '/client/modules/core/components/onboarding/sidebar.overlay.jsx'
 import {SmallListItem, MediumListItem, LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 import RaisedButton from '../../../../../node_modules/material-ui/lib/raised-button'
 import FontIcon from '../../../../../node_modules/material-ui/lib/font-icon'
@@ -89,8 +88,6 @@ export default React.createClass({
     navigateTo: React.PropTypes.func.isRequired,
     showAddPostPopupFn: React.PropTypes.func.isRequired,
     currentRouterPath: React.PropTypes.string.isRequired,
-    showOverlay: React.PropTypes.bool.isRequired,
-    sidebarOpen: React.PropTypes.bool.isRequired,
     onTapSettings: React.PropTypes.func.isRequired,
     showAllTopics: React.PropTypes.func.isRequired
   },
@@ -112,17 +109,6 @@ export default React.createClass({
   },
 
   render () {
-    if (this.props.showOverlay) {
-      return (
-        <LeftNav
-          open={this.props.sidebarOpen}
-          style={{display: 'flex', flexDirection: 'column'}}
-          width={240} >
-          <SidebarOverlay />
-        </LeftNav>
-      )
-    }
-
     return (
       <LeftNav open={this.props.sidebarOpen} width={240} style={
           Object.assign({}, {display: 'flex', flexDirection: 'column'})}>

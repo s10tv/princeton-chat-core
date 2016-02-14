@@ -4,14 +4,17 @@ import messages from './messages'
 import settings from './settings'
 import profile from './profile'
 import postfollowers from './postfollowers'
-import signup from './signup'
 
 export default {
   posts,
   messages,
-  signup,
   topics,
   profile,
   settings,
-  postfollowers
+  postfollowers,
+  global: {
+    closeSnackbar: ({ LocalState }) => {
+      LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', null)
+    }
+  }
 }

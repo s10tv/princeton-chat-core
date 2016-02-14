@@ -23,8 +23,7 @@ export const composer = ({context}, onData) => {
         followedTopics,
         navigateTo,
         FlowRouter,
-        currentRouterPath,
-        showOverlay: user.status !== 'active'
+        currentRouterPath
       })
     }
   }

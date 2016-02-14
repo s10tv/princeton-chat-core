@@ -5,8 +5,6 @@ import LayoutMain from '/client/modules/core/components/layout/layout.jsx'
 import PostList from '/client/modules/core/containers/post.list.js'
 import PostDetails from '/client/modules/core/containers/post.details.js'
 import TopicList from '/client/modules/core/containers/topic.list.js'
-import SignupDone from '/client/modules/core/containers/signup.done.js'
-import Login from '/client/modules/core/containers/login.js'
 import GuestIndex from '/client/modules/guest/containers/guestIndex.js'
 import AddFollowers from '/client/modules/core/containers/add.followers.js'
 
@@ -24,17 +22,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
   })
 
   const LayoutMainCtx = injectDeps(LayoutMain)
-  const LoginWithCtx = injectDeps(Login)
-  const SignupDoneWithCtx = injectDeps(SignupDone)
   const GuestIndexCtx = injectDeps(GuestIndex)
-
-  function redirectToAllMine (context) {
-    if (Meteor.userId()) {
-      return FlowRouter.go('all-mine')
-    }
-  }
-  // logged in users should be redirected to all-mine when they visit '/'
-  FlowRouter.triggers.enter([redirectToAllMine], {only: ['signup']})
 
   FlowRouter.route('/guest', {
     name: 'guest',
@@ -49,20 +37,6 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
           mount(GuestIndexCtx)
         }
       })
-    }
-  })
-
-  FlowRouter.route('/signed-up', {
-    name: 'signup-done',
-    action () {
-      mount(SignupDoneWithCtx)
-    }
-  })
-
-  FlowRouter.route('/login', {
-    name: 'login',
-    action () {
-      mount(LoginWithCtx)
     }
   })
 
