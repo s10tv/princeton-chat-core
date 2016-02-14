@@ -5,6 +5,8 @@ import {Posts, Users} from '/lib/collections'
 import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
+import EmailSignup from '../emails/signup.jsx'
+import htmlEmail from '../emails/html.layout'
 import htmlPage from './html'
 
 export default function () {
@@ -50,6 +52,17 @@ export default function () {
             followLink: `/guest/posts/${postId}/follow?userId=${userId}&hash=${hash}`,
             unfollowLink: `/guest/posts/${postId}/unfollow?userId=${userId}&hash=${hash}`,
             editTopicsLink: `/guest?userId=${userId}&hash=${hash}`
+          })
+        )
+      })
+    },
+
+    '/e/signup': function() {
+      return htmlEmail({
+        title: '[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.',
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(EmailSignup, {
+            inviteLink: 'http://localhost/fake-link'
           })
         )
       })

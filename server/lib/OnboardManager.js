@@ -1,10 +1,16 @@
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
+import { Email } from 'meteor/email'
 import { Random } from 'meteor/random'
 import { check } from 'meteor/check'
 import { Invites, Users } from '/lib/collections'
 import { autoVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
+
+import htmlEmail from '../emails/html.layout'
+import EmailSignup from '../emails/signup.jsx'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
@@ -12,14 +18,6 @@ const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
 const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
 export default class OnboardManager {
-
-  constructor () {
-    const postmark = Meteor.npmRequire('postmark')
-    this.postmarkKey = process.env.POSTMARK_API_KEY || ''
-    if (this.postmarkKey.length > 0) {
-      this.postmarkClient = new postmark.Client(postmarkKey)
-    }
-  }
 
   verifyAlumni (options) {
     const errors = autoVerifyValidator(options)
@@ -105,37 +103,27 @@ export default class OnboardManager {
     check(inviteCode, String)
 
     const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
-    if (this.postmarkKey.length === 0) {
-      return console.log(`[Dev] Would have sent invite link ${inviteUrl} to ${email}`)
-    }
-
-    const Future = Meteor.npmRequire('fibers/future')
-    const future = new Future()
-    const onComplete = future.resolver()
-
-    this.postmarkClient.sendEmailWithTemplate({
-      'From': process.env.POSTMARK_SENDER_SIG || 'notifications@princeton.chat',
-      'To': email,
-      'TemplateId': process.env.POSTMARK_WELCOME_TEMPLATE_ID || 354341,
-      'TemplateModel': {
-        inviteLink: inviteUrl
-      }
-    }, onComplete)
-
-    Future.wait(future)
-    try {
-      future.get()
-    } catch (err) {
-      console.log('Received error from Postmark. Perhaps templateId or sender sig is wrong?')
-      console.log(err.stack)
-      return
-    }
-
-    slack.send({
-      icon_emoji: slackEmoji,
-      text: `Sent a welcome email to ${email}.`,
-      username: slackUsername
+    Email.send({
+      from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
+      to: email,
+      subject: process.env.INVITE_EMAIL_SUBJECT || '[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.',
+      html: htmlEmail({
+        title: '[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.',
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(EmailSignup, {
+            inviteLink: inviteUrl
+          })
+        )
+      })
     })
+
+    if (process.env.MAIL_URL) {
+      slack.send({
+        icon_emoji: slackEmoji,
+        text: `Sent a welcome email to ${email}.`,
+        username: slackUsername
+      })
+    }
   }
 
   __stripTrailingSlash (str) {

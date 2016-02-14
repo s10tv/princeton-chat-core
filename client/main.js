@@ -4,15 +4,13 @@ import {initContext} from '/client/configs/context'
 import {localize} from '/client/configs/env'
 import core from '/client/modules/core'
 import onboarding from '/client/modules/onboarding'
-import email from '/client/modules/email'
 
 injectTapEventPlugin()
 localize()
 
-const context = initContext({onboarding, core, email})
+const context = initContext({onboarding, core})
 
 const app = createApp(context)
-app.loadModule(email)
 app.loadModule(onboarding)
 app.loadModule(core)
 app.init()
