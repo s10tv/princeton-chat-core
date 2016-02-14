@@ -9,7 +9,7 @@ import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
 
 const SubscribeChannels = (props) => {
-  const {channels, onNext, isLoggedIn} = props
+  const {channels, onNext, hasSelectedThreeChannels, isLoggedIn} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -25,9 +25,13 @@ const SubscribeChannels = (props) => {
               <li key={channel._id}>#{channel.displayName}</li>
             )}
           </ul>
-          <FlatButton style={style.button} label='Next'
-                      backgroundColor={color.green} hoverColor={color.lightGreen}
-                      onTouchTap={onNext} />
+          <FlatButton
+            style={style.button}
+            disabled={!hasSelectedThreeChannels}
+            label='Next'
+            backgroundColor={hasSelectedThreeChannels ? color.green : color.gray}
+            hoverColor={color.lightGreen}
+            onTouchTap={onNext} />
           <PageControl total={3} current={1} />
         </div>
       </Layout.Sidebar>
@@ -40,6 +44,8 @@ const SubscribeChannels = (props) => {
 // TODO: Specify the shape of a field
 SubscribeChannels.propTypes = {
   channels: PropTypes.array.isRequired,
+  hasSelectedThreeChannels: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 }
 // const s = {
 // }

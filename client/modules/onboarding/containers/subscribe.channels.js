@@ -16,6 +16,7 @@ export const composer = ({context}, onData) => {
 
       onData(null, {
         isLoggedIn: true,
+        hasSelectedThreeChannels: user.followingTopics.length >= 3,
         channels: channels
       })
     }
