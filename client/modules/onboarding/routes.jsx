@@ -19,7 +19,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
   const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
 
   FlowRouter.route('/', {
-    name: 'onboarding/auto-verify',
+    name: 'onboarding-auto-verify',
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
@@ -28,19 +28,19 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     }
   })
   FlowRouter.route('/request-invite', {
-    name: 'onboarding/manual-verify',
+    name: 'onboarding-manual-verify',
     action () {
       mount(injectDeps(RequestInvite))
     }
   })
   FlowRouter.route('/login', {
-    name: 'onboarding/login',
+    name: 'onboarding-login',
     action () {
       mount(injectDeps(Login))
     }
   })
   FlowRouter.route('/invite/:inviteId', {
-    name: 'onboarding/redeem-invite',
+    name: 'onboarding-redeem-invite',
     action ({ inviteId }) {
       Accounts.callLoginMethod({
         methodArguments: [{ invite: inviteId }],
@@ -51,17 +51,18 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
               text: `Seems like your invite code is invlid or has already expired. \
                 If retrying the invite link still doesn't work, please reply to the invite \
                 email and we will investigate it.`
+            }, () => {
+              FlowRouter.go('onboarding-login')
             })
-            return FlowRouter.go('login')
+          } else {
+            FlowRouter.go('onboarding-signup')
           }
-
-          FlowRouter.go('onboard-signup')
         }
       })
     }
   })
   FlowRouter.route('/welcome/signup', {
-    name: 'onboarding/signup',
+    name: 'onboarding-signup',
     triggersEnter: [requireUserInSessionFn],
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
@@ -71,7 +72,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     }
   })
   FlowRouter.route('/welcome/subscribe-channels', {
-    name: 'onboarding/subscribe-channels',
+    name: 'onboarding-subscribe-channels',
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
@@ -82,7 +83,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
   })
 
   FlowRouter.route('/welcome/invite-friends', {
-    name: 'onboarding/invite-friends',
+    name: 'onboarding-invite-friends',
     triggersEnter: [requireUserInSessionFn],
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
