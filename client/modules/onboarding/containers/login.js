@@ -1,15 +1,12 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import {createValidator, minLength, maxLength, required, email} from '/lib/validation'
+import {loginValidator} from '/lib/validation/onboarding'
 import Login from '../components/login.jsx'
 
 export const formConfig = {
   form: 'onboarding/login',
   fields: ['email', 'password'],
-  validate: createValidator({
-    email: [required, email],
-    password: [required, minLength(6), maxLength(50)]
-  }),
+  validate: loginValidator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {

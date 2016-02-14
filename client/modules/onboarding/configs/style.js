@@ -13,6 +13,7 @@ export default {
   sidebarInner: {
     flex: 1,
     marginTop: spacing.x6,
+    minWidth: 320,
     maxWidth: 320,
     alignSelf: 'center',
     display: 'flex',
