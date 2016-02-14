@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
+import Radium from 'radium'
 import {i18n} from '/client/configs/env'
 
 class Main extends React.Component {
@@ -7,7 +8,7 @@ class Main extends React.Component {
   }
   render () {
     return (
-      <main style={style.main}>
+      <main style={[style.main, style.background(this.props.backgroundUrl)]}>
         {this.props.children}
       </main>
     )
@@ -16,13 +17,21 @@ class Main extends React.Component {
 Main.childContextTypes = {
   muiTheme: React.PropTypes.object
 }
+Main.propTypes = {
+  backgroundUrl: PropTypes.string,
+}
 
 const style = {
   main: {
     flex: 6,
-    // backgroundImage: 'url(/images/bg-blair-arch-people.jpg)',
-    // backgroundSize: 'cover',
+  },
+  background(url) {
+    return url ? {
+      backgroundImage: `url(${url})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    } : null
   }
 }
 
-export default Main
+export default Radium(Main)

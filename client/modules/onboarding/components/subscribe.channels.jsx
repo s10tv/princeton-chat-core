@@ -16,8 +16,9 @@ const SubscribeChannels = (props) => {
         <header style={style.sidebarHeader}>
           <span style={style.sidebarLogo}>Princeton.Chat</span>
         </header>
-        <div style={style.sidebarInner}>
+        <div style={[style.sidebarInner, s.sidebarInner]}>
           <h1 style={style.h1}>Tell us what you are interested in</h1>
+          <img style={s.img} src='/images/ic-handrawn-arrow-right.png' alt='Use the list on the right to subscribe'/>
           <p>You get notified when someone posts in a channel you subscribe.  Subscribe at least 3 channels to get started.</p>
           <p>You can change your preferences later at any time</p>
           <br />
@@ -49,7 +50,17 @@ SubscribeChannels.propTypes = {
   hasSelectedThreeChannels: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
-// const s = {
-// }
+const s = {
+  sidebarInner: {
+    position: 'relative',
+  },
+  img: {
+    position: 'absolute',
+    right: 0,
+    top: 50,
+    width: 69,
+    height: 41,
+  }
+}
 
 export default Radium(SubscribeChannels)

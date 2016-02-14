@@ -54,7 +54,7 @@ const Signup = (props) => {
           </form>
         </div>
       </Layout.Sidebar>
-      <Layout.Main>
+      <Layout.Main backgroundUrl='/images/bg-nassau-filter.jpg'>
       </Layout.Main>
     </Layout.Window>
   )
