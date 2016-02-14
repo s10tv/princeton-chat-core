@@ -19,6 +19,8 @@ const SubscribeChannels = (props) => {
         <div style={style.sidebarInner}>
           <h1 style={style.h1}>Tell us what you are interested in</h1>
           <p>You get notified when someone posts in a channel you subscribe.  Subscribe at least 3 channels to get started.</p>
+          <p>You can change your preferences later at any time</p>
+          <br />
           <h6>My Channels</h6>
           <ul>
             {channels.map((channel) =>

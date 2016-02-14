@@ -60,7 +60,6 @@ InviteFriends.propTypes = {
   fields: PropTypes.shape({
     invitees: PropTypes.arrayOf(inviteeShape).isRequired
   }).isRequired,
-  verifyAffiliation: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 }
 
