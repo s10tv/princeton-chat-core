@@ -2,9 +2,9 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import {autoVerifyValidator} from '/lib/validation/onboarding'
 import {trim} from '/lib/normalization'
+import {domains} from '/lib/data'
 import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
-import {domains} from '../configs/data'
 
 export const formConfig = {
   form: 'onboarding/auto-verify',
