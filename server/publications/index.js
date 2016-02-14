@@ -25,16 +25,7 @@ export default function () {
   })
 
   Meteor.publish('topics', function () {
-    if (this.userId) {
-      return Topics.find()
-    } else {
-      this.ready()
-    }
-  })
-
-  Meteor.publish('invite', function (inviteId) {
-    check(inviteId, Match.Optional(String))
-    return Invites.find({ inviteCode: inviteId })
+    return Topics.find()
   })
 
   Meteor.publish('userData', function () {
