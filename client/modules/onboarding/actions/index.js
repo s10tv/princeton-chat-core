@@ -23,12 +23,12 @@ export default {
         return FlowRouter.go('all-mine')
       })
     },
-    loginWithPassword ({Accounts}, info) {
-      Accounts.loginWithPassword(info.email, info.password, (err) => {
+    loginWithPassword ({Meteor, sweetalert}, info) {
+      Meteor.loginWithPassword(info.email, info.password, (err) => {
         if (err) {
           return sweetalert({
             title: 'Login',
-            text: err.message
+            text: 'Your username or password is invalid.'
           })
         }
         return FlowRouter.go('all-mine')
