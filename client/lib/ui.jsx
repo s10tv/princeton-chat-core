@@ -1,5 +1,6 @@
 import React from 'react'
 import {Style} from 'radium'
+import {color} from '/client/configs/theme'
 import _ from 'underscore'
 import _SelectField from 'material-ui/lib/select-field'
 import _TextField from 'material-ui/lib/text-field'
@@ -91,6 +92,28 @@ export const PageControl = ({current, total}) => {
       {_.range(total).map((index) => 
         <span key={index} style={{...style.dot, ...(index === current ? style.active : {})}} />
       )}
+    </div>
+  )
+}
+
+export const PageLoader = () => {
+  const style = {
+    div: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100vw',
+      height: '100vh',
+    },
+    span: {
+      color: color.gray,
+    }
+  }
+  return (
+    <div style={style.div}>
+      <span style={style.span}>Loading...</span>
+      <CircularProgress />
     </div>
   )
 }

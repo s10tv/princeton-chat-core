@@ -1,8 +1,9 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
+import {autoAffiliationValidator} from '/lib/validation'
 import {trim} from '/lib/normalization'
+import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
-import { autoAffiliationValidator } from '/lib/validation'
 
 export const formConfig = {
   form: 'onboarding/auto-verify',
@@ -48,6 +49,6 @@ const depsMapper = (context, actions) => ({
 
 export default composeAll(
   reduxForm(formConfig),
-  composeWithTracker(composer),
+  composeWithTracker(composer, PageLoader),
   useDeps(depsMapper)
 )(Home)
