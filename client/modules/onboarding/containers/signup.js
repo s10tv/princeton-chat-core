@@ -4,7 +4,7 @@ import {createValidator, minLength, maxLength, required, email} from '/lib/valid
 import Signup from '../components/signup.jsx'
 
 export const formConfig = {
-  form: 'signup',
+  form: 'onboarding/signup',
   fields: ['firstName', 'lastName', 'email', 'password'],
   validate: createValidator({
     firstName: [required, maxLength(16)],

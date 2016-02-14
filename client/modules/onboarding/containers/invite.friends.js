@@ -4,7 +4,7 @@ import InviteFriends from '../components/invite.friends.jsx'
 import { inviteValidator } from '/lib/validation/onboarding'
 
 export const formConfig = {
-  form: 'onboarding-invite',
+  form: 'onboarding/invite-friends',
   fields: [
     'invitees[].firstName',
     'invitees[].lastName',

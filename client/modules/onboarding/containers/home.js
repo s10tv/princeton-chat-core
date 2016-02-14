@@ -5,7 +5,7 @@ import Home from '../components/home.jsx'
 import { autoAffiliationValidator } from '/lib/validation'
 
 export const formConfig = {
-  form: 'home',
+  form: 'onboarding/auto-verify',
   fields: ['netid', 'domain'],
   initialValues: {
     domain: 'alumni.princeton.edu'

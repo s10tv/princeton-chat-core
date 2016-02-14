@@ -19,7 +19,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
   const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
 
   FlowRouter.route('/', {
-    name: 'home',
+    name: 'onboarding/auto-verify',
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
@@ -28,19 +28,19 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     }
   })
   FlowRouter.route('/request-invite', {
-    name: 'manual-invite',
+    name: 'onboarding/manual-verify',
     action () {
       mount(injectDeps(RequestInvite))
     }
   })
   FlowRouter.route('/login', {
-    name: 'login',
+    name: 'onboarding/login',
     action () {
       mount(injectDeps(Login))
     }
   })
   FlowRouter.route('/invite/:inviteId', {
-    name: 'invite',
+    name: 'onboarding/redeem-invite',
     action ({ inviteId }) {
       Accounts.callLoginMethod({
         methodArguments: [{ invite: inviteId }],
@@ -61,7 +61,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     }
   })
   FlowRouter.route('/welcome/signup', {
-    name: 'onboard-signup',
+    name: 'onboarding/signup',
     triggersEnter: [requireUserInSessionFn],
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
@@ -71,7 +71,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     }
   })
   FlowRouter.route('/welcome/subscribe-channels', {
-    name: 'onboard-subscribe-channels',
+    name: 'onboarding/subscribe-channels',
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
@@ -82,7 +82,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
   })
 
   FlowRouter.route('/welcome/invite-friends', {
-    name: 'invite-friends',
+    name: 'onboarding/invite-friends',
     triggersEnter: [requireUserInSessionFn],
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))

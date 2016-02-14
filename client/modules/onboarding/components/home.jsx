@@ -1,7 +1,6 @@
 /*eslint-disable no-trailing-spaces */
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
-import {FlowRouter} from 'meteor/kadira:flow-router'
 import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/configs/theme'
 import style from '../configs/style'
@@ -31,7 +30,7 @@ const Home = (props) => {
               </SelectField>
             </div>
             <br />
-            <a style={s.manualInvite} href={FlowRouter.path('manual-invite-222')} tooltip='No worries. We can verify you manually.'>
+            <a style={s.manualInvite} href='/request-invite'>
               Don't have access to your Princeton email?
             </a>
             <br />

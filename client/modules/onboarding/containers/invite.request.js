@@ -4,7 +4,7 @@ import RequestInvite from '../components/invite.request.jsx'
 import { manualAffiliationValidator } from '/lib/validation/onboarding'
 
 export const formConfig = {
-  form: 'request-invite',
+  form: 'onboarding/manual-verify',
   fields: ['firstName', 'lastName', 'birthDate', 'classYear', 'degree', 'email'],
   initialValues: {
     email: '' // How do we populate this from initial data?
