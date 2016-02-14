@@ -1,11 +1,11 @@
 /*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
+import {TextField, SelectField, MenuItem, FlatButton, LinearProgress, DatePicker} from '/client/lib/ui.jsx'
 import {color} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-import {degrees, classYears} from '../configs/data'
+import {degrees, classYears} from '/lib/data'
 
 class RequestInvite extends React.Component {
 
@@ -33,9 +33,19 @@ class RequestInvite extends React.Component {
                 <div style={style.horizontalSpacer} />
                 <TextField floatingLabelText='Last Name' {...lastName} />
               </div>
-              <TextField floatingLabelText='Birth Date' fullWidth={true} {...birthDate} />
-              <TextField floatingLabelText='Princeton Class Year' fullWidth={true} {...classYear} />
-              <TextField floatingLabelText='Princeton Degree' fullWidth={true} {...degree} />
+              <TextField floatingLabelText='Birth Date' hintText='MM/DD/YYYY'
+                fullWidth {...birthDate} />
+              <SelectField maxHeight={300}
+                floatingLabelText='Princeton Class Year' fullWidth={true} {...classYear}>
+                <MenuItem value='' primaryText=''/>
+                {classYears.map(year => <MenuItem key={year} value={year} primaryText={year} />)}
+              </SelectField>
+              <SelectField maxHeight={300}
+                floatingLabelText='Princeton Degree' fullWidth={true} {...degree}>
+                <MenuItem value='' primaryText='' />
+                {degrees.map(degree => <MenuItem key={degree.value} value={degree.value}
+                  primaryText={degree.label} />)}
+              </SelectField>
               <TextField floatingLabelText='Personal Email'
                 hintText={'Where do we send the invite to?'}
                 fullWidth={true}

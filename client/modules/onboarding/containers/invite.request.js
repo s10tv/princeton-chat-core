@@ -7,7 +7,10 @@ export const formConfig = {
   form: 'onboarding/manual-verify',
   fields: ['firstName', 'lastName', 'birthDate', 'classYear', 'degree', 'email'],
   initialValues: {
-    email: '' // How do we populate this from initial data?
+    email: '', // How do we populate this from initial data?
+    classYear: '',
+    degrees: '',
+    birthDate: ''
   },
   validate: manualVerifyValidator,
   // NOTE: not an officially supported property by redux-form

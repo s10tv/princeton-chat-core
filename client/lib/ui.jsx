@@ -9,7 +9,7 @@ import _RaisedButton from 'material-ui/lib/raised-button'
 import _MenuItem from 'material-ui/lib/menus/menu-item'
 import _Dialog from 'material-ui/lib/dialog'
 import _FontIcon from 'material-ui/lib/font-icon'
-import _DatePicker from 'material-ui/lib/date-picker'
+import _DatePicker from 'material-ui/lib/date-picker/date-picker'
 import _AutoComplete from 'material-ui/lib/auto-complete'
 import _Tab from 'material-ui/lib/tabs/tab'
 import _Tabs from 'material-ui/lib/tabs/tabs'
@@ -89,7 +89,7 @@ export const PageControl = ({current, total}) => {
   }
   return (
     <div style={style.div}>
-      {_.range(total).map((index) => 
+      {_.range(total).map((index) =>
         <span key={index} style={{...style.dot, ...(index === current ? style.active : {})}} />
       )}
     </div>
