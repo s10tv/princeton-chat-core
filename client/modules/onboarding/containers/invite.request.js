@@ -2,6 +2,7 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import RequestInvite from '../components/invite.request.jsx'
 import { manualVerifyValidator } from '/lib/validation/onboarding'
+import { normalizeDate } from '/lib/normalization'
 
 export const formConfig = {
   form: 'onboarding/manual-verify',
@@ -16,6 +17,7 @@ export const formConfig = {
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {
+    birthDate: normalizeDate
   }
 }
 
