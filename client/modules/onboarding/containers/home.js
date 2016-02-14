@@ -20,11 +20,23 @@ export const formConfig = {
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections} = context()
-  if (Meteor.subscribe('topics').ready()) {
+  if (Meteor.subscribe('topics').ready() && Meteor.subscribe('userData').ready()) {
+
+    // redirect the user if the user is already logged in.
+    if (Meteor.userId()) {
+      const user = Meteor.user()
+      if (user.status === 'pending') {
+        return FlowRouter.go('onboard-signup')
+      } else if (user.status === 'active') {
+        return FlowRouter.go('all-mine')
+      } else {
+        // this should never happen because user should only have 2 statuses.
+        return FlowRouter.go('login')
+      }
+    }
+
     const topics = Collections.Topics.find().fetch()
     onData(null, {topics})
-  } else {
-    onData(null, {topics: []})
   }
 }
 

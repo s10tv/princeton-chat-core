@@ -13,12 +13,16 @@ function requireUserInSession (context) {
   }
 }
 
+
 export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert}) {
   // need Meteor and FlowRouter to be used in before triggers to redirect non-authenticated users
   const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
 
   FlowRouter.route('/', {
     name: 'home',
+    subscriptions: function () {
+      this.register('userData', Meteor.subscribe('userData'))
+    },
     action () {
       mount(injectDeps(Home))
     }
