@@ -38,7 +38,7 @@ export const TextField = (props) => (
 )
 
 export const SelectField = (props) => (
-  <_SelectField {...props} onChange={(event, index, value) => {
+  <_SelectField {...props} errorText={props.touched && props.error} onChange={(event, index, value) => {
     props.onChange && props.onChange(value)
   }}>
     {props.children}
