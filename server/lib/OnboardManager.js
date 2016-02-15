@@ -189,6 +189,7 @@ export default class OnboardManager {
       classYear,
       degree,
       referredBy,
+      desc,
       status='pending' }) {
 
     const invite = {
@@ -197,6 +198,7 @@ export default class OnboardManager {
       lastName,
       birthDate,
       classYear,
+      desc,
       degree
     }
 
