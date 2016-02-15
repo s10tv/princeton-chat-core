@@ -342,9 +342,21 @@ export default function () {
     'welcome/linkfacebook': () => {
       const user = CurrentUser.get()
 
+      var avatarUrl = user.avatar.url
+      var isDefaultAvatar = user.avatar.isDefaultAvatar
+
+      if (user.services && user.services.facebook) {
+        avatarUrl = `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`
+        isDefaultAvatar = false
+      }
+
       Users.update(user._id, { $set: {
         firstName: user.firstName || user.services.facebook.first_name,
         lastName: user.lastName || user.services.facebook.last_name,
+        avatar: {
+          url: avatarUrl,
+          isDefaultAvatar
+        }
       }})
     },
 
