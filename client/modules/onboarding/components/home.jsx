@@ -22,8 +22,8 @@ const Home = (props) => {
           <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
           <form style={style.form} onSubmit={handleSubmit}>
             <div style={s.emailContainer}>
-              <TextField hintText='netid' {...netid} />
-              <span>@</span>
+              <TextField hintText='netid' {...netid} style={s.netid} />
+              <span style={s.atSymbol}>@</span>
               <SelectField {...domain}>
                 {domains.map((d) =>
                   <MenuItem key={d} value={d} primaryText={d} />
@@ -70,6 +70,12 @@ const s = {
   emailContainer: {
     display: 'flex',
     alignItems: 'center',
+  },
+  netid: {
+    width: 150,
+  },
+  atSymbol: {
+    marginRight: 4,
   },
   manualInvite: {
     color: color.white,
