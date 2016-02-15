@@ -34,7 +34,7 @@ export default function () {
 
     // returns invite code
     'signup/alumni': (options) => {
-      //Meteor._sleepForMs(2000)
+      // Meteor._sleepForMs(2000)
       check(options, Object)
       return new OnboardManager().verifyAlumni(options)
     },
@@ -265,7 +265,11 @@ export default function () {
       }
 
       const topicId = topicInfo.name.toLowerCase()
-      Topics.insert({
+      if (Topics.findOne(topicId)) {
+        throw new Meteor.Error(400, `Topic "${topicInfo.name}" already exists.`)
+      }
+
+       Topics.insert({
         _id: topicId,
         displayName: UserService.capitalizeFirstLetter(topicInfo.name),
         description: topicInfo.description,
@@ -337,9 +341,10 @@ export default function () {
 
     'welcome/linkfacebook': () => {
       const user = CurrentUser.get()
+
       Users.update(user._id, { $set: {
         firstName: user.firstName || user.services.facebook.first_name,
-        lastName: user.lastName || user.services.facebook.last_name
+        lastName: user.lastName || user.services.facebook.last_name,
       }})
     },
 
