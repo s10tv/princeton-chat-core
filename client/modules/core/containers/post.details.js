@@ -50,6 +50,7 @@ export const composer = ({context, topicId, postId}, onData) => {
       unfollowFn: () => { Meteor.call('post/unfollow', post._id) },
       followersCount: post.followers.length,
       title: truncate(post.title, 50),
+      isPostDeletable: currentUser._id === post.ownerId,
       isFollowing: currentUser.followingPosts.indexOf(post._id) >= 0
     })
   }
@@ -60,6 +61,7 @@ const depsMapper = (context, actions) => ({
   showUserProfileMessage: actions.messages.showUserProfile,
   showFollowersFn: actions.topics.showTopicFollowers,
   navigateToTopic: actions.topics.navigateToTopic,
+  deletePost: actions.posts.deletePost,
   deleteMessage: actions.messages.delete,
   context: () => context
 })

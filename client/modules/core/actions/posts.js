@@ -77,5 +77,15 @@ export default {
 
   unfollow ({ Meteor }, postId) {
     Meteor.call('post/unfollow', postId)
+  },
+
+  deletePost ({ Meteor, FlowRouter, LocalState }, postId) {
+    Meteor.call('post/delete', postId, (err, redirectTopicUrl) => {
+      if (err) {
+        return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+      }
+
+      FlowRouter.go(redirectTopicUrl)
+    })
   }
 }

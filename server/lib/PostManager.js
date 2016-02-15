@@ -1,5 +1,6 @@
 import { check } from 'meteor/check'
 import { Topics, Posts, Users } from '/lib/collections'
+import { Meteor } from 'meteor/meteor'
 
 export default class PostManager {
 
@@ -53,5 +54,44 @@ export default class PostManager {
         numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
       }})
     })
+  }
+
+  static delete ({ postId, user }) {
+    check(postId, String)
+    check(user, Object)
+
+    const post = Posts.findOne(postId)
+
+    if (!post) {
+      throw new Meteor.Error(400, `No post found with id: ${postId}`)
+    }
+
+    if (post.ownerId !== user._id) {
+      throw new Meteor.Error(400, 'You need to be the owner of the post to delete it')
+    }
+
+    try {
+      // remove the post from followingPosts field in every user
+      Users.find({
+        _id: { $in: post.followers.map(follower => follower.userId) }
+      }).forEach(user => {
+        Users.update(user._id, {
+          $pull: { followingPosts: post._id }
+        })
+      })
+
+      Posts.remove({
+        _id: post._id
+      }, true)
+
+      if (post.topicIds && post.topicIds[0]) {
+        return `/topics/${post.topicIds[0]}`
+      } else {
+        return `/all-mine`
+      }
+    } catch (e) {
+      console.log(e)
+      throw new Meteor.Error(500, "Sorry, we messed up. We couldn't delete your post, but we tried very hard :/")
+    }
   }
 }

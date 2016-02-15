@@ -13,7 +13,8 @@ export default class NavBar extends React.Component {
       alignItems: 'center'
     }
     const sInner = {
-      paddingTop: 5
+      paddingTop: 5,
+      flexGrow: 1
     }
     return (
       <header style={{...s, ...this.props.style}}>

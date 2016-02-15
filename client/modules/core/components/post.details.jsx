@@ -5,6 +5,7 @@ import {ScrollingContainer} from '/client/modules/core/components/helpers.jsx'
 import {MessageGroup} from '/client/modules/core/components/message.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import NavBar from './navbar.jsx'
+import {FlatButton, FontIcon, Dialog} from '/client/lib/ui.jsx'
 
 export default React.createClass({
 
@@ -44,7 +45,35 @@ export default React.createClass({
 
     showUserProfileMessage: React.PropTypes.func.isRequired,
 
-    showUserProfilePost: React.PropTypes.func.isRequired
+    showUserProfilePost: React.PropTypes.func.isRequired,
+
+    /**
+     * If the owner of the post is the current user, the button to delete the post is shown
+     */
+    isPostDeletable: React.PropTypes.bool.isRequired,
+
+    /**
+     * Func to delete post
+     */
+    deletePost: React.PropTypes.func.isRequired
+  },
+
+  getInitialState () {
+    return {
+      isOpen: false
+    }
+  },
+
+  openConfirmation () {
+    this.setState({
+      isOpen: true
+    })
+  },
+
+  closeConfirmation () {
+    this.setState({
+      isOpen: false
+    })
   },
 
   render () {
@@ -53,21 +82,55 @@ export default React.createClass({
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <NavBar>
-          <Flex alignSelf='stretch' flexDirection='column'>
-            <h1 style={{margin: 0, flex: 1, fontWeight: 400, fontSize: 24}}>{this.props.title}</h1>
-            <Flex flex={1} alignItems='center' style={{lineHeight: '28px'}}>
-              {this.props.topics.map((topic) =>
-                <a key={topic._id} style={{
-                  color: '#cccccc',
-                  cursor: 'pointer',
-                  fontWeight: 300,
-                  marginRight: 6
-                }}
-                  onClick={() => this.props.navigateToTopic(topic._id)}>
-                  {`#${topic.displayName}`}
-                </a>
-              )}
+          <Flex alignSelf='stretch' justifyContent='space-between'>
+            <Flex flexDirection='column'>
+              <h1 style={{margin: 0, flex: 1, fontWeight: 400, fontSize: 24}}>{this.props.title}</h1>
+              <Flex flex={1} alignItems='center' style={{lineHeight: '28px'}}>
+                {this.props.topics.map((topic) =>
+                  <a key={topic._id} style={{
+                    color: '#cccccc',
+                    cursor: 'pointer',
+                    fontWeight: 300,
+                    marginRight: 6
+                  }}
+                    onClick={() => this.props.navigateToTopic(topic._id)}>
+                    {`#${topic.displayName}`}
+                  </a>
+                )}
+              </Flex>
             </Flex>
+            {!this.props.isPostDeletable
+              ? null
+              : <div>
+                <FlatButton
+                  label='Delete Post'
+                  labelPosition='after'
+                  icon={<FontIcon className='material-icons'>remove</FontIcon>}
+                  onTouchTap={this.openConfirmation}
+                  style={{width: '100%', marginTop: 10, color: '#E0E0E0'}}/>
+
+                <Dialog
+                  title={'Are you sure?'}
+                  modal={false}
+                  open={this.state.isOpen}
+                  actions={[
+                    <FlatButton
+                      label='Cancel'
+                      style={{ color: '#E0E0E0' }}
+                      onTouchTap={this.closeConfirmation} />,
+                    <FlatButton
+                      label='Delete'
+                      style={{ color: '#F44336' }}
+                      onTouchTap={() => this.props.deletePost(this.props.post._id)} />
+                  ]}
+                  onRequestClose={this.closeConfirmation}>
+                  <p>
+                  Deleting a post cannot be undone. Users who have already gotten notifications
+                  will not be able to view this post.
+                  </p>
+                </Dialog>
+              </div>
+            }
           </Flex>
         </NavBar>
         <ScrollingContainer child={

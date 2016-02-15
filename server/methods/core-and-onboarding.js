@@ -304,6 +304,11 @@ export default function () {
       PostManager.unfollow({postId, user: CurrentUser.get()})
     },
 
+    'post/delete': (postId) => {
+      const user = CurrentUser.get()
+      return PostManager.delete({postId, user: CurrentUser.get()})
+    },
+
     'messages/insert': (_id, postId, commentText) => {
       check(_id, String)
       check(postId, String)
