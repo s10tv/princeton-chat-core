@@ -131,17 +131,6 @@
         }
       }
     },
-    "postmark": {
-      "version": "1.2.1",
-      "dependencies": {
-        "git-rev": {
-          "version": "0.2.1"
-        },
-        "merge": {
-          "version": "1.2.0"
-        }
-      }
-    },
     "slack-notify": {
       "version": "0.1.4",
       "dependencies": {
