@@ -80,9 +80,7 @@ export default class PostManager {
         })
       })
 
-      Posts.remove({
-        _id: post._id
-      }, true)
+      Posts.remove(post._id)
 
       if (post.topicIds && post.topicIds[0]) {
         return `/topics/${post.topicIds[0]}`
