@@ -26,16 +26,21 @@ const SearchPhoto = React.createClass({
 
   getInitialState () {
     return {
+      isSearching: false,
       photos: UnsplashDefaultCoverPhotos
     }
   },
 
   onSearch () {
     const searchText = this.refs.searchPhoto.getValue()
+    this.setState({ isSearching: true })
     if (searchText && searchText.length > 0) {
       new UnsplashService().search(searchText)
       .then((photos) => {
-        this.setState({photos: photos})
+        this.setState({
+          isSearching: false,
+          photos: photos
+        })
       })
     }
   },
@@ -50,7 +55,9 @@ const SearchPhoto = React.createClass({
       <Flex flexDirection='column'>
         <Flex flexDirection='row' alignSelf='center'>
           <TextField ref='searchPhoto'
-            hintText='Search for cover photos ... '
+            disabled={this.state.isSearching}
+            hintText='Search for more cover photos ... '
+            onEnterKeyDown={this.onSearch}
           />
 
           <FlatButton

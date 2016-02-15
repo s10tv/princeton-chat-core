@@ -5,7 +5,11 @@ import { i18n } from '/client/configs/env'
 export default {
   onboardingManualVerify: {
     submit: createOnSubmit('signup/verifyAffiliation', ({sweetalert}) => {
-      sweetalert({title: 'All Set', text: 'We will email you to get in touch once we verify your affiliation', type: 'success'})
+      sweetalert({
+        title: 'All Set',
+        text: 'You will receive an email once your affiliation is verified.',
+        type: 'success'
+      })
     })
   },
   onboardingAutoVerify: {
