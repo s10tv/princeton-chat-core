@@ -46,7 +46,7 @@ const Home = (props) => {
         </div>
       </Layout.Sidebar>
       <Layout.Main>
-        <TopicList isLoggedIn={false} />
+        <TopicList isLoggedIn={false} isTopicClickable />
       </Layout.Main>
       <AddTopicModal />
     </Layout.Window>

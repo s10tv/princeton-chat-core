@@ -40,7 +40,7 @@ const SubscribeChannels = (props) => {
         </div>
       </Layout.Sidebar>
       <Layout.Main>
-        <TopicList isLoggedIn={isLoggedIn} />
+        <TopicList isLoggedIn={isLoggedIn} isTopicClickable={false} />
       </Layout.Main>
     </Layout.Window>
   )

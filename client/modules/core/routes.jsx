@@ -85,7 +85,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     },
     action () {
       mount(LayoutMainCtx, {
-        content: (props) => <TopicList isLoggedIn {...props} />
+        content: (props) => <TopicList isLoggedIn isTopicClickable {...props} />
       })
     }
   })

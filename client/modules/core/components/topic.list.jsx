@@ -153,19 +153,28 @@ const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
   return (
     <Flex style={localStyle.topicItemContainer}>
       <Flex flexGrow={1}>
-        <a href='#' onClick={() => ifLoggedInExecute(() => {
+        {isTopicClickable
+        ? <a href='#' onClick={() => ifLoggedInExecute(() => {
           navigateToTopic(topic._id)
         })} style={Object.assign({},
           localStyle.topicItemCoverPhoto,
           { backgroundImage: `url("${topic.cover.url}")` }
         )} />
+        : <div style={Object.assign({},
+          localStyle.topicItemCoverPhoto,
+         { backgroundImage: `url("${topic.cover.url}")` }
+        )} />
+        }
         <Flex flexGrow={1} flexDirection='column' marginLeft={30}>
           <h3 style={localStyle.textTopicTitle}>
-            <a href='#' onClick={() => ifLoggedInExecute(() => {
+            {isTopicClickable
+            ? <a href='#' onClick={() => ifLoggedInExecute(() => {
               navigateToTopic(topic._id)
             })}>
-              #{topic.displayName}
+                #{topic.displayName}
             </a>
+            : <span>#{topic.displayName}</span>
+            }
           </h3>
           <h5 style={localStyle.textTopicEmail}>
             {topic._id}@{i18n('topicMailServer')}
