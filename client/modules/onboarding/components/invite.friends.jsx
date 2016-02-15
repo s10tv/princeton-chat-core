@@ -38,7 +38,7 @@ class InviteFriends extends React.Component {
               {error && <p style={style.error}>{error}</p>}
               <a href='#' style={s.addAnother} onClick={() => invitees.addField()}>Add another</a>
               <br />
-              <FlatButton type='submit' style={style.button} label='Invite' disabled={submitting}
+              <FlatButton type='submit' style={style.button} label='Done' disabled={submitting}
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
               <a style={s.skip} href='/all-mine' tabIndex={-1}>Or skip for now</a>
