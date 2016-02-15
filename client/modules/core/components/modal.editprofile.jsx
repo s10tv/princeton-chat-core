@@ -10,7 +10,7 @@ import SelectField from '../../../../node_modules/material-ui/lib/select-field'
 import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'
 import Divider from '../../../../node_modules/material-ui/lib/divider'
 import {Flex} from 'jsxstyle'
-import _ from 'underscore'
+import {classYears} from '/lib/data'
 import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 
 export default React.createClass({
@@ -85,8 +85,7 @@ export default React.createClass({
                 defaultValue={username} maxLength={20} />
               <SelectField floatingLabelText='Class Year' value={classYear}
                 onChange={handleClassYearChange} maxHeight={300}>
-                {_.range(1920, (new Date()).getFullYear())
-                  .map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
+                {classYears.map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
               </SelectField>
             </Flex>
             <Flex flexDirection='column' alignItems='center' justifyContent='space-around'>
