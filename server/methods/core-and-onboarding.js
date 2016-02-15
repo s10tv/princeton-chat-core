@@ -245,7 +245,7 @@ export default function () {
         throw new Meteor.Error(400, 'You are not authorized to remove a topic that you do not own')
       }
 
-      TopicManager.remove({ topicId })
+      TopicManager.remove({ topicId, user })
     },
 
     'topic/create': (topicInfo) => {
