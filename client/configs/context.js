@@ -31,7 +31,9 @@ const createReduxStore = (modules) => {
     const formConfigs = modules[name].formConfigs || []
     for (let {form: key, normalize: normalize} of formConfigs) {
       invariant(!formNormalizers[key], `form of key '${key}' already exists`)
-      formNormalizers[key] = normalize
+      if (normalize) {
+        formNormalizers[key] = normalize
+      }
     }
   }
 
