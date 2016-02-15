@@ -89,21 +89,21 @@ const EmptyPostList = (props) => {
 }
 
 const EmptyPostListNotInFeed = ({ showAddPostPopupFn }) => (
-  <Flex className='post-list-empty' flex={1} flexDirection='column'
-    justifyContent='center' alignItems='center'>
-    <h2>It's awfully quiet in here</h2>
-    <h3>Let's break the ice</h3>
-    <RaisedButton
-      primary
-      onTouchTap={() => showAddPostPopupFn()}
-      label='Create a new post' />
-    <img src='/images/bg-empty-feed.png' alt='empty feed'
-      style={{
-        width: '50%',
-        maxWidth: 468,
-        maxHeight: 320,
-        marginTop: 36
-      }}/>
+  <Flex className='post-list-empty' flex={1} justifyContent='center'>
+    <Flex marginTop={35} flexDirection='column' maxWidth={400} alignItems='center'>
+      <h2 style={{fontWeight: 500}}>It's awfully quiet in here</h2>
+      <h3 style={{fontWeight: 300}}>Let's break the ice</h3>
+      <RaisedButton
+        primary
+        onTouchTap={() => showAddPostPopupFn()}
+        label='Create a new post' />
+      <img src='/images/bg-empty-feed.png' alt='empty feed'
+        style={{
+          maxWidth: 468,
+          maxHeight: 320,
+          marginTop: 36
+        }}/>
+    </Flex>
   </Flex>
 )
 
