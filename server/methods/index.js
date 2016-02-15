@@ -1,10 +1,14 @@
 import guestLogin from './guest-login'
 import inviteLogin from './invite-login'
 import coreAndOnboarding from './core-and-onboarding'
+import admin from './admin'
 
 export default function (context) {
   const {Accounts} = context
-  
+
+  // for administering (invites, etc)
+  admin()
+
   // Other methods
   coreAndOnboarding()
 

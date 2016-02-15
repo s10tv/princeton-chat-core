@@ -77,7 +77,7 @@ export default {
   },
   onboardingInviteFriends: {
     submit: createOnSubmit('welcome/invite', ({FlowRouter}) => {
-      // FlowRouter.go('all-mine')
+       FlowRouter.go('all-mine')
     })
   }
 }

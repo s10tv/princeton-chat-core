@@ -89,7 +89,8 @@ export default React.createClass({
     showAddPostPopupFn: React.PropTypes.func.isRequired,
     currentRouterPath: React.PropTypes.string.isRequired,
     onTapSettings: React.PropTypes.func.isRequired,
-    showAllTopics: React.PropTypes.func.isRequired
+    showAllTopics: React.PropTypes.func.isRequired,
+    isFullAdmin: React.PropTypes.bool.isRequired
   },
 
   childContextTypes: {
@@ -116,6 +117,15 @@ export default React.createClass({
         <AddNewPostButton onClick={this.props.showAddPostPopupFn}/>
         <nav className='no-scrollbar' style={{flexGrow: 1, overflow: 'scroll'}}>
           <List>
+            {!this.props.isFullAdmin
+              ? null
+              : <MediumListItem
+                style={this.giveListItemStyleForRoutePath('admin/invite')}
+                onTouchTap={this.props.navigateTo.bind({ location: 'admin/invite' })}>
+                Admin
+              </MediumListItem>
+            }
+
             <MediumListItem
               style={this.giveListItemStyleForRoutePath('all-mine')}
               onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>
@@ -127,6 +137,7 @@ export default React.createClass({
               onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>
                 All Posts
             </MediumListItem>
+
           </List>
           <List subheader={
             <SubHeader label='CHANNELS' action='ALL' onClick={this.props.showAllTopics}/>

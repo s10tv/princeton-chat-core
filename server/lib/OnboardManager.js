@@ -32,33 +32,9 @@ export default class OnboardManager {
     }
 
     const { netid, domain } = options
-    const invite = this.__generateInvite({email: `${netid}@${domain}`})
-    const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${invite.inviteCode}`
-    const subject = process.env.INVITE_EMAIL_SUBJECT || `[${this.audience}] hurrah, hurrah, hurrah. Almost there.`
+    const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent'})
+    this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
 
-    Email.send({
-      from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
-      to: invite.email,
-      subject: subject,
-      html: htmlEmail({
-        title: subject,
-        body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(EmailSignup, {
-            inviteLink: inviteUrl
-          })
-        )
-      })
-    })
-
-    if (process.env.MAIL_URL) {
-      slack.send({
-        icon_emoji: slackEmoji,
-        text: `Sent a welcome email to ${email}.`,
-        username: slackUsername
-      })
-    }
-
-    this.__sendEmailInvite({ email: invite.email, inviteCode: invite.inviteCode })
     return invite.inviteCode
   }
 
@@ -68,11 +44,10 @@ export default class OnboardManager {
       throw new Meteor.Error(400, errors)
     }
 
-    const invite = Object.assign(options, {
-      inviteCode: Random.id()
-    })
+    console.log(options)
 
-    Invites.insert(invite)
+    options.status = 'pending'
+    const inviteCode = this.__generateInvite(options)
 
     slack.send({
       icon_emoji: slackEmoji,
@@ -80,7 +55,7 @@ export default class OnboardManager {
       username: slackUsername
     })
 
-    return invite.inviteCode
+    return inviteCode
   }
 
   handleInvites (user, invitees) {
@@ -115,9 +90,14 @@ export default class OnboardManager {
     Accounts.setPassword(user._id, password, { logout: false })
   }
 
+  handleManualVerify(invite) {
+    Invites.update(invite._id, { $set: { status: 'sent' }})
+    this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
+  }
+
   __sendAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
     const subject = `[${this.audience}] Invite from ${sender.firstName}`
-    const invite = this.__generateInvite({email})
+    const invite = this.__generateInvite({email, status: 'sent'})
     const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${invite.inviteCode}`
 
     Email.send({
@@ -149,6 +129,7 @@ export default class OnboardManager {
 
   __sendNonAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
     const subject = `[${this.audience}] Invite from ${sender.firstName}`
+    this.__generateInvite({email, status: 'pending'})
 
     Email.send({
       from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
@@ -175,14 +156,55 @@ export default class OnboardManager {
     }
   }
 
-  __generateInvite ({ email, firstName, lastName }) {
+  __sendSignupEmail({ email, inviteCode }) {
+    const inviteLink = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
+    const subject = process.env.INVITE_EMAIL_SUBJECT || `[${this.audience}] hurrah, hurrah, hurrah. Almost there.`
+
+    Email.send({
+      from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
+      to: email,
+      subject: subject,
+      html: htmlEmail({
+        title: subject,
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(EmailSignup, {
+            inviteLink: inviteLink
+          })
+        )
+      })
+    })
+
+    if (process.env.MAIL_URL) {
+      slack.send({
+        icon_emoji: slackEmoji,
+        text: `Sent a welcome email to ${email}.`,
+        username: slackUsername
+      })
+    }
+  }
+
+  __generateInvite ({ email, firstName, lastName, birthDate, classYear, degree, status='pending' }) {
     const invite = {
       email,
       firstName,
       lastName,
-      inviteCode: Random.id(),
-      status: 'sent'
+      birthDate,
+      classYear,
+      degree
     }
+
+    const existingInvite = Invites.findOne({ email: email })
+    if (existingInvite) {
+
+      // update any info, in case anything changed
+      Invites.update(existingInvite._id, { $set: invite })
+
+      // return the updated invite
+      return Invites.findOne(existingInvite._id)
+    }
+
+    invite.inviteCode = Random.id()
+    invite.status = status
 
     Invites.insert(invite)
 

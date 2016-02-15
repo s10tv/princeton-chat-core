@@ -28,6 +28,17 @@ export default function () {
     return Topics.find()
   })
 
+  Meteor.publish('invites', function() {
+    if (this.userId) {
+      const user = Users.findOne(this.userId)
+      if (user.topicAdmins && user.topicAdmins.indexOf('global') >= 0) {
+        return Invites.find()
+      }
+    }
+
+    this.ready()
+  })
+
   Meteor.publish('userData', function () {
     return Meteor.users.find({_id: this.userId}, { fields: {
       firstName: 1,

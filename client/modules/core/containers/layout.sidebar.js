@@ -17,9 +17,11 @@ export const composer = ({context}, onData) => {
       const navigateTo = function () {
         return FlowRouter.go(`/${this.location}`)
       }
+      const isFullAdmin = user.topicAdmins && user.topicAdmins.indexOf('global') >= 0
 
       onData(null, {
         user,
+        isFullAdmin,
         followedTopics,
         navigateTo,
         FlowRouter,
