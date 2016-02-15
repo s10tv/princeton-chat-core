@@ -81,8 +81,14 @@ export const composer = ({context, actions}, onData) => {
         if (err) {
           return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
         } else {
-          LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`)
-          LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', false)
+          Meteor.call('profile/getFacebookAvatar', (err, avatarUrl) => {
+            if (err) {
+              return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+            } else {
+              LocalState.set('SETTINGS_EDIT_PROFILE_AVATAR', avatarUrl)
+              LocalState.set('SETTINGS_EDIT_PROFILE_IS_DEFAULT_AVATAR', false)
+            }
+          })
         }
       })
     }

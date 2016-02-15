@@ -94,6 +94,16 @@ export default function () {
       }
     },
 
+    'profile/getFacebookAvatar': () => {
+      const user = CurrentUser.get()
+
+      if (user.services.facebook) {
+        return `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`
+      } else {
+        throw new Meteor.Error(400, "You haven't linked Facebook yet.")
+      }
+    },
+
     'profile/update': (profile) => {
       const user = CurrentUser.get()
 
