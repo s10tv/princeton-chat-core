@@ -48,7 +48,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
           if (err) {
             sweetalert({
               title: 'Invalid Invite',
-              text: `Seems like your invite code is invlid or has already expired. \
+              text: `Seems like your invite code is invalid or has already expired. \
                 If retrying the invite link still doesn't work, please reply to the invite \
                 email and we will investigate it.`
             }, () => {
