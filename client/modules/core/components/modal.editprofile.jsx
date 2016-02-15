@@ -29,7 +29,7 @@ export default React.createClass({
     handleNewPasswordChange: React.PropTypes.func,
     changePassword: React.PropTypes.func,
     handleClassYearChange: React.PropTypes.func,
-    classYear: React.PropTypes.number,
+    classYear: React.PropTypes.string,
     currentAvatarUrl: React.PropTypes.string,
     changeAvatarToFacebook: React.PropTypes.func,
     changeAvatarToDefault: React.PropTypes.func,
