@@ -54,7 +54,7 @@ export default {
           if (err) {
             return sweetalert({ title: 'Problem linking Facebook', text: err.reason })
           }
-          return FlowRouter.go('onboard-subscribe-channels')
+          return FlowRouter.go('onboarding-subscribe-channels')
         })
       })
     }
