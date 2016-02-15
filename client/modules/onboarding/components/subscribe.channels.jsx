@@ -7,6 +7,8 @@ import {color} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
+import AddTopicModal from '/client/modules/core/containers/modal.add.topic.js'
+import AddTopicCoverPhotoModal from '/client/modules/core/containers/modal.add.topic.coverphoto.js'
 
 const SubscribeChannels = (props) => {
   const {channels, onNext, hasSelectedThreeChannels, isLoggedIn} = props
@@ -40,6 +42,8 @@ const SubscribeChannels = (props) => {
         </div>
       </Layout.Sidebar>
       <Layout.Main>
+        <AddTopicModal shouldRedirectToNewTopic={false} />
+        <AddTopicCoverPhotoModal />
         <TopicList isLoggedIn={isLoggedIn} isTopicClickable={false} />
       </Layout.Main>
     </Layout.Window>

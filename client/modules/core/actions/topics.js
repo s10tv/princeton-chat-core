@@ -18,14 +18,17 @@ export default {
     })
   },
 
-  createTopic ({Meteor, LocalState, FlowRouter}, topicInfo) {
+  createTopic ({Meteor, LocalState, FlowRouter}, topicInfo, shouldRedirect) {
     Meteor.call('topic/create', topicInfo, (err, topicId) => {
       if (err) {
         return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
       }
 
       LocalState.set('SHOW_ADD_TOPIC_MODAL', false)
-      FlowRouter.go(`/topics/${topicId}`)
+      console.log(`${shouldRedirect} in actions`)
+      if (shouldRedirect) {
+        FlowRouter.go(`/topics/${topicId}`)
+      }
     })
   },
 

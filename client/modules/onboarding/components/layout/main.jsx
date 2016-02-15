@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
 import {i18n} from '/client/configs/env'
+import GlobalSnackbar from '/client/modules/core/containers/global.snackbar'
 
 class Main extends React.Component {
   getChildContext () {
@@ -10,6 +11,7 @@ class Main extends React.Component {
     return (
       <main style={[style.main, style.background(this.props.backgroundUrl)]}>
         {this.props.children}
+        <GlobalSnackbar />
       </main>
     )
   }

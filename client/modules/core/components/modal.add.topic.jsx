@@ -50,7 +50,12 @@ export default React.createClass({
     /**
      * Func to create topic
      */
-    createTopic: React.PropTypes.func.isRequired
+    createTopic: React.PropTypes.func.isRequired,
+
+    /**
+     * Bool to control whether creation of the new topic redirects to the topic screen
+     */
+    shouldRedirectToNewTopic: React.PropTypes.bool.isRequired
   },
 
   getInitialState () {
@@ -75,7 +80,8 @@ export default React.createClass({
         description: this.refs.topicDescriptionContainer.refs.topicDescription.getValue(),
         cover: this.props.currentCoverPhoto
       }
-      this.props.createTopic(topicInfo)
+      console.log(this.props.shouldRedirectToNewTopic)
+      this.props.createTopic(topicInfo, this.props.shouldRedirectToNewTopic)
     } else {
       this.props.showSnackbarWithString('One of your fields has errors. Please check.')
     }
