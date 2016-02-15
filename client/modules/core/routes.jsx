@@ -7,7 +7,7 @@ import PostDetails from '/client/modules/core/containers/post.details.js'
 import TopicList from '/client/modules/core/containers/topic.list.js'
 import GuestIndex from '/client/modules/guest/containers/guestIndex.js'
 import AddFollowers from '/client/modules/core/containers/add.followers.js'
-
+import ErrorPage from '/client/modules/core/components/error.jsx'
 // This import has to be at the end for some reason else fails
 import WebFontLoader from 'webfontloader'
 
@@ -113,6 +113,12 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
       })
     }
   })
+
+  FlowRouter.notFound = {
+    action () {
+      mount(ErrorPage)
+    }
+  }
 
   Tracker.autorun(() => {
     // const isInvite = /\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href)

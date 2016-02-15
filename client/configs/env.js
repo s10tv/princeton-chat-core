@@ -47,7 +47,10 @@ let Env = {
     backgroundStyle: {
       backgroundImage: "url('/images/background-tile.png')",
       backgroundRepeat: 'repeat'
-    }
+    },
+
+    pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
+    pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4'
   },
 
   s10: {
@@ -70,7 +73,9 @@ let Env = {
     backgroundStyle: {
       backgroundImage: "url('/images/background-tile.png')",
       backgroundRepeat: 'repeat'
-    }
+    },
+    pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
+    pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4s'
   },
 
   ped: {
@@ -95,7 +100,9 @@ let Env = {
     loginTitle: {
       fontFamily: "'Quicksand', sans-serif",
       color: DARK_GRAY
-    }
+    },
+    pageNotFoundError: 'We used to have a page here, but Rachmaninoff used the back side to write some sheet music.',
+    pageNotFoundBackground: 'https://images.unsplash.com/photo-1447876576829-25dd6c4b3d21'
   }
 }
 
