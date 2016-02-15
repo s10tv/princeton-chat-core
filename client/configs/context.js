@@ -42,7 +42,10 @@ const createReduxStore = (modules) => {
   }
   for (const name of Object.keys(modules)) {
     invariant(!reducers[name], `Module of name '${name}' already exists`)
-    reducers[name] = modules[name].reducer
+    // Atttempt to fix dev server problem
+    if (modules[name].reducer) {
+      reducers[name] = modules[name].reducer
+    }
   }
 
   // TODO: Let's disable logger middleware in production
