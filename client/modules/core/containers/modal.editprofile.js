@@ -28,7 +28,7 @@ export const composer = ({context, actions}, onData) => {
   const firstName = LocalState.get('SETTINGS_EDIT_PROFILE_FIRST_NAME') || user.firstName
   const lastName = LocalState.get('SETTINGS_EDIT_PROFILE_LAST_NAME') || user.lastName
   const username = LocalState.get('SETTINGS_EDIT_PROFILE_USERNAME') || user.username
-  const classYear = LocalState.get('SETTINGS_EDIT_PROFILE_CLASS_YEAR') || +user.classYear
+  const classYear = LocalState.get('SETTINGS_EDIT_PROFILE_CLASS_YEAR') || user.classYear
   const oldPassword = LocalState.get('SETTINGS_EDIT_PROFILE_OLD_PASSWORD')
   const newPassword = LocalState.get('SETTINGS_EDIT_PROFILE_NEW_PASSWORD')
 
