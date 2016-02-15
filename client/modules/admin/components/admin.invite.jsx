@@ -15,7 +15,8 @@ export default React.createClass({
      * All of the invites
      */
     invites: React.PropTypes.array.isRequired,
-    sendInvite: React.PropTypes.func.isRequired
+    sendInvite: React.PropTypes.func.isRequired,
+    removeInvite: React.PropTypes.func.isRequired
   },
 
   render () {
@@ -27,6 +28,18 @@ export default React.createClass({
         <Flex flexDirection='column' alignItems='center' overflowY='scroll'>
           <h1>Manage Invites</h1>
           <table style={{ maxWidth: 500 }}>
+            <thead>
+              <tr style={{fontWeight: 500}}>
+                <td style={s.cell}>Status</td>
+                <td style={s.cell}>Email</td>
+                <td style={s.cell}>First Name</td>
+                <td style={s.cell}>Last Name</td>
+                <td style={s.cell}>Birth Date</td>
+                <td style={s.cell}>Class Year</td>
+                <td style={s.cell}>Degree</td>
+              </tr>
+            </thead>
+
             <tbody>
               {this.props.invites.map((invite) => {
                 return <Invite key={invite._id} invite={invite} {...this.props} />
@@ -42,7 +55,7 @@ export default React.createClass({
 const Invite = (props) => {
   const {invite} = props
   return (
-    <tr>
+    <tr style={{fontWeight: 300}}>
       <td style={s.cell}>{invite.status}</td>
       <td style={s.cell}>{invite.email}</td>
       <td style={s.cell}>{invite.firstName}</td>
@@ -56,11 +69,17 @@ const Invite = (props) => {
           primary
           onTouchTap={() => props.sendInvite(invite._id)} />
       </td>
+      <td style={s.cell}>
+        <FlatButton
+          label='Remove'
+          secondary
+          onTouchTap={() => props.removeInvite(invite._id)} />
+      </td>
     </tr>
   )
 }
 
-var s = {
+const s = {
   cell: {
     padding: 10
   }

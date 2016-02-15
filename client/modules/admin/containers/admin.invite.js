@@ -14,6 +14,7 @@ export const composer = ({context}, onData) => {
 const depsMapper = (context, actions) => ({
   store: context.store,
   sendInvite: actions.adminInvite.sendInvite,
+  removeInvite: actions.adminInvite.removeInvite,
   context: () => context
 })
 

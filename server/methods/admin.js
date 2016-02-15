@@ -32,6 +32,15 @@ export default function () {
       }
 
       new OnboardManager().handleManualVerify(invite)
+    },
+
+    'admin/invite/delete': (inviteId) => {
+      check(inviteId, String)
+
+      // verify admin identity
+      AdminUserService.get()
+
+      Invites.remove(inviteId)
     }
   })
 }
