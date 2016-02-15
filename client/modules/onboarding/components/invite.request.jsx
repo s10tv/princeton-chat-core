@@ -6,6 +6,7 @@ import {color} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
 import {degrees, classYears} from '/lib/data'
+import {i18n} from '/client/configs/env'
 
 class RequestInvite extends React.Component {
 
@@ -59,7 +60,7 @@ class RequestInvite extends React.Component {
             </form>
           </div>
         </Layout.Sidebar>
-        <Layout.Main backgroundUrl='/images/bg-blair-arch-people.jpg' />
+        <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') } />
       </Layout.Window>
     )
   }

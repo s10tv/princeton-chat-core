@@ -48,7 +48,7 @@ let Env = {
       backgroundImage: "url('/images/background-tile.png')",
       backgroundRepeat: 'repeat'
     },
-
+    homePageBackgroundUrl: '/images/bg-blair-arch-people.jpg',
     pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
     pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4'
   },
@@ -74,6 +74,7 @@ let Env = {
       backgroundImage: "url('/images/background-tile.png')",
       backgroundRepeat: 'repeat'
     },
+    homePageBackgroundUrl: '/images/bg-blair-arch-people.jpg',
     pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
     pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4s'
   },

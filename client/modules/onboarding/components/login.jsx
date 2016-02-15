@@ -3,9 +3,10 @@
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
 import {TextField, FlatButton, OrDivider, LinearProgress} from '/client/lib/ui.jsx'
-import {color, spacing, fontSize} from '/client/configs/theme'
+import {color, spacing} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
+import {i18n} from '/client/configs/env'
 
 const Login = (props) => {
   const {fields: {email, password}, handleSubmit, error, submitting} = props
@@ -41,7 +42,7 @@ const Login = (props) => {
           </form>
         </div>
       </Layout.Sidebar>
-      <Layout.Main backgroundUrl='/images/bg-blair-arch-people.jpg' />
+      <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') } />
     </Layout.Window>
   )
 }

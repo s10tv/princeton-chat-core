@@ -5,7 +5,7 @@ import {TextField, FlatButton, FontIcon, IconButton, PageControl, LinearProgress
 import {color, spacing, fontSize} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-
+import {i18n} from '/client/configs/env'
 // NOTE: addField / removeField provided by redux-form http://erikras.github.io/redux-form/#/examples/deep
 class InviteFriends extends React.Component {
 
@@ -29,7 +29,7 @@ class InviteFriends extends React.Component {
                   {invitees.length > 1 ?
                     <IconButton onTouchTap={() => invitees.removeField(index)} tabIndex={-1}>
                       <FontIcon className='material-icons'>close</FontIcon>
-                    </IconButton> : 
+                    </IconButton> :
                     <div style={{width: 48}} />
                   }
                 </div>
@@ -46,7 +46,7 @@ class InviteFriends extends React.Component {
             </form>
           </div>
         </Layout.Sidebar>
-        <Layout.Main backgroundUrl='/images/bg-blair-arch-people.jpg'>
+        <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') }>
         </Layout.Main>
       </Layout.Window>
     )
