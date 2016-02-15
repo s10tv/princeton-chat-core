@@ -44,8 +44,6 @@ export default class OnboardManager {
       throw new Meteor.Error(400, errors)
     }
 
-    console.log(options)
-
     options.status = 'pending'
     const inviteCode = this.__generateInvite(options)
 
@@ -97,7 +95,7 @@ export default class OnboardManager {
 
   __sendAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
     const subject = `[${this.audience}] Invite from ${sender.firstName}`
-    const invite = this.__generateInvite({email, status: 'sent'})
+    const invite = this.__generateInvite({email, referredBy: sender._id, status: 'sent'})
     const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${invite.inviteCode}`
 
     Email.send({
@@ -129,7 +127,7 @@ export default class OnboardManager {
 
   __sendNonAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
     const subject = `[${this.audience}] Invite from ${sender.firstName}`
-    this.__generateInvite({email, status: 'pending'})
+    this.__generateInvite({email, referredBy: sender._id, status: 'pending-onboard'})
 
     Email.send({
       from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
@@ -183,7 +181,16 @@ export default class OnboardManager {
     }
   }
 
-  __generateInvite ({ email, firstName, lastName, birthDate, classYear, degree, status='pending' }) {
+  __generateInvite ({
+      email,
+      firstName,
+      lastName,
+      birthDate,
+      classYear,
+      degree,
+      referredBy,
+      status='pending' }) {
+
     const invite = {
       email,
       firstName,
@@ -205,6 +212,7 @@ export default class OnboardManager {
 
     invite.inviteCode = Random.id()
     invite.status = status
+    invite.referredBy = referredBy
 
     Invites.insert(invite)
 
