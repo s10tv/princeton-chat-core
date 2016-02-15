@@ -1,8 +1,10 @@
 /*eslint-disable no-trailing-spaces */
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
+import {propTypes} from 'redux-form'
 import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/configs/theme'
+import {fieldShape} from '/client/lib/shapes'
 import style from '../configs/style'
 import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
@@ -50,16 +52,14 @@ const Home = (props) => {
     </Layout.Window>
   )
 }
-// TODO: Specify the shape of a field
+
 Home.propTypes = {
-  domains: PropTypes.arrayOf(PropTypes.string).isRequired,
+  ...propTypes,
   fields: PropTypes.shape({
-    netid: PropTypes.object.isRequired,
-    domain: PropTypes.object.isRequired,
+    netid: fieldShape.isRequired,
+    domain: fieldShape.isRequired,
   }).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  error: PropTypes.string,
+  domains: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 const s = {
   mainLogo: {

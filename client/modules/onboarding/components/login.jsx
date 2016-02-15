@@ -19,6 +19,7 @@ const Login = (props) => {
         </header>
         <div style={style.sidebarInner}>
           <h1 style={style.h1}>Welcome Back Tiger</h1>
+          <br />
           <form style={style.form} onSubmit={handleSubmit}>
             <FlatButton
               icon={<i className='fa fa-facebook' />}

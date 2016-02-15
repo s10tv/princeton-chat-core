@@ -1,6 +1,6 @@
 import React from 'react'
 
-const {string, bool, number, shape, instanceOf} = React.PropTypes
+const {string, bool, number, shape, instanceOf, any, func} = React.PropTypes
 
 export const postShape = shape({
   _id: string.isRequired,
@@ -18,4 +18,26 @@ export const topicShape = shape({
   isFollowing: bool.isRequired,
   numPosts: number.isRequired,
   numFollowers: number.isRequired
+})
+
+export const fieldShape = shape({
+  name: string.isRequired,
+  touched: bool.isRequired,
+  dirty: bool.isRequired,
+  valid: bool.isRequired,
+  active: bool.isRequired,
+  visited: bool.isRequired,
+  onBlur: func.isRequired,
+  onChange: func.isRequired,
+  onDragStart: func.isRequired,
+  onCrag: func.isRequired,
+  onFocus: func.isRequired,
+  error: string,
+  value: any
+})
+
+export const arrayFieldShape = shape({
+  addField: func.isRequired,
+  removeField: func.isRequired,
+  swapField: func.isRequired
 })
