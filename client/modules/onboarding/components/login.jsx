@@ -40,8 +40,7 @@ const Login = (props) => {
           </form>
         </div>
       </Layout.Sidebar>
-      <Layout.Main>
-      </Layout.Main>
+      <Layout.Main backgroundUrl='/images/bg-blair-arch-people.jpg' />
     </Layout.Window>
   )
 }
