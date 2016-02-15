@@ -66,8 +66,7 @@
       "packages/**",
       "server/**",
       "private/**",
-      "client/modules/onboarding/**",
-      "client/modules/admin/**"
+      "client/modules/onboarding/**"
     ]
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {Flex, Block} from 'jsxstyle'
-import {FlatButton, FontIcon} from '/client/lib/ui.jsx'
+import {Flex} from 'jsxstyle'
+import {FlatButton} from '/client/lib/ui.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 
 export default React.createClass({
@@ -18,7 +18,7 @@ export default React.createClass({
     sendInvite: React.PropTypes.func.isRequired
   },
 
-  render() {
+  render () {
     return (
       <main style={Object.assign({}, styles.main, {
         marginLeft: this.props.sidebarOpen ? 240 : 0,

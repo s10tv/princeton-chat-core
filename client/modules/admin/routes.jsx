@@ -4,14 +4,13 @@ import {mount} from 'react-mounter'
 import LayoutMain from '/client/modules/core/components/layout/layout.jsx'
 import AdminInvite from './containers/admin.invite'
 
-export default function(injectDeps, {FlowRouter}) {
-
+export default function (injectDeps, {FlowRouter, Meteor}) {
   const LayoutMainCtx = injectDeps(LayoutMain)
 
   const adminRoutes = FlowRouter.group({
-    prefix: "/admin",
-    name: "admin"
-  });
+    prefix: '/admin',
+    name: 'admin'
+  })
 
   adminRoutes.route('/invite', {
     name: 'admin-invite',
