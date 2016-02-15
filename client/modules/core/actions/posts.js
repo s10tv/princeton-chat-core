@@ -1,4 +1,5 @@
 import NewPostService from '/client/lib/newpost.service.js'
+import TopicActions from './topics.js'
 
 export default {
   create ({Collections, Meteor, LocalState, FlowRouter}, title, content, topics, cb) {
@@ -28,7 +29,8 @@ export default {
     LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', error)
   },
 
-  showAddPostPopup ({ LocalState, FlowRouter }) {
+  showAddPostPopup (context) {
+    let {FlowRouter, LocalState} = context
     const currentRouterPath = FlowRouter.current().path
 
     var currentTopic = ''
@@ -39,6 +41,7 @@ export default {
 
     LocalState.set('ADD_POST_POPUP_SHOWING', true)
     LocalState.set('ADD_POST_TOPICS', currentTopic)
+    TopicActions.updateTopicFollowers(context, [currentTopic])
   },
 
   modifyAddPostTopic ({LocalState}, newTopics) {
