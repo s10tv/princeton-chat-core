@@ -69,9 +69,10 @@ export function initContext (modules = {}) {
     Collections,
     Tracker,
     Accounts,
+    sweetalert,
+    UserService,
     LocalState: new ReactiveDict(),
     store: createReduxStore(modules),
-    sweetalert,
-    UserService
+    audience: Meteor.settings.public.audience
   }
 }

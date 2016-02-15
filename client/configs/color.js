@@ -23,6 +23,14 @@ export default {
     orange: '#F07621',
     black: '#221E1F',
   },
+  ped: {
+    primary: '#5477AD', // Ped blue
+    lightPrimary: '#76A4ED', // Ped blue
+    success: '#5cb85c',
+    info: '#5bc0de',
+    warning: '#f0ad4e',
+    danger: '#d9534f'
+  },
   // Social media colors
   // Courtesy of http://designpieces.com/2012/12/social-media-colours-hex-and-rgb/
   facebook: {
