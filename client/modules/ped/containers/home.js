@@ -14,6 +14,21 @@ export const formConfig = {
 }
 
 export const composer = ({context}, onData) => {
+  const {Meteor} = context()
+  if (Meteor.subscribe('userData').ready()) {
+
+    // redirect the user if the user is already logged in.
+    if (Meteor.userId()) {
+      const user = Meteor.user()
+      // TODO: Do we need more states to represent stages of onboarding?
+      if (user.status === 'pending') {
+        return FlowRouter.go('onboarding-signup')
+      } else if (user.status === 'active') {
+        return FlowRouter.go('all-mine')
+      }
+    }
+  }
+
   onData(null, {
   })
 }
