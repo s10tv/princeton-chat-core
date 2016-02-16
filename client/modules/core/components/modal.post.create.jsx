@@ -185,7 +185,7 @@ export default React.createClass({
           <Select
             ref='topics'
             name='postTopics'
-            placeholder='Add topics ... '
+            placeholder='Post in channels ... '
             options={allTopics}
             multi
             simpleValue
