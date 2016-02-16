@@ -10,7 +10,7 @@ import {i18n} from '/client/configs/env'
 class InviteFriends extends React.Component {
 
   render () {
-    const {fields: {invitees}, handleSubmit, error, submitting} = this.props
+    const {fields: {invitees}, handleSubmit, error, submitting, skipForNow} = this.props
     return (
       <Layout.Window>
         <Layout.Sidebar>
@@ -41,7 +41,7 @@ class InviteFriends extends React.Component {
               <FlatButton type='submit' style={style.button} label='Done' disabled={submitting}
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
-              <a style={s.skip} href='/all-mine' tabIndex={-1}>Or skip for now</a>
+              <a style={s.skip} href='#' onClick={skipForNow} tabIndex={-1}>Or skip for now</a>
               <PageControl total={3} current={2} />
             </form>
           </div>

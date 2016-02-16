@@ -22,6 +22,7 @@ export const composer = ({context}, onData) => {
 
 const depsMapper = (context, actions) => ({
   onSubmit: actions.onboardingInviteFriends.submit,
+  skipForNow: actions.onboardingInviteFriends.skipForNow,
   store: context.store,
   context: () => context
 })
