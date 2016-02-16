@@ -58,7 +58,7 @@ const Signup = (props) => {
           </form>
         </div>
       </Layout.Sidebar>
-      <Layout.Main backgroundUrl='/images/cellos.jpg' />
+      <Layout.Main backgroundUrl='/images/violins.jpg' />
     </Layout.Window>
   )
 }
