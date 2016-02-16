@@ -35,8 +35,8 @@ export default class OnboardManager {
       throw new Meteor.Error(400, errors)
     }
 
-    const { netid, domain } = options
-    const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent'})
+    const { netid, domain, classYear } = options
+    const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear: classYear})
     this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
 
     return invite.inviteCode

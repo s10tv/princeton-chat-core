@@ -1,22 +1,30 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import {autoVerifyValidator} from '/lib/validation/onboarding'
-import {trim} from '/lib/normalization'
+import {classYear as classYearValidator} from '/lib/validation'
+import {trimSpaces, numbersOnly} from '/lib/normalization'
 import {domains} from '/lib/data'
 import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
 
 export const formConfig = {
   form: 'onboarding/auto-verify',
-  fields: ['netid', 'domain'],
+  fields: ['netid', 'domain', 'classYear'],
   initialValues: {
-    domain: domains[0]
+    // domain: domains[0]
   },
   validate: autoVerifyValidator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {
-    netid: trim
+    netid: trimSpaces,
+    domain: (domain, prevDomain, {classYear}, {classYear: prevClassYear}) => {
+      if (classYear !== prevClassYear && classYearValidator(classYear) == null) {
+        const currentYear = (new Date()).getFullYear()
+        return Number(classYear) >= currentYear ? 'princeton.edu' : 'alumni.princeton.edu'
+      }
+      return domain
+    }
   }
 }
 

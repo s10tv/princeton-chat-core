@@ -30,7 +30,7 @@ export const fieldShape = shape({
   onBlur: func.isRequired,
   onChange: func.isRequired,
   onDragStart: func.isRequired,
-  onDrag: func.isRequired,
+  onDrag: func,
   onFocus: func.isRequired,
   error: string,
   value: any

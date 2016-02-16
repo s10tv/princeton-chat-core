@@ -12,7 +12,7 @@ import AddTopicModal from '/client/modules/core/containers/modal.add.topic'
 
 const Home = (props) => {
   const {domains} = props
-  const {fields: {netid, domain}, handleSubmit, error, submitting} = props
+  const {fields: {netid, domain, classYear}, handleSubmit, error, submitting} = props
   return (
     <Layout.Window>
       <Layout.Sidebar>
@@ -23,10 +23,11 @@ const Home = (props) => {
           <h1 style={s.mainLogo}>Princeton.Chat</h1>
           <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
           <form style={style.form} onSubmit={handleSubmit}>
+            <TextField floatingLabelText='Class Year' hintText='e.g. 2012' fullWidth={true} {...classYear} />
             <div style={s.emailContainer}>
               <TextField hintText='netid' {...netid} style={s.netid} />
               <span style={s.atSymbol}>@</span>
-              <SelectField {...domain}>
+              <SelectField hintText='domain' {...domain}>
                 {domains.map((d) =>
                   <MenuItem key={d} value={d} primaryText={d} />
                 )}
@@ -58,6 +59,7 @@ Home.propTypes = {
   fields: PropTypes.shape({
     netid: fieldShape.isRequired,
     domain: fieldShape.isRequired,
+    classYear: fieldShape.isRequired,
   }).isRequired,
   domains: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
