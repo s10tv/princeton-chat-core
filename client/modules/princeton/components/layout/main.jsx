@@ -8,7 +8,6 @@ class Main extends React.Component {
     return { muiTheme: i18n('primaryMuiTheme') }
   }
   render () {
-    console.log(this.props.isMobile && style.mobile)
     return (
       <main style={[style.main, style.background(this.props.backgroundUrl),
           this.props.isMobile && style.mobile]}>

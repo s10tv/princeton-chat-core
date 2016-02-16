@@ -1,13 +1,15 @@
 import React from 'react'
 import {StyleResizable} from 'material-ui/lib/mixins'
+import Radium from 'radium'
 
-export default React.createClass({
+const Window = React.createClass({
   mixins: [
     StyleResizable
   ],
 
   propTypes: {
-    children: React.PropTypes.node
+    children: React.PropTypes.node,
+    style: React.PropTypes.object
   },
 
   render () {
@@ -15,7 +17,7 @@ export default React.createClass({
     const isAtLeastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
     const isMobile = !(isAtLeastTablet || isAtLeastDesktop)
     return (
-      <div style={style.pageWrapper}>
+      <div style={[style.pageWrapper, this.props.style]}>
         { React.Children.map(this.props.children, (child) => {
           return React.cloneElement(child, { isMobile })
         }) }
@@ -23,6 +25,8 @@ export default React.createClass({
     )
   }
 })
+
+export default Radium(Window)
 
 const style = {
   pageWrapper: {

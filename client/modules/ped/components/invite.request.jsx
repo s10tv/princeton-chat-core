@@ -10,7 +10,6 @@ import { Logo } from './ui.jsx'
 class RequestInvite extends React.Component {
 
   render () {
-    console.log(this.props)
     const {fields: {
       firstName, lastName, email, desc,
       }, submitting, error, handleSubmit} = this.props

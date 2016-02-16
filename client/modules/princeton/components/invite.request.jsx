@@ -1,7 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton, LinearProgress, DatePicker} from '/client/lib/ui.jsx'
+import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
@@ -11,18 +11,17 @@ import {i18n} from '/client/configs/env'
 class RequestInvite extends React.Component {
 
   render () {
-    console.log(this.props)
     const {fields: {
       firstName, lastName, birthDate, classYear, degree, email
-    }, submitting, error, handleSubmit} = this.props
+    }, submitting, error, handleSubmit, isMobile} = this.props
     return (
-      <Layout.Window>
+      <Layout.Window style={[isMobile && s.mobileWindow]}>
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
             <span style={style.sidebarLogo}>Princeton.Chat</span>
             <a style={style.sidebarLink} href='/'>Back</a>
           </header>
-          <div style={style.sidebarInner}>
+          <div style={[style.sidebarInner, isMobile && s.mobileSidebarInner]}>
             <h2>Verify Affiliation</h2>
             <p>
               Please verify your affiliation to Princeton by providing your name,
@@ -74,12 +73,24 @@ RequestInvite.propTypes = {
     classYear: PropTypes.object.isRequired,
     degree: PropTypes.object.isRequired
   }).isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+  error: PropTypes.object,
+  submitting: PropTypes.bool.isRequired
 }
 
 const s = {
   nameRow: {
     display: 'flex'
+  },
+
+  mobileWindow: {
+    height: 'initial',
+    overflowY: 'scroll'
+  },
+
+  mobileSidebarInner: {
+    padding: '16px 16px 25px 16px'
   }
 }
 export default Radium(RequestInvite)

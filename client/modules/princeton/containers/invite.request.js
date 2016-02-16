@@ -22,7 +22,9 @@ export const formConfig = {
 }
 
 export const composer = ({context}, onData) => {
-  onData(null, {})
+  onData(null, {
+    isMobile: window.innerWidth < 768
+  })
 }
 
 const depsMapper = (context, actions) => ({
