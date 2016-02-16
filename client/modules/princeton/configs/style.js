@@ -15,6 +15,7 @@ export default {
     marginTop: spacing.x6,
     minWidth: 320,
     maxWidth: 320,
+    padding: 10,
     alignSelf: 'center',
     display: 'flex',
     flexDirection: 'column',

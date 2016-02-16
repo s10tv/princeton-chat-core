@@ -8,8 +8,10 @@ class Main extends React.Component {
     return { muiTheme: i18n('primaryMuiTheme') }
   }
   render () {
+    console.log(this.props.isMobile && style.mobile)
     return (
-      <main style={[style.main, style.background(this.props.backgroundUrl)]}>
+      <main style={[style.main, style.background(this.props.backgroundUrl),
+          this.props.isMobile && style.mobile]}>
         {this.props.children}
         <GlobalSnackbar />
       </main>
@@ -21,18 +23,23 @@ Main.childContextTypes = {
 }
 Main.propTypes = {
   backgroundUrl: PropTypes.string,
+  isMobile: React.PropTypes.bool,
+  children: React.PropTypes.node
 }
 
 const style = {
   main: {
-    flex: 6,
+    flex: 6
   },
-  background(url) {
+  background (url) {
     return url ? {
       backgroundImage: `url(${url})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     } : null
+  },
+  mobile: {
+    display: 'none'
   }
 }
 
