@@ -9,18 +9,8 @@ import GuestIndex from '/client/modules/guest/containers/guestIndex.js'
 import AddFollowers from '/client/modules/core/containers/add.followers.js'
 import ErrorPage from '/client/modules/core/components/error.jsx'
 // This import has to be at the end for some reason else fails
-import WebFontLoader from 'webfontloader'
 
 export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
-  WebFontLoader.load({
-    google: {
-      families: [
-        'Lato:300,400,700',
-        'Quicksand'  // for ped & play home page
-      ]
-    }
-  })
-
   const LayoutMainCtx = injectDeps(LayoutMain)
   const GuestIndexCtx = injectDeps(GuestIndex)
 

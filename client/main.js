@@ -4,7 +4,7 @@ import {initContext} from '/client/configs/context'
 import {localize} from '/client/configs/env'
 import core from '/client/modules/core'
 import admin from '/client/modules/admin'
-
+import WebFontLoader from 'webfontloader'
 // onboarding modules
 import princeton from '/client/modules/princeton'
 import ped from '/client/modules/ped'
@@ -26,5 +26,14 @@ switch (context.audience) {
   default:
     app.loadModule(princeton)
 }
+
+WebFontLoader.load({
+  google: {
+    families: [
+      'Lato:300,400,700',
+      'Quicksand'  // for ped & play home page
+    ]
+  }
+})
 
 app.init()
