@@ -1,19 +1,21 @@
 /*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
+import {propTypes as reduxFormPropTypes} from 'redux-form'
 import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color} from '/client/configs/theme'
-import style from '../configs/style'
-import Layout from './layout'
-import {degrees, classYears} from '/lib/data'
+import {fieldShape} from '/client/lib/shapes'
 import {i18n} from '/client/configs/env'
+import Layout from './layout'
+import style from '../configs/style'
 
 class RequestInvite extends React.Component {
 
   render () {
     const {fields: {
       firstName, lastName, birthDate, classYear, degree, email
-    }, submitting, error, handleSubmit, isMobile} = this.props
+    }, submitting, error, handleSubmit} = this.props
+    const {isMobile, degrees} = this.props
     return (
       <Layout.Window style={[isMobile && s.mobileWindow]}>
         <Layout.Sidebar>
@@ -35,11 +37,8 @@ class RequestInvite extends React.Component {
               </div>
               <TextField floatingLabelText='Birth Date' hintText='MM/DD/YYYY'
                 fullWidth {...birthDate} />
-              <SelectField maxHeight={300}
-                floatingLabelText='Princeton Class Year' fullWidth={true} {...classYear}>
-                <MenuItem value='' primaryText=''/>
-                {classYears.map(year => <MenuItem key={year} value={year} primaryText={year} />)}
-              </SelectField>
+              <TextField floatingLabelText='Princeton Class Year' hintText='e.g. 2012'
+                fullWidth {...classYear} />
               <SelectField maxHeight={300}
                 floatingLabelText='Princeton Degree' fullWidth={true} {...degree}>
                 <MenuItem value='' primaryText='' />
@@ -66,17 +65,19 @@ class RequestInvite extends React.Component {
 }
 
 RequestInvite.propTypes = {
+  ...reduxFormPropTypes,
   fields: PropTypes.shape({
-    firstName: PropTypes.object.isRequired,
-    lastName: PropTypes.object.isRequired,
-    birthDate: PropTypes.object.isRequired,
-    classYear: PropTypes.object.isRequired,
-    degree: PropTypes.object.isRequired
+    firstName: fieldShape.isRequired,
+    lastName: fieldShape.isRequired,
+    birthDate: fieldShape.isRequired,
+    classYear: fieldShape.isRequired,
+    degree: fieldShape.isRequired
   }).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   isMobile: PropTypes.bool.isRequired,
-  error: PropTypes.object,
-  submitting: PropTypes.bool.isRequired
+  degrees: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  }))
 }
 
 const s = {

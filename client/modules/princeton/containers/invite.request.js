@@ -3,16 +3,11 @@ import {reduxForm} from 'redux-form'
 import RequestInvite from '../components/invite.request.jsx'
 import { manualVerifyValidator } from '/lib/validation/onboarding'
 import { normalizeDate } from '/lib/normalization'
+import {degrees} from '/lib/data'
 
 export const formConfig = {
   form: 'onboarding/manual-verify',
   fields: ['firstName', 'lastName', 'birthDate', 'classYear', 'degree', 'email'],
-  initialValues: {
-    email: '', // How do we populate this from initial data?
-    classYear: '',
-    degrees: '',
-    birthDate: ''
-  },
   validate: manualVerifyValidator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
@@ -23,7 +18,8 @@ export const formConfig = {
 
 export const composer = ({context}, onData) => {
   onData(null, {
-    isMobile: window.innerWidth < 768
+    isMobile: window.innerWidth < 768,
+    degrees
   })
 }
 

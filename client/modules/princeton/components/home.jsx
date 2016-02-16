@@ -1,7 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
-import {propTypes} from 'redux-form'
+import {propTypes as reduxFormPropTypes} from 'redux-form'
 import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/configs/theme'
 import {fieldShape} from '/client/lib/shapes'
@@ -23,7 +23,7 @@ const Home = (props) => {
           <h1 style={s.mainLogo}>Princeton.Chat</h1>
           <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
           <form style={style.form} onSubmit={handleSubmit}>
-            <TextField floatingLabelText='Class Year' hintText='e.g. 2012' fullWidth={true} {...classYear} />
+            <TextField floatingLabelText='Princeton Class Year' hintText='e.g. 2012' fullWidth={true} {...classYear} />
             <div style={s.emailContainer}>
               <TextField hintText='netid' {...netid} style={s.netid} />
               <span style={s.atSymbol}>@</span>
@@ -55,7 +55,7 @@ const Home = (props) => {
 }
 
 Home.propTypes = {
-  ...propTypes,
+  ...reduxFormPropTypes,
   fields: PropTypes.shape({
     netid: fieldShape.isRequired,
     domain: fieldShape.isRequired,
