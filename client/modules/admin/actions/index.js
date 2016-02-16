@@ -5,6 +5,7 @@ export default {
         if (err) {
           return sweetalert({title: 'Error inviting', text: err.reason})
         }
+        return sweetalert({title: 'Invited', text: 'They will get an invite in their inbox.'})
       })
     },
 
