@@ -36,15 +36,16 @@ export default React.createClass({
 
   render () {
     const isAtLeastDesktop = this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
-    const isAtLastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
+    const isAtLeastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
 
-    const sidebarOpen = isAtLastTablet || isAtLeastDesktop
+    const sidebarOpen = isAtLeastTablet || isAtLeastDesktop
+    const rightbarOpen = isAtLeastTablet
     const content = this.props.content || (() => {})
 
     return (
       <div id='layout'>
         <Sidebar sidebarOpen={sidebarOpen} />
-        {content({ sidebarOpen, isAtLastTablet, isAtLeastDesktop })}
+        {content({ sidebarOpen, rightbarOpen })}
         <CreatePost />
         <SettingsModal />
         <EditProfileModal />

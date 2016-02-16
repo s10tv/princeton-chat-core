@@ -54,11 +54,15 @@ export default React.createClass({
     /**
      * Boolean to show/hide sidebar
      */
-    sidebarOpen: React.PropTypes.bool.isRequired
+    sidebarOpen: React.PropTypes.bool.isRequired,
+
+    /**
+     *  Boolean to show/hide left sidebar
+     */
+    isRightSidebarOpen: React.PropTypes.bool
   },
 
   render () {
-    const isRightBarOpen = this.props.postListType == null
     return (
       <main style={Object.assign({}, styles.main, {
         marginLeft: this.props.sidebarOpen ? 240 : 0
@@ -72,7 +76,7 @@ export default React.createClass({
             {this.props.isEmpty
               ? <EmptyPostList {...this.props} />
               : <PostList {...this.props} />}
-            {isRightBarOpen ? <RightBar {...this.props} /> : null}
+            <RightBar {...this.props} />
           </Flex>
         </Flex>
       </main>

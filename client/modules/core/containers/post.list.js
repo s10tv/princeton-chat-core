@@ -9,7 +9,7 @@ import _ from 'underscore'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 
-export const composer = ({context, topicId, postListType}, onData) => {
+export const composer = ({context, topicId, postListType, rightbarOpen}, onData) => {
   const {Meteor, Collections} = context()
   const currentUser = UserService.currentUser()
 
@@ -113,7 +113,8 @@ export const composer = ({context, topicId, postListType}, onData) => {
       isEmpty: posts.length === 0,
       disableClickToShowFollowers: topic._id === undefined,
       hideFollowerSection: topic._id === undefined,
-      hideFollowActionSection: topic._id === undefined
+      hideFollowActionSection: topic._id === undefined,
+      isRightSidebarOpen: topic._id !== undefined && rightbarOpen
     })
   } else {
     return onData(null, null)
