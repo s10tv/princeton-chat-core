@@ -9,10 +9,13 @@ import { Invites, Users } from '/lib/collections'
 import { autoVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
-import htmlEmail from '../emails/html.layout'
-import EmailSignup from '../emails/signup.jsx'
-import EmailInvite from '../emails/invite.jsx'
-import EmailNonAlumniInvite from '../emails/inviteNonAlum.jsx'
+import {
+  htmlEmail,
+  Signup,
+  Invite,
+  InviteNonAlum,
+  emailTitle
+} from '../emails'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
@@ -22,7 +25,8 @@ const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 export default class OnboardManager {
 
   constructor() {
-    this.audience = 'Princeton.Chat'
+    this.audience = emailTitle || 'Princeton.Chat'
+    this.audience = emailTitle || 'Princeton.Chat'
   }
 
   verifyAlumni (options) {
@@ -105,7 +109,7 @@ export default class OnboardManager {
       html: htmlEmail({
         title: subject,
         body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(EmailInvite, {
+          React.createElement(Invite, {
             // TODO: firstName and/or lastName could be undefined (if user logged in with FB)
             senderName: `${sender.firstName} ${sender.lastName}`,
             firstName,
@@ -136,7 +140,7 @@ export default class OnboardManager {
       html: htmlEmail({
         title: subject,
         body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(EmailNonAlumniInvite, {
+          React.createElement(InviteNonAlum, {
             firstName,
             lastName,
             rootURL: this.__stripTrailingSlash(process.env.ROOT_URL)
@@ -156,7 +160,7 @@ export default class OnboardManager {
 
   __sendSignupEmail({ email, inviteCode }) {
     const inviteLink = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
-    const subject = process.env.INVITE_EMAIL_SUBJECT || `[${this.audience}] hurrah, hurrah, hurrah. Almost there.`
+    const subject = process.env.INVITE_EMAIL_SUBJECT || `[${this.audience}] Welcome!`
 
     Email.send({
       from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
@@ -165,7 +169,7 @@ export default class OnboardManager {
       html: htmlEmail({
         title: subject,
         body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(EmailSignup, {
+          React.createElement(Signup, {
             inviteLink: inviteLink
           })
         )

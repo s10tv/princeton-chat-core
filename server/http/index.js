@@ -5,9 +5,9 @@ import {Posts, Users} from '/lib/collections'
 import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
-import EmailSignup from '../emails/signup.jsx'
-import EmailInvite from '../emails/invite.jsx'
-import htmlEmail from '../emails/html.layout'
+import { Signup, Invite, InviteNonAlum } from '../emails'
+import EmailInvite from '../emails/princeton/invite.jsx'
+import htmlEmail from '../emails/princeton/html.layout.js'
 import htmlPage from './html'
 
 export default function () {
@@ -62,7 +62,7 @@ export default function () {
       return htmlEmail({
         title: '[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.',
         body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(EmailSignup, {
+          React.createElement(Signup, {
             inviteLink: 'http://localhost/fake-link'
           })
         )
@@ -74,10 +74,23 @@ export default function () {
       return htmlEmail({
         title: 'a title here',
         body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(EmailInvite, {
+          React.createElement(Invite, {
             senderName: 'Tony',
             firstName: 'Qiming',
             inviteUrl: 'http://localhost/fake-link'
+          })
+        )
+      })
+    },
+
+    '/e/invite-non-alum': function() {
+      return htmlEmail({
+        title: 'a title here',
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(InviteNonAlum, {
+            senderName: 'Tony',
+            firstName: 'Qiming',
+            rootURL: 'http://fake-url'
           })
         )
       })
