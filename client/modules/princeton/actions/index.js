@@ -1,10 +1,14 @@
+/*eslint no-undef: 2*/
+
 import {createOnSubmit} from '/client/lib/helpers'
 import UserService from '/lib/user.service'
 import { i18n } from '/client/configs/env'
+import AmplitudeService from '/client/lib/amplitude.service'
 
 export default {
   onboardingManualVerify: {
-    submit: createOnSubmit('signup/verifyAffiliation', ({sweetalert}) => {
+    submit: createOnSubmit('signup/verifyAffiliation', ({Meteor, sweetalert}) => {
+      AmplitudeService.track('signup/manualVerify')
       sweetalert({
         title: 'All Set',
         text: 'You will receive an email once your affiliation is verified.',
@@ -13,7 +17,8 @@ export default {
     })
   },
   onboardingAutoVerify: {
-    submit: createOnSubmit('signup/alumni', ({sweetalert}) => {
+    submit: createOnSubmit('signup/alumni', ({Meteor, sweetalert}) => {
+      AmplitudeService.track('signup/autoVerify')
       sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)', type: 'success'})
     })
   },
@@ -27,6 +32,7 @@ export default {
             type: 'error',
           })
         }
+        AmplitudeService.track('home/facebookLogin')
         return FlowRouter.go('all-mine')
       })
     },
@@ -38,6 +44,7 @@ export default {
             reject({_error: err.error === 403 ? msg : err.reason})
           } else {
             resolve()
+            AmplitudeService.track('home/passwordLogin')
             FlowRouter.go('all-mine')
           }
         })
@@ -45,7 +52,8 @@ export default {
     }
   },
   onboardingSignup: {
-    createAccount: createOnSubmit('welcome/signup', ({ FlowRouter }) => {
+    createAccount: createOnSubmit('welcome/signup', ({ FlowRouter, Meteor }) => {
+      AmplitudeService.track('onboarding/createAccountWithPassword')
       FlowRouter.go('onboarding-subscribe-channels')
     }),
     linkWithFacebook ({Meteor, FlowRouter, sweetalert}) {
@@ -58,13 +66,14 @@ export default {
           if (err) {
             return sweetalert({ title: 'Problem linking Facebook', text: err.reason })
           }
+          AmplitudeService.track('onboarding/createAccountWithFacebook')
           return FlowRouter.go('onboarding-subscribe-channels')
         })
       })
     }
   },
   onboardingSubscribeChannels: {
-    next ({FlowRouter, sweetalert}) {
+    next ({FlowRouter, sweetalert, Meteor}) {
       // TODO: extract this into context
       const currentUser = UserService.currentUser()
 
@@ -75,12 +84,13 @@ export default {
             Please subscribe at least 3 before continuing.`
         })
       }
-
+      AmplitudeService.track('onboarding/subscribeToChannels')
       return FlowRouter.go('onboarding-invite-friends')
     }
   },
   onboardingInviteFriends: {
-    submit: createOnSubmit('welcome/invite', ({FlowRouter}) => {
+    submit: createOnSubmit('welcome/invite', ({FlowRouter, Meteor}) => {
+      AmplitudeService.track('onboarding/inviteFriends')
       FlowRouter.go('all-mine')
     }),
     skipForNow ({Meteor, FlowRouter, LocalState}) {
@@ -88,7 +98,7 @@ export default {
         if (err) {
           LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
         }
-
+        AmplitudeService.track('onboarding/skipInviteFriends')
         FlowRouter.go('all-mine')
       })
     }

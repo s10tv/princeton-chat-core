@@ -6,6 +6,7 @@ import Signup from './containers/signup'
 import Login from './containers/login'
 import SubscribeChannels from './containers/subscribe.channels'
 import InviteFriends from './containers/invite.friends'
+import AmplitudeService from '/client/lib/amplitude.service'
 
 function requireUserInSession (context) {
   if (!this.Meteor.userId()) {
@@ -55,6 +56,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
               FlowRouter.go('onboarding-login')
             })
           } else {
+            AmplitudeService.setUpAfterSignup({Meteor})
             FlowRouter.go('onboarding-signup')
           }
         }

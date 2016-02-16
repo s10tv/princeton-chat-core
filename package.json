@@ -67,7 +67,8 @@
       "server/**",
       "private/**",
       "client/modules/princeton/**",
-      "client/modules/ped/**"
+      "client/modules/ped/**",
+      "client/lib/amplitude.service.js"
     ]
   }
 }
