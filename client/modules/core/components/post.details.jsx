@@ -5,7 +5,8 @@ import {ScrollingContainer} from '/client/modules/core/components/helpers.jsx'
 import {MessageGroup} from '/client/modules/core/components/message.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import NavBar from './navbar.jsx'
-import {FlatButton, FontIcon, Dialog} from '/client/lib/ui.jsx'
+import {FlatButton, FontIcon, Dialog, IconButton} from '/client/lib/ui.jsx'
+import { color } from '/client/configs/theme'
 
 export default React.createClass({
 
@@ -55,7 +56,12 @@ export default React.createClass({
     /**
      * Func to delete post
      */
-    deletePost: React.PropTypes.func.isRequired
+    deletePost: React.PropTypes.func.isRequired,
+
+    /**
+     * Function to show sidebar
+     */
+    showSidebar: React.PropTypes.func.isRequired
   },
 
   getInitialState () {
@@ -77,14 +83,30 @@ export default React.createClass({
   },
 
   render () {
-    const { post, messages, showUserProfilePost, showUserProfileMessage, deleteMessage } = this.props
+    const { post, messages, showUserProfilePost, showUserProfileMessage, deleteMessage,
+      showSidebar, sidebarOpen} = this.props
 
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <NavBar>
           <Flex alignSelf='stretch' justifyContent='space-between'>
             <Flex flexDirection='column'>
-              <h1 style={{margin: 0, flex: 1, fontWeight: 400, fontSize: 24}}>{this.props.title}</h1>
+              <Flex flexDirection='row'>
+                {sidebarOpen
+                  ? null
+                  : <IconButton onTouchTap={showSidebar} style={{
+                    padding: 0, width: 'unset', height: 'unset', marginRight: 10
+                  }} iconStyle={{ color: color.black }}>
+                    <FontIcon className='material-icons' style={{ color: color.black }}>
+                      menu
+                    </FontIcon>
+                  </IconButton>
+                }
+                <h1 style={{margin: 0, flex: 1, fontWeight: 400, fontSize: 24}}>
+                  {this.props.title}
+                </h1>
+              </Flex>
+
               <Flex flex={1} alignItems='center' style={{lineHeight: '28px'}}>
                 {this.props.topics.map((topic) =>
                   <a key={topic._id} style={{

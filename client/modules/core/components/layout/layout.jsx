@@ -31,21 +31,23 @@ export default React.createClass({
   },
 
   propTypes: {
-    content: React.PropTypes.func.isRequired
+    content: React.PropTypes.func.isRequired,
+    clickedToShowSidebar: React.PropTypes.bool,
+    showSidebar: React.PropTypes.func.isRequired
   },
 
   render () {
     const isAtLeastDesktop = this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
     const isAtLeastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
 
-    const sidebarOpen = isAtLeastTablet || isAtLeastDesktop
+    const sidebarOpen = this.props.clickedToShowSidebar || (isAtLeastTablet || isAtLeastDesktop)
     const rightbarOpen = isAtLeastTablet
     const content = this.props.content || (() => {})
 
     return (
       <div id='layout'>
-        <Sidebar sidebarOpen={sidebarOpen} />
-        {content({ sidebarOpen, rightbarOpen })}
+        <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
+        {content({ sidebarOpen, rightbarOpen, showSidebar: this.props.showSidebar })}
         <CreatePost />
         <SettingsModal />
         <EditProfileModal />

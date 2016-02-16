@@ -1,7 +1,7 @@
 import React from 'react'
 import {mount} from 'react-mounter'
 
-import LayoutMain from '/client/modules/core/components/layout/layout.jsx'
+import LayoutMain from '/client/modules/core/containers/layout.js'
 import PostList from '/client/modules/core/containers/post.list.js'
 import PostDetails from '/client/modules/core/containers/post.details.js'
 import TopicList from '/client/modules/core/containers/topic.list.js'

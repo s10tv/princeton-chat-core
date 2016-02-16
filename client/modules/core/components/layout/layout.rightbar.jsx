@@ -44,7 +44,7 @@ export default React.createClass({
      */
     removeTopic: React.PropTypes.func.isRequired,
     isMyTopic: React.PropTypes.bool.isRequired,
-    rightbarOpen: React.PropTypes.bool.isRequired
+    isRightSidebarOpen: React.PropTypes.bool.isRequired
   },
 
   getInitialState () {
@@ -69,7 +69,7 @@ export default React.createClass({
     const props = this.props
 
     // right bar is closed for small devices
-    if (!props.rightbarOpen) {
+    if (!props.isRightSidebarOpen) {
       return null
     }
 

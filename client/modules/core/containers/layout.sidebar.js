@@ -14,9 +14,6 @@ export const composer = ({context}, onData) => {
         _id: {$in: user.followingTopics}
       }).fetch() : []
 
-      const navigateTo = function () {
-        return FlowRouter.go(`/${this.location}`)
-      }
       const isFullAdmin = user.topicAdmins !== undefined &&
         user.topicAdmins.indexOf('global') >= 0
 
@@ -24,7 +21,6 @@ export const composer = ({context}, onData) => {
         user,
         isFullAdmin,
         followedTopics,
-        navigateTo,
         FlowRouter,
         currentRouterPath
       })
@@ -35,6 +31,7 @@ export const composer = ({context}, onData) => {
 const depsMapper = (context, actions) => ({
   showAddPostPopupFn: actions.posts.showAddPostPopup,
   showTopic: actions.topics.navigateToTopic,
+  navigateTo: actions.topics.navigateTo,
   showAllTopics: actions.topics.navigateToTopicList,
   onTapSettings: actions.settings.showSettingsModal,
   context: () => context

@@ -65,12 +65,24 @@ export default {
     FlowRouter.go('all-mine')
   },
 
-  navigateToTopic ({ FlowRouter }, topicId) {
+  // begin sidebar methods (to navigate to differnet topics)
+  navigateToTopic ({ FlowRouter, LocalState }, topicId) {
+    // if we were in mobile mode, and showing sidebar, hide sidebar now
+    LocalState.set('SHOW_SIDE_BAR', false)
+
     return FlowRouter.go(`/topics/${topicId}`)
   },
+  navigateToTopicList ({ FlowRouter, LocalState }) {
+    // if we were in mobile mode, and showing sidebar, hide sidebar now
+    LocalState.set('SHOW_SIDE_BAR', false)
 
-  navigateToTopicList ({ FlowRouter }) {
     return FlowRouter.go('choose-topics')
+  },
+  navigateTo ({ FlowRouter, LocalState }, url) {
+    // if we were in mobile mode, and showing sidebar, hide sidebar now
+    LocalState.set('SHOW_SIDE_BAR', false)
+
+    return FlowRouter.go(url)
   },
 
   navigateToAddFollowers ({ FlowRouter }, topicId) {

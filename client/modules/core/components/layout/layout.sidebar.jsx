@@ -90,7 +90,8 @@ export default React.createClass({
     currentRouterPath: React.PropTypes.string.isRequired,
     onTapSettings: React.PropTypes.func.isRequired,
     showAllTopics: React.PropTypes.func.isRequired,
-    isFullAdmin: React.PropTypes.bool.isRequired
+    isFullAdmin: React.PropTypes.bool.isRequired,
+    clickedToShowSidebar: React.PropTypes.bool.isRequired
   },
 
   childContextTypes: {
@@ -110,9 +111,11 @@ export default React.createClass({
   },
 
   render () {
+    const width = this.props.clickedToShowSidebar ? '100%' : '240px'
+
     return (
-      <LeftNav open={this.props.sidebarOpen} width={240} style={
-          Object.assign({}, {display: 'flex', flexDirection: 'column'})}>
+      <LeftNav open={this.props.sidebarOpen} style={
+          Object.assign({}, {width, display: 'flex', flexDirection: 'column'})}>
         <SidebarHeader user={this.props.user} onTapSettings={this.props.onTapSettings} />
         <AddNewPostButton onClick={this.props.showAddPostPopupFn}/>
         <nav className='no-scrollbar' style={{flexGrow: 1, overflow: 'scroll'}}>
@@ -121,20 +124,20 @@ export default React.createClass({
               ? null
               : <MediumListItem
                 style={this.giveListItemStyleForRoutePath('admin/invite')}
-                onTouchTap={this.props.navigateTo.bind({ location: 'admin/invite' })}>
+                onTouchTap={() => this.props.navigateTo('/admin/invite')}>
                 Admin
               </MediumListItem>
             }
 
             <MediumListItem
               style={this.giveListItemStyleForRoutePath('all-mine')}
-              onTouchTap={this.props.navigateTo.bind({ location: 'all-mine' })}>
+              onTouchTap={() => this.props.navigateTo('all-mine')}>
                 My Feed
             </MediumListItem>
 
             <MediumListItem
               style={this.giveListItemStyleForRoutePath('all')}
-              onTouchTap={this.props.navigateTo.bind({ location: 'all' })}>
+              onTouchTap={() => this.props.navigateTo('all')}>
                 All Posts
             </MediumListItem>
 

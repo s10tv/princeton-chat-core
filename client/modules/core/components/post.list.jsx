@@ -54,12 +54,7 @@ export default React.createClass({
     /**
      * Boolean to show/hide sidebar
      */
-    sidebarOpen: React.PropTypes.bool.isRequired,
-
-    /**
-     *  Boolean to show/hide left sidebar
-     */
-    isRightSidebarOpen: React.PropTypes.bool
+    sidebarOpen: React.PropTypes.bool.isRequired
   },
 
   render () {
