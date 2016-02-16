@@ -56,7 +56,7 @@ export default React.createClass({
                   {this.props.user.displayUsername}
                 </h3>}
               <p>
-                {this.props.user.emails[0].address}
+                {this.props.user.displayEmail}
               </p>
             </Flex>
           </section>
