@@ -81,7 +81,16 @@ export default {
   },
   onboardingInviteFriends: {
     submit: createOnSubmit('welcome/invite', ({FlowRouter}) => {
-       FlowRouter.go('all-mine')
-    })
+      FlowRouter.go('all-mine')
+    }),
+    skipForNow ({Meteor, FlowRouter, LocalState}) {
+      Meteor.call('user/setStatusActive', (err) => {
+        if (err) {
+          LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+        }
+
+        FlowRouter.go('all-mine')
+      })
+    }
   }
 }

@@ -12,7 +12,7 @@ import { Logo } from './ui.jsx'
 class InviteFriends extends React.Component {
 
   render () {
-    const {fields: {invitees}, handleSubmit, error, submitting} = this.props
+    const {fields: {invitees}, handleSubmit, error, submitting, skipForNow} = this.props
     return (
       <Layout.Window>
         <Layout.Sidebar>
