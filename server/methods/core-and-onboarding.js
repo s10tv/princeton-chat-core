@@ -381,6 +381,7 @@ export default function () {
       const user = CurrentUser.get()
       new OnboardManager().handleInvites(user, invitees)
       Meteor.call('user/setStatusActive')
+      return invitees
     },
 
     'welcome/setLoginService': (serviceName) => {
@@ -408,7 +409,7 @@ export default function () {
 
     'user/setStatusActive': () => {
       const currentUser = CurrentUser.get()
-      
+
       Users.update(currentUser._id, { $set: {
         status: 'active'
       }})

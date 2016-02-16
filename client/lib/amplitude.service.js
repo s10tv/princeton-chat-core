@@ -12,7 +12,7 @@ export default class AmplitudeService {
     }
   }
 
-  static track (event) {
-    amplitude.logEvent(event)
+  static track (event, properties) {
+    amplitude.logEvent(event, properties)
   }
 }

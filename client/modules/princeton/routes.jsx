@@ -10,10 +10,9 @@ import AmplitudeService from '/client/lib/amplitude.service'
 
 function requireUserInSession (context) {
   if (!this.Meteor.userId()) {
-    return this.FlowRouter.go('signup')
+    return this.FlowRouter.go('onboarding-auto-verify')
   }
 }
-
 
 export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert}) {
   // need Meteor and FlowRouter to be used in before triggers to redirect non-authenticated users
@@ -25,6 +24,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
       this.register('userData', Meteor.subscribe('userData'))
     },
     action () {
+      AmplitudeService.track('view/home')
       mount(injectDeps(Home))
     }
   })
