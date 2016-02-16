@@ -13,7 +13,7 @@ import UserService from '/lib/user.service'
 
 // TODO: Should probably add test for initModules function
 // as well as better description & validation of module shape
-const createReduxStore = (modules) => {
+const createReduxStore = (modules, enableLogger) => {
   invariant(!Array.isArray(modules), 'Modules must be an associative array')
 
   // See http://erikras.github.io/redux-form/#/api/reducer/normalize
@@ -50,12 +50,11 @@ const createReduxStore = (modules) => {
     }
   }
 
-  // TODO: Let's disable logger middleware in production
-  const logger = createLogger()
+  const logger = enableLogger ? createLogger() : null
   return createStore(
     combineReducers(reducers),
     compose(
-      applyMiddleware(logger),
+      logger ? applyMiddleware(logger) : (f) => f,
       // Install https://github.com/zalmoxisus/redux-devtools-extension for pure magic!
       typeof window === 'object' && window.devToolsExtension ? window.devToolsExtension() : (f) => f
     )
@@ -63,6 +62,7 @@ const createReduxStore = (modules) => {
 }
 
 export function initContext (modules = {}) {
+  const {settings: {public: settings}} = Meteor
   return {
     Meteor,
     FlowRouter,
@@ -72,7 +72,8 @@ export function initContext (modules = {}) {
     sweetalert,
     UserService,
     LocalState: new ReactiveDict(),
-    store: createReduxStore(modules),
-    audience: Meteor.settings.public.audience
+    store: createReduxStore(modules, settings.enableReduxLogger),
+    audience: Meteor.settings.public.audience,
+    settings
   }
 }
