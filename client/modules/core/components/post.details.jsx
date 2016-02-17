@@ -61,6 +61,7 @@ export default React.createClass({
     /**
      * Function to show sidebar
      */
+    isMobile: React.PropTypes.bool.isRequired,
     showSidebar: React.PropTypes.func.isRequired
   },
 
@@ -95,7 +96,10 @@ export default React.createClass({
                 {sidebarOpen
                   ? null
                   : <IconButton onTouchTap={showSidebar} style={{
-                    padding: 0, width: 'unset', height: 'unset', marginRight: 10
+                    padding: 0, width: 'unset', height: 'unset',
+                    marginRight: 10,
+                    marginBottom: 'auto',
+                    marginTop: 5
                   }} iconStyle={{ color: color.black }}>
                     <FontIcon className='material-icons' style={{ color: color.black }}>
                       menu
@@ -121,7 +125,7 @@ export default React.createClass({
                 )}
               </Flex>
             </Flex>
-            {!this.props.isPostDeletable
+            {!this.props.isPostDeletable || this.props.isMobile
               ? null
               : <div>
                 <FlatButton
