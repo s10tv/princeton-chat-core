@@ -1,7 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import {TextField, SelectField, MenuItem, FlatButton, LinearProgress, DatePicker} from '/client/lib/ui.jsx'
+import {TextField, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
@@ -11,7 +11,7 @@ class RequestInvite extends React.Component {
 
   render () {
     const {fields: {
-      firstName, lastName, email, desc,
+      firstName, lastName, email, desc
       }, submitting, error, handleSubmit} = this.props
     return (
       <Layout.Window>
@@ -65,7 +65,9 @@ RequestInvite.propTypes = {
     email: PropTypes.object.isRequired,
     desc: PropTypes.object.isRequired
   }).isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  submitting: PropTypes.bool.isRequired
 }
 
 const s = {
