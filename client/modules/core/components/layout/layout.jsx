@@ -40,7 +40,6 @@ export default React.createClass({
     const isAtLeastDesktop = this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
     const isAtLeastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
     const isMobile = !isAtLeastTablet
-
     const sidebarOpen = this.props.clickedToShowSidebar || (isAtLeastTablet || isAtLeastDesktop)
     const rightbarOpen = isAtLeastTablet
     const content = this.props.content || (() => {})

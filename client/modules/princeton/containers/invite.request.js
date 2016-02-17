@@ -3,7 +3,7 @@ import {reduxForm} from 'redux-form'
 import RequestInvite from '../components/invite.request.jsx'
 import { manualVerifyValidator } from '/lib/validation/onboarding'
 import { normalizeDate } from '/lib/normalization'
-import {degrees} from '/lib/data'
+import {degrees, classYears} from '/lib/data'
 
 export const formConfig = {
   form: 'onboarding/manual-verify',
@@ -18,7 +18,8 @@ export const formConfig = {
 
 export const composer = ({context}, onData) => {
   onData(null, {
-    degrees
+    degrees,
+    classYears
   })
 }
 

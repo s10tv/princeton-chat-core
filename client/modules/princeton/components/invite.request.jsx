@@ -13,7 +13,7 @@ class RequestInvite extends React.Component {
   render () {
     const {fields: {
       firstName, lastName, birthDate, classYear, degree, email
-    }, submitting, error, handleSubmit, degrees} = this.props
+    }, submitting, error, handleSubmit, degrees, classYears} = this.props
     return (
       <StyleRoot>
         <Layout.Window>
@@ -67,8 +67,7 @@ class RequestInvite extends React.Component {
   }
 }
 
-RequestInvite.propTypes = {
-  ...reduxFormPropTypes,
+RequestInvite.propTypes = Object.assign({}, reduxFormPropTypes, {
   fields: PropTypes.shape({
     firstName: fieldShape.isRequired,
     lastName: fieldShape.isRequired,
@@ -78,16 +77,18 @@ RequestInvite.propTypes = {
   }).isRequired,
   degrees: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
   })),
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object,
-  submitting: PropTypes.bool.isRequired
-}
+  submitting: PropTypes.bool.isRequired,
+  classYears: PropTypes.array.isRequired
+})
 
 const s = {
   nameRow: {
     display: 'flex'
   }
 }
+
 export default Radium(RequestInvite)
