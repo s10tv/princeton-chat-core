@@ -4,7 +4,7 @@ import AdminInvite from '../components/admin.invite.jsx'
 export const composer = ({context}, onData) => {
   const {Meteor, Collections} = context()
   if (Meteor.subscribe('invites').ready()) {
-    const invites = Collections.Invites.find({}, {sort: {updatedAt: -1}}).fetch()
+    const invites = Collections.Invites.find({}, {sort: {status: 1}}).fetch()
     onData(null, {
       invites
     })
