@@ -17,7 +17,7 @@ import {
   emailTitle
 } from '../emails'
 
-const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
+const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
 const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
 const slack = Meteor.npmRequire('slack-notify')(slackUrl)
