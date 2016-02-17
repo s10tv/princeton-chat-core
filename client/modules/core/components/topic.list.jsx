@@ -153,12 +153,15 @@ const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
     return text
   }
 
+  const followerCount = isLoggedIn ? topic.followersCount : topic.followersCount + 10
+  const postCount = isLoggedIn ? topic.numPosts : topic.numPosts + 10
+
   const getFollowerText = () => {
-    return pluralizeTextForNumber('subscriber', topic.followersCount)
+    return pluralizeTextForNumber('subscriber', followerCount)
   }
 
   const getPostsText = () => {
-    return pluralizeTextForNumber('post', topic.numPosts)
+    return pluralizeTextForNumber('post', postCount)
   }
 
   const mobileCoverPhotoOverride = !isMobile
@@ -198,13 +201,13 @@ const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
             {
               topic.followersCount !== undefined
               ? <Flex marginRight={25}>
-                <span style={localStyle.topicItemCountInfo}>{topic.followersCount} {getFollowerText()}</span>
+                <span style={localStyle.topicItemCountInfo}>{followerCount} {getFollowerText()}</span>
               </Flex> : null
             }
             {
               topic.numPosts !== undefined
               ? <Flex>
-                <span style={localStyle.topicItemCountInfo}>{topic.numPosts} {getPostsText()}</span>
+                <span style={localStyle.topicItemCountInfo}>{postCount} {getPostsText()}</span>
               </Flex> : null
             }
           </Flex>
