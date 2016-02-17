@@ -8,7 +8,7 @@ const context = initContext()
 const {Meteor, Migrations} = context
 
 configs()
-publications()
+publications(context)
 methods(context)
 http()
 
