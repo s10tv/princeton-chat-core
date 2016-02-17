@@ -18,7 +18,6 @@ export const formConfig = {
 
 export const composer = ({context}, onData) => {
   onData(null, {
-    isMobile: window.innerWidth < 768,
     degrees
   })
 }

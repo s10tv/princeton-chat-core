@@ -19,6 +19,9 @@ export default {
     alignSelf: 'center',
     display: 'flex',
     flexDirection: 'column',
+    '@media (max-width: 768px)': {
+      padding: '16px 16px 25px 16px'
+    }
   },
   sidebarLogo: {
     fontWeight: 'normal',
