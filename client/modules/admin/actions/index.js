@@ -10,15 +10,24 @@ export default {
     },
 
     removeInvite ({ Meteor, sweetalert }, inviteId) {
-      Meteor.call('admin/invite/delete', inviteId, (err) => {
-        if (err) {
-          return sweetalert({title: 'Error removing invite', text: err.reason})
-        }
-        return sweetalert({
-          title: 'Invite Removed',
-          text: 'You will not see this sucker again'
+      sweetalert({
+        title: 'Are you sure?',
+        text: 'You will permanently delete this invite',
+        type: 'warning',
+        showCancelButton: true,
+        closeOnConfirm: false
+      }, function () {
+        Meteor.call('admin/invite/delete', inviteId, (err) => {
+          if (err) {
+            return sweetalert({title: 'Error removing invite', text: err.reason})
+          }
+          return sweetalert({
+            title: 'Invite Removed',
+            text: 'You will not see this sucker again'
+          })
         })
       })
     }
   }
+
 }
