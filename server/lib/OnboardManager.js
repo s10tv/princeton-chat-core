@@ -26,7 +26,6 @@ export default class OnboardManager {
 
   constructor() {
     this.audience = emailTitle || 'Princeton.Chat'
-    this.audience = emailTitle || 'Princeton.Chat'
   }
 
   verifyAlumni (options) {

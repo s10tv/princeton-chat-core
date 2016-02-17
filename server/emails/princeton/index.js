@@ -8,5 +8,5 @@ export default {
   Signup,
   InviteNonAlum,
   htmlEmail,
-  emailTitle: 'Pedagogy and Play',
+  emailTitle: 'Princeton.Chat',
 }
