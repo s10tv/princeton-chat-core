@@ -3,7 +3,6 @@ import {Flex} from 'jsxstyle'
 import LeftNav from '../../../../../node_modules/material-ui/lib/left-nav'
 import List from '../../../../../node_modules/material-ui/lib/lists/list'
 import ListItem from '../../../../../node_modules/material-ui/lib/lists/list-item'
-import FlatButton from '../../../../../node_modules/material-ui/lib/flat-button'
 import {SmallListItem, MediumListItem, LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 import RaisedButton from '../../../../../node_modules/material-ui/lib/raised-button'
 import FontIcon from '../../../../../node_modules/material-ui/lib/font-icon'
@@ -53,15 +52,16 @@ const SidebarHeader = (props) => {
   )
 }
 
-const SubHeader = ({label, action, onClick}) => (
-  <FlatButton style={{ width: '100%', paddingLeft: 4, paddingRight: 16, color: primary3Color,
-      fontWeight: 'normal'
-    }} onTouchTap={onClick}>
-    <Flex justifyContent='space-between'>
-      <span>{label}</span>
-      <span>{action}</span>
-    </Flex>
-  </FlatButton>
+const NonTappableSubHeader = ({ label, action }) => (
+  <Flex justifyContent='space-between' style={{
+    width: '100%',
+    paddingLeft: 4,
+    paddingRight: 16,
+    color: primary3Color,
+    fontWeight: 'normal'}}>
+    <span>{label}</span>
+    <span>{action}</span>
+  </Flex>
 )
 
 const AddNewPostButton = ({ onClick }) => (
@@ -141,9 +141,15 @@ export default React.createClass({
                 All Posts
             </MediumListItem>
 
+            <MediumListItem
+              style={this.giveListItemStyleForRoutePath('choose-topics')}
+              onTouchTap={this.props.showAllTopics}>
+              Explore Channels
+            </MediumListItem>
+
           </List>
           <List subheader={
-            <SubHeader label='CHANNELS' action='ALL' onClick={this.props.showAllTopics}/>
+            <NonTappableSubHeader label='MY CHANNELS' />
           }>
             {this.props.followedTopics.map((topic) =>
               <SmallListItem
