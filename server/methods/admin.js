@@ -1,10 +1,6 @@
-import { Meteor } from 'meteor/meteor'
-import { check } from 'meteor/check'
+export default function ({Meteor, check, OnboardManager, Collections}) {
+  const {Invites} = Collections
 
-import { Users, Invites } from '/lib/collections'
-import OnboardManager from '/server/lib/OnboardManager'
-
-export default function () {
   class AdminUserService {
      static get () {
        const user = Meteor.user()
@@ -26,12 +22,12 @@ export default function () {
       // verify admin identity
       AdminUserService.get()
 
-      const invite = Invites.findOne(inviteId)
+      const invite = Invites.findOne({ _id: inviteId })
       if (!invite) {
         throw new Meteor.Error(400, 'Invite not found');
       }
 
-      new OnboardManager().handleManualVerify(invite)
+      OnboardManager.handleManualVerify(invite)
     },
 
     'admin/invite/delete': (inviteId) => {

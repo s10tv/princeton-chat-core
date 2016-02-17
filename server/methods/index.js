@@ -7,7 +7,7 @@ export default function (context) {
   const {Accounts} = context
 
   // for administering (invites, etc)
-  admin()
+  admin(context)
 
   // Other methods
   coreAndOnboarding()

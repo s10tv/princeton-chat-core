@@ -7,7 +7,7 @@ import http from './http'
 const context = initContext()
 const {Meteor, Migrations} = context
 
-configs()
+configs(context)
 publications(context)
 methods(context)
 http()

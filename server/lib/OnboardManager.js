@@ -1,9 +1,5 @@
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import { Meteor } from 'meteor/meteor'
-import { Accounts } from 'meteor/accounts-base'
-import { Email } from 'meteor/email'
-import { Random } from 'meteor/random'
+import ReactDOMServer from '../../node_modules/react-dom/server'
 import { check } from 'meteor/check'
 import { Invites, Users } from '/lib/collections'
 import { autoVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
@@ -24,8 +20,13 @@ const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
 export default class OnboardManager {
 
-  constructor() {
+  constructor({ Meteor, Accounts, Email, Random, Collections, }) {
     this.audience = emailTitle || 'Princeton.Chat'
+    this.Meteor = Meteor
+    this.Accounts = Accounts
+    this.Email = Email
+    this.Random = Random
+    this.Collections = Collections
   }
 
   verifyAlumni (options) {
