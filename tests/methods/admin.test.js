@@ -26,9 +26,9 @@ describe ('methods/admin', () => {
 
 
   describe ('admin/user/invite', () => {
-    it ('should pass', () => {
+    it ('should create manual invite', () => {
       Meteor.call('admin/user/invite', 'inviteId')
-      expect(OnboardManager.manualInvite).to.exist
+      expect(OnboardManager.handleManualVerify.called).to.be.true
     })
   })
 })

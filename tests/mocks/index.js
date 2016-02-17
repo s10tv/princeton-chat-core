@@ -3,15 +3,13 @@ import sinon from 'sinon'
 import MockMeteor from './MockMeteor'
 import Collections from './MockCollection'
 
-class MockOnboardingManger {
-  handleManualVerify(invite) {
-    this.manualInvite = invite
-  }
+const MockOnboardingManger = {
+  handleManualVerify: sinon.spy()
 }
 
 export default {
   Meteor: new MockMeteor(),
   Collections,
   check: () => {},
-  OnboardManager: new MockOnboardingManger()
+  OnboardManager: MockOnboardingManger
 }
