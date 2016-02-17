@@ -39,6 +39,7 @@ export default React.createClass({
   render () {
     const isAtLeastDesktop = this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
     const isAtLeastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
+    const isMobile = !isAtLeastTablet
 
     const sidebarOpen = this.props.clickedToShowSidebar || (isAtLeastTablet || isAtLeastDesktop)
     const rightbarOpen = isAtLeastTablet
@@ -47,7 +48,7 @@ export default React.createClass({
     return (
       <div id='layout'>
         <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
-        {content({ sidebarOpen, rightbarOpen, showSidebar: this.props.showSidebar })}
+        {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
         <CreatePost />
         <SettingsModal />
         <EditProfileModal />

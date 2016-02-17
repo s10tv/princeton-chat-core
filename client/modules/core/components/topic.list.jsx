@@ -46,7 +46,12 @@ export default React.createClass({
     /**
      * Func to show alert to login
      */
-    showLoginAlert: React.PropTypes.func
+    showLoginAlert: React.PropTypes.func,
+
+    /**
+     * If we are in mobile mode
+     */
+    isMobile: React.PropTypes.bool.isRequired
   },
 
   getInitialState () {
@@ -99,13 +104,16 @@ export default React.createClass({
                         isLoggedIn={this.props.isLoggedIn}
                         ifLoggedInExecute={this.ifLoggedInExecute}
                         topic={topic}
+                        isMobile={this.props.isMobile}
                         isTopicClickable={this.props.isTopicClickable}
                         navigateToTopic={this.props.navigateToTopic}
                         followTopic={this.props.followTopic}
                         unfollowTopic={this.props.unfollowTopic} />
                     )}
 
-                <NewTopicButton showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
+                <NewTopicButton
+                  isMobile={this.props.isMobile}
+                  showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
               </Flex> : null
             }
             {this.state.value === 'Recent'
@@ -116,13 +124,16 @@ export default React.createClass({
                         isLoggedIn={this.props.isLoggedIn}
                         key={topic._id}
                         topic={topic}
+                        isMobile={this.props.isMobile}
                         isTopicClickable={this.props.isTopicClickable}
                         navigateToTopic={this.props.navigateToTopic}
                         followTopic={this.props.followTopic}
                         unfollowTopic={this.props.unfollowTopic} />
                     )}
 
-                <NewTopicButton showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
+                <NewTopicButton
+                  isMobile={this.props.isMobile}
+                  showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
               </Flex> : null
             }
           </div>
@@ -133,7 +144,7 @@ export default React.createClass({
 })
 
 const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
-  topic, followTopic, unfollowTopic, navigateToTopic, isTopicClickable}) => {
+  topic, followTopic, unfollowTopic, navigateToTopic, isTopicClickable, isMobile}) => {
   const pluralizeTextForNumber = (text, number) => {
     if (number !== 1) {
       return text + 's'
@@ -150,6 +161,10 @@ const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
     return pluralizeTextForNumber('post', topic.numPosts)
   }
 
+  const mobileCoverPhotoOverride = !isMobile
+    ? coverPhotoDimensions
+    : mobileCoverPhotoDimenions
+
   return (
     <Flex style={localStyle.topicItemContainer}>
       <Flex flexGrow={1}>
@@ -157,7 +172,7 @@ const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
         ? <a href='#' onClick={() => ifLoggedInExecute(() => {
           navigateToTopic(topic._id)
         })} style={Object.assign({},
-          localStyle.topicItemCoverPhoto,
+          Object.assign(localStyle.topicItemCoverPhoto, mobileCoverPhotoOverride),
           { backgroundImage: `url("${topic.cover.url}")` }
         )} />
         : <div style={Object.assign({},
@@ -219,11 +234,15 @@ const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
   )
 }
 
-const NewTopicButton = ({ showAddTopicModal }) => {
+const NewTopicButton = ({ showAddTopicModal, isMobile }) => {
+  const mobileCoverPhotoOverride = !isMobile
+    ? coverPhotoDimensions
+    : mobileCoverPhotoDimenions
+
   return (
     <a href='#' onClick={showAddTopicModal}>
       <Flex margin='25px 0px' flexGrow={1}>
-        <Flex style={newTopicButtonStyle.coverPhotoBg}>
+        <Flex style={Object.assign({}, newTopicButtonStyle.coverPhotoBg, mobileCoverPhotoOverride)}>
           <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
         </Flex>
         <Flex flexGrow={1} marginLeft={30} flexDirection='column' alignItems='center'>
@@ -237,6 +256,12 @@ const NewTopicButton = ({ showAddTopicModal }) => {
       </Flex>
     </a>
   )
+}
+
+const mobileCoverPhotoDimenions = {
+  flex: '0 0 110px',
+  maxHeight: 147,
+  borderRadius: 5
 }
 
 const coverPhotoDimensions = {
