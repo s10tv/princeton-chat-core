@@ -17,15 +17,6 @@ const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/T03E
 const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
 export default function () {
-  class CurrentUser {
-    static get () {
-      const user = Meteor.user()
-      if (!user) {
-        throw new Meteor.Error(401, 'Unauthorized')
-      }
-      return user
-    }
-  }
 
   Meteor.methods({
     // returns invite code
