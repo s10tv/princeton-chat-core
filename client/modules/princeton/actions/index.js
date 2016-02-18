@@ -5,6 +5,14 @@ import UserService from '/lib/user.service'
 import { i18n } from '/client/configs/env'
 import AmplitudeService from '/client/lib/amplitude.service'
 
+export function redirectIfUrlFound(FlowRouter) {
+  if (FlowRouter.current().queryParams.ol) {
+    return FlowRouter.go(decodeURIComponent(FlowRouter.current().queryParams.ol))
+  }
+
+  return FlowRouter.go('all-mine')
+}
+
 export default {
   onboardingManualVerify: {
     submit: createOnSubmit('signup/verifyAffiliation', ({Meteor, sweetalert}) => {
@@ -33,7 +41,7 @@ export default {
           })
         }
         AmplitudeService.track('home/login', { type: 'facebook' })
-        return FlowRouter.go('all-mine')
+        return redirectIfUrlFound(FlowRouter)
       })
     },
     loginWithPassword ({Meteor}, info) {
@@ -45,7 +53,7 @@ export default {
           } else {
             resolve()
             AmplitudeService.track('home/login', { type: 'password' })
-            FlowRouter.go('all-mine')
+            return redirectIfUrlFound(FlowRouter)
           }
         })
       })

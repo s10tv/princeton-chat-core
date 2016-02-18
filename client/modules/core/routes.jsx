@@ -10,7 +10,16 @@ import AddFollowers from '/client/modules/core/containers/add.followers.js'
 import ErrorPage from '/client/modules/core/components/error.jsx'
 // This import has to be at the end for some reason else fails
 
+function requireUserInSession (context) {
+  if (!this.Meteor.userId()) {
+    return this.FlowRouter.go('onboarding-login', {}, {
+      ol: encodeURIComponent(context.path)
+    })
+  }
+}
+
 export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
+  const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
   const LayoutMainCtx = injectDeps(LayoutMain)
   const GuestIndexCtx = injectDeps(GuestIndex)
 
@@ -37,6 +46,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
+    triggersEnter: [requireUserInSessionFn],
     action ({ topicId }) {
       mount(LayoutMainCtx, {
         content: (props) => <PostList topicId={topicId} {...props} />
@@ -49,6 +59,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
+    triggersEnter: [requireUserInSessionFn],
     action () {
       mount(LayoutMainCtx, {
         content: (props) => <PostList postListType={'ALL_MINE'} {...props} />
@@ -61,6 +72,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
+    triggersEnter: [requireUserInSessionFn],
     action () {
       mount(LayoutMainCtx, {
         content: (props) => <PostList postListType={'ALL'} {...props} />
@@ -73,6 +85,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
+    triggersEnter: [requireUserInSessionFn],
     action () {
       mount(LayoutMainCtx, {
         content: (props) => <TopicList isLoggedIn isTopicClickable {...props} />
@@ -85,6 +98,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
+    triggersEnter: [requireUserInSessionFn],
     action ({ topicId }) {
       mount(LayoutMainCtx, {
         content: (props) => <AddFollowers topicId={topicId} {...props} />
@@ -97,6 +111,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
+    triggersEnter: [requireUserInSessionFn],
     action ({ topicId, postId }) {
       mount(LayoutMainCtx, {
         content: (props) => <PostDetails topicId={topicId} postId={postId} {...props } />
