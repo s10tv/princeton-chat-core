@@ -1,7 +1,5 @@
 import React from 'react'
 import ReactDOMServer from '../../node_modules/react-dom/server'
-import { check } from 'meteor/check'
-import { Invites, Users } from '/lib/collections'
 import { autoVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
@@ -13,26 +11,25 @@ import {
   emailTitle
 } from '../emails'
 
-const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
 const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
-const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
 export default class OnboardManager {
 
-  constructor({ Meteor, Accounts, Email, Random, Collections, }) {
+  constructor({ Meteor, Accounts, Email, Random, Collections, slack }) {
     this.audience = emailTitle || 'Princeton.Chat'
     this.Meteor = Meteor
     this.Accounts = Accounts
     this.Email = Email
     this.Random = Random
     this.Collections = Collections
+    this.slack = slack
   }
 
   verifyAlumni (options) {
     const errors = autoVerifyValidator(options)
     if (errors.length > 0) {
-      throw new Meteor.Error(400, errors)
+      throw new this.Meteor.Error(400, errors)
     }
 
     const { netid, domain, classYear } = options
@@ -45,13 +42,13 @@ export default class OnboardManager {
   verifyAffiliation (options) {
     const errors = manualVerifyValidator(options)
     if (errors.length > 0) {
-      throw new Meteor.Error(400, errors)
+      throw new this.Meteor.Error(400, errors)
     }
 
     options.status = 'pending'
     const inviteCode = this.__generateInvite(options)
 
-    slack.send({
+    this.slack.send({
       icon_emoji: slackEmoji,
       text: `Need Manual Verify: ${options.firstName} ${options.lastName} [${options.email}]`,
       username: slackUsername
@@ -67,7 +64,7 @@ export default class OnboardManager {
       }
       // pass validation
       if (princeton(email) === undefined) {
-        const existingUser = Accounts.findUserByEmail(email)
+        const existingUser = this.Accounts.findUserByEmail(email)
         if (!existingUser) {
           this.__sendAffiliatedInviteEmail({ email, firstName, lastName, sender: user })
         }
@@ -83,16 +80,18 @@ export default class OnboardManager {
   }
 
   handleSignup (user, { firstName, lastName, password, email }) {
+    const {Users} = this.Collections
     Users.update(user._id, { $set: {
       firstName: user.firstName || firstName,
       lastName: user.lastName || lastName
     }})
 
-    Accounts.addEmail(user._id, email)
-    Accounts.setPassword(user._id, password, { logout: false })
+    this.Accounts.addEmail(user._id, email)
+    this.Accounts.setPassword(user._id, password, { logout: false })
   }
 
   handleManualVerify(invite) {
+    const {Invites} = this.Collections
     this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
     Invites.update(invite._id, { $set: { status: 'sent' }})
   }
@@ -102,7 +101,7 @@ export default class OnboardManager {
     const invite = this.__generateInvite({email, referredBy: sender._id, status: 'sent'})
     const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${invite.inviteCode}`
 
-    Email.send({
+    this.Email.send({
       from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
       to: email,
       subject: subject,
@@ -121,7 +120,7 @@ export default class OnboardManager {
     })
 
     if (process.env.MAIL_URL) {
-      slack.send({
+      this.slack.send({
         icon_emoji: ':mailbox:',
         text: `Sent alum-invite welcome email to ${email}.`,
         username: slackUsername
@@ -133,7 +132,7 @@ export default class OnboardManager {
     const subject = `[${this.audience}] Invite from ${sender.firstName}`
     this.__generateInvite({email, referredBy: sender._id, status: 'pending-onboard'})
 
-    Email.send({
+    this.Email.send({
       from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
       to: email,
       subject: subject,
@@ -150,7 +149,7 @@ export default class OnboardManager {
     })
 
     if (process.env.MAIL_URL) {
-      slack.send({
+      this.slack.send({
         icon_emoji: ':alien:',
         text: `Sent non-alum-invite welcome email to ${email}.`,
         username: slackUsername
@@ -162,7 +161,7 @@ export default class OnboardManager {
     const inviteLink = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
     const subject = process.env.INVITE_EMAIL_SUBJECT || `[${this.audience}] Welcome!`
 
-    Email.send({
+    this.Email.send({
       from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
       to: email,
       subject: subject,
@@ -177,7 +176,7 @@ export default class OnboardManager {
     })
 
     if (process.env.MAIL_URL) {
-      slack.send({
+      this.slack.send({
         icon_emoji: ':mortar_board:',
         text: `Sent a signup welcome email to ${email}.`,
         username: slackUsername
@@ -196,6 +195,7 @@ export default class OnboardManager {
       desc,
       status='pending' }) {
 
+    const {Invites} = this.Collections
     const invite = {
       email,
       firstName,
@@ -216,7 +216,7 @@ export default class OnboardManager {
       return Invites.findOne(existingInvite._id)
     }
 
-    invite.inviteCode = Random.id()
+    invite.inviteCode = this.Random.id()
     invite.status = status
     invite.referredBy = referredBy
 

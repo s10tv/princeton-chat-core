@@ -1,3 +1,8 @@
+import NewTopicService from '/lib/newtopic.service' // TODO: replace with validator
+
+function capitalizeFirstLetter (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
 
 export default function (context) {
 
@@ -71,6 +76,7 @@ export default function (context) {
       try {
         TopicManager.follow({topicId, user: currentUser()})
       } catch (err) {
+        console.error(err);
         throw new Meteor.Error(500, 'There was a problem with subscribing to this channel.')
       }
     },
@@ -82,6 +88,7 @@ export default function (context) {
       try {
         TopicManager.unfollow({topicId, user: currentUser()})
       } catch (err) {
+        console.error(err);
         throw new Meteor.Error(500, 'There was a problem with unsubscribing to this channel.')
       }
     },
@@ -94,6 +101,7 @@ export default function (context) {
       try {
         TopicManager.unfollow({topicId, user: {_id: userId}})
       } catch (err) {
+        console.error(err);
         throw new Meteor.Error(500, 'There was a problem removing follower.')
       }
     },
@@ -147,7 +155,7 @@ export default function (context) {
 
       Topics.insert({
         _id: topicId,
-        displayName: UserService.capitalizeFirstLetter(topicInfo.name),
+        displayName: capitalizeFirstLetter(topicInfo.name),
         description: topicInfo.description,
         followers: [],
         numPosts: 0,

@@ -3,12 +3,12 @@ import { Meteor } from 'meteor/meteor'
 
 export default class PostManager {
 
-  constructor({ Meteor, Collections, check }) {
+  constructor({Meteor, Collections}) {
     this.Meteor = Meteor
     this.Collections = Collections;
   }
 
-  follow ({ user, postId }) {
+  follow ({user, postId}) {
     const {Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
@@ -33,12 +33,12 @@ export default class PostManager {
     })
   }
 
-  unfollow ({ postId, user }) {
+  unfollow ({postId, user}) {
     const {Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
     if (!post || !user) {
-      throw new Meteor.Error(400, 'Could not unfollow the post because the post ' +
+      throw new this.Meteor.Error(400, 'Could not unfollow the post because the post ' +
         'was not found, or the user was accidentally logged out')
     }
 
@@ -57,17 +57,17 @@ export default class PostManager {
     })
   }
 
-  delete ({ postId, user }) {
+  delete ({postId, user}) {
     const {Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
     if (!post || !user) {
-      throw new Meteor.Error(400, 'Could not remove the post because the post ' +
+      throw new this.Meteor.Error(400, 'Could not remove the post because the post ' +
         'was not found, or the user was accidentally logged out')
     }
 
     if (post.ownerId !== user._id) {
-      throw new Meteor.Error(400, 'You need to be the owner of the post to delete it')
+      throw new this.Meteor.Error(400, 'You need to be the owner of the post to delete it')
     }
 
     // remove the post from followingPosts field in every user
