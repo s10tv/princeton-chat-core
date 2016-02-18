@@ -1,15 +1,12 @@
-import { Topics, Posts, Users } from '/lib/collections'
-import { Meteor } from 'meteor/meteor'
-
 export default class PostManager {
 
-  constructor({Meteor, Collections}) {
+  constructor ({Meteor, Collections}) {
     this.Meteor = Meteor
-    this.Collections = Collections;
+    this.Collections = Collections
   }
 
   follow ({user, postId}) {
-    const {Posts, Users} = this.Collections
+    const {Topics, Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
     if (!post) {
@@ -34,7 +31,7 @@ export default class PostManager {
   }
 
   unfollow ({postId, user}) {
-    const {Posts, Users} = this.Collections
+    const {Topics, Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
     if (!post || !user) {
