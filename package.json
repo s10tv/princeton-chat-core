@@ -45,6 +45,7 @@
     "react-css-modules": "3.7.4",
     "react-dom": "0.14.x",
     "react-link-state": "0.1.1",
+    "react-linkify": "^0.1.1",
     "react-mounter": "1.x.x",
     "react-redux": "4.4.0",
     "react-select": "0.9.1",
