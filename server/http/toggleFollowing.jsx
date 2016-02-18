@@ -57,7 +57,7 @@ const GuestToggleFollow = (props) => (
       </a>
     </p>
     <p>
-      <a href={props.editTopicsLink}>Edit topics I follow</a>
+      <a href={props.editTopicsLink}>Edit My Channels</a>
     </p>
   </Block>
 )
