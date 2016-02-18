@@ -149,7 +149,7 @@ const GuestIndex = (props) => (
     <SimpleLogo />
     <Flex flexWrap='wrap' maxWidth={1024}>
       <Section>
-        <h2>Topics I follow</h2>
+        <h2>Channels Subscribed</h2>
         {props.topics.map((topic) =>
           <TopicItem key={topic._id} topic={topic}
             followTopic={props.followTopic} unfollowTopic={props.unfollowTopic} />
