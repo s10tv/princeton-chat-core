@@ -5,9 +5,8 @@ import {Posts, Users} from '/lib/collections'
 import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
-import { Signup, Invite, InviteNonAlum } from '../emails'
+import { Signup, Invite, InviteNonAlum, htmlEmail, emailTitle } from '../emails'
 import EmailInvite from '../emails/princeton/invite.jsx'
-import htmlEmail from '../emails/princeton/html.layout.js'
 import htmlPage from './html'
 
 export default function () {
@@ -45,7 +44,7 @@ export default function () {
         return 'Not Found - Action not allowed'
       }
       return htmlPage({
-        title: 'Princeton.Chat',
+        title: emailTitle,
         body: ReactDOMServer.renderToStaticMarkup(
           React.createElement(GuestToggleFollow, {
             title: post.title,
