@@ -9,7 +9,7 @@ import _ from 'underscore'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 
-export const composer = ({context, topicId, postListType, rightbarOpen}, onData) => {
+export const composer = ({context, topicId, postListType, rightbarOpen, isMobile}, onData) => {
   const {Meteor, Collections} = context()
   const currentUser = UserService.currentUser()
 
@@ -60,6 +60,11 @@ export const composer = ({context, topicId, postListType, rightbarOpen}, onData)
         })
       } else {
         post.topics = []
+      }
+
+      // if on mobile, truncate tags to one
+      if (post.topics.length > 1 && isMobile) {
+        post.topics.length = 1
       }
 
       post.timestamp = DateFormatter.format(post)
