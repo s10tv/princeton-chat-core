@@ -62,6 +62,7 @@ const depsMapper = (context, actions) => ({
   navigateToTopic: actions.topics.navigateToTopic,
   deletePost: actions.posts.deletePost,
   deleteMessage: actions.messages.delete,
+  messageLinkOnClick: actions.messages.messageLinkOnClick,
   context: () => context
 })
 

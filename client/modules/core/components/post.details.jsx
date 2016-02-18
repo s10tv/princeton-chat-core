@@ -85,7 +85,7 @@ export default React.createClass({
 
   render () {
     const { post, messages, showUserProfilePost, showUserProfileMessage, deleteMessage,
-      showSidebar, sidebarOpen} = this.props
+      showSidebar, sidebarOpen, messageLinkOnClick} = this.props
 
     return (
       <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
@@ -164,6 +164,7 @@ export default React.createClass({
             <MessageGroup owner={post.owner}
               timestamp={post.timestamp}
               content={post.content}
+              messageLinkOnClick={messageLinkOnClick}
               showUserProfile={() => showUserProfilePost(post)} />
             {messages.map((message) =>
               <MessageGroup
@@ -171,6 +172,7 @@ export default React.createClass({
                 owner={message.owner}
                 timestamp={message.timestamp}
                 content={message.content}
+                messageLinkOnClick={messageLinkOnClick}
                 deleteMessage={message.canDelete ? () => deleteMessage(message._id) : null}
                 showUserProfile={() => showUserProfileMessage(message)} />
             )}

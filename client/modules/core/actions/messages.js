@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor'
+import UserService from '/lib/user.service'
 
 export default {
   create ({Collections, LocalState, handleClose}, content, postId) {
@@ -17,7 +18,21 @@ export default {
     Meteor.call('messages/delete', messageId)
   },
 
-  showUserProfile ({LocalState}, message) {
+  showUserProfile ({LocalState, Meteor}, message) {
     LocalState.set('PROFILE_USER', message.owner)
+  },
+
+  messageLinkOnClick ({LocalState, Collections}, event) {
+    const re = /^tc:\/\/users\//
+    if (re.test(event.target.href)) {
+      event.preventDefault()
+      const username = event.target.href.replace('tc://users/', '')
+      const user = Collections.Users.findOne({username})
+      if (user) {
+        LocalState.set('PROFILE_USER', UserService.getUserView(user))
+      }
+    } else {
+      return true
+    }
   }
 }
