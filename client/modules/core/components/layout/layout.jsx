@@ -10,7 +10,7 @@ import AddTopicCoverPhotoModal from '/client/modules/core/containers/modal.add.t
 import PostFollowersModal from '/client/modules/core/containers/modal.post.followers.js'
 import GlobalSnackbar from '/client/modules/core/containers/global.snackbar.js'
 import { i18n } from '/client/configs/env'
-
+import {StyleRoot} from 'radium'
 // TODO: Figure out a better way that does not involve using Mixin
 
 const primaryMuiTheme = i18n('primaryMuiTheme')
@@ -45,18 +45,20 @@ export default React.createClass({
     const content = this.props.content || (() => {})
 
     return (
-      <div id='layout'>
-        <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
-        {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
-        <CreatePost />
-        <SettingsModal />
-        <EditProfileModal />
-        <PostFollowersModal />
-        <AddTopicModal />
-        <AddTopicCoverPhotoModal />
-        <Profile />
-        <GlobalSnackbar />
-      </div>
+      <StyleRoot>
+        <div id='layout'>
+          <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
+          {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
+          <CreatePost />
+          <SettingsModal />
+          <EditProfileModal />
+          <PostFollowersModal />
+          <AddTopicModal />
+          <AddTopicCoverPhotoModal />
+          <Profile />
+          <GlobalSnackbar />
+        </div>
+      </StyleRoot>
     )
   }
 })
