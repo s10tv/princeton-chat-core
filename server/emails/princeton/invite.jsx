@@ -21,7 +21,7 @@ export default React.createClass({
           <p style={{
             fontSize: '16px'
           }}>
-            You were just invited to Princeton.Chat {senderName ? `by ${senderName}` : ''}!
+            You were just invited to Princeton.Chat{senderName ? ` by ${senderName}` : ''}!
           </p>
           <a target='_blank' href={inviteUrl} style={{
             backgroundColor: accentColor,

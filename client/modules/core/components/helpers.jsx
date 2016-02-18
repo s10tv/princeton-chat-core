@@ -1,18 +1,38 @@
 import React from 'react'
-import {Flex} from 'jsxstyle'
 import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
 import Avatar from '../../../../node_modules/material-ui/lib/avatar'
 import CircularProgress from '../../../../node_modules/material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
+import Radium, {StyleRoot} from 'radium'
 
 // Helpers
 
-export const Loading = () => (
-  <Flex flex={1} justifyContent='center' alignItems='center' flexDirection='column' marginLeft={240} height='100vh'>
+const LoadingWrapper = () => (
+  <StyleRoot>
+    <LoadingComponent />
+  </StyleRoot>
+)
+
+var LoadingComponent = () => (
+  <div style={{
+    display: 'flex',
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: '100vh',
+    marginLeft: 240,
+    '@media (max-width: 768px)': {
+      marginLeft: 0
+    }}}>
     <span style={{color: 'gray'}}>Loading...</span>
     <CircularProgress />
-  </Flex>
+  </div>
 )
+
+LoadingComponent = Radium(LoadingComponent)
+
+export const Loading = Radium(LoadingWrapper)
 
 export const NoPaddingListItem = (props) => (
   <ListItem innerDivStyle={{

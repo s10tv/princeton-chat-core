@@ -6,7 +6,11 @@ export default {
   main: {
     height: '100vh',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    '@media (max-width: 768px)': {
+      height: 'initial',
+      minHeight: '100vh'
+    }
   },
 
   primaryButton: {

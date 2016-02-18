@@ -9,8 +9,7 @@ class Main extends React.Component {
   }
   render () {
     return (
-      <main style={[style.main, style.background(this.props.backgroundUrl),
-          this.props.isMobile && style.mobile]}>
+      <main style={[style.main, style.background(this.props.backgroundUrl)]}>
         {this.props.children}
         <GlobalSnackbar />
       </main>
@@ -28,7 +27,11 @@ Main.propTypes = {
 
 const style = {
   main: {
-    flex: 6
+    flex: 6,
+
+    '@media (max-width: 768px)': {
+      display: 'none'
+    }
   },
   background (url) {
     return url ? {
@@ -36,9 +39,6 @@ const style = {
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     } : null
-  },
-  mobile: {
-    display: 'none'
   }
 }
 

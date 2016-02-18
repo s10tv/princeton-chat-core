@@ -13,7 +13,7 @@ import {
   emailTitle
 } from '../emails'
 
-const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
+const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slackUsername = process.env.ENV || 'dev'
 const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
 const slack = Meteor.npmRequire('slack-notify')(slackUrl)
@@ -53,7 +53,7 @@ export default class OnboardManager {
 
     slack.send({
       icon_emoji: slackEmoji,
-      text: `Unaffiliated: ${options.firstName} ${options.lastName} signed up at ${options.email}`,
+      text: `Need Manual Verify: ${options.firstName} ${options.lastName} [${options.email}]`,
       username: slackUsername
     })
 
@@ -93,8 +93,8 @@ export default class OnboardManager {
   }
 
   handleManualVerify(invite) {
-    Invites.update(invite._id, { $set: { status: 'sent' }})
     this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
+    Invites.update(invite._id, { $set: { status: 'sent' }})
   }
 
   __sendAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
@@ -151,7 +151,7 @@ export default class OnboardManager {
 
     if (process.env.MAIL_URL) {
       slack.send({
-        icon_emoji: ':alien',
+        icon_emoji: ':alien:',
         text: `Sent non-alum-invite welcome email to ${email}.`,
         username: slackUsername
       })
@@ -178,8 +178,8 @@ export default class OnboardManager {
 
     if (process.env.MAIL_URL) {
       slack.send({
-        icon_emoji: slackEmoji,
-        text: `Sent a welcome email to ${email}.`,
+        icon_emoji: ':mortar_board:',
+        text: `Sent a signup welcome email to ${email}.`,
         username: slackUsername
       })
     }

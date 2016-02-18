@@ -1,4 +1,3 @@
-import truncate from 'truncate'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '/lib/user.service.js'
 import DateFormatter from '/client/lib/date.formatter.js'
@@ -49,7 +48,7 @@ export const composer = ({context, topicId, postId}, onData) => {
       followFn: () => { Meteor.call('post/follow', post._id) },
       unfollowFn: () => { Meteor.call('post/unfollow', post._id) },
       followersCount: post.followers.length,
-      title: truncate(post.title, 50),
+      title: post.title,
       isPostDeletable: currentUser._id === post.ownerId,
       isFollowing: currentUser.followingPosts.indexOf(post._id) >= 0
     })

@@ -8,7 +8,7 @@ export default function () {
     }
 
     const user = Users.findOne(serviceData.guest.userId)
-    if (isValidHash(user, serviceData.guest.hash)) {
+    if (user && isValidHash(user, serviceData.guest.hash)) {
       return {
         userId: user._id
       }

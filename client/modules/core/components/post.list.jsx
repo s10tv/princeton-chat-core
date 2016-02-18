@@ -1,4 +1,5 @@
 import React from 'react'
+import Radium from 'radium'
 import {Flex} from 'jsxstyle'
 import List from '../../../../node_modules/material-ui/lib/lists/list'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
@@ -9,7 +10,7 @@ import RightBar from '/client/modules/core/components/layout/layout.rightbar.jsx
 import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
 import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
 
-export default React.createClass({
+const PostListScreen = React.createClass({
   propTypes: {
     /**
      * Topic to render
@@ -65,7 +66,9 @@ export default React.createClass({
         <Flex flexDirection='column' flexGrow={1}>
           <Menu
             hidePostButton={this.props.isEmpty}
-            style={{marginBottom: 20}}
+            style={{
+              marginBottom: 20
+            }}
             {...this.props} />
           <Flex>
             {this.props.isEmpty
@@ -214,3 +217,5 @@ const FollowBtn = (props) => (
     : <FlatButton primary label='Follow'
       onTouchTap={() => props.followPostFn(props.post._id)} />
 )
+
+export default Radium(PostListScreen)

@@ -1,5 +1,6 @@
 import React from 'react'
 import {Block} from 'jsxstyle'
+import Linkify from 'react-linkify'
 import IconMenu from '../../../../node_modules/material-ui/lib/menus/icon-menu'
 import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'
 import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
@@ -8,10 +9,15 @@ import { i18n } from '/client/configs/env'
 import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 
 const theme = i18n('secondaryMuiTheme')
+const accent1Color = theme.baseTheme.palette.accent1Color
 
 export const Message = (props) => (
   <div className='message'>
-    <div className='message-content'>{props.content}</div>
+    <div className='message-content'>
+      <Linkify properties={{style: { color: accent1Color }}}>
+        {props.content}
+      </Linkify>
+    </div>
     {props.action}
   </div>
 )
@@ -63,7 +69,7 @@ export class MessageGroup extends React.Component {
             </a>
             <a href='#' onClick={props.showUserProfile}>
               <span className='mention' style={Object.assign({}, {
-                color: theme.baseTheme.palette.accent1Color
+                color: accent1Color
               })}>
                 {props.owner.displayUsername}
               </span>

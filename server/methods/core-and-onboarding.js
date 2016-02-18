@@ -12,6 +12,10 @@ import NewTopicService from '/lib/newtopic.service.js'
 import UserService from '/lib/user.service.js'
 import {audience} from '../configs/index'
 
+// TODO: remove slack duplication
+const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
+const slack = Meteor.npmRequire('slack-notify')(slackUrl)
+
 export default function () {
   class CurrentUser {
     static get () {
@@ -413,6 +417,13 @@ export default function () {
       Users.update(currentUser._id, { $set: {
         status: 'active'
       }})
+
+      const count = Users.find().count()
+      slack.send({
+        icon_emoji: ':heart:',
+        text: `${currentUser.firstName} ${currentUser.lastName} signed up. Total count: ${count}.`,
+        username: 'signup'
+      })
     }
   })
 }

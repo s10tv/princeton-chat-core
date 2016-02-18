@@ -3,7 +3,6 @@ import React from 'react'
 export default class NavBar extends React.Component {
   render () {
     const s = {
-      height: 72,
       width: '100%', // For static containers
       alignSelf: 'stretch', // For flex containers
       boxSizing: 'border-box',

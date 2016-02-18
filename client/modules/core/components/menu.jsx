@@ -2,8 +2,9 @@ import React from 'react'
 import {Flex} from 'jsxstyle'
 import { RaisedButton, FontIcon, IconButton } from '/client/lib/ui.jsx'
 import { color } from '/client/configs/theme'
+import Radium from 'radium'
 
-export default class Menu extends React.Component {
+class Menu extends React.Component {
   render () {
     if (this.props.hidden) {
       return null
@@ -77,17 +78,8 @@ const numberOfFollowersText = (numFollowers) => {
   return pluralizeTextForNumber(numFollowers, 'subscriber')
 }
 
-const CoverPhotoMenu = (props) => (
-  <Flex maxHeight={200} minHeight={200} padding={25} flexGrow={1} flexDirection='column'
-    justifyContent='space-between'
-    background={`linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.2) 30%,
-      rgba(0,0,0,0.4) 60%,
-      rgba(0,0,0,0.6) 100%),
-      url(${props.topic.cover.url})
-      no-repeat center`} backgroundSize='100%' style={props.style}>
-
+var CoverPhotoMenu = (props) => (
+  <div style={[props.style, styles.coverPhoto(props.topic.cover.url)]} >
     {props.sidebarOpen
       ? null
       : <div style={{
@@ -139,5 +131,32 @@ const CoverPhotoMenu = (props) => (
             onTouchTap={props.followFn} />
       }
     </Flex>
-  </Flex>
+  </div>
 )
+
+CoverPhotoMenu = Radium(CoverPhotoMenu)
+
+const styles = {
+  coverPhoto: (url) => ({
+    display: 'flex',
+    maxHeight: 200,
+    minHeight: 200,
+    padding: 25,
+    flexGrow: 1,
+    flexDirection: 'column',
+    backgroundImage: `linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.2) 30%,
+      rgba(0,0,0,0.4) 60%,
+      rgba(0,0,0,0.6) 100%),
+      url(${url})`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '100%',
+    '@media (max-width: 768px)': {
+      backgroundSize: 'cover'
+    }
+  })
+}
+
+export default Radium(Menu)

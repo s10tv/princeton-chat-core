@@ -9,4 +9,5 @@ export default {
   InviteNonAlum,
   htmlEmail,
   emailTitle: 'Princeton.Chat',
+  primaryColor: '#F07621'
 }

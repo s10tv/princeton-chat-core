@@ -22,7 +22,7 @@ const SubscribeChannels = (props) => {
         <div style={[style.sidebarInner, s.sidebarInner]}>
           <h1 style={style.h1}>Tell us what you are interested in</h1>
           <img style={s.img} src='/images/ic-handrawn-arrow-right.png' alt='Use the list on the right to subscribe'/>
-          <p>You get notified when someone posts in a channel you subscribe.  Subscribe at least 3 channels to get started.</p>
+          <p>You get notified when someone posts in a channel you subscribe to.  Subscribe to at least 3 channels to get started.</p>
           <p>You can change your preferences later at any time.</p>
           <br />
           <h6>My Channels</h6>
