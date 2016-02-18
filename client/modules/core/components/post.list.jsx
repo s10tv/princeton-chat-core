@@ -66,7 +66,9 @@ const PostListScreen = React.createClass({
         <Flex flexDirection='column' flexGrow={1}>
           <Menu
             hidePostButton={this.props.isEmpty}
-            style={{marginBottom: 20}}
+            style={{
+              marginBottom: 20
+            }}
             {...this.props} />
           <Flex>
             {this.props.isEmpty
