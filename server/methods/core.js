@@ -1,3 +1,4 @@
+import {_} from 'underscore'
 import NewTopicService from '/lib/newtopic.service' // TODO: replace with validator
 
 function capitalizeFirstLetter (string) {
@@ -6,7 +7,8 @@ function capitalizeFirstLetter (string) {
 
 export default function (context) {
 
-  const {currentUser, Meteor, Collections, PostManager, TopicManager, check} = context
+  const {audience, currentUser, Meteor, Collections, PostManager, TopicManager, check,
+    AvatarService, Accounts,} = context
   const {Topics, Posts, Messages, Users} = Collections
 
   Meteor.methods({
@@ -167,6 +169,61 @@ export default function (context) {
 
       Meteor.call('topic/follow', topicId)
       return topicId
+    },
+
+    'topics/users/import': (topicId, userInfos) => {
+      check(topicId, String)
+      check(userInfos, [Object])
+
+      const topic = Topics.findOne(topicId)
+      if (!topic) {
+        throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`)
+      }
+
+      var re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      const filteredUserInfos = userInfos.filter(userInfo => re.test(userInfo.email))
+
+      const groupedUserInfos = _.groupBy(filteredUserInfos, (userInfo) => userInfo.email)
+      var hasDuplicateEmails = false
+      _.each(groupedUserInfos, (userInfosArr, key) => {
+        if (userInfosArr.length > 1) {
+          hasDuplicateEmails = key
+        }
+      })
+
+      if (hasDuplicateEmails) {
+        throw new Meteor.Error(500, `You typed the same email ${hasDuplicateEmails} more than once, please check.`)
+      }
+
+      try {
+        filteredUserInfos.forEach(userInfo => {
+          const email = userInfo.email
+          const firstName = userInfo.firstName || ''
+          const lastName = userInfo.lastName || ''
+          let existingUser = Accounts.findUserByEmail(email)
+          if (!existingUser) {
+            let newUserId = Accounts.createUser({ email, password: email, profile: {} })
+
+            Users.update(newUserId, { $set: {
+              firstName,
+              lastName,
+              avatar: {
+                url: AvatarService.generateDefaultAvatarForAudience(audience),
+                isDefaultAvatar: true,
+                color: AvatarService.generateRandomColorForDefaultAvatar()
+              },
+              isFullMember: false
+            }})
+
+            existingUser = Users.findOne(newUserId)
+          }
+
+          TopicManager.follow({ topicId, user: existingUser })
+        })
+      } catch (e) {
+        console.log(e)
+        throw new Meteor.Error(500, "Sorry, we messed up. We couldn't add your followers, but we tried very hard :/")
+      }
     },
 
     'post/follow': (postId) => {

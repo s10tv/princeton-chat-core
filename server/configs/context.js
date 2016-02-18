@@ -12,7 +12,10 @@ import TopicManager from '/server/lib/TopicManager'
 import OnboardManager from '/server/lib/OnboardManager'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
+const slack = Meteor.npmRequire('slack-notify')(slackUrl)
+
 const audience = process.env.AUDIENCE || 'princeton'
+
 
 export function initContext () {
   return {
@@ -23,15 +26,15 @@ export function initContext () {
     ServiceConfiguration,
     Random,
     check,
+    slack,
 
     // our exports
     audience,
     AvatarService,
     Collections,
-    OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections}),
+    OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack}),
     PostManager: new PostManager({Meteor, Collections}),
     TopicManager: new TopicManager({Meteor, Collections}),
-    slack: Meteor.npmRequire('slack-notify')(slackUrl),
     currentUser: () => {
       const user = Meteor.user()
       if (!user) {

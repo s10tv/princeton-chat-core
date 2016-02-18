@@ -1,78 +1,16 @@
-import {_} from 'underscore'
-
 export default function (context) {
-  const {audience, slack, currentUser, OnboardManager, Collections, TopicManager,
-    AvatarService} = context
-  const {Topics, Users} = Collections
+  const {slack, currentUser, Meteor, OnboardManager, Collections}= context
+  const {Users} = Collections
 
   Meteor.methods({
     'signup/verifyAffiliation': (options) => {
       check(options, Object)
-      check(currentUser(), Object)
-
       return OnboardManager.verifyAffiliation(options)
     },
 
     'signup/alumni': (options) => {
       check(options, Object)
-      check(currentUser(), Object)
-
       return OnboardManager.verifyAlumni(options)
-    },
-
-    'topics/users/import': (topicId, userInfos) => {
-      check(topicId, String)
-      check(userInfos, [Object])
-
-      const topic = Topics.findOne(topicId)
-      if (!topic) {
-        throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`)
-      }
-
-      var re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      const filteredUserInfos = userInfos.filter(userInfo => re.test(userInfo.email))
-
-      const groupedUserInfos = _.groupBy(filteredUserInfos, (userInfo) => userInfo.email)
-      var hasDuplicateEmails = false
-      _.each(groupedUserInfos, (userInfosArr, key) => {
-        if (userInfosArr.length > 1) {
-          hasDuplicateEmails = key
-        }
-      })
-
-      if (hasDuplicateEmails) {
-        throw new Meteor.Error(500, `You typed the same email ${hasDuplicateEmails} more than once, please check.`)
-      }
-
-      try {
-        filteredUserInfos.forEach(userInfo => {
-          const email = userInfo.email
-          const firstName = userInfo.firstName || ''
-          const lastName = userInfo.lastName || ''
-          let existingUser = Accounts.findUserByEmail(email)
-          if (!existingUser) {
-            let newUserId = Accounts.createUser({ email, password: email, profile: {} })
-
-            Users.update(newUserId, { $set: {
-              firstName,
-              lastName,
-              avatar: {
-                url: AvatarService.generateDefaultAvatarForAudience(audience),
-                isDefaultAvatar: true,
-                color: AvatarService.generateRandomColorForDefaultAvatar()
-              },
-              isFullMember: false
-            }})
-
-            existingUser = Users.findOne(newUserId)
-          }
-
-          TopicManager.follow({ topicId, user: existingUser })
-        })
-      } catch (e) {
-        console.log(e)
-        throw new Meteor.Error(500, "Sorry, we messed up. We couldn't add your followers, but we tried very hard :/")
-      }
     },
 
     'profile/getFacebookAvatar': () => {
@@ -115,7 +53,7 @@ export default function (context) {
     },
 
     'emailPreference/update': (preference) => {
-      const user = CurrentUser.get()
+      const user = currentUser()
       Users.update(user._id, { $set: {
         emailPreference: preference
       }})
@@ -124,7 +62,7 @@ export default function (context) {
     'welcome/signup': (info) => {
       check(info, Object)
       const user = currentUser()
-      return new OnboardManager().handleSignup(user, info)
+      return OnboardManager.handleSignup(user, info)
     },
 
     'welcome/linkfacebook': () => {
@@ -161,7 +99,7 @@ export default function (context) {
       check(serviceName, String)
 
       try {
-        const user = CurrentUser.get()
+        const user = currentUser()
         Users.update(user._id, { $set: {
           emailPreference: 'all', // have this in here until users can choose their email prefs in onboarding.
           status: 'active'
@@ -173,16 +111,16 @@ export default function (context) {
     },
 
     'user/setStatusActive': () => {
-      const currentUser = currentUser()
+      const user = currentUser()
 
-      Users.update(currentUser._id, { $set: {
+      Users.update(user._id, { $set: {
         status: 'active'
       }})
 
       const count = Users.find().count()
       slack.send({
         icon_emoji: ':heart:',
-        text: `${currentUser.firstName} ${currentUser.lastName} signed up. Total count: ${count}.`,
+        text: `${user.firstName} ${user.lastName} signed up. Total count: ${count}.`,
         username: 'signup'
       })
     }
