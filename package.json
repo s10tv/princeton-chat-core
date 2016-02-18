@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint ./libs ./client ./server --ext .js --ext .jsx",
     "lintfix": "npm run lint -- --fix",
-    "test": "standard",
+    "test": "mocha tests --recursive --compilers js:babel-register",
     "validate": "npm ls"
   },
   "pre-commit": [
@@ -21,11 +21,15 @@
     "babel-preset-react": "6.x.x",
     "babel-preset-stage-2": "6.x.x",
     "babel-register": "^6.5.2",
+    "chai": "^3.5.0",
     "enzyme": "2.x.x",
     "eslint": "2.0.x",
     "eslint-plugin-react": "3.16.x",
+    "minimongo-standalone": "^1.1.0-3",
+    "mocha": "^2.4.5",
     "precommit-hook": "^3.0.0",
     "react-addons-test-utils": "^0.14.7",
+    "sinon": "^1.17.3",
     "standard": "^6.0.5"
   },
   "dependencies": {
@@ -55,6 +59,7 @@
     "redux-form": "4.1.14",
     "redux-logger": "2.5.2",
     "scroll-to": "0.0.2",
+    "sinon-chai": "^2.8.0",
     "sweetalert": "1.1.3",
     "tinycolor2": "1.3.0",
     "truncate": "2.0.0",

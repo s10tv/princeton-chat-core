@@ -3,7 +3,14 @@ import { Topics, Users } from '/lib/collections'
 import { Meteor } from 'meteor/meteor'
 
 export default class TopicManager {
-  static follow ({ topicId, user }) {
+
+  constructor ({Meteor, Collections}) {
+    this.Meteor = Meteor
+    this.Collections = Collections
+  }
+
+  follow ({ topicId, user }) {
+    const {Topics, Users} = this.Collections
     check(topicId, String)
     check(user, Object)
 
@@ -19,7 +26,8 @@ export default class TopicManager {
     }
   }
 
-  static unfollow ({ topicId, user }) {
+  unfollow ({ topicId, user }) {
+    const {Topics, Users} = this.Collections
     Users.update(user._id, { $pull: {
       followingTopics: topicId
     }})
@@ -29,15 +37,16 @@ export default class TopicManager {
     }})
   }
 
-  static remove ({ topicId, user }) {
+  remove ({ topicId, user }) {
+    const {Topics, Users} = this.Collections
     const topic = Topics.findOne(topicId)
 
     if (!topic) {
-      throw new Meteor.Error(400, 'Seems like you are trying to remove an invalid topic')
+      throw new this.Meteor.Error(400, 'Seems like you are trying to remove an invalid topic')
     }
 
     if (topic.ownerId !== user._id) {
-      throw new Meteor.Error(400, 'You are not authorized to remove a topic that you do not own')
+      throw new this.Meteor.Error(400, 'You are not authorized to remove a topic that you do not own')
     }
 
     // remove the reference to the topic in every user that used to follow it

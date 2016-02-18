@@ -1,7 +1,4 @@
-import { Meteor } from 'meteor/meteor'
-import { Users } from '/lib/collections'
-
-export default function () {
+export default function ({ ServiceConfiguration, Meteor }) {
   ServiceConfiguration.configurations.remove({
     service: 'facebook'
   })

@@ -1,9 +1,9 @@
-import { Meteor } from 'meteor/meteor'
 import { Match, check } from 'meteor/check'
 import { _ } from 'meteor/underscore'
-import { Topics, Posts, Users, Messages, Invites } from '/lib/collections'
 
-export default function () {
+export default function ({ Meteor, Collections }) {
+  const { Topics, Posts, Users, Messages, Invites } = Collections
+
   Meteor.publish('posts.mine', function () {
     if (this.userId) {
       return Posts.find({

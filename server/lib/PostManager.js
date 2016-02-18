@@ -1,13 +1,15 @@
-import { check } from 'meteor/check'
 import { Topics, Posts, Users } from '/lib/collections'
 import { Meteor } from 'meteor/meteor'
 
 export default class PostManager {
 
-  static follow ({ user, postId }) {
-    check(user, Object)
-    check(postId, String)
+  constructor({Meteor, Collections}) {
+    this.Meteor = Meteor
+    this.Collections = Collections;
+  }
 
+  follow ({user, postId}) {
+    const {Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
     if (!post) {
@@ -31,14 +33,13 @@ export default class PostManager {
     })
   }
 
-  static unfollow ({ postId, user }) {
-    check(user, Object)
-    check(postId, String)
-
+  unfollow ({postId, user}) {
+    const {Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
-    if (!post) {
-      return
+    if (!post || !user) {
+      throw new this.Meteor.Error(400, 'Could not unfollow the post because the post ' +
+        'was not found, or the user was accidentally logged out')
     }
 
     Users.update(user._id, { $pull: {
@@ -56,40 +57,34 @@ export default class PostManager {
     })
   }
 
-  static delete ({ postId, user }) {
-    check(postId, String)
-    check(user, Object)
-
+  delete ({postId, user}) {
+    const {Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
-    if (!post) {
-      throw new Meteor.Error(400, `No post found with id: ${postId}`)
+    if (!post || !user) {
+      throw new this.Meteor.Error(400, 'Could not remove the post because the post ' +
+        'was not found, or the user was accidentally logged out')
     }
 
     if (post.ownerId !== user._id) {
-      throw new Meteor.Error(400, 'You need to be the owner of the post to delete it')
+      throw new this.Meteor.Error(400, 'You need to be the owner of the post to delete it')
     }
 
-    try {
-      // remove the post from followingPosts field in every user
-      Users.find({
-        _id: { $in: post.followers.map(follower => follower.userId) }
-      }).forEach(user => {
-        Users.update(user._id, {
-          $pull: { followingPosts: post._id }
-        })
+    // remove the post from followingPosts field in every user
+    Users.find({
+      _id: { $in: post.followers.map(follower => follower.userId) }
+    }).forEach(user => {
+      Users.update(user._id, {
+        $pull: { followingPosts: post._id }
       })
+    })
 
-      Posts.remove(post._id)
+    Posts.remove(post._id)
 
-      if (post.topicIds && post.topicIds[0]) {
-        return `/topics/${post.topicIds[0]}`
-      } else {
-        return `/all-mine`
-      }
-    } catch (e) {
-      console.log(e)
-      throw new Meteor.Error(500, "Sorry, we messed up. We couldn't delete your post, but we tried very hard :/")
+    if (post.topicIds && post.topicIds[0]) {
+      return `/topics/${post.topicIds[0]}`
+    } else {
+      return `/all-mine`
     }
   }
 }
