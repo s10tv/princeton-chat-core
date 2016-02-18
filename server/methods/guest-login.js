@@ -1,7 +1,9 @@
-import { Users } from '/lib/collections'
 import { isValidHash } from '/server/lib/Auth'
 
-export default function () {
+export default function (context) {
+  const {Accounts, Collections} = context
+  const {Users} = Collections
+
   Accounts.registerLoginHandler('guest', (serviceData) => {
     if (!serviceData.guest) {
       return undefined

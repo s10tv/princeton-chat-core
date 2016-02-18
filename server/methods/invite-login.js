@@ -1,15 +1,11 @@
-import {Meteor} from 'meteor/meteor'
-import {Accounts} from 'meteor/accounts-base'
-import {Users, Invites} from '/lib/collections'
-import AvatarService from '/lib/avatar.service.js'
-import { audience } from './../configs/index'
+export default function (context) {
+  const {Accounts, Meteor, Collections, AvatarService, audience} = context
+  const {Users, Invites} = Collections
 
-export default function () {
   Accounts.registerLoginHandler('invite', (serviceData) => {
     if (!serviceData.invite) {
       return undefined
     }
-    console.log('invite code: ', serviceData.invite)
 
     const invite = Invites.findOne({ inviteCode: serviceData.invite })
     if (invite) {
@@ -40,7 +36,6 @@ export default function () {
       return { userId }
     }
 
-    console.log('cannot find invite')
     return undefined
   })
 }
