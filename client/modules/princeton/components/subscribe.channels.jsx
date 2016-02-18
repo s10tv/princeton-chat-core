@@ -21,16 +21,18 @@ const SubscribeChannels = (props) => {
           </header>
           <div style={[style.sidebarInner, s.sidebarInner]}>
             <h1 style={style.h1}>Tell us what you are interested in</h1>
-            <img style={s.img} src='/images/ic-handrawn-arrow-right.png' alt='Use the list on the right to subscribe'/>
-            <p>You get notified when someone posts in a channel you subscribe to.  Subscribe to at least 3 channels to get started.</p>
-            <p>You can change your preferences later at any time.</p>
+            <img style={[s.img, style.notShowOnMobile]} src='/images/ic-handrawn-arrow-right.png' alt='Use the list on the right to subscribe'/>
+            <p>You get notified when someone posts in a channel you subscribe.  Subscribe at least 3 channels to get started.</p>
+            <p style={{marginBottom: 0}}>You can change your preferences later at any time.</p>
             <br />
-            <h6>My Channels</h6>
-            <ul>
+            <h6 style={style.notShowOnMobile}>My Channels</h6>
+            <ul style={style.notShowOnMobile}>
               {channels.map((channel) =>
                 <li key={channel._id}>#{channel.displayName}</li>
               )}
             </ul>
+            <TopicList rootStyle={style.notShowOnDesktop} isLoggedIn={isLoggedIn}
+              areTabsShown={false} isTopicClickable={false} />
             <FlatButton
               style={style.button}
               disabled={!hasSelectedThreeChannels}
@@ -66,7 +68,7 @@ const s = {
     right: 0,
     top: 50,
     width: 69,
-    height: 41,
+    height: 41
   }
 }
 

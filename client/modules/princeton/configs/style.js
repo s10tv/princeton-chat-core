@@ -20,7 +20,8 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     '@media (max-width: 768px)': {
-      padding: '16px 16px 25px 16px'
+      padding: '10px 16px 25px 16px',
+      marginTop: 0
     }
   },
   sidebarLogo: {
@@ -28,6 +29,9 @@ export default {
     fontSize: fontSize.h5,
     color: color.brand.primary,
     marginRight: 'auto',
+    '@media (max-width: 768px)': {
+      marginLeft: 'auto'
+    }
   },
   sidebarLink: {
     color: color.white,
@@ -59,5 +63,15 @@ export default {
   },
   error: {
     color: color.brand.danger,
+  },
+  notShowOnDesktop: {
+    '@media (min-width: 768px)': {
+      display: 'none'
+    }
+  },
+  notShowOnMobile: {
+    '@media (max-width: 768px)': {
+      display: 'none'
+    }
   }
 }

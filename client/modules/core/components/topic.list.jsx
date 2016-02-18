@@ -3,8 +3,10 @@ import {Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
 import { FlatButton, FontIcon } from '/client/lib/ui.jsx'
 import { i18n } from '/client/configs/env'
+import Radium from 'radium'
+import style from '/client/modules/princeton/configs/style.js'
 
-export default React.createClass({
+const TopicList = React.createClass({
   propTypes: {
     /**
      * Boolean to show/hide siderbar
@@ -49,9 +51,20 @@ export default React.createClass({
     showLoginAlert: React.PropTypes.func,
 
     /**
-     * If we are in mobile mode
+     * styles to override main
      */
-    isMobile: React.PropTypes.bool.isRequired
+    rootStyle: React.PropTypes.object,
+
+    /**
+     * Bool to hide tabs, true by default
+     */
+    areTabsShown: React.PropTypes.bool
+  },
+
+  getDefaultProps () {
+    return {
+      areTabsShown: true
+    }
   },
 
   getInitialState () {
@@ -72,22 +85,23 @@ export default React.createClass({
 
   render () {
     return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0,
-        padding: '0px 40px', alignItems: 'center'})}>
-        <Flex style={localStyle.mainFlexContainer}>
-          <Flex style={localStyle.tabFlexContainer}>
+      <main style={[styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 },
+        localStyle.mainContainer, this.props.rootStyle]}>
+        <div style={localStyle.mainFlexContainer}>
+          {this.props.areTabsShown
+          ? <Flex style={localStyle.tabFlexContainer}>
             <a onClick={this.tabItemClicked} href='#'>
               <h3 style={Object.assign({},
-                  localStyle.tabItem,
-                  this.state.value !== 'Top' && localStyle.tabItemDeselected,
-                  this.state.value === 'Top' && localStyle.tabItemSelected)
+                localStyle.tabItem,
+                this.state.value !== 'Top' && localStyle.tabItemDeselected,
+                this.state.value === 'Top' && localStyle.tabItemSelected)
               }>Top</h3>
             </a>
             <a value='recent' href='#' onClick={this.tabItemClicked}>
               <h3 style={Object.assign({},
-                  localStyle.tabItem,
-                  this.state.value !== 'Recent' && localStyle.tabItemDeselected,
-                  this.state.value === 'Recent' && localStyle.tabItemSelected)
+                localStyle.tabItem,
+                this.state.value !== 'Recent' && localStyle.tabItemDeselected,
+                this.state.value === 'Recent' && localStyle.tabItemSelected)
               }>Recent</h3>
             </a>
             <a href='#' onClick={() => this.ifLoggedInExecute(this.props.showAddTopicModal)}>
@@ -95,56 +109,52 @@ export default React.createClass({
               }>Create New</h3>
             </a>
           </Flex>
+          : null
+          }
           <div className='no-scrollbar' style={{overflowY: 'scroll'}}>
-            {this.state.value === 'Top'
-              ? <Flex flexDirection='column' justifyContent='center'>
-                    {this.props.topicsSortedByFollowers.map((topic) =>
-                      <TopicListItem
-                        key={topic._id}
-                        isLoggedIn={this.props.isLoggedIn}
-                        ifLoggedInExecute={this.ifLoggedInExecute}
-                        topic={topic}
-                        isMobile={this.props.isMobile}
-                        isTopicClickable={this.props.isTopicClickable}
-                        navigateToTopic={this.props.navigateToTopic}
-                        followTopic={this.props.followTopic}
-                        unfollowTopic={this.props.unfollowTopic} />
-                    )}
-
-                <NewTopicButton
-                  isMobile={this.props.isMobile}
-                  showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
-              </Flex> : null
-            }
-            {this.state.value === 'Recent'
-              ? <Flex flexDirection='column' justifyContent='center'>
-                    {this.props.topicsSortedByTime.map((topic) =>
-                      <TopicListItem
-                        ifLoggedInExecute={this.ifLoggedInExecute}
-                        isLoggedIn={this.props.isLoggedIn}
-                        key={topic._id}
-                        topic={topic}
-                        isMobile={this.props.isMobile}
-                        isTopicClickable={this.props.isTopicClickable}
-                        navigateToTopic={this.props.navigateToTopic}
-                        followTopic={this.props.followTopic}
-                        unfollowTopic={this.props.unfollowTopic} />
-                    )}
-
-                <NewTopicButton
-                  isMobile={this.props.isMobile}
-                  showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
-              </Flex> : null
-            }
+          {this.state.value === 'Top'
+          ? <Flex flexDirection='column' justifyContent='center'>
+              {this.props.topicsSortedByFollowers.map((topic) =>
+                <TopicListItem
+                  key={topic._id}
+                  isLoggedIn={this.props.isLoggedIn}
+                  ifLoggedInExecute={this.ifLoggedInExecute}
+                  topic={topic}
+                  isTopicClickable={this.props.isTopicClickable}
+                  navigateToTopic={this.props.navigateToTopic}
+                  followTopic={this.props.followTopic}
+                  unfollowTopic={this.props.unfollowTopic} />
+              )}
+            <NewTopicButton
+              showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
+          </Flex> : null
+          }
+          {this.state.value === 'Recent'
+          ? <Flex flexDirection='column' justifyContent='center'>
+                {this.props.topicsSortedByTime.map((topic) =>
+                  <TopicListItem
+                    ifLoggedInExecute={this.ifLoggedInExecute}
+                    isLoggedIn={this.props.isLoggedIn}
+                    key={topic._id}
+                    topic={topic}
+                    isTopicClickable={this.props.isTopicClickable}
+                    navigateToTopic={this.props.navigateToTopic}
+                    followTopic={this.props.followTopic}
+                    unfollowTopic={this.props.unfollowTopic} />
+                )}
+            <NewTopicButton
+              showAddTopicModal={() => this.ifLoggedInExecute(this.props.showAddTopicModal)} />
+          </Flex> : null
+          }
           </div>
-        </Flex>
+        </div>
       </main>
     )
   }
 })
 
-const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
-  topic, followTopic, unfollowTopic, navigateToTopic, isTopicClickable, isMobile}) => {
+var TopicListItem = ({isLoggedIn, ifLoggedInExecute,
+  topic, followTopic, unfollowTopic, navigateToTopic, isTopicClickable }) => {
   const pluralizeTextForNumber = (text, number) => {
     if (number !== 1) {
       return text + 's'
@@ -164,26 +174,20 @@ const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
     return pluralizeTextForNumber('post', postCount)
   }
 
-  const mobileCoverPhotoOverride = !isMobile
-    ? coverPhotoDimensions
-    : mobileCoverPhotoDimenions
-
   return (
     <Flex style={localStyle.topicItemContainer}>
-      <Flex flexGrow={1}>
+      <div style={localStyle.topicItemContainerUpperRow}>
         {isTopicClickable
         ? <a href='#' onClick={() => ifLoggedInExecute(() => {
           navigateToTopic(topic._id)
-        })} style={Object.assign({},
-          Object.assign(localStyle.topicItemCoverPhoto, mobileCoverPhotoOverride),
+        })} style={[localStyle.topicItemCoverPhoto,
           { backgroundImage: `url("${topic.cover.url}")` }
-        )} />
-        : <div style={Object.assign({},
-          localStyle.topicItemCoverPhoto,
+        ]} />
+        : <div style={[localStyle.topicItemCoverPhoto,
          { backgroundImage: `url("${topic.cover.url}")` }
-        )} />
+        ]} />
         }
-        <Flex flexGrow={1} flexDirection='column' marginLeft={30}>
+        <div style={localStyle.topicItemContainerUpperRowRight}>
           <h3 style={localStyle.textTopicTitle}>
             {isTopicClickable
             ? <a href='#' onClick={() => ifLoggedInExecute(() => {
@@ -230,24 +234,22 @@ const TopicListItem = ({isLoggedIn, ifLoggedInExecute,
               label='Subscribe'
               onTouchTap={() => ifLoggedInExecute(() => followTopic(topic._id))} />
           }
-        </Flex>
-      </Flex>
+        </div>
+      </div>
       <p style={localStyle.topicItemDescription}>{topic.description}</p>
     </Flex>
   )
 }
 
-const NewTopicButton = ({ showAddTopicModal, isMobile }) => {
-  const mobileCoverPhotoOverride = !isMobile
-    ? coverPhotoDimensions
-    : mobileCoverPhotoDimenions
+TopicListItem = Radium(TopicListItem)
 
+var NewTopicButton = ({ showAddTopicModal }) => {
   return (
-    <a href='#' onClick={showAddTopicModal}>
+    <a style={style.notShowOnMobile} href='#' onClick={showAddTopicModal}>
       <Flex margin='25px 0px' flexGrow={1}>
-        <Flex style={Object.assign({}, newTopicButtonStyle.coverPhotoBg, mobileCoverPhotoOverride)}>
+        <div style={newTopicButtonStyle.coverPhotoBg}>
           <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
-        </Flex>
+        </div>
         <Flex flexGrow={1} marginLeft={30} flexDirection='column' alignItems='center'>
           <h3 style={localStyle.textTopicTitle}>
             Create a new channel
@@ -261,16 +263,17 @@ const NewTopicButton = ({ showAddTopicModal, isMobile }) => {
   )
 }
 
-const mobileCoverPhotoDimenions = {
-  flex: '0 0 110px',
-  maxHeight: 147,
-  borderRadius: 5
-}
+NewTopicButton = Radium(NewTopicButton)
 
 const coverPhotoDimensions = {
   flex: '0 0 220px',
   maxHeight: 147,
-  borderRadius: 5
+  borderRadius: 5,
+  '@media (max-width: 768px)': {
+    flex: '0 0 288px',
+    minHeight: 192,
+    maxHeight: 192
+  }
 }
 
 const localStyle = {
@@ -308,15 +311,29 @@ const localStyle = {
     textTransform: 'inherit'
   },
 
+  mainContainer: {
+    padding: '0px 40px',
+    alignItems: 'center',
+    '@media (max-width: 768px)': {
+      padding: 0,
+      marginBottom: 50
+    }
+  },
+
   mainFlexContainer: {
+    display: 'flex',
     flexGrow: 1,
     flexDirection: 'column',
     alignItems: 'center',
     maxWidth: 600,
-    maxHeight: '100vh'
+    maxHeight: '100vh',
+    '@media (max-width: 768px)': {
+      maxHeight: 'initial'
+    }
   },
 
   tabFlexContainer: {
+    flexDirection: 'row',
     flex: '1 0 auto',
     alignSelf: 'stretch',
     marginBottom: 10,
@@ -327,6 +344,27 @@ const localStyle = {
     flexDirection: 'column',
     margin: '25px 0px',
     flexGrow: 1
+  },
+
+  topicItemContainerUpperRow: {
+    display: 'flex',
+    flexGrow: 1,
+    '@media (max-width: 768px)': {
+      justifyContent: 'center',
+      flexFlow: 'row wrap'
+    }
+  },
+
+  topicItemContainerUpperRowRight: {
+    display: 'flex',
+    flexGrow: 1,
+    flexDirection: 'column',
+    marginLeft: 30,
+    '@media (max-width: 768px)': {
+      marginLeft: 0,
+      marginTop: 20,
+      width: 288
+    }
   },
 
   topicItemCoverPhoto: {
@@ -350,8 +388,11 @@ const localStyle = {
 const newTopicButtonStyle = {
   coverPhotoBg: {
     ...coverPhotoDimensions,
+    display: 'flex',
     backgroundColor: '#e0e0e0',
     justifyContent: 'center',
     alignItems: 'center'
   }
 }
+
+export default Radium(TopicList)
