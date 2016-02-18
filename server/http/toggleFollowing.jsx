@@ -2,16 +2,17 @@ import React from 'react'
 import {Block} from 'jsxstyle'
 import Radium, { Style } from 'radium'
 
-const ORANGE = '#F07621'
+import { primaryColor, emailTitle } from '../emails'
+
 const RED = 'red'
 
 const SimpleLogo = (props) => (
   <h1 style={Object.assign({}, {
-    color: ORANGE,
+    color: primaryColor,
     fontSize: 20,
     fontWeight: 600,
     margin: 0
-  }, props.style)} {...props}>Princeton.chat</h1>
+  }, props.style)} {...props}>{emailTitle}</h1>
 )
 
 const GuestToggleFollow = (props) => (
@@ -33,7 +34,7 @@ const GuestToggleFollow = (props) => (
     
     <SimpleLogo />
     {props.isFollowing
-      ? <p>You are now <span style={{color: ORANGE}}>following</span></p>
+      ? <p>You are now <span style={{color: primaryColor}}>following</span></p>
       : <p>You just <span style={{color: RED}}>unfollowed</span></p>}
     <p>
       <strong>{props.title}</strong>

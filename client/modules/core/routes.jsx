@@ -21,7 +21,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
         methodArguments: [{guest: { userId, hash }}],
         userCallback: (err) => {
           if (err) {
-            return FlowRouter.go('/login')
+            return FlowRouter.go('onboarding-login')
           }
 
           mount(GuestIndexCtx)

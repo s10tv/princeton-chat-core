@@ -6,16 +6,17 @@ import sweetalert from 'sweetalert'
 import {Flex, Block} from 'jsxstyle'
 import {postShape, topicShape} from '/client/lib/shapes.js'
 
-const ORANGE = '#F07621'
+import { i18n } from '/client/configs/env'
+
 const RED = 'red'
 
 const SimpleLogo = (props) => (
   <h1 style={Object.assign({}, {
-    color: ORANGE,
+    color: i18n('primaryColor'),
     fontSize: 20,
     fontWeight: 600,
     margin: 0}, props.style)} {...props}>
-    Princeton.Chat
+    {i18n('title')}
   </h1>
 )
 
@@ -50,7 +51,7 @@ class FollowButton extends React.Component {
         style={{
           fontWeight: 600,
           cursor: 'pointer',
-          color: this.props.isFollowing ? (this.state.mouseOver ? RED : ORANGE) : 'inherit',
+          color: this.props.isFollowing ? (this.state.mouseOver ? RED : i18n('primaryColor')) : 'inherit',
           ...this.props.style
         }}>
         {this.props.isFollowing ? (this.state.mouseOver ? 'Unfollow' : 'Following') : 'Follow'}
