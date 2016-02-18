@@ -27,8 +27,8 @@ export function initContext () {
     audience,
     AvatarService,
     Collections,
-    PostManager,
-    TopicManager,
+    PostManager: new PostManager(Collections),
+    TopicManager: new TopicManager(Collections),
     slack: Meteor.npmRequire('slack-notify')(slackUrl),
     currentUser: () => {
       const user = Meteor.user()
