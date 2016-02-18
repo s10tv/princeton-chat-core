@@ -14,7 +14,7 @@ const accent1Color = theme.baseTheme.palette.accent1Color
 export const Message = (props) => (
   <div className='message'>
     <div className='message-content'>
-      <Linkify properties={{style: { color: accent1Color }}}>
+      <Linkify properties={{target: '_blank', style: { color: accent1Color }}}>
         {props.content}
       </Linkify>
     </div>
