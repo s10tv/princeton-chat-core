@@ -179,7 +179,7 @@ var PostListItem = (props) => (
         <span>{props.post.timestamp}</span>
       </p>
 
-      <p style={{marginTop: 12, letterSpacing: '0.1px'}}>{props.post.truncatedContent}</p>
+      <p style={s.postContent}>{props.post.truncatedContent}</p>
 
       <Flex flexDirection='row' justifyContent='space-between' marginTop={20}>
         <Flex alignItems='center'>
@@ -225,6 +225,13 @@ const s = {
     fontSize: 20,
     '@media (max-width: 768px)': {
       lineHeight: '1em'
+    }
+  },
+  postContent: {
+    marginTop: 12,
+    letterSpacing: '0.1px',
+    '@media (max-width: 768px)': {
+      lineHeight: '1.2em'
     }
   }
 }
