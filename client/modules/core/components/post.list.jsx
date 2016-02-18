@@ -138,7 +138,7 @@ const PostList = (props) => (
   </section>
 )
 
-const PostListItem = (props) => (
+var PostListItem = (props) => (
   <ListItem
     disabled
     style={{
@@ -149,7 +149,7 @@ const PostListItem = (props) => (
       <Flex flexDirection='row' justifyContent='space-between' alignItems='center'>
         <Flex alignItems='center'>
           <a href={props.post.url} style={{color: 'black'}}>
-            <h2 style={{fontSize: '20px'}}>{props.post.title}</h2>
+            <h2 style={s.postTitle}>{props.post.title}</h2>
           </a>
         </Flex>
         {props.post.numMsgs === 0
@@ -210,6 +210,8 @@ const PostListItem = (props) => (
   </ListItem>
 )
 
+PostListItem = Radium(PostListItem)
+
 const FollowBtn = (props) => (
   props.post.isFollowingPost
     ? <FlatButton primary label='Unfollow'
@@ -217,5 +219,14 @@ const FollowBtn = (props) => (
     : <FlatButton primary label='Follow'
       onTouchTap={() => props.followPostFn(props.post._id)} />
 )
+
+const s = {
+  postTitle: {
+    fontSize: 20,
+    '@media (max-width: 768px)': {
+      lineHeight: '1em'
+    }
+  }
+}
 
 export default Radium(PostListScreen)
