@@ -3,7 +3,7 @@ import {Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
 import { FlatButton, FontIcon } from '/client/lib/ui.jsx'
 import { i18n } from '/client/configs/env'
-import Radium, {StyleRoot} from 'radium'
+import Radium from 'radium'
 import style from '/client/modules/princeton/configs/style.js'
 
 const TopicList = React.createClass({
