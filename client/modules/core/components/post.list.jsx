@@ -165,7 +165,7 @@ var PostListItem = (props) => (
         }
       </Flex>
 
-      <p style={{marginTop: 5, fontSize: '12px'}}>
+      <p style={s.postAuthor}>
         Posted by
         <a href='#' style={{
           marginLeft: 3,
@@ -232,6 +232,13 @@ const s = {
     letterSpacing: '0.1px',
     '@media (max-width: 768px)': {
       lineHeight: '1.2em'
+    }
+  },
+  postAuthor: {
+    marginTop: 5,
+    fontSize: '12px',
+    '@media (max-width: 768px)': {
+      marginTop: 10
     }
   }
 }
