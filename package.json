@@ -8,10 +8,12 @@
     "lint": "eslint ./libs ./client ./server --ext .js --ext .jsx",
     "lintfix": "npm run lint -- --fix",
     "test": "standard && mocha tests --recursive --compilers js:babel-register",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "testlint": "standard"
   },
   "pre-commit": [
-    "test"
+    "test",
+    "testlint"
   ],
   "devDependencies": {
     "babel-core": "6.x.x",
@@ -75,7 +77,8 @@
       "private/**",
       "client/modules/princeton/**",
       "client/modules/ped/**",
-      "client/lib/amplitude.service.js"
+      "client/lib/amplitude.service.js",
+      "tests/**"
     ]
   }
 }

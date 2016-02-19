@@ -7,7 +7,7 @@ import core from '../../server/methods/core'
 chai.use(sinonChai)
 
 const {Meteor, Collections, SearchService} = context
-const {Users, Invites} = Collections
+const {Users} = Collections
 
 describe('methods/core', () => {
   beforeEach(() => {
@@ -37,9 +37,7 @@ describe('methods/core', () => {
 
     it ('should search for users', () => {
       Meteor.call('search/users', 'tony')
-      expect(SearchService.searchUsers).to.be.calledWith({
-        input: 'tony'
-      })
+      expect(SearchService.searchUsers).to.be.calledWith('tony')
     })
   })
 
@@ -56,9 +54,7 @@ describe('methods/core', () => {
 
     it ('should search for posts', () => {
       Meteor.call('search/posts', 'Trump for President!')
-      expect(SearchService.searchPosts).to.be.calledWith({
-        input: 'Trump for President!'
-      })
+      expect(SearchService.searchPosts).to.be.calledWith('Trump for President!')
     })
   })
 })

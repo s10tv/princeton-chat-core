@@ -4,23 +4,23 @@ export default class SearchService {
     this.Collections = Collections
   }
 
-  searchUsers ({input}) {
+  searchUsers (input) {
     const { Users } = this.Collections
-    var re = new RegExp(input)
+    var re = new RegExp(input, 'i')
     return Users.find({ status: 'active', $or: [
         { username: re },
-        { email: re },
+        { emails: { $elemMatch: { address: re } } },
         { firstName: re },
         { lastName: re }
-    ]})
+    ]}).fetch()
   }
 
-  searchPosts ({input}) {
+  searchPosts (input) {
     const { Posts } = this.Collections
-    var re = new RegExp(input)
+    var re = new RegExp(input, 'i')
     return Posts.find({ $or: [
       { title: re },
       { content: re }
-    ]})
+    ]}).fetch()
   }
 }

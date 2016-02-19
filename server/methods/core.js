@@ -291,14 +291,14 @@ export default function (context) {
       check(input, String)
       currentUser()
 
-      return SearchService.searchUsers({input})
+      return SearchService.searchUsers(input)
     },
 
     'search/posts': (input) => {
       check(input, String)
       currentUser()
 
-      return SearchService.searchPosts({input})
+      return SearchService.searchPosts(input)
     }
   })
 }
