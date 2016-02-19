@@ -1,14 +1,13 @@
 import {_} from 'underscore'
-import NewTopicService from '/lib/newtopic.service' // TODO: replace with validator
+import NewTopicService from '../../lib/newtopic.service.js' // TODO: replace with validator
 
 function capitalizeFirstLetter (string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
 export default function (context) {
-
-  const {audience, currentUser, Meteor, Collections, PostManager, TopicManager, check,
-    AvatarService, Accounts,} = context
+  const {audience, currentUser, Meteor, Collections, PostManager, TopicManager, SearchService, check,
+    AvatarService, Accounts } = context
   const {Topics, Posts, Messages, Users} = Collections
 
   Meteor.methods({
@@ -286,6 +285,20 @@ export default function (context) {
     'search/username': (username) => {
       check(username, String)
       return Users.find({ username: { $regex: new RegExp(`^${username}`, 'i')}}, {limit: 3}).fetch()
+    },
+
+    'search/users': (input) => {
+      check(input, String)
+      currentUser()
+
+      return SearchService.searchUsers({input})
+    },
+
+    'search/posts': (input) => {
+      check(input, String)
+      currentUser()
+
+      return SearchService.searchPosts({input})
     }
   })
 }

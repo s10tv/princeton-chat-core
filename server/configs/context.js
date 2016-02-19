@@ -10,6 +10,7 @@ import AvatarService from '/lib/avatar.service.js'
 import PostManager from '/server/lib/PostManager'
 import TopicManager from '/server/lib/TopicManager'
 import OnboardManager from '/server/lib/OnboardManager'
+import SearchService from '/server/lib/SearchService'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slack = Meteor.npmRequire('slack-notify')(slackUrl)
@@ -33,7 +34,8 @@ export function initContext () {
     audience,
     AvatarService,
     Collections,
-    OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack}),
+    SearchService: new SearchService({ Meteor, Collections }),
+    OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack }),
     PostManager: new PostManager({Meteor, Collections}),
     TopicManager: new TopicManager({Meteor, Collections}),
     currentUser: () => {
