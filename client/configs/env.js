@@ -50,7 +50,7 @@ let Env = {
     },
     homePageBackgroundUrl: '/images/bg-blair-arch-people.jpg',
     pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
-    pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4'
+    pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=188a0a423d918ef320144a56866c7ced'
   },
 
   s10: {
@@ -76,7 +76,7 @@ let Env = {
     },
     homePageBackgroundUrl: '/images/bg-blair-arch-people.jpg',
     pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
-    pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4s'
+    pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=188a0a423d918ef320144a56866c7ced'
   },
 
   ped: {
