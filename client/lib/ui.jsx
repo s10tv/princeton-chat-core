@@ -6,6 +6,7 @@ import _SelectField from 'material-ui/lib/select-field'
 import _TextField from 'material-ui/lib/text-field'
 import _FlatButton from 'material-ui/lib/flat-button'
 import _RaisedButton from 'material-ui/lib/raised-button'
+import _Menu from 'material-ui/lib/menus/menu'
 import _MenuItem from 'material-ui/lib/menus/menu-item'
 import _Dialog from 'material-ui/lib/dialog'
 import _FontIcon from 'material-ui/lib/font-icon'
@@ -16,10 +17,14 @@ import _Tabs from 'material-ui/lib/tabs/tabs'
 import _IconButton from 'material-ui/lib/icon-button'
 import _LinearProgress from 'material-ui/lib/linear-progress'
 import _CircularProgress from 'material-ui/lib/circular-progress'
+import _Paper from 'material-ui/lib/paper'
+import _List from 'material-ui/lib/lists/list'
+import _ListItem from 'material-ui/lib/lists/list-item'
 
 export const FlatButton = _FlatButton
 export const RaisedButton = _RaisedButton
 export const MenuItem = _MenuItem
+export const Menu = _Menu
 export const Dialog = _Dialog
 export const FontIcon = _FontIcon
 export const DatePicker = _DatePicker
@@ -29,6 +34,9 @@ export const Tabs = _Tabs
 export const IconButton = _IconButton
 export const LinearProgress = _LinearProgress
 export const CircularProgress = _CircularProgress
+export const Paper = _Paper
+export const List = _List
+export const ListItem = _ListItem
 
 /** Wrapping MUI components for use with react-redux **/
 export const TextField = (props) => (

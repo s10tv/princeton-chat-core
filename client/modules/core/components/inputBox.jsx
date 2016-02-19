@@ -1,10 +1,31 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { Flex, Inline } from 'jsxstyle'
 import TextField from '../../../../node_modules/material-ui/lib/text-field'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
 import Checkbox from '../../../../node_modules/material-ui/lib/checkbox'
 import linkState from 'react-link-state'
 import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
+import {Paper, List, ListItem} from '/client/lib/ui.jsx'
+
+export const MentionAssist = (props) => {
+  const user = props.user
+  const avatar = user.avatar.isDefaultAvatar
+    ? <LetterAvatar key={user._id} style={{marginRight: 3}} color='white'
+      backgroundColor={user.avatar.color}>
+      {user.avatarInitials}
+    </LetterAvatar>
+    : <CoverAvatar key={user._id} style={{marginRight: 3}} src={user.avatar.url} />
+
+  const display = `${user.username} (${user.displayName})`
+
+  return (
+    <ListItem
+      primaryText={display}
+      leftAvatar={avatar}
+      onTouchTap={() => props.updateCurrentWordWith(user.username)} />
+  )
+}
 
 export default React.createClass({
   propTypes: {
@@ -19,6 +40,7 @@ export default React.createClass({
     unfollow: React.PropTypes.func.isRequired,
     showSnackbarError: React.PropTypes.func.isRequired,
     showPostFollowers: React.PropTypes.func.isRequired,
+    fetchMentions: React.PropTypes.func.isRequired,
     /**
      * The function called to create a message.
      */
@@ -28,15 +50,21 @@ export default React.createClass({
   getInitialState () {
     return {
       text: '',
+      isMentionBoxOpen: false,
       followToggleMouseOver: false,
       inputFocused: false,
-      pressEnterToSend: true
+      pressEnterToSend: true,
+      mentions: []
     }
   },
 
   sendMessage () {
     this.props.create(this.state.text, this.props.postId)
-    this.setState({text: ''})
+    this.setState({
+      text: '',
+      isMentionBoxOpen: false,
+      mentions: []
+    })
   },
 
   handleEnterKeyDown (event) {
@@ -55,11 +83,54 @@ export default React.createClass({
     }
   },
 
+  updateCurrentWordWith (text) {
+    const words = this.state.text.split(' ').filter((word) => word.length > 0)
+    if (words.length === 0) {
+      return this.setState({ isMentionBoxOpen: false })
+    }
+
+    // replace last element with auto completed
+    words.pop()
+    words.push(`@${text} `)
+
+    this.setState({ text: words.join(' ') })
+
+    // this doesn't wokr for some reason
+    ReactDOM.findDOMNode(this.refs.messagebox).focus()
+    document.getElementById('messagebox').focus()
+
+    return this.setState({ isMentionBoxOpen: false })
+  },
+
+  checkForMention (text) {
+    const words = text.split(' ').filter((word) => word.length > 0)
+
+    // text area is empty or all spaces
+    if (words.length === 0) {
+      return this.setState({ isMentionBoxOpen: false })
+    }
+
+    const lastWord = words[words.length - 1]
+    if (lastWord.charAt(0) === '@' && lastWord.length > 1) {
+      return this.props.fetchMentions(lastWord.substring(1), (results) => {
+        if (results.length > 0) {
+          this.setState({
+            isMentionBoxOpen: true,
+            mentions: results
+          })
+        }
+      })
+    }
+
+    this.setState({ isMentionBoxOpen: false })
+  },
+
   handleInputBlur () {
     this.setState({inputFocused: false})
   },
 
   handleInputFocus () {
+    console.log('input focused')
     this.setState({inputFocused: true})
   },
 
@@ -135,21 +206,49 @@ export default React.createClass({
 
   render () {
     const showInputControls = this.state.inputFocused || this.state.text.length > 0
+    const mentionHelper = !this.state.isMentionBoxOpen
+      ? null
+      : <Paper zDepth={1} style={{
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5
+      }}>
+        <List style={{paddingTop: 0, paddingBottom: 0}}>
+          {this.state.mentions.map((mention) => (
+            <MentionAssist
+              key={mention._id}
+              user={mention}
+              updateCurrentWordWith={this.updateCurrentWordWith}/>
+          ))}
+        </List>
+      </Paper>
+
     return (
       <Flex component='footer' flexDirection='column' padding='0 16px 8px 16px'>
+        {mentionHelper}
         <Flex
           className='input-box'
           padding='0px 12px'
           border='2px solid #d9d9d9'
+          style={{
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+            borderTopLeftRadius: this.state.isMentionBoxOpen ? 0 : 5,
+            borderTopRightRadius: this.state.isMentionBoxOpen ? 0 : 5
+          }}
           borderRadius={5}>
           <TextField
+            id='messagebox'
+            ref='messagebox'
             multiLine
             fullWidth
             underlineShow={false}
             rowsMax={8}
             hintText='Type a message...'
             value={this.state.text}
-            onChange={(e) => this.setState({text: e.target.value})}
+            onChange={(e) => {
+              this.setState({text: e.target.value})
+              this.checkForMention(e.target.value)
+            }}
             onBlur={this.handleInputBlur}
             onFocus={this.handleInputFocus}
             onEnterKeyDown={this.handleEnterKeyDown} />

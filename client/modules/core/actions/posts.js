@@ -25,6 +25,21 @@ export default {
     }
   },
 
+  fetchMentions ({LocalState, Meteor}, username, callback) {
+    const cached = LocalState.get(username)
+    if (cached) {
+      return callback(cached)
+    }
+
+    Meteor.call('search/username', username, (err, res) => {
+      if (err) {
+        return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+      }
+
+      return callback(res)
+    })
+  },
+
   showSnackbarError ({LocalState}, error) {
     LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', error)
   },

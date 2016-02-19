@@ -281,6 +281,11 @@ export default function (context) {
       return userIds.map(user => {
         return Users.findOne(user.userId)
       }).filter((user) => user !== undefined)
+    },
+
+    'search/username': (username) => {
+      check(username, String)
+      return Users.find({ username: { $regex: new RegExp(`^${username}`, 'i')}}, {limit: 3}).fetch()
     }
   })
 }
