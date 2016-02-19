@@ -4,7 +4,7 @@ import PostList from '/client/modules/core/components/post.list.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '/lib/user.service.js'
 import DateFormatter from '/client/lib/date.formatter.js'
-import { GenericCoverPhoto } from '/client/lib/unsplash.service.js'
+import { GenericCoverPhoto, SearchCoverPhoto } from '/client/lib/unsplash.service.js'
 import _ from 'underscore'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
@@ -51,7 +51,7 @@ export const composer = ({context, topicId, term, postListType, rightbarOpen, is
       case 'SEARCH':
         topic = {
           displayName: `Search: ${term}`,
-          cover: GenericCoverPhoto,
+          cover: SearchCoverPhoto,
           followers: []
         }
         break
