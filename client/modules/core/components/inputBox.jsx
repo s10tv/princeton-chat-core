@@ -5,6 +5,7 @@ import TextField from '../../../../node_modules/material-ui/lib/text-field'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
 import Checkbox from '../../../../node_modules/material-ui/lib/checkbox'
 import linkState from 'react-link-state'
+import UserService from '/lib/user.service'
 import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
 import {Paper, List, ListItem} from '/client/lib/ui.jsx'
 
@@ -116,7 +117,7 @@ export default React.createClass({
         if (results.length > 0) {
           this.setState({
             isMentionBoxOpen: true,
-            mentions: results
+            mentions: results.map((user) => UserService.getUserView(user))
           })
         }
       })
