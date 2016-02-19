@@ -81,6 +81,19 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     }
   })
 
+  FlowRouter.route('/search', {
+    name: 'search',
+    subscriptions: function () {
+      this.register('userData', Meteor.subscribe('userData'))
+    },
+    triggersEnter: [requireUserInSessionFn],
+    action (args, {term}) {
+      mount(LayoutMainCtx, {
+        content: (props) => <PostList postListType='SEARCH' term={term} {...props} />
+      })
+    }
+  })
+
   FlowRouter.route('/all', {
     name: 'all',
     subscriptions: function () {

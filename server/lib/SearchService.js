@@ -14,15 +14,15 @@ export default class SearchService {
         { emails: { $elemMatch: { address: re } } },
         { firstName: re },
         { lastName: re }
-    ]}, {limit: MAX_NUMBER_DOCS_RETURNED}).fetch()
+    ]}, {limit: MAX_NUMBER_DOCS_RETURNED})
   }
 
   searchPosts (input) {
     const { Posts } = this.Collections
     var re = new RegExp(input, 'i')
-    return Posts.find({ $or: [
+    return Posts.find({ isDM: { $ne: true }, $or: [
       { title: re },
       { content: re }
-    ]}, {limit: MAX_NUMBER_DOCS_RETURNED}).fetch()
+    ]}, {limit: MAX_NUMBER_DOCS_RETURNED})
   }
 }
