@@ -8,12 +8,10 @@
     "lint": "eslint ./libs ./client ./server --ext .js --ext .jsx",
     "lintfix": "npm run lint -- --fix",
     "test": "standard && mocha tests --recursive --compilers js:babel-register",
-    "validate": "npm ls",
-    "testlint": "standard"
+    "validate": "npm ls"
   },
   "pre-commit": [
-    "test",
-    "testlint"
+    "test"
   ],
   "devDependencies": {
     "babel-core": "6.x.x",
