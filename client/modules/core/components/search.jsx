@@ -5,7 +5,14 @@ import {Menu, MenuItem, TextField} from '/client/lib/ui.jsx'
 export default React.createClass({
   propTypes: {
     search: React.PropTypes.func.isRequired,
-    searchResults: React.PropTypes.array.isRequired
+    searchResults: React.PropTypes.array.isRequired,
+    initialValue: React.PropTypes.string
+  },
+
+  getInitialProps () {
+    return {
+      initialValue: null
+    }
   },
 
   getInitialState () {
@@ -19,7 +26,6 @@ export default React.createClass({
   },
 
   onTextfieldBlur () {
-    console.log('onTextfieldBlur called')
     this.setState({ isBlurred: true })
   },
 
@@ -39,6 +45,7 @@ export default React.createClass({
     return (
       <Flex flexDirection='column'>
         <TextField
+          value={this.props.initialValue}
           hintText='Search ...'
           onFocus={this.onTextfieldFocus}
           onBlur={this.onTextfieldBlur}
