@@ -28,7 +28,7 @@ Main.propTypes = {
 const style = {
   main: {
     flex: 6,
-
+    display: 'flex',
     '@media (max-width: 768px)': {
       display: 'none'
     }

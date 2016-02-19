@@ -11,8 +11,12 @@ import TopicList from '/client/modules/core/containers/topic.list'
 import AddTopicModal from '/client/modules/core/containers/modal.add.topic'
 
 const Home = (props) => {
+  const mainContent = props.mainContent
+    ? props.mainContent
+    : <TopicList isLoggedIn={false} isTopicClickable />
   const {domains} = props
   const {fields: {netid, domain, classYear}, handleSubmit, error, submitting} = props
+
   return (
     <StyleRoot>
       <Layout.Window>
@@ -48,7 +52,7 @@ const Home = (props) => {
           </div>
         </Layout.Sidebar>
         <Layout.Main>
-          <TopicList isLoggedIn={false} isTopicClickable />
+          {mainContent}
         </Layout.Main>
         <AddTopicModal />
       </Layout.Window>

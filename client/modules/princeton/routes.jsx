@@ -1,5 +1,4 @@
 import {mount} from 'react-mounter'
-
 import Home from './containers/home'
 import RequestInvite from './containers/invite.request'
 import Signup from './containers/signup'
@@ -7,6 +6,8 @@ import Login from './containers/login'
 import SubscribeChannels from './containers/subscribe.channels'
 import InviteFriends from './containers/invite.friends'
 import AmplitudeService from '/client/lib/amplitude.service'
+import Profile from './components/profile.jsx'
+import React from 'react'
 
 function requireUserInSession (context) {
   if (!this.Meteor.userId()) {
@@ -92,6 +93,24 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     },
     action () {
       mount(injectDeps(InviteFriends))
+    }
+  })
+
+  FlowRouter.route('/tonyx', {
+    name: 'tonyx',
+    action () {
+      mount(injectDeps(Home), { mainContent: <Profile displayName="Tony Xiao '12" firstName='Tony'
+        avatarUrl='https://s10tv.blob.core.windows.net/s10tv-prod/tonyxiao.jpg' />
+      })
+    }
+  })
+
+  FlowRouter.route('/poshak', {
+    name: 'poshak',
+    action () {
+      mount(injectDeps(Home), { mainContent: <Profile displayName="Poshak Agrawal '13" firstName='Poshak'
+        avatarUrl='http://graph.facebook.com/560625167/picture?type=large' />
+      })
     }
   })
 }
