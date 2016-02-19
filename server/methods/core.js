@@ -289,6 +289,7 @@ export default function (context) {
 
     'search/users': (input) => {
       check(input, String)
+      console.log(input)
       currentUser()
 
       return SearchService.searchUsers(input)
@@ -296,6 +297,7 @@ export default function (context) {
 
     'search/posts': (input) => {
       check(input, String)
+      console.log(input)
       currentUser()
 
       return SearchService.searchPosts(input)

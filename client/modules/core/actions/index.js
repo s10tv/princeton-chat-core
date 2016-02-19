@@ -2,6 +2,7 @@ import posts from './posts'
 import topics from './topics'
 import messages from './messages'
 import settings from './settings'
+import search from './search'
 import profile from './profile'
 import postfollowers from './postfollowers'
 
@@ -9,6 +10,7 @@ export default {
   posts,
   messages,
   topics,
+  search,
   profile,
   settings,
   postfollowers,
