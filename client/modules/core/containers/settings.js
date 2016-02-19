@@ -1,7 +1,6 @@
 import SettingsModal from '/client/modules/core/components/settings.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '../../../../lib/user.service.js'
-import AvatarService from '/lib/avatar.service'
 import {updateProfileValidator} from '/lib/validation/core'
 import {reduxForm} from 'redux-form'
 
@@ -25,10 +24,9 @@ export const composer = ({context}, onData) => {
       LocalState.set('SETTINGS_EDIT_PROFILE_NEW_PASSWORD', event.target.value)
     }
 
-
     var isDefaultAvatar = user.avatar.isDefaultAvatar
     const currentAvatarColor = user.avatar.color
-    const currentAvatarUrl =  user.avatar.url
+    const currentAvatarUrl = user.avatar.url
 
     const changePassword = () => {
       Accounts.changePassword(oldPassword, newPassword, (err) => {
@@ -47,7 +45,7 @@ export const composer = ({context}, onData) => {
         lastName: user.lastName,
         classYear: user.classYear,
         username: user.username,
-        displayName: user.displayName,
+        displayName: user.displayName
       },
 
       handleOldPasswordChange,

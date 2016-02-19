@@ -1,8 +1,4 @@
 import React from 'react'
-import Dialog from '../../../../node_modules/material-ui/lib/dialog'
-import Toolbar from '../../../../node_modules/material-ui/lib/toolbar/toolbar'
-import ToolbarGroup from '../../../../node_modules/material-ui/lib/toolbar/toolbar-group'
-import ToolbarTitle from '../../../../node_modules/material-ui/lib/toolbar/toolbar-title'
 import { Flex } from 'jsxstyle'
 import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
@@ -10,7 +6,7 @@ import {classYears} from '/lib/data'
 import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'
 import Divider from '../../../../node_modules/material-ui/lib/divider'
 import color from '/client/configs/color'
-import {TextField, RaisedButton, FlatButton, IconButton, FontIcon, SelectField} from '/client/lib/ui.jsx'
+import {TextField, RaisedButton, FlatButton, SelectField} from '/client/lib/ui.jsx'
 
 const s = {
   header: {
@@ -104,18 +100,21 @@ export default React.createClass({
             <Flex flexDirection='column' alignItems='center' justifyContent='flex-start'>
               {isDefaultAvatar
                 ? <LetterAvatar size={150} color='white' backgroundColor={currentAvatarColor}>
-                {user.avatarInitials}
-              </LetterAvatar>
+                  {user.avatarInitials}
+                </LetterAvatar>
                 : <CoverAvatar size={150} src={currentAvatarUrl} />
               }
-              <RaisedButton label='Use Default Avatar' primary  backgroundColor={color.gray}
-                            onTouchTap={changeAvatarToDefault}
-                            fullWidth={true}
-                            style={s.mobileButtons} />
-              <RaisedButton label='Use Facebook Photo' secondary backgroundColor='#3b5998'
-                            onTouchTap={changeAvatarToFacebook}
-                            fullWidth={true}
-                            style={s.mobileButtons} />
+              <RaisedButton label='Use Default Avatar' primary
+                backgroundColor={color.gray}
+                onTouchTap={changeAvatarToDefault}
+                fullWidth
+                style={s.mobileButtons} />
+              <RaisedButton label='Use Facebook Photo'
+                secondary
+                backgroundColor='#3b5998'
+                onTouchTap={changeAvatarToFacebook}
+                fullWidth
+                style={s.mobileButtons} />
             </Flex>
 
             <form>
@@ -127,7 +126,7 @@ export default React.createClass({
                 <SelectField floatingLabelText='Class Year' maxHeight={300} {...classYear}>
                   {classYears.map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
                 </SelectField>
-                <Flex alignSelf="flex-end" style={{marginTop: 20}}>
+                <Flex alignSelf='flex-end' style={{marginTop: 20}}>
                   <RaisedButton label='Update Profile' primary onTouchTap={handleSubmit} />
                 </Flex>
               </Flex>
@@ -136,21 +135,23 @@ export default React.createClass({
           <Divider style={{marginTop: 40}} />
           <h1 style={s.header}>Reset Password</h1>
           <Flex flexDirection='column' alignItems='flex-start' style={{paddingBottom: 20}}>
-            <TextField type='password'
-                       fullWidth={true}
-                       floatingLabelText='Current Password'
-                       onChange={handleOldPasswordChange} />
-            <TextField type='password'
-                       fullWidth={true}
-                       floatingLabelText='New Password'
-                       onChange={handleNewPasswordChange} />
+            <TextField
+              type='password'
+              fullWidth
+              floatingLabelText='Current Password'
+              onChange={handleOldPasswordChange} />
+            <TextField
+              type='password'
+              fullWidth
+              floatingLabelText='New Password'
+              onChange={handleNewPasswordChange} />
 
-            <Flex alignSelf="flex-end">
+            <Flex alignSelf='flex-end'>
               <FlatButton primary
                 label='Change Password'
                 onTouchTap={changePassword}
-                style={{marginTop: 10}}/>
-              </Flex>
+                style={{marginTop: 10}} />
+            </Flex>
           </Flex>
         </div>
       </main>

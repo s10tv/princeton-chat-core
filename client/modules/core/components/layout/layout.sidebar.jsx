@@ -6,10 +6,10 @@ import ListItem from '../../../../../node_modules/material-ui/lib/lists/list-ite
 import {SmallListItem, MediumListItem, LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 import RaisedButton from '../../../../../node_modules/material-ui/lib/raised-button'
 import FontIcon from '../../../../../node_modules/material-ui/lib/font-icon'
-import ContentInbox from 'material-ui/lib/svg-icons/content/inbox';
+import ExitToApp from 'material-ui/lib/svg-icons/action/exit-to-app'
+import Person from 'material-ui/lib/svg-icons/social/person'
 import Popover from 'material-ui/lib/popover/popover'
 import { i18n } from '/client/configs/env'
-import color from '/client/configs/color'
 
 const primaryTheme = i18n('primaryMuiTheme')
 const theme = i18n('secondaryMuiTheme')
@@ -18,19 +18,19 @@ const primary3Color = theme.baseTheme.palette.primary3Color
 
 const s = {
   popover: {
-    backgroundColor: 'unset',
+    backgroundColor: 'unset'
   },
   settings: {
     item: {
     }
   }
-};
+}
 
 const PopOverList = React.createClass({
   propTypes: {
     onTapSettings: React.PropTypes.func.isRequired,
     onLogout: React.PropTypes.func.isRequired,
-    closePopover: React.PropTypes.func.isRequired,
+    closePopover: React.PropTypes.func.isRequired
   },
 
   childContextTypes: {
@@ -43,16 +43,17 @@ const PopOverList = React.createClass({
     }
   },
 
-  render() {
+  render () {
     return (
       <List>
-        <ListItem primaryText="Edit Profile" leftIcon={<ContentInbox />}
+        <ListItem primaryText='Edit Profile'
+          leftIcon={<Person />}
           onTouchTap={() => {
             this.props.closePopover()
             this.props.onTapSettings()
           }} />
-        <ListItem primaryText="Logout"
-          leftIcon={<ContentInbox />}
+        <ListItem primaryText='Logout'
+          leftIcon={<ExitToApp />}
           onTouchTap={() => {
             this.props.closePopover()
             this.props.onLogout()
@@ -64,48 +65,48 @@ const PopOverList = React.createClass({
 
 const SidebarHeader = React.createClass({
   propTypes: {
-    user: React.PropTypes.object.isRequired,
+    user: React.PropTypes.object.isRequired
   },
 
-  getInitialState() {
+  getInitialState () {
     return {
       open: false
     }
   },
 
-  onTapHeader(event) {
+  onTapHeader (event) {
     this.setState({
       open: true,
       anchorEl: event.currentTarget
     })
   },
 
-  closePopover() {
+  closePopover () {
     this.setState({
       open: false
     })
   },
 
-  render() {
+  render () {
     const props = this.props
 
     return (
       <div>
         <ListItem id='sidebar-header'
-            innerDivStyle={{
-              paddingTop: 8,
-              paddingRight: 8,
-              paddingBottom: 8,
-              paddingLeft: 8
-            }} onTouchTap={this.onTapHeader}>
+          innerDivStyle={{
+            paddingTop: 8,
+            paddingRight: 8,
+            paddingBottom: 8,
+            paddingLeft: 8
+          }} onTouchTap={this.onTapHeader}>
           <Flex>
             {props.user.avatar.isDefaultAvatar
               ? <LetterAvatar
-              color='white'
-              backgroundColor={props.user.avatar.color}
-              size={60}>
-              {props.user.avatarInitials}
-            </LetterAvatar>
+                color='white'
+                backgroundColor={props.user.avatar.color}
+                size={60}>
+                {props.user.avatarInitials}
+              </LetterAvatar>
               : <CoverAvatar src={props.user.avatar.url} size={60} />
             }
             <Flex
@@ -117,10 +118,10 @@ const SidebarHeader = React.createClass({
                 {i18n('title')}
               </h3>
               <Flex alignItems='center' style={{ overflow: 'hidden' }}>
-            <span style={{ width: 120, lineHeight: '24px', textOverflow: 'ellipsis',
-              overflow: 'hidden'}}>
-              {props.user.displayName}
-            </span>
+                <span style={{ width: 120, lineHeight: '24px', textOverflow: 'ellipsis',
+                  overflow: 'hidden'}}>
+                  {props.user.displayName}
+                </span>
                 <FontIcon className='material-icons' style={{marginLeft: 'auto'}}>expand_more</FontIcon>
               </Flex>
             </Flex>
