@@ -44,6 +44,7 @@ export default function ({ Meteor, Collections }) {
       firstName: 1,
       lastName: 1,
       username: 1,
+      displayName: 1,
       avatar: 1,
       inviteCode: 1,
       emailPreference: 1,

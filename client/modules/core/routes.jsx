@@ -5,6 +5,7 @@ import LayoutMain from '/client/modules/core/containers/layout.js'
 import PostList from '/client/modules/core/containers/post.list.js'
 import PostDetails from '/client/modules/core/containers/post.details.js'
 import TopicList from '/client/modules/core/containers/topic.list.js'
+import Settings from '/client/modules/core/containers/settings.js'
 import GuestIndex from '/client/modules/guest/containers/guestIndex.js'
 import AddFollowers from '/client/modules/core/containers/add.followers.js'
 import ErrorPage from '/client/modules/core/components/error.jsx'
@@ -50,6 +51,19 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     action ({ topicId }) {
       mount(LayoutMainCtx, {
         content: (props) => <PostList topicId={topicId} {...props} />
+      })
+    }
+  })
+
+  FlowRouter.route('/settings', {
+    name: 'settings',
+    subscriptions: function () {
+      this.register('userData', Meteor.subscribe('userData'))
+    },
+    triggersEnter: [requireUserInSessionFn],
+    action () {
+      mount(LayoutMainCtx, {
+        content: (props) => <Settings {...props} />
       })
     }
   })

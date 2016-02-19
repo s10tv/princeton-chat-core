@@ -1,5 +1,6 @@
 export default function (context) {
-  const {slack, currentUser, Meteor, OnboardManager, Collections}= context
+  const {slack, Match, check, currentUser, Meteor,
+    OnboardManager, Collections, AvatarService, audience}= context
   const {Users} = Collections
 
   Meteor.methods({
@@ -13,43 +14,68 @@ export default function (context) {
       return OnboardManager.verifyAlumni(options)
     },
 
-    'profile/getFacebookAvatar': () => {
+    'profile/avatar/useFacebook': () => {
       const user = currentUser()
 
       if (user.services.facebook) {
-        return `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`
+        Users.update(user._id, { $set: {
+          avatar: {
+            url:  `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`,
+            isDefaultAvatar: false,
+          }
+        }})
       } else {
         throw new Meteor.Error(400, "You haven't linked Facebook yet.")
       }
     },
 
+    'profile/avatar/useDefault': () => {
+      const user = currentUser()
+
+      Users.update(user._id, { $set: {
+        avatar: {
+          url: AvatarService.generateDefaultAvatarForAudience(audience),
+          isDefaultAvatar: true,
+          color: AvatarService.generateRandomColorForDefaultAvatar()
+        }
+      }})
+    },
+
     'profile/update': (profile) => {
       check(profile, Object)
-      check(profile.firstName, String)
-      check(profile.lastName, String)
-      check(profile.avatarUrl, String)
-      check(profile.isDefaultAvatar, Boolean)
-      check(profile.avatarColor, String)
+      check(profile.firstName, Match.Optional(String))
+      check(profile.lastName, Match.Optional(String))
+      check(profile.username, Match.Optional(String))
+      check(profile.displayName, Match.Optional(String))
 
       const user = currentUser()
+      const userWithThisUsername = Users.findOne({ username: profile.username })
+      if (userWithThisUsername && userWithThisUsername._id !== user._id) {
+        throw new Meteor.Error(400, 'This username is taken', {
+          'username': 'This username is taken.'
+        })
+      }
 
       const updateValues = {
         firstName: profile.firstName,
         lastName: profile.lastName,
-        avatar: {
-          url: profile.avatarUrl,
-          isDefaultAvatar: profile.isDefaultAvatar,
-          color: profile.avatarColor
-        }
+        username: profile.username,
+        displayName: profile.displayName,
       }
 
       if (profile.classYear) {
         updateValues.classYear = profile.classYear
       }
 
-      Users.update(user._id, {
-        $set: updateValues
-      })
+      try {
+        Users.update(user._id, {
+          $set: updateValues
+        })
+      } catch (err) {
+        console.log(err)
+        throw new Meteor.Error(500, 'Hmm seems like we have a problem updating your ' +
+          'profile info.')
+      }
     },
 
     'emailPreference/update': (preference) => {

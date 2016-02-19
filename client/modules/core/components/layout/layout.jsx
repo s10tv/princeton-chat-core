@@ -1,10 +1,8 @@
 import React from 'react'
 import {StyleResizable} from 'material-ui/lib/mixins'
 import CreatePost from '/client/modules/core/containers/post.create.js'
-import SettingsModal from '/client/modules/core/containers/modal.settings.js'
 import Sidebar from '/client/modules/core/containers/layout.sidebar.js'
 import Profile from '/client/modules/core/containers/modal.profile.js'
-import EditProfileModal from '/client/modules/core/containers/modal.editprofile.js'
 import AddTopicModal from '/client/modules/core/containers/modal.add.topic.js'
 import AddTopicCoverPhotoModal from '/client/modules/core/containers/modal.add.topic.coverphoto.js'
 import PostFollowersModal from '/client/modules/core/containers/modal.post.followers.js'
@@ -50,8 +48,6 @@ export default React.createClass({
           <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
           {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
           <CreatePost />
-          <SettingsModal />
-          <EditProfileModal />
           <PostFollowersModal />
           <AddTopicModal />
           <AddTopicCoverPhotoModal />

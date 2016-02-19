@@ -4,7 +4,7 @@ import {Migrations} from 'meteor/percolate:migrations'
 import {ServiceConfiguration} from 'meteor/service-configuration'
 import Collections from '/lib/collections'
 import {Random} from 'meteor/random'
-import {check} from 'meteor/check'
+import {Match, check} from 'meteor/check'
 
 import AvatarService from '/lib/avatar.service.js'
 import PostManager from '/server/lib/PostManager'
@@ -25,6 +25,7 @@ export function initContext () {
     Migrations,
     ServiceConfiguration,
     Random,
+    Match,
     check,
     slack,
 

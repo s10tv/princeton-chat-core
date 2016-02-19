@@ -33,7 +33,8 @@ const depsMapper = (context, actions) => ({
   showTopic: actions.topics.navigateToTopic,
   navigateTo: actions.topics.navigateTo,
   showAllTopics: actions.topics.navigateToTopicList,
-  onTapSettings: actions.settings.showSettingsModal,
+  onTapSettings: actions.settings.navigateToSettings,
+  onLogout: actions.settings.logout,
   context: () => context
 })
 
