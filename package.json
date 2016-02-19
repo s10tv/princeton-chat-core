@@ -76,7 +76,9 @@
       "client/modules/princeton/**",
       "client/modules/ped/**",
       "client/lib/amplitude.service.js",
-      "tests/**"
+      "tests/**",
+      "client/modules/core/components/search.jsx",
+      "client/modules/core/components/menu.jsx"
     ]
   }
 }

@@ -3,6 +3,7 @@ import {Flex} from 'jsxstyle'
 import { RaisedButton, FontIcon, IconButton } from '/client/lib/ui.jsx'
 import { color } from '/client/configs/theme'
 import Radium from 'radium'
+import SearchBox from '/client/modules/core/containers/search'
 
 class Menu extends React.Component {
   render () {
@@ -80,22 +81,30 @@ const numberOfFollowersText = (numFollowers) => {
 
 var CoverPhotoMenu = (props) => (
   <div style={[props.style, styles.coverPhoto(props.topic.cover.url)]} >
-    {props.sidebarOpen
-      ? null
-      : <div style={{
-        position: 'relative',
-        top: -10,
-        left: -10
-      }}>
-        <IconButton onTouchTap={props.showSidebar} iconStyle={{
-          color: color.white
-        }}>
-          <FontIcon className='material-icons' style={{ color: color.white }}>
-            menu
-          </FontIcon>
-        </IconButton>
-      </div>
-    }
+    <Flex justifyContent="space-between" alignItems="center">
+
+      {props.sidebarOpen
+        ? <Flex />
+        : <Flex>
+            <IconButton onTouchTap={props.showSidebar} iconStyle={{
+              color: color.white, padding: 0
+            }}>
+              <FontIcon className='material-icons' style={{ color: color.white,
+               padding: 0}}>
+                menu
+              </FontIcon>
+            </IconButton>
+          </Flex>
+      }
+
+      <Flex>
+        <h1>
+          <SearchBox />
+        </h1>
+      </Flex>
+    </Flex>
+
+
 
     <Flex flexGrow={1} justifyContent='space-between' alignItems='flex-end'>
       <Flex flexDirection='column' color='white'>
