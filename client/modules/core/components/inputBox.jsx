@@ -131,7 +131,6 @@ export default React.createClass({
   },
 
   handleInputFocus () {
-    console.log('input focused')
     this.setState({inputFocused: true})
   },
 
