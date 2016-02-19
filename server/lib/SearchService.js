@@ -1,3 +1,5 @@
+const MAX_NUMBER_DOCS_RETURNED = 10
+
 export default class SearchService {
   constructor ({ Meteor, Collections }) {
     this.Meteor = Meteor
@@ -12,7 +14,7 @@ export default class SearchService {
         { emails: { $elemMatch: { address: re } } },
         { firstName: re },
         { lastName: re }
-    ]}).fetch()
+    ]}, {limit: MAX_NUMBER_DOCS_RETURNED}).fetch()
   }
 
   searchPosts (input) {
@@ -21,6 +23,6 @@ export default class SearchService {
     return Posts.find({ $or: [
       { title: re },
       { content: re }
-    ]}).fetch()
+    ]}, {limit: MAX_NUMBER_DOCS_RETURNED}).fetch()
   }
 }

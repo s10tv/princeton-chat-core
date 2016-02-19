@@ -53,6 +53,42 @@ describe('lib/searchservice', () => {
         status: 'pending',
         firstName: 'notactive'
       })
+
+      Users.insert({
+        _id: '6',
+        status: 'active',
+        firstName: 'icanhaz6'
+      })
+
+      Users.insert({
+        _id: '7',
+        status: 'active',
+        firstName: 'icanhaz7'
+      })
+
+      Users.insert({
+        _id: '8',
+        status: 'active',
+        firstName: 'icanhaz8'
+      })
+
+      Users.insert({
+        _id: '9',
+        status: 'active',
+        firstName: 'icanhaz9'
+      })
+
+      Users.insert({
+        _id: '10',
+        status: 'active',
+        firstName: 'icanhaz10'
+      })
+
+      Users.insert({
+        _id: '11',
+        status: 'active',
+        firstName: 'icanhaz11'
+      })
     })
 
     it("shouldn't find any users", () => {
@@ -87,9 +123,9 @@ describe('lib/searchservice', () => {
       expect(foundUsers).to.have.deep.property('[0].username', 'icanhazusername')
     })
 
-    it("should find by multiple fields", () => {
+    it("should find by multiple fields and limit to 10", () => {
       const foundUsers = service.searchUsers('icanhaz')
-      expect(foundUsers).to.have.length(4)
+      expect(foundUsers).to.have.length(10)
     })
   })
 
