@@ -1,7 +1,7 @@
 import { Match, check } from 'meteor/check'
 import { _ } from 'meteor/underscore'
 
-export default function ({ Meteor, Collections }) {
+export default function ({ Meteor, Collections, SearchService }) {
   const { Topics, Posts, Users, Messages, Invites } = Collections
 
   Meteor.publish('posts.mine', function () {
@@ -84,12 +84,23 @@ export default function ({ Meteor, Collections }) {
     this.ready()
   })
 
-  Meteor.publishComposite('posts', function (topicId, isMine) {
-    check(topicId, Match.OneOf(null, String))
-    check(isMine, Match.OneOf(null, Boolean))
+  Meteor.publishComposite('posts', function (options) {
+    check(options, Object)
+    check(options.topicId, Match.Optional(String))
+    check(options.isMine, Match.Optional(Boolean))
+    check(options.term, Match.Optional(String))
+
+    const isMine = options.isMine
+    const topicId = options.topicId
+    const term = options.term
 
     return {
       find: function () {
+        // TODO: refactor search into its own publication
+        if (term != null) {
+          return SearchService.searchPosts(term)
+        }
+
         var options = {}
         options.isDM = { $ne: true } // don't get the direct messages
 

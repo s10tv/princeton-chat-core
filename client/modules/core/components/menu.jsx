@@ -24,11 +24,6 @@ Menu.propTypes = {
   hidden: React.PropTypes.bool,
 
   /**
-   * The title bar of the menu (i.e. breadcrumb info or DM username)
-   */
-  title: React.PropTypes.string,
-
-  /**
    * True if the Follow/Following action section will be hidden
    */
   hideFollowActionSection: React.PropTypes.bool,
@@ -112,7 +107,7 @@ var CoverPhotoMenu = (props) => (
           Object.assign(
             {fontWeight: 300, fontSize: 30},
             (props.topic._id === undefined ? {} : {marginBottom: 20}))}>
-              #{props.title}
+              {props.topic._id ? `#${props.topic.displayName}` : props.topic.displayName }
         </span>
 
         {props.topic._id === undefined

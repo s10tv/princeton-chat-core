@@ -19,6 +19,7 @@ export default React.createClass({
   },
 
   onTextfieldBlur () {
+    console.log('onTextfieldBlur called')
     this.setState({ isBlurred: true })
   },
 
@@ -27,23 +28,21 @@ export default React.createClass({
   },
 
   render () {
-    console.log(this.props.searchResults)
-    console.log((this.state.isBlurred || this.props.searchResults.length === 0))
-    const searchResults = (this.state.isBlurred || this.props.searchResults.length === 0)
+    const searchResults = (this.props.searchResults.length === 0)
       ? null
-      : (<Menu>
+      : <Menu>
         { this.props.searchResults.map((post) => (
           <MenuItem key={post._id} primaryText={post.title} />
         ))}
-      </Menu>)
+      </Menu>
 
     return (
       <Flex flexDirection='column'>
         <TextField
-          hintText="Search ... "
+          hintText='Search ...'
           onFocus={this.onTextfieldFocus}
           onBlur={this.onTextfieldBlur}
-          onEnterKeyDown={this.updateInput}
+          onChange={this.updateInput}
         />
 
         {searchResults}

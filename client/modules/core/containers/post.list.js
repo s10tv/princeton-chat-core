@@ -9,12 +9,21 @@ import _ from 'underscore'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 
-export const composer = ({context, topicId, postListType, rightbarOpen, isMobile}, onData) => {
+export const composer = ({context, topicId, term, postListType, rightbarOpen, isMobile}, onData) => {
   const {Meteor, Collections} = context()
   const currentUser = UserService.currentUser()
 
-  if (Meteor.subscribe('posts', topicId, postListType === 'ALL_MINE').ready() &&
-    Meteor.subscribe('topic', topicId).ready()) {
+  let subscriptionReady
+  switch (postListType) {
+    case 'SEARCH':
+      subscriptionReady = Meteor.subscribe('posts', {term}).ready()
+      break
+    default:
+      subscriptionReady = Meteor.subscribe('posts', {topicId, isMine: postListType === 'ALL_MINE'}).ready() &&
+        Meteor.subscribe('topic', topicId).ready()
+  }
+
+  if (subscriptionReady) {
     var topic
     var options = {isDM: {$ne: true}}
 
@@ -39,6 +48,14 @@ export const composer = ({context, topicId, postListType, rightbarOpen, isMobile
         ]
         break
 
+      case 'SEARCH':
+        topic = {
+          displayName: `Search: ${term}`,
+          cover: GenericCoverPhoto,
+          followers: []
+        }
+        break
+
       default:
         topic = Collections.Topics.findOne(topicId)
         options.topicIds = topicId
@@ -48,7 +65,7 @@ export const composer = ({context, topicId, postListType, rightbarOpen, isMobile
     topic.followersList = Collections.Users.find({
       _id: { $in: topic.followers.map((follower) => follower.userId) }
     }).map((user) => UserService.getUserView(user))
-
+    console.log(Collections.Posts.find(options).fetch())
     const posts = Collections.Posts.find(options, {sort: { createdAt: -1 }}).map((post) => {
       post.owner = UserService.getUserView(Collections.Users.findOne(post.ownerId))
 
@@ -113,7 +130,6 @@ export const composer = ({context, topicId, postListType, rightbarOpen, isMobile
       unfollowFn: () => { Meteor.call('topic/unfollow', topic._id) },
       followersCount: topic.followers.length,
       postListType,
-      title: topic.displayName,
       isFollowing: currentUser.followingTopics.indexOf(topic._id) >= 0,
       isEmpty: posts.length === 0,
       disableClickToShowFollowers: topic._id === undefined,
