@@ -55,7 +55,12 @@ const PostListScreen = React.createClass({
     /**
      * Boolean to show/hide sidebar
      */
-    sidebarOpen: React.PropTypes.bool.isRequired
+    sidebarOpen: React.PropTypes.bool.isRequired,
+
+    /**
+     * Initial serach box value
+     */
+    initialSearchBoxValue: React.PropTypes.string
   },
 
   render () {
@@ -65,6 +70,7 @@ const PostListScreen = React.createClass({
       })}>
         <Flex flexDirection='column' flexGrow={1}>
           <Menu
+            initialSearchBoxValue={this.props.initialSearchBoxValue}
             hidePostButton={this.props.isEmpty}
             style={{
               marginBottom: 20

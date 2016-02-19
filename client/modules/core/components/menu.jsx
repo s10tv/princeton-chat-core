@@ -52,7 +52,12 @@ Menu.propTypes = {
    * Whether the sidebar is open (to show or not to show menu icon)
    */
   sidebarOpen: React.PropTypes.bool.isRequired,
-  showSidebar: React.PropTypes.func.isRequired
+  showSidebar: React.PropTypes.func.isRequired,
+
+  /**
+   * Initial search box value
+   */
+  initialSearchBoxValue: React.PropTypes.string
 }
 
 const pluralizeTextForNumber = (num, text) => {
@@ -76,8 +81,7 @@ const numberOfFollowersText = (numFollowers) => {
 
 var CoverPhotoMenu = (props) => (
   <div style={[props.style, styles.coverPhoto(props.topic.cover.url)]} >
-    <Flex justifyContent="space-between" alignItems="center">
-
+    <Flex justifyContent='space-between' alignItems='center'>
       {props.sidebarOpen
         ? <Flex />
         : <Flex>
@@ -94,7 +98,7 @@ var CoverPhotoMenu = (props) => (
 
       <Flex>
         <h1>
-          <SearchBox />
+          <SearchBox initialValue={props.initialSearchBoxValue} />
         </h1>
       </Flex>
     </Flex>
