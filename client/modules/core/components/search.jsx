@@ -38,7 +38,8 @@ const s = {
 const SearchBox = React.createClass({
   propTypes: {
     search: React.PropTypes.func.isRequired,
-    currentSearchValue: React.PropTypes.string
+    currentSearchValue: React.PropTypes.string,
+    initialSearchPeopleIcon: React.PropTypes.bool
   },
 
   getInitialState () {
@@ -76,16 +77,25 @@ const SearchBox = React.createClass({
 
 const FocusedTextField = React.createClass({
   propTypes: Object.assign({}, SearchBox.propTypes, {
-    toggleSearch: React.PropTypes.func.isRequired
+    toggleSearch: React.PropTypes.func.isRequired,
+    initialSearchPeopleIcon: React.PropTypes.bool
   }),
 
   componentDidMount () {
     this.refs.searchbox.focus()
   },
 
+  getInitialProps () {
+    return {
+      initialSearchPeopleIcon: false
+    }
+  },
+
   getInitialState () {
     return {
-      searchPeople: false
+      // not an anti-pattern, as initialSearchPeopleIcon only used for initial value setting,
+      // the component changes the state internally
+      searchPeople: this.props.initialSearchPeopleIcon
     }
   },
 

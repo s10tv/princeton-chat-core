@@ -57,6 +57,7 @@ const DirectorySearchScreen = React.createClass({
           <Menu
             currentSearchValue={this.props.currentSearchValue}
             hidePostButton={this.props.isEmpty}
+            initialIsSearchingPeople
             style={{
               marginBottom: 20
             }}
