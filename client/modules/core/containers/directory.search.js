@@ -6,9 +6,8 @@ const composer = ({context, term}, onData) => {
   const {Meteor, Collections, UserService} = context()
 
   if (Meteor.subscribe('directory.search', term).ready()) {
-
-    const users = Collections.Users.find({ _id: { $ne: Meteor.userId() }}).map((user) => {
-      return  UserService.getUserView(user)
+    const users = Collections.Users.find({ _id: { $ne: Meteor.userId() } }).map((user) => {
+      return UserService.getUserView(user)
     })
 
     const menuHeader = {
@@ -19,11 +18,11 @@ const composer = ({context, term}, onData) => {
 
     onData(null, {
       users,
+      currentSearchValue: term,
       topic: menuHeader, // TODO: decouple menu from topic
-      isEmpty: users.length == 0
+      isEmpty: users.length === 0
     })
   }
-
 }
 
 const depsMapper = (context, actions) => {

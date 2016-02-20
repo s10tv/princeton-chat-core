@@ -3,6 +3,7 @@ import {Flex} from 'jsxstyle'
 import TextField from 'material-ui/lib/text-field'
 import {FontIcon, IconButton} from '/client/lib/ui.jsx'
 import { i18n } from '/client/configs/env'
+import Radium from 'radium'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -18,6 +19,9 @@ const s = {
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.5)',
     marginRight: 5
+  },
+  searchIconContainer: {
+    padding: '0 0 0 5px'
   },
   text: {
     color: 'rgba(255, 255, 255, 0.5)',
@@ -107,15 +111,15 @@ const FocusedTextField = React.createClass({
 
   render () {
     const searchIcon = this.state.searchPeople
-      ? (<Flex>
+      ? <Flex>
           <FontIcon className='material-icons' style={s.searchIcon}>
             person
           </FontIcon>
           <FontIcon className='material-icons' style={s.searchIcon}>
             expand_more
           </FontIcon>
-        </Flex>)
-      : (<Flex>
+        </Flex>
+      : <Flex style={s.toggleButton}>
           <FontIcon className='material-icons' style={s.searchIcon}>
             view_headline
           </FontIcon>
@@ -123,13 +127,12 @@ const FocusedTextField = React.createClass({
             expand_more
           </FontIcon>
         </Flex>
-      )
 
     return (
       <Flex alignItems='center'>
         <IconButton onTouchTap={() => {
           this.toggleSearchType()
-        }} iconStyle={s.searchIcon}>
+        }} style={s.searchIconContainer} iconStyle={s.searchIcon}>
           {searchIcon}
         </IconButton>
 
@@ -151,4 +154,4 @@ const FocusedTextField = React.createClass({
   }
 })
 
-export default SearchBox
+export default Radium(SearchBox)
