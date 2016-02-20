@@ -28,6 +28,7 @@ const composer = ({context, term}, onData) => {
 const depsMapper = (context, actions) => {
   return {
     showUserProfile: actions.profile.showUserProfile,
+    navigateToTopic: actions.topics.navigateToTopic,
     context: () => context
   }
 }
