@@ -40,7 +40,12 @@ const DirectorySearchScreen = React.createClass({
     /**
      * Initial serach box value
      */
-    currentSearchValue: React.PropTypes.string
+    currentSearchValue: React.PropTypes.string,
+
+    /**
+     * The function navigates the user to the topic list screen.
+     */
+    navigateToTopic: React.PropTypes.func.isRequired
   },
 
   render () {
@@ -110,8 +115,8 @@ const DirectorySerachItem = (props) => (
               </a>
             </span>
 
-            {!props.user.displayEmail ? null :
-              <span style={s.searchResult}>
+            {!props.user.displayEmail ? null
+              : <span style={s.searchResult}>
                 <a href={`mailto:${props.user.displayEmail}`} style={{
                   color: color.gray
                 }}>
@@ -121,16 +126,18 @@ const DirectorySerachItem = (props) => (
             }
           </Flex>
 
-          {!props.user.followingTopics? null :
-            <span style={s.searchResult}>
+          {!props.user.followingTopics ? null
+            : <span style={s.searchResult}>
               {props.user.followingTopics.map((topic) =>
-                <a href='#' style={s.subTitle}>#{topic}</a>
+                <a href='#' style={s.subTitle} onClick={(event) => {
+                  event.preventDefault()
+                  props.navigateToTopic(topic)
+                }}>#{topic}</a>
               )}
             </span>}
         </Flex>
       </Flex>
   </ListItem>
 )
-
 
 export default DirectorySearchScreen
