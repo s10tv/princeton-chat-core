@@ -89,12 +89,24 @@ const PostListScreen = React.createClass({
 })
 
 const EmptyPostList = (props) => {
-  if (props.postListType === 'ALL_MINE') {
-    return <EmptyPostListInFeed {...props} />
-  } else {
-    return <EmptyPostListNotInFeed {...props} />
+  switch (props.postListType) {
+    case 'ALL_MINE':
+      return <EmptyPostListInFeed {...props} />
+
+    case 'SEARCH':
+      return <EmptyPostListSearch {...props} />
+
+    default:
+      return <EmptyPostListNotInFeed {...props} />
   }
 }
+
+const EmptyPostListSearch = ({ initialSearchBoxValue }) => (
+  <Flex marginTop={50} flexGrow={1} flexDirection='column' justifyContent='center' alignItems='center'>
+    <FontIcon style={{fontSize: 50}} className='material-icons'>search</FontIcon>
+    <h2 style={{fontWeight: 500}}>Sorry, we couldn't find any posts matching '{initialSearchBoxValue}'</h2>
+  </Flex>
+)
 
 const EmptyPostListNotInFeed = ({ showAddPostPopupFn }) => (
   <Flex className='post-list-empty' flex={1} justifyContent='center'>
