@@ -314,6 +314,7 @@ const localStyle = {
   mainContainer: {
     padding: '0px 40px',
     alignItems: 'center',
+    flexGrow: '1',
     '@media (max-width: 768px)': {
       padding: 0,
       marginBottom: 50
