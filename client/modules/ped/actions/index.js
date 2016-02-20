@@ -79,7 +79,7 @@ export default {
     }
   },
   onboardingSubscribeChannels: {
-    next ({FlowRouter, sweetalert}) {
+    next ({FlowRouter, sweetalert, LocalState, Meteor}) {
       // TODO: extract this into context
       const currentUser = UserService.currentUser()
 
@@ -90,9 +90,15 @@ export default {
             Please subscribe at least 3 before continuing.`
         })
       }
-      AmplitudeService.track('onboarding/subscribeToChannels',
-        { numChannels: currentUser.followingTopics.length })
-      return FlowRouter.go('onboarding-invite-friends')
+
+      Meteor.call('user/setStatusActive', (err) => {
+        if (err) {
+          return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+        }
+        AmplitudeService.track('onboarding/subscribeToChannels',
+          { numChannels: currentUser.followingTopics.length })
+        return FlowRouter.go('onboarding-invite-friends')
+      })
     }
   },
   onboardingInviteFriends: {
@@ -100,14 +106,9 @@ export default {
       AmplitudeService.track('onboarding/inviteFriends', { numInvites: invitees.length })
       FlowRouter.go('all-mine')
     }),
-    skipForNow ({Meteor, FlowRouter, LocalState}) {
-      Meteor.call('user/setStatusActive', (err) => {
-        if (err) {
-          LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
-        }
-        AmplitudeService.track('onboarding/inviteFriends', { numInvites: 0 })
-        FlowRouter.go('all-mine')
-      })
+    skipForNow ({FlowRouter}) {
+      AmplitudeService.track('onboarding/inviteFriends', { numInvites: 0 })
+      FlowRouter.go('all-mine')
     }
   }
 }

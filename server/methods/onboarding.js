@@ -117,7 +117,6 @@ export default function (context) {
       const user = currentUser()
       const { invitees } = options;
       OnboardManager.handleInvites(user, invitees)
-      Meteor.call('user/setStatusActive')
       return invitees
     },
 

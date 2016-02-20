@@ -95,7 +95,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
       mount(injectDeps(InviteFriends))
     }
   })
-
+  
   FlowRouter.route('/tonyx', {
     name: 'tonyx',
     action () {
