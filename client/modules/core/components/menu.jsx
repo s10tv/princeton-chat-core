@@ -58,7 +58,12 @@ Menu.propTypes = {
   /**
    * Initial search box value
    */
-  currentSearchValue: React.PropTypes.string
+  currentSearchValue: React.PropTypes.string,
+
+  /**
+   * Inital search icon, if true - people, false - content
+   */
+  initialIsSearchingPeople: React.PropTypes.bool
 }
 
 const pluralizeTextForNumber = (num, text) => {
@@ -99,12 +104,11 @@ var CoverPhotoMenu = (props) => (
 
       <Flex>
         <h1>
-          <SearchBox isMobile={props.isMobile} currentSearchValue={props.currentSearchValue} />
+          <SearchBox initialSearchPeopleIcon={props.initialIsSearchingPeople}
+            isMobile={props.isMobile} currentSearchValue={props.currentSearchValue} />
         </h1>
       </Flex>
     </Flex>
-
-
 
     <Flex flexGrow={1} justifyContent='space-between' alignItems='flex-end'>
       <Flex flexDirection='column' color='white'>
