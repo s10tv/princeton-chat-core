@@ -10,6 +10,7 @@ import TopicList from '/client/modules/core/containers/topic.list'
 import AddTopicModal from '/client/modules/core/containers/modal.add.topic.js'
 import AddTopicCoverPhotoModal from '/client/modules/core/containers/modal.add.topic.coverphoto.js'
 import { Logo } from './ui.jsx'
+import {Flex} from 'jsxstyle'
 
 const SubscribeChannels = (props) => {
   const {channels, onNext, hasSelectedThreeChannels, isLoggedIn} = props
@@ -56,6 +57,7 @@ SubscribeChannels.propTypes = {
   hasSelectedThreeChannels: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
+
 const s = {
   sidebarInner: {
     position: 'relative',

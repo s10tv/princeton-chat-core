@@ -29,8 +29,10 @@ const style = {
   main: {
     flex: 6,
     display: 'flex',
+    marginLeft: '40%',
     '@media (max-width: 768px)': {
-      display: 'none'
+      display: 'none',
+      marginLeft: 0
     }
   },
   background (url) {
