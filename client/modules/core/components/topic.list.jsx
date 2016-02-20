@@ -61,6 +61,14 @@ const TopicList = React.createClass({
     areTabsShown: React.PropTypes.bool
   },
 
+  componentWillMount () {
+    document.body.style.overflow = 'auto'
+  },
+
+  componentWillUnmount () {
+    document.body.style.overflow = 'hidden'
+  },
+
   getDefaultProps () {
     return {
       areTabsShown: true
@@ -87,7 +95,7 @@ const TopicList = React.createClass({
     return (
       <main style={[styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 },
         localStyle.mainContainer, this.props.rootStyle]}>
-        <div style={localStyle.mainFlexContainer}>
+        <div>
           {this.props.areTabsShown
           ? <Flex style={localStyle.tabFlexContainer}>
             <a onClick={this.tabItemClicked} href='#'>
@@ -111,7 +119,7 @@ const TopicList = React.createClass({
           </Flex>
           : null
           }
-          <div className='no-scrollbar' style={{overflowY: 'scroll'}}>
+          <div className='no-scrollbar' style={{marginTop: 50}}>
           {this.state.value === 'Top'
           ? <Flex flexDirection='column' justifyContent='center'>
               {this.props.topicsSortedByFollowers.map((topic) =>
@@ -246,7 +254,7 @@ TopicListItem = Radium(TopicListItem)
 var NewTopicButton = ({ showAddTopicModal }) => {
   return (
     <a style={style.notShowOnMobile} href='#' onClick={showAddTopicModal}>
-      <Flex margin='25px 0px' flexGrow={1}>
+      <Flex margin='25px 0px' flexGrow={1} maxWidth={600}>
         <div style={newTopicButtonStyle.coverPhotoBg}>
           <FontIcon className='material-icons' color='#757575'>photo_camera</FontIcon>
         </div>
@@ -325,12 +333,11 @@ const localStyle = {
     display: 'flex',
     flexGrow: 1,
     flexDirection: 'column',
-    alignItems: 'center',
-    maxWidth: 600,
-    maxHeight: '100vh',
-    '@media (max-width: 768px)': {
-      maxHeight: 'initial'
-    }
+    alignItems: 'center'
+    // maxHeight: '100vh',
+    // '@media (max-width: 768px)': {
+    //   maxHeight: 'initial'
+    // }
   },
 
   tabFlexContainer: {
@@ -338,13 +345,19 @@ const localStyle = {
     flex: '1 0 auto',
     alignSelf: 'stretch',
     marginBottom: 10,
+    width: '100%',
+    zIndex: 2,
+    position: 'fixed',
+    backgroundColor: 'white',
+    maxWidth: 600,
     boxShadow: '#dedede 0px -1px 0px 0px inset'
   },
 
   topicItemContainer: {
     flexDirection: 'column',
     margin: '25px 0px',
-    flexGrow: 1
+    flexGrow: 1,
+    maxWidth: 600
   },
 
   topicItemContainerUpperRow: {

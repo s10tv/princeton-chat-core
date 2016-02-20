@@ -53,6 +53,7 @@ const SubscribeChannels = (props) => {
     </StyleRoot>
   )
 }
+
 // TODO: Specify the shape of a field
 SubscribeChannels.propTypes = {
   channels: PropTypes.array.isRequired,
