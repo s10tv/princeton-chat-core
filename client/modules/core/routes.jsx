@@ -8,6 +8,7 @@ import TopicList from '/client/modules/core/containers/topic.list.js'
 import Settings from '/client/modules/core/containers/settings.js'
 import GuestIndex from '/client/modules/guest/containers/guestIndex.js'
 import AddFollowers from '/client/modules/core/containers/add.followers.js'
+import DirectorySearch from '/client/modules/core/containers/directory.search'
 import ErrorPage from '/client/modules/core/components/error.jsx'
 // This import has to be at the end for some reason else fails
 
@@ -90,6 +91,19 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
     action (args, {term}) {
       mount(LayoutMainCtx, {
         content: (props) => <PostList postListType='SEARCH' term={term} {...props} />
+      })
+    }
+  })
+
+  FlowRouter.route('/directory-search', {
+    name: 'directory-search',
+    subscriptions: function () {
+      this.register('userData', Meteor.subscribe('userData'))
+    },
+    triggersEnter: [requireUserInSessionFn],
+    action (args, {term}) {
+      mount(LayoutMainCtx, {
+        content: (props) => <DirectorySearch term={term} {...props} />
       })
     }
   })

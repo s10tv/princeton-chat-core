@@ -2,8 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import {Flex} from 'jsxstyle'
 import TextField from 'material-ui/lib/text-field'
+import PersonAdd from 'material-ui/lib/svg-icons/social/person-add';
+import RemoveRedEye from 'material-ui/lib/svg-icons/image/remove-red-eye';
 
-import {Menu, MenuItem, FontIcon, IconButton} from '/client/lib/ui.jsx'
+import {Menu, MenuItem, FontIcon, IconButton, DropDownMenu} from '/client/lib/ui.jsx'
 import color from '/client/configs/color'
 import { i18n } from '/client/configs/env'
 
@@ -83,6 +85,12 @@ const FocusedTextField = React.createClass({
     this.refs.searchbox.focus();
   },
 
+  getInitialState() {
+    return {
+      searchPeople: false
+    }
+  },
+
   updateInput (event) {
     const searchVal = event.currentTarget.value
     if (searchVal && searchVal.trim().length > 0) {
@@ -96,22 +104,49 @@ const FocusedTextField = React.createClass({
     }
   },
 
+  toggleSearchType () {
+    this.setState({
+      searchPeople: !this.state.searchPeople
+    })
+  },
+
   render() {
+    const searchIcon = this.state.searchPeople
+      ? (<Flex>
+          <FontIcon className='material-icons' style={s.searchIcon}>
+            person
+          </FontIcon>
+          <FontIcon className='material-icons' style={s.searchIcon}>
+            expand_more
+          </FontIcon>
+        </Flex>)
+      : (<Flex>
+          <FontIcon className='material-icons' style={s.searchIcon}>
+            view_headline
+          </FontIcon>
+          <FontIcon className='material-icons' style={s.searchIcon}>
+            expand_more
+          </FontIcon>
+        </Flex>
+      )
+
     return (
       <Flex alignItems='center'>
-        <FontIcon className='material-icons' style={s.searchIcon}>
-          search
-        </FontIcon>
+        <IconButton onTouchTap={() => {
+          this.toggleSearchType()
+        }} iconStyle={s.searchIcon}>
+          {searchIcon}
+        </IconButton>
+
         <TextField
           ref='searchbox'
           hintStyle={s.text}
           style={Object.assign({}, s.text, !this.props.isMobile ? {} : {
             width: 150
           })}
-          onBlur={this.props.toggleSearch}
           inputStyle={Object.assign({}, s.text, s.textFocus)}
           underlineFocusStyle={{borderColor: accent1Color}}
-          hintText='Search ... '
+          hintText={this.state.searchPeople ? 'Search people' : 'Search content'}
           defaultValue={this.props.currentSearchValue}
           onEnterKeyDown={this.updateInput}
           onKeyDown={this.checkForEscapeKey}
