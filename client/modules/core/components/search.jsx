@@ -1,12 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import {Flex} from 'jsxstyle'
 import TextField from 'material-ui/lib/text-field'
-import PersonAdd from 'material-ui/lib/svg-icons/social/person-add';
-import RemoveRedEye from 'material-ui/lib/svg-icons/image/remove-red-eye';
-
-import {Menu, MenuItem, FontIcon, IconButton, DropDownMenu} from '/client/lib/ui.jsx'
-import color from '/client/configs/color'
+import {FontIcon, IconButton} from '/client/lib/ui.jsx'
 import { i18n } from '/client/configs/env'
 
 const theme = i18n('primaryMuiTheme')
@@ -39,7 +34,7 @@ const s = {
 const SearchBox = React.createClass({
   propTypes: {
     search: React.PropTypes.func.isRequired,
-    currentSearchValue: React.PropTypes.string,
+    currentSearchValue: React.PropTypes.string
   },
 
   getInitialState () {
@@ -63,7 +58,7 @@ const SearchBox = React.createClass({
     }
 
     return (
-      <a href="#" onClick={this.onToggleSearch}>
+      <a href='#' onClick={this.onToggleSearch}>
         <Flex style={s.container} alignItems='center'>
           <FontIcon className='material-icons' style={s.searchIcon}>
             search
@@ -76,16 +71,15 @@ const SearchBox = React.createClass({
 })
 
 const FocusedTextField = React.createClass({
-  propTypes: {
-    ...SearchBox.propTypes,
+  propTypes: Object.assign({}, SearchBox.propTypes, {
     toggleSearch: React.PropTypes.func.isRequired
+  }),
+
+  componentDidMount () {
+    this.refs.searchbox.focus()
   },
 
-  componentDidMount() {
-    this.refs.searchbox.focus();
-  },
-
-  getInitialState() {
+  getInitialState () {
     return {
       searchPeople: false
     }
@@ -93,13 +87,14 @@ const FocusedTextField = React.createClass({
 
   updateInput (event) {
     const searchVal = event.currentTarget.value
+    const isSearchingPeople = this.state.searchPeople
     if (searchVal && searchVal.trim().length > 0) {
-      this.props.search(searchVal.trim())
+      this.props.search(searchVal.trim(), isSearchingPeople)
     }
   },
 
   checkForEscapeKey (event) {
-    if (event.keyCode == 27) {
+    if (event.keyCode === 27) {
       this.props.toggleSearch(event)
     }
   },
@@ -110,7 +105,7 @@ const FocusedTextField = React.createClass({
     })
   },
 
-  render() {
+  render () {
     const searchIcon = this.state.searchPeople
       ? (<Flex>
           <FontIcon className='material-icons' style={s.searchIcon}>
