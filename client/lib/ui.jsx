@@ -20,6 +20,7 @@ import _CircularProgress from 'material-ui/lib/circular-progress'
 import _Paper from 'material-ui/lib/paper'
 import _List from 'material-ui/lib/lists/list'
 import _ListItem from 'material-ui/lib/lists/list-item'
+import _DropDownMenu from 'material-ui/lib/DropDownMenu'
 
 export const FlatButton = _FlatButton
 export const RaisedButton = _RaisedButton
@@ -37,6 +38,7 @@ export const CircularProgress = _CircularProgress
 export const Paper = _Paper
 export const List = _List
 export const ListItem = _ListItem
+export const DropDownMenu = _DropDownMenu
 
 /** Wrapping MUI components for use with react-redux **/
 export const TextField = (props) => (

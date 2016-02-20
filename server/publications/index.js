@@ -168,6 +168,16 @@ export default function ({ Meteor, Collections, SearchService }) {
     }
   })
 
+  Meteor.publish('directory.search', function(term) {
+    console.log(term)
+    check(term, Match.OneOf(null, Match.Optional(String)))
+    if (this.userId) {
+      return SearchService.searchUsers(term)
+    } else {
+      this.ready()
+    }
+  })
+
   Meteor.publishComposite('directMessages', function () {
     const myUserId = this.userId
     if (myUserId) {

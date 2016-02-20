@@ -45,7 +45,9 @@
     "radium": "0.16.6",
     "randomcolor": "0.4.3",
     "react": "0.14.7",
+    "react-addons-css-transition-group": "^0.14.7",
     "react-addons-linked-state-mixin": "0.14.7",
+    "react-addons-shallow-compare": "^0.14.7",
     "react-css-modules": "3.7.4",
     "react-dom": "0.14.x",
     "react-link-state": "0.1.1",
@@ -53,6 +55,7 @@
     "react-mounter": "1.x.x",
     "react-redux": "4.4.0",
     "react-select": "0.9.1",
+    "react-selectize": "^0.8.1",
     "react-styling": "1.4.0",
     "react-tap-event-plugin": "0.2.2",
     "redux": "3.3.1",
@@ -78,7 +81,10 @@
       "client/lib/amplitude.service.js",
       "tests/**",
       "client/modules/core/components/search.jsx",
-      "client/modules/core/components/menu.jsx"
+      "client/modules/core/components/search.jsx",
+      "client/modules/core/components/menu.jsx",
+      "client/modules/core/components/directory.search.jsx",
+      "client/modules/core/containers/directory.search.js"
     ]
   }
 }
