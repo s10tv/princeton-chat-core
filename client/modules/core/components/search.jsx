@@ -134,7 +134,7 @@ const FocusedTextField = React.createClass({
             view_headline
           </FontIcon>
           <FontIcon className='material-icons' style={s.searchIcon}>
-            expand_more
+            expand_less
           </FontIcon>
         </Flex>
 
