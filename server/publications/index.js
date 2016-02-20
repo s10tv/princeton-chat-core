@@ -28,7 +28,7 @@ export default function ({ Meteor, Collections, SearchService }) {
     return Topics.find()
   })
 
-  Meteor.publish('invites', function() {
+  Meteor.publish('invites', function () {
     if (this.userId) {
       const user = Users.findOne(this.userId)
       if (user.topicAdmins && user.topicAdmins.indexOf('global') >= 0) {
