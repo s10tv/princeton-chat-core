@@ -52,12 +52,13 @@ Menu.propTypes = {
    * Whether the sidebar is open (to show or not to show menu icon)
    */
   sidebarOpen: React.PropTypes.bool.isRequired,
+  isMobile: React.PropTypes.bool.isRequired,
   showSidebar: React.PropTypes.func.isRequired,
 
   /**
    * Initial search box value
    */
-  initialSearchBoxValue: React.PropTypes.string
+  currentSearchValue: React.PropTypes.string
 }
 
 const pluralizeTextForNumber = (num, text) => {
@@ -98,7 +99,7 @@ var CoverPhotoMenu = (props) => (
 
       <Flex>
         <h1>
-          <SearchBox initialValue={props.initialSearchBoxValue} />
+          <SearchBox isMobile={props.isMobile} currentSearchValue={props.currentSearchValue} />
         </h1>
       </Flex>
     </Flex>

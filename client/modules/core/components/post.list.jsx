@@ -60,7 +60,7 @@ const PostListScreen = React.createClass({
     /**
      * Initial serach box value
      */
-    initialSearchBoxValue: React.PropTypes.string
+    currentSearchValue: React.PropTypes.string
   },
 
   render () {
@@ -70,7 +70,7 @@ const PostListScreen = React.createClass({
       })}>
         <Flex flexDirection='column' flexGrow={1}>
           <Menu
-            initialSearchBoxValue={this.props.initialSearchBoxValue}
+            currentSearchValue={this.props.currentSearchValue}
             hidePostButton={this.props.isEmpty}
             style={{
               marginBottom: 20
@@ -101,10 +101,10 @@ const EmptyPostList = (props) => {
   }
 }
 
-const EmptyPostListSearch = ({ initialSearchBoxValue }) => (
+const EmptyPostListSearch = ({ currentSearchValue }) => (
   <Flex marginTop={50} flexGrow={1} flexDirection='column' justifyContent='center' alignItems='center'>
     <FontIcon style={{fontSize: 50}} className='material-icons'>search</FontIcon>
-    <h2 style={{fontWeight: 500}}>Sorry, we couldn't find any posts matching '{initialSearchBoxValue}'</h2>
+    <h2 style={{fontWeight: 500}}>Sorry, we couldn't find any posts matching '{currentSearchValue}'</h2>
   </Flex>
 )
 
