@@ -113,6 +113,7 @@ export const PageLoader = () => {
       justifyContent: 'center',
       //width: '100vw',
       height: '100vh',
+      flexGrow: '1'
     },
     span: {
       color: color.gray,
