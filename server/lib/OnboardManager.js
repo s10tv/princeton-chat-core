@@ -203,7 +203,8 @@ export default class OnboardManager {
       birthDate,
       classYear,
       desc,
-      degree
+      degree,
+      status
     }
 
     const existingInvite = Invites.findOne({ email: email })
