@@ -12,7 +12,7 @@ export const composer = ({context}, onData) => {
     if (user) {
       const followedTopics = user ? Collections.Topics.find({
         _id: {$in: user.followingTopics}
-      }).fetch() : []
+      }, {sort: {createdAt: -1}}).fetch() : []
 
       const isFullAdmin = user.topicAdmins !== undefined &&
         user.topicAdmins.indexOf('global') >= 0
