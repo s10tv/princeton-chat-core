@@ -21,7 +21,7 @@ class InviteFriends extends React.Component {
             <div style={style.sidebarInner}>
               <h1 style={style.h1}>Better with friends</h1>
               <p>
-                Who were your two best friends from Princeton? Get them to join you on Princeton.Chat.
+                Who were your three best friends from Princeton? Get them to join you on Princeton.Chat.
               </p>
               <form style={style.form} onSubmit={handleSubmit}>
                 {invitees.map(({email}, index) =>
