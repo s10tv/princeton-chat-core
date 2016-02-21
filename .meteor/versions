@@ -64,6 +64,8 @@ meteor-base@1.0.1
 meteor-env-dev@0.0.1-modules.4
 meteor-env-prod@0.0.1-modules.4
 meteorhacks:async@1.0.0
+meteorhacks:kadira@2.27.3
+meteorhacks:meteorx@1.4.1
 meteorhacks:npm@1.5.0
 minifiers-css@1.1.8-modules.4
 minifiers-js@1.1.8-modules.4
@@ -73,6 +75,7 @@ mobile-status-bar@1.0.6
 modules@0.4.1-modules.4
 mongo@1.1.4-modules.4
 mongo-id@1.0.1
+mongo-livedata@1.0.9
 npm-bcrypt@0.7.8_2
 npm-container@1.2.0
 npm-mongo@1.4.40-modules.4
