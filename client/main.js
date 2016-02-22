@@ -5,27 +5,17 @@ import {localize} from '/client/configs/env'
 import core from '/client/modules/core'
 import admin from '/client/modules/admin'
 import WebFontLoader from 'webfontloader'
-// onboarding modules
-import princeton from '/client/modules/princeton'
-import ped from '/client/modules/ped'
+import onboarding from '/client/modules/onboarding'
 
 injectTapEventPlugin()
 localize()
 
-const context = initContext({princeton, core, admin})
+const context = initContext({onboarding, core, admin})
 
 const app = createApp(context)
 app.loadModule(admin)
 app.loadModule(core)
-
-switch (context.audience) {
-  case 'ped':
-    app.loadModule(ped)
-    break
-  case 'princeton': // fallthrough intentional. default to princeton
-  default:
-    app.loadModule(princeton)
-}
+app.loadModule(onboarding)
 
 WebFontLoader.load({
   google: {

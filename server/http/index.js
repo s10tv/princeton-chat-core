@@ -5,7 +5,8 @@ import {Posts, Users} from '/lib/collections'
 import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
-import { Signup, Invite, InviteNonAlum, htmlEmail, emailTitle } from '../emails'
+import { title } from '/imports/env'
+import { Signup, Invite, InviteNonAlum, htmlEmail } from '../emails'
 import EmailInvite from '../emails/princeton/invite.jsx'
 import htmlPage from './html'
 
@@ -44,7 +45,7 @@ export default function () {
         return 'Not Found - Action not allowed'
       }
       return htmlPage({
-        title: emailTitle,
+        title: title,
         body: ReactDOMServer.renderToStaticMarkup(
           React.createElement(GuestToggleFollow, {
             title: post.title,

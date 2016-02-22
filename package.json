@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint ./libs ./client ./server --ext .js --ext .jsx",
     "lintfix": "npm run lint -- --fix",
-    "test": "standard && mocha tests --recursive --compilers js:babel-register",
+    "test": "",
     "validate": "npm ls"
   },
   "pre-commit": [

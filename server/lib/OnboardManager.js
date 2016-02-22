@@ -3,12 +3,13 @@ import ReactDOMServer from '../../node_modules/react-dom/server'
 import { autoVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
+import { title } from '/imports/env'
+
 import {
   htmlEmail,
   Signup,
   Invite,
   InviteNonAlum,
-  emailTitle
 } from '../emails'
 
 const slackUsername = process.env.ENV || 'dev'
@@ -17,7 +18,7 @@ const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
 export default class OnboardManager {
 
   constructor({ Meteor, Accounts, Email, Random, Collections, slack }) {
-    this.audience = emailTitle || 'Princeton.Chat'
+    this.audience = title || 'Princeton.Chat'
     this.Meteor = Meteor
     this.Accounts = Accounts
     this.Email = Email

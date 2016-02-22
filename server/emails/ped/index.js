@@ -7,7 +7,5 @@ export default {
   Invite,
   Signup,
   InviteNonAlum,
-  htmlEmail,
-  emailTitle: 'Pedagogy and Play',
-  primaryColor: '#5477AD'
+  htmlEmail
 }
