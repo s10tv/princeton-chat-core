@@ -1,3 +1,6 @@
+/*global
+  describe, beforeEach, Meteor, it, fail
+*/
 import Collections from '../../lib/collections'
 import {expect} from 'chai'
 
@@ -6,7 +9,7 @@ const {Topics, Messages, Posts, Users} = Collections
 describe('core methods', () => {
   let currentUser, currentUserId
 
-  beforeEach (() => {
+  beforeEach(() => {
     Topics.remove({})
     Posts.remove({})
     Messages.remove({})
@@ -21,7 +24,7 @@ describe('core methods', () => {
     }
   })
 
-  describe ('post/insert', () => {
+  describe('post/insert', () => {
     beforeEach(() => {
       Topics.insert({
         _id: 'startup',
@@ -29,7 +32,7 @@ describe('core methods', () => {
       })
     })
 
-    it ('should insert a post into the DB', () => {
+    it('should insert a post into the DB', () => {
       Meteor.call('post/insert', 'post-id', 'post-title', 'post-content',
         ['startup', 'another-topic-that-does-not-exist']
       )
@@ -50,8 +53,8 @@ describe('core methods', () => {
       })
     })
 
-    describe ('topic/follow', () => {
-      it ('should follow a topic', () => {
+    describe('topic/follow', () => {
+      it('should follow a topic', () => {
         Meteor.call('topic/follow', 'startup')
 
         const dbUser = Users.findOne(currentUserId)
@@ -68,8 +71,8 @@ describe('core methods', () => {
       })
     })
 
-    describe ('topic/unfollow', () => {
-      it ('should unfollow a topic', () => {
+    describe('topic/unfollow', () => {
+      it('should unfollow a topic', () => {
         Meteor.call('topic/follow', 'startup')
         Meteor.call('topic/unfollow', 'startup')
 
@@ -81,8 +84,8 @@ describe('core methods', () => {
       })
     })
 
-    describe ('topic/remove', () => {
-      it ('should not allow non-owners to remove the topic', () => {
+    describe('topic/remove', () => {
+      it('should not allow non-owners to remove the topic', () => {
         try {
           Meteor.call('topic/remove', 'startup')
           fail('should not get pass topic/remove if you are not the owner')
@@ -90,7 +93,7 @@ describe('core methods', () => {
           expect(err).to.exist
         }
       })
-      it ('should remove the topic if you are the owner', () => {
+      it('should remove the topic if you are the owner', () => {
         Topics.update('startup', { $set: {
           ownerId: currentUserId
         }})
@@ -99,7 +102,7 @@ describe('core methods', () => {
       })
     })
 
-    describe ('topic/create', () => {
+    describe('topic/create', () => {
       const TOPIC = {
         name: 'freedom',
         description: 'is sweet',
@@ -107,7 +110,7 @@ describe('core methods', () => {
           url: 'http://cover'
         }
       }
-      it ('should create a topic', () => {
+      it('should create a topic', () => {
         Meteor.call('topic/create', TOPIC)
 
         const topic = Topics.findOne('freedom')
