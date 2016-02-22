@@ -82,8 +82,7 @@
       "client/lib/amplitude.service.js",
       "tests/**",
       "client/modules/core/components/search.jsx",
-      "client/modules/core/components/search.jsx",
-      "client/modules/core/components/menu.jsx"
+      "client/modules/core/components/search.jsx"
     ]
   }
 }
