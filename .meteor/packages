@@ -7,7 +7,6 @@
 meteor-base             # Packages every Meteor app needs to have
 mobile-experience       # Packages for a great mobile UX
 mongo                   # The database Meteor supports right now
-blaze-html-templates    # Compile .html files into Meteor Blaze views
 session                 # Client-side reactive dictionary for your app
 jquery                  # Helpful client-side library
 tracker                 # Meteor's client-side reactive programming library
@@ -22,8 +21,6 @@ reywood:publish-composite
 
 kadira:flow-router
 reactive-dict
-audit-argument-checks
-check
 random
 less
 percolate:migrations
@@ -49,4 +46,4 @@ email
 meteorhacks:kadira
 standard-minifier-css
 standard-minifier-js
-avital:mocha
+practicalmeteor:mocha-console-reporter
