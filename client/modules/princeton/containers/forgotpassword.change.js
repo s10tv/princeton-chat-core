@@ -15,7 +15,7 @@ export const composer = ({context}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
-  onSubmit: actions.forgotPassword.recover,
+  onSubmit: actions.forgotPassword.reset,
   store: context.store,
   context: () => context
 })

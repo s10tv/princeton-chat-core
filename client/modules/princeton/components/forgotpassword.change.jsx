@@ -18,8 +18,7 @@ const ForgotPasswordChange = (props) => {
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Reset Password</h1>
             <form style={style.form} onSubmit={handleSubmit}>
-              <p>Enter your new password below. Make it something personal and memorable, yet hard to guess for others.
-              Just between two of us, I like to use the password: '0ra17nge46!'</p>
+              <p>Enter your new password below. I promise that I won't tell it to anyone.</p>
               <TextField type='password' floatingLabelText='New Password'
                 hintText='Type your password here' fullWidth={true} {...newPassword} />
               <TextField type='password' hintText='Type your password here again'
@@ -27,7 +26,7 @@ const ForgotPasswordChange = (props) => {
               <br />
               {error && <p style={style.error}>{error}</p>}
               <br />
-              <FlatButton type='submit' style={style.button} label='Recover Password'
+              <FlatButton type='submit' style={style.button} label='Reset Password'
                 disabled={submitting} backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
             </form>

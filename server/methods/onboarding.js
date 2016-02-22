@@ -92,6 +92,12 @@ export default function (context) {
       return OnboardManager.sendRecoveryEmail(email)
     },
 
+    'welcome/resetPassword': ({ token, newPassword }) => {
+      check(token, String)
+      check(newPassword, String)
+      return OnboardManager.resetPassword({ token, newPassword })
+    },
+
     'welcome/signup': (info) => {
       check(info, Object)
       const user = currentUser()
