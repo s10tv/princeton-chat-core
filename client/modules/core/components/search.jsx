@@ -122,21 +122,21 @@ const FocusedTextField = React.createClass({
   render () {
     const searchIcon = this.state.searchPeople
       ? <Flex>
-          <FontIcon className='material-icons' style={s.searchIcon}>
-            person
-          </FontIcon>
-          <FontIcon className='material-icons' style={s.searchIcon}>
-            expand_more
-          </FontIcon>
-        </Flex>
+        <FontIcon className='material-icons' style={s.searchIcon}>
+          person
+        </FontIcon>
+        <FontIcon className='material-icons' style={s.searchIcon}>
+          expand_more
+        </FontIcon>
+      </Flex>
       : <Flex style={s.toggleButton}>
-          <FontIcon className='material-icons' style={s.searchIcon}>
-            view_headline
-          </FontIcon>
-          <FontIcon className='material-icons' style={s.searchIcon}>
-            expand_less
-          </FontIcon>
-        </Flex>
+        <FontIcon className='material-icons' style={s.searchIcon}>
+          view_headline
+        </FontIcon>
+        <FontIcon className='material-icons' style={s.searchIcon}>
+          expand_less
+        </FontIcon>
+      </Flex>
 
     return (
       <Flex alignItems='center'>

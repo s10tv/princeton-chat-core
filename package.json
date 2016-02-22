@@ -80,9 +80,7 @@
       "client/modules/princeton/**",
       "client/modules/ped/**",
       "client/lib/amplitude.service.js",
-      "tests/**",
-      "client/modules/core/components/search.jsx",
-      "client/modules/core/components/search.jsx"
+      "tests/**"
     ]
   }
 }
