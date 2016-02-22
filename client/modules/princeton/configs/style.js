@@ -37,6 +37,12 @@ export default {
     color: color.white,
     fontSize: fontSize.h6,
   },
+  forgotPassword: {
+    alignSelf: 'flex-end',
+    color: color.white,
+    fontSize: fontSize.sm,
+    marginTop: 10
+  },
   h1: {
     fontWeight: 'lighter',
     marginBottom: spacing.x2,
@@ -53,6 +59,7 @@ export default {
   },
   button: {
     textTransform: 'inherit',
+    textAlign: 'center'
     // marginLeft: spacing.x2,
     // marginRight: spacing.x2,
   },

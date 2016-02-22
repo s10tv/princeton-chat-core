@@ -77,7 +77,8 @@ const TopicList = React.createClass({
 
   getInitialState () {
     return {
-      value: 'Top'
+      value: 'Top',
+      canShowSweetAlerts: true
     }
   },
 

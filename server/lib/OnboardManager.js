@@ -7,6 +7,7 @@ import {
   htmlEmail,
   Signup,
   Invite,
+  RecoverEmail,
   InviteNonAlum,
   emailTitle
 } from '../emails'
@@ -79,6 +80,33 @@ export default class OnboardManager {
     })
   }
 
+  sendRecoveryEmail (email) {
+    const user = this.Accounts.findUserByEmail(email)
+    if (!user) {
+      throw new this.Meteor.Error(400, 'No user was found with this email.')
+    }
+    const userId = user._id
+
+    // TODO: move this somewhere else, so that it gets executed only once
+    this.Accounts.emailTemplates.resetPassword.subject = (user) => {
+      return `Reset Password`
+    }
+    this.Accounts.emailTemplates.resetPassword.from = () => {
+      return process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'Princeton.Chat <notifications@princeton.chat>'
+    }
+    this.Accounts.emailTemplates.resetPassword.html = (user, url) => {
+      const token = url.substring(url.lastIndexOf('/') + 1)
+      const ourUrl = `/forgot-password/${token}`
+      return ReactDOMServer.renderToStaticMarkup(
+        React.createElement(RecoverEmail, {
+          recoveryLink: ourUrl
+        })
+      )
+    }
+
+    return this.Accounts.sendResetPasswordEmail(userId, email)
+  }
+
   handleSignup (user, { firstName, lastName, password, email }) {
     const {Users} = this.Collections
     Users.update(user._id, { $set: {
@@ -90,10 +118,10 @@ export default class OnboardManager {
     this.Accounts.setPassword(user._id, password, { logout: false })
   }
 
-  handleManualVerify(invite) {
+  handleManualVerify (invite) {
     const {Invites} = this.Collections
     this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
-    Invites.update(invite._id, { $set: { status: 'sent' }})
+    Invites.update(invite._id, {$set: { status: 'sent' }})
   }
 
   __sendAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
@@ -157,7 +185,7 @@ export default class OnboardManager {
     }
   }
 
-  __sendSignupEmail({ email, inviteCode }) {
+  __sendSignupEmail ({ email, inviteCode }) {
     const inviteLink = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
     const subject = process.env.INVITE_EMAIL_SUBJECT || `[${this.audience}] Welcome!`
 

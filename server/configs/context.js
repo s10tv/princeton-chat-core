@@ -17,7 +17,6 @@ const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
 const audience = process.env.AUDIENCE || 'princeton'
 
-
 export function initContext () {
   return {
     // meteor libraries

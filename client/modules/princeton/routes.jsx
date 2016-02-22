@@ -7,6 +7,9 @@ import SubscribeChannels from './containers/subscribe.channels'
 import InviteFriends from './containers/invite.friends'
 import AmplitudeService from '/client/lib/amplitude.service'
 import Profile from './components/profile.jsx'
+import ForgotPassword from './containers/forgotpassword'
+import ForgotPasswordSent from './containers/forgotpassword.sent'
+import ForgotPasswordChange from './containers/forgotpassword.change'
 import React from 'react'
 
 function requireUserInSession (context) {
@@ -95,7 +98,28 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
       mount(injectDeps(InviteFriends))
     }
   })
-  
+
+  FlowRouter.route('/forgot-password', {
+    name: 'forgot-password',
+    action () {
+      mount(injectDeps(ForgotPassword))
+    }
+  })
+
+  FlowRouter.route('/forgot-password/email-sent', {
+    name: 'forgot-password/email-sent',
+    action () {
+      mount(injectDeps(ForgotPasswordSent))
+    }
+  })
+
+  FlowRouter.route('/forgot-password/:token', {
+    name: 'forgot-password-change',
+    action ({ token }) {
+      mount(injectDeps(ForgotPasswordChange))
+    }
+  })
+
   FlowRouter.route('/tonyx', {
     name: 'tonyx',
     action () {

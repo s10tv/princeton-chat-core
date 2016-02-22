@@ -5,7 +5,7 @@ import UserService from '/lib/user.service'
 import { i18n } from '/client/configs/env'
 import AmplitudeService from '/client/lib/amplitude.service'
 
-export function redirectIfUrlFound(FlowRouter) {
+export function redirectIfUrlFound (FlowRouter) {
   if (FlowRouter.current().queryParams.ol) {
     return FlowRouter.go(decodeURIComponent(FlowRouter.current().queryParams.ol))
   }
@@ -37,14 +37,14 @@ export default {
           return sweetalert({
             title: 'Facebook Login',
             text: err.reason || err.message, // TODO: Be consistent
-            type: 'error',
+            type: 'error'
           })
         }
         AmplitudeService.track('home/login', { type: 'facebook' })
         return redirectIfUrlFound(FlowRouter)
       })
     },
-    loginWithPassword ({Meteor}, info) {
+    loginWithPassword ({Meteor, FlowRouter}, info) {
       return new Promise((resolve, reject) => {
         Meteor.loginWithPassword(info.email, info.password, (err) => {
           if (err) {
@@ -112,5 +112,10 @@ export default {
       AmplitudeService.track('onboarding/inviteFriends', { numInvites: 0 })
       FlowRouter.go('all-mine')
     }
+  },
+  forgotPassword: {
+    recover: createOnSubmit('welcome/forgotPassword', ({FlowRouter}) => {
+      FlowRouter.go('/forgot-password/email-sent')
+    })
   }
 }

@@ -5,7 +5,7 @@ import {Posts, Users} from '/lib/collections'
 import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
-import { Signup, Invite, InviteNonAlum, htmlEmail, emailTitle } from '../emails'
+import { Signup, Invite, InviteNonAlum, htmlEmail, emailTitle, RecoverEmail } from '../emails'
 import EmailInvite from '../emails/princeton/invite.jsx'
 import htmlPage from './html'
 
@@ -52,6 +52,17 @@ export default function () {
             followLink: `/guest/posts/${postId}/follow?userId=${userId}&hash=${hash}`,
             unfollowLink: `/guest/posts/${postId}/unfollow?userId=${userId}&hash=${hash}`,
             editTopicsLink: `/guest?userId=${userId}&hash=${hash}`
+          })
+        )
+      })
+    },
+
+    '/e/email-sent': function () {
+      return htmlEmail({
+        title: 'a title here',
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(RecoverEmail, {
+            recoveryLink: 'http://localhost/fake-link'
           })
         )
       })

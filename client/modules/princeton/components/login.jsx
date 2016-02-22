@@ -40,6 +40,7 @@ const Login = (props) => {
               <FlatButton type='submit' style={style.button} label='Login' disabled={submitting}
                           backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
+              <a href='/forgot-password' style={style.forgotPassword}>Forgot Password?</a>
             </form>
           </div>
         </Layout.Sidebar>
