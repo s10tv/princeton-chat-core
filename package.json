@@ -75,10 +75,7 @@
     "ignore": [
       "packages/**",
       "server/**",
-      "tests/**",
-      "private/**",
-      "client/modules/princeton/**",
-      "client/modules/ped/**"
+      "tests/**"
     ]
   }
 }
