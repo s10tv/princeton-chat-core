@@ -9,7 +9,5 @@ export default {
   Signup,
   InviteNonAlum,
   htmlEmail,
-  RecoverEmail,
-  emailTitle: 'Princeton.Chat',
-  primaryColor: '#F07621'
+  RecoverEmail
 }
