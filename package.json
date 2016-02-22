@@ -73,8 +73,7 @@
   "private": true,
   "standard": {
     "ignore": [
-      "packages/**",
-      "server/**"
+      "packages/**"
     ]
   }
 }

@@ -1,6 +1,4 @@
 import { check } from 'meteor/check'
-import { Topics, Users } from '/lib/collections'
-import { Meteor } from 'meteor/meteor'
 
 export default class TopicManager {
 
@@ -52,7 +50,7 @@ export default class TopicManager {
     // remove the reference to the topic in every user that used to follow it
     Users.find({
       followingTopics: topicId
-    }).forEach(user => {
+    }).forEach((user) => {
       Users.update(user._id, {
         $pull: { followingTopics: topic._id }
       })

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Block} from 'jsxstyle'
-import Radium, { Style } from 'radium'
+import {Style} from 'radium'
 
 import { primaryColor, emailTitle } from '../emails'
 
@@ -18,20 +18,19 @@ const SimpleLogo = (props) => (
 const GuestToggleFollow = (props) => (
   <Block className='guest' padding={30}>
     <Style rules={{
-        body: {
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Avenir Next", sans-serif',
-        }
+      body: {
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Avenir Next", sans-serif'
+      }
     }} />
     <Style scopeSelector='.guest' rules={{
-        a: {
-          color: '#4A90E2',
-          textDecoration: 'underline',
-        },
-        'a:hover': {
-          color: '#F07621',
-        }
+      a: {
+        color: '#4A90E2',
+        textDecoration: 'underline'
+      },
+      'a:hover': {
+        color: '#F07621'
+      }
     }} />
-    
     <SimpleLogo />
     {props.isFollowing
       ? <p>You are now <span style={{color: primaryColor}}>following</span></p>

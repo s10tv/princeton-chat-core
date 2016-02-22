@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   render () {
-    const { senderName, firstName, inviteUrl } = this.props;
+    const { senderName, firstName, inviteUrl } = this.props
 
     return (
       <Layout>

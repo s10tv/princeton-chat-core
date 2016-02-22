@@ -1,6 +1,6 @@
 export default function (context) {
   const {slack, Match, check, currentUser, Meteor,
-    OnboardManager, Collections, AvatarService, audience, Accounts}= context
+    OnboardManager, Collections, AvatarService, audience} = context
   const {Users} = Collections
 
   Meteor.methods({
@@ -20,8 +20,8 @@ export default function (context) {
       if (user.services.facebook) {
         Users.update(user._id, { $set: {
           avatar: {
-            url:  `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`,
-            isDefaultAvatar: false,
+            url: `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`,
+            isDefaultAvatar: false
           }
         }})
       } else {

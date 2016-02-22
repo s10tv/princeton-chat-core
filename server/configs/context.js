@@ -5,6 +5,7 @@ import {ServiceConfiguration} from 'meteor/service-configuration'
 import Collections from '/lib/collections'
 import {Random} from 'meteor/random'
 import {Match, check} from 'meteor/check'
+import {Email} from 'meteor/email'
 
 import AvatarService from '/lib/avatar.service.js'
 import PostManager from '/server/lib/PostManager'

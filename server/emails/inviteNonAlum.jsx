@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout, { accentColor } from './layout.jsx'
+import Layout from './layout.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   render () {
-    const { senderName, firstName, rootURL } = this.props;
+    const { senderName, firstName, rootURL } = this.props
 
     return (
       <Layout>

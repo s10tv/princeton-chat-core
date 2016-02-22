@@ -1,4 +1,4 @@
-import invariant from 'invariant'
+/*global HTTP*/
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
 import {Posts, Users} from '/lib/collections'
@@ -9,13 +9,13 @@ import { title } from '/imports/env'
 import emails from '../emails'
 import htmlPage from './html'
 
-const { Signup, Invite, InviteNonAlum, htmlEmail } = emails
+const { Signup, Invite, InviteNonAlum, htmlEmail, RecoverEmail } = emails
 
 export default function () {
   HTTP.methods({
-    'guest/posts/:postId/:action': function() {
-      const {postId, action} = this.params;
-      const {userId, hash} = this.query;
+    'guest/posts/:postId/:action': function () {
+      const {postId, action} = this.params
+      const {userId, hash} = this.query
 
       const user = Users.findOne(userId)
       if (!user) {
@@ -70,7 +70,7 @@ export default function () {
       })
     },
 
-    '/e/signup': function() {
+    '/e/signup': function () {
       return htmlEmail({
         title: '[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.',
         body: ReactDOMServer.renderToStaticMarkup(
@@ -81,8 +81,7 @@ export default function () {
       })
     },
 
-
-    '/e/invite-alum': function() {
+    '/e/invite-alum': function () {
       return htmlEmail({
         title: 'a title here',
         body: ReactDOMServer.renderToStaticMarkup(
@@ -95,7 +94,7 @@ export default function () {
       })
     },
 
-    '/e/invite-non-alum': function() {
+    '/e/invite-non-alum': function () {
       return htmlEmail({
         title: 'a title here',
         body: ReactDOMServer.renderToStaticMarkup(

@@ -11,7 +11,7 @@ export default React.createClass({
       <Layout>
         <div style={{
           background: '#fff',
-          padding: 10,
+          padding: 10
         }}>
           <h3>Welcome Tiger!</h3>
           <p style={{

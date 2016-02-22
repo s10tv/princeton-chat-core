@@ -73,7 +73,7 @@ export default function ({ Meteor, Collections, SearchService }) {
           {
             find: function (topic) {
               return Users.find({
-                _id: { $in: topic.followers.map(follower => follower.userId) }
+                _id: { $in: topic.followers.map((follower) => follower.userId) }
               })
             }
           }
@@ -127,7 +127,7 @@ export default function ({ Meteor, Collections, SearchService }) {
           find: function (post) {
             return Users.find({ $or: [
               {_id: post.ownerId},
-              {_id: { $in: post.followers.map(user => user.userId) }}
+              {_id: { $in: post.followers.map((user) => user.userId) }}
             ]})
           }
         }
@@ -160,7 +160,7 @@ export default function ({ Meteor, Collections, SearchService }) {
           find: function (todo) {
             return Users.find({ $or: [
               { _id: todo.ownerId },
-              { _id: { $in: todo.followers.map(follower => follower.userId) } }
+              { _id: { $in: todo.followers.map((follower) => follower.userId) } }
             ]})
           }
         }
@@ -168,7 +168,7 @@ export default function ({ Meteor, Collections, SearchService }) {
     }
   })
 
-  Meteor.publish('directory.search', function(term) {
+  Meteor.publish('directory.search', function (term) {
     console.log(term)
     check(term, Match.OneOf(null, Match.Optional(String)))
     if (this.userId) {
@@ -194,7 +194,7 @@ export default function ({ Meteor, Collections, SearchService }) {
             find: function (post) {
               const otherUserIds = _.reject(post.followers, function (follower) {
                 return follower.userId === myUserId
-              }).map(user => user.userId)
+              }).map((user) => user.userId)
 
               return Users.find({ _id: { $in: otherUserIds } })
             }

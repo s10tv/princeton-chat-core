@@ -19,7 +19,7 @@ const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
 
 export default class OnboardManager {
 
-  constructor({ Meteor, Accounts, Email, Random, Collections, slack }) {
+  constructor ({ Meteor, Accounts, Email, Random, Collections, slack }) {
     this.audience = title || 'Princeton.Chat'
     this.Meteor = Meteor
     this.Accounts = Accounts
@@ -91,7 +91,7 @@ export default class OnboardManager {
 
     // TODO: move this somewhere else, so that it gets executed only once
     this.Accounts.emailTemplates.resetPassword.subject = (user) => {
-      return `Reset Password`
+      return 'Reset Password'
     }
     this.Accounts.emailTemplates.resetPassword.from = () => {
       return process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'Princeton.Chat <notifications@princeton.chat>'
@@ -223,8 +223,7 @@ export default class OnboardManager {
       degree,
       referredBy,
       desc,
-      status='pending' }) {
-
+      status = 'pending' }) {
     const {Invites} = this.Collections
     const invite = {
       email,
@@ -239,7 +238,6 @@ export default class OnboardManager {
 
     const existingInvite = Invites.findOne({ email: email })
     if (existingInvite) {
-
       // update any info, in case anything changed
       Invites.update(existingInvite._id, { $set: invite })
 

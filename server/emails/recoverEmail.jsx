@@ -32,17 +32,17 @@ export default React.createClass({
             textAlign: 'center',
             fontWeight: 600
           }}>Recover Password</a>
-        <div style={{
-          fontSize: 12
-        }}>
-          <p style={{
-            fontSize: 12,
-            color: '#888'
-          }}>Button didn't work? Copy and paste the link below into your browser's address bar.</p>
-          <a target='_blank' href={this.props.recoveryLink}>
-            {this.props.recoveryLink}
-          </a>
-        </div>
+          <div style={{
+            fontSize: 12
+          }}>
+            <p style={{
+              fontSize: 12,
+              color: '#888'
+            }}>Button didn't work? Copy and paste the link below into your browser's address bar.</p>
+            <a target='_blank' href={this.props.recoveryLink}>
+              {this.props.recoveryLink}
+            </a>
+          </div>
         </div>
       </Layout>
     )
