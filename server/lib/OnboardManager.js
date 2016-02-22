@@ -96,7 +96,7 @@ export default class OnboardManager {
     }
     this.Accounts.emailTemplates.resetPassword.html = (user, url) => {
       const token = url.substring(url.lastIndexOf('/') + 1)
-      const ourUrl = `/forgot-password/${token}`
+      const ourUrl = `${process.env.ROOT_URL}forgot-password/${token}`
       return ReactDOMServer.renderToStaticMarkup(
         React.createElement(RecoverEmail, {
           recoveryLink: ourUrl
