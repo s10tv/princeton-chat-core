@@ -83,9 +83,7 @@
       "tests/**",
       "client/modules/core/components/search.jsx",
       "client/modules/core/components/search.jsx",
-      "client/modules/core/components/menu.jsx",
-      "client/modules/core/components/directory.search.jsx",
-      "client/modules/core/containers/directory.search.js"
+      "client/modules/core/components/menu.jsx"
     ]
   }
 }

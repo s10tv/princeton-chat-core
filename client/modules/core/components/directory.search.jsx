@@ -97,47 +97,47 @@ const DirectorySerachItem = (props) => (
       borderBottom: '1px solid #e0e0e0',
       padding: 10
     }}>
-      <Flex>
-        {props.user.avatar.isDefaultAvatar
-          ? <LetterAvatar size={30} color='white'
-              backgroundColor={props.user.avatar.color}>
-            {props.user.avatarInitials}
-          </LetterAvatar>
-          : <CoverAvatar size={30} src={props.user.avatar.url} />}
+    <Flex>
+      {props.user.avatar.isDefaultAvatar
+        ? <LetterAvatar size={30} color='white'
+          backgroundColor={props.user.avatar.color}>
+          {props.user.avatarInitials}
+        </LetterAvatar>
+        : <CoverAvatar size={30} src={props.user.avatar.url} />}
 
-        <Flex flexDirection='column' flexGrow={1} style={{marginLeft: 10}}>
-          <Flex flexGrow={1} justifyContent='space-between'>
-            <span style={s.searchResult}>
-              <a href='#' onClick={(event) => {
-                event.preventDefault()
-                props.showUserProfile(props.user)
+      <Flex flexDirection='column' flexGrow={1} style={{marginLeft: 10}}>
+        <Flex flexGrow={1} justifyContent='space-between'>
+          <span style={s.searchResult}>
+            <a href='#' onClick={(event) => {
+              event.preventDefault()
+              props.showUserProfile(props.user)
+            }}>
+              {props.user.displayName}
+            </a>
+          </span>
+
+          {!props.user.displayEmail ? null
+            : <span style={s.searchResult}>
+              <a href={`mailto:${props.user.displayEmail}`} style={{
+                color: color.gray
               }}>
-                {props.user.displayName}
+                {props.user.displayEmail}
               </a>
             </span>
-
-            {!props.user.displayEmail ? null
-              : <span style={s.searchResult}>
-                <a href={`mailto:${props.user.displayEmail}`} style={{
-                  color: color.gray
-                }}>
-                  {props.user.displayEmail}
-                </a>
-              </span>
-            }
-          </Flex>
-
-          {!props.user.followingTopics ? null
-            : <span style={s.searchResult}>
-              {props.user.followingTopics.map((topic) =>
-                <a href='#' style={s.subTitle} onClick={(event) => {
-                  event.preventDefault()
-                  props.navigateToTopic(topic)
-                }}>#{topic}</a>
-              )}
-            </span>}
+          }
         </Flex>
+
+        {!props.user.followingTopics ? null
+          : <span style={s.searchResult}>
+            {props.user.followingTopics.map((topic) =>
+              <a href='#' style={s.subTitle} onClick={(event) => {
+                event.preventDefault()
+                props.navigateToTopic(topic)
+              }}>#{topic}</a>
+            )}
+          </span>}
       </Flex>
+    </Flex>
   </ListItem>
 )
 
