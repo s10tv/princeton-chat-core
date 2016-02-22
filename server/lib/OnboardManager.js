@@ -80,10 +80,6 @@ export default class OnboardManager {
     })
   }
 
-  resetPassword ({ token, newPassword }) {
-    return this.Accounts.resetPassword(token, newPassword)
-  }
-
   sendRecoveryEmail (email) {
     const user = this.Accounts.findUserByEmail(email)
     if (!user) {
