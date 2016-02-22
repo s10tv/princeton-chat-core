@@ -20,9 +20,9 @@ const ForgotPasswordChange = (props) => {
             <form style={style.form} onSubmit={handleSubmit}>
               <p>Enter your new password below. I promise that I won't tell it to anyone.</p>
               <TextField type='password' floatingLabelText='New Password'
-                hintText='Type your password here' fullWidth={true} {...newPassword} />
+                hintText='Type your password here' fullWidth {...newPassword} />
               <TextField type='password' hintText='Type your password here again'
-                floatingLabelText='Confirm Password' fullWidth={true} {...matchNewPassword} />
+                floatingLabelText='Confirm Password' fullWidth {...matchNewPassword} />
               <br />
               {error && <p style={style.error}>{error}</p>}
               <br />
@@ -32,7 +32,7 @@ const ForgotPasswordChange = (props) => {
             </form>
           </div>
         </Layout.Sidebar>
-        <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') } />
+        <Layout.Main backgroundUrl={i18n('homePageBackgroundUrl')} />
       </Layout.Window>
     </StyleRoot>
   )

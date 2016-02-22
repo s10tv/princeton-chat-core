@@ -130,9 +130,9 @@ export default {
             if (err) {
               reject({
                 ...(typeof err.details === 'object' ? err.details : {}),
-                _error: err.reason || "Sorry, we couldn't reset your password"
+                _error: err.reason || 'Sorry, we couldn\'t reset your password'
               })
-              console.error(`Failure calling method welcome/resetPassword`, err)
+              console.error('Failure calling method welcome/resetPassword', err)
             } else {
               resolve()
               FlowRouter.go('/forgot-password/success')

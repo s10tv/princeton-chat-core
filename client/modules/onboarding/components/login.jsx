@@ -32,19 +32,19 @@ const Login = (props) => {
                 backgroundColor={color.facebook.blue}
                 hoverColor={color.facebook.mediumBlue} />
               <OrDivider margin={`${spacing.x3}px ${spacing.x3}px 0 ${spacing.x3}px`} />
-              <TextField floatingLabelText='Email' fullWidth={true} {...email} />
-              <TextField floatingLabelText='Password' type='password' fullWidth={true} {...password} />
+              <TextField floatingLabelText='Email' fullWidth {...email} />
+              <TextField floatingLabelText='Password' type='password' fullWidth {...password} />
               <br />
               {error && <p style={style.error}>{error}</p>}
               <br />
               <FlatButton type='submit' style={style.button} label='Login' disabled={submitting}
-                          backgroundColor={color.green} hoverColor={color.lightGreen} />
+                backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
               <a href='/forgot-password' style={style.forgotPassword}>Forgot Password?</a>
             </form>
           </div>
         </Layout.Sidebar>
-        <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') } />
+        <Layout.Main backgroundUrl={i18n('homePageBackgroundUrl')} />
       </Layout.Window>
     </StyleRoot>
   )

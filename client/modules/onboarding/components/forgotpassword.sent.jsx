@@ -18,11 +18,11 @@ const ForgotPasswordSent = (props) => {
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Email Sent</h1>
             <p>Check your mail. We sent you a link to recover your password.</p>
-            <FlatButton style={style.button} linkButton={true} label='Go Back' href='/login'
+            <FlatButton style={style.button} linkButton label='Go Back' href='/login'
               backgroundColor={color.green} hoverColor={color.lightGreen} />
           </div>
         </Layout.Sidebar>
-        <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') } />
+        <Layout.Main backgroundUrl={i18n('homePageBackgroundUrl')} />
       </Layout.Window>
     </StyleRoot>
   )

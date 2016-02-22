@@ -46,8 +46,8 @@ const Signup = (props) => {
                 <div style={style.horizontalSpacer} />
                 <TextField floatingLabelText='Last Name' {...lastName} />
               </div>
-              <TextField floatingLabelText='Primary Email' fullWidth={true} {...email} />
-              <TextField floatingLabelText='Password' type='password' fullWidth={true} {...password} />
+              <TextField floatingLabelText='Primary Email' fullWidth {...email} />
+              <TextField floatingLabelText='Password' type='password' fullWidth {...password} />
               <br />
               <FlatButton type='submit' style={style.button} label='Signup'
                 backgroundColor={color.green} hoverColor={color.lightGreen} />

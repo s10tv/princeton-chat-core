@@ -14,8 +14,6 @@ const formConfig = {
 }
 
 export const composer = ({context}, onData) => {
-  const {Meteor} = context()
-
   onData(null, {})
 }
 

@@ -17,11 +17,11 @@ const ForgotPasswordSuccess = (props) => {
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Success!</h1>
             <p>You have successfully reseted your password. Use the new fresh one to log in to Princeton.Chat</p>
-            <FlatButton style={style.button} linkButton={true} label='Log in' href='/login'
+            <FlatButton style={style.button} linkButton label='Log in' href='/login'
               backgroundColor={color.green} hoverColor={color.lightGreen} />
           </div>
         </Layout.Sidebar>
-        <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') } />
+        <Layout.Main backgroundUrl={i18n('homePageBackgroundUrl')} />
       </Layout.Window>
     </StyleRoot>
   )

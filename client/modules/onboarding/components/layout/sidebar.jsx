@@ -1,6 +1,6 @@
 import React from 'react'
 import {i18n} from '/client/configs/env'
-import {color, spacing} from '/client/configs/theme'
+import {color} from '/client/configs/theme'
 import Radium from 'radium'
 
 class Sidebar extends React.Component {
@@ -15,8 +15,13 @@ class Sidebar extends React.Component {
     )
   }
 }
+
 Sidebar.childContextTypes = {
   muiTheme: React.PropTypes.object
+}
+
+Sidebar.propTypes = {
+  children: React.PropTypes.node
 }
 
 const style = {

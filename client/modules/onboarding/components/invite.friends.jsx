@@ -1,4 +1,3 @@
-/*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
 import Radium, {StyleRoot} from 'radium'
 import {TextField, FlatButton, FontIcon, IconButton, PageControl, LinearProgress} from '/client/lib/ui.jsx'
@@ -27,11 +26,11 @@ class InviteFriends extends React.Component {
                 {invitees.map(({email}, index) =>
                   <div key={index} style={s.row}>
                     <TextField floatingLabelText='Email' {...email} style={s.email}/>
-                    {invitees.length > 1 ?
-                      <IconButton onTouchTap={() => invitees.removeField(index)} tabIndex={-1}>
-                        <FontIcon className='material-icons'>close</FontIcon>
-                      </IconButton> :
-                      <div style={{width: 48}} />
+                    {invitees.length > 1
+                    ? <IconButton onTouchTap={() => invitees.removeField(index)} tabIndex={-1}>
+                      <FontIcon className='material-icons'>close</FontIcon>
+                    </IconButton>
+                    : <div style={{width: 48}} />
                     }
                   </div>
                 )}
@@ -47,7 +46,7 @@ class InviteFriends extends React.Component {
               </form>
             </div>
           </Layout.Sidebar>
-          <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') }>
+          <Layout.Main backgroundUrl={i18n('homePageBackgroundUrl')}>
           </Layout.Main>
         </Layout.Window>
       </StyleRoot>
@@ -72,25 +71,26 @@ InviteFriends.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
+  skipForNow: PropTypes.func.isRequired
 }
 
 const s = {
   row: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   email: {
-    flex: 1,
+    flex: 1
   },
   addAnother: {
     color: color.white,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.sm
   },
   skip: {
     alignSelf: 'flex-end',
     marginTop: spacing.x1,
     color: color.white,
-    fontSize: fontSize.xs,
+    fontSize: fontSize.xs
   }
 }
 export default Radium(InviteFriends)

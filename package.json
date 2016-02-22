@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "eslint ./libs ./client ./server --ext .js --ext .jsx",
     "lintfix": "npm run lint -- --fix",
-    "test": "",
+    "test": "standard",
+    "testcount": "standard | wc -l",
     "validate": "npm ls"
   },
   "pre-commit": [

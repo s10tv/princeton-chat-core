@@ -2,7 +2,7 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import {autoVerifyValidator} from '/lib/validation/onboarding'
 import {classYear as classYearValidator} from '/lib/validation'
-import {trimSpaces, numbersOnly} from '/lib/normalization'
+import {trimSpaces} from '/lib/normalization'
 import {domains} from '/lib/data'
 import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
@@ -29,9 +29,8 @@ export const formConfig = {
 }
 
 export const composer = ({context}, onData) => {
-  const {Meteor} = context()
+  const {Meteor, FlowRouter} = context()
   if (Meteor.subscribe('userData').ready()) {
-
     // redirect the user if the user is already logged in.
     if (Meteor.userId()) {
       const user = Meteor.user()

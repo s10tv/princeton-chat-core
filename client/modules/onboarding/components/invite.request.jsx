@@ -37,30 +37,30 @@ class RequestInvite extends React.Component {
                 <TextField floatingLabelText='Birth Date' hintText='MM/DD/YYYY'
                   fullWidth {...birthDate} />
                 <SelectField maxHeight={300}
-                  floatingLabelText='Princeton Class Year' fullWidth={true} {...classYear}>
+                  floatingLabelText='Princeton Class Year' fullWidth {...classYear}>
                   <MenuItem value='' primaryText=''/>
-                  {classYears.map(year => <MenuItem key={year} value={year} primaryText={year} />)}
+                  {classYears.map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
                 </SelectField>
                 <SelectField maxHeight={300}
-                  floatingLabelText='Princeton Degree' fullWidth={true} {...degree}>
+                  floatingLabelText='Princeton Degree' fullWidth {...degree}>
                   <MenuItem value='' primaryText='' />
-                  {degrees.map(degree => <MenuItem key={degree.value} value={degree.value}
+                  {degrees.map((degree) => <MenuItem key={degree.value} value={degree.value}
                     primaryText={degree.label} />)}
                 </SelectField>
                 <TextField floatingLabelText='Personal Email'
                   hintText={'Where do we send the invite to?'}
-                  fullWidth={true}
+                  fullWidth
                   {...email} />
                 <br />
                 {error && <p style={style.error}>{error}</p>}
                 <br />
                 <FlatButton type='submit' style={style.button} label='Verify' disabled={submitting}
-                            backgroundColor={color.green} hoverColor={color.lightGreen} />
+                  backgroundColor={color.green} hoverColor={color.lightGreen} />
                 {submitting && <LinearProgress />}
               </form>
             </div>
           </Layout.Sidebar>
-          <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') } />
+          <Layout.Main backgroundUrl={i18n('homePageBackgroundUrl')} />
         </Layout.Window>
       </StyleRoot>
     )

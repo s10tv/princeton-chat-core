@@ -20,7 +20,7 @@ const ForgotPassword = (props) => {
             <h1 style={style.h1}>Forgot Password?</h1>
             <form style={style.form} onSubmit={handleSubmit}>
               <p>To reset your password, enter the email you used to sign up to Princeton.Chat</p>
-              <TextField floatingLabelText='Email' fullWidth={true} {...email} />
+              <TextField floatingLabelText='Email' fullWidth {...email} />
               <br />
               {error && <p style={style.error}>{error}</p>}
               <br />
@@ -30,7 +30,7 @@ const ForgotPassword = (props) => {
             </form>
           </div>
         </Layout.Sidebar>
-        <Layout.Main backgroundUrl={ i18n('homePageBackgroundUrl') } />
+        <Layout.Main backgroundUrl={i18n('homePageBackgroundUrl')} />
       </Layout.Window>
     </StyleRoot>
   )

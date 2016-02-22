@@ -28,7 +28,7 @@ const Home = (props) => {
             <h1 style={s.mainLogo}>Princeton.Chat</h1>
             <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
             <form style={style.form} onSubmit={handleSubmit}>
-              <TextField floatingLabelText='Princeton Class Year' hintText='e.g. 2012' fullWidth={true} {...classYear} />
+              <TextField floatingLabelText='Princeton Class Year' hintText='e.g. 2012' fullWidth {...classYear} />
               <div style={s.emailContainer}>
                 <TextField hintText='netid' {...netid} style={s.netid} />
                 <span style={s.atSymbol}>@</span>
@@ -46,7 +46,7 @@ const Home = (props) => {
               {error && <p style={style.error}>{error}</p>}
               <br />
               <FlatButton type='submit' style={style.button} label='Get Invited' disabled={submitting}
-                          backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
+                backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
             </form>
           </div>
