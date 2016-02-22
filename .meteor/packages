@@ -23,8 +23,6 @@ reywood:publish-composite
 
 kadira:flow-router
 reactive-dict
-audit-argument-checks
-check
 random
 less
 percolate:migrations
@@ -48,3 +46,4 @@ fourseven:scss
 fortawesome:fontawesome
 email
 meteorhacks:kadira
+avital:mocha

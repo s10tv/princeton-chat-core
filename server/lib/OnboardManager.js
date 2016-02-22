@@ -4,14 +4,15 @@ import { autoVerifyValidator, manualVerifyValidator } from '/lib/validation/onbo
 import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
+import emails from '../emails'
 
-import {
+const {
   htmlEmail,
   Signup,
   Invite,
   RecoverEmail,
-  InviteNonAlum,
-} from '../emails'
+  InviteNonAlum
+} = emails
 
 const slackUsername = process.env.ENV || 'dev'
 const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'

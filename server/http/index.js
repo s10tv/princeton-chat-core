@@ -5,10 +5,11 @@ import {Posts, Users} from '/lib/collections'
 import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
-import { Signup, Invite, InviteNonAlum, htmlEmail, RecoverEmail } from '../emails'
 import { title } from '/imports/env'
-import EmailInvite from '../emails/princeton/invite.jsx'
+import emails from '../emails'
 import htmlPage from './html'
+
+const { Signup, Invite, InviteNonAlum, htmlEmail } = emails
 
 export default function () {
   HTTP.methods({
