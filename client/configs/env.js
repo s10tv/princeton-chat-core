@@ -1,135 +1,24 @@
-import { Meteor } from 'meteor/meteor'
 import {_} from 'meteor/underscore'
 import { DocHead } from 'meteor/kadira:dochead'
 
+import env from '/imports/env'
 import {
     primaryMuiTheme,
-    secondaryMuiTheme,
-    pedPrimaryMuiTheme,
-    pedSecondaryMuiTheme } from '/client/configs/theme'
+    secondaryMuiTheme
+} from '/client/configs/theme'
 
-const PRINCETON_ORANGE = '#F07621'
-const PED_BLUE = '#5477AD'
-const DARK_GRAY = '#grey800'
-
-let Env = {
-  princeton: {
-    primaryColor: PRINCETON_ORANGE,
-
-    // home page title, left nav bar title
-    title: 'Princeton.Chat',
-
-    // home page tagline
-    tagline: 'Better TigerNet',
-
-    // signup done screen
-    community: 'Princeton',
-
-    // onboarding greeting
-    onboardingGreeting: 'Welcome Tiger!',
-    onboardingDesc: 'Princeton.Chat is a community for Princeton alums.',
-
-    // meta
-    favicon: 'images/favicon.png',
-    fbAppId: '942109702548809',
-    ogUrl: 'https://princeton.chat',
-    ogType: 'website',
-    ogTitle: 'Princeton.Chat',
-    ogDescription: 'Better Tigernet.',
-    ogImage: 'https://s10tv.blob.core.windows.net/s10tv-prod/princetonchat.jpg',
-
-    // mail server info on right bar for topics and for add followers
-    topicMailServer: 'topics.princeton.chat',
-
-    // when new users sign up
-    defaultAvatar: '/images/princeton.svg',
-
-    backgroundStyle: {
-      backgroundImage: "url('/images/background-tile.png')",
-      backgroundRepeat: 'repeat'
-    },
-    homePageBackgroundUrl: '/images/bg-blair-arch-people.jpg',
-    pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
-    pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=188a0a423d918ef320144a56866c7ced'
-  },
-
-  s10: {
-    primaryColor: PRINCETON_ORANGE,
-    title: 'S10.Chat',
-    tagline: 'Better Private Communities',
-    homePageQA: 'Should a San Francisco resident get notified that a New Yoker listed an apartment for rent?',
-    community: 'S10',
-    favicon: 'images/taylr.png',
-    fbAppId: '1150904264922616',
-    ogUrl: 'https://s10.chat',
-    ogType: 'website',
-    ogTitle: 'S10.Chat',
-    ogDescription: 'Better communities.',
-    ogImage: 'https://s10tv.blob.core.windows.net/s10tv-prod/princetonchat.jpg',
-    onboardingGreeting: 'Welcome to S10.Chat!',
-    onboardingDesc: 'S10.Chat is a community for everyone interested in following along the development of Taylr.Chat',
-    topicMailServer: 'topics.s10.chat',
-    defaultAvatar: '/images/avatar-placeholder.png',
-    backgroundStyle: {
-      backgroundImage: "url('/images/background-tile.png')",
-      backgroundRepeat: 'repeat'
-    },
-    homePageBackgroundUrl: '/images/bg-blair-arch-people.jpg',
-    pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
-    pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=188a0a423d918ef320144a56866c7ced'
-  },
-
-  ped: {
-    primaryColor: PED_BLUE,
-    title: 'Pedagogy & Play',
-    tagline: 'Young Professional Leadership Network',
-    community: 'Pedagogy & Play',
-    favicon: 'images/pedplay.png',
-    fbAppId: '1150904264922616',
-    ogUrl: 'https://pedplay.com',
-    ogType: 'website',
-    ogTitle: 'PedPlay',
-    ogDescription: 'Meet new colleagues in the area, share pedagogy successes (and frustrations), sight-read duets, or perform any repertoire you are working on!',
-    ogImage: 'https://s10tv.blob.core.windows.net/s10tv-prod/princetonchat.jpg',
-    onboardingGreeting: 'Welcome to Pedagogy and Play!',
-    onboardingDesc: 'Meet new colleagues in the area, share pedagogy successes (and frustrations), sight-read duets, or perform any repertoire you are working on!',
-    topicMailServer: 'topics.pedplay.com',
-    defaultAvatar: '/images/avatar-placeholder.png',
-    backgroundStyle: {
-      background: PED_BLUE
-    },
-    loginTitle: {
-      fontFamily: "'Quicksand', sans-serif",
-      color: DARK_GRAY
-    },
-    pageNotFoundError: 'We used to have a page here, but Rachmaninoff used the back side to write some sheet music.',
-    pageNotFoundBackground: 'https://images.unsplash.com/photo-1447876576829-25dd6c4b3d21'
-  }
-}
-
-Env.princeton = _.extend(Env.princeton, {
+let Env = _.clone(env)
+_.extend(Env, {
   primaryMuiTheme,
   secondaryMuiTheme
-})
-
-Env.s10 = _.extend(Env.s10, {
-  primaryMuiTheme,
-  secondaryMuiTheme
-})
-
-Env.ped = _.extend(Env.ped, {
-  primaryMuiTheme: pedPrimaryMuiTheme,
-  secondaryMuiTheme: pedSecondaryMuiTheme
 })
 
 export const i18n = (tag) => {
-  const audience = Meteor.settings.public.audience || 'princeton'
-  return Env[audience][tag]
+  return Env[tag]
 }
 
 export const localize = () => {
-  const audience = Meteor.settings.public.audience || 'princeton'
-  const env = Env[audience]
+  const env = Env
 
   DocHead.setTitle(env.title)
   DocHead.addMeta({ property: 'description', content: env.ogDescription })

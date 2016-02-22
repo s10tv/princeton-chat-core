@@ -1,3 +1,4 @@
+/*global amplitude*/
 export default class AmplitudeService {
   static setUpAfterSignup ({Meteor}) {
     const user = Meteor.user()

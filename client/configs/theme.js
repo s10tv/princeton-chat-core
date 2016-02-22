@@ -63,25 +63,3 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
   }
 })
 
-export const pedPrimaryMuiTheme = ThemeManager.getMuiTheme({
-  spacing: Spacing,
-  fontFamily: fontFamily.base,
-  palette: {
-    ...lightRawTheme.palette,
-    lightenedPrimary1Color: tinycolor(lightRawTheme.palette.primary1Color).lighten(10).toString(),
-    accent1Color: '#5477AD', // ped blue
-    lightenedAccent1Color: tinycolor('#5477AD').lighten(10).toString()
-  }
-})
-
-export const pedSecondaryMuiTheme = ThemeManager.getMuiTheme({
-  spacing: Spacing,
-  fontFamily: fontFamily.base,
-  palette: {
-    ...darkRawTheme.palette,
-    accent1Color: '#5477AD', // ped blue
-    primary3Color: '#4E6A93', // not-so-dark blue
-    alternateTextColor: color.white,
-    canvasColor: '#1B293D' // dark blue
-  }
-})

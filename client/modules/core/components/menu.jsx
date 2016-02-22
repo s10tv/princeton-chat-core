@@ -91,15 +91,15 @@ var CoverPhotoMenu = (props) => (
       {props.sidebarOpen
         ? <Flex />
         : <Flex>
-            <IconButton onTouchTap={props.showSidebar} iconStyle={{
-              color: color.white, padding: 0
-            }}>
-              <FontIcon className='material-icons' style={{ color: color.white,
-               padding: 0}}>
-                menu
-              </FontIcon>
-            </IconButton>
-          </Flex>
+          <IconButton onTouchTap={props.showSidebar} iconStyle={{
+            color: color.white, padding: 0
+          }}>
+            <FontIcon className='material-icons' style={{ color: color.white,
+             padding: 0}}>
+              menu
+            </FontIcon>
+          </IconButton>
+        </Flex>
       }
 
       <Flex>
@@ -116,7 +116,7 @@ var CoverPhotoMenu = (props) => (
           Object.assign(
             {fontWeight: 300, fontSize: 30},
             (props.topic._id === undefined ? {} : {marginBottom: 20}))}>
-              {props.topic._id ? `#${props.topic.displayName}` : props.topic.displayName }
+              {props.topic._id ? `#${props.topic.displayName}` : props.topic.displayName}
         </span>
 
         {props.topic._id === undefined

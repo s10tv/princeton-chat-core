@@ -1,14 +1,13 @@
-import princetonEmails from './princeton'
-import pedEmails from './ped'
+import Invite from './invite.jsx'
+import InviteNonAlum from './inviteNonAlum.jsx'
+import Signup from './signup.jsx'
+import htmlEmail from './html.layout.js'
+import RecoverEmail from './recoverEmail.jsx'
 
-let emails = {}
-switch (process.env.AUDIENCE) {
-  case 'ped':
-    emails = pedEmails
-    break
-  case 'princeton': // fallthrough intentional
-  default:
-    emails = princetonEmails
+export default {
+  Invite,
+  Signup,
+  InviteNonAlum,
+  htmlEmail,
+  RecoverEmail
 }
-
-export default emails

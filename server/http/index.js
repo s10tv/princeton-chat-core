@@ -1,19 +1,21 @@
-import invariant from 'invariant'
+/*global HTTP*/
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
 import {Posts, Users} from '/lib/collections'
 import {isValidHash} from '../lib/Auth'
 import PostManager from '../lib/PostManager'
 import GuestToggleFollow from './toggleFollowing.jsx'
-import { Signup, Invite, InviteNonAlum, htmlEmail, emailTitle } from '../emails'
-import EmailInvite from '../emails/princeton/invite.jsx'
+import { title } from '/imports/env'
+import emails from '../emails'
 import htmlPage from './html'
+
+const { Signup, Invite, InviteNonAlum, htmlEmail, RecoverEmail } = emails
 
 export default function () {
   HTTP.methods({
-    'guest/posts/:postId/:action': function() {
-      const {postId, action} = this.params;
-      const {userId, hash} = this.query;
+    'guest/posts/:postId/:action': function () {
+      const {postId, action} = this.params
+      const {userId, hash} = this.query
 
       const user = Users.findOne(userId)
       if (!user) {
@@ -44,7 +46,7 @@ export default function () {
         return 'Not Found - Action not allowed'
       }
       return htmlPage({
-        title: emailTitle,
+        title: title,
         body: ReactDOMServer.renderToStaticMarkup(
           React.createElement(GuestToggleFollow, {
             title: post.title,
@@ -57,7 +59,18 @@ export default function () {
       })
     },
 
-    '/e/signup': function() {
+    '/e/email-sent': function () {
+      return htmlEmail({
+        title: 'a title here',
+        body: ReactDOMServer.renderToStaticMarkup(
+          React.createElement(RecoverEmail, {
+            recoveryLink: 'http://localhost/fake-link'
+          })
+        )
+      })
+    },
+
+    '/e/signup': function () {
       return htmlEmail({
         title: '[Princeton.Chat] hurrah, hurrah, hurrah. Almost there.',
         body: ReactDOMServer.renderToStaticMarkup(
@@ -68,8 +81,7 @@ export default function () {
       })
     },
 
-
-    '/e/invite-alum': function() {
+    '/e/invite-alum': function () {
       return htmlEmail({
         title: 'a title here',
         body: ReactDOMServer.renderToStaticMarkup(
@@ -82,7 +94,7 @@ export default function () {
       })
     },
 
-    '/e/invite-non-alum': function() {
+    '/e/invite-non-alum': function () {
       return htmlEmail({
         title: 'a title here',
         body: ReactDOMServer.renderToStaticMarkup(

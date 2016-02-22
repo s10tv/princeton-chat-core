@@ -16,7 +16,7 @@ export default function ({ Migrations, Collections }) {
         { key: 'legal', value: 'Legal', order: 6 }
       ]
 
-      topics.forEach(topic => {
+      topics.forEach((topic) => {
         Topics.upsert({ _id: topic.key }, { $set: {
           displayName: topic.value,
           order: topic.order,
@@ -46,7 +46,7 @@ export default function ({ Migrations, Collections }) {
     version: 3,
     name: 'Add source for existing messages',
     up: function () {
-      Messages.find().forEach(message => {
+      Messages.find().forEach((message) => {
         if (!message.source) {
           Messages.update(message._id, { $set: {
             source: 'web'
@@ -60,7 +60,7 @@ export default function ({ Migrations, Collections }) {
     version: 4,
     name: 'Add description to topics',
     up: function () {
-      Topics.find().forEach(topic => {
+      Topics.find().forEach((topic) => {
         if (!topic.description) {
           Topics.update(topic._id, { $set: {
             description: 'This topic needs a description.'
@@ -74,7 +74,7 @@ export default function ({ Migrations, Collections }) {
     version: 5,
     name: 'Add isFullMember field to users',
     up: function () {
-      Users.find().forEach(user => {
+      Users.find().forEach((user) => {
         if (user.isFullMember === undefined) {
           Users.update(user._id, { $set: {
             isFullMember: true
@@ -88,7 +88,7 @@ export default function ({ Migrations, Collections }) {
     version: 6,
     name: 'Every princeton shield avatar is changed to a different default one',
     up: function () {
-      Users.find().forEach(user => {
+      Users.find().forEach((user) => {
         if (user.avatar && user.avatar.url === '/images/princeton.svg') {
           Users.update(user._id, { $set: {
             avatar: {
@@ -106,7 +106,7 @@ export default function ({ Migrations, Collections }) {
     version: 7,
     name: 'Every topic should have a cover image',
     up: function () {
-      Topics.find().forEach(topic => {
+      Topics.find().forEach((topic) => {
         if (!topic.cover) {
           Topics.update(topic._id, { $set: {
             cover: {
@@ -124,7 +124,7 @@ export default function ({ Migrations, Collections }) {
     version: 8,
     name: 'Every topic should have an owner',
     up: function () {
-      Topics.find().forEach(topic => {
+      Topics.find().forEach((topic) => {
         if (!topic.ownerId) {
           Topics.update(topic._id, { $set: {
             ownerId: 'system'
@@ -138,7 +138,7 @@ export default function ({ Migrations, Collections }) {
     version: 9,
     name: 'Every topic should have a createdAt',
     up: function () {
-      Topics.find().forEach(topic => {
+      Topics.find().forEach((topic) => {
         if (!topic.createdAt) {
           Topics.update(topic._id, { $set: {
             createdAt: new Date(0)
@@ -147,5 +147,4 @@ export default function ({ Migrations, Collections }) {
       })
     }
   })
-
 }

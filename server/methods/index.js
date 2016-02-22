@@ -5,7 +5,7 @@ import onboarding from './onboarding'
 import admin from './admin'
 
 export default function (context) {
-  const {Accounts} = context
+  const {Accounts, Meteor} = context
 
   // for administering (invites, etc)
   admin(context)

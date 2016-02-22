@@ -1,3 +1,4 @@
+/*global IronMQ */
 import {_} from 'underscore'
 import NewTopicService from '../../lib/newtopic.service.js' // TODO: replace with validator
 
@@ -57,7 +58,7 @@ export default function (context) {
       Meteor.call('post/follow', postId)
 
       // update the num posts after posting.
-      filteredTopicIds.forEach(topicId => {
+      filteredTopicIds.forEach((topicId) => {
         Topics.update(topicId, { $set: {
           numPosts: Posts.find({isDM: { $ne: true }, topicIds: topicId}).count()
         }})
@@ -77,7 +78,7 @@ export default function (context) {
       try {
         TopicManager.follow({topicId, user: currentUser()})
       } catch (err) {
-        console.error(err);
+        console.error(err)
         throw new Meteor.Error(500, 'There was a problem with subscribing to this channel.')
       }
     },
@@ -89,7 +90,7 @@ export default function (context) {
       try {
         TopicManager.unfollow({topicId, user: currentUser()})
       } catch (err) {
-        console.error(err);
+        console.error(err)
         throw new Meteor.Error(500, 'There was a problem with unsubscribing to this channel.')
       }
     },
@@ -102,7 +103,7 @@ export default function (context) {
       try {
         TopicManager.unfollow({topicId, user: {_id: userId}})
       } catch (err) {
-        console.error(err);
+        console.error(err)
         throw new Meteor.Error(500, 'There was a problem removing follower.')
       }
     },
@@ -180,7 +181,7 @@ export default function (context) {
       }
 
       var re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      const filteredUserInfos = userInfos.filter(userInfo => re.test(userInfo.email))
+      const filteredUserInfos = userInfos.filter((userInfo) => re.test(userInfo.email))
 
       const groupedUserInfos = _.groupBy(filteredUserInfos, (userInfo) => userInfo.email)
       var hasDuplicateEmails = false
@@ -195,7 +196,7 @@ export default function (context) {
       }
 
       try {
-        filteredUserInfos.forEach(userInfo => {
+        filteredUserInfos.forEach((userInfo) => {
           const email = userInfo.email
           const firstName = userInfo.firstName || ''
           const lastName = userInfo.lastName || ''
@@ -262,7 +263,7 @@ export default function (context) {
       Posts.update(postId, {$inc: { numMsgs: 1 }})
     },
 
-    'messages/delete': _id => {
+    'messages/delete': (_id) => {
       check(_id, String)
 
       const user = currentUser()
@@ -277,14 +278,14 @@ export default function (context) {
       check(userIds, Array)
       check(currentUser(), Object)
 
-      return userIds.map(user => {
+      return userIds.map((user) => {
         return Users.findOne(user.userId)
       }).filter((user) => user !== undefined)
     },
 
     'search/username': (username) => {
       check(username, String)
-      return Users.find({ username: { $regex: new RegExp(`^${username}`, 'i')}}, {limit: 3}).fetch()
+      return Users.find({ username: { $regex: new RegExp(`^${username}`, 'i') } }, {limit: 3}).fetch()
     },
 
     'search/users': (input) => {

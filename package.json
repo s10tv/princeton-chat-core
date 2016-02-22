@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "eslint ./libs ./client ./server --ext .js --ext .jsx",
     "lintfix": "npm run lint -- --fix",
-    "test": "standard && mocha tests --recursive --compilers js:babel-register",
+    "test": "standard",
+    "testcount": "standard | wc -l",
     "validate": "npm ls"
   },
   "pre-commit": [
@@ -72,19 +73,7 @@
   "private": true,
   "standard": {
     "ignore": [
-      "packages/**",
-      "server/**",
-      "tests/**",
-      "private/**",
-      "client/modules/princeton/**",
-      "client/modules/ped/**",
-      "client/lib/amplitude.service.js",
-      "tests/**",
-      "client/modules/core/components/search.jsx",
-      "client/modules/core/components/search.jsx",
-      "client/modules/core/components/menu.jsx",
-      "client/modules/core/components/directory.search.jsx",
-      "client/modules/core/containers/directory.search.js"
+      "packages/**"
     ]
   }
 }

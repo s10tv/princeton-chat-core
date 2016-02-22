@@ -69,8 +69,8 @@ export default class PostManager {
 
     // remove the post from followingPosts field in every user
     Users.find({
-      _id: { $in: post.followers.map(follower => follower.userId) }
-    }).forEach(user => {
+      _id: { $in: post.followers.map((follower) => follower.userId) }
+    }).forEach((user) => {
       Users.update(user._id, {
         $pull: { followingPosts: post._id }
       })
@@ -81,7 +81,7 @@ export default class PostManager {
     if (post.topicIds && post.topicIds[0]) {
       return `/topics/${post.topicIds[0]}`
     } else {
-      return `/all-mine`
+      return '/all-mine'
     }
   }
 }

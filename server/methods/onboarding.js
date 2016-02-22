@@ -1,6 +1,6 @@
 export default function (context) {
   const {slack, Match, check, currentUser, Meteor,
-    OnboardManager, Collections, AvatarService, audience}= context
+    OnboardManager, Collections, AvatarService, audience} = context
   const {Users} = Collections
 
   Meteor.methods({
@@ -20,8 +20,8 @@ export default function (context) {
       if (user.services.facebook) {
         Users.update(user._id, { $set: {
           avatar: {
-            url:  `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`,
-            isDefaultAvatar: false,
+            url: `https://graph.facebook.com/${user.services.facebook.id}/picture?type=large`,
+            isDefaultAvatar: false
           }
         }})
       } else {
@@ -60,7 +60,7 @@ export default function (context) {
         firstName: profile.firstName,
         lastName: profile.lastName,
         username: profile.username,
-        displayName: profile.displayName,
+        displayName: profile.displayName
       }
 
       if (profile.classYear) {
@@ -83,6 +83,13 @@ export default function (context) {
       Users.update(user._id, { $set: {
         emailPreference: preference
       }})
+    },
+
+    'welcome/forgotPassword': (options) => {
+      check(options, Object)
+      const { email } = options
+      check(email, String)
+      return OnboardManager.sendRecoveryEmail(email)
     },
 
     'welcome/signup': (info) => {
@@ -115,7 +122,7 @@ export default function (context) {
     'welcome/invite': (options) => {
       check(options, Object)
       const user = currentUser()
-      const { invitees } = options;
+      const { invitees } = options
       OnboardManager.handleInvites(user, invitees)
       return invitees
     },
