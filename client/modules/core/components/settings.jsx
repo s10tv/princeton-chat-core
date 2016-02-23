@@ -73,6 +73,14 @@ export default React.createClass({
     handleSubmit: React.PropTypes.func
   },
 
+  componentWillMount () {
+    document.body.style.overflow = 'auto'
+  },
+
+  componentWillUnmount () {
+    document.body.style.overflow = 'hidden'
+  },
+
   render () {
     const {
       user,
@@ -95,8 +103,7 @@ export default React.createClass({
       <main className='no-scrollbar' style={Object.assign({}, styles.main, {
         paddingLeft: this.props.sidebarOpen ? 240 : 0,
         maxWidth: 800,
-        margin: '0 auto',
-        overflowY: 'scroll'
+        margin: '0 auto'
       })}>
         <div flexDirection='column' style={s.content}>
           <h1 style={s.header}>My Profile</h1>
