@@ -6,7 +6,8 @@ import {color, fontSize, spacing} from '/client/configs/theme'
 export default {
   sidebarHeader: {
     alignSelf: 'stretch',
-    display: 'flex',
+    flex: '1 0 60px',
+    maxHeight: 60,
     justifyContent: 'flex-end',
     padding: spacing.x2,
   },
@@ -57,6 +58,7 @@ export default {
     flexDirection: 'column',
   },
   button: {
+    width: '100%',
     marginTop: 20,
     textTransform: 'inherit',
     textAlign: 'center',
