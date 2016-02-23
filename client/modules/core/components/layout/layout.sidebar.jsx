@@ -143,14 +143,14 @@ const SidebarHeader = React.createClass({
 })
 
 const NonTappableSubHeader = ({label}) => (
-  <Flex style={{
+  <div style={{
     width: '100%',
     paddingLeft: 4,
     paddingRight: 16,
     color: primary3Color,
     fontWeight: 'normal'}}>
     <span>{label}</span>
-  </Flex>
+  </div>
 )
 
 const AddNewPostButton = ({ onClick }) => (
