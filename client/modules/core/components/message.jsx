@@ -40,6 +40,7 @@ export class MessageGroup extends React.Component {
         style={{
           position: 'relative',
           display: 'flex',
+          flexShrink: '0',
           padding: '8px 16px'
         }}>
         {(this.state.hover || this.state.menuOpen) && props.deleteMessage

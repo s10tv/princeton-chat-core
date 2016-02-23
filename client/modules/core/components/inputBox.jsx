@@ -223,7 +223,7 @@ export default React.createClass({
       </Paper>
 
     return (
-      <Flex component='footer' flexDirection='column' padding='0 16px 8px 16px'>
+      <Flex component='footer' flexDirection='column' padding='0 16px 8px 16px' flexShrink='0'>
         {mentionHelper}
         <Flex
           className='input-box'
