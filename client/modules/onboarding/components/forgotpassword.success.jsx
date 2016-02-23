@@ -16,7 +16,7 @@ const ForgotPasswordSuccess = (props) => {
           </header>
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Success!</h1>
-            <p>You have successfully reseted your password. Use the new fresh one to log in to Princeton.Chat</p>
+            <p>You have successfully reset your password. Use the new fresh one to log in to Princeton.Chat</p>
             <FlatButton style={style.button} linkButton label='Log in' href='/login'
               backgroundColor={color.green} hoverColor={color.lightGreen} />
           </div>
