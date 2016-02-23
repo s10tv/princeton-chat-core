@@ -1,12 +1,8 @@
 import React from 'react'
 
-export const accentColor = '#F07621'
+export const accentColor = '#5477AD'
 
 export default React.createClass({
-  propTypes: {
-    children: React.PropTypes.node
-  },
-
   render () {
     return (
       <div style={{
@@ -16,7 +12,7 @@ export default React.createClass({
         margin: 0,
         lineHeight: 1.4,
         color: '#74787E',
-        backgroundColor: '#192024'
+        backgroundColor: accentColor
       }}>
         <table width='100%' cellPadding='0' cellSpacing='0'>
           <tbody>
@@ -27,15 +23,15 @@ export default React.createClass({
                     <tr>
                       <td style={{
                         padding: '25px 0',
-                        backgroundColor: '#192024',
+                        backgroundColor: '#5477AD',
                         textAlign: 'center'
                       }}>
                         <a style={{
                           fontSize: '20px',
                           fontWeight: 600,
                           textDecoration: 'none',
-                          color: accentColor
-                        }}>Princeton.Chat</a>
+                          color: '#ffffff'
+                        }}>Pedagogy and Play</a>
                       </td>
                     </tr>
                     <tr>

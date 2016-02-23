@@ -13,11 +13,11 @@ export default React.createClass({
           background: '#fff',
           padding: 10
         }}>
-          <h3>Welcome Tiger!</h3>
+          <h3>Welcome!</h3>
           <p style={{
             fontSize: '16px'
           }}>
-            Thank you for signing up for Princeton.Chat. We can't wait to have you onboard.
+            Thank you for signing up for Pedagogy and Play. We can't wait to have you on board.
             Please press the link below to activate your account.
           </p>
           <a target='_blank' href={this.props.inviteLink} style={{
