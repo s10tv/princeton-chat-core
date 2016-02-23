@@ -4,54 +4,16 @@
   "scripts": {
   },
   "env": {
-    "AMPLITUDE_KEY": {
-      "required": true
-    },
-    "AUDIENCE": {
-      "required": true
-    },
     "BUILDPACK_URL": {
-      "required": true
+      "required": true,
+      "value": "https://github.com/s10tv/meteor-buildpack-horse.git"
     },
     "ENV": {
-      "required": true
-    },
-    "FB_APP_ID": {
-      "required": true
-    },
-    "FB_APP_SECRET": {
-      "required": true
-    },
-    "GOOGLE_ANALYTICS_KEY": {
-      "required": true
-    },
-    "KADIRA_APP_ID": {
-      "required": true
-    },
-    "KADIRA_APP_SECRET": {
-      "required": true
-    },
-    "MAIL_URL": {
-      "required": true
-    },
-    "METEOR_PKG_SPIDERABLE_PHANTOMJS_ARGS": {
-      "required": true
-    },
-    "MONGO_URL": {
-      "required": true
-    },
-    "POSTMARK_WELCOME_TEMPLATE_ID": {
-      "required": true
+      "required": true,
+      "value": "dev"
     },
     "ROOT_URL": {
-      "required": true
     },
-    "SKIP_CHECK_PRINCETON_EMAIL": {
-      "required": true
-    },
-    "TONY": {
-      "required": true
-    }
   },
   "addons": [
     "iron_mq",
