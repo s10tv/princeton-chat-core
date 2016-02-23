@@ -8,6 +8,7 @@ export default class NavBar extends React.Component {
       boxSizing: 'border-box',
       padding: '0 16px',
       borderBottom: '1px solid #eee',
+      flexShrink: '0',
       display: 'flex',
       alignItems: 'center'
     }
