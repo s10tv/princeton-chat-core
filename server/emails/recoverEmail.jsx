@@ -13,12 +13,11 @@ export default React.createClass({
           background: '#fff',
           padding: 10
         }}>
-          <h3>Our tiger forgot the password?</h3>
+          <h3>Forgot your password?</h3>
           <p style={{
             fontSize: 16
           }}>
-            Don't worry, press the link below to recover your password. Tss, don't tell it to anyone,
-            that's a secret shared only between the two of us. 🙃
+            Don't worry, press the link below to recover your password.
           </p>
           <a target='_blank' href={this.props.recoveryLink} style={{
             backgroundColor: accentColor,
