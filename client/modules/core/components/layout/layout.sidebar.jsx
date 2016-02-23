@@ -142,15 +142,14 @@ const SidebarHeader = React.createClass({
   }
 })
 
-const NonTappableSubHeader = ({ label, action }) => (
-  <Flex justifyContent='space-between' style={{
+const NonTappableSubHeader = ({label}) => (
+  <Flex style={{
     width: '100%',
     paddingLeft: 4,
     paddingRight: 16,
     color: primary3Color,
     fontWeight: 'normal'}}>
     <span>{label}</span>
-    <span>{action}</span>
   </Flex>
 )
 
