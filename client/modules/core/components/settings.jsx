@@ -10,6 +10,7 @@ import {TextField, RaisedButton, FlatButton, SelectField} from '/client/lib/ui.j
 
 const s = {
   header: {
+    fontWeight: 300,
     color: color.black,
     marginTop: 16,
     marginBottom: 16
@@ -67,7 +68,9 @@ export default React.createClass({
       displayName: React.PropTypes.object.isRequired,
       classYear: React.PropTypes.object.isRequired,
       username: React.PropTypes.object.isRequired
-    }).isRequired
+    }).isRequired,
+
+    handleSubmit: React.PropTypes.func
   },
 
   render () {
@@ -89,10 +92,11 @@ export default React.createClass({
     }
 
     return (
-      <main style={Object.assign({}, styles.main, {
+      <main className='no-scrollbar' style={Object.assign({}, styles.main, {
         paddingLeft: this.props.sidebarOpen ? 240 : 0,
         maxWidth: 800,
-        margin: '0 auto'
+        margin: '0 auto',
+        overflowY: 'scroll'
       })}>
         <div flexDirection='column' style={s.content}>
           <h1 style={s.header}>My Profile</h1>
@@ -127,7 +131,7 @@ export default React.createClass({
                   {classYears.map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
                 </SelectField>
                 <Flex alignSelf='flex-end' style={{marginTop: 20}}>
-                  <RaisedButton label='Update Profile' primary onTouchTap={handleSubmit} />
+                  <FlatButton label='Update Profile' primary onTouchTap={handleSubmit} />
                 </Flex>
               </Flex>
             </form>
