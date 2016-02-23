@@ -11,13 +11,12 @@ export default {
     padding: spacing.x2,
   },
   sidebarInner: {
-    flex: 1,
+    flex: '1 0 0px',
     marginTop: spacing.x6,
     minWidth: 320,
     maxWidth: 320,
     padding: 10,
     alignSelf: 'center',
-    display: 'flex',
     flexDirection: 'column',
     '@media (max-width: 768px)': {
       padding: '10px 16px 25px 16px',
@@ -60,12 +59,14 @@ export default {
   button: {
     marginTop: 20,
     textTransform: 'inherit',
-    textAlign: 'center'
+    textAlign: 'center',
+    minHeight: 36
     // marginLeft: spacing.x2,
     // marginRight: spacing.x2,
   },
   fbButton: {
     textTransform: 'inherit',
+    minHeight: 36
     // marginLeft: spacing.x2,
     // marginRight: spacing.x2,
   },
