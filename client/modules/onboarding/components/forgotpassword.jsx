@@ -21,9 +21,7 @@ const ForgotPassword = (props) => {
             <form style={style.form} onSubmit={handleSubmit}>
               <p>To reset your password, enter the email you used to sign up to Princeton.Chat</p>
               <TextField floatingLabelText='Email' fullWidth {...email} />
-              <br />
               {error && <p style={style.error}>{error}</p>}
-              <br />
               <FlatButton type='submit' style={style.button} label='Recover Password'
                 disabled={submitting} backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}

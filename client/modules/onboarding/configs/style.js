@@ -58,6 +58,7 @@ export default {
     flexDirection: 'column',
   },
   button: {
+    marginTop: 20,
     textTransform: 'inherit',
     textAlign: 'center'
     // marginLeft: spacing.x2,
@@ -70,6 +71,8 @@ export default {
   },
   error: {
     color: color.brand.danger,
+    marginTop: 20,
+    marginBottom: 5
   },
   notShowOnDesktop: {
     '@media (min-width: 768px)': {

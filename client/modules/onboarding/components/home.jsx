@@ -38,13 +38,10 @@ const Home = (props) => {
                   )}
                 </SelectField>
               </div>
-              <br />
               <a style={s.manualInvite} href='/request-invite'>
                 Don't have access to your Princeton email?
               </a>
-              <br />
               {error && <p style={style.error}>{error}</p>}
-              <br />
               <FlatButton type='submit' style={style.button} label='Get Invited' disabled={submitting}
                 backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
@@ -86,6 +83,7 @@ const s = {
     marginRight: 4
   },
   manualInvite: {
+    marginTop: 20,
     color: color.white,
     fontSize: fontSize.xs
   }

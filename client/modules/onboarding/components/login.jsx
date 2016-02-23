@@ -21,7 +21,6 @@ const Login = (props) => {
           </header>
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Welcome Back Tiger</h1>
-            <br />
             <form style={style.form} onSubmit={handleSubmit}>
               <FlatButton
                 icon={<i className='fa fa-facebook' />}
@@ -34,9 +33,7 @@ const Login = (props) => {
               <OrDivider margin={`${spacing.x3}px ${spacing.x3}px 0 ${spacing.x3}px`} />
               <TextField floatingLabelText='Email' fullWidth {...email} />
               <TextField floatingLabelText='Password' type='password' fullWidth {...password} />
-              <br />
               {error && <p style={style.error}>{error}</p>}
-              <br />
               <FlatButton type='submit' style={style.button} label='Login' disabled={submitting}
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}

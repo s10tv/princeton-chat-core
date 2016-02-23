@@ -23,9 +23,7 @@ const ForgotPasswordChange = (props) => {
                 hintText='Type your password here' fullWidth {...newPassword} />
               <TextField type='password' hintText='Type your password here again'
                 floatingLabelText='Confirm Password' fullWidth {...matchNewPassword} />
-              <br />
               {error && <p style={style.error}>{error}</p>}
-              <br />
               <FlatButton type='submit' style={style.button} label='Reset Password'
                 disabled={submitting} backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}

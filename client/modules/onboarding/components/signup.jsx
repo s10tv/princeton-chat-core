@@ -48,10 +48,8 @@ const Signup = (props) => {
               </div>
               <TextField floatingLabelText='Primary Email' fullWidth {...email} />
               <TextField floatingLabelText='Password' type='password' fullWidth {...password} />
-              <br />
               <FlatButton type='submit' style={style.button} label='Signup'
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
-              <br />
               <PageControl total={3} current={0} />
             </form>
           </div>

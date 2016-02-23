@@ -51,9 +51,7 @@ class RequestInvite extends React.Component {
                   hintText={'Where do we send the invite to?'}
                   fullWidth
                   {...email} />
-                <br />
                 {error && <p style={style.error}>{error}</p>}
-                <br />
                 <FlatButton type='submit' style={style.button} label='Verify' disabled={submitting}
                   backgroundColor={color.green} hoverColor={color.lightGreen} />
                 {submitting && <LinearProgress />}

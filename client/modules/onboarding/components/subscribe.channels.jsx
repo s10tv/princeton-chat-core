@@ -24,8 +24,7 @@ const SubscribeChannels = (props) => {
             <img style={[s.img, style.notShowOnMobile]} src='/images/ic-handrawn-arrow-right.png' alt='Use the list on the right to subscribe'/>
             <p>You get notified when someone posts in a channel you subscribe.  Subscribe at least 3 channels to get started.</p>
             <p style={{marginBottom: 0}}>You can change your preferences later at any time.</p>
-            <br />
-            <h6 style={style.notShowOnMobile}>My Channels</h6>
+            <h6 style={[style.notShowOnMobile, {marginTop: 20}]}>My Channels</h6>
             <ul style={style.notShowOnMobile}>
               {channels.map((channel) =>
                 <li key={channel._id}>#{channel.displayName}</li>
@@ -40,8 +39,7 @@ const SubscribeChannels = (props) => {
               backgroundColor={hasSelectedThreeChannels ? color.green : color.gray}
               hoverColor={color.lightGreen}
               onTouchTap={onNext} />
-            <br />
-            <PageControl total={3} current={1} />
+            <PageControl divStyle={{marginTop: 10}} total={3} current={1} />
           </div>
         </Layout.Sidebar>
         <Layout.Main>
