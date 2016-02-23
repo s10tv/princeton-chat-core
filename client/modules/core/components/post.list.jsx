@@ -172,7 +172,7 @@ var PostListItem = (props) => (
         </Flex>
         {props.post.numMsgs === 0
           ? null
-          : <Flex marginRight={16}>
+          : <Flex flexShrink={0} marginRight={16}>
             <a href={props.post.url}>
               <Flex alignItems='center'>
                 <span style={{color: '#999', marginRight: 10, fontWeight: 300}}>{props.post.numMsgs}</span>
@@ -241,16 +241,12 @@ const FollowBtn = (props) => (
 const s = {
   postTitle: {
     fontSize: 20,
-    '@media (max-width: 768px)': {
-      lineHeight: '1em'
-    }
+    lineHeight: '1em'
   },
   postContent: {
     marginTop: 12,
     letterSpacing: '0.1px',
-    '@media (max-width: 768px)': {
-      lineHeight: '1.2em'
-    }
+    lineHeight: '1.2em'
   },
   postAuthor: {
     marginTop: 5,
