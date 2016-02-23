@@ -19,7 +19,7 @@ const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
 
 export default class OnboardManager {
 
-  constructor ({ Meteor, Accounts, Email, Random, Collections, slack }) {
+  constructor ({ Meteor, Accounts, Email, Random, Collections, slack, rootURL }) {
     this.audience = title || 'Princeton.Chat'
     this.Meteor = Meteor
     this.Accounts = Accounts
@@ -27,6 +27,7 @@ export default class OnboardManager {
     this.Random = Random
     this.Collections = Collections
     this.slack = slack
+    this.rootURL = rootURL
   }
 
   verifyAlumni (options) {
@@ -98,7 +99,7 @@ export default class OnboardManager {
     }
     this.Accounts.emailTemplates.resetPassword.html = (user, url) => {
       const token = url.substring(url.lastIndexOf('/') + 1)
-      const ourUrl = `${process.env.ROOT_URL}forgot-password/${token}`
+      const ourUrl = `${this.rootURL}/forgot-password/${token}`
       return ReactDOMServer.renderToStaticMarkup(
         React.createElement(RecoverEmail, {
           recoveryLink: ourUrl
@@ -129,7 +130,7 @@ export default class OnboardManager {
   __sendAffiliatedInviteEmail ({ sender, email, firstName, lastName }) {
     const subject = `[${this.audience}] Invite from ${sender.firstName}`
     const invite = this.__generateInvite({email, referredBy: sender._id, status: 'sent'})
-    const inviteUrl = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${invite.inviteCode}`
+    const inviteUrl = `${this.rootURL}/invite/${invite.inviteCode}`
 
     this.Email.send({
       from: process.env.POSTMARK_SENDER_SIG || process.env.INVITE_SENDER_SIG || 'notifications@princeton.chat',
@@ -172,7 +173,7 @@ export default class OnboardManager {
           React.createElement(InviteNonAlum, {
             firstName,
             lastName,
-            rootURL: this.__stripTrailingSlash(process.env.ROOT_URL)
+            rootURL: this.rootURL
           })
         )
       })
@@ -188,7 +189,7 @@ export default class OnboardManager {
   }
 
   __sendSignupEmail ({ email, inviteCode }) {
-    const inviteLink = `${this.__stripTrailingSlash(process.env.ROOT_URL)}/invite/${inviteCode}`
+    const inviteLink = `${this.rootURL}/invite/${inviteCode}`
     const subject = process.env.INVITE_EMAIL_SUBJECT || `[${this.audience}] Welcome!`
 
     this.Email.send({
@@ -252,12 +253,5 @@ export default class OnboardManager {
     Invites.insert(invite)
 
     return invite
-  }
-
-  __stripTrailingSlash (str) {
-    if (str.substr(-1) === '/') {
-      return str.substr(0, str.length - 1)
-    }
-    return str
   }
 }
