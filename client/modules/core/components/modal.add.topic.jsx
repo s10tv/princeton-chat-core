@@ -80,7 +80,6 @@ export default React.createClass({
         description: this.refs.topicDescriptionContainer.refs.topicDescription.getValue(),
         cover: this.props.currentCoverPhoto
       }
-      console.log(this.props.shouldRedirectToNewTopic)
       this.props.createTopic(topicInfo, this.props.shouldRedirectToNewTopic)
     } else {
       this.props.showSnackbarWithString('One of your fields has errors. Please check.')
