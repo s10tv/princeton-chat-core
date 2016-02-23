@@ -5,6 +5,7 @@ import style from '../configs/style'
 import {TextField, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color} from '/client/configs/theme'
 import {i18n} from '/client/configs/env'
+import { Logo } from './branding.jsx'
 
 const ForgotPasswordChange = (props) => {
   const { fields: {newPassword, matchNewPassword}, handleSubmit, error, submitting } = props
@@ -13,7 +14,7 @@ const ForgotPasswordChange = (props) => {
       <Layout.Window>
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
-            <span style={style.sidebarLogo}>Princeton.Chat</span>
+            <Logo />
           </header>
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Reset Password</h1>

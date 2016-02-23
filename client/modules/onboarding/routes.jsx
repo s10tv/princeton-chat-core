@@ -37,6 +37,12 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
       mount(injectDeps(RequestInvite))
     }
   })
+  FlowRouter.route('/login', {
+    name: 'login',
+    action () {
+      FlowRouter.go('onboarding-login')
+    }
+  })
   FlowRouter.route('/invite/:inviteId', {
     name: 'onboarding-redeem-invite',
     action ({ inviteId }) {

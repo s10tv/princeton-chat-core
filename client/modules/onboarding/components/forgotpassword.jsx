@@ -5,6 +5,7 @@ import style from '../configs/style'
 import {i18n} from '/client/configs/env'
 import {TextField, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color} from '/client/configs/theme'
+import { Logo } from './branding.jsx'
 
 const ForgotPassword = (props) => {
   const { fields: {email}, handleSubmit, error, submitting } = props
@@ -13,13 +14,13 @@ const ForgotPassword = (props) => {
       <Layout.Window>
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
-            <span style={style.sidebarLogo}>Princeton.Chat</span>
+            <Logo />
             <a style={style.sidebarLink} href='/login'>Log in</a>
           </header>
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Forgot Password?</h1>
             <form style={style.form} onSubmit={handleSubmit}>
-              <p>To reset your password, enter the email you used to sign up to Princeton.Chat</p>
+              <p>To reset your password, enter the email you used to sign up to Pedplay.</p>
               <TextField floatingLabelText='Email' fullWidth {...email} />
               <br />
               {error && <p style={style.error}>{error}</p>}

@@ -5,6 +5,7 @@ import {FlatButton} from '/client/lib/ui.jsx'
 import {color} from '/client/configs/theme'
 import Radium, {StyleRoot} from 'radium'
 import {i18n} from '/client/configs/env'
+import { Logo } from './branding.jsx'
 
 const ForgotPasswordSent = (props) => {
   return (
@@ -12,7 +13,7 @@ const ForgotPasswordSent = (props) => {
       <Layout.Window>
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
-            <span style={style.sidebarLogo}>Princeton.Chat</span>
+            <Logo />
             <a style={style.sidebarLink} href='/login'>Log in</a>
           </header>
           <div style={style.sidebarInner}>
