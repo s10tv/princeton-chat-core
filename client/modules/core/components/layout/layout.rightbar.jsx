@@ -12,11 +12,12 @@ import MenuItem from '../../../../../node_modules/material-ui/lib/menus/menu-ite
 import { i18n } from '/client/configs/env'
 import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 import {FlatButton, Dialog} from '/client/lib/ui.jsx'
+import Radium from 'radium'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
 
-export default React.createClass({
+const RightBar = React.createClass({
   propTypes: {
     // FOR POST LIST SCREEN
     /**
@@ -82,16 +83,17 @@ export default React.createClass({
           overflowY: 'scroll',
           overflowX: 'hidden'
         }}>
-        <h3 style={{fontWeight: 400, marginTop: 10, marginBottom: 0}}>About #{props.topic.displayName}</h3>
-        <p style={{fontWeight: 300, marginTop: 10, marginBottom: 0}}>
+        <h3 style={{fontWeight: 400, marginTop: 10, marginBottom: 0, flexShrink: 0}}>About #{props.topic.displayName}</h3>
+        <p style={{fontWeight: 300, marginTop: 10, marginBottom: 0, flexShrink: 0}}>
           {props.topic.description}
         </p>
 
-        <h4 style={{fontWeight: 400, marginTop: 35, marginBottom: 0}}>Channel Address</h4>
-        <a style={{fontWeight: 300, marginTop: 10, marginBottom: 0}} href={`mailto:${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
+        <h4 style={{fontWeight: 400, marginTop: 35, marginBottom: 0, flexShrink: 0}}>Channel Address</h4>
+        <a style={{fontWeight: 300, marginTop: 10, marginBottom: 0, flexShrink: 0}}
+          href={`mailto:${props.topic._id}@${i18n('topicMailServer')}`} target='_blank'>
           {`${props.topic._id}@${i18n('topicMailServer')}`}
         </a>
-        <p style={{fontWeight: 300, color: '#d3d4d7', marginTop: 10}}>
+        <p style={{fontWeight: 300, color: '#d3d4d7', marginTop: 10, flexShrink: 0}}>
           Emailing to this address will create a post and notify everyone subscribed to the channel.
         </p>
 
@@ -156,7 +158,7 @@ export default React.createClass({
   }
 })
 
-const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
+var FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
   <ListItem disabled style={{padding: '15px 0px'}} rightIconButton={
     <IconMenu iconButtonElement={
       <IconButton
@@ -199,10 +201,16 @@ const FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
   </ListItem>
 )
 
-const UserAvatar = ({user}) => (
+FollowerListItem = Radium(FollowerListItem)
+
+var UserAvatar = ({user}) => (
   user.avatar.isDefaultAvatar
   ? <LetterAvatar size={40} color='white' backgroundColor={user.avatar.color}>
     {user.avatarInitials}
   </LetterAvatar>
   : <CoverAvatar size={40} src={user.avatar.url} />
 )
+
+UserAvatar = Radium(UserAvatar)
+
+export default Radium(RightBar)
