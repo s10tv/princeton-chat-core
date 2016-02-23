@@ -1,19 +1,37 @@
 import React from 'react'
-import {Block} from 'jsxstyle'
+import {Flex, Block} from 'jsxstyle'
 import Linkify from 'react-linkify'
 import IconMenu from '../../../../node_modules/material-ui/lib/menus/icon-menu'
 import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'
 import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 import MoreHorizIcon from '../../../../node_modules/material-ui/lib/svg-icons/navigation/more-horiz'
+import Radium from 'radium'
 import { i18n } from '/client/configs/env'
 import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 
 const theme = i18n('secondaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
 
+const s = {
+  message: {
+    fontWeight: 300,
+    letterSpacing: '0.1px',
+    marginTop: 4,
+    marginBottom: 4,
+    fontSize: 15,
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-work'
+  },
+  messageGroup: {
+    ':hover': {
+      backgroundColor: '#F7F7F7'
+    }
+  }
+}
+
 export const Message = (props) => (
-  <div className='message'>
-    <div className='message-content'>
+  <div>
+    <div style={s.message}>
       <Linkify properties={{
         target: '_blank',
         style: { color: accent1Color },
@@ -26,7 +44,7 @@ export const Message = (props) => (
   </div>
 )
 
-export class MessageGroup extends React.Component {
+class MessageGroupComponent extends React.Component {
   constructor (props) {
     super(props)
     this.state = {hover: false, menuOpen: false}
@@ -34,15 +52,14 @@ export class MessageGroup extends React.Component {
   render () {
     const props = this.props
     return (
-      <div className='message-group'
+      <Flex
+        flexShrink='0'
         onMouseEnter={() => this.setState({hover: true})}
         onMouseLeave={() => this.setState({hover: false})}
-        style={{
+        style={Object.assign({
           position: 'relative',
-          display: 'flex',
-          flexShrink: '0',
           padding: '8px 16px'
-        }}>
+        }, s.message, s.messageGroup)}>
         {(this.state.hover || this.state.menuOpen) && props.deleteMessage
           ? <IconMenu
             style={{position: 'absolute', top: 8, right: 8}}
@@ -70,24 +87,29 @@ export class MessageGroup extends React.Component {
         <Block flex={1} marginLeft={8}>
           <header>
             <a href='#' onClick={props.showUserProfile}>
-              <span className='display-name'>{props.owner.displayName}</span>
+              <span style={{ marginRight: 8, fontWeight: 400 }}>{props.owner.displayName}</span>
             </a>
             <a href='#' onClick={props.showUserProfile}>
-              <span className='mention' style={Object.assign({}, {
+              <span style={Object.assign({}, {
+                marginRight: 8,
+                fontWeight: 300,
                 color: accent1Color
               })}>
                 {props.owner.displayUsername}
               </span>
             </a>
-            <span className='datetime'>{props.timestamp}</span>
+            <span style={{fontSize: 14, fontWeight: 300, color: '#888'}}>{props.timestamp}</span>
           </header>
           <Message {...props} />
         </Block>
-      </div>
+      </Flex>
     )
   }
 }
 
-MessageGroup.propTypes = {
+MessageGroupComponent.propTypes = {
   deleteMessage: React.PropTypes.func
 }
+
+export const MessageGroup = Radium(MessageGroupComponent)
+
