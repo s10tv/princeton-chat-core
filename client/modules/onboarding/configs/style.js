@@ -7,6 +7,7 @@ export default {
   sidebarHeader: {
     alignSelf: 'stretch',
     flex: '1 0 60px',
+    display: 'flex',
     maxHeight: 60,
     justifyContent: 'flex-end',
     padding: spacing.x2,
