@@ -79,7 +79,8 @@ export default React.createClass({
           flexDirection: 'column',
           padding: '0px 20px',
           paddingBottom: '15px',
-          overflowY: 'scroll'
+          overflowY: 'scroll',
+          overflowX: 'hidden'
         }}>
         <h3 style={{fontWeight: 400, marginTop: 10, marginBottom: 0}}>About #{props.topic.displayName}</h3>
         <p style={{fontWeight: 300, marginTop: 10, marginBottom: 0}}>

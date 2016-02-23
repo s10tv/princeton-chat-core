@@ -76,7 +76,7 @@ const PostListScreen = React.createClass({
               marginBottom: 20
             }}
             {...this.props} />
-          <Flex>
+          <Flex flex='1 1 0px' overflowY='scroll'>
             {this.props.isEmpty
               ? <EmptyPostList {...this.props} />
               : <PostList {...this.props} />}
