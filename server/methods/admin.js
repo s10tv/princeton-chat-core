@@ -1,4 +1,4 @@
-export default function ({Meteor, check, OnboardManager, Collections}) {
+export default function ({Meteor, OnboardManager, Collections}) {
   const {Invites} = Collections
 
   class AdminUserService {
@@ -16,8 +16,6 @@ export default function ({Meteor, check, OnboardManager, Collections}) {
 
   Meteor.methods({
     'admin/user/invite': (inviteId) => {
-      check(inviteId, String)
-
       // verify admin identity
       AdminUserService.get()
 
@@ -30,8 +28,6 @@ export default function ({Meteor, check, OnboardManager, Collections}) {
     },
 
     'admin/invite/delete': (inviteId) => {
-      check(inviteId, String)
-
       // verify admin identity
       AdminUserService.get()
 

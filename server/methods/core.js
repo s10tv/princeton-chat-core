@@ -7,17 +7,12 @@ function capitalizeFirstLetter (string) {
 }
 
 export default function (context) {
-  const {audience, currentUser, Meteor, Collections, PostManager, TopicManager, SearchService, check,
+  const {audience, currentUser, Meteor, Collections, PostManager, TopicManager, SearchService,
     AvatarService, Accounts } = context
   const {Topics, Posts, Messages, Users} = Collections
 
   Meteor.methods({
     'post/insert': (_id, title, content, topicIds) => {
-      check(_id, String)
-      check(title, String)
-      check(content, String)
-      check(topicIds, [String])
-
       const user = currentUser()
 
       try {
@@ -72,9 +67,6 @@ export default function (context) {
     },
 
     'topic/follow': (topicId) => {
-      check(topicId, String)
-      check(currentUser(), Object)
-
       try {
         TopicManager.follow({topicId, user: currentUser()})
       } catch (err) {
@@ -84,9 +76,6 @@ export default function (context) {
     },
 
     'topic/unfollow': (topicId) => {
-      check(topicId, String)
-      check(currentUser(), Object)
-
       try {
         TopicManager.unfollow({topicId, user: currentUser()})
       } catch (err) {
@@ -96,10 +85,6 @@ export default function (context) {
     },
 
     'topic/removeFollower': (topicId, userId) => {
-      check(topicId, String)
-      check(userId, String)
-      check(currentUser(), Object)
-
       try {
         TopicManager.unfollow({topicId, user: {_id: userId}})
       } catch (err) {
@@ -109,7 +94,6 @@ export default function (context) {
     },
 
     'topic/remove': (topicId) => {
-      check(topicId, String)
       const user = currentUser()
       const topic = Topics.findOne(topicId)
 
@@ -125,7 +109,6 @@ export default function (context) {
     },
 
     'topic/create': (topicInfo) => {
-      check(topicInfo, Object)
       const user = currentUser()
 
       if (!topicInfo.name) {
@@ -172,9 +155,6 @@ export default function (context) {
     },
 
     'topics/users/import': (topicId, userInfos) => {
-      check(topicId, String)
-      check(userInfos, [Object])
-
       const topic = Topics.findOne(topicId)
       if (!topic) {
         throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`)
@@ -227,25 +207,18 @@ export default function (context) {
     },
 
     'post/follow': (postId) => {
-      check(postId, String)
       PostManager.follow({postId, user: currentUser()})
     },
 
     'post/unfollow': (postId) => {
-      check(postId, String)
       PostManager.unfollow({postId, user: currentUser()})
     },
 
     'post/delete': (postId) => {
-      check(postId, String)
       return PostManager.delete({postId, user: currentUser()})
     },
 
     'messages/insert': (_id, postId, commentText) => {
-      check(_id, String)
-      check(postId, String)
-      check(commentText, String)
-
       const user = currentUser()
       Messages.insert({
         _id,
@@ -264,8 +237,6 @@ export default function (context) {
     },
 
     'messages/delete': (_id) => {
-      check(_id, String)
-
       const user = currentUser()
       const message = Messages.findOne(_id)
       if (message.ownerId !== user._id) {
@@ -275,30 +246,22 @@ export default function (context) {
     },
 
     'get/followers': (userIds) => {
-      check(userIds, Array)
-      check(currentUser(), Object)
-
       return userIds.map((user) => {
         return Users.findOne(user.userId)
       }).filter((user) => user !== undefined)
     },
 
     'search/username': (username) => {
-      check(username, String)
       return Users.find({ username: { $regex: new RegExp(`^${username}`, 'i') } }, {limit: 3}).fetch()
     },
 
     'search/users': (input) => {
-      check(input, String)
-      console.log(input)
       currentUser()
 
       return SearchService.searchUsers(input)
     },
 
     'search/posts': (input) => {
-      check(input, String)
-      console.log(input)
       currentUser()
 
       return SearchService.searchPosts(input)

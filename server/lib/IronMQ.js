@@ -1,11 +1,9 @@
-/*global check, Npm, Meteor*/
+/*global Npm, Meteor*/
 const Future = Npm.require('fibers/future')
 const Iron = Meteor.npmRequire('iron_mq')
 
 class IronMQ {
   constructor (queueName) {
-    check(queueName, String)
-
     this.queueName = queueName
 
     const creds = {

@@ -1,5 +1,3 @@
-import { check } from 'meteor/check'
-
 export default class TopicManager {
 
   constructor ({Meteor, Collections}) {
@@ -9,8 +7,6 @@ export default class TopicManager {
 
   follow ({ topicId, user }) {
     const {Topics, Users} = this.Collections
-    check(topicId, String)
-    check(user, Object)
 
     Users.update(user._id, { $addToSet: {
       followingTopics: topicId

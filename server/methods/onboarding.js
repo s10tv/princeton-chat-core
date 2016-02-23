@@ -1,16 +1,14 @@
 export default function (context) {
-  const {slack, Match, check, currentUser, Meteor,
+  const {slack, currentUser, Meteor,
     OnboardManager, Collections, AvatarService, audience} = context
   const {Users} = Collections
 
   Meteor.methods({
     'signup/verifyAffiliation': (options) => {
-      check(options, Object)
       return OnboardManager.verifyAffiliation(options)
     },
 
     'signup/alumni': (options) => {
-      check(options, Object)
       return OnboardManager.verifyAlumni(options)
     },
 
@@ -42,12 +40,6 @@ export default function (context) {
     },
 
     'profile/update': (profile) => {
-      check(profile, Object)
-      check(profile.firstName, Match.Optional(String))
-      check(profile.lastName, Match.Optional(String))
-      check(profile.username, Match.Optional(String))
-      check(profile.displayName, Match.Optional(String))
-
       const user = currentUser()
       const userWithThisUsername = Users.findOne({ username: profile.username })
       if (userWithThisUsername && userWithThisUsername._id !== user._id) {
@@ -86,14 +78,11 @@ export default function (context) {
     },
 
     'welcome/forgotPassword': (options) => {
-      check(options, Object)
       const { email } = options
-      check(email, String)
       return OnboardManager.sendRecoveryEmail(email)
     },
 
     'welcome/signup': (info) => {
-      check(info, Object)
       const user = currentUser()
       return OnboardManager.handleSignup(user, info)
     },
@@ -120,7 +109,6 @@ export default function (context) {
     },
 
     'welcome/invite': (options) => {
-      check(options, Object)
       const user = currentUser()
       const { invitees } = options
       OnboardManager.handleInvites(user, invitees)
@@ -128,8 +116,6 @@ export default function (context) {
     },
 
     'welcome/setLoginService': (serviceName) => {
-      check(serviceName, String)
-
       try {
         const user = currentUser()
         Users.update(user._id, { $set: {

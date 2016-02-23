@@ -1,4 +1,3 @@
-import { Match, check } from 'meteor/check'
 import { _ } from 'meteor/underscore'
 
 export default function ({ Meteor, Collections, SearchService }) {
@@ -61,8 +60,6 @@ export default function ({ Meteor, Collections, SearchService }) {
   })
 
   Meteor.publishComposite('topic', function (topicId) {
-    check(topicId, Match.OneOf(null, String))
-
     if (this.userId) {
       return {
         find: function () {
@@ -85,11 +82,6 @@ export default function ({ Meteor, Collections, SearchService }) {
   })
 
   Meteor.publishComposite('posts', function (options) {
-    check(options, Object)
-    check(options.topicId, Match.Optional(String))
-    check(options.isMine, Match.Optional(Boolean))
-    check(options.term, Match.Optional(String))
-
     const isMine = options.isMine
     const topicId = options.topicId
     const term = options.term
@@ -138,7 +130,6 @@ export default function ({ Meteor, Collections, SearchService }) {
   Meteor.publishComposite('messages', function (postId) {
     return {
       find: function () {
-        check(postId, Match.Optional(String))
         return Posts.find({ _id: postId })
       },
       children: [
@@ -169,8 +160,6 @@ export default function ({ Meteor, Collections, SearchService }) {
   })
 
   Meteor.publish('directory.search', function (term) {
-    console.log(term)
-    check(term, Match.OneOf(null, Match.Optional(String)))
     if (this.userId) {
       return SearchService.searchUsers(term)
     } else {
