@@ -11,7 +11,7 @@ export const formConfig = {
     'invitees[].email'
   ],
   initialValues: {
-    invitees: [{}, {}, {}]
+    invitees: [{}, {}]
   },
   validate: inviteFriendsValidator
 }

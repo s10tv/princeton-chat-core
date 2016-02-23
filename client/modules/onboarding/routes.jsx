@@ -1,21 +1,19 @@
 import {mount} from 'react-mounter'
+
 import Home from './containers/home'
 import RequestInvite from './containers/invite.request'
 import Signup from './containers/signup'
-import Login from './containers/login'
 import SubscribeChannels from './containers/subscribe.channels'
 import InviteFriends from './containers/invite.friends'
 import AmplitudeService from '/client/lib/amplitude.service'
-import Profile from './components/profile.jsx'
 import ForgotPasswordSent from './containers/forgotpassword.sent'
 import ForgotPasswordChange from './containers/forgotpassword.change'
 import ForgotPassword from './containers/forgotpassword'
 import ForgotPasswordSuccess from './containers/forgotpassword.success'
-import React from 'react'
 
 function requireUserInSession (context) {
   if (!this.Meteor.userId()) {
-    return this.FlowRouter.go('onboarding-auto-verify')
+    return this.FlowRouter.go('onboarding-login')
   }
 }
 
@@ -24,7 +22,7 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
   const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
 
   FlowRouter.route('/', {
-    name: 'onboarding-auto-verify',
+    name: 'onboarding-login',
     subscriptions: function () {
       this.register('userData', Meteor.subscribe('userData'))
     },
@@ -39,12 +37,6 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
       mount(injectDeps(RequestInvite))
     }
   })
-  FlowRouter.route('/login', {
-    name: 'onboarding-login',
-    action () {
-      mount(injectDeps(Login))
-    }
-  })
   FlowRouter.route('/invite/:inviteId', {
     name: 'onboarding-redeem-invite',
     action ({ inviteId }) {
@@ -54,8 +46,8 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
           if (err) {
             sweetalert({
               title: 'Invalid Invite',
-              text: 'Seems like your invite code is invalid or has already expired.\n' +
-                'If retrying the invite link still doesn\'t work, please reply to the invite\n' +
+              text: 'Seems like your invite code is invalid or has already expired. ' +
+                'If retrying the invite link still doesn\'t work, please reply to the invite ' +
                 'email and we will investigate it.'
             }, () => {
               FlowRouter.go('onboarding-login')
@@ -125,24 +117,6 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     name: 'forgot-password-change',
     action ({ token }) {
       mount(injectDeps(ForgotPasswordChange))
-    }
-  })
-
-  FlowRouter.route('/tonyx', {
-    name: 'tonyx',
-    action () {
-      mount(injectDeps(Home), { mainContent: <Profile displayName="Tony Xiao '12" firstName='Tony'
-        avatarUrl='https://s10tv.blob.core.windows.net/s10tv-prod/tonyxiao.jpg' />
-      })
-    }
-  })
-
-  FlowRouter.route('/poshak', {
-    name: 'poshak',
-    action () {
-      mount(injectDeps(Home), { mainContent: <Profile displayName="Poshak Agrawal '13" firstName='Poshak'
-        avatarUrl='http://graph.facebook.com/560625167/picture?type=large' />
-      })
     }
   })
 }

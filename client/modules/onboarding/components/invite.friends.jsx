@@ -1,55 +1,55 @@
+/*eslint-disable no-trailing-spaces */
 import React, { PropTypes } from 'react'
-import Radium, {StyleRoot} from 'radium'
+import Radium from 'radium'
 import {TextField, FlatButton, FontIcon, IconButton, PageControl, LinearProgress} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-import {i18n} from '/client/configs/env'
+import { Logo } from './branding.jsx'
+
 // NOTE: addField / removeField provided by redux-form http://erikras.github.io/redux-form/#/examples/deep
 class InviteFriends extends React.Component {
 
   render () {
     const {fields: {invitees}, handleSubmit, error, submitting, skipForNow} = this.props
     return (
-      <StyleRoot>
-        <Layout.Window>
-          <Layout.Sidebar>
-            <header style={style.sidebarHeader}>
-              <span style={style.sidebarLogo}>Princeton.Chat</span>
-            </header>
-            <div style={style.sidebarInner}>
-              <h1 style={style.h1}>Better with friends</h1>
-              <p>
-                Who were your three best friends from Princeton? Get them to join you on Princeton.Chat.
-              </p>
-              <form style={style.form} onSubmit={handleSubmit}>
-                {invitees.map(({email}, index) =>
-                  <div key={index} style={s.row}>
-                    <TextField floatingLabelText='Email' {...email} style={s.email}/>
-                    {invitees.length > 1
+      <Layout.Window>
+        <Layout.Sidebar>
+          <header style={style.sidebarHeader}>
+            <Logo />
+          </header>
+          <div style={style.sidebarInner}>
+            <h1 style={style.h1}>Better with friends</h1>
+            <p>
+              Every new member brings a new perspective to the community. Know someone who is a good fit for
+              Pedagogy and Play?
+            </p>
+            <form style={style.form} onSubmit={handleSubmit}>
+              {invitees.map(({email}, index) =>
+                <div key={index} style={s.row}>
+                  <TextField floatingLabelText='Email' {...email} style={s.email}/>
+                  {invitees.length > 1
                     ? <IconButton onTouchTap={() => invitees.removeField(index)} tabIndex={-1}>
                       <FontIcon className='material-icons'>close</FontIcon>
                     </IconButton>
                     : <div style={{width: 48}} />
-                    }
-                  </div>
-                )}
-                <br />
-                {error && <p style={style.error}>{error}</p>}
-                <a href='#' style={s.addAnother} onClick={() => invitees.addField()}>Add another</a>
-                <br />
-                <FlatButton type='submit' style={style.button} label='Done' disabled={submitting}
-                  backgroundColor={color.green} hoverColor={color.lightGreen} />
-                {submitting && <LinearProgress color={color.brand.primary} />}
-                <a style={s.skip} href='#' onClick={skipForNow} tabIndex={-1}>Or skip for now</a>
-                <PageControl total={3} current={2} />
-              </form>
-            </div>
-          </Layout.Sidebar>
-          <Layout.Main backgroundUrl={i18n('homePageBackgroundUrl')}>
-          </Layout.Main>
-        </Layout.Window>
-      </StyleRoot>
+                  }
+                </div>
+              )}
+              <br />
+              {error && <p style={style.error}>{error}</p>}
+              <a href='#' style={s.addAnother} onClick={() => invitees.addField()}>Add another</a>
+              <br />
+              <FlatButton type='submit' style={style.button} label='Done' disabled={submitting}
+                backgroundColor={color.green} hoverColor={color.lightGreen} />
+              {submitting && <LinearProgress color={color.brand.primary} />}
+              <a style={s.skip} href='#' onClick={skipForNow} tabIndex={-1}>Or skip for now</a>
+              <PageControl total={3} current={2} />
+            </form>
+          </div>
+        </Layout.Sidebar>
+        <Layout.Main backgroundUrl='/images/friends.jpg' />
+      </Layout.Window>
     )
   }
 }
@@ -70,8 +70,7 @@ InviteFriends.propTypes = {
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-  skipForNow: PropTypes.func.isRequired
+  error: PropTypes.string
 }
 
 const s = {

@@ -46,10 +46,9 @@ export const primaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: fontFamily.base,
   palette: {
     ...lightRawTheme.palette,
-    primary1Color: '#8BC34A',
-    lightenedPrimary1Color: tinycolor('#8BC34A').lighten(10).toString(), // Required in order to flat buttons with custom backgrounds to work
-    accent1Color: color.princeton.orange,
-    lightenedAccent1Color: tinycolor(color.princeton.orange).lighten(10).toString()
+    lightenedPrimary1Color: tinycolor(lightRawTheme.palette.primary1Color).lighten(10).toString(),
+    accent1Color: '#5477AD', // ped blue
+    lightenedAccent1Color: tinycolor('#5477AD').lighten(10).toString()
   }
 })
 
@@ -58,8 +57,10 @@ export const secondaryMuiTheme = ThemeManager.getMuiTheme({
   fontFamily: fontFamily.base,
   palette: {
     ...darkRawTheme.palette,
-    accent1Color: color.princeton.orange,
-    alternateTextColor: color.white
+    accent1Color: '#5477AD', // ped blue
+    primary3Color: '#4E6A93', // not-so-dark blue
+    alternateTextColor: color.white,
+    canvasColor: '#1B293D' // dark blue
   }
 })
 

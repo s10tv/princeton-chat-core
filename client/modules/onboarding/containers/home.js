@@ -1,30 +1,16 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import {autoVerifyValidator} from '/lib/validation/onboarding'
-import {classYear as classYearValidator} from '/lib/validation'
-import {trimSpaces} from '/lib/normalization'
-import {domains} from '/lib/data'
+import {loginValidator} from '/lib/validation/onboarding'
 import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
 
 export const formConfig = {
-  form: 'onboarding/auto-verify',
-  fields: ['netid', 'domain', 'classYear'],
-  initialValues: {
-    // domain: domains[0]
-  },
-  validate: autoVerifyValidator,
+  form: 'onboarding/login',
+  fields: ['email', 'password'],
+  validate: loginValidator,
   // NOTE: not an officially supported property by redux-form
   // However we concatenate this together ourselves in context.js
   normalize: {
-    netid: trimSpaces,
-    domain: (domain, prevDomain, {classYear}, {classYear: prevClassYear}) => {
-      if (classYear !== prevClassYear && classYearValidator(classYear) == null) {
-        const currentYear = (new Date()).getFullYear()
-        return Number(classYear) >= currentYear ? 'princeton.edu' : 'alumni.princeton.edu'
-      }
-      return domain
-    }
   }
 }
 
@@ -42,11 +28,13 @@ export const composer = ({context}, onData) => {
       }
     }
   }
-  onData(null, {domains})
+
+  onData(null, {})
 }
 
 const depsMapper = (context, actions) => ({
-  onSubmit: actions.onboardingAutoVerify.submit,
+  loginWithFacebook: actions.onboardingLogin.loginWithFacebook,
+  onSubmit: actions.onboardingLogin.loginWithPassword,
   store: context.store,
   context: () => context
 })

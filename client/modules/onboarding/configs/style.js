@@ -27,11 +27,15 @@ export default {
   sidebarLogo: {
     fontWeight: 'normal',
     fontSize: fontSize.h5,
-    color: color.brand.primary,
+    color: color.ped.lightPrimary,
     marginRight: 'auto',
+    fontFamily: "'Quicksand', sans-serif",
     '@media (max-width: 768px)': {
       marginLeft: 'auto'
     }
+  },
+  brandFont: {
+    fontFamily: "'Quicksand', sans-serif"
   },
   sidebarLink: {
     color: color.white,

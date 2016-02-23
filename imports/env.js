@@ -1,45 +1,33 @@
-const PRINCETON_ORANGE = '#F07621'
+const PED_BLUE = '#5477AD'
+const DARK_GRAY = '#grey800'
 
 /**
  *  Consolidated a lot of the constants into this one file so that it's easier to manage
  *  merge conflicts between various deployments.
  */
 export default {
-  primaryColor: PRINCETON_ORANGE,
-
-  // home page title, left nav bar title
-  title: 'Princeton.Chat',
-
-  // home page tagline
-  tagline: 'Better TigerNet',
-
-  // signup done screen
-  community: 'Princeton',
-
-  // onboarding greeting
-  onboardingGreeting: 'Welcome Tiger!',
-  onboardingDesc: 'Princeton.Chat is a community for Princeton alums.',
-
-  // meta
-  favicon: 'images/favicon.png',
-  fbAppId: '942109702548809',
-  ogUrl: 'https://princeton.chat',
+  primaryColor: PED_BLUE,
+  title: 'Pedagogy & Play',
+  tagline: 'Young Professional Leadership Network',
+  community: 'Pedagogy & Play',
+  favicon: 'images/pedplay.png',
+  fbAppId: '1150904264922616',
+  ogUrl: 'https://pedplay.com',
   ogType: 'website',
-  ogTitle: 'Princeton.Chat',
-  ogDescription: 'Better Tigernet.',
+  ogTitle: 'PedPlay',
+  ogDescription: 'Meet new colleagues in the area, share pedagogy successes (and frustrations), sight-read duets, or perform any repertoire you are working on!',
   ogImage: 'https://s10tv.blob.core.windows.net/s10tv-prod/princetonchat.jpg',
-
-  // mail server info on right bar for topics and for add followers
-  topicMailServer: 'topics.princeton.chat',
-
-  // when new users sign up
-  defaultAvatar: '/images/princeton.svg',
-
+  onboardingGreeting: 'Welcome to Pedagogy and Play!',
+  onboardingDesc: 'Meet new colleagues in the area, share pedagogy successes (and frustrations), sight-read duets, or perform any repertoire you are working on!',
+  topicMailServer: 'topics.pedplay.com',
+  defaultAvatar: '/images/avatar-placeholder.png',
   backgroundStyle: {
-    backgroundImage: "url('/images/background-tile.png')",
-    backgroundRepeat: 'repeat'
+    background: PED_BLUE
   },
-  homePageBackgroundUrl: '/images/bg-blair-arch-people.jpg',
-  pageNotFoundError: 'We used to have a page here, but the hungry tiger ate it.',
-  pageNotFoundBackground: 'https://images.unsplash.com/photo-1430876988766-1be68caef0e4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=188a0a423d918ef320144a56866c7ced'
+  loginTitle: {
+    fontFamily: "'Quicksand', sans-serif",
+    color: DARK_GRAY
+  },
+  pageNotFoundError: 'We used to have a page here, but Rachmaninoff used the back side to write some sheet music.',
+  pageNotFoundBackground: 'https://images.unsplash.com/photo-1447876576829-25dd6c4b3d21'
 }

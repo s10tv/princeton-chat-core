@@ -2,25 +2,18 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import RequestInvite from '../components/invite.request.jsx'
 import { manualVerifyValidator } from '/lib/validation/onboarding'
-import { normalizeDate } from '/lib/normalization'
-import {degrees, classYears} from '/lib/data'
 
 export const formConfig = {
   form: 'onboarding/manual-verify',
-  fields: ['firstName', 'lastName', 'birthDate', 'classYear', 'degree', 'email'],
-  validate: manualVerifyValidator,
-  // NOTE: not an officially supported property by redux-form
-  // However we concatenate this together ourselves in context.js
-  normalize: {
-    birthDate: normalizeDate
-  }
+  fields: ['firstName', 'lastName', 'email', 'desc'],
+  initialValues: {
+    email: '' // How do we populate this from initial data?
+  },
+  validate: manualVerifyValidator
 }
 
 export const composer = ({context}, onData) => {
-  onData(null, {
-    degrees,
-    classYears
-  })
+  onData(null, {})
 }
 
 const depsMapper = (context, actions) => ({
