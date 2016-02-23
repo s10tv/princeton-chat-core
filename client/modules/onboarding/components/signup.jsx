@@ -17,7 +17,8 @@ const Signup = (props) => {
           <header style={style.sidebarHeader}>
             <span style={style.sidebarLogo}>Princeton.Chat</span>
           </header>
-          <div style={style.sidebarInner}>
+          <div
+            style={[style.sidebarInner, {marginTop: spacing.x1, flexShrink: 0}]}>
             <h1 style={style.h1}>Welcome Tiger</h1>
             <p>We have successfully verified your affiliation with Princeton.</p>
             <p style={s.verifiedEmail}>{verifiedEmail}</p>
@@ -50,7 +51,7 @@ const Signup = (props) => {
               <TextField floatingLabelText='Password' type='password' fullWidth {...password} />
               <FlatButton type='submit' style={style.button} label='Signup'
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
-              <PageControl total={3} current={0} />
+              <PageControl divStyle={{marginTop: 15}} total={3} current={0} />
             </form>
           </div>
         </Layout.Sidebar>
