@@ -91,7 +91,7 @@ const SidebarHeader = React.createClass({
     const props = this.props
 
     return (
-      <div>
+      <Flex flexShrink={0} flexDirection='column'>
         <ListItem id='sidebar-header'
           innerDivStyle={{
             paddingTop: 8,
@@ -137,7 +137,7 @@ const SidebarHeader = React.createClass({
         >
           <PopOverList {...this.props} closePopover={this.closePopover} />
         </Popover>
-      </div>
+      </Flex>
     )
   }
 })
@@ -154,7 +154,7 @@ const NonTappableSubHeader = ({label}) => (
 )
 
 const AddNewPostButton = ({ onClick }) => (
-  <Flex marginTop='15' marginBottom='7'>
+  <Flex marginTop='15' marginBottom='7' flexShrink={0}>
     <RaisedButton id='new-post' primary label='New Post' labelPosition='after' onTouchTap={onClick}
       style={{margin: '0px auto'}}>
       <FontIcon className='material-icons' color='white'
