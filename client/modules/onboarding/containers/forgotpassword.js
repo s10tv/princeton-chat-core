@@ -7,9 +7,6 @@ import {forgotPasswordEmailValidator} from '/lib/validation/onboarding'
 const formConfig = {
   form: 'forgot-password',
   fields: ['email'],
-  initalValues: {
-
-  },
   validate: forgotPasswordEmailValidator
 }
 

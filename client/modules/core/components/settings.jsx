@@ -130,10 +130,10 @@ export default React.createClass({
 
             <form>
               <Flex flexDirection='column' alignItems='center' justifyContent='center'>
-                <TextField floatingLabelText='First Name' maxLength={20} {...firstName} />
-                <TextField floatingLabelText='Last Name' maxLength={20} {...lastName} />
-                <TextField floatingLabelText='Full Name' maxLength={20} {...displayName} />
-                <TextField floatingLabelText='Username' maxLength={20} {...username} />
+                <TextField floatingLabelText='First Name' {...firstName} />
+                <TextField floatingLabelText='Last Name' {...lastName} />
+                <TextField floatingLabelText='Full Name' {...displayName} />
+                <TextField floatingLabelText='Username' {...username} />
                 <SelectField floatingLabelText='Class Year' maxHeight={300} {...classYear}>
                   {classYears.map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
                 </SelectField>
