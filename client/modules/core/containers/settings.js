@@ -34,6 +34,9 @@ export const composer = ({context}, onData) => {
     const changePassword = () => {
       Accounts.changePassword(oldPassword, newPassword, (err) => {
         if (err) {
+          if (err.reason === 'Incorrect password') {
+            err.reason = 'The current password you entered is wrong'
+          }
           return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
         }
 
