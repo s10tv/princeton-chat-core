@@ -9,6 +9,7 @@ import Settings from '/client/modules/core/containers/settings.js'
 import AddFollowers from '/client/modules/core/containers/add.followers.js'
 import DirectorySearch from '/client/modules/core/containers/directory.search'
 import ErrorPage from '/client/modules/core/components/error.jsx'
+import ToggleFollowing from '/client/modules/core/containers/toggleFollowing'
 // This import has to be at the end for some reason else fails
 
 function requireUserInSession (context) {
@@ -19,7 +20,7 @@ function requireUserInSession (context) {
   }
 }
 
-export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
+export default function (injectDeps, {FlowRouter, Collections, Meteor, Accounts, Tracker}) {
   const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
   const LayoutMainCtx = injectDeps(LayoutMain)
 
@@ -31,6 +32,21 @@ export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
       } else {
         FlowRouter.go('onboarding-login')
       }
+    }
+  })
+
+  FlowRouter.route('/guest/posts/:postId/:action', {
+    name: 'follow-unfollow-post-from-email',
+    triggersEnter: [requireUserInSessionFn],
+    action ({ postId, action }) {
+
+      mount(injectDeps(ToggleFollowing), {
+        title: post.title,
+        isFollowing,
+        postId,
+        followLink: `/guest/posts/${postId}/follow`,
+        unfollowLink: `/guest/posts/${postId}/unfollow`
+      })
     }
   })
 

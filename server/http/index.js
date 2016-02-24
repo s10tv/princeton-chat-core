@@ -10,14 +10,14 @@ const { Signup, Invite, InviteNonAlum, htmlEmail, RecoverEmail } = emails
 
 export default function () {
   HTTP.methods({
-    'guest/posts/:postId/:action': function () {
-      return htmlPage({
-        title: env.title,
-        body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(CantUnfollow)
-        )
-      })
-    },
+    // 'guest/posts/:postId/:action': function () {
+    //   return htmlPage({
+    //     title: env.title,
+    //     body: ReactDOMServer.renderToStaticMarkup(
+    //       React.createElement(CantUnfollow)
+    //     )
+    //   })
+    // },
 
     '/e/email-sent': function () {
       return htmlEmail({

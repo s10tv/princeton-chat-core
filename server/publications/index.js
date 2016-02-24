@@ -167,6 +167,10 @@ export default function ({ Meteor, Collections, SearchService }) {
     }
   })
 
+  Meteor.publish('post.single', function (postId) {
+    return Posts.find({_id: postId})
+  })
+
   Meteor.publishComposite('directMessages', function () {
     const myUserId = this.userId
     if (myUserId) {
