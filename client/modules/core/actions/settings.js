@@ -17,7 +17,7 @@ export default {
       })
     }
 
-    if (UserService.currentuser().services.facebook) {
+    if (UserService.currentUser().services.facebook) {
       updateToFbAvatar()
     } else {
       Meteor.linkWithFacebook({}, (err) => {
@@ -60,4 +60,3 @@ export default {
     sweetalert({title: 'Updated', text: 'Your profile has been updated'})
   })
 }
-
