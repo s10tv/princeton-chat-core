@@ -88,7 +88,7 @@ export default React.createClass({
       showSidebar, sidebarOpen, messageLinkOnClick} = this.props
 
     return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
+      <Flex style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <NavBar>
           <Flex alignSelf='stretch' justifyContent='space-between'>
             <Flex flexDirection='column'>
@@ -179,7 +179,7 @@ export default React.createClass({
           </Flex>
         } />
         <InputBox postId={post._id} />
-      </main>
+      </Flex>
     )
   }
 })

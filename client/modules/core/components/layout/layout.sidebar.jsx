@@ -203,8 +203,7 @@ export default React.createClass({
     const width = this.props.clickedToShowSidebar ? '100%' : '240px'
 
     return (
-      <LeftNav open={this.props.sidebarOpen} style={
-          Object.assign({}, {width, display: 'flex', flexDirection: 'column'})}>
+      <LeftNav open={this.props.sidebarOpen} style={{width}}>
         <SidebarHeader
           user={this.props.user}
           onLogout={this.props.onLogout}
