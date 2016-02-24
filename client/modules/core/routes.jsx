@@ -6,7 +6,6 @@ import PostList from '/client/modules/core/containers/post.list.js'
 import PostDetails from '/client/modules/core/containers/post.details.js'
 import TopicList from '/client/modules/core/containers/topic.list.js'
 import Settings from '/client/modules/core/containers/settings.js'
-import GuestIndex from '/client/modules/guest/containers/guestIndex.js'
 import AddFollowers from '/client/modules/core/containers/add.followers.js'
 import DirectorySearch from '/client/modules/core/containers/directory.search'
 import ErrorPage from '/client/modules/core/components/error.jsx'
@@ -23,21 +22,15 @@ function requireUserInSession (context) {
 export default function (injectDeps, {FlowRouter, Meteor, Accounts, Tracker}) {
   const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
   const LayoutMainCtx = injectDeps(LayoutMain)
-  const GuestIndexCtx = injectDeps(GuestIndex)
 
   FlowRouter.route('/guest', {
     name: 'guest',
-    action (params, { userId, hash }) {
-      Accounts.callLoginMethod({
-        methodArguments: [{guest: { userId, hash }}],
-        userCallback: (err) => {
-          if (err) {
-            return FlowRouter.go('onboarding-login')
-          }
-
-          mount(GuestIndexCtx)
-        }
-      })
+    action (params) {
+      if (Meteor.user()) {
+        FlowRouter.go('choose-topics')
+      } else {
+        FlowRouter.go('onboarding-login')
+      }
     }
   })
 
