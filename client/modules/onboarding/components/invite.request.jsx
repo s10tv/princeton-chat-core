@@ -44,7 +44,7 @@ class RequestInvite extends React.Component {
               <br />
               {error && <p style={style.error}>{error}</p>}
               <br />
-              <FlatButton type='submit' style={style.button} label='Verify' disabled={submitting}
+              <FlatButton type='submit' style={[style.button, {marginBottom: 20}]} label='Verify' disabled={submitting}
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress />}
             </form>
