@@ -32,22 +32,35 @@ export default class OnboardManager {
   }
 
   verifyAlumni (options) {
+    const {Users} = this.Collections
     const errors = autoVerifyValidator(options)
     if (errors.length > 0) {
       throw new this.Meteor.Error(400, errors)
     }
 
-    const { netid, classYear } = options
+    const { netid, domain, classYear } = options
+
+    if (Users.findOne({emails: {$elemMatch: {address: `${netid}@${domain}`}}})) {
+      throw new this.Meteor.Error(400, 'This email address is already used.')
+    }
+
     Domains.forEach((domain) => {
-      const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear: classYear})
-      this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
+      if (!Users.findOne({emails: {$elemMatch: {address: `${netid}@${domain}`}}})) {
+        const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear: classYear})
+        this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
+      }
     })
   }
 
   verifyAffiliation (options) {
+    const {Users} = this.Collections
     const errors = manualVerifyValidator(options)
     if (errors.length > 0) {
       throw new this.Meteor.Error(400, errors)
+    }
+
+    if (Users.findOne({emails: {$elemMatch: {address: options.email}}})) {
+      throw new this.Meteor.Error(400, 'This email address is already used.')
     }
 
     options.status = 'pending'
