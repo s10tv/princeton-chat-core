@@ -5,6 +5,7 @@ import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
 import emails from '../emails'
+import {domains as Domains} from '/lib/data'
 
 const {
   htmlEmail,
@@ -36,11 +37,11 @@ export default class OnboardManager {
       throw new this.Meteor.Error(400, errors)
     }
 
-    const { netid, domain, classYear } = options
-    const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear: classYear})
-    this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
-
-    return invite.inviteCode
+    const { netid, classYear } = options
+    Domains.forEach((domain) => {
+      const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear: classYear})
+      this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
+    })
   }
 
   verifyAffiliation (options) {
