@@ -65,7 +65,6 @@ export const composer = ({context, topicId, term, postListType, rightbarOpen, is
     topic.followersList = Collections.Users.find({
       _id: { $in: topic.followers.map((follower) => follower.userId) }
     }).map((user) => UserService.getUserView(user))
-    console.log(Collections.Posts.find(options).fetch())
     const posts = Collections.Posts.find(options, {sort: { createdAt: -1 }}).map((post) => {
       post.owner = UserService.getUserView(Collections.Users.findOne(post.ownerId))
 

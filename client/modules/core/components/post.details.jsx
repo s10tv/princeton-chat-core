@@ -88,7 +88,7 @@ export default React.createClass({
       showSidebar, sidebarOpen, messageLinkOnClick} = this.props
 
     return (
-      <main style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
+      <Flex style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
         <NavBar>
           <Flex alignSelf='stretch' justifyContent='space-between'>
             <Flex flexDirection='column'>
@@ -160,7 +160,7 @@ export default React.createClass({
           </Flex>
         </NavBar>
         <ScrollingContainer child={
-          <article className='no-scrollbar post-details'>
+          <Flex flexGrow={1} flexDirection='column' className='no-scrollbar' overflowY='scroll'>
             <MessageGroup owner={post.owner}
               timestamp={post.timestamp}
               content={post.content}
@@ -176,10 +176,10 @@ export default React.createClass({
                 deleteMessage={message.canDelete ? () => deleteMessage(message._id) : null}
                 showUserProfile={() => showUserProfileMessage(message)} />
             )}
-          </article>
+          </Flex>
         } />
         <InputBox postId={post._id} />
-      </main>
+      </Flex>
     )
   }
 })

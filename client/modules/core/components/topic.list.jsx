@@ -326,7 +326,7 @@ const localStyle = {
     flexGrow: '1',
     '@media (max-width: 768px)': {
       padding: 0,
-      marginBottom: 50
+      marginBottom: 20
     }
   },
 

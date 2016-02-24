@@ -80,9 +80,10 @@ export const OrDivider = ({margin}) => (
   </div>
 )
 
-export const PageControl = ({current, total}) => {
+export const PageControl = ({current, total, divStyle}) => {
   const style = {
     div: {
+      ...divStyle,
       display: 'flex',
       justifyContent: 'center',
     },

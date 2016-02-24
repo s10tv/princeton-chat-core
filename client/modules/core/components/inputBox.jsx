@@ -150,20 +150,21 @@ export default React.createClass({
   renderFollowerControls () {
     return (
       <Flex alignItems='center' marginTop='12px' height={30}>
-        <a href='#' onClick={() => this.props.showPostFollowers(this.props.post.followers)}
-          style={{display: 'flex', alignItems: 'center'}}>
+        <Flex alignItems='center'
+          onTouchTap={() => this.props.showPostFollowers(this.props.post.followers)}>
           <Inline component='span' marginRight='8px' fontWeight={300}>
             {this.props.followers.length > 0
               ? (this.props.followers.length > 1 ? 'Followers:' : 'Follower:')
-              : 'No followers'} </Inline>
-            {this.props.followers.map((user) => user.avatar.isDefaultAvatar
-              ? <LetterAvatar key={user._id} style={{marginRight: 3}} size={30} color='white'
-                backgroundColor={user.avatar.color}>
-                {user.avatarInitials}
-              </LetterAvatar>
-              : <CoverAvatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
+              : 'No followers'}
+          </Inline>
+          {this.props.followers.map((user) => user.avatar.isDefaultAvatar
+            ? <LetterAvatar key={user._id} style={{marginRight: 3}} size={30} color='white'
+              backgroundColor={user.avatar.color}>
+              {user.avatarInitials}
+            </LetterAvatar>
+            : <CoverAvatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
           )}
-        </a>
+        </Flex>
         <Flex marginLeft='auto'>
           <a
             style={{cursor: 'pointer', fontWeight: 300}}
@@ -223,7 +224,7 @@ export default React.createClass({
       </Paper>
 
     return (
-      <Flex component='footer' flexDirection='column' padding='0 16px 8px 16px'>
+      <Flex component='footer' flexDirection='column' padding='0 16px 8px 16px' flexShrink='0'>
         {mentionHelper}
         <Flex
           className='input-box'

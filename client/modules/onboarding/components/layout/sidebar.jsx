@@ -10,7 +10,9 @@ class Sidebar extends React.Component {
   render () {
     return (
       <section style={style.sidebar}>
-        {this.props.children}
+        <div className='no-scrollbar' style={style.scrollableDiv}>
+          {this.props.children}
+        </div>
       </section>
     )
   }
@@ -31,7 +33,7 @@ const style = {
     display: 'flex',
     position: 'fixed',
     width: '40%',
-    height: '100%',
+    minHeight: '100%',
     flexDirection: 'column',
     backgroundColor: color.black,
     color: color.white,
@@ -40,6 +42,12 @@ const style = {
       width: 'initial',
       height: 'initial'
     }
+  },
+  scrollableDiv: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflowY: 'scroll',
+    height: '100vh'
   }
 }
 

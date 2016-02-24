@@ -6,18 +6,19 @@ import {color, fontSize, spacing} from '/client/configs/theme'
 export default {
   sidebarHeader: {
     alignSelf: 'stretch',
+    flex: '1 0 60px',
     display: 'flex',
+    maxHeight: 60,
     justifyContent: 'flex-end',
     padding: spacing.x2,
   },
   sidebarInner: {
-    flex: 1,
+    flex: '1 0 0px',
     marginTop: spacing.x6,
     minWidth: 320,
     maxWidth: 320,
     padding: 10,
     alignSelf: 'center',
-    display: 'flex',
     flexDirection: 'column',
     '@media (max-width: 768px)': {
       padding: '10px 16px 25px 16px',
@@ -62,18 +63,24 @@ export default {
     flexDirection: 'column',
   },
   button: {
+    width: '100%',
+    marginTop: 20,
     textTransform: 'inherit',
-    textAlign: 'center'
+    textAlign: 'center',
+    minHeight: 36
     // marginLeft: spacing.x2,
     // marginRight: spacing.x2,
   },
   fbButton: {
     textTransform: 'inherit',
+    minHeight: 36
     // marginLeft: spacing.x2,
     // marginRight: spacing.x2,
   },
   error: {
     color: color.brand.danger,
+    marginTop: 20,
+    marginBottom: 5
   },
   notShowOnDesktop: {
     '@media (min-width: 768px)': {

@@ -10,6 +10,7 @@ import {TextField, RaisedButton, FlatButton, SelectField} from '/client/lib/ui.j
 
 const s = {
   header: {
+    fontWeight: 300,
     color: color.black,
     marginTop: 16,
     marginBottom: 16
@@ -67,7 +68,17 @@ export default React.createClass({
       displayName: React.PropTypes.object.isRequired,
       classYear: React.PropTypes.object.isRequired,
       username: React.PropTypes.object.isRequired
-    }).isRequired
+    }).isRequired,
+
+    handleSubmit: React.PropTypes.func
+  },
+
+  componentWillMount () {
+    document.body.style.overflow = 'auto'
+  },
+
+  componentWillUnmount () {
+    document.body.style.overflow = 'hidden'
   },
 
   render () {
@@ -89,7 +100,7 @@ export default React.createClass({
     }
 
     return (
-      <main style={Object.assign({}, styles.main, {
+      <main className='no-scrollbar' style={Object.assign({}, styles.main, {
         paddingLeft: this.props.sidebarOpen ? 240 : 0,
         maxWidth: 800,
         margin: '0 auto'
@@ -121,13 +132,13 @@ export default React.createClass({
               <Flex flexDirection='column' alignItems='center' justifyContent='center'>
                 <TextField floatingLabelText='First Name' maxLength={20} {...firstName} />
                 <TextField floatingLabelText='Last Name' maxLength={20} {...lastName} />
-                <TextField floatingLabelText='Dipsplay Name' maxLength={20} {...displayName} />
+                <TextField floatingLabelText='Full Name' maxLength={20} {...displayName} />
                 <TextField floatingLabelText='Username' maxLength={20} {...username} />
                 <SelectField floatingLabelText='Class Year' maxHeight={300} {...classYear}>
                   {classYears.map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
                 </SelectField>
                 <Flex alignSelf='flex-end' style={{marginTop: 20}}>
-                  <RaisedButton label='Update Profile' primary onTouchTap={handleSubmit} />
+                  <FlatButton label='Update Profile' primary onTouchTap={handleSubmit} />
                 </Flex>
               </Flex>
             </form>

@@ -25,7 +25,6 @@ export default {
       }
 
       LocalState.set('SHOW_ADD_TOPIC_MODAL', false)
-      console.log(`${shouldRedirect} in actions`)
       if (shouldRedirect) {
         FlowRouter.go(`/topics/${topicId}`)
       }
@@ -34,9 +33,6 @@ export default {
 
   showAddTopicModal ({ LocalState }) {
     LocalState.set('SHOW_ADD_TOPIC_MODAL', true)
-    // new UnsplashService().search('music').then(photos => {
-    //   console.log(photos)
-    // })
   },
 
   hideAddTopicModal ({ LocalState }) {

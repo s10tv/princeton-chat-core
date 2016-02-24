@@ -17,6 +17,14 @@ const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
 const audience = process.env.AUDIENCE || 'princeton'
 
+export const stripTrailingSlash = (str) => {
+  if (str.substr(-1) === '/') {
+    return str.substr(0, str.length - 1)
+  }
+  return str
+}
+const rootURL = stripTrailingSlash(process.env.ROOT_URL)
+
 export function initContext () {
   return {
     // meteor libraries
@@ -32,9 +40,10 @@ export function initContext () {
     AvatarService,
     Collections,
     SearchService: new SearchService({ Meteor, Collections }),
-    OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack }),
+    OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack, rootURL }),
     PostManager: new PostManager({Meteor, Collections}),
     TopicManager: new TopicManager({Meteor, Collections}),
+    rootURL,
     currentUser: () => {
       const user = Meteor.user()
       if (!user) {
