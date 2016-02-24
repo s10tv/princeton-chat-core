@@ -20,15 +20,6 @@ export default {
   onboardingGreeting: 'Welcome Tiger!',
   onboardingDesc: 'Princeton.Chat is a community for Princeton alums.',
 
-  // meta
-  favicon: 'images/favicon.png',
-  fbAppId: '942109702548809',
-  ogUrl: 'https://princeton.chat',
-  ogType: 'website',
-  ogTitle: 'Princeton.Chat',
-  ogDescription: 'Better Tigernet.',
-  ogImage: 'https://s10tv.blob.core.windows.net/s10tv-prod/princetonchat.jpg',
-
   // mail server info on right bar for topics and for add followers
   topicMailServer: 'topics.princeton.chat',
 
