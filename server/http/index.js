@@ -1,24 +1,12 @@
 /*global HTTP*/
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
-import CantUnfollow from './cantUnfollow.jsx'
-import env from '/imports/env'
 import emails from '../emails'
-import htmlPage from './html'
 
 const { Signup, Invite, InviteNonAlum, htmlEmail, RecoverEmail } = emails
 
 export default function () {
   HTTP.methods({
-    'guest/posts/:postId/:action': function () {
-      return htmlPage({
-        title: env.title,
-        body: ReactDOMServer.renderToStaticMarkup(
-          React.createElement(CantUnfollow)
-        )
-      })
-    },
-
     '/e/email-sent': function () {
       return htmlEmail({
         title: 'a title here',

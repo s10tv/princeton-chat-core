@@ -2,17 +2,15 @@ import React from 'react'
 import {Block} from 'jsxstyle'
 import {Style} from 'radium'
 
-import { primaryColor, emailTitle } from '../emails'
-
 const RED = 'red'
 
 const SimpleLogo = (props) => (
   <h1 style={Object.assign({}, {
-    color: primaryColor,
+    color: '#F07621',
     fontSize: 20,
     fontWeight: 600,
     margin: 0
-  }, props.style)} {...props}>{emailTitle}</h1>
+  }, props.style)} {...props}>Princeton.Chat</h1>
 )
 
 const GuestToggleFollow = (props) => (
@@ -33,8 +31,9 @@ const GuestToggleFollow = (props) => (
     }} />
     <SimpleLogo />
     {props.isFollowing
-      ? <p>You are now <span style={{color: primaryColor}}>following</span></p>
-      : <p>You just <span style={{color: RED}}>unfollowed</span></p>}
+      ? <p>You are now <span style={{color: '#F07621'}}>following</span></p>
+      : <p>You just <span style={{color: RED}}>unfollowed</span></p>
+    }
     <p>
       <strong>{props.post.title}</strong>
     </p>
@@ -49,7 +48,7 @@ const GuestToggleFollow = (props) => (
     <p>
       Changed your mind?
       <a style={{marginLeft: 8}}
-        href={props.isFollowing ? props.unfollowLink : props.followLink}
+        href='#'
         onClick={(e) => {
           e.preventDefault()
           props.isFollowing ? props.unfollowPost(props.post._id) : props.followPost(props.post._id)
