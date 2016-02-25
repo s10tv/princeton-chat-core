@@ -1,6 +1,7 @@
 /*eslint-disable no-trailing-spaces */
 import React, {PropTypes} from 'react'
 import Radium, {StyleRoot} from 'radium'
+import YouTube from 'react-youtube'
 import {propTypes as reduxFormPropTypes} from 'redux-form'
 import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
 import {color, spacing, fontSize} from '/client/configs/theme'
@@ -17,6 +18,14 @@ const Home = (props) => {
   const {domains} = props
   const {fields: {netid, domain, classYear}, handleSubmit, error, submitting} = props
 
+  const opts = {
+    height: '170',
+    width: 'auto',
+    playerVars: { // https://developers.google.com/youtube/player_parameters
+      autohide: 1
+    }
+  }
+
   return (
     <StyleRoot>
       <Layout.Window>
@@ -27,6 +36,9 @@ const Home = (props) => {
           <div style={style.sidebarInner}>
             <h1 style={s.mainLogo}>Princeton.Chat</h1>
             <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
+            <p>
+              <YouTube videoId='OXvWR4uIZC8' opts={opts} />
+            </p>
             <form style={style.form} onSubmit={handleSubmit}>
               <TextField floatingLabelText='Princeton Class Year' hintText='e.g. 2012' fullWidth {...classYear} />
               <div style={s.emailContainer}>

@@ -59,6 +59,7 @@
     "react-selectize": "^0.8.1",
     "react-styling": "1.4.0",
     "react-tap-event-plugin": "0.2.2",
+    "react-youtube": "^5.1.0",
     "redux": "3.3.1",
     "redux-form": "4.1.14",
     "redux-logger": "2.5.2",
