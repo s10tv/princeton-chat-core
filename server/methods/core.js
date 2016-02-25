@@ -7,12 +7,13 @@ function capitalizeFirstLetter (string) {
 }
 
 export default function (context) {
-  const {audience, currentUser, Meteor, Collections, PostManager, TopicManager, SearchService,
-    AvatarService, Accounts } = context
+  const {audience, currentUser, Meteor, Collections, PostManager, TopicManager,
+    AvatarService, Accounts, Logger} = context
   const {Topics, Posts, Messages, Users} = Collections
 
   Meteor.methods({
     'post/insert': (_id, title, content, topicIds) => {
+      Logger.log({ level: 'info', method: 'post/insert', postId })
       const user = currentUser()
 
       try {
@@ -67,6 +68,7 @@ export default function (context) {
     },
 
     'topic/follow': (topicId) => {
+      Logger.log({ level: 'info', method: 'topic/follow', topicId })
       try {
         TopicManager.follow({topicId, user: currentUser()})
       } catch (err) {
@@ -76,6 +78,7 @@ export default function (context) {
     },
 
     'topic/unfollow': (topicId) => {
+      Logger.log({ level: 'info', method: 'topic/unfollow', topicId })
       try {
         TopicManager.unfollow({topicId, user: currentUser()})
       } catch (err) {
@@ -85,6 +88,7 @@ export default function (context) {
     },
 
     'topic/removeFollower': (topicId, userId) => {
+      Logger.log({ level: 'info', method: 'topic/removeFollower', userId, topicId })
       try {
         TopicManager.unfollow({topicId, user: {_id: userId}})
       } catch (err) {
@@ -94,6 +98,7 @@ export default function (context) {
     },
 
     'topic/remove': (topicId) => {
+      Logger.log({ level: 'info', method: 'topic/remove', topicId })
       const user = currentUser()
       const topic = Topics.findOne(topicId)
 
@@ -109,6 +114,7 @@ export default function (context) {
     },
 
     'topic/create': (topicInfo) => {
+      Logger.log({ level: 'info', method: 'topic/create', topicInfo })
       const user = currentUser()
 
       if (!topicInfo.name) {
@@ -155,6 +161,7 @@ export default function (context) {
     },
 
     'topics/users/import': (topicId, userInfos) => {
+      Logger.log({ level: 'info', method: 'topics/users/import', topicId })
       const topic = Topics.findOne(topicId)
       if (!topic) {
         throw new Meteor.Error(400, `Invalid topicId: ${topicId}.`)
@@ -207,18 +214,22 @@ export default function (context) {
     },
 
     'post/follow': (postId) => {
+      Logger.log({ level: 'info', method: 'post/follow', postId })
       PostManager.follow({postId, user: currentUser()})
     },
 
     'post/unfollow': (postId) => {
+      Logger.log({ level: 'info', method: 'post/unfollow', postId })
       PostManager.unfollow({postId, user: currentUser()})
     },
 
     'post/delete': (postId) => {
+      Logger.log({ level: 'info', method: 'post/delete', postId })
       return PostManager.delete({postId, user: currentUser()})
     },
 
     'messages/insert': (_id, postId, commentText) => {
+      Logger.log({ level: 'info', method: 'messages/insert', commentId: _id, postId })
       const user = currentUser()
       Messages.insert({
         _id,
@@ -237,6 +248,7 @@ export default function (context) {
     },
 
     'messages/delete': (_id) => {
+      Logger.log({ level: 'info', method: 'messages/delete', commentId: _id })
       const user = currentUser()
       const message = Messages.findOne(_id)
       if (message.ownerId !== user._id) {
@@ -246,25 +258,10 @@ export default function (context) {
     },
 
     'get/followers': (userIds) => {
+      Logger.log({ level: 'info', method: 'get/followers' })
       return userIds.map((user) => {
         return Users.findOne(user.userId)
       }).filter((user) => user !== undefined)
-    },
-
-    'search/username': (username) => {
-      return Users.find({ username: { $regex: new RegExp(`^${username}`, 'i') } }, {limit: 3}).fetch()
-    },
-
-    'search/users': (input) => {
-      currentUser()
-
-      return SearchService.searchUsers(input)
-    },
-
-    'search/posts': (input) => {
-      currentUser()
-
-      return SearchService.searchPosts(input)
     }
   })
 }
