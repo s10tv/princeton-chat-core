@@ -1,7 +1,6 @@
 import React from 'react'
 import Dialog from '../../../../node_modules/material-ui/lib/dialog'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
-import TextField from '../../../../node_modules/material-ui/lib/text-field'
 import Select from 'react-select'
 import Toolbar from '../../../../node_modules/material-ui/lib/toolbar/toolbar'
 import ToolbarGroup from '../../../../node_modules/material-ui/lib/toolbar/toolbar-group'
@@ -10,6 +9,7 @@ import {Flex} from 'jsxstyle'
 import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
 import LinearProgress from '../../../../node_modules/material-ui/lib/linear-progress'
+import {TextField} from '/client/lib/ui.jsx'
 import { i18n } from '/client/configs/env'
 
 const theme = i18n('primaryMuiTheme')
@@ -28,19 +28,9 @@ export default React.createClass({
     handleClose: React.PropTypes.func.isRequired,
 
     /**
-     * Function to call when we want to actually create the post.
-     */
-    create: React.PropTypes.func.isRequired,
-
-    /**
      * A list of all of the topics to use for the selector
      */
     allTopics: React.PropTypes.array,
-
-    /**
-     * What the select box is rendered with initially.
-     */
-    topicIds: React.PropTypes.string,
 
     /**
      * A function to show the followers of the post.
@@ -62,69 +52,25 @@ export default React.createClass({
      */
     showSnackbarError: React.PropTypes.func.isRequired,
 
-    modifyAddPostTopic: React.PropTypes.func.isRequired,
-    clearAddPostTopics: React.PropTypes.func.isRequired
-  },
 
-  getInitialState () {
-    return {}
-  },
-
-  onAddPost () {
-    const title = this.refs.title.getValue()
-    const content = this.refs.content.getValue()
-    const topics = this.props.topicIds
-
-    // create action makes a callback with appropriate errors
-    this.setState({
-      loading: true
-    })
-
-    this.props.create(title, content, topics, (errors) => {
-      if (errors) {
-        this.setState({
-          titleError: null,
-          contentError: null,
-          loading: false
-        })
-        errors.forEach((error) => {
-          switch (error.type) {
-            case 'title':
-              this.setState({
-                titleError: error.reason
-              })
-              break
-            case 'content':
-              this.setState({
-                contentError: error.reason
-              })
-              break
-            // fall through intentional
-            case 'topics':
-            case 'server':
-              this.props.showSnackbarError(error.reason)
-              break
-          }
-        })
-      } else {
-        this.setState({
-          titleError: null,
-          contentError: null,
-          loading: false
-        })
-
-        this.props.clearAddPostTopics()
-      }
-    })
+    fields: React.PropTypes.shape({
+      title: React.PropTypes.object.isRequired,
+      content: React.PropTypes.object.isRequired,
+      topicIds: React.PropTypes.object.isRequired
+    }).isRequired,
+    handleSubmit: React.PropTypes.func.isRequired
   },
 
   modifyTopicsList (value) {
-    this.props.modifyAddPostTopic(value)
+    console.log(this.props.fields.topicIds)
+    this.props.fields.topicIds.onUpdate(value)
     this.props.updateTopicFollowers(value.split(','))
   },
 
   render () {
-    const { isOpen, handleClose, allTopics, showTopicFollowers } = this.props
+    const { fields: {title, content, topicIds}, isOpen, handleClose,
+      allTopics, showTopicFollowers, handleSubmit, submitting,
+      numFollowersNotified} = this.props
 
     const toolbar =
       <Toolbar>
@@ -139,61 +85,54 @@ export default React.createClass({
         </ToolbarGroup>
       </Toolbar>
 
-    return (
-      <Dialog
-        title={toolbar}
-        bodyStyle={{ overflow: 'visible' }}
-        actions={[
-          !this.props.topicIds ? null
-            : <a href='#' onClick={showTopicFollowers} style={{marginRight: 10}}>
-              {this.props.numFollowersNotified} people will be notified
-            </a>,
-          <RaisedButton
-            label='Post'
-            primary
-            onTouchTap={this.onAddPost} />
-        ]}
-        actionsContainerStyle={{padding: '0px 24px', paddingBottom: 24}}
-        modal
-        open={isOpen}>
-        <Flex flexDirection='column'>
-          {!this.state.titleError
-            ? <TextField ref='title' fullWidth floatingLabelText='Subject' />
-            : <TextField ref='title'
-              errorStyle={{ color: primaryAccent, borderColor: primaryAccent }}
-              fullWidth
-              floatingLabelText='Subject'
-              errorText={this.state.titleError} />}
+    console.log('submitting', submitting)
 
-          {!this.state.contentError
-            ? <TextField ref='content' fullWidth
+    return (
+      <form onSubmit={handleSubmit}>
+        <Dialog
+          title={toolbar}
+          bodyStyle={{ overflow: 'visible' }}
+          actions={[
+            !this.props.topicIds ? null
+              : <a href='#' onClick={showTopicFollowers} style={{marginRight: 10}}>
+                {numFollowersNotified} people will be notified
+              </a>,
+            <RaisedButton
+              label='Post'
+              primary
+              disabled={submitting}
+              onTouchTap={handleSubmit} />
+          ]}
+          actionsContainerStyle={{padding: '0px 24px', paddingBottom: 24}}
+          modal
+          open={isOpen}>
+          <Flex flexDirection='column'>
+            <TextField
+              {...title}
+              fullWidth
+              floatingLabelText='Subject' />
+
+            <TextField
+              {...content}
+              fullWidth
               rowsMax={5}
               rows={5}
               multiLine
               hintText='Start a conversation...'
               floatingLabelText='Content' />
-            : <TextField ref='content'
-              errorStyle={{ color: primaryAccent, borderColor: '#F07621' }}
-              fullWidth
-              rowsMax={5}
-              rows={5}
-              multiLine
-              hintText='Start a conversation...'
-              floatingLabelText='Content'
-              errorText={this.state.contentError} />}
 
-          <Select
-            ref='topics'
-            name='postTopics'
-            placeholder='Post in channels ... '
-            options={allTopics}
-            multi
-            simpleValue
-            value={this.props.topicIds}
-            onChange={this.modifyTopicsList} />
-          {!this.state.loading ? null : <LinearProgress mode='indeterminate' style={{marginTop: 20}}/>}
-        </Flex>
-      </Dialog>
+            <Select
+              ref='topics'
+              name='postTopics'
+              placeholder='Post in channels ... '
+              options={allTopics}
+              multi
+              simpleValue
+              {...topicIds}
+              onChange={this.modifyTopicsList} />
+          </Flex>
+        </Dialog>
+      </form>
     )
   }
 })

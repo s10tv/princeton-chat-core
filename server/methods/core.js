@@ -12,7 +12,10 @@ export default function (context) {
   const {Topics, Posts, Messages, Users} = Collections
 
   Meteor.methods({
-    'post/insert': (_id, title, content, topicIds) => {
+    'post/insert': (options) => {
+      console.log(options)
+      let {_id, title, content, topicIds} = options
+
       const user = currentUser()
 
       try {

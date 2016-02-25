@@ -25,11 +25,11 @@ export const createOnSubmit = (method, success) => {
     return new Promise((resolve, reject) => {
       Meteor.call(method, data, (err, res) => {
         if (err) {
+          console.error(`Failure calling method ${method}`, err)
           reject({
             ...(typeof err.details === 'object' ? err.details : {}),
             _error: err.reason || 'An unknown error has occured'
           })
-          console.error(`Failure calling method ${method}`, err)
         } else {
           resolve(res)
           success && success(context, res)

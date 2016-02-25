@@ -1,5 +1,14 @@
 import CreatePost from '/client/modules/core/components/modal.post.create.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
+import {reduxForm} from 'redux-form'
+import {newPostValidator} from '/lib/validation/core'
+
+export const formConfig = {
+  form: 'onboarding/signup',
+  fields: ['title', 'content', 'topicIds'],
+  validate: newPostValidator,
+  normalize: {}
+}
 
 export const composer = ({context}, onData) => {
   const { Collections, LocalState } = context()
@@ -12,28 +21,31 @@ export const composer = ({context}, onData) => {
   const numFollowersNotified = LocalState.get('POST_FOLLOWERS')
     ? LocalState.get('POST_FOLLOWERS').length
     : 0
-  const topicIds = LocalState.get('ADD_POST_TOPICS')
 
   onData(null, {
     isOpen,
     allTopics,
-    topicIds,
     numFollowersNotified
   })
 }
 
 export const depsMapper = (context, actions) => ({
-  create: actions.posts.create,
+  onSubmit: actions.posts.create,
   handleClose: actions.posts.closeAddPostPopup,
   showTopicFollowers: actions.topics.showTopicFollowers,
-  modifyAddPostTopic: actions.posts.modifyAddPostTopic,
   clearAddPostTopics: actions.posts.clearAddPostTopics,
   updateTopicFollowers: actions.topics.updateTopicFollowers,
   showSnackbarError: actions.posts.showSnackbarError,
+  store: context.store,
   context: () => context
 })
 
 export default composeAll(
+  reduxForm(formConfig, state => ({ // mapStateToProps
+    initialValues: {
+      topicIds: state.core.newPostTopics
+    }
+  })),
   composeWithTracker(composer),
   useDeps(depsMapper)
 )(CreatePost)
