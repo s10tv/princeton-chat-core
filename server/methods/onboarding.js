@@ -1,18 +1,21 @@
 export default function (context) {
   const {slack, currentUser, Meteor,
-    OnboardManager, Collections, AvatarService, audience} = context
+    OnboardManager, Collections, AvatarService, audience, Logger} = context
   const {Users} = Collections
 
   Meteor.methods({
     'signup/verifyAffiliation': (options) => {
+      Logger.log({ level: 'info', method: 'signup/verifyAffiliation', options })
       return OnboardManager.verifyAffiliation(options)
     },
 
     'signup/alumni': (options) => {
+      Logger.log({ level: 'info', method: 'signup/alumni', options })
       return OnboardManager.verifyAlumni(options)
     },
 
     'profile/avatar/useFacebook': () => {
+      Logger.log({ level: 'info', method: 'profile/avatar/useFacebook' })
       const user = currentUser()
 
       if (user.services.facebook) {
@@ -28,6 +31,7 @@ export default function (context) {
     },
 
     'profile/avatar/useDefault': () => {
+      Logger.log({ level: 'info', method: 'profile/avatar/useDefault' })
       const user = currentUser()
 
       Users.update(user._id, { $set: {
@@ -40,6 +44,7 @@ export default function (context) {
     },
 
     'profile/update': (profile) => {
+      Logger.log({ level: 'info', method: 'profile/update' })
       const user = currentUser()
       const userWithThisUsername = Users.findOne({ username: profile.username })
       if (userWithThisUsername && userWithThisUsername._id !== user._id) {
@@ -70,24 +75,20 @@ export default function (context) {
       }
     },
 
-    'emailPreference/update': (preference) => {
-      const user = currentUser()
-      Users.update(user._id, { $set: {
-        emailPreference: preference
-      }})
-    },
-
     'welcome/forgotPassword': (options) => {
+      Logger.log({ level: 'info', method: 'welcome/forgotPassword' })
       const { email } = options
       return OnboardManager.sendRecoveryEmail(email)
     },
 
     'welcome/signup': (info) => {
+      Logger.log({ level: 'info', method: 'welcome/signup' })
       const user = currentUser()
       return OnboardManager.handleSignup(user, info)
     },
 
     'welcome/linkfacebook': () => {
+      Logger.log({ level: 'info', method: 'welcome/linkfacebook' })
       const user = currentUser()
 
       var avatarUrl = user.avatar.url
@@ -109,6 +110,7 @@ export default function (context) {
     },
 
     'welcome/invite': (options) => {
+      Logger.log({ level: 'info', method: 'welcome/invite' })
       const user = currentUser()
       const { invitees } = options
       OnboardManager.handleInvites(user, invitees)
@@ -116,6 +118,7 @@ export default function (context) {
     },
 
     'welcome/setLoginService': (serviceName) => {
+      Logger.log({ level: 'info', method: 'welcome/setLoginService' })
       try {
         const user = currentUser()
         Users.update(user._id, { $set: {
@@ -129,6 +132,7 @@ export default function (context) {
     },
 
     'user/setStatusActive': () => {
+      Logger.log({ level: 'info', method: 'user/setStatusActive' })
       const user = currentUser()
 
       Users.update(user._id, { $set: {

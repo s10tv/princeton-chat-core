@@ -49,8 +49,10 @@ export function initContext () {
     currentUser: () => {
       const user = Meteor.user()
       if (!user) {
+        Logger.log({ level: 'error', message: 'currentUser not found' })
         throw new Meteor.Error(401, 'Unauthorized')
       }
+      Logger.log({ level: 'info', userId: user._id })
       return user
     }
   }
