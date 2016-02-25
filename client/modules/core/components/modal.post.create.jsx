@@ -93,8 +93,6 @@ export default React.createClass({
         </ToolbarGroup>
       </Toolbar>
 
-    console.log('submitting', submitting)
-
     return (
       <form onSubmit={handleSubmit}>
         <Dialog
