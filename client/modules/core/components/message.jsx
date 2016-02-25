@@ -54,8 +54,14 @@ class MessageGroupComponent extends React.Component {
     return (
       <Flex
         flexShrink='0'
-        onMouseEnter={() => this.setState({hover: true})}
-        onMouseLeave={() => this.setState({hover: false})}
+        props={{
+          onMouseEnter: () => {
+            this.setState({ hover: true })
+          },
+          onMouseLeave: () => {
+            this.setState({ hover: false })
+          }
+        }}
         style={Object.assign({
           position: 'relative',
           padding: '8px 16px'
@@ -112,4 +118,3 @@ MessageGroupComponent.propTypes = {
 }
 
 export const MessageGroup = Radium(MessageGroupComponent)
-
