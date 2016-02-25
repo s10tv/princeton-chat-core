@@ -38,12 +38,12 @@ class RequestInvite extends React.Component {
                   fullWidth {...birthDate} />
                 <SelectField maxHeight={300}
                   floatingLabelText='Princeton Class Year' fullWidth {...classYear}>
-                  <MenuItem value='' primaryText=''/>
+                  <MenuItem key='default' value='' primaryText=''/>
                   {classYears.map((year) => <MenuItem key={year} value={year} primaryText={year} />)}
                 </SelectField>
                 <SelectField maxHeight={300}
                   floatingLabelText='Princeton Degree' fullWidth {...degree}>
-                  <MenuItem value='' primaryText='' />
+                  <MenuItem key='default' value='' primaryText='' />
                   {degrees.map((degree) => <MenuItem key={degree.value} value={degree.value}
                     primaryText={degree.label} />)}
                 </SelectField>
@@ -52,7 +52,7 @@ class RequestInvite extends React.Component {
                   fullWidth
                   {...email} />
                 {error && <p style={style.error}>{error}</p>}
-                <FlatButton type='submit' style={[style.button, {marginBottom: 20}]} label='Verify' disabled={submitting}
+                <FlatButton type='submit' style={Object.assign({}, style.button, {marginBottom: 20})} label='Verify' disabled={submitting}
                   backgroundColor={color.green} hoverColor={color.lightGreen} />
                 {submitting && <LinearProgress />}
               </form>
