@@ -1,4 +1,4 @@
-import CreatePost from '/client/modules/core/components/modal.post.create.jsx'
+import CreatePost from '/client/modules/core/components/post.create.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import {newPostValidator} from '/lib/validation/core'
