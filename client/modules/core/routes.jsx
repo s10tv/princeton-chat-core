@@ -37,15 +37,13 @@ export default function (injectDeps, {FlowRouter, Collections, Meteor, Accounts,
 
   FlowRouter.route('/guest/posts/:postId/:action', {
     name: 'follow-unfollow-post-from-email',
+    subscriptions: function () {
+      this.register('userData', Meteor.subscribe('userData'))
+    },
     triggersEnter: [requireUserInSessionFn],
     action ({ postId, action }) {
-
       mount(injectDeps(ToggleFollowing), {
-        title: post.title,
-        isFollowing,
-        postId,
-        followLink: `/guest/posts/${postId}/follow`,
-        unfollowLink: `/guest/posts/${postId}/unfollow`
+        postId
       })
     }
   })

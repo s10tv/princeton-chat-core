@@ -36,7 +36,7 @@ const GuestToggleFollow = (props) => (
       ? <p>You are now <span style={{color: primaryColor}}>following</span></p>
       : <p>You just <span style={{color: RED}}>unfollowed</span></p>}
     <p>
-      <strong>{props.title}</strong>
+      <strong>{props.post.title}</strong>
     </p>
     <p>
       {props.isFollowing
@@ -49,22 +49,23 @@ const GuestToggleFollow = (props) => (
     <p>
       Changed your mind?
       <a style={{marginLeft: 8}}
-        href={props.isFollowing ? props.unfollowLink : props.followLink}>
+        href={props.isFollowing ? props.unfollowLink : props.followLink}
+        onClick={(e) => {
+          e.preventDefault()
+          props.isFollowing ? props.unfollowPost(props.post._id) : props.followPost(props.post._id)
+        }}>
         {props.isFollowing
           ? 'Unfollow'
           : 'Follow again'}
       </a>
     </p>
-    <p>
-      <a href={props.editTopicsLink}>Edit My Channels</a>
-    </p>
   </Block>
 )
 GuestToggleFollow.propTypes = {
-  title: React.PropTypes.string.isRequired,
+  post: React.PropTypes.object.isRequired,
   isFollowing: React.PropTypes.bool.isRequired,
-  followLink: React.PropTypes.string.isRequired,
-  unfollowLink: React.PropTypes.string.isRequired
+  followPost: React.PropTypes.func.isRequired,
+  unfollowPost: React.PropTypes.func.isRequired
 }
 
 export default GuestToggleFollow

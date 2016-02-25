@@ -3,32 +3,27 @@ import ToggleFollowing from '/client/modules/core/components/toggleFollowing.jsx
 import {PageLoader} from '/client/lib/ui.jsx'
 
 export const composer = ({context, postId}, onData) => {
-  const {Meteor, Collections, FlowRouter} = context()
+  const {Meteor, Collections, FlowRouter, UserService} = context()
   const {Posts} = Collections
-  if (Meteor.subscribe('posts.single', postId).ready()) {
+  if (Meteor.subscribe('post.single', postId).ready()) {
     const post = Posts.findOne(postId)
+
     if (!post) {
       return FlowRouter.go('/error')
     }
-    let isFollowing = false
 
-    if (action === 'follow') {
-      Meteor.call('post/follow', postId, (err) => {
+    const currentUser = UserService.currentUser()
+    const isFollowing = currentUser.followingPosts.indexOf(post._id) !== -1
+    console.log(isFollowing)
 
-      })
-      isFollowing = true
-    } else if (action === 'unfollow') {
-      Meteor.call('post/unfollow', postId)
-      isFollowing = false
-    } else {
-      return FlowRouter.go('/error')
-    }
+    onData(null, { post, isFollowing })
   }
-  onData(null, {})
 }
 
 const depsMapper = (context, actions) => ({
-  context: () => context
+  context: () => context,
+  followPost: actions.posts.follow,
+  unfollowPost: actions.posts.unfollow
 })
 
 export default composeAll(
