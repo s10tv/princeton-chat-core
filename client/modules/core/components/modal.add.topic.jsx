@@ -104,7 +104,7 @@ export default React.createClass({
 
     return (
       <Dialog title={toolbar} open={this.props.isOpen} handleClose={this.props.handleClose}
-        modal={false} bodyStyle={{overflowY: 'scroll'}} bodyClassName='no-scrollbar'>
+        modal={false} bodyStyle={{overflowY: 'scroll', paddingBottom: 0}} bodyClassName='no-scrollbar'>
         <Flex flexDirection='column' flexGrow={1}>
           <Flex style={{
             height: 200,
@@ -131,7 +131,7 @@ export default React.createClass({
             multiLine rows={3} rowsMax={3} ref='topicDescriptionContainer'
             refComponent='topicDescription' validateField={this.props.validateTopicDescription} />
           <RaisedButton primary label='Create Channel' onTouchTap={this.createTopic}
-            style={{marginTop: 15, alignSelf: 'center'}}/>
+            style={{marginTop: 15, alignSelf: 'center', marginBottom: 24}}/>
         </Flex>
       </Dialog>
     )

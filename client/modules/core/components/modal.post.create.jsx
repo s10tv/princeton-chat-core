@@ -19,10 +19,15 @@ class ReduxFormSelect extends React.Component {
   render () {
     const {value, onBlur, ...props} = this.props // onBlur and value was on this.props.fields.myField in MyForm
     return <Select
-      value={value || ''}          // because react-select doesn't like the initial value of undefined
+      value={value || ''}          // because react-select doesnt like the initial value of undefined
       onBlur={() => onBlur(value)} // just pass the current value (updated on change) on blur
       {...props} />                // options are part of other props
   }
+}
+
+ReduxFormSelect.propTypes = {
+  value: React.PropTypes.string,
+  onBlur: React.PropTypes.func
 }
 
 export default React.createClass({
@@ -67,7 +72,9 @@ export default React.createClass({
       content: React.PropTypes.object.isRequired,
       topicIds: React.PropTypes.object.isRequired
     }).isRequired,
-    handleSubmit: React.PropTypes.func.isRequired
+    handleSubmit: React.PropTypes.func.isRequired,
+    error: React.PropTypes.object,
+    submitting: React.PropTypes.bool
   },
 
   modifyTopicsList (value) {
