@@ -1,16 +1,8 @@
-import {Posts, Topics, Users} from '/lib/collections'
-import {Meteor} from 'meteor/meteor'
-import {check} from 'meteor/check'
-import UserService from '/lib/user.service.js'
+export default function ({Meteor, Collections, UserService}) {
+  const {Posts, Topics, Users} = Collections
 
-export default function () {
   Meteor.methods({
     'post/insert' (_id, title, content, topicIds) {
-      check(_id, String)
-      check(title, String)
-      check(content, String)
-      check(topicIds, [String])
-
       const createdAt = new Date()
       const ownerId = UserService.currentUser()._id
 
@@ -21,7 +13,6 @@ export default function () {
     },
 
     'topic/follow' (topicId) {
-      check(topicId, String)
       const user = UserService.currentUser()
       Users.update(user._id, { $addToSet: {
         followingTopics: topicId
@@ -33,7 +24,6 @@ export default function () {
     },
 
     'topic/unfollow' (topicId) {
-      check(topicId, String)
       const user = UserService.currentUser()
       Users.update(user._id, { $pull: {
         followingTopics: topicId
@@ -45,7 +35,6 @@ export default function () {
     },
 
     'post/follow' (postId) {
-      check(postId, String)
       const user = UserService.currentUser()
       Users.update(user._id, { $addToSet: {
         followingPosts: postId
@@ -57,7 +46,6 @@ export default function () {
     },
 
     'post/unfollow' (postId) {
-      check(postId, String)
       const user = UserService.currentUser()
       Users.update(user._id, { $pull: {
         followingPosts: postId

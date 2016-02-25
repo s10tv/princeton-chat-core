@@ -1,15 +1,7 @@
-import {Meteor} from 'meteor/meteor'
-import {check} from 'meteor/check'
-import {Messages} from '/lib/collections'
-import UserService from '/lib/user.service.js'
-
-export default function () {
+export default function ({Meteor, Collections, UserService}) {
+  const {Messages} = Collections
   Meteor.methods({
     'messages/insert' (_id, postId, content) {
-      check(_id, String)
-      check(postId, String)
-      check(content, String)
-
       const createdAt = new Date()
       const ownerId = UserService.currentUser()._id
 
