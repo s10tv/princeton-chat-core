@@ -13,9 +13,7 @@ export default function (context) {
 
   Meteor.methods({
     'post/insert': (options) => {
-      console.log(options)
       let {_id, title, content, topicIds} = options
-
       const user = currentUser()
 
       try {
@@ -35,7 +33,7 @@ export default function (context) {
       })
 
       if (filteredTopicIds.length === 0) {
-        throw new Meteor.Error(400, 'Please enter at least one valid topicId.')
+        throw new Meteor.Error(400, 'Please add at least one channel to the post.')
       }
 
       // We are good to insert the post.

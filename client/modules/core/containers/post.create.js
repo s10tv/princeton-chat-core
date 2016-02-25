@@ -4,7 +4,7 @@ import {reduxForm} from 'redux-form'
 import {newPostValidator} from '/lib/validation/core'
 
 export const formConfig = {
-  form: 'onboarding/signup',
+  form: 'post/create',
   fields: ['title', 'content', 'topicIds'],
   validate: newPostValidator,
   normalize: {}
@@ -33,7 +33,6 @@ export const depsMapper = (context, actions) => ({
   onSubmit: actions.posts.create,
   handleClose: actions.posts.closeAddPostPopup,
   showTopicFollowers: actions.topics.showTopicFollowers,
-  clearAddPostTopics: actions.posts.clearAddPostTopics,
   updateTopicFollowers: actions.topics.updateTopicFollowers,
   showSnackbarError: actions.posts.showSnackbarError,
   store: context.store,
@@ -41,7 +40,7 @@ export const depsMapper = (context, actions) => ({
 })
 
 export default composeAll(
-  reduxForm(formConfig, state => ({ // mapStateToProps
+  reduxForm(formConfig, (state) => ({ // mapStateToProps
     initialValues: {
       topicIds: state.core.newPostTopics
     }

@@ -4,7 +4,10 @@ import actions from './actions'
 import routes from './routes.jsx'
 import {formConfig as settingsFormConfig} from './containers/settings.js'
 
-function newPostTopics(state = '', action) {
+/**
+ * Reducer that sets the default topic values of a new topic dropdown.
+ */
+function newPostTopics (state = '', action) {
   switch (action.type) {
     case 'ADD_POST_TOPICS':
       return action.topics

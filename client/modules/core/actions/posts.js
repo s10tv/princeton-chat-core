@@ -1,18 +1,17 @@
 import {createOnSubmit} from '/client/lib/helpers'
-import NewPostService from '/client/lib/newpost.service.js'
 import TopicActions from './topics.js'
 
 export default {
-  create(context, info = {}) {
-    info._id =  Meteor.uuid()
+  create (context, info = {}) {
+    const {Meteor} = context
+
+    info._id = Meteor.uuid()
     info.topicIds = info.topicIds.split(',')
 
-    console.log(info)
-
-    //return createOnSubmit('post/insert', ({FlowRouter, LocalState}) => {
-    //  LocalState.set('ADD_POST_POPUP_SHOWING', false)
-    //  FlowRouter.go(`/topics/${info.topicIds[0]}/${id}`)
-    //})(context, info)
+    return createOnSubmit('post/insert', ({FlowRouter, LocalState}) => {
+      LocalState.set('ADD_POST_POPUP_SHOWING', false)
+      FlowRouter.go(`/topics/${info.topicIds[0]}/${info._id}`)
+    })(context, info)
   },
 
   fetchMentions ({LocalState, Meteor}, username, callback) {
@@ -51,13 +50,6 @@ export default {
       topics: currentTopic
     })
     TopicActions.updateTopicFollowers(context, [currentTopic])
-  },
-
-  clearAddPostTopics ({store}) {
-    store.dispatch({
-      type: 'ADD_POST_TOPICS',
-      topics: ''
-    })
   },
 
   closeAddPostPopup ({ LocalState }) {

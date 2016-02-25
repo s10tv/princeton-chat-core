@@ -9,11 +9,21 @@ import {Flex} from 'jsxstyle'
 import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
 import LinearProgress from '../../../../node_modules/material-ui/lib/linear-progress'
+import {color} from '/client/configs/theme'
 import {TextField} from '/client/lib/ui.jsx'
-import { i18n } from '/client/configs/env'
 
-const theme = i18n('primaryMuiTheme')
-const primaryAccent = theme.baseTheme.palette.accent1Color
+/**
+ * https://github.com/erikras/redux-form/issues/82
+ */
+class ReduxFormSelect extends React.Component {
+  render () {
+    const {value, onBlur, ...props} = this.props // onBlur and value was on this.props.fields.myField in MyForm
+    return <Select
+      value={value || ''}          // because react-select doesn't like the initial value of undefined
+      onBlur={() => onBlur(value)} // just pass the current value (updated on change) on blur
+      {...props} />                // options are part of other props
+  }
+}
 
 export default React.createClass({
   propTypes: {
@@ -52,7 +62,6 @@ export default React.createClass({
      */
     showSnackbarError: React.PropTypes.func.isRequired,
 
-
     fields: React.PropTypes.shape({
       title: React.PropTypes.object.isRequired,
       content: React.PropTypes.object.isRequired,
@@ -62,14 +71,13 @@ export default React.createClass({
   },
 
   modifyTopicsList (value) {
-    console.log(this.props.fields.topicIds)
-    this.props.fields.topicIds.onUpdate(value)
+    this.props.fields.topicIds.onChange(value)
     this.props.updateTopicFollowers(value.split(','))
   },
 
   render () {
     const { fields: {title, content, topicIds}, isOpen, handleClose,
-      allTopics, showTopicFollowers, handleSubmit, submitting,
+      allTopics, showTopicFollowers, handleSubmit, submitting, error,
       numFollowersNotified} = this.props
 
     const toolbar =
@@ -93,7 +101,7 @@ export default React.createClass({
           title={toolbar}
           bodyStyle={{ overflow: 'visible' }}
           actions={[
-            !this.props.topicIds ? null
+            !this.props.fields.topicIds ? null
               : <a href='#' onClick={showTopicFollowers} style={{marginRight: 10}}>
                 {numFollowersNotified} people will be notified
               </a>,
@@ -121,15 +129,22 @@ export default React.createClass({
               hintText='Start a conversation...'
               floatingLabelText='Content' />
 
-            <Select
-              ref='topics'
-              name='postTopics'
+            <ReduxFormSelect {...topicIds}
               placeholder='Post in channels ... '
               options={allTopics}
               multi
               simpleValue
-              {...topicIds}
               onChange={this.modifyTopicsList} />
+
+            {submitting && <LinearProgress color={color.brand.primary} style={{
+              marginTop: 15
+            }} />}
+
+            {error && <p style={{
+              color: color.brand.danger,
+              marginTop: 15,
+              marginBottom: 15
+            }}>{error}</p>}
           </Flex>
         </Dialog>
       </form>
