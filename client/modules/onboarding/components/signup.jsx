@@ -41,6 +41,9 @@ const Signup = (props) => {
                   backgroundColor={color.facebook.blue}
                   hoverColor={color.facebook.mediumBlue} />
               }
+              <p style={s.facebookDisclaimer}>
+                We will never post to FB without your permission
+              </p>
               <OrDivider margin={`${spacing.x3}px ${spacing.x3}px 0 ${spacing.x3}px`} />
               <div style={s.nameRow}>
                 <TextField floatingLabelText='First Name' {...firstName} />
@@ -79,6 +82,11 @@ const s = {
     marginTop: spacing.x2,
     marginBottom: spacing.x4,
     fontSize: fontSize.lg,
+  },
+  facebookDisclaimer: {
+    marginBottom: 0,
+    marginTop: 15,
+    color: color.gray
   },
   nameRow: {
     display: 'flex',
