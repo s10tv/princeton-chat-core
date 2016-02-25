@@ -33,7 +33,7 @@ const Home = (props) => {
           <header style={style.sidebarHeader}>
             <a style={style.sidebarLink} href='/login'>Log in</a>
           </header>
-          <div style={style.sidebarInner}>
+          <div style={[style.sidebarInner, {marginTop: spacing.x2}]}>
             <h1 style={s.mainLogo}>Princeton.Chat</h1>
             <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
             <p>
@@ -58,6 +58,9 @@ const Home = (props) => {
                 backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
             </form>
+            <p style={s.disclaimer}>
+              Disclaimer: Princeton.Chat is an alumni led effort NOT officially endorsed by Princeton University.
+            </p>
           </div>
         </Layout.Sidebar>
         <Layout.Main>
@@ -81,7 +84,7 @@ Home.propTypes = {
 const s = {
   mainLogo: {
     fontWeight: 'normal',
-    marginBottom: spacing.x2,
+    marginBottom: spacing.x1,
     color: color.brand.primary
   },
   emailContainer: {
@@ -98,6 +101,10 @@ const s = {
     marginTop: 20,
     color: color.white,
     fontSize: fontSize.xs
+  },
+  disclaimer: {
+    fontSize: 8,
+    marginTop: 20
   }
 }
 export default Radium(Home)
