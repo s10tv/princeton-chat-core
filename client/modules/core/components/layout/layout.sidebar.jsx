@@ -155,7 +155,7 @@ const NonTappableSubHeader = ({label}) => (
 
 const AddNewPostButton = ({ onClick }) => (
   <Flex marginTop='15' marginBottom='7' flexShrink={0}>
-    <RaisedButton id='new-post' primary label='New Post' labelPosition='after' onTouchTap={onClick}
+    <RaisedButton id='new-post' primary label='New Post' labelPosition='after' onClick={onClick}
       style={{margin: '0px auto'}}>
       <FontIcon className='material-icons' color='white'
         style={{

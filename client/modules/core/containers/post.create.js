@@ -2,6 +2,7 @@ import CreatePost from '/client/modules/core/components/modal.post.create.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import {newPostValidator} from '/lib/validation/core'
+import {CreateNewPostPhoto} from '/client/lib/unsplash.service.js'
 
 export const formConfig = {
   form: 'post/create',
@@ -13,7 +14,6 @@ export const formConfig = {
 export const composer = ({context}, onData) => {
   const { Collections, LocalState } = context()
 
-  const isOpen = LocalState.get('ADD_POST_POPUP_SHOWING') || false
   const allTopics = Collections.Topics.find().map((topic) => {
     return { value: topic._id, label: topic.displayName }
   })
@@ -22,10 +22,17 @@ export const composer = ({context}, onData) => {
     ? LocalState.get('POST_FOLLOWERS').length
     : 0
 
+  // as this screen uses the menu from post list, it needs a to be a 'topic' to pass in to the menu
+  const createPostTopicWrapper = {
+    displayName: 'Create New Post',
+    cover: CreateNewPostPhoto,
+    followers: []
+  }
+
   onData(null, {
-    isOpen,
     allTopics,
-    numFollowersNotified
+    numFollowersNotified,
+    createPostTopicWrapper
   })
 }
 

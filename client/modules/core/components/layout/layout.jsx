@@ -1,6 +1,5 @@
 import React from 'react'
 import {StyleResizable} from 'material-ui/lib/mixins'
-import CreatePost from '/client/modules/core/containers/post.create.js'
 import Sidebar from '/client/modules/core/containers/layout.sidebar.js'
 import Profile from '/client/modules/core/containers/modal.profile.js'
 import AddTopicModal from '/client/modules/core/containers/modal.add.topic.js'
@@ -47,7 +46,6 @@ export default React.createClass({
         <div id='layout'>
           <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
           {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
-          <CreatePost />
           <PostFollowersModal />
           <AddTopicModal />
           <AddTopicCoverPhotoModal />

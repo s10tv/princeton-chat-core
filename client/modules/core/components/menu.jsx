@@ -40,10 +40,6 @@ Menu.propTypes = {
   unfollowFn: React.PropTypes.func,
 
   /**
-  * True to hide the add new post button
-  */
-  hidePostButton: React.PropTypes.bool,
-  /**
    * Topic
    */
   topic: React.PropTypes.object,
@@ -63,7 +59,13 @@ Menu.propTypes = {
   /**
    * Inital search icon, if true - people, false - content
    */
-  initialIsSearchingPeople: React.PropTypes.bool
+  initialIsSearchingPeople: React.PropTypes.bool,
+
+  shouldShowSearch: React.PropTypes.bool
+}
+
+Menu.defaultProps = {
+  shouldShowSearch: true
 }
 
 const pluralizeTextForNumber = (num, text) => {
@@ -102,12 +104,14 @@ var CoverPhotoMenu = (props) => (
         </Flex>
       }
 
-      <Flex>
+      {props.shouldShowSearch
+      ? <Flex>
         <h1>
           <SearchBox initialSearchPeopleIcon={props.initialIsSearchingPeople}
             isMobile={props.isMobile} currentSearchValue={props.currentSearchValue} />
         </h1>
       </Flex>
+      : <Flex />}
     </Flex>
 
     <Flex flexGrow={1} justifyContent='space-between' alignItems='flex-end'>

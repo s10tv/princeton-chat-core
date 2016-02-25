@@ -1,16 +1,12 @@
 import React from 'react'
-import Dialog from '../../../../node_modules/material-ui/lib/dialog'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
 import Select from 'react-select'
-import Toolbar from '../../../../node_modules/material-ui/lib/toolbar/toolbar'
-import ToolbarGroup from '../../../../node_modules/material-ui/lib/toolbar/toolbar-group'
-import ToolbarTitle from '../../../../node_modules/material-ui/lib/toolbar/toolbar-title'
 import {Flex} from 'jsxstyle'
-import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
-import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
 import LinearProgress from '../../../../node_modules/material-ui/lib/linear-progress'
 import {color} from '/client/configs/theme'
 import {TextField} from '/client/lib/ui.jsx'
+import Menu from '/client/modules/core/components/menu.jsx'
+import styles from './styles.jsx'
 
 /**
  * https://github.com/erikras/redux-form/issues/82
@@ -32,10 +28,6 @@ ReduxFormSelect.propTypes = {
 
 export default React.createClass({
   propTypes: {
-    /**
-     * True if the modal should be showing.
-     */
-    isOpen: React.PropTypes.bool.isRequired,
 
     /**
      * Function to call when we want to close the modal.
@@ -74,7 +66,17 @@ export default React.createClass({
     }).isRequired,
     handleSubmit: React.PropTypes.func.isRequired,
     error: React.PropTypes.object,
-    submitting: React.PropTypes.bool
+    submitting: React.PropTypes.bool,
+    sidebarOpen: React.PropTypes.bool.isRequired,
+    createPostTopicWrapper: React.PropTypes.object.isRequired,
+    isMobile: React.PropTypes.bool.isRequired,
+    showSidebar: React.PropTypes.func.isRequired
+  },
+
+  getInitialState () {
+    return {
+      hasWrittenAnything: false
+    }
   },
 
   modifyTopicsList (value) {
@@ -82,77 +84,90 @@ export default React.createClass({
     this.props.updateTopicFollowers(value.split(','))
   },
 
+  onBlur (e) {
+    if (e.currentTarget.value) {
+      this.setState({ hasWrittenAnything: true })
+    } else {
+      this.setState({ hasWrittenAnything: false })
+    }
+  },
+
   render () {
-    const { fields: {title, content, topicIds}, isOpen, handleClose,
+    const { fields: {title, content, topicIds},
       allTopics, showTopicFollowers, handleSubmit, submitting, error,
       numFollowersNotified} = this.props
 
-    const toolbar =
-      <Toolbar>
-        <ToolbarGroup float='left'>
-          <ToolbarTitle text='New Post' />
-        </ToolbarGroup>
-
-        <ToolbarGroup float='right' style={{top: '50%', transform: 'translateY(-50%)'}}>
-          <IconButton tooltip='Close' onTouchTap={handleClose}>
-            <FontIcon className='material-icons'>clear</FontIcon>
-          </IconButton>
-        </ToolbarGroup>
-      </Toolbar>
-
     return (
-      <form onSubmit={handleSubmit}>
-        <Dialog
-          title={toolbar}
-          bodyStyle={{ overflow: 'visible' }}
-          actions={[
-            !this.props.fields.topicIds ? null
-              : <a href='#' onClick={showTopicFollowers} style={{marginRight: 10}}>
-                {numFollowersNotified} people will be notified
-              </a>,
-            <RaisedButton
-              label='Post'
-              primary
-              disabled={submitting}
-              onTouchTap={handleSubmit} />
-          ]}
-          actionsContainerStyle={{padding: '0px 24px', paddingBottom: 24}}
-          modal
-          open={isOpen}>
-          <Flex flexDirection='column'>
-            <TextField
-              {...title}
-              fullWidth
-              floatingLabelText='Subject' />
+      <main style={Object.assign({}, styles.main, {
+        marginLeft: this.props.sidebarOpen ? 240 : 0
+      })}>
+        <Flex flexDirection='column' flexGrow={1}>
+          <Menu
+            topic={this.props.createPostTopicWrapper}
+            shouldShowSearch={false}
+            {...this.props} />
+          <Flex flex='1 1 0px' overflowY='scroll' padding='0px 24px 24px 24px'>
+            <form style={{
+              width: '100%'
+            }} onSubmit={handleSubmit}>
+              <Flex flexDirection='column'>
+                <TextField
+                  {...title}
+                  fullWidth
+                  onBlur={(e) => this.onBlur(e)}
+                  floatingLabelText='Subject' />
 
-            <TextField
-              {...content}
-              fullWidth
-              rowsMax={5}
-              rows={5}
-              multiLine
-              hintText='Start a conversation...'
-              floatingLabelText='Content' />
+                <TextField
+                  {...content}
+                  fullWidth
+                  rowsMax={10}
+                  rows={10}
+                  multiLine
+                  onBlur={(e) => this.onBlur(e)}
+                  hintText='Start a conversation...'
+                  floatingLabelText='Content' />
 
-            <ReduxFormSelect {...topicIds}
-              placeholder='Post in channels ... '
-              options={allTopics}
-              multi
-              simpleValue
-              onChange={this.modifyTopicsList} />
+                <ReduxFormSelect {...topicIds}
+                  placeholder='Post in channels ... '
+                  options={allTopics}
+                  multi
+                  simpleValue
+                  onChange={this.modifyTopicsList} />
 
-            {submitting && <LinearProgress color={color.brand.primary} style={{
-              marginTop: 15
-            }} />}
+                {submitting && <LinearProgress color={color.brand.primary} style={{
+                  marginTop: 15
+                }} />}
 
-            {error && <p style={{
-              color: color.brand.danger,
-              marginTop: 15,
-              marginBottom: 15
-            }}>{error}</p>}
+                {error && <p style={{
+                  color: color.brand.danger,
+                  marginTop: 15,
+                  marginBottom: 0
+                }}>{error}</p>}
+
+                <Flex flexDirection={this.props.isMobile ? 'column' : 'row'}
+                  justifyContent={this.props.isMobile ? 'center' : 'space-between'}
+                  alignItems='center' marginTop={15} flexWrap='wrap'>
+                  {!this.props.fields.topicIds ? <Flex />
+                    : <a href='#' onClick={showTopicFollowers} style={{
+                      textAlign: 'center'
+                    }}>
+                      {numFollowersNotified} people will be notified
+                    </a>}
+
+                  <RaisedButton
+                    label='Post'
+                    type='submit'
+                    style={Object.assign({
+                      width: 200
+                    }, this.props.isMobile && { marginTop: 10 })}
+                    primary
+                    disabled={submitting} />
+                </Flex>
+              </Flex>
+            </form>
           </Flex>
-        </Dialog>
-      </form>
+        </Flex>
+      </main>
     )
   }
 })

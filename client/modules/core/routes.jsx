@@ -10,6 +10,8 @@ import AddFollowers from '/client/modules/core/containers/add.followers.js'
 import DirectorySearch from '/client/modules/core/containers/directory.search'
 import ErrorPage from '/client/modules/core/components/error.jsx'
 import ToggleFollowing from '/client/modules/core/containers/toggleFollowing'
+import CreateNewPost from '/client/modules/core/containers/post.create'
+
 // This import has to be at the end for some reason else fails
 
 function requireUserInSession (context) {
@@ -162,7 +164,20 @@ export default function (injectDeps, {FlowRouter, Collections, Meteor, Accounts,
     triggersEnter: [requireUserInSessionFn],
     action ({ topicId, postId }) {
       mount(LayoutMainCtx, {
-        content: (props) => <PostDetails topicId={topicId} postId={postId} {...props } />
+        content: (props) => <PostDetails topicId={topicId} postId={postId} {...props} />
+      })
+    }
+  })
+
+  FlowRouter.route('/add-post', {
+    name: 'add-post',
+    subscriptions: function () {
+      this.register('userData', Meteor.subscribe('userData'))
+    },
+    triggersEnter: [requireUserInSessionFn],
+    action () {
+      mount(LayoutMainCtx, {
+        content: (props) => <CreateNewPost {...props} />
       })
     }
   })
