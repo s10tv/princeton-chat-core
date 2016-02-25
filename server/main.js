@@ -4,7 +4,7 @@ import publications from './publications'
 import methods from './methods'
 import http from './http'
 const context = initContext()
-const {Meteor, Migrations, Logger} = context
+const {Meteor, Migrations} = context
 
 configs(context)
 publications(context)
@@ -14,5 +14,4 @@ http()
 // if the database is empty on server start, create some sample data.
 Meteor.startup(function () {
   Migrations.migrateTo('latest')
-  Logger.log({ level: 'info', message: 'hi', userId: 'noUserId' })
 })
