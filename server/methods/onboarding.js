@@ -136,7 +136,8 @@ export default function (context) {
       const user = currentUser()
 
       Users.update(user._id, { $set: {
-        status: 'active'
+        status: 'active',
+        isFullMember: true
       }})
 
       const count = Users.find().count()

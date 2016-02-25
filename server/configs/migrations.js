@@ -147,4 +147,18 @@ export default function ({ Migrations, Collections }) {
       })
     }
   })
+
+  Migrations.add({
+    version: 10,
+    name: 'Active users should be full members',
+    up: function () {
+      Users.find().forEach((user) => {
+        if (user.status === 'active') {
+          Users.update(user._id, { $set: {
+            isFullMember: true
+          }})
+        }
+      })
+    }
+  })
 }
