@@ -15,7 +15,7 @@ export function redirectIfUrlFound (FlowRouter) {
 
 export default {
   onboardingManualVerify: {
-    submit: createOnSubmit('signup/verifyAffiliation', ({Meteor, sweetalert}) => {
+    submit: createOnSubmit('signup/verifyAffiliation', ({sweetalert}) => {
       AmplitudeService.track('signup/verify', { type: 'manual' })
       sweetalert({
         title: 'All Set',
@@ -25,13 +25,13 @@ export default {
     })
   },
   onboardingAutoVerify: {
-    submit: createOnSubmit('signup/alumni', ({Meteor, sweetalert}) => {
+    submit: createOnSubmit('signup/alumni', ({sweetalert}) => {
       AmplitudeService.track('signup/verify', { type: 'auto' })
       sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)', type: 'success'})
     })
   },
   onboardingLogin: {
-    loginWithFacebook ({ Meteor, FlowRouter, sweetalert, currentUser }) {
+    loginWithFacebook ({Meteor, FlowRouter, sweetalert}) {
       Meteor.loginWithFacebook({}, (err) => {
         if (err) {
           return sweetalert({
@@ -60,7 +60,7 @@ export default {
     }
   },
   onboardingSignup: {
-    createAccount: createOnSubmit('welcome/signup', ({ FlowRouter, Meteor }) => {
+    createAccount: createOnSubmit('welcome/signup', ({ FlowRouter }) => {
       AmplitudeService.track('onboarding/createAccount', { type: 'password' })
       FlowRouter.go('onboarding-subscribe-channels')
     }),
@@ -104,7 +104,7 @@ export default {
     }
   },
   onboardingInviteFriends: {
-    submit: createOnSubmit('welcome/invite', ({FlowRouter, Meteor}, invitees) => {
+    submit: createOnSubmit('welcome/invite', ({FlowRouter}, invitees) => {
       AmplitudeService.track('onboarding/inviteFriends', { numInvites: invitees.length })
       FlowRouter.go('all-mine')
     }),
