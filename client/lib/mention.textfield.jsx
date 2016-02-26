@@ -1,107 +1,105 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import keycode from 'keycode'
-import Popover from 'material-ui/lib/popover/popover';
+import Popover from 'material-ui/lib/popover/popover'
 import {Menu, MenuItem} from './ui.jsx'
+import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
 import TextField from 'material-ui/lib/text-field'
 
-function getStyles(props, state) {
-  const {
-    anchorEl,
-    } = state;
+function getStyles (props, state) {
+  const {anchorEl} = state
 
-  const {
-    fullWidth,
-    } = props;
+  const {fullWidth} = props
 
   const styles = {
     root: {
       display: 'inline-block',
       position: 'relative',
-      width: fullWidth ? '100%' : 256,
+      width: fullWidth ? '100%' : 256
     },
     menu: {
-      width: '100%',
+      width: '100%'
     },
     list: {
       display: 'block',
-      width: fullWidth ? '100%' : 256,
+      width: fullWidth ? '100%' : 256
     },
     innerDiv: {
-      overflow: 'hidden',
-    },
-  };
+      overflow: 'hidden'
+    }
+  }
 
   if (anchorEl && fullWidth) {
     styles.popover = {
-      width: anchorEl.clientWidth,
-    };
+      width: anchorEl.clientWidth
+    }
   }
 
-  return styles;
+  return styles
 }
 
 export default React.createClass({
 
-  getInitialState() {
+  getInitialState () {
     return {
       searchText: this.props.searchText,
       open: this.props.open,
       anchorEl: null,
       muiTheme: this.context.muiTheme,
       mentions: [],
-      focusTextField: true
-    };
+      focusTextField: false
+    }
   },
 
-  getDefaultProps() {
+  getDefaultProps () {
     return {
       anchorOrigin: {
         vertical: 'bottom',
-        horizontal: 'left',
+        horizontal: 'left'
       },
       animated: false,
       disableFocusRipple: true,
-      filter: (searchText, key) => searchText !== '' && key.includes(searchText),
-      fullWidth: false,
+      fullWidth: true,
       open: false,
-      openOnFocus: false,
+      clearTextOnEnter: false,
       searchText: '',
+      onKeyDown: () => {},
+      onBlur: () => {},
       fetchMentions: (word, callback) => {
         return callback([])
       },
-      menuCloseDelay: 200,
       targetOrigin: {
         vertical: 'top',
-        horizontal: 'left',
-      },
-    };
+        horizontal: 'left'
+      }
+    }
   },
 
-  handleChange(event) {
-    const searchText = event.target.value;
+  handleChange (event) {
+    const searchText = event.target.value
 
     // Make sure that we have a new searchText.
     // Fix an issue with a Cordova Webview
     if (searchText === this.state.searchText) {
-      return;
+      return
     }
 
     this.setState({
       focusTextField: true,
       searchText: searchText,
-      anchorEl: ReactDOM.findDOMNode(this.refs.searchTextField),
+      anchorEl: ReactDOM.findDOMNode(this.refs.searchTextField)
     })
 
     this.checkForMention(searchText)
+    this.props.onChange(event)
   },
 
-  close() {
+  close () {
     this.setState({
       focusTextField: false,
       open: false,
       anchorEl: null
-    });
+    })
   },
 
   checkForMention (text) {
@@ -119,7 +117,6 @@ export default React.createClass({
     const lastWord = words[words.length - 1]
     if (lastWord.charAt(0) === '@' && lastWord.length > 1) {
       return this.props.fetchMentions(lastWord.substring(1), (results) => {
-        console.log(results)
         if (results.length > 0) {
           return this.setState({
             open: true,
@@ -129,35 +126,55 @@ export default React.createClass({
       })
     }
 
-    return this.close()
+    this.close()
+    this.__focusTextField()
   },
 
-  handleKeyDown(event) {
+  handleKeyDown (event) {
     switch (keycode(event)) {
       case 'enter':
+        if (this.props.clearTextOnEnter) {
+          this.setState({
+            searchText: ''
+          })
+        }
+        this.props.onKeyDown(event)
+        break
       case 'esc':
         event.preventDefault()
-        this.close();
-        break;
+        this.close()
+        break
 
+      case 'up':
       case 'down':
-        event.preventDefault();
+        event.preventDefault()
         this.setState({
           focusTextField: false
-        });
-        break;
+        })
+        break
 
       default:
-        break;
+        this.props.onKeyDown(event)
     }
   },
 
-  handleBlur(e) {
+  handleBlur (e) {
     if (this.state.focusTextField) {
-      this.refs.searchTextField.focus();
+      this.__focusTextField()
     }
 
-    //this.props.onBlur(e)
+    this.props.onBlur(e)
+  },
+
+  handleFocus () {
+    // If we use props.onFocus() here, the onFocus from redux form causes the menu to
+    // quickly pop up and then disappear again. Not the intended behavior. Put in this
+    // solution of using another prop for now.
+    // Tracking in
+    //
+    if (!this.state.focusTextField) {
+      this.__focusTextField()
+    }
   },
 
   handleItemTouchTap (user) {
@@ -168,17 +185,26 @@ export default React.createClass({
 
     // replace last element with auto completed
     words.push(`@${user.username} `)
-    this.setState({ searchText: words.join(' ') })
 
-    this.setState({ open: false })
-    this.refs.searchTextField.focus();
+    this.setState({
+      searchText: words.join(' '),
+      open: false
+    })
+
+    this.__focusTextField()
   },
 
-  render() {
+  __focusTextField () {
+    // async unfocus the text field prevents UI from locking
+    // 50 is arbitrary.
+    setTimeout(() => {
+      this.refs.searchTextField.focus()
+    }, 50)
+  },
+
+  render () {
     const {
       anchorOrigin,
-      animated,
-      errorStyle,
       floatingLabelText,
       hintText,
       fullWidth,
@@ -186,37 +212,37 @@ export default React.createClass({
       menuProps,
       listStyle,
       targetOrigin,
-      ...other,
-      } = this.props;
+      ...other
+    } = this.props
 
     const {
       open,
       anchorEl,
       searchText,
-      focusTextField,
-    } = this.state;
+      focusTextField
+    } = this.state
 
     const styles = getStyles(this.props, this.state)
 
     return (
-      <div>
+      <div style={{ width: '100%' }} {...this.props.styles}>
         <TextField
+          ref='searchTextField'
+          autoComplete='off'
+          floatingLabelText={floatingLabelText}
+          hintText={hintText}
+          fullWidth={fullWidth}
           {...other}
-          ref="searchTextField"
-          autoComplete="off"
-          value={searchText}
           onChange={this.handleChange}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onKeyDown={this.handleKeyDown}
-          floatingLabelText={floatingLabelText}
-          hintText={hintText}
-          fullWidth={fullWidth}
-          multiLine={false}
-          errorStyle={errorStyle}
+          value={searchText}
+          errorText={this.props.touched && this.props.error}
         />
 
         <Popover
+          animated
           style={styles.popover}
           anchorOrigin={anchorOrigin}
           targetOrigin={targetOrigin}
@@ -224,11 +250,9 @@ export default React.createClass({
           anchorEl={anchorEl}
           useLayerForClickAway={false}
           onRequestClose={this.close}
-          animated={animated}
         >
           <Menu
             {...menuProps}
-            ref="menu"
             autoWidth={false}
             zDepth={0}
             disableAutoFocus={focusTextField}
@@ -237,12 +261,22 @@ export default React.createClass({
             listStyle={Object.assign(styles.list, listStyle)}
             style={Object.assign(styles.menu, menuStyle)}
           >
-            {this.state.mentions.map((mention) => (
-              <MenuItem key={mention._id}
+            {this.state.mentions.map((user) => {
+              const avatar = user.avatar.isDefaultAvatar
+                ? <LetterAvatar key={user._id} style={{marginRight: 3}} color='white'
+                  backgroundColor={user.avatar.color}>
+                  {user.avatarInitials}
+                </LetterAvatar>
+                : <CoverAvatar key={user._id} style={{marginRight: 3}} src={user.avatar.url} />
+
+              return <MenuItem
+                rightAvatar={avatar}
+                key={user._id}
+                focusState='keyboard-focused'
                 disableFocusRipple
-                onTouchTap={() => this.handleItemTouchTap(mention)}
-                primaryText={mention.username} />
-            ))}
+                onTouchTap={() => this.handleItemTouchTap(user)}
+                primaryText={user.username}/>
+            })}
           </Menu>
         </Popover>
       </div>

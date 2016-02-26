@@ -265,7 +265,7 @@ export default function (context) {
     },
 
     'search/users': (text) => {
-      return SearchService.searchByUsername(text).map(user => {
+      return SearchService.searchByUsername(text).map((user) => {
         return UserService.getUserView(user)
       })
     }

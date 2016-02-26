@@ -7,9 +7,11 @@ export default {
     return FlowRouter.go('search', {}, { term: searchTerm })
   },
 
-  fetchMentions({Meteor}, term, callback) {
-    console.log('searching for ', term)
+  fetchMentions ({Meteor}, term, callback) {
     Meteor.call('search/users', term, (err, res) => {
+      if (err) {
+        return callback([])
+      }
       return callback(res)
     })
   }
