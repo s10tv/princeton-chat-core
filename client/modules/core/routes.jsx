@@ -22,7 +22,8 @@ function requireUserInSession (context) {
   }
 }
 
-export default function (injectDeps, {FlowRouter, Collections, Meteor, Accounts, Tracker}) {
+export default function (injectDeps, {FlowRouter, Collections, Meteor, Accounts, Tracker,
+  sweetalert, store}) {
   const requireUserInSessionFn = requireUserInSession.bind({ Meteor, FlowRouter })
   const LayoutMainCtx = injectDeps(LayoutMain)
 

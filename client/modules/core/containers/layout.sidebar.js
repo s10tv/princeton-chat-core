@@ -1,6 +1,8 @@
+/*global confirm*/
 import LayoutSidebar from '/client/modules/core/components/layout/layout.sidebar.jsx'
 import UserService from '/lib/user.service.js'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
+import {_} from 'underscore'
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context()
@@ -28,15 +30,33 @@ export const composer = ({context}, onData) => {
   }
 }
 
-const depsMapper = (context, actions) => ({
-  showAddPostPopupFn: actions.posts.showAddPostPopup,
+const confirmableActions = (actions) => ({
   showTopic: actions.topics.navigateToTopic,
   navigateTo: actions.topics.navigateTo,
   showAllTopics: actions.topics.navigateToTopicList,
   onTapSettings: actions.settings.navigateToSettings,
-  onLogout: actions.settings.logout,
-  context: () => context
+  onLogout: actions.settings.logout
 })
+
+const depsMapper = (context, actions) => {
+  const c = {}
+  _.each(confirmableActions(actions), (confirmableAction, key) => {
+    c[key] = (args) => {
+      if (!actions.posts.hasInteractedWithCreatePost(context)) {
+        return confirmableAction(args)
+      }
+
+      if (confirm('Are you sure you want to leave the page?\nAll the effort you put into this post will be gone to waste. Forever.')) {
+        return confirmableAction(args)
+      }
+    }
+  })
+  return {
+    ...c,
+    showAddPostPopupFn: actions.posts.showAddPostPopup,
+    context: () => context
+  }
+}
 
 export default composeAll(
   composeWithTracker(composer),

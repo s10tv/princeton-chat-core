@@ -52,6 +52,11 @@ export default {
     FlowRouter.go('add-post')
   },
 
+  hasInteractedWithCreatePost ({ sweetalert, store }) {
+    const form = store.getState().form['post/create']
+    return form && ((form.title && form.title.value) || (form.content && form.content.value))
+  },
+
   closeAddPostPopup ({ LocalState, sweetalert }, hasWrittenAnything) {
     if (hasWrittenAnything) {
       sweetalert({

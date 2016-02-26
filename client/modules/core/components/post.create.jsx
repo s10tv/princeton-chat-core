@@ -73,23 +73,25 @@ export default React.createClass({
     showSidebar: React.PropTypes.func.isRequired
   },
 
-  getInitialState () {
-    return {
-      hasWrittenAnything: false
+  componentWillMount () {
+    window.onbeforeunload = (e) => {
+      e = e || window.event
+      var msg = 'Are you sure you want to exit this page? ' +
+        'All the effort you put into this post will be gone to waste. Forever.'
+      if (e) {
+        e.returnValue = msg
+      }
+      return msg
     }
+  },
+
+  componentWillUnmount () {
+    window.onbeforeunload = null
   },
 
   modifyTopicsList (value) {
     this.props.fields.topicIds.onChange(value)
     this.props.updateTopicFollowers(value.split(','))
-  },
-
-  onBlur (e) {
-    if (e.currentTarget.value) {
-      this.setState({ hasWrittenAnything: true })
-    } else {
-      this.setState({ hasWrittenAnything: false })
-    }
   },
 
   render () {
@@ -114,7 +116,6 @@ export default React.createClass({
                 <TextField
                   {...title}
                   fullWidth
-                  onBlur={(e) => this.onBlur(e)}
                   floatingLabelText='Subject' />
 
                 <TextField
@@ -123,7 +124,6 @@ export default React.createClass({
                   rowsMax={10}
                   rows={10}
                   multiLine
-                  onBlur={(e) => this.onBlur(e)}
                   hintText='Start a conversation...'
                   floatingLabelText='Content' />
 
