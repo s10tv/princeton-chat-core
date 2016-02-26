@@ -8,7 +8,7 @@ function capitalizeFirstLetter (string) {
 
 export default function (context) {
   const {audience, currentUser, Meteor, Collections, PostManager, TopicManager,
-    AvatarService, Accounts, Logger} = context
+    AvatarService, Accounts, Logger, MentionParser} = context
   const {Topics, Posts, Messages, Users} = Collections
 
   Meteor.methods({
@@ -36,6 +36,11 @@ export default function (context) {
         throw new Meteor.Error(400, 'Please add at least one channel to the post.')
       }
 
+      const additionalMentions = MentionParser.parseMentions(content).map((user) => ({
+        userId: user._id,
+        unreadCount: 0
+      }))
+
       // We are good to insert the post.
       const postId = Posts.insert({
         _id,
@@ -46,7 +51,7 @@ export default function (context) {
         followers: [{
           userId: user._id,
           unreadCount: 0
-        }],
+        }].concat(additionalMentions),
         numMsgs: 0
       })
 

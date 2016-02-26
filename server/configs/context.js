@@ -11,6 +11,7 @@ import PostManager from '/server/lib/PostManager'
 import TopicManager from '/server/lib/TopicManager'
 import OnboardManager from '/server/lib/OnboardManager'
 import SearchService from '/server/lib/SearchService'
+import MentionParser from '/server/lib/MentionParser'
 import Logger from '/server/lib/logger'
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
@@ -41,6 +42,7 @@ export function initContext () {
     AvatarService,
     Logger,
     Collections,
+    MentionParser: new MentionParser({ Collections }),
     SearchService: new SearchService({ Meteor, Collections }),
     OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack, rootURL }),
     PostManager: new PostManager({Meteor, Collections}),
