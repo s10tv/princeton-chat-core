@@ -103,6 +103,8 @@ export default React.createClass({
       default:
         this.props.onKeyDown(event)
     }
+
+    this.__focusTextField()
   },
 
   // the onFocus of redux form messes with this. pass in empty function for mow
@@ -121,7 +123,7 @@ export default React.createClass({
   __focusTextField () {
     setTimeout(() => {
       this.refs.searchTextField.focus()
-    }, 0)
+    }, 50)
   },
 
   render () {
