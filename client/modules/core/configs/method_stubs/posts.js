@@ -2,7 +2,7 @@ export default function ({Meteor, Collections, UserService}) {
   const {Posts, Topics, Users} = Collections
 
   Meteor.methods({
-    'post/insert' (_id, title, content, topicIds) {
+    'post/insert' ({_id, title, content, topicIds}) {
       const createdAt = new Date()
       const ownerId = UserService.currentUser()._id
 
