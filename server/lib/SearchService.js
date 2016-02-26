@@ -17,6 +17,15 @@ export default class SearchService {
     ]}, {limit: MAX_NUMBER_DOCS_RETURNED})
   }
 
+  searchByUsername (input) {
+    const { Users } = this.Collections
+    var re = new RegExp(`^${input}`, 'i')
+    return Users.find({
+      status: 'active',
+      username: re
+    }, {limit: MAX_NUMBER_DOCS_RETURNED})
+  }
+
   searchPosts (input) {
     const { Posts } = this.Collections
     var re = new RegExp(input, 'i')

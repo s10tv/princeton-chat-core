@@ -8,7 +8,7 @@ function capitalizeFirstLetter (string) {
 
 export default function (context) {
   const {audience, currentUser, Meteor, Collections, PostManager, TopicManager,
-    AvatarService, Accounts, Logger} = context
+    AvatarService, Accounts, Logger, SearchService, UserService} = context
   const {Topics, Posts, Messages, Users} = Collections
 
   Meteor.methods({
@@ -262,6 +262,12 @@ export default function (context) {
       return userIds.map((user) => {
         return Users.findOne(user.userId)
       }).filter((user) => user !== undefined)
+    },
+
+    'search/users': (text) => {
+      return SearchService.searchByUsername(text).map(user => {
+        return UserService.getUserView(user)
+      })
     }
   })
 }

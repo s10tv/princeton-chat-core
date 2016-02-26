@@ -7,6 +7,7 @@ import {color} from '/client/configs/theme'
 import {TextField} from '/client/lib/ui.jsx'
 import Menu from '/client/modules/core/components/menu.jsx'
 import styles from './styles.jsx'
+import MyAutoComplete from '/client/lib/mention.textfield.jsx'
 
 /**
  * https://github.com/erikras/redux-form/issues/82
@@ -70,7 +71,8 @@ export default React.createClass({
     sidebarOpen: React.PropTypes.bool.isRequired,
     createPostTopicWrapper: React.PropTypes.object.isRequired,
     isMobile: React.PropTypes.bool.isRequired,
-    showSidebar: React.PropTypes.func.isRequired
+    showSidebar: React.PropTypes.func.isRequired,
+    fetchMentions: React.PropTypes.func.isRequired
   },
 
   getInitialState () {
@@ -107,64 +109,64 @@ export default React.createClass({
             shouldShowSearch={false}
             {...this.props} />
           <Flex flex='1 1 0px' overflowY='scroll' padding='0px 24px 24px 24px'>
-            <form style={{
+            <Flex flexDirection='column' style={{
               width: '100%'
-            }} onSubmit={handleSubmit}>
-              <Flex flexDirection='column'>
-                <TextField
-                  {...title}
-                  fullWidth
-                  onBlur={(e) => this.onBlur(e)}
-                  floatingLabelText='Subject' />
+            }}>
+              <MyAutoComplete
+                {...title}
+                fullWidth
+                //onBlur={(e) => this.onBlur(e)}
+                fetchMentions={this.props.fetchMentions}
+                floatingLabelText='Subject' />
 
-                <TextField
-                  {...content}
-                  fullWidth
-                  rowsMax={10}
-                  rows={10}
-                  multiLine
-                  onBlur={(e) => this.onBlur(e)}
-                  hintText='Start a conversation...'
-                  floatingLabelText='Content' />
+              <MyAutoComplete
+                {...content}
+                fullWidth
+                rowsMax={10}
+                rows={10}
+                multiLine
+                //onBlur={(e) => this.onBlur(e)}
+                hintText='Start a conversation...'
+                floatingLabelText='Content' />
 
-                <ReduxFormSelect {...topicIds}
-                  placeholder='Post in channels ... '
-                  options={allTopics}
-                  multi
-                  simpleValue
-                  onChange={this.modifyTopicsList} />
+              <ReduxFormSelect {...topicIds}
+                placeholder='Post in channels ... '
+                options={allTopics}
+                multi
+                simpleValue
+                onChange={this.modifyTopicsList} />
 
-                {submitting && <LinearProgress color={color.brand.primary} style={{
-                  marginTop: 15
-                }} />}
+              {submitting && <LinearProgress color={color.brand.primary} style={{
+                marginTop: 15
+              }} />}
 
-                {error && <p style={{
-                  color: color.brand.danger,
-                  marginTop: 15,
-                  marginBottom: 0
-                }}>{error}</p>}
+              {error && <p style={{
+                color: color.brand.danger,
+                marginTop: 15,
+                marginBottom: 0
+              }}>{error}</p>}
 
-                <Flex flexDirection={this.props.isMobile ? 'column' : 'row'}
-                  justifyContent={this.props.isMobile ? 'center' : 'space-between'}
-                  alignItems='center' marginTop={15} flexWrap='wrap'>
-                  {!this.props.fields.topicIds ? <Flex />
-                    : <a href='#' onClick={showTopicFollowers} style={{
-                      textAlign: 'center'
-                    }}>
-                      {numFollowersNotified} people will be notified
-                    </a>}
+              <Flex flexDirection={this.props.isMobile ? 'column' : 'row'}
+                justifyContent={this.props.isMobile ? 'center' : 'space-between'}
+                alignItems='center' marginTop={15} flexWrap='wrap'>
+                {!this.props.fields.topicIds ? <Flex />
+                  : <a href='#' onClick={showTopicFollowers} style={{
+                    textAlign: 'center'
+                  }}>
+                    {numFollowersNotified} people will be notified
+                  </a>}
 
-                  <RaisedButton
-                    label='Post'
-                    type='submit'
-                    style={Object.assign({
-                      width: 200
-                    }, this.props.isMobile && { marginTop: 10 })}
-                    primary
-                    disabled={submitting} />
-                </Flex>
+                <RaisedButton
+                  label='Post'
+                  type='submit'
+                  style={Object.assign({
+                    width: 200
+                  }, this.props.isMobile && { marginTop: 10 })}
+                  primary
+                  onTouchTap={handleSubmit}
+                  disabled={submitting} />
               </Flex>
-            </form>
+            </Flex>
           </Flex>
         </Flex>
       </main>
