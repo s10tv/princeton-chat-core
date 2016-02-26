@@ -270,6 +270,7 @@ export default function (context) {
     },
 
     'search/users': (text) => {
+      console.log('search', text)
       return SearchService.searchByUsername(text).map((user) => {
         return UserService.getUserView(user)
       })

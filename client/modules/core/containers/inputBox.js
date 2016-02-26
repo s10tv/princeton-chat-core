@@ -1,6 +1,12 @@
 import InputBox from '/client/modules/core/components/inputBox.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 import AmplitudeService from '/client/lib/amplitude.service'
+import {reduxForm} from 'redux-form'
+
+export const formConfig = {
+  form: 'inputbox',
+  fields: ['content']
+}
 
 const composer = ({context, postId, follow, unfollow}, onData) => {
   const {Meteor, Collections, UserService} = context()
@@ -34,11 +40,18 @@ const depsMapper = (context, actions) => {
     showPostFollowers: actions.posts.showPostFollowers,
     showSnackbarError: actions.posts.showSnackbarError,
     fetchMentions: actions.search.fetchMentions,
+    parseAndFetchMentions: actions.search.parseAndFetchMentions,
+    clearMentions: actions.search.clearMentions,
+    replaceWithMention: actions.search.replaceWithMention,
+    store: context.store,
     context: () => context
   }
 }
 
 export default composeAll(
+  reduxForm(formConfig, (state) => ({
+    mentions: state.core.mentions
+  })),
   composeWithTracker(composer),
   useDeps(depsMapper)
 )(InputBox)

@@ -65,7 +65,10 @@ export default React.createClass({
     createPostTopicWrapper: React.PropTypes.object.isRequired,
     isMobile: React.PropTypes.bool.isRequired,
     showSidebar: React.PropTypes.func.isRequired,
-    fetchMentions: React.PropTypes.func.isRequired
+    parseAndFetchMentions: React.PropTypes.func.isRequired,
+    replaceWithMention: React.PropTypes.func.isRequired,
+    clearMentions: React.PropTypes.func.isRequired,
+    mentions: React.PropTypes.object.isRequired
   },
 
   componentWillMount () {
@@ -92,7 +95,7 @@ export default React.createClass({
   render () {
     const { fields: {title, content, topicIds},
       allTopics, showTopicFollowers, handleSubmit, submitting, error,
-      numFollowersNotified} = this.props
+      numFollowersNotified, mentions, clearMentions, replaceWithMention} = this.props
 
     return (
       <main style={Object.assign({}, styles.main, {
@@ -111,9 +114,16 @@ export default React.createClass({
                 <MyAutoComplete
                   fullWidth
                   onBlur={(e) => this.onBlur(e)}
-                  fetchMentions={this.props.fetchMentions}
                   floatingLabelText='Subject'
+                  mentions={mentions.title}
+                  clearMentions={() => clearMentions(title)}
+                  onMentionTap={(user) => replaceWithMention(title, user)}
                   {...title}
+                  onChange={(e) => {
+                    const msg = e.target.value
+                    this.props.parseAndFetchMentions(title, msg)
+                    title.onChange(e)
+                  }}
                 />
 
                 <MyAutoComplete
@@ -122,10 +132,17 @@ export default React.createClass({
                   rows={10}
                   multiLine
                   onBlur={(e) => this.onBlur(e)}
-                  fetchMentions={this.props.fetchMentions}
+                  mentions={mentions.content}
+                  clearMentions={() => clearMentions(content)}
+                  onMentionTap={(user) => replaceWithMention(content, user)}
                   hintText='Start a conversation...'
                   floatingLabelText='Content'
                   {...content}
+                  onChange={(e) => {
+                    const msg = e.target.value
+                    this.props.parseAndFetchMentions(content, msg)
+                    content.onChange(e)
+                  }}
                 />
 
                 <ReduxFormSelect {...topicIds}
