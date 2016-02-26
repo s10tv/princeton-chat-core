@@ -20,6 +20,11 @@ export default React.createClass({
     showSnackbarError: React.PropTypes.func.isRequired,
     showPostFollowers: React.PropTypes.func.isRequired,
     fetchMentions: React.PropTypes.func.isRequired,
+    fields: React.PropTypes.shape({
+      content: React.PropTypes.object.isRequired
+    }),
+    parseAndFetchMentions: React.PropTypes.func.isRequired,
+    mentions: React.PropTypes.object.isRequired,
     /**
      * The function called to create a message.
      */
@@ -28,35 +33,36 @@ export default React.createClass({
 
   getInitialState () {
     return {
-      text: '',
-      isMentionBoxOpen: false,
       followToggleMouseOver: false,
       inputFocused: false,
       pressEnterToSend: true,
-      mentions: []
+      showFocusControls: false,
+      sendButtonDisabled: true
     }
   },
 
   sendMessage () {
-    this.props.create(this.state.text, this.props.postId)
+    const message = this.props.fields.content.value || ''
+
+    if (message.length === 0) {
+      return this.props.showSnackbarError('To add a newline, press [Shift] with [Enter]')
+    }
+
+    if (message.trim().length === 0) {
+      return this.props.showSnackbarError('Until everyone can communicate through whitespace, please input some text :)')
+    }
+
+    this.props.create(message, this.props.postId)
     this.setState({
-      isMentionBoxOpen: false,
-      mentions: []
+      showFocusControls: false
     })
+
+    this.props.fields.content.onChange('')
   },
 
   handleEnterKeyDown (event) {
     if (!event.shiftKey && this.state.pressEnterToSend) {
       event.preventDefault()
-
-      if (this.state.text.length === 0) {
-        return this.props.showSnackbarError('To add a newline, press [Shift] with [Enter]')
-      }
-
-      if (this.state.text.trim().length === 0) {
-        return this.props.showSnackbarError('Until everyone can communicate through whitespace, please input some text :)')
-      }
-
       this.sendMessage()
     }
   },
@@ -134,43 +140,48 @@ export default React.createClass({
           style={{maxWidth: 210, fontWeight: 300}} />
         {this.state.pressEnterToSend
           ? null
-          : <RaisedButton disabled={this.state.text.length === 0} label='Send' primary
+          : <RaisedButton disabled={this.props.fields.content.value === undefined}
+            label='Send'
+            primary
             onTouchTap={this.sendMessage} />}
       </Flex>
     )
   },
 
   render () {
-    const showInputControls = this.state.inputFocused || this.state.text.length > 0
+    const {fields: {content}, fetchMentions, mentions, clearMentions, replaceWithMention} = this.props
+
     return (
       <Flex component='footer' flexDirection='column' padding='0 16px 8px 16px' flexShrink='0'>
         <Flex
           className='input-box'
           padding='0px 12px'
           border='2px solid #d9d9d9'
-          style={{
-            borderBottomLeftRadius: 5,
-            borderBottomRightRadius: 5,
-            borderTopLeftRadius: this.state.isMentionBoxOpen ? 0 : 5,
-            borderTopRightRadius: this.state.isMentionBoxOpen ? 0 : 5
-          }}
           borderRadius={5}>
 
           <MyAutoComplete
+            ref='inputbox'
             multiLine
             fullWidth
             clearTextOnEnter={this.state.pressEnterToSend}
             underlineShow={false}
             rowsMax={8}
             hintText='Type a message...'
-            fetchMentions={this.props.fetchMentions}
-            onChange={(e) => {
-              this.setState({text: e.target.value})
-            }}
+            fetchMentions={fetchMentions}
             onBlur={this.handleInputBlur}
-            onEnterKeyDown={this.handleEnterKeyDown} />
+            onEnterKeyDown={this.handleEnterKeyDown}
+            mentions={mentions.content}
+            clearMentions={() => clearMentions(content)}
+            onMentionTap={(user) => replaceWithMention(content, user)}
+            {...content}
+            onChange={(e) => {
+              const msg = e.target.value
+              this.props.parseAndFetchMentions(content, msg)
+              content.onChange(e)
+            }}
+            />
         </Flex>
-        {showInputControls ? this.renderInputControls() : this.renderFollowerControls()}
+        {content.value ? this.renderInputControls() : this.renderFollowerControls()}
       </Flex>
     )
   }

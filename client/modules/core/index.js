@@ -16,10 +16,24 @@ function newPostTopics (state = '', action) {
   }
 }
 
+function mentions (state = {}, action) {
+  switch (action.type) {
+    case 'FETCH_MENTIONS':
+      const newEntry = {}
+      newEntry[action.field] = action.mentions
+      return Object.assign({}, state, newEntry)
+    case 'CLEAR_MENTIONS':
+      return {}
+    default:
+      return state
+  }
+}
+
 export default {
   formConfigs: [settingsFormConfig],
   reducer: combineReducers({
-    newPostTopics
+    newPostTopics,
+    mentions
   }),
   routes,
   actions,

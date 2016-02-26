@@ -1,8 +1,5 @@
-import { Meteor } from 'meteor/meteor'
-import UserService from '/lib/user.service'
-
 export default {
-  create ({Collections, LocalState, handleClose}, content, postId) {
+  create ({Meteor, LocalState, store}, content, postId) {
     const id = Meteor.uuid()
 
     // There is a method stub for this in the configs/method_stubs
@@ -11,6 +8,8 @@ export default {
       if (err) {
         return LocalState.set('MESSGE_SEND_ERROR', err.message)
       }
+
+      store.dispatch({ type: 'CLEAR_MENTIONS' })
     })
   },
 
@@ -22,7 +21,7 @@ export default {
     LocalState.set('PROFILE_USER', message.owner)
   },
 
-  messageLinkOnClick ({LocalState, Collections}, event) {
+  messageLinkOnClick ({LocalState, Collections, UserService}, event) {
     const re = /^tc:\/\/users\//
     if (re.test(event.target.href)) {
       event.preventDefault()

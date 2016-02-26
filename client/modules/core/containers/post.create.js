@@ -43,12 +43,16 @@ export const depsMapper = (context, actions) => ({
   updateTopicFollowers: actions.topics.updateTopicFollowers,
   showSnackbarError: actions.posts.showSnackbarError,
   fetchMentions: actions.search.fetchMentions,
+  parseAndFetchMentions: actions.search.parseAndFetchMentions,
+  clearMentions: actions.search.clearMentions,
+  replaceWithMention: actions.search.replaceWithMention,
   store: context.store,
   context: () => context
 })
 
 export default composeAll(
   reduxForm(formConfig, (state) => ({ // mapStateToProps
+    mentions: state.core.mentions,
     initialValues: {
       topicIds: state.core.newPostTopics
     }

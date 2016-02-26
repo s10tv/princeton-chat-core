@@ -42,12 +42,9 @@ export default React.createClass({
 
   getInitialState () {
     return {
-      searchText: this.props.searchText,
-      open: this.props.open,
       anchorEl: null,
-      muiTheme: this.context.muiTheme,
-      mentions: [],
-      focusTextField: false
+      focusMenu: false,
+      muiTheme: this.context.muiTheme
     }
   },
 
@@ -60,14 +57,12 @@ export default React.createClass({
       animated: false,
       disableFocusRipple: true,
       fullWidth: true,
-      open: false,
       clearTextOnEnter: false,
-      searchText: '',
+      value: '',
       onKeyDown: () => {},
+      onMentionTap: () => {},
       onBlur: () => {},
-      fetchMentions: (word, callback) => {
-        return callback([])
-      },
+      mentions: [],
       targetOrigin: {
         vertical: 'top',
         horizontal: 'left'
@@ -75,69 +70,21 @@ export default React.createClass({
     }
   },
 
+  close () {
+    this.props.clearMentions()
+  },
+
   handleChange (event) {
-    const searchText = event.target.value
-
-    // Make sure that we have a new searchText.
-    // Fix an issue with a Cordova Webview
-    if (searchText === this.state.searchText) {
-      return
-    }
-
+    this.props.onChange(event)
     this.setState({
-      focusTextField: true,
-      searchText: searchText,
       anchorEl: ReactDOM.findDOMNode(this.refs.searchTextField)
     })
-
-    this.checkForMention(searchText)
-    this.props.onChange(event)
-  },
-
-  close () {
-    this.setState({
-      focusTextField: false,
-      open: false,
-      anchorEl: null
-    })
-  },
-
-  checkForMention (text) {
-    if (!text) {
-      return this.close()
-    }
-
-    const words = text.split(' ').filter((word) => word.length > 0)
-
-    // text area is empty or all spaces
-    if (words.length === 0) {
-      return this.close()
-    }
-
-    const lastWord = words[words.length - 1]
-    if (lastWord.charAt(0) === '@' && lastWord.length > 1) {
-      return this.props.fetchMentions(lastWord.substring(1), (results) => {
-        if (results.length > 0) {
-          return this.setState({
-            open: true,
-            mentions: results
-          })
-        }
-      })
-    }
-
-    this.close()
     this.__focusTextField()
   },
 
   handleKeyDown (event) {
     switch (keycode(event)) {
       case 'enter':
-        if (this.props.clearTextOnEnter) {
-          this.setState({
-            searchText: ''
-          })
-        }
         this.props.onKeyDown(event)
         break
       case 'esc':
@@ -149,7 +96,7 @@ export default React.createClass({
       case 'down':
         event.preventDefault()
         this.setState({
-          focusTextField: false
+          focusMenu: true
         })
         break
 
@@ -158,48 +105,23 @@ export default React.createClass({
     }
   },
 
-  handleBlur (e) {
-    if (this.state.focusTextField) {
-      this.__focusTextField()
-    }
-
-    this.props.onBlur(e)
-  },
-
-  handleFocus () {
-    // If we use props.onFocus() here, the onFocus from redux form causes the menu to
-    // quickly pop up and then disappear again. Not the intended behavior. Put in this
-    // solution of using another prop for now.
-    // Tracking in
-    //
-    if (!this.state.focusTextField) {
-      this.__focusTextField()
-    }
-  },
+  // the onFocus of redux form messes with this. pass in empty function for mow
+  handleFocus () {},
 
   handleItemTouchTap (user) {
-    const words = this.state.searchText.split(' ').filter((word) => word.length > 0)
-    if (words.length > 0) {
-      words.pop()
-    }
-
-    // replace last element with auto completed
-    words.push(`@${user.username} `)
-
-    this.setState({
-      searchText: words.join(' '),
-      open: false
-    })
-
+    this.props.onMentionTap(user)
+    this.props.clearMentions()
     this.__focusTextField()
+    this.setState({
+      focusMenu: false
+    })
   },
 
+  // async unfocus the text field prevents UI from locking
   __focusTextField () {
-    // async unfocus the text field prevents UI from locking
-    // 50 is arbitrary.
     setTimeout(() => {
       this.refs.searchTextField.focus()
-    }, 50)
+    }, 0)
   },
 
   render () {
@@ -212,18 +134,16 @@ export default React.createClass({
       menuProps,
       listStyle,
       targetOrigin,
+      mentions,
+      value,
       ...other
     } = this.props
 
     const {
-      open,
-      anchorEl,
-      searchText,
-      focusTextField
+      anchorEl
     } = this.state
 
     const styles = getStyles(this.props, this.state)
-
     return (
       <div style={{ width: '100%' }} {...this.props.styles}>
         <TextField
@@ -235,9 +155,8 @@ export default React.createClass({
           {...other}
           onChange={this.handleChange}
           onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
           onKeyDown={this.handleKeyDown}
-          value={searchText}
+          value={value}
           errorText={this.props.touched && this.props.error}
         />
 
@@ -246,22 +165,22 @@ export default React.createClass({
           style={styles.popover}
           anchorOrigin={anchorOrigin}
           targetOrigin={targetOrigin}
-          open={open}
+          open={!!anchorEl && mentions.length > 0}
           anchorEl={anchorEl}
           useLayerForClickAway={false}
           onRequestClose={this.close}
         >
           <Menu
             {...menuProps}
+            disableAutoFocus
             autoWidth={false}
             zDepth={0}
-            disableAutoFocus={focusTextField}
             onEscKeyDown={this.close}
-            initiallyKeyboardFocused={false}
+            initiallyKeyboardFocused={this.state.focusMenu}
             listStyle={Object.assign(styles.list, listStyle)}
             style={Object.assign(styles.menu, menuStyle)}
           >
-            {this.state.mentions.map((user) => {
+            {mentions.map((user) => {
               const avatar = user.avatar.isDefaultAvatar
                 ? <LetterAvatar key={user._id} style={{marginRight: 3}} color='white'
                   backgroundColor={user.avatar.color}>
