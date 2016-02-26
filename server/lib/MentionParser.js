@@ -10,8 +10,12 @@ export default class MentionParser {
         return undefined
       }
 
+      if (word.charAt(0) !== '@') {
+        return
+      }
+
       return Users.findOne({
-        username: word.indexOf(1)
+        username: word.substring(1)
       })
     }).filter((user) => user !== undefined)
   }
