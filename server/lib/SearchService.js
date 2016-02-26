@@ -18,8 +18,10 @@ export default class SearchService {
   }
 
   searchByUsername (input) {
+    const regexInput = input.replace(/[^A-Za-z0-9_]/g, '')
+
     const { Users } = this.Collections
-    var re = new RegExp(`^${input}`, 'i')
+    var re = new RegExp(`^${regexInput}`, 'i')
     return Users.find({
       status: 'active',
       username: re
