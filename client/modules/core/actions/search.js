@@ -21,7 +21,7 @@ export default {
 
     const lastWord = words[words.length - 1]
 
-    if (lastWord.charAt(0) === '@') {
+    if (lastWord.charAt(0) === '@' && lastWord.length > 1) {
       Meteor.call('search/users', lastWord.substring(1), (err, res) => {
         if (err) {
           return console.error('Error in search/users', err)

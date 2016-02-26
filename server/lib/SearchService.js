@@ -25,7 +25,7 @@ export default class SearchService {
     return Users.find({
       status: 'active',
       username: re
-    }, {limit: MAX_NUMBER_DOCS_RETURNED})
+    }, {limit: 3})
   }
 
   searchPosts (input) {
