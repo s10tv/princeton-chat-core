@@ -82,6 +82,7 @@ const s = {
     marginTop: spacing.x2,
     marginBottom: spacing.x4,
     fontSize: fontSize.lg,
+    wordBreak: 'break-all'
   },
   facebookDisclaimer: {
     marginBottom: 0,

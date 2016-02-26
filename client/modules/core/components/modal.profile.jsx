@@ -55,7 +55,7 @@ export default React.createClass({
                 : <h3 style={{ color: accent1Color }}>
                   {this.props.user.displayUsername}
                 </h3>}
-              <p>
+              <p style={{wordBreak: 'break-all'}}>
                 {this.props.user.displayEmail}
               </p>
             </Flex>
