@@ -4,9 +4,9 @@ import Select from 'react-select'
 import {Flex} from 'jsxstyle'
 import LinearProgress from '../../../../node_modules/material-ui/lib/linear-progress'
 import {color} from '/client/configs/theme'
-import {TextField} from '/client/lib/ui.jsx'
 import Menu from '/client/modules/core/components/menu.jsx'
 import styles from './styles.jsx'
+import MyAutoComplete from '/client/lib/mention.textfield.jsx'
 
 /**
  * https://github.com/erikras/redux-form/issues/82
@@ -65,12 +65,13 @@ export default React.createClass({
       topicIds: React.PropTypes.object.isRequired
     }).isRequired,
     handleSubmit: React.PropTypes.func.isRequired,
-    error: React.PropTypes.object,
+    error: React.PropTypes.string,
     submitting: React.PropTypes.bool,
     sidebarOpen: React.PropTypes.bool.isRequired,
     createPostTopicWrapper: React.PropTypes.object.isRequired,
     isMobile: React.PropTypes.bool.isRequired,
-    showSidebar: React.PropTypes.func.isRequired
+    showSidebar: React.PropTypes.func.isRequired,
+    fetchMentions: React.PropTypes.func.isRequired
   },
 
   componentWillMount () {
@@ -103,29 +104,35 @@ export default React.createClass({
       <main style={Object.assign({}, styles.main, {
         marginLeft: this.props.sidebarOpen ? 240 : 0
       })}>
-        <Flex flexDirection='column' flexGrow={1}>
+        <Flex className='no-scrollbar' flexDirection='column' flexGrow={1}>
           <Menu
             topic={this.props.createPostTopicWrapper}
             shouldShowSearch={false}
             {...this.props} />
-          <Flex flex='1 1 0px' overflowY='scroll' padding='0px 24px 24px 24px'>
+          <Flex className='no-scrollbar' flex='1 1 0px' overflowY='scroll' padding='0px 24px 24px 24px'>
             <form style={{
               width: '100%'
             }} onSubmit={handleSubmit}>
               <Flex flexDirection='column'>
-                <TextField
-                  {...title}
+                <MyAutoComplete
                   fullWidth
-                  floatingLabelText='Subject' />
+                  onBlur={(e) => this.onBlur(e)}
+                  fetchMentions={this.props.fetchMentions}
+                  floatingLabelText='Subject'
+                  {...title}
+                />
 
-                <TextField
-                  {...content}
+                <MyAutoComplete
                   fullWidth
                   rowsMax={10}
                   rows={10}
                   multiLine
+                  onBlur={(e) => this.onBlur(e)}
+                  fetchMentions={this.props.fetchMentions}
                   hintText='Start a conversation...'
-                  floatingLabelText='Content' />
+                  floatingLabelText='Content'
+                  {...content}
+                />
 
                 <ReduxFormSelect {...topicIds}
                   placeholder='Post in channels ... '
