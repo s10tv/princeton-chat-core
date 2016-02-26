@@ -161,4 +161,23 @@ export default function ({ Migrations, Collections }) {
       })
     }
   })
+
+  Migrations.add({
+    version: 11,
+    name: 'Users all get username',
+    up: function () {
+      Users.find().forEach((user) => {
+        if (user.status === 'active' && !user.username === 'active') {
+          try {
+            Users.update(user._id, { $set: {
+              username: `${user.firstName}_${user.lastName}`
+            }})
+          } catch (err) {
+            console.log(err)
+            console.log(`cannot update username for user ${user._id}`)
+          }
+        }
+      })
+    }
+  })
 }
