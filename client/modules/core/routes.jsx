@@ -30,7 +30,7 @@ export default function (injectDeps, {FlowRouter, Collections, Meteor, Accounts,
   FlowRouter.route('/guest', {
     name: 'guest',
     action (params) {
-      if (Meteor.user()) {
+      if (Meteor.userId()) {
         FlowRouter.go('choose-topics')
       } else {
         FlowRouter.go('onboarding-login')
