@@ -1,5 +1,6 @@
 import {createOnSubmit} from '/client/lib/helpers'
 import TopicActions from './topics.js'
+import AmplitudeService from '/client/lib/amplitude.service'
 
 export default {
   create (context, info = {}) {
@@ -9,9 +10,24 @@ export default {
     info.topicIds = info.topicIds.split(',')
 
     return createOnSubmit('post/insert', ({FlowRouter, LocalState}) => {
-      LocalState.set('ADD_POST_POPUP_SHOWING', false)
+      AmplitudeService.track('success/post/create')
       FlowRouter.go(`/topics/${info.topicIds[0]}/${info._id}`)
     })(context, info)
+  },
+
+  fetchMentions ({LocalState, Meteor}, username, callback) {
+    const cached = LocalState.get(username)
+    if (cached) {
+      return callback(cached)
+    }
+
+    Meteor.call('search/username', username, (err, res) => {
+      if (err) {
+        return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+      }
+
+      return callback(res)
+    })
   },
 
   showSnackbarError ({LocalState}, error) {
@@ -35,29 +51,12 @@ export default {
     TopicActions.updateTopicFollowers(context, [currentTopic])
     LocalState.set('SHOW_SIDE_BAR', false)
     FlowRouter.go('add-post')
+    AmplitudeService.track('start/post/create')
   },
 
   hasInteractedWithCreatePost ({ sweetalert, store }) {
     const form = store.getState().form['post/create']
     return form && ((form.title && form.title.value) || (form.content && form.content.value))
-  },
-
-  closeAddPostPopup ({ LocalState, sweetalert }, hasWrittenAnything) {
-    if (hasWrittenAnything) {
-      sweetalert({
-        title: 'Are you sure?',
-        type: 'warning',
-        text: "All the effort you put into this post will be gone to waste. Forever. We won't have a chance to hear your voice :(",
-        closeOnConfirm: true,
-        confirmButtonText: 'Delete',
-        confirmButtonColor: '#F07621',
-        showCancelButton: true
-      }, () => {
-        LocalState.set('ADD_POST_POPUP_SHOWING', false)
-      })
-    } else {
-      LocalState.set('ADD_POST_POPUP_SHOWING', false)
-    }
   },
 
   showUserProfile ({ LocalState }, post) {

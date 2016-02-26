@@ -1,5 +1,6 @@
 import InputBox from '/client/modules/core/components/inputBox.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
+import AmplitudeService from '/client/lib/amplitude.service'
 
 const composer = ({context, postId, follow, unfollow}, onData) => {
   const {Meteor, Collections, UserService} = context()
@@ -22,8 +23,14 @@ const composer = ({context, postId, follow, unfollow}, onData) => {
 const depsMapper = (context, actions) => {
   return {
     create: actions.messages.create,
-    follow: actions.posts.follow,
-    unfollow: actions.posts.unfollow,
+    follow: (args) => {
+      AmplitudeService.track('post/follow', { from: 'post/details' })
+      return actions.posts.follow(args)
+    },
+    unfollow: (args) => {
+      AmplitudeService.track('post/unfollow', { from: 'post/details' })
+      return actions.posts.unfollow(args)
+    },
     showPostFollowers: actions.posts.showPostFollowers,
     showSnackbarError: actions.posts.showSnackbarError,
     fetchMentions: actions.search.fetchMentions,

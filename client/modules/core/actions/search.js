@@ -1,6 +1,8 @@
+import AmplitudeService from '/client/lib/amplitude.service'
 
 export default {
   search ({FlowRouter}, searchTerm, isSearchingPeople) {
+    AmplitudeService.track('success/search')
     if (isSearchingPeople) {
       return FlowRouter.go('directory-search', {}, { term: searchTerm })
     }

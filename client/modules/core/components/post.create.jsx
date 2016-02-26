@@ -28,12 +28,6 @@ ReduxFormSelect.propTypes = {
 
 export default React.createClass({
   propTypes: {
-
-    /**
-     * Function to call when we want to close the modal.
-     */
-    handleClose: React.PropTypes.func.isRequired,
-
     /**
      * A list of all of the topics to use for the selector
      */

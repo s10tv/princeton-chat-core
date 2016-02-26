@@ -114,6 +114,7 @@ const FocusedTextField = React.createClass({
   },
 
   toggleSearchType () {
+    this.props.trackToggle()
     this.setState({
       searchPeople: !this.state.searchPeople
     })
@@ -152,6 +153,7 @@ const FocusedTextField = React.createClass({
           style={Object.assign({}, s.text, !this.props.isMobile ? {} : {
             width: 150
           })}
+          onFocus={this.props.trackTextFieldFocus}
           inputStyle={Object.assign({}, s.text, s.textFocus)}
           underlineFocusStyle={{borderColor: accent1Color}}
           hintText={this.state.searchPeople ? 'Search people' : 'Search content'}

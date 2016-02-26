@@ -2,6 +2,7 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import TopicList from '/client/modules/core/components/topic.list.jsx'
 import {PageLoader} from '/client/lib/ui.jsx'
 import _ from 'underscore'
+import AmplitudeService from '/client/lib/amplitude.service'
 
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context()
@@ -24,8 +25,14 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
 const depMapper = (context, actions) => ({
   context: () => context,
   showAddTopicModal: actions.topics.showAddTopicModal,
-  followTopic: actions.topics.follow,
-  unfollowTopic: actions.topics.unfollow,
+  followTopic: (args) => {
+    AmplitudeService.track('topic/follow', { from: 'topic/list' })
+    return actions.topics.follow(args)
+  },
+  unfollowTopic: (args) => {
+    AmplitudeService.track('topic/unfollow', { from: 'topic/list' })
+    return actions.topics.unfollow(args)
+  },
   navigateToTopic: actions.topics.navigateToTopic,
   showLoginAlert: actions.global.showLoginAlert
 })

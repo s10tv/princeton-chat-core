@@ -1,29 +1,15 @@
 // import UnsplashService from '/imports/libs/unsplash.service'
 import { _ } from 'meteor/underscore'
+import AmplitudeService from '/client/lib/amplitude.service'
 
 export default {
-  create ({Collections, Meteor, LocalState, FlowRouter, handleClose}, title, content, topics) {
-    const id = Meteor.uuid()
-    const topicIds = topics.split(',')
-
-    // There is a method stub for this in the configs/method_stubs
-    // That's how we are doing latency compensation
-    Meteor.call('post/insert', id, title, content, topicIds, (err) => {
-      if (err) {
-        return LocalState.set('SAVING_ERROR', err.message)
-      }
-
-      LocalState.set('ADD_POST_POPUP_SHOWING', false)
-      FlowRouter.go(`/topics/${topicIds[0]}/${id}`)
-    })
-  },
-
   createTopic ({Meteor, LocalState, FlowRouter}, topicInfo, shouldRedirect) {
     Meteor.call('topic/create', topicInfo, (err, topicId) => {
       if (err) {
         return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
       }
 
+      AmplitudeService.track('success/topic/create')
       LocalState.set('SHOW_ADD_TOPIC_MODAL', false)
       if (shouldRedirect) {
         FlowRouter.go(`/topics/${topicId}`)
@@ -32,6 +18,7 @@ export default {
   },
 
   showAddTopicModal ({ LocalState }) {
+    AmplitudeService.track('start/topic/create')
     LocalState.set('SHOW_ADD_TOPIC_MODAL', true)
   },
 
@@ -82,6 +69,7 @@ export default {
   },
 
   navigateToAddFollowers ({ FlowRouter }, topicId) {
+    AmplitudeService.track('start/topic/addfollowers')
     return FlowRouter.go(`/add-followers/${topicId}`)
   },
 
@@ -140,6 +128,7 @@ export default {
       }
 
       LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', 'Followers successfully added!')
+      AmplitudeService.track('success/topic/addfollowers')
       FlowRouter.go(`/topics/${topicId}`)
     })
   },

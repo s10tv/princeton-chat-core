@@ -38,7 +38,6 @@ export const composer = ({context}, onData) => {
 
 export const depsMapper = (context, actions) => ({
   onSubmit: actions.posts.create,
-  handleClose: actions.posts.closeAddPostPopup,
   showTopicFollowers: actions.topics.showTopicFollowers,
   updateTopicFollowers: actions.topics.updateTopicFollowers,
   showSnackbarError: actions.posts.showSnackbarError,

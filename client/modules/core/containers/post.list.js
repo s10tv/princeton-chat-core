@@ -6,6 +6,7 @@ import UserService from '/lib/user.service.js'
 import DateFormatter from '/client/lib/date.formatter.js'
 import { GenericCoverPhoto, SearchCoverPhoto } from '/client/lib/unsplash.service.js'
 import _ from 'underscore'
+import AmplitudeService from '/client/lib/amplitude.service'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 
@@ -125,8 +126,14 @@ export const composer = ({context, topicId, term, postListType, rightbarOpen, is
       topic,
       isMyTopic: topic.ownerId === currentUser._id,
       posts,
-      followFn: () => { Meteor.call('topic/follow', topic._id) },
-      unfollowFn: () => { Meteor.call('topic/unfollow', topic._id) },
+      followFn: () => {
+        AmplitudeService.track('topic/follow', { from: 'post/list' })
+        Meteor.call('topic/follow', topic._id)
+      },
+      unfollowFn: () => {
+        AmplitudeService.track('topic/unfollow', { from: 'post/list' })
+        Meteor.call('topic/unfollow', topic._id)
+      },
       followersCount: topic.followers.length,
       postListType,
       isFollowing: currentUser.followingTopics.indexOf(topic._id) >= 0,
@@ -151,8 +158,14 @@ const depsMapper = (context, actions) => ({
   navigateToAddFollowers: actions.topics.navigateToAddFollowers,
   showPostFollowers: actions.posts.showPostFollowers,
   showTopicFollowersFromFollowersListFn: actions.topics.showTopicFollowersFromFollowersList,
-  followPostFn: actions.posts.follow,
-  unfollowPostFn: actions.posts.unfollow,
+  followPostFn: (args) => {
+    AmplitudeService.track('post/follow', { from: 'post/list' })
+    return actions.posts.follow(args)
+  },
+  unfollowPostFn: (args) => {
+    AmplitudeService.track('post/unfollow', { from: 'post/list' })
+    return actions.posts.unfollow(args)
+  },
   removeFollower: actions.topics.removeFollower,
   removeTopic: actions.topics.removeTopic,
   context: () => context
