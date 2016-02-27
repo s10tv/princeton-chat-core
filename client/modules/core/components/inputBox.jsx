@@ -1,5 +1,6 @@
 import React from 'react'
 import { Flex, Inline } from 'jsxstyle'
+import keycode from 'keycode'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
 import Checkbox from '../../../../node_modules/material-ui/lib/checkbox'
 import linkState from 'react-link-state'
@@ -60,10 +61,14 @@ export default React.createClass({
     this.props.fields.content.onChange('')
   },
 
-  handleEnterKeyDown (event) {
-    if (!event.shiftKey && this.state.pressEnterToSend) {
-      event.preventDefault()
-      this.sendMessage()
+  handleKeyDown (event) {
+    switch (keycode(event)) {
+      case 'enter':
+        if (!event.shiftKey && this.state.pressEnterToSend) {
+          event.preventDefault()
+          this.sendMessage()
+        }
+        break
     }
   },
 
@@ -169,7 +174,7 @@ export default React.createClass({
             hintText='Type a message...'
             fetchMentions={fetchMentions}
             onBlur={this.handleInputBlur}
-            onEnterKeyDown={this.handleEnterKeyDown}
+            onKeyDown={this.handleKeyDown}
             mentions={mentions.content}
             clearMentions={() => clearMentions(content)}
             onMentionTap={(user) => replaceWithMention(content, user)}

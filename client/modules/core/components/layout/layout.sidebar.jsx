@@ -3,6 +3,7 @@ import {Flex} from 'jsxstyle'
 import LeftNav from '../../../../../node_modules/material-ui/lib/left-nav'
 import List from '../../../../../node_modules/material-ui/lib/lists/list'
 import ListItem from '../../../../../node_modules/material-ui/lib/lists/list-item'
+import Subheader from 'material-ui/lib/Subheader/Subheader'
 import {SmallListItem, MediumListItem, LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
 import RaisedButton from '../../../../../node_modules/material-ui/lib/raised-button'
 import FontIcon from '../../../../../node_modules/material-ui/lib/font-icon'
@@ -200,10 +201,10 @@ export default React.createClass({
   },
 
   render () {
-    const width = this.props.clickedToShowSidebar ? '100%' : '240px'
+    const width = this.props.clickedToShowSidebar ? '100%' : 240
 
     return (
-      <LeftNav open={this.props.sidebarOpen} style={{width}}>
+      <LeftNav open={this.props.sidebarOpen} width={width}>
         <SidebarHeader
           user={this.props.user}
           onLogout={this.props.onLogout}
@@ -239,9 +240,10 @@ export default React.createClass({
             </MediumListItem>
 
           </List>
-          <List subheader={
-            <NonTappableSubHeader label='MY CHANNELS' />
-          }>
+          <List>
+            <Subheader>
+              <NonTappableSubHeader label='MY CHANNELS' />
+            </Subheader>
             {this.props.followedTopics.map((topic) =>
               <SmallListItem
                 key={topic._id}

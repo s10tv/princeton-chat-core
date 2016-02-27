@@ -1,5 +1,6 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
+import keycode from 'keycode'
 import TextField from 'material-ui/lib/text-field'
 import {FontIcon, IconButton} from '/client/lib/ui.jsx'
 import { i18n } from '/client/configs/env'
@@ -99,17 +100,19 @@ const FocusedTextField = React.createClass({
     }
   },
 
-  updateInput (event) {
-    const searchVal = event.currentTarget.value
-    const isSearchingPeople = this.state.searchPeople
-    if (searchVal && searchVal.trim().length > 0) {
-      this.props.search(searchVal.trim(), isSearchingPeople)
-    }
-  },
-
   checkForEscapeKey (event) {
-    if (event.keyCode === 27) {
-      this.props.toggleSearch(event)
+    switch (keycode(event)) {
+      case 'esc':
+        this.props.toggleSearch(event)
+        break
+
+      case 'enter':
+        const searchVal = event.currentTarget.value
+        const isSearchingPeople = this.state.searchPeople
+        if (searchVal && searchVal.trim().length > 0) {
+          this.props.search(searchVal.trim(), isSearchingPeople)
+        }
+        break
     }
   },
 
@@ -158,7 +161,6 @@ const FocusedTextField = React.createClass({
           underlineFocusStyle={{borderColor: accent1Color}}
           hintText={this.state.searchPeople ? 'Search people' : 'Search content'}
           defaultValue={this.props.currentSearchValue}
-          onEnterKeyDown={this.updateInput}
           onKeyDown={this.checkForEscapeKey}
         />
       </Flex>

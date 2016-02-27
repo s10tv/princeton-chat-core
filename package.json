@@ -42,7 +42,7 @@
     "jsxstyle": "0.0.18",
     "keycode": "2.1.0",
     "mantra-core": "1.2.0",
-    "material-ui": "0.14.4",
+    "material-ui": "git+https://github.com/s10tv/material-ui.git",
     "moment": "2.11.2",
     "pluralize": "1.2.1",
     "radium": "0.16.6",

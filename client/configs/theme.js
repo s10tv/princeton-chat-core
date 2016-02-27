@@ -3,9 +3,9 @@
 /*eslint-disable comma-dangle */
 /*eslint-disable no-trailing-spaces */
 
-import darkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
-import lightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme'
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import darkRawTheme from 'material-ui/lib/styles/baseThemes/darkBaseTheme'
+import lightRawTheme from 'material-ui/lib/styles/baseThemes/lightBaseTheme'
+import getMuiTheme from 'material-ui/lib/styles/getMuiTheme'
 import Spacing from 'material-ui/lib/styles/spacing'
 import _color from './color'
 import tinycolor from 'tinycolor2'
@@ -41,7 +41,7 @@ export const spacing = {
   x6: 48,
 }
 
-export const primaryMuiTheme = ThemeManager.getMuiTheme({
+export const primaryMuiTheme = getMuiTheme({
   spacing: Spacing,
   fontFamily: fontFamily.base,
   palette: {
@@ -53,7 +53,7 @@ export const primaryMuiTheme = ThemeManager.getMuiTheme({
   }
 })
 
-export const secondaryMuiTheme = ThemeManager.getMuiTheme({
+export const secondaryMuiTheme = getMuiTheme({
   spacing: Spacing,
   fontFamily: fontFamily.base,
   palette: {
