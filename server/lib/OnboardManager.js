@@ -5,7 +5,6 @@ import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
 import emails from '../emails'
-import {domains as Domains} from '/lib/data'
 
 const {
   htmlEmail,
@@ -20,7 +19,7 @@ const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
 
 export default class OnboardManager {
 
-  constructor ({ Meteor, Accounts, Email, Random, Collections, slack, rootURL }) {
+  constructor ({ Meteor, Accounts, Email, Random, Collections, slack, rootURL, HTTP }) {
     this.audience = title || 'Princeton.Chat'
     this.Meteor = Meteor
     this.Accounts = Accounts
@@ -29,6 +28,7 @@ export default class OnboardManager {
     this.Collections = Collections
     this.slack = slack
     this.rootURL = rootURL
+    this.HTTP = HTTP
   }
 
   verifyAlumni (options) {
@@ -44,12 +44,25 @@ export default class OnboardManager {
       throw new this.Meteor.Error(400, 'This email address is already used.')
     }
 
-    Domains.forEach((domain) => {
-      if (!Users.findOne({emails: {$elemMatch: {address: `${netid}@${domain}`}}})) {
-        const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear: classYear})
-        this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
-      }
-    })
+    var res
+    try {
+      res = this.HTTP.get('https://api.mailgun.net/v3/address/validate', {
+        auth: `api:${this.Meteor.settings.public.mailgunPublicKey}`,
+        params: {
+          address: `${netid}@${domain}`
+        }
+      })
+    } catch (e) {
+      console.error(e)
+      throw new this.Meteor.Error(500, 'Sorry, an unknown error occurred.')
+    }
+
+    if (res.data['is_valid']) {
+      const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear: classYear})
+      this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
+    } else {
+      throw new this.Meteor.Error(400, 'This email is invalid. Are you sure the one you entered is correct?')
+    }
   }
 
   verifyAffiliation (options) {

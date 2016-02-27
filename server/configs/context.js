@@ -5,7 +5,7 @@ import {ServiceConfiguration} from 'meteor/service-configuration'
 import Collections from '/lib/collections'
 import {Random} from 'meteor/random'
 import {Email} from 'meteor/email'
-
+import {HTTP} from 'meteor/http'
 import AvatarService from '/lib/avatar.service.js'
 import PostManager from '/server/lib/PostManager'
 import TopicManager from '/server/lib/TopicManager'
@@ -46,7 +46,7 @@ export function initContext () {
     UserService,
     MentionParser: new MentionParser({ Collections }),
     SearchService: new SearchService({ Meteor, Collections }),
-    OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack, rootURL }),
+    OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack, rootURL, HTTP }),
     PostManager: new PostManager({Meteor, Collections}),
     TopicManager: new TopicManager({Meteor, Collections}),
     rootURL,
