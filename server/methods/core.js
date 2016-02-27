@@ -50,7 +50,12 @@ export default function (context) {
         numMsgs: 0
       })
 
-      // mentioned users follow the post
+      // mentioned users in title should follow the post
+      MentionParser.parseMentions(title).forEach((mentionedUser) => {
+        PostManager.follow({user: mentionedUser, postId})
+      })
+
+      // mentioned users in content should follow the post
       MentionParser.parseMentions(content).forEach((mentionedUser) => {
         PostManager.follow({user: mentionedUser, postId})
       })
