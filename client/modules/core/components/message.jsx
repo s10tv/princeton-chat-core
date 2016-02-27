@@ -68,7 +68,7 @@ export const Message = (props) => (
       <FlatButton key={attachment.url} target='_blank' style={s.attachment} linkButton
         href={attachment.url} primary labelPosition='after' labelStyle={{
           paddingLeft: 8, paddingRight: 6
-        }} label={shortenFilename(getFilenameFromURL(attachment.url))}>
+        }} label={(attachment.name && shortenFilename(attachment.name)) || shortenFilename(getFilenameFromURL(attachment.url))}>
         <FontIcon className='material-icons' style={s.attachmentIcon}>
           {ContentTypeService.iconForType(attachment.contentType)}
         </FontIcon>
