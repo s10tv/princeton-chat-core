@@ -20,7 +20,6 @@ export default React.createClass({
     unfollow: React.PropTypes.func.isRequired,
     showSnackbarError: React.PropTypes.func.isRequired,
     showPostFollowers: React.PropTypes.func.isRequired,
-    fetchMentions: React.PropTypes.func.isRequired,
     fields: React.PropTypes.shape({
       content: React.PropTypes.object.isRequired
     }),
@@ -154,7 +153,7 @@ export default React.createClass({
   },
 
   render () {
-    const {fields: {content}, fetchMentions, mentions, clearMentions, replaceWithMention} = this.props
+    const {fields: {content}, mentions, clearMentions, replaceWithMention} = this.props
 
     return (
       <Flex component='footer' flexDirection='column' padding='0 16px 8px 16px' flexShrink='0'>
@@ -172,7 +171,6 @@ export default React.createClass({
             underlineShow={false}
             rowsMax={8}
             hintText='Type a message...'
-            fetchMentions={fetchMentions}
             onBlur={this.handleInputBlur}
             onKeyDown={this.handleKeyDown}
             mentions={mentions.content}

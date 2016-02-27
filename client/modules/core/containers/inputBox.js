@@ -39,7 +39,6 @@ const depsMapper = (context, actions) => {
     },
     showPostFollowers: actions.posts.showPostFollowers,
     showSnackbarError: actions.posts.showSnackbarError,
-    fetchMentions: actions.search.fetchMentions,
     parseAndFetchMentions: actions.search.parseAndFetchMentions,
     clearMentions: actions.search.clearMentions,
     replaceWithMention: actions.search.replaceWithMention,

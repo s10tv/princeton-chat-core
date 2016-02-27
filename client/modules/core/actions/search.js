@@ -51,14 +51,5 @@ export default {
     words.push(`@${user.username} `)
 
     return field.onChange(words.join(' '))
-  },
-
-  fetchMentions ({Meteor}, term, callback) {
-    Meteor.call('search/users', term, (err, res) => {
-      if (err) {
-        return callback([])
-      }
-      return callback(res)
-    })
   }
 }
