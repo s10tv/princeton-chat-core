@@ -36,11 +36,6 @@ export default function (context) {
         throw new Meteor.Error(400, 'Please add at least one channel to the post.')
       }
 
-      const additionalMentions = MentionParser.parseMentions(content).map((user) => ({
-        userId: user._id,
-        unreadCount: 0
-      }))
-
       // We are good to insert the post.
       const postId = Posts.insert({
         _id,
@@ -51,12 +46,17 @@ export default function (context) {
         followers: [{
           userId: user._id,
           unreadCount: 0
-        }].concat(additionalMentions),
+        }],
         numMsgs: 0
       })
 
+      // mentioned users follow the post
+      MentionParser.parseMentions(content).forEach((user) => {
+        PostManager.follow({user, postId})
+      })
+
       // The current user follows the current post they just posted
-      Meteor.call('post/follow', postId)
+      PostManager.follow({user, postId})
 
       // update the num posts after posting.
       filteredTopicIds.forEach((topicId) => {
