@@ -43,7 +43,6 @@ export default React.createClass({
   getInitialState () {
     return {
       anchorEl: null,
-      focusMenu: false,
       muiTheme: this.context.muiTheme
     }
   },
@@ -92,14 +91,6 @@ export default React.createClass({
         this.close()
         break
 
-      case 'up':
-      case 'down':
-        event.preventDefault()
-        this.setState({
-          focusMenu: true
-        })
-        break
-
       default:
         this.props.onKeyDown(event)
     }
@@ -114,16 +105,13 @@ export default React.createClass({
     this.props.onMentionTap(user)
     this.props.clearMentions()
     this.__focusTextField()
-    this.setState({
-      focusMenu: false
-    })
   },
 
   // async unfocus the text field prevents UI from locking
   __focusTextField () {
     setTimeout(() => {
       this.refs.searchTextField.focus()
-    }, 50)
+    }, 0)
   },
 
   render () {
@@ -178,7 +166,6 @@ export default React.createClass({
             autoWidth={false}
             zDepth={0}
             onEscKeyDown={this.close}
-            initiallyKeyboardFocused={this.state.focusMenu}
             listStyle={Object.assign(styles.list, listStyle)}
             style={Object.assign(styles.menu, menuStyle)}
           >
