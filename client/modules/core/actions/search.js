@@ -9,47 +9,36 @@ export default {
     return FlowRouter.go('search', {}, { term: searchTerm })
   },
 
-  parseAndFetchMentions ({Meteor, store}, field, message) {
+  parseAndFetchMentions ({Meteor, MentionParser, store}, field, message) {
     if (!message) {
       return store.dispatch({ type: 'CLEAR_MENTIONS', field: field.name })
     }
 
-    const words = message.split(' ').filter((word) => word.length > 0)
-    if (words.length === 0) {
+    const mentions = MentionParser.getMentionForLastWord(message)
+    if (mentions.length === 0) {
       return store.dispatch({ type: 'CLEAR_MENTIONS', field: field.name })
     }
 
-    const lastWord = words[words.length - 1]
+    const lastMention = mentions[mentions.length - 1]
+    Meteor.call('search/users', lastMention.substring(1), (err, res) => {
+      if (err) {
+        return console.error('Error in search/users', err)
+      }
 
-    if (lastWord.charAt(0) === '@' && lastWord.length > 1) {
-      Meteor.call('search/users', lastWord.substring(1), (err, res) => {
-        if (err) {
-          return console.error('Error in search/users', err)
-        }
-
-        return store.dispatch({
-          type: 'FETCH_MENTIONS',
-          field: field.name,
-          mentions: res
-        })
+      return store.dispatch({
+        type: 'FETCH_MENTIONS',
+        field: field.name,
+        mentions: res
       })
-    } else {
-      return store.dispatch({ type: 'CLEAR_MENTIONS', field: field.name })
-    }
+    })
   },
 
   clearMentions ({store}, field) {
     store.dispatch({type: 'CLEAR_MENTIONS', field: field.name})
   },
 
-  replaceWithMention (context, field, user) {
-    const currentVal = field.value
-    const words = currentVal.split(' ').filter((word) => word.length > 0)
-    if (words.length > 0) {
-      words.pop()
-    }
-    words.push(`@${user.username} `)
-
-    return field.onChange(words.join(' '))
+  replaceWithMention ({MentionParser}, field, user) {
+    const content = field.value
+    return field.onChange(MentionParser.replaceLastMentionWithName(content, user.username))
   }
 }

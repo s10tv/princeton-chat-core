@@ -51,12 +51,12 @@ export default function (context) {
       })
 
       // mentioned users in title should follow the post
-      MentionParser.parseMentions(title).forEach((mentionedUser) => {
+      MentionParser.fetchAllMentionedUsers(title).forEach((mentionedUser) => {
         PostManager.follow({user: mentionedUser, postId})
       })
 
       // mentioned users in content should follow the post
-      MentionParser.parseMentions(content).forEach((mentionedUser) => {
+      MentionParser.fetchAllMentionedUsers(content).forEach((mentionedUser) => {
         PostManager.follow({user: mentionedUser, postId})
       })
 
@@ -249,7 +249,7 @@ export default function (context) {
       })
 
       // mentioned users follow the post
-      MentionParser.parseMentions(commentText).forEach((mentionedUser) => {
+      MentionParser.fetchAllMentionedUsers(commentText).forEach((mentionedUser) => {
         PostManager.follow({user: mentionedUser, postId})
       })
 
