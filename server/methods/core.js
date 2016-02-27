@@ -50,11 +50,8 @@ export default function (context) {
         numMsgs: 0
       })
 
-      console.log('postId', postId)
-
       // mentioned users follow the post
       MentionParser.parseMentions(content).forEach((mentionedUser) => {
-        console.log('mentioned', mentionedUser)
         PostManager.follow({user: mentionedUser, postId})
       })
 
@@ -244,6 +241,11 @@ export default function (context) {
         postId,
         content: commentText,
         ownerId: user._id
+      })
+
+      // mentioned users follow the post
+      MentionParser.parseMentions(commentText).forEach((mentionedUser) => {
+        PostManager.follow({user: mentionedUser, postId})
       })
 
       if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {

@@ -11,10 +11,9 @@ import PostManager from '/server/lib/PostManager'
 import TopicManager from '/server/lib/TopicManager'
 import OnboardManager from '/server/lib/OnboardManager'
 import SearchService from '/server/lib/SearchService'
-import MentionParser from '/server/lib/MentionParser'
 import Logger from '/server/lib/logger'
 import UserService from '/lib/user.service'
-
+import MentionParser from '/lib/mention.parser'
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
