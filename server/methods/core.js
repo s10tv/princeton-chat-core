@@ -50,9 +50,12 @@ export default function (context) {
         numMsgs: 0
       })
 
+      console.log('postId', postId)
+
       // mentioned users follow the post
-      MentionParser.parseMentions(content).forEach((user) => {
-        PostManager.follow({user, postId})
+      MentionParser.parseMentions(content).forEach((mentionedUser) => {
+        console.log('mentioned', mentionedUser)
+        PostManager.follow({user: mentionedUser, postId})
       })
 
       // The current user follows the current post they just posted
