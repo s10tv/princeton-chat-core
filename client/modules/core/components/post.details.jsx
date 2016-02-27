@@ -172,6 +172,7 @@ export default React.createClass({
                 owner={message.owner}
                 timestamp={message.timestamp}
                 content={message.content}
+                attachments={message.attachments}
                 messageLinkOnClick={messageLinkOnClick}
                 deleteMessage={message.canDelete ? () => deleteMessage(message._id) : null}
                 showUserProfile={() => showUserProfileMessage(message)} />

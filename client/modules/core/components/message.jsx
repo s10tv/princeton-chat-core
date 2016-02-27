@@ -8,6 +8,10 @@ import MoreHorizIcon from '../../../../node_modules/material-ui/lib/svg-icons/na
 import Radium from 'radium'
 import { i18n } from '/client/configs/env'
 import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
+import ContentTypeService from '/client/lib/contenttype.service'
+import {getFilenameFromURL, shortenFilename} from '/client/lib/url.util'
+import {FontIcon, FlatButton} from '/client/lib/ui.jsx'
+import colors from '/client/configs/color'
 
 const theme = i18n('secondaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -26,6 +30,25 @@ const s = {
     ':hover': {
       backgroundColor: '#F7F7F7'
     }
+  },
+  attachment: {
+    display: 'table',
+    textTransform: 'initial'
+  },
+  attachmentInner: {
+    height: 34,
+    flexBasis: '200px',
+    flexShrink: 0,
+    alignItems: 'center'
+  },
+  attachmentFilename: {
+    marginTop: 0,
+    marginBottom: 0
+  },
+  attachmentIcon: {
+    color: colors.brand.primary,
+    verticalAlign: 'middle',
+    marginLeft: 6
   }
 }
 
@@ -40,7 +63,17 @@ export const Message = (props) => (
         {props.content}
       </Linkify>
     </div>
-    {props.action}
+    {!props.attachments ? null
+    : props.attachments.map((attachment) => (
+      <FlatButton key={attachment.url} target='_blank' style={s.attachment} linkButton
+        href={attachment.url} primary labelPosition='after' labelStyle={{
+          paddingLeft: 8, paddingRight: 6
+        }} label={shortenFilename(getFilenameFromURL(attachment.url))}>
+        <FontIcon className='material-icons' style={s.attachmentIcon}>
+          {ContentTypeService.iconForType(attachment.contentType)}
+        </FontIcon>
+      </FlatButton>
+    ))}
   </div>
 )
 
