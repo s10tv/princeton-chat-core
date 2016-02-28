@@ -21,7 +21,7 @@ export default {
   onboardingDesc: 'Princeton.Chat is a community for Princeton alums.',
 
   // mail server info on right bar for topics and for add followers
-  topicMailServer: 'topics.princeton.chat',
+  topicMailServer: 'channels.princeton.chat',
 
   // when new users sign up
   defaultAvatar: '/images/princeton.svg',
