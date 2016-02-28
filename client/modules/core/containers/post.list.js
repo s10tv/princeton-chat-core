@@ -122,10 +122,13 @@ export const composer = ({context, topicId, term, postListType, rightbarOpen, is
       return post
     })
 
+    const isMyTopic = topic.ownerId === currentUser._id
+
     onData(null, {
       topic,
-      isMyTopic: topic.ownerId === currentUser._id,
+      isMyTopic,
       posts,
+      isTopicAdmin: isMyTopic || currentUser.topicAdmins.indexOf('global') >= 0,
       followFn: () => {
         AmplitudeService.track('topic/follow', { from: 'post/list' })
         Meteor.call('topic/follow', topic._id)

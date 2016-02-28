@@ -31,6 +31,11 @@ const RightBar = React.createClass({
     posts: React.PropTypes.array,
 
     /**
+     * Current user viewing the list
+     */
+    isTopicAdmin: React.PropTypes.bool.isRequired,
+
+    /**
      * A function to show the followers of the post.
      */
     showPostFollowers: React.PropTypes.func,
@@ -116,6 +121,7 @@ const RightBar = React.createClass({
         <List style={{marginTop: 5, marginBottom: 0, paddingTop: 0, paddingBottom: 0}}>
           {props.topic.followersList.map((f) =>
             <FollowerListItem key={f._id} follower={f}
+              isTopicAdmin={this.props.isTopicAdmin}
               removeFollower={() => props.removeFollower(props.topic._id, f._id)}
               showUserProfile={props.showUserProfile} />
           )}
@@ -158,17 +164,19 @@ const RightBar = React.createClass({
   }
 })
 
-var FollowerListItem = ({follower, showUserProfile, removeFollower}) => (
+var FollowerListItem = ({follower, showUserProfile, removeFollower, currentUser, isTopicAdmin}) => (
   <ListItem disabled style={{padding: '15px 0px'}} rightIconButton={
-    <IconMenu iconButtonElement={
-      <IconButton
-        touch
-        tooltip='more'
-        tooltipPosition='bottom-left'>
-        <MoreVertIcon color={Colors.grey400} />
-      </IconButton>}>
-      <MenuItem style={{color: 'red'}} onTouchTap={removeFollower}>Remove follower</MenuItem>
-    </IconMenu>
+    !isTopicAdmin ? null : (
+      <IconMenu iconButtonElement={
+        <IconButton
+          touch
+          tooltip='more'
+          tooltipPosition='bottom-left'>
+          <MoreVertIcon color={Colors.grey400} />
+        </IconButton>
+      }>
+        <MenuItem style={{color: 'red'}} onTouchTap={removeFollower}>Remove follower</MenuItem>
+      </IconMenu>)
     }>
     <a href='#' onClick={() => showUserProfile(follower)}>
       <Flex alignItems='center'>
