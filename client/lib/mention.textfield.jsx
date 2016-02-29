@@ -94,12 +94,7 @@ export default React.createClass({
       default:
         this.props.onKeyDown(event)
     }
-
-    this.__focusTextField()
   },
-
-  // the onFocus of redux form messes with this. pass in empty function for mow
-  handleFocus () {},
 
   handleItemTouchTap (user) {
     this.props.onMentionTap(user)
@@ -144,7 +139,6 @@ export default React.createClass({
           fullWidth={fullWidth}
           {...other}
           onChange={this.handleChange}
-          onFocus={this.handleFocus}
           onKeyDown={this.handleKeyDown}
           value={value}
           errorText={this.props.touched && this.props.error}
