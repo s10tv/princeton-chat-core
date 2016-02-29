@@ -13,21 +13,31 @@ export function redirectIfUrlFound (FlowRouter) {
   return FlowRouter.go('all-mine')
 }
 
+const allSetSweetAlert = ({sweetalert}) => {
+  sweetalert({
+    title: 'All Set',
+    text: 'You will receive an email once your affiliation is verified.',
+    type: 'success'
+  })
+}
+
 export default {
   onboardingManualVerify: {
     submit: createOnSubmit('signup/verifyAffiliation', ({sweetalert}) => {
       AmplitudeService.track('signup/verify', { type: 'manual' })
-      sweetalert({
-        title: 'All Set',
-        text: 'You will receive an email once your affiliation is verified.',
-        type: 'success'
-      })
+      allSetSweetAlert({sweetalert})
     })
   },
   onboardingAutoVerify: {
     submit: createOnSubmit('signup/alumni', ({sweetalert}) => {
       AmplitudeService.track('signup/verify', { type: 'auto' })
       sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)', type: 'success'})
+    })
+  },
+  onboardingNongradVerify: {
+    submit: createOnSubmit('signup/nongradAffiliation', ({sweetalert}) => {
+      AmplitudeService.track('signup/verify', { type: 'nongrad' })
+      allSetSweetAlert({sweetalert})
     })
   },
   onboardingLogin: {

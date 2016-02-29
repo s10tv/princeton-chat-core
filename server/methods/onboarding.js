@@ -14,6 +14,11 @@ export default function (context) {
       return OnboardManager.verifyAlumni(options)
     },
 
+    'signup/nongradAffiliation': (options) => {
+      Logger.log({ level: 'info', method: 'signup/nongradAffiliation', options })
+      return OnboardManager.verifyNongradAffiliation(options)
+    },
+
     'profile/avatar/useFacebook': () => {
       Logger.log({ level: 'info', method: 'profile/avatar/useFacebook' })
       const user = currentUser()

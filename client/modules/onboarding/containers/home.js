@@ -27,7 +27,7 @@ export const composer = ({context}, onData) => {
     if (Meteor.userId()) {
       const user = Meteor.user()
       // TODO: Do we need more states to represent stages of onboarding?
-      if (user.status === 'pending') {
+      if (user.status === 'pending' || user.status === 'nongrad-pending') {
         return FlowRouter.go('onboarding-signup')
       } else if (user.status === 'active') {
         return FlowRouter.go('all-mine')

@@ -52,6 +52,9 @@ const Home = (props) => {
               <a style={s.manualInvite} href='/request-invite'>
                 Don't have access to your Princeton email?
               </a>
+              <a style={s.manualInvite} href='/request-nongrad-invite'>
+                Not a Princeton graduate?
+              </a>
               {error && <p style={style.error}>{error}</p>}
               <FlatButton type='submit' style={style.button} label='Get Invited' disabled={submitting}
                 backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
@@ -75,8 +78,7 @@ Home.propTypes = {
   ...reduxFormPropTypes,
   fields: PropTypes.shape({
     netid: fieldShape.isRequired,
-    domain: fieldShape.isRequired,
-    classYear: fieldShape.isRequired
+    domain: fieldShape.isRequired
   }).isRequired,
   domains: PropTypes.arrayOf(PropTypes.string).isRequired
 }

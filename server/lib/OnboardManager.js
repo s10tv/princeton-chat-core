@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOMServer from '../../node_modules/react-dom/server'
-import { autoVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
+import { autoVerifyValidator, manualVerifyValidator, nongradVerifyValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
@@ -56,7 +56,7 @@ export default class OnboardManager {
       console.error(e)
       throw new this.Meteor.Error(500, 'Sorry, an unknown error occurred.')
     }
-
+    console.log(res.data)
     if (res.data['is_valid']) {
       const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent'})
       this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
@@ -82,6 +82,29 @@ export default class OnboardManager {
     this.slack.send({
       icon_emoji: slackEmoji,
       text: `Need Manual Verify: ${options.firstName} ${options.lastName} [${options.email}]`,
+      username: slackUsername
+    })
+
+    return inviteCode
+  }
+
+  verifyNongradAffiliation (options) {
+    const {Users} = this.Collections
+    const errors = nongradVerifyValidator(options)
+    if (errors.length > 0) {
+      throw new this.Meteor.Error(400, errors)
+    }
+
+    if (Users.findOne({emails: {$elemMatch: {address: options.email}}})) {
+      throw new this.Meteor.Error(400, 'This email address is already used.')
+    }
+
+    options.status = 'nongrad-pending'
+    const inviteCode = this.__generateInvite(options)
+
+    this.slack.send({
+      icon_emoji: slackEmoji,
+      text: `Need Nongrad Verify: ${options.firstName} ${options.lastName} [${options.email}]`,
       username: slackUsername
     })
 

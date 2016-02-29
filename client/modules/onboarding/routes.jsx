@@ -11,6 +11,7 @@ import ForgotPasswordSent from './containers/forgotpassword.sent'
 import ForgotPasswordChange from './containers/forgotpassword.change'
 import ForgotPassword from './containers/forgotpassword'
 import ForgotPasswordSuccess from './containers/forgotpassword.success'
+import RequestNongradInvite from './containers/invite.request.nongrad'
 import React from 'react'
 
 function requireUserInSession (context) {
@@ -37,6 +38,12 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     name: 'onboarding-manual-verify',
     action () {
       mount(injectDeps(RequestInvite))
+    }
+  })
+  FlowRouter.route('/request-nongrad-invite', {
+    name: 'onboarding-nongrad-verify',
+    action () {
+      mount(injectDeps(RequestNongradInvite))
     }
   })
   FlowRouter.route('/login', {

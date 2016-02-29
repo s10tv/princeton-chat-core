@@ -188,37 +188,4 @@ export default function (injectDeps, {FlowRouter, Collections, Meteor, Accounts,
       mount(ErrorPage)
     }
   }
-
-  Tracker.autorun(() => {
-    // const isInvite = /\/invite\/[0-9A-Za-z_-]+$/.test(window.location.href)
-    // const isSignupForm = /\/hello$/.test(window.location.href)
-    // const isSignupPassword = /\account$/.test(window.location.href)
-    // const isLogin = /\/login.+$/.test(window.location.href)
-    // const isSignupDone = /\/signed-up$/.test(window.location.href)
-    // const isGuestPath = /\/guest.+$/.test(window.location.href)
-    //
-    // const isPostsPath = /\/topics\/[0-9A-Za-z_-]+\/[0-9A-Za-z_-]+$/.test(window.location.href)
-    // const isTopicsPath = /\/topics\/[0-9A-Za-z_-]+$/.test(window.location.href)
-    //
-    // if (!Meteor.userId() &&
-    //     !isInvite &&
-    //     !isSignupForm &&
-    //     !isSignupPassword &&
-    //     !isLogin &&
-    //     !isGuestPath &&
-    //     !isSignupDone) {
-    //   let redirectPath = '/'
-    //   if (isPostsPath || isTopicsPath) {
-    //     redirectPath = `/login?ol=${encodeURIComponent(window.location.href)}`
-    //   }
-    //
-    //   return FlowRouter.go(redirectPath)
-    // }
-    //
-    // if (Meteor.user()) {
-    //   if (Meteor.user().status === 'pending') {
-    //     return FlowRouter.go('signupForm')
-    //   }
-    // }
-  })
 }
