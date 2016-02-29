@@ -38,7 +38,7 @@ export default class OnboardManager {
       throw new this.Meteor.Error(400, errors)
     }
 
-    const { netid, domain, classYear } = options
+    const { netid, domain } = options
 
     if (Users.findOne({emails: {$elemMatch: {address: `${netid}@${domain}`}}})) {
       throw new this.Meteor.Error(400, 'This email address is already used.')
@@ -58,7 +58,7 @@ export default class OnboardManager {
     }
 
     if (res.data['is_valid']) {
-      const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear: classYear})
+      const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent'})
       this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
     } else {
       throw new this.Meteor.Error(400, 'This email is invalid. Are you sure the one you entered is correct?')
