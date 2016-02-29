@@ -1,3 +1,5 @@
+import {stripTrailingSlash} from './context'
+
 export default function ({ ServiceConfiguration, Meteor }) {
   ServiceConfiguration.configurations.remove({
     service: 'facebook'
@@ -13,6 +15,7 @@ export default function ({ ServiceConfiguration, Meteor }) {
     // Temporarily disable redux logger for now because redux chrome dev tools
     // has more than we need. Enable if need be
     enableReduxLogger: false,
+    rootUrl: stripTrailingSlash(process.env.ROOT_URL),
     audience: process.env.AUDIENCE || 'princeton',
     environment: process.env.ENV || 'dev',
     amplitudeKey: process.env.AMPLITUDE_KEY || 'bc1101820f7bda64561e70be2594befd',

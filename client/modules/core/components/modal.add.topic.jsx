@@ -55,7 +55,12 @@ export default React.createClass({
     /**
      * Bool to control whether creation of the new topic redirects to the topic screen
      */
-    shouldRedirectToNewTopic: React.PropTypes.bool.isRequired
+    shouldRedirectToNewTopic: React.PropTypes.bool.isRequired,
+
+    /**
+     * The root URL of the app
+     */
+    rootUrl: React.PropTypes.string.isRequired
   },
 
   getInitialState () {
@@ -123,7 +128,7 @@ export default React.createClass({
             ref='topicNameContainer' refComponent='topicName' onChange={this.handleTopicNameChange}
             validateField={this.props.validateTopicName}/>
           <TextField fullWidth disabled floatingLabelText='Channel URL'
-            value={this.state.topicName ? `${i18n('ogUrl')}/topics/${this.state.topicName}` : ''} />
+            value={this.state.topicName ? `${this.props.rootUrl}/topics/${this.state.topicName}` : ''} />
           <TextField fullWidth disabled floatingLabelText='Channel Email'
             value={this.state.topicName ? `${this.state.topicName}@${i18n('topicMailServer')}` : ''} />
           <ValidatableTextField fullWidth floatingLabelText='Description'
