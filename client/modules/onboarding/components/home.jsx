@@ -16,7 +16,7 @@ const Home = (props) => {
     ? props.mainContent
     : <TopicList isLoggedIn={false} isTopicClickable />
   const {domains} = props
-  const {fields: {netid, domain, classYear}, handleSubmit, error, submitting} = props
+  const {fields: {netid, domain}, handleSubmit, error, submitting} = props
 
   const opts = {
     height: '170',
@@ -40,7 +40,6 @@ const Home = (props) => {
               <YouTube videoId='OXvWR4uIZC8' opts={opts} />
             </p>
             <form style={style.form} onSubmit={handleSubmit}>
-              <TextField floatingLabelText='Princeton Class Year' hintText='e.g. 2012' fullWidth {...classYear} />
               <div style={s.emailContainer}>
                 <TextField hintText='netid' {...netid} style={s.netid} />
                 <span style={s.atSymbol}>@</span>
