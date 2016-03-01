@@ -3,6 +3,15 @@ import {affiliationTypes} from '/lib/data'
 import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
 
+export function homeSelector (state = null, action) {
+  switch (action.type) {
+    case 'UPDATE_HOME_SELECTOR':
+      return action.selector
+    default:
+      return state
+  }
+}
+
 export const composer = ({context}, onData) => {
   const {Meteor, FlowRouter} = context()
   if (Meteor.subscribe('userData').ready()) {

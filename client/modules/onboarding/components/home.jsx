@@ -26,6 +26,8 @@ class Home extends React.Component {
           return <StudentForm />
         case 'faculty':
           return <FacultyForm />
+        default:
+          return null
       }
     }
 
@@ -40,9 +42,8 @@ class Home extends React.Component {
               <h1 style={s.mainLogo}>Princeton.Chat</h1>
               <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
               <YouTube videoId='OXvWR4uIZC8' opts={opts} />
-              <SelectField onChange={(val) => this.props.changeSelector(val)}
-                value={this.props.homeSelector}
-                floatingLabelText='How are you affiliated?' fullWidth>
+              <SelectField onChange={this.props.changeSelector} value={this.props.homeSelector}
+                floatingLabelText="What's your affiliation with Princeton?" fullWidth>
                 {affiliationTypes.map((a) =>
                   <MenuItem key={a.value} value={a.value} primaryText={a.label} />
                 )}
