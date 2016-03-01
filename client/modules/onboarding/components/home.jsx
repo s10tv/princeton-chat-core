@@ -57,10 +57,12 @@ const Home = (props) => {
                 backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
             </form>
+          </div>
+          <footer style={style.sidebarFooter}>
             <p style={s.disclaimer}>
               Disclaimer: Princeton.Chat is an alumni led effort NOT officially endorsed by Princeton University.
             </p>
-          </div>
+          </footer>
         </Layout.Sidebar>
         <Layout.Main>
           {mainContent}
@@ -102,8 +104,8 @@ const s = {
     fontSize: fontSize.xs
   },
   disclaimer: {
-    fontSize: 8,
-    marginTop: 20
+    fontSize: 9,
+    color: color.gray
   }
 }
 export default Radium(Home)

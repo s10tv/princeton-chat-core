@@ -12,6 +12,10 @@ export default {
     justifyContent: 'flex-end',
     padding: spacing.x2,
   },
+  sidebarFooter: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
   sidebarInner: {
     flex: '1 0 0px',
     marginTop: spacing.x6,
@@ -19,6 +23,8 @@ export default {
     maxWidth: 320,
     padding: 10,
     alignSelf: 'center',
+    display: 'flex',
+    minHeight: 480,
     flexDirection: 'column',
     '@media (max-width: 768px)': {
       padding: '10px 16px 25px 16px',
