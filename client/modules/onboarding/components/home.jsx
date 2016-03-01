@@ -47,7 +47,7 @@ class Home extends React.Component {
               <YouTube videoId='OXvWR4uIZC8' opts={opts} />
               <SelectField onChange={(val) => this.props.changeSelector(val)}
                 value={this.props.homeSelector}
-                floatingLabelText='Affiliation Type' fullWidth>
+                floatingLabelText='How are you affiliated?' fullWidth>
                 {affiliationTypes.map((a) =>
                   <MenuItem key={a.value} value={a.value} primaryText={a.label} />
                 )}
