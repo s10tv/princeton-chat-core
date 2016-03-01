@@ -24,7 +24,6 @@ reywood:publish-composite
 kadira:flow-router
 reactive-dict
 random
-less
 percolate:migrations
 zimme:collection-behaviours
 aldeed:simple-schema

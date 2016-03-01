@@ -19,9 +19,6 @@ const FacultyFormComponent = (props) => {
           )}
         </SelectField>
       </div>
-      <a style={s.manualInvite} href='/request-invite'>
-        Don't have access to your Princeton email?
-      </a>
       {error && <p style={style.error}>{error}</p>}
       <FlatButton type='submit' style={style.button} label='Get Invited' disabled={submitting}
         backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
