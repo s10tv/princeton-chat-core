@@ -11,11 +11,8 @@ export const composer = ({context, postId}, onData) => {
     if (!post) {
       return FlowRouter.go('/error')
     }
-
     const currentUser = UserService.currentUser()
     const isFollowing = currentUser.followingPosts.indexOf(post._id) !== -1
-    console.log(isFollowing)
-
     onData(null, { post, isFollowing })
   }
 }

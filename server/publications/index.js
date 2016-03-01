@@ -1,8 +1,7 @@
-import { _ } from 'meteor/underscore'
-
 export default function ({ Meteor, Collections, SearchService }) {
   const { Topics, Posts, Users, Messages, Invites } = Collections
 
+  // guest index
   Meteor.publish('posts.mine', function () {
     if (this.userId) {
       return Posts.find({
@@ -13,6 +12,13 @@ export default function ({ Meteor, Collections, SearchService }) {
       this.ready()
     }
   })
+
+  // guest - follow/unfollow
+  Meteor.publish('post.single', function (postId) {
+    return Posts.find({_id: postId})
+  })
+
+  // guest index
   Meteor.publish('topics.mine', function () {
     if (this.userId) {
       return Topics.find({
@@ -23,10 +29,7 @@ export default function ({ Meteor, Collections, SearchService }) {
     }
   })
 
-  Meteor.publish('topics', function () {
-    return Topics.find()
-  })
-
+  // for admin panel
   Meteor.publish('invites', function () {
     if (this.userId) {
       const user = Users.findOne(this.userId)
@@ -59,6 +62,12 @@ export default function ({ Meteor, Collections, SearchService }) {
     }})
   })
 
+  // sidebar
+  Meteor.publish('topics', function () {
+    return Topics.find()
+  })
+
+  // post list
   Meteor.publishComposite('topic', function (topicId) {
     if (this.userId) {
       return {
@@ -81,6 +90,7 @@ export default function ({ Meteor, Collections, SearchService }) {
     this.ready()
   })
 
+  // post list
   Meteor.publishComposite('posts', function (options) {
     const isMine = options.isMine
     const topicId = options.topicId
@@ -127,6 +137,7 @@ export default function ({ Meteor, Collections, SearchService }) {
     }
   })
 
+  // post details
   Meteor.publishComposite('messages', function (postId) {
     return {
       find: function () {
@@ -159,54 +170,10 @@ export default function ({ Meteor, Collections, SearchService }) {
     }
   })
 
+  // search users
   Meteor.publish('directory.search', function (term) {
     if (this.userId) {
       return SearchService.searchUsers(term)
-    } else {
-      this.ready()
-    }
-  })
-
-  Meteor.publish('post.single', function (postId) {
-    return Posts.find({_id: postId})
-  })
-
-  Meteor.publishComposite('directMessages', function () {
-    const myUserId = this.userId
-    if (myUserId) {
-      return {
-        find: function () {
-          return Posts.find({
-            isDM: true,
-            'followers.userId': myUserId
-          })
-        },
-
-        children: [
-          {
-            find: function (post) {
-              const otherUserIds = _.reject(post.followers, function (follower) {
-                return follower.userId === myUserId
-              }).map((user) => user.userId)
-
-              return Users.find({ _id: { $in: otherUserIds } })
-            }
-          }
-        ]
-      }
-    } else {
-      this.ready()
-    }
-  })
-
-  Meteor.publish('onboardingMessages', function () {
-    if (this.userId) {
-      const user = Users.findOne(this.userId)
-      return [
-        Users.find({_id: 'system'}),
-        Posts.find({_id: user.tigerbotPostId}),
-        Messages.find({postId: user.tigerbotPostId})
-      ]
     } else {
       this.ready()
     }
