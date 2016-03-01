@@ -95,20 +95,29 @@ export default React.createClass({
   renderFollowerControls () {
     return (
       <Flex alignItems='center' marginTop='12px' height={30}>
-        <Flex alignItems='center'
-          onTouchTap={() => this.props.showPostFollowers(this.props.post.followers)}>
-          <Inline component='span' marginRight='8px' fontWeight={300}>
-            {this.props.followers.length > 0
-              ? (this.props.followers.length > 1 ? 'Followers:' : 'Follower:')
-              : 'No followers'}
-          </Inline>
-          {this.props.followers.map((user) => user.avatar.isDefaultAvatar
-            ? <LetterAvatar key={user._id} style={{marginRight: 3}} size={30} color='white'
-              backgroundColor={user.avatar.color}>
-              {user.avatarInitials}
-            </LetterAvatar>
-            : <CoverAvatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
-          )}
+        <Flex alignItems='center'>
+          <span onTouchTap={() => this.props.showPostFollowers(this.props.post.followers)}>
+            <Inline component='span' marginRight='8px' fontWeight={300} style={{
+              cursor: 'pointer'
+            }}>
+              {this.props.followers.length > 0
+                ? (this.props.followers.length > 1 ? 'Followers:' : 'Follower:')
+                : 'No followers'}
+            </Inline>
+            {this.props.followers.map((user) => user.avatar.isDefaultAvatar
+              ? <LetterAvatar key={user._id} style={{
+                marginRight: 3,
+                cursor: 'pointer'
+              }} size={30} color='white'
+                backgroundColor={user.avatar.color}>
+                {user.avatarInitials}
+              </LetterAvatar>
+              : <CoverAvatar key={user._id} style={{
+                marginRight: 3,
+                cursor: 'pointer'
+              }} size={30} src={user.avatar.url} />
+            )}
+          </span>
         </Flex>
         <Flex marginLeft='auto'>
           <a

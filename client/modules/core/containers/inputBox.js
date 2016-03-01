@@ -37,7 +37,7 @@ const depsMapper = (context, actions) => {
       AmplitudeService.track('post/unfollow', { from: 'post/details' })
       return actions.posts.unfollow(args)
     },
-    showPostFollowers: actions.posts.showPostFollowers,
+    showPostFollowers: actions.postfollowers.getFollowersAndShowModal,
     showSnackbarError: actions.posts.showSnackbarError,
     parseAndFetchMentions: actions.search.parseAndFetchMentions,
     clearMentions: actions.search.clearMentions,

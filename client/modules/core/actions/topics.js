@@ -1,6 +1,7 @@
 // import UnsplashService from '/imports/libs/unsplash.service'
 import { _ } from 'meteor/underscore'
 import AmplitudeService from '/client/lib/amplitude.service'
+import postFollowers from './postfollowers'
 
 export default {
   createTopic ({Meteor, LocalState, FlowRouter}, topicInfo, shouldRedirect) {
@@ -73,7 +74,9 @@ export default {
     return FlowRouter.go(`/add-followers/${topicId}`)
   },
 
-  updateTopicFollowers ({ Meteor, LocalState, Collections }, topicIds) {
+  updateTopicFollowers (context, topicIds) {
+    const { Meteor, Collections } = context
+
     const userIdMap = Collections.Topics.find({_id: { $in: topicIds }})
       .fetch()
       .reduce((acc, topic) => {
@@ -83,25 +86,18 @@ export default {
         return acc
       }, {})
 
+    if (Meteor.userId()) {
+      delete userIdMap[Meteor.userId()]
+    }
+
     const followers = _.map(userIdMap, (val) => {
       return val
     })
 
-    Meteor.call('get/followers', followers, (err, res) => {
-      if (err) {
-        console.log(err)
-      }
-
-      LocalState.set('POST_FOLLOWERS', res)
-    })
+    postFollowers.getPostFollowers(context, followers)
   },
 
   showTopicFollowers ({ LocalState }) {
-    LocalState.set('FOLLOWERS_MODAL_OPEN', true)
-  },
-
-  showTopicFollowersFromFollowersList ({ LocalState }, followerList) {
-    LocalState.set('POST_FOLLOWERS', followerList)
     LocalState.set('FOLLOWERS_MODAL_OPEN', true)
   },
 

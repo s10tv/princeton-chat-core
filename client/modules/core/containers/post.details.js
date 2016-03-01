@@ -4,8 +4,8 @@ import DateFormatter from '/client/lib/date.formatter.js'
 import PostDetails from '/client/modules/core/components/post.details.jsx'
 import {Loading} from '/client/modules/core/components/helpers.jsx'
 
-export const composer = ({context, topicId, postId}, onData) => {
-  const { Meteor, Collections, LocalState } = context()
+export const composer = ({context, getPostFollowers, postId}, onData) => {
+  const {Meteor, Collections} = context()
   const currentUser = UserService.currentUser()
 
   if (Meteor.subscribe('messages', postId).ready()) {
@@ -15,15 +15,7 @@ export const composer = ({context, topicId, postId}, onData) => {
 
     // populate the cache of post followers.
     if (post.followers.length > 0) {
-      Meteor.call('get/followers', post.followers, (err, res) => {
-        if (err) {
-          return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
-        }
-
-        LocalState.set('POST_FOLLOWERS', res)
-      })
-    } else {
-      LocalState.set('POST_FOLLOWERS', [])
+      getPostFollowers(context, post.followers)
     }
 
     const messages = Collections.Messages
@@ -56,6 +48,7 @@ export const composer = ({context, topicId, postId}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
+  getPostFollowers: actions.postfollowers.getPostFollowers,
   showUserProfilePost: actions.posts.showUserProfile,
   showUserProfileMessage: actions.messages.showUserProfile,
   showFollowersFn: actions.topics.showTopicFollowers,

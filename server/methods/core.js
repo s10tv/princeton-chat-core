@@ -272,11 +272,20 @@ export default function (context) {
       Messages.remove({_id: _id})
     },
 
-    'get/followers': (userIds) => {
+    'get/followers': ({followers = [], mentionedUsernames = [], excludeMyself = true}) => {
+      console.log('get/followers', followers, mentionedUsernames, excludeMyself)
+
       Logger.log({ level: 'info', method: 'get/followers' })
-      return userIds.map((user) => {
-        return Users.findOne(user.userId)
-      }).filter((user) => user !== undefined)
+      const current = currentUser()
+      return followers.map((user) => Users.findOne(user.userId))
+        .concat(mentionedUsernames.map((username) => Users.findOne({
+          username: username.substring(1)
+        })))
+        .filter((user) =>
+          user !== undefined &&
+          (excludeMyself ? user._id !== current._id : true)
+        )
+        .map((user) => UserService.getUserView(user))
     },
 
     'search/users': (text) => {

@@ -159,8 +159,8 @@ const depsMapper = (context, actions) => ({
   navigateToTopic: actions.topics.navigateToTopic,
   navigateToTopicListFn: actions.topics.navigateToTopicList,
   navigateToAddFollowers: actions.topics.navigateToAddFollowers,
-  showPostFollowers: actions.posts.showPostFollowers,
-  showTopicFollowersFromFollowersListFn: actions.topics.showTopicFollowersFromFollowersList,
+  showPostFollowers: actions.postfollowers.getFollowersAndShowModal,
+  updateAndShowFollowersModal: actions.postfollowers.updateAndShowFollowersModal,
   followPostFn: (args) => {
     AmplitudeService.track('post/follow', { from: 'post/list' })
     return actions.posts.follow(args)

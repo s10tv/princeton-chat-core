@@ -12,15 +12,11 @@ export const formConfig = {
 }
 
 export const composer = ({context}, onData) => {
-  const { Collections, LocalState } = context()
+  const {Collections} = context()
 
   const allTopics = Collections.Topics.find().map((topic) => {
     return { value: topic._id, label: topic.displayName }
   })
-
-  const numFollowersNotified = LocalState.get('POST_FOLLOWERS')
-    ? LocalState.get('POST_FOLLOWERS').length
-    : 0
 
   // as this screen uses the menu from post list, it needs a to be a 'topic' to pass in to the menu
   const createPostTopicWrapper = {
@@ -31,7 +27,6 @@ export const composer = ({context}, onData) => {
 
   onData(null, {
     allTopics,
-    numFollowersNotified,
     createPostTopicWrapper
   })
 }
@@ -50,6 +45,7 @@ export const depsMapper = (context, actions) => ({
 
 export default composeAll(
   reduxForm(formConfig, (state) => ({ // mapStateToProps
+    numFollowersNotified: state.core.followers.length,
     mentions: state.core.mentions,
     initialValues: {
       topicIds: state.core.newPostTopics

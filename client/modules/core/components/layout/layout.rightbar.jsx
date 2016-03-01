@@ -43,7 +43,7 @@ const RightBar = React.createClass({
     /**
      * Func to show topic followers modal from already fetched follower list
      */
-    showTopicFollowersFromFollowersListFn: React.PropTypes.func,
+    updateAndShowFollowersModal: React.PropTypes.func,
 
     /**
      * Func to remove the topic.
@@ -106,7 +106,7 @@ const RightBar = React.createClass({
           <h4 style={{fontWeight: 400, marginTop: 0, marginBottom: 0}}>
             <a href='#' style={{}}
               onClick={
-                () => props.showTopicFollowersFromFollowersListFn(props.topic.followersList)
+                () => props.updateAndShowFollowersModal(props.topic.followersList)
               }>
               Subscribers ({props.topic.followers.length})
             </a>

@@ -63,17 +63,6 @@ export default {
     LocalState.set('PROFILE_USER', post.owner)
   },
 
-  showPostFollowers ({ Meteor, LocalState }, followers) {
-    LocalState.set('FOLLOWERS_MODAL_OPEN', true)
-
-    Meteor.call('get/followers', followers, (err, res) => {
-      if (err) {
-        return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
-      }
-      LocalState.set('POST_FOLLOWERS', res)
-    })
-  },
-
   follow ({ Meteor }, postId) {
     Meteor.call('post/follow', postId)
   },
