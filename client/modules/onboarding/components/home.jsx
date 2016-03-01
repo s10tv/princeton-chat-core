@@ -12,11 +12,6 @@ import StudentForm from '/client/modules/onboarding/containers/home.form.student
 import FacultyForm from '/client/modules/onboarding/containers/home.form.faculty'
 
 class Home extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = { affiliationType: 'student' }
-  }
-
   render () {
     const mainContent = this.props.mainContent
       ? this.props.mainContent
