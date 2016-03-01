@@ -25,12 +25,6 @@ export default {
     })
   },
   onboardingAutoVerify: {
-    changeHomeSelector ({store}, value) {
-      store.dispatch({
-        type: 'UPDATE_HOME_SELECTOR',
-        selector: value
-      })
-    },
     submit: createOnSubmit('signup/alumni', ({sweetalert}) => {
       AmplitudeService.track('signup/verify', { type: 'auto' })
       sweetalert({title: 'Invite Sent', text: 'Check your inbox now ;)', type: 'success'})

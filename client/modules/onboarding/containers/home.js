@@ -1,14 +1,22 @@
-import {useDeps, composeWithTracker, composeAll, compose} from 'mantra-core'
-import {affiliationTypes} from '/lib/data'
+import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
+import {reduxForm} from 'redux-form'
+import {autoVerifyValidator} from '/lib/validation/onboarding'
+import {trimSpaces} from '/lib/normalization'
+import {domains} from '/lib/data'
 import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
 
-export function homeSelector (state = null, action) {
-  switch (action.type) {
-    case 'UPDATE_HOME_SELECTOR':
-      return action.selector
-    default:
-      return state
+export const formConfig = {
+  form: 'onboarding/auto-verify',
+  fields: ['netid', 'domain'],
+  initialValues: {
+    // domain: domains[0]
+  },
+  validate: autoVerifyValidator,
+  // NOTE: not an officially supported property by redux-form
+  // However we concatenate this together ourselves in context.js
+  normalize: {
+    netid: trimSpaces
   }
 }
 
@@ -26,27 +34,17 @@ export const composer = ({context}, onData) => {
       }
     }
   }
-  onData(null, {affiliationTypes})
+  onData(null, {domains})
 }
 
 const depsMapper = (context, actions) => ({
   onSubmit: actions.onboardingAutoVerify.submit,
-  changeSelector: actions.onboardingAutoVerify.changeHomeSelector,
   store: context.store,
   context: () => context
 })
 
-const onPropsChange = ({context}, onData) => {
-  const {store} = context()
-  onData(null, {homeSelector: store.getState().onboarding.homeSelector})
-  return store.subscribe(() => {
-    const {homeSelector} = store.getState().onboarding
-    onData(null, {homeSelector})
-  })
-}
-
 export default composeAll(
-  compose(onPropsChange),
+  reduxForm(formConfig),
   composeWithTracker(composer, PageLoader),
   useDeps(depsMapper)
 )(Home)
