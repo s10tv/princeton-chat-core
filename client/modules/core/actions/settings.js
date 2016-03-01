@@ -1,4 +1,5 @@
 import {createOnSubmit} from '/client/lib/helpers'
+import FilePickerService from '/client/lib/filepicker.service'
 
 export default {
   logout ({ LocalState, Meteor, FlowRouter }) {
@@ -27,6 +28,16 @@ export default {
         updateToFbAvatar()
       })
     }
+  },
+
+  changeAvatarFromFilestack ({Meteor, LocalState}) {
+    FilePickerService.chooseImage((url) => {
+      Meteor.call('profile/avatar/useFilestack', url, (err) => {
+        if (err) {
+          return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
+        }
+      })
+    })
   },
 
   changeAvatarToDefault ({Meteor, LocalState}) {

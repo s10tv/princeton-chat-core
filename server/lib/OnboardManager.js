@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOMServer from '../../node_modules/react-dom/server'
-import { studentVerifyValidator, facultyVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
+import { studentVerifyValidator, facultyVerifyValidator, manualVerifyValidator,
+  enterNamesValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
@@ -117,6 +118,20 @@ export default class OnboardManager {
         })
       }
     })
+  }
+
+  handleEnterNames (user, options) {
+    const {Users} = this.Collections
+    const errors = enterNamesValidator(options)
+    if (errors.length > 0) {
+      throw new this.Meteor.Error(400, errors)
+    }
+
+    const { fullName } = options
+
+    Users.update(user._id, { $set: {
+      displayName: fullName
+    }})
   }
 
   sendRecoveryEmail (email) {

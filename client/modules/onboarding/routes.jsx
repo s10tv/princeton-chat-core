@@ -11,6 +11,7 @@ import ForgotPasswordSent from './containers/forgotpassword.sent'
 import ForgotPasswordChange from './containers/forgotpassword.change'
 import ForgotPassword from './containers/forgotpassword'
 import ForgotPasswordSuccess from './containers/forgotpassword.success'
+import EnterNames from './containers/name'
 import React from 'react'
 
 function requireUserInSession (context) {
@@ -76,6 +77,16 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
     },
     action () {
       mount(injectDeps(Signup))
+    }
+  })
+  FlowRouter.route('/welcome/enter-names', {
+    name: 'onboarding-enter-names',
+    triggersEnter: [requireUserInSessionFn],
+    subscriptions: function () {
+      this.register('userData', Meteor.subscribe('userData'))
+    },
+    action () {
+      mount(injectDeps(EnterNames))
     }
   })
   FlowRouter.route('/welcome/subscribe-channels', {

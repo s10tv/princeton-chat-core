@@ -30,6 +30,18 @@ export default function (context) {
       }
     },
 
+    'profile/avatar/useFilestack': (url) => {
+      Logger.log({ level: 'info', method: 'profile/avatar/useFilestack' })
+      const user = currentUser()
+
+      Users.update(user._id, { $set: {
+        avatar: {
+          url,
+          isDefaultAvatar: false
+        }
+      }})
+    },
+
     'profile/avatar/useDefault': () => {
       Logger.log({ level: 'info', method: 'profile/avatar/useDefault' })
       const user = currentUser()
@@ -107,6 +119,12 @@ export default function (context) {
           isDefaultAvatar
         }
       }})
+    },
+
+    'welcome/enternames': (options) => {
+      Logger.log({ level: 'info', method: 'welcome/enternames' })
+      const user = currentUser()
+      return OnboardManager.handleEnterNames(user, options)
     },
 
     'welcome/invite': (options) => {

@@ -62,4 +62,3 @@ export const secondaryMuiTheme = getMuiTheme({
     alternateTextColor: color.white
   }
 })
-

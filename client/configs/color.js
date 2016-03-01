@@ -17,6 +17,10 @@ export default {
   green: '#2AB27B',
   lightGreen: tinycolor('#2AB27B').lighten(10).toString(),
   gray: '#979797',
+  avatarButtons: {
+    dullGrey: '#404548',
+    lighterGrey: tinycolor('#404548').lighten(10).toString()
+  },
   // School colors
   princeton: {
     // Color picked not entirely accurate
