@@ -33,7 +33,7 @@ describe('core methods', () => {
       Posts.insert({
         _id: 'uber',
         title: 'Uber is a taxi service',
-        content: 'Post content', 
+        content: 'Post content',
         topicIds: ['startup']
       })
     })
@@ -70,7 +70,36 @@ describe('core methods', () => {
       })
     })
 
-    
+    describe('post/unfollow', () => {
+      it('should unfollow a post', () => {
+        Meteor.call('post/follow', 'uber')
+        Meteor.call('post/unfollow', 'uber')
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.followingTopics.length).to.equal(0)
+
+        const dbPost = Posts.findOne('uber')
+        expect(dbPost.followers.length).to.equal(0)
+      })
+    })
+
+    describe('post/delete', () => {
+      it('should not allow non-owners to remove the post', () => {
+        try {
+          Meteor.call('post/delete', 'uber')
+          fail('should not get pass post/delete if you are not the owner')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+      it('should remove the post if you are the owner', () => {
+        Posts.update('uber', { $set: {
+          ownerId: currentUserId
+        }})
+        Meteor.call('post/delete', 'uber')
+        expect(Posts.find().count()).to.equal(0)
+      })
+    })
   })
 
   describe('topics', () => {
@@ -115,7 +144,7 @@ describe('core methods', () => {
     describe('topic/removeFollower', () => {
       it('should remove follower', () => {
         Meteor.call('topic/follow', 'startup')
-        Meteor.call('topic/removeFollower', 'startup', currentUserId);
+        Meteor.call('topic/removeFollower', 'startup', currentUserId)
 
         const dbUser = Users.findOne(currentUserId)
         expect(dbUser.followingTopics.length).to.equal(0)
