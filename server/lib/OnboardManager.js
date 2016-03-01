@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOMServer from '../../node_modules/react-dom/server'
-import { autoVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
+import { studentVerifyValidator, facultyVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
@@ -33,12 +33,21 @@ export default class OnboardManager {
 
   verifyAlumni (options) {
     const {Users} = this.Collections
-    const errors = autoVerifyValidator(options)
+    var errors
+    switch (options.affiliationType) {
+      case 'student':
+        errors = studentVerifyValidator(options)
+        break
+      case 'faculty': // intentional fallthrough
+      default:
+        errors = facultyVerifyValidator(options)
+        break
+    }
     if (errors.length > 0) {
       throw new this.Meteor.Error(400, errors)
     }
 
-    const { netid, domain } = options
+    const { netid, domain, classYear } = options
 
     if (Users.findOne({emails: {$elemMatch: {address: `${netid}@${domain}`}}})) {
       throw new this.Meteor.Error(400, 'This email address is already used.')
@@ -58,7 +67,7 @@ export default class OnboardManager {
     }
 
     if (res.data['is_valid']) {
-      const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent'})
+      const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear})
       this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
     } else {
       throw new this.Meteor.Error(400, 'This email is invalid. Are you sure the one you entered is correct?')
