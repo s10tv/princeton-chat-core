@@ -10,7 +10,7 @@ export const facultyFormConfig = {
   form: 'onboarding/faculty-verify',
   fields: ['netid', 'domain', 'affiliationType'],
   initialValues: {
-    affiliationType: 'faculty'
+    domain: 'princeton.edu'
   },
   validate: facultyVerifyValidator,
   normalize: {

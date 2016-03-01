@@ -1,4 +1,4 @@
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
+import {useDeps, composeWithTracker, composeAll, compose} from 'mantra-core'
 import {affiliationTypes} from '/lib/data'
 import {PageLoader} from '/client/lib/ui.jsx'
 import Home from '../components/home.jsx'
@@ -22,10 +22,22 @@ export const composer = ({context}, onData) => {
 
 const depsMapper = (context, actions) => ({
   onSubmit: actions.onboardingAutoVerify.submit,
+  changeSelector: actions.onboardingAutoVerify.changeHomeSelector,
+  store: context.store,
   context: () => context
 })
 
+const onPropsChange = ({context}, onData) => {
+  const {store} = context()
+  onData(null, {homeSelector: store.getState().onboarding.homeSelector})
+  return store.subscribe(() => {
+    const {homeSelector} = store.getState().onboarding
+    onData(null, {homeSelector})
+  })
+}
+
 export default composeAll(
+  compose(onPropsChange),
   composeWithTracker(composer, PageLoader),
   useDeps(depsMapper)
 )(Home)

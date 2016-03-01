@@ -23,6 +23,17 @@ class Home extends React.Component {
       : <TopicList isLoggedIn={false} isTopicClickable />
     const {affiliationTypes} = this.props
 
+    const currentForm = () => {
+      switch (this.props.homeSelector) {
+        case 'student':
+          return <StudentForm />
+        case 'alum':
+          return <StudentForm />
+        case 'faculty':
+          return <FacultyForm />
+      }
+    }
+
     return (
       <StyleRoot>
         <Layout.Window>
@@ -34,18 +45,14 @@ class Home extends React.Component {
               <h1 style={s.mainLogo}>Princeton.Chat</h1>
               <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
               <YouTube videoId='OXvWR4uIZC8' opts={opts} />
-              <SelectField onChange={(val) => this.setState({affiliationType: val})}
-                value={this.state.affiliationType}
+              <SelectField onChange={(val) => this.props.changeSelector(val)}
+                value={this.props.homeSelector}
                 floatingLabelText='Affiliation Type' fullWidth>
                 {affiliationTypes.map((a) =>
                   <MenuItem key={a.value} value={a.value} primaryText={a.label} />
                 )}
               </SelectField>
-              {
-                this.state.affiliationType === 'faculty'
-                ? <FacultyForm />
-                : <StudentForm />
-              }
+              {currentForm()}
               <p style={s.disclaimer}>
                 Disclaimer: Princeton.Chat is an alumni led effort NOT officially endorsed by Princeton University.
               </p>
@@ -71,7 +78,9 @@ const opts = {
 
 Home.propTypes = {
   mainContent: React.PropTypes.node,
-  affiliationTypes: React.PropTypes.array.isRequired
+  affiliationTypes: React.PropTypes.array.isRequired,
+  homeSelector: React.PropTypes.string.isRequired,
+  changeSelector: React.PropTypes.func.isRequired
 }
 const s = {
   mainLogo: {

@@ -31,7 +31,13 @@ const studentDepsMapper = (context, actions) => ({
 })
 
 export default composeAll(
-  reduxForm(studentFormConfig),
+  reduxForm(studentFormConfig, (state) => {
+    return {
+      initialValues: {
+        domain: state.onboarding.homeSelector === 'alum' ? 'alumni.princeton.edu' : 'princeton.edu'
+      }
+    }
+  }),
   composeWithTracker(studentComposer, PageLoader),
   useDeps(studentDepsMapper)
 )(StudentFormComponent)
