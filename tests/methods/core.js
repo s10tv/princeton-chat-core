@@ -24,25 +24,53 @@ describe('core methods', () => {
     }
   })
 
-  describe('post/insert', () => {
+  describe('posts', () => {
     beforeEach(() => {
       Topics.insert({
         _id: 'startup',
         displayName: 'Startups'
       })
+      Posts.insert({
+        _id: 'uber',
+        title: 'Uber is a taxi service',
+        content: 'Post content', 
+        topicIds: ['startup']
+      })
     })
 
-    it('should insert a post into the DB', () => {
-      Meteor.call('post/insert', 'post-id', 'post-title', 'post-content',
-        ['startup', 'another-topic-that-does-not-exist']
-      )
-      const post = Posts.findOne('post-id')
-      expect(post._id).to.equal('post-id')
-      expect(post.ownerId).to.equal(currentUserId)
-      expect(post.topicIds).to.deep.equal(['startup'])
-      expect(post.followers[0].userId).to.equal(currentUserId)
-      expect(post.numMsgs).to.equal(0)
+    describe('post/insert', () => {
+      it('should insert a post into the DB', () => {
+        Meteor.call('post/insert', 'post-id', 'post-title', 'post-content',
+          ['startup', 'another-topic-that-does-not-exist']
+        )
+        const post = Posts.findOne('post-id')
+        expect(post._id).to.equal('post-id')
+        expect(post.ownerId).to.equal(currentUserId)
+        expect(post.topicIds).to.deep.equal(['startup'])
+        expect(post.followers[0].userId).to.equal(currentUserId)
+        expect(post.numMsgs).to.equal(0)
+      })
     })
+
+    describe('post/follow', () => {
+      it('should follow a post', () => {
+        Meteor.call('post/follow', 'uber')
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.followingPosts.length).to.equal(1)
+
+        const [post] = dbUser.followingPosts
+        expect(post).to.equal('uber')
+
+        const dbPost = Posts.findOne('uber')
+        expect(dbPost.followers.length).to.equal(1)
+
+        const [follower] = dbPost.followers
+        expect(follower.userId).to.equal(currentUserId)
+      })
+    })
+
+    
   })
 
   describe('topics', () => {
@@ -75,6 +103,19 @@ describe('core methods', () => {
       it('should unfollow a topic', () => {
         Meteor.call('topic/follow', 'startup')
         Meteor.call('topic/unfollow', 'startup')
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.followingTopics.length).to.equal(0)
+
+        const dbTopic = Topics.findOne('startup')
+        expect(dbTopic.followers.length).to.equal(0)
+      })
+    })
+
+    describe('topic/removeFollower', () => {
+      it('should remove follower', () => {
+        Meteor.call('topic/follow', 'startup')
+        Meteor.call('topic/removeFollower', 'startup', currentUserId);
 
         const dbUser = Users.findOne(currentUserId)
         expect(dbUser.followingTopics.length).to.equal(0)

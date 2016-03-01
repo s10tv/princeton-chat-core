@@ -22,12 +22,6 @@ export default class PostManager {
         followers: { userId: user._id, unreadCount: 0 }
       }})
     }
-
-    post.topicIds.forEach((topicId) => {
-      Topics.update(topicId, { $set: {
-        numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
-      }})
-    })
   }
 
   unfollow ({postId, user}) {
