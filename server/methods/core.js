@@ -72,7 +72,7 @@ export default function (context) {
 
       if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {
         new IronMQ('web-post').send({
-          payload: { postId }
+          payload: { postId, excludeUsers: [user._id] }
         })
       }
     },
