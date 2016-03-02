@@ -1,9 +1,14 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import AdminInvite from '../components/admin.invite.jsx'
+import {isAdmin} from '/lib/admin'
 
 export const composer = ({context}, onData) => {
-  const {Meteor, Collections} = context()
-  if (Meteor.subscribe('invites').ready()) {
+  const {Meteor, FlowRouter, Collections, UserService} = context()
+  if (Meteor.subscribe('invites').ready() && Meteor.subscribe('userData').ready()) {
+    if (!isAdmin(UserService.currentUser())) {
+      return FlowRouter.go('all-mine')
+    }
+
     const invites = Collections.Invites.find({}, {sort: {status: 1}}).fetch()
     onData(null, {
       invites

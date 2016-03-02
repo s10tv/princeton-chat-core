@@ -2,6 +2,7 @@
 import LayoutSidebar from '/client/modules/core/components/layout/layout.sidebar.jsx'
 import UserService from '/lib/user.service.js'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
+import {isAdmin} from '/lib/admin'
 import {_} from 'underscore'
 
 export const composer = ({context}, onData) => {
@@ -16,8 +17,7 @@ export const composer = ({context}, onData) => {
         _id: {$in: user.followingTopics}
       }, {sort: {createdAt: -1}}).fetch() : []
 
-      const isFullAdmin = user.topicAdmins !== undefined &&
-        user.topicAdmins.indexOf('global') >= 0
+      const isFullAdmin = isAdmin(user)
 
       onData(null, {
         user,

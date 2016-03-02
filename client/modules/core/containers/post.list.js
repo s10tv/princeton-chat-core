@@ -6,6 +6,7 @@ import UserService from '/lib/user.service.js'
 import DateFormatter from '/client/lib/date.formatter.js'
 import { GenericCoverPhoto, SearchCoverPhoto } from '/client/lib/unsplash.service.js'
 import _ from 'underscore'
+import {isTopicAdmin, isAdmin} from '/lib/admin'
 import AmplitudeService from '/client/lib/amplitude.service'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
@@ -109,13 +110,13 @@ export const composer = ({context, topicId, term, postListType, rightbarOpen, is
       return processPost(context(), post, topicId, isMobile)
     })
 
-    const isMyTopic = topic.ownerId === currentUser._id
+    const isMyTopic = isTopicAdmin(currentUser, topic)
 
     onData(null, {
       topic,
       isMyTopic,
       posts,
-      isTopicAdmin: isMyTopic || currentUser.topicAdmins.indexOf('global') >= 0,
+      isTopicAdmin: isMyTopic || isAdmin(currentUser),
       followFn: () => {
         AmplitudeService.track('topic/follow', { from: 'post/list' })
         Meteor.call('topic/follow', topic._id)

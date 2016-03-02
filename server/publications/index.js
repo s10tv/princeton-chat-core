@@ -1,3 +1,5 @@
+import {isAdmin} from '/lib/admin'
+
 export default function ({ Meteor, Collections, SearchService }) {
   const { Topics, Posts, Users, Messages, Invites, Notifications } = Collections
 
@@ -33,7 +35,7 @@ export default function ({ Meteor, Collections, SearchService }) {
   Meteor.publish('invites', function () {
     if (this.userId) {
       const user = Users.findOne(this.userId)
-      if (user.topicAdmins && user.topicAdmins.indexOf('global') >= 0) {
+      if (isAdmin(user)) {
         return Invites.find()
       }
     }
