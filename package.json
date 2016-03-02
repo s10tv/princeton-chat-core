@@ -45,6 +45,7 @@
     "mantra-core": "1.2.0",
     "material-ui": "git+https://github.com/s10tv/material-ui.git",
     "moment": "2.11.2",
+    "outdated-browser-rework": "^1.0.0",
     "pluralize": "1.2.1",
     "radium": "0.16.6",
     "randomcolor": "0.4.3",

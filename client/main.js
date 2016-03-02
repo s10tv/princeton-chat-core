@@ -8,9 +8,11 @@ import WebFontLoader from 'webfontloader'
 import onboarding from '/client/modules/onboarding'
 import filepicker from 'filepicker-js'
 import {Meteor} from 'meteor/meteor'
+import outdatedBrowser from 'outdated-browser-rework'
 
 injectTapEventPlugin()
 localize()
+outdatedBrowser()
 
 const context = initContext({onboarding, core, admin})
 
