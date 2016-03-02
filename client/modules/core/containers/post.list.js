@@ -10,6 +10,45 @@ import AmplitudeService from '/client/lib/amplitude.service'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 
+export function processPost ({UserService, Collections}, post, topicId = null, isMobile = false) {
+  const currentUser = UserService.currentUser()
+
+  const followerAvatars = post.followers.map((follower) => {
+    var obj = {}
+    const user = UserService.getUserView(Collections.Users.findOne(follower.userId))
+    if (user) {
+      obj = {
+        avatar: user.avatar,
+        avatarInitials: user.avatarInitials,
+        userId: follower.userId
+      }
+    }
+    return obj
+  }).filter((obj) => !_.isEmpty(obj))
+
+  const topics = !post.topicIds ? [] : post.topicIds
+    .map((topicId) => Collections.Topics.findOne(topicId))
+    .filter((topic) => topic !== undefined)
+
+  return Object.assign({}, post, {
+    owner: UserService.getUserView(Collections.Users.findOne(post.ownerId)),
+    topics: topics.length > 1 && isMobile ? topics[0] : topics,
+    timestamp: DateFormatter.format(post),
+    truncatedContent: truncate(post.content, 300),
+    numFollowers: post.followers.length,
+    moreFollowersNumber: followerAvatars.length > NUM_MAX_DISPLAY_FOLLOWERS
+      ? post.followerAvatars.length - NUM_MAX_DISPLAY_FOLLOWERS
+      : 0,
+    isFollowingPost: currentUser.followingPosts.indexOf(post._id) >= 0,
+    url: topicId
+      ? `/topics/${topicId}/${post._id}`
+      : `/topics/${post.topicIds[0]}/${post._id}`,
+    followerAvatars: followerAvatars.length > NUM_MAX_DISPLAY_FOLLOWERS
+      ? followerAvatars.slice(0, NUM_MAX_DISPLAY_FOLLOWERS)
+      : followerAvatars
+  })
+}
+
 export const composer = ({context, topicId, term, postListType, rightbarOpen, isMobile}, onData) => {
   const {Meteor, Collections} = context()
   const currentUser = UserService.currentUser()
@@ -67,59 +106,7 @@ export const composer = ({context, topicId, term, postListType, rightbarOpen, is
       _id: { $in: topic.followers.map((follower) => follower.userId) }
     }).map((user) => UserService.getUserView(user))
     const posts = Collections.Posts.find(options, {sort: { createdAt: -1 }}).map((post) => {
-      post.owner = UserService.getUserView(Collections.Users.findOne(post.ownerId))
-
-      if (post.topicIds) {
-        post.topics = post.topicIds.map((topicId) => {
-          return Collections.Topics.findOne(topicId)
-        }).filter((topic) => {
-          return topic !== undefined
-        })
-      } else {
-        post.topics = []
-      }
-
-      // if on mobile, truncate tags to one
-      if (post.topics.length > 1 && isMobile) {
-        post.topics.length = 1
-      }
-
-      post.timestamp = DateFormatter.format(post)
-      post.truncatedContent = truncate(post.content, 300)
-
-      post.numFollowers = post.followers.length
-      post.followerAvatars = post.followers.map((follower) => {
-        var obj = {}
-        const user = UserService.getUserView(Collections.Users.findOne(follower.userId))
-        if (user) {
-          obj = {
-            avatar: user.avatar,
-            avatarInitials: user.avatarInitials,
-            userId: follower.userId
-          }
-        }
-        return obj
-      }).filter((obj) => !_.isEmpty(obj))
-
-      post.moreFollowersNumber = post.followerAvatars.length > NUM_MAX_DISPLAY_FOLLOWERS
-        ? (post.followerAvatars.length - NUM_MAX_DISPLAY_FOLLOWERS)
-        : 0
-      post.followerAvatars.length = NUM_MAX_DISPLAY_FOLLOWERS
-      post.isFollowingPost = currentUser.followingPosts.indexOf(post._id) >= 0
-
-      var currentTopicId
-      var currentPostId = post._id
-
-      if (topicId) { // topicid is passed as arg to this whole function. (from URL)
-        currentTopicId = topicId // user clicked on a post detail from a topic
-      } else {
-        // the user clicked on a post detail from /all or /all-mine
-        [ currentTopicId ] = post.topicIds
-      }
-
-      post.url = `/topics/${currentTopicId}/${currentPostId}`
-
-      return post
+      return processPost(context(), post, topicId, isMobile)
     })
 
     const isMyTopic = topic.ownerId === currentUser._id

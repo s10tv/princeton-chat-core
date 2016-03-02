@@ -1,5 +1,5 @@
 export default function ({ Meteor, Collections, SearchService }) {
-  const { Topics, Posts, Users, Messages, Invites } = Collections
+  const { Topics, Posts, Users, Messages, Invites, Notifications } = Collections
 
   // guest index
   Meteor.publish('posts.mine', function () {
@@ -165,6 +165,38 @@ export default function ({ Meteor, Collections, SearchService }) {
               { _id: { $in: todo.followers.map((follower) => follower.userId) } }
             ]})
           }
+        }
+      ]
+    }
+  })
+
+  Meteor.publishComposite('inbox', function () {
+    return {
+      find: function () {
+        return Notifications.find({
+          ownerId: this.userId,
+          status: 'active'
+        })
+      },
+
+      children: [
+        {
+          find: function (notification) {
+            return Posts.find({ _id: notification.postId })
+          },
+
+          children: [
+            {
+              find: (post) => {
+                return Messages.find({postId: post._id}, {sort: {createdAt: -1}, limit: 1})
+              }
+            },
+            {
+              find: (post) => {
+                return Users.find({_id: post.ownerId})
+              }
+            }
+          ]
         }
       ]
     }

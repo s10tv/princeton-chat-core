@@ -11,6 +11,7 @@ import DirectorySearch from '/client/modules/core/containers/directory.search'
 import ErrorPage from '/client/modules/core/components/error.jsx'
 import ToggleFollowing from '/client/modules/core/containers/toggleFollowing'
 import CreateNewPost from '/client/modules/core/containers/post.create'
+import Inbox from '/client/modules/core/containers/inbox'
 
 // This import has to be at the end for some reason else fails
 
@@ -87,7 +88,7 @@ export default function (injectDeps, {FlowRouter, Collections, Meteor, Accounts,
     triggersEnter: [requireUserInSessionFn],
     action () {
       mount(LayoutMainCtx, {
-        content: (props) => <PostList postListType={'ALL_MINE'} {...props} />
+        content: (props) => <Inbox {...props} />
       })
     }
   })

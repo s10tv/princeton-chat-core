@@ -4,6 +4,7 @@ import messages from './messages'
 import settings from './settings'
 import search from './search'
 import profile from './profile'
+import inbox from './inbox'
 import postfollowers from './postfollowers'
 
 export default {
@@ -14,6 +15,7 @@ export default {
   profile,
   settings,
   postfollowers,
+  inbox,
   global: {
     closeSnackbar: ({ LocalState }) => {
       LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', null)
