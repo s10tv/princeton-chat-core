@@ -13,7 +13,8 @@ export default class SearchService {
         { username: re },
         { emails: { $elemMatch: { address: re } } },
         { firstName: re },
-        { lastName: re }
+        { lastName: re },
+        { displayName: re }
     ]}, {limit: MAX_NUMBER_DOCS_RETURNED})
   }
 
