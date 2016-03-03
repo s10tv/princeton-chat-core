@@ -6,7 +6,7 @@ export default class PostManager {
   }
 
   follow ({user, postId}) {
-    const {Topics, Posts, Users} = this.Collections
+    const {Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
     if (!post) {
@@ -22,16 +22,10 @@ export default class PostManager {
         followers: { userId: user._id, unreadCount: 0 }
       }})
     }
-
-    post.topicIds.forEach((topicId) => {
-      Topics.update(topicId, { $set: {
-        numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
-      }})
-    })
   }
 
   unfollow ({postId, user}) {
-    const {Topics, Posts, Users} = this.Collections
+    const {Posts, Users} = this.Collections
     const post = Posts.findOne(postId)
 
     if (!post || !user) {
@@ -46,12 +40,6 @@ export default class PostManager {
     Posts.update(post._id, { $pull: {
       followers: { userId: user._id }
     }})
-
-    post.topicIds.forEach((topicId) => {
-      Topics.update(topicId, { $set: {
-        numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topicId }).count()
-      }})
-    })
   }
 
   delete ({postId, user}) {
