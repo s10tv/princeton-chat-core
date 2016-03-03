@@ -38,7 +38,7 @@ export function processPost ({UserService, Collections}, post, topicId = null, i
     truncatedContent: truncate(post.content, 300),
     numFollowers: post.followers.length,
     moreFollowersNumber: followerAvatars.length > NUM_MAX_DISPLAY_FOLLOWERS
-      ? post.followerAvatars.length - NUM_MAX_DISPLAY_FOLLOWERS
+      ? followerAvatars.length - NUM_MAX_DISPLAY_FOLLOWERS
       : 0,
     isFollowingPost: currentUser.followingPosts.indexOf(post._id) >= 0,
     url: topicId
