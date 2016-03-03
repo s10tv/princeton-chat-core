@@ -362,7 +362,7 @@ describe('core methods', () => {
     })
   })
 
-  describe('mics', () => {
+  describe('misc', () => {
     beforeEach(() => {
       Users.insert({
         _id: 'adilet-id',
