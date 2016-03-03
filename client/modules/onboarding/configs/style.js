@@ -17,7 +17,7 @@ export default {
     justifyContent: 'center'
   },
   sidebarInner: {
-    flex: '1 0 0px',
+    flexGrow: 1,
     marginTop: spacing.x6,
     minWidth: 320,
     maxWidth: 320,
