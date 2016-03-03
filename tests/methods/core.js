@@ -64,6 +64,7 @@ describe('core methods', () => {
 
         const dbPost = Posts.findOne('uber')
         expect(dbPost.followers.length).to.equal(1)
+        expect(dbPost.followers[0].userId).to.equal(currentUserId)
 
         const [follower] = dbPost.followers
         expect(follower.userId).to.equal(currentUserId)
@@ -197,6 +198,93 @@ describe('core methods', () => {
         const dbUser = Users.findOne(currentUserId)
         expect(dbUser.followingTopics.length).to.equal(1)
         expect(dbUser.followingTopics[0]).to.equal('freedom')
+      })
+    })
+  })
+
+  describe('messages', () => {
+    beforeEach(() => {
+      Topics.insert({
+        _id: 'startup',
+        displayName: 'Startups'
+      })
+      Posts.insert({
+        _id: 'uber',
+        title: 'Uber is a taxi service',
+        content: 'Post content',
+        topicIds: ['startup']
+      })
+      Users.insert({
+        _id: 'adilet-id',
+        username: 'adilet'
+      })
+      Users.insert({
+        _id: 'john-id',
+        username: 'john'
+      })
+    })
+
+    describe('messages/insert', () => {
+      it('should insert a message into the DB', () => {
+        Meteor.call('messages/insert', 'message-id', 'uber', 'agree with that')
+
+        const dbMessage = Messages.findOne('message-id')
+        expect(dbMessage._id).to.equal('message-id')
+        expect(dbMessage.postId).to.equal('uber')
+        expect(dbMessage.content).to.equal('agree with that')
+        expect(dbMessage.ownerId).to.equal(currentUserId)
+
+        const dbPost = Posts.findOne('uber')
+        expect(dbPost.numMsgs).to.equal(1)
+      })
+      it('should make mentioned users follow the post', () => {
+        Meteor.call('messages/insert', 'message-id', 'uber', 'agree with that, @adilet?')
+
+        const dbPost = Posts.findOne('uber')
+        expect(dbPost.followers.length).to.equal(1)
+        expect(dbPost.followers[0].userId).to.equal('adilet-id')
+      })
+      it('should make multiple mentioned users follow the post', () => {
+        Meteor.call('messages/insert', 'message-id', 'uber',
+          'agree with that, @adilet? What about you, @john?'
+        )
+
+        const dbPost = Posts.findOne('uber')
+        expect(dbPost.followers.length).to.equal(2)
+
+        var followersIds = dbPost.followers.map((follower) => (follower.userId))
+        expect(followersIds.sort()).to.deep.equal(['adilet-id', 'john-id'].sort())
+      })
+      it('should handle one user mentioned multiple times', () => {
+        Meteor.call('messages/insert', 'message-id', 'uber',
+          'agree with that, @adilet? What about you, @john? Hey, @john?'
+        )
+
+        const dbPost = Posts.findOne('uber')
+        expect(dbPost.followers.length).to.equal(2)
+
+        var followersIds = dbPost.followers.map((follower) => (follower.userId))
+        expect(followersIds.sort()).to.deep.equal(['adilet-id', 'john-id'].sort())
+      })
+    })
+
+    describe('messages/delete', () => {
+      it('should not allow non-owners to remove the post', () => {
+        Meteor.call('messages/insert', 'message-id', 'uber', 'agree with that')
+        try {
+          Meteor.call('messages/delete', 'message-id')
+          fail('should not get pass message/delete if you are not the owner of the message')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+      it('should remove the post if you are the owner', () => {
+        Meteor.call('messages/insert', 'message-id', 'uber', 'agree with that')
+        Messages.update('message-id', { $set: {
+          ownerId: currentUserId
+        }})
+        Meteor.call('messages/delete', 'message-id')
+        expect(Messages.find().count()).to.equal(0)
       })
     })
   })
