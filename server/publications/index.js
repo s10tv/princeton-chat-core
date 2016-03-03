@@ -190,7 +190,7 @@ export default function ({ Meteor, Collections, SearchService }) {
           children: [
             {
               find: (post) => {
-                return Messages.find({postId: post._id}, {sort: {createdAt: -1}, limit: 1})
+                return Messages.find({postId: post._id})
               }
             },
             {

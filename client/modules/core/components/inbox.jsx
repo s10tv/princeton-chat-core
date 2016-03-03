@@ -82,14 +82,14 @@ const EmptyScreen = () => (
 const InboxResults = (props) => (
   <section className='post-list' style={{flexGrow: 1, overflowX: 'hidden'}}>
     <List style={{paddingTop: 0, paddingBottom: 0, paddingLeft: 10}}>
-      {props.posts.map((post) =>
-        <PostListItem key={post._id} post={post} {...props} />
+      {props.notifications.map((notification) =>
+        <PostListItem key={notification._id} notification={notification} {...props} />
       )}
     </List>
   </section>
 )
 
-const PostListItem = (props) => (
+const PostListItem = ({notification, archiveInboxItem}) => (
   <ListItem
     disabled
     style={{
@@ -99,13 +99,13 @@ const PostListItem = (props) => (
     <Flex flexDirection='column'>
       <Flex flexDirection='row' justifyContent='space-between' alignItems='center'>
         <Flex alignItems='center'>
-          <a href={props.post.url} style={{color: 'black'}}>
-            <h2 style={s.postTitle}>{props.post.title}</h2>
+          <a href={notification.url} style={{color: 'black'}}>
+            <h2 style={s.postTitle}>{notification.title}</h2>
           </a>
         </Flex>
         <Flex flexShrink={0} marginRight={16} alignItems='center'>
           <IconButton tooltip='Archive'
-            onTouchTap={() => props.archiveInboxItem(props.post.notificationId)}
+            onTouchTap={() => archiveInboxItem(notification.notificationId)}
             iconStyle={s.archiveBtn}>
             <FontIcon className='material-icons'>
               clear
@@ -113,16 +113,18 @@ const PostListItem = (props) => (
           </IconButton>
         </Flex>
       </Flex>
-      <Flex alignItems='center'>
-        <UserAvatar user={props.post.owner} />
-        <p style={s.postContent}>{props.post.truncatedContent}</p>
-      </Flex>
-      {!props.post.message || !props.post.message.owner ? null
-        : <Flex alignItems='center' style={s.lastMessage}>
-          <UserAvatar user={props.post.message.owner}/>
-          <p style={s.postContent}>{props.post.message.content}</p>
+      {!notification.showPostDetails ? null
+        : <Flex alignItems='center'>
+          <UserAvatar user={notification.owner}/>
+          <p style={s.postContent}>{notification.truncatedContent}</p>
         </Flex>
       }
+      {notification.messages.map((message) => (
+        <Flex alignItems='center' style={s.lastMessage}>
+          <UserAvatar user={message.owner}/>
+          <p style={s.postContent}>{message.content}</p>
+        </Flex>
+      ))}
     </Flex>
   </ListItem>
 )

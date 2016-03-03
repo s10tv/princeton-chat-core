@@ -296,7 +296,8 @@ export default function (context) {
 
     'inbox/archive': (notificationId) => {
       Notifications.update(notificationId, { $set: {
-        status: 'read'
+        status: 'read',
+        lastMessageTime: new Date()
       }})
     }
   })

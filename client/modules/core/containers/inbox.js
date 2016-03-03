@@ -5,29 +5,32 @@ import {InboxCoverPhoto} from '/client/lib/unsplash.service.js'
 
 const composer = ({context, term}, onData) => {
   const {Meteor, Collections, UserService} = context()
-  const {Notifications, Posts, Users} = Collections
+  const {Notifications, Posts, Users, Messages} = Collections
 
   if (Meteor.subscribe('inbox', term).ready()) {
     const currentUser = UserService.currentUser()
-    const posts = Notifications
+    const notifications = Notifications
       .find({}, {sort: { createdAt: -1 }})
       .map((notification) => {
         const post = Posts.findOne(notification.postId)
-        const rawMessage = Collections.Messages.findOne({ postId: post._id })
-        const message = rawMessage
-          ? Object.assign(rawMessage, {
-            owner: UserService.getUserView(Users.findOne(rawMessage.ownerId))
-          })
-          : {}
+        const messages = Messages
+          .find({ postId: post._id, createdAt: {$gte: notification.lastMessageTime} })
+          .map((message) => (
+            Object.assign(message, {
+              owner: UserService.getUserView(Users.findOne(message.ownerId))
+            })
+          ))
 
         return Object.assign(processPost(context(), post), {
-          message,
+          messages,
+          showPostDetails: !notification.lastMessageTime,
+          _id: notification._id,
           notificationId: notification._id
         })
       })
 
     onData(null, {
-      posts,
+      notifications,
       currentUser,
       topic: {
         displayName: 'Inbox',
