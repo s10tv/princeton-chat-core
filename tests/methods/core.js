@@ -206,24 +206,24 @@ describe('core methods', () => {
 
     describe('topics/users/import', () => {
       const userA = {
-        firstName: 'A-first-name', 
+        firstName: 'A-first-name',
         lastName: 'A-last-name',
         email: 'a@a.com'
       }
       const userB = {
-        firstName: 'B-first-name', 
+        firstName: 'B-first-name',
         lastName: 'B-last-name',
         email: 'b@b.com'
       }
       // User with wrong email
       const userC = {
-        firstName: 'C-first-name', 
+        firstName: 'C-first-name',
         lastName: 'C-last-name',
         email: 'c@c@.com'
       }
       // User with same email as user A
       const userD = {
-        firstName: 'D-first-name', 
+        firstName: 'D-first-name',
         lastName: 'D-last-name',
         email: 'a@a.com'
       }
@@ -232,7 +232,7 @@ describe('core methods', () => {
 
         const dbTopic = Topics.findOne('startup')
         expect(dbTopic.followers.length).to.equal(2)
-        
+
         var followersFirstNames = dbTopic.followers.map((follower) => {
           const followerId = follower.userId
           const dbUser = Users.findOne(followerId)
@@ -379,7 +379,7 @@ describe('core methods', () => {
     describe('get/followers', () => {
       it('should get followers by both ids and mentions', () => {
         const userViews = Meteor.call('get/followers', {
-          followers: [{userId: 'adilet-id'}], 
+          followers: [{userId: 'adilet-id'}],
           mentionedUsernames: ['@john', '@jack']
         })
         expect(userViews.length).equal(2)
@@ -388,7 +388,7 @@ describe('core methods', () => {
       })
       it('should exclude yourself if the option is set', () => {
         const userViews = Meteor.call('get/followers', {
-          followers: [{userId: 'adilet-id'}, {userId: currentUserId}], 
+          followers: [{userId: 'adilet-id'}, {userId: currentUserId}],
           mentionedUsernames: [],
           excludeMyself: true
         })
@@ -400,7 +400,7 @@ describe('core methods', () => {
           username: 'currentUsername'
         }})
         const userViews = Meteor.call('get/followers', {
-          followers: [{userId: 'adilet-id'}, {userId: currentUserId}], 
+          followers: [{userId: 'adilet-id'}, {userId: currentUserId}],
           mentionedUsernames: [],
           excludeMyself: false
         })
