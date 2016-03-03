@@ -79,6 +79,15 @@ export const CoverAvatar = (props) => (
   </Avatar>
 )
 
+export const UserAvatar = ({avatar, avatarInitials, size}) => (
+  avatar.isDefaultAvatar
+  ? <LetterAvatar size={size || 50} color='white'
+    backgroundColor={avatar.color}>
+    {avatarInitials}
+  </LetterAvatar>
+  : <CoverAvatar size={size || 50} src={avatar.url} />
+)
+
 export class ScrollingContainer extends React.Component {
   scrollToBottom () {
     const node = ReactDOM.findDOMNode(this)
