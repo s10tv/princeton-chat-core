@@ -17,6 +17,7 @@ export default function ({Meteor, Collections, currentUser}) {
             ownerId: user._id,
             postId: post._id,
             lastActionTimestamp: message.createdAt,
+            reason: message.createdAt ? 'reply' : 'newpost',
             status: 'active'
           })
         })
