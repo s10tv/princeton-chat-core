@@ -40,9 +40,12 @@ describe('core methods', () => {
 
     describe('post/insert', () => {
       it('should insert a post into the DB', () => {
-        Meteor.call('post/insert', 'post-id', 'post-title', 'post-content',
-          ['startup', 'another-topic-that-does-not-exist']
-        )
+        Meteor.call('post/insert', {
+          _id: 'post-id',
+          title: 'post-title',
+          content: 'post-content',
+          topicIds: ['startup', 'another-topic-that-does-not-exist']
+        })
         const post = Posts.findOne('post-id')
         expect(post._id).to.equal('post-id')
         expect(post.ownerId).to.equal(currentUserId)
@@ -200,6 +203,76 @@ describe('core methods', () => {
         expect(dbUser.followingTopics[0]).to.equal('freedom')
       })
     })
+
+    describe('topics/users/import', () => {
+      const userA = {
+        firstName: 'A-first-name', 
+        lastName: 'A-last-name',
+        email: 'a@a.com'
+      }
+      const userB = {
+        firstName: 'B-first-name', 
+        lastName: 'B-last-name',
+        email: 'b@b.com'
+      }
+      // User with wrong email
+      const userC = {
+        firstName: 'C-first-name', 
+        lastName: 'C-last-name',
+        email: 'c@c@.com'
+      }
+      // User with same email as user A
+      const userD = {
+        firstName: 'D-first-name', 
+        lastName: 'D-last-name',
+        email: 'a@a.com'
+      }
+      it('should import users to topic', () => {
+        Meteor.call('topics/users/import', 'startup', [userA, userB])
+
+        const dbTopic = Topics.findOne('startup')
+        expect(dbTopic.followers.length).to.equal(2)
+        
+        var followersFirstNames = dbTopic.followers.map((follower) => {
+          const followerId = follower.userId
+          const dbUser = Users.findOne(followerId)
+          return dbUser.firstName
+        })
+        var followersLastNames = dbTopic.followers.map((follower) => {
+          const followerId = follower.userId
+          const dbUser = Users.findOne(followerId)
+          return dbUser.lastName
+        })
+        expect(followersFirstNames.sort()).to.deep.equal([userA.firstName, userB.firstName].sort())
+        expect(followersLastNames.sort()).to.deep.equal([userA.lastName, userB.lastName].sort())
+      })
+      it('should filter users with invalid emails', () => {
+        Meteor.call('topics/users/import', 'startup', [userA, userC])
+
+        const dbTopic = Topics.findOne('startup')
+        expect(dbTopic.followers.length).to.equal(1)
+
+        const dbUser = Users.findOne(dbTopic.followers[0].userId)
+        expect(dbUser.firstName).to.equal(userA.firstName)
+        expect(dbUser.lastName).to.equal(userA.lastName)
+      })
+      it('should detect duplicate emails', () => {
+        try {
+          Meteor.call('topics/users/import', 'startup', [userA, userD])
+          fail('should not import users with non-unique emails')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+      it('should detect invalid topic', () => {
+        try {
+          Meteor.call('topics/users/import', 'money', [userA, userB])
+          fail('should not import users to non-existent topic')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+    })
   })
 
   describe('messages', () => {
@@ -285,6 +358,68 @@ describe('core methods', () => {
         }})
         Meteor.call('messages/delete', 'message-id')
         expect(Messages.find().count()).to.equal(0)
+      })
+    })
+  })
+
+  describe('mics', () => {
+    beforeEach(() => {
+      Users.insert({
+        _id: 'adilet-id',
+        status: 'active',
+        username: 'adilet'
+      })
+      Users.insert({
+        _id: 'john-id',
+        status: 'active',
+        username: 'john'
+      })
+    })
+
+    describe('get/followers', () => {
+      it('should get followers by both ids and mentions', () => {
+        const userViews = Meteor.call('get/followers', {
+          followers: [{userId: 'adilet-id'}], 
+          mentionedUsernames: ['@john', '@jack']
+        })
+        expect(userViews.length).equal(2)
+        var followersUsernames = userViews.map((follower) => (follower.displayUsername.substring(1)))
+        expect(followersUsernames.sort()).to.deep.equal(['adilet', 'john'].sort())
+      })
+      it('should exclude yourself if the option is set', () => {
+        const userViews = Meteor.call('get/followers', {
+          followers: [{userId: 'adilet-id'}, {userId: currentUserId}], 
+          mentionedUsernames: [],
+          excludeMyself: true
+        })
+        expect(userViews.length).equal(1)
+        expect(userViews[0].displayUsername.substring(1)).equal('adilet')
+      })
+      it('should NOT exclude yourself if the option is NOT set', () => {
+        Users.update(currentUserId, { $set: {
+          username: 'currentUsername'
+        }})
+        const userViews = Meteor.call('get/followers', {
+          followers: [{userId: 'adilet-id'}, {userId: currentUserId}], 
+          mentionedUsernames: [],
+          excludeMyself: false
+        })
+        expect(userViews.length).equal(2)
+        var followersUsernames = userViews.map((follower) => (follower.displayUsername.substring(1)))
+        expect(followersUsernames.sort()).to.deep.equal(['adilet', 'currentUsername'].sort())
+      })
+    })
+
+    describe('search/users', () => {
+      it('should find right users by username', () => {
+        const userViews = Meteor.call('search/users', 'adilet')
+        expect(userViews.length).equal(1)
+        expect(userViews[0].displayUsername.substring(1)).equal('adilet')
+      })
+
+      it('should not find anything if there is no user with such username', () => {
+        const userViews = Meteor.call('search/users', 'jack')
+        expect(userViews.length).equal(0)
       })
     })
   })
