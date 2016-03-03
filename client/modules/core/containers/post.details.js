@@ -4,6 +4,16 @@ import DateFormatter from '/client/lib/date.formatter.js'
 import PostDetails from '/client/modules/core/components/post.details.jsx'
 import {Loading} from '/client/modules/core/components/helpers.jsx'
 
+export function processMessage ({UserService, Collections}, message) {
+  const currentUser = UserService.currentUser()
+
+  return Object.assign({}, message, {
+    owner: UserService.getUserView(Collections.Users.findOne(message.ownerId)),
+    timestamp: DateFormatter.format(message),
+    canDelete: currentUser._id === message.ownerId
+  })
+}
+
 export const composer = ({context, getPostFollowers, postId}, onData) => {
   const {Meteor, Collections} = context()
   const currentUser = UserService.currentUser()
@@ -21,10 +31,7 @@ export const composer = ({context, getPostFollowers, postId}, onData) => {
     const messages = Collections.Messages
       .find({postId: postId}, {sort: { createdAt: 1 }})
       .map((message) => {
-        message.owner = UserService.getUserView(Collections.Users.findOne(message.ownerId))
-        message.timestamp = DateFormatter.format(message)
-        message.canDelete = currentUser._id === message.ownerId
-        return message
+        return processMessage(context(), message)
       })
 
     // WARNING: Assume topics are already published
