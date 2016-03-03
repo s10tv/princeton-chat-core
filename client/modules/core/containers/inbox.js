@@ -33,7 +33,7 @@ const composer = ({context, term}, onData) => {
       notifications,
       currentUser,
       topic: {
-        displayName: 'Inbox',
+        displayName: 'My Inbox',
         cover: InboxCoverPhoto,
         followers: []
       }

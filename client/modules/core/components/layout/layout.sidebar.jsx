@@ -224,7 +224,7 @@ export default React.createClass({
             <MediumListItem
               style={this.giveListItemStyleForRoutePath('all-mine')}
               onTouchTap={() => this.props.navigateTo('all-mine')}>
-                My Feed
+                My Inbox
             </MediumListItem>
 
             <MediumListItem
