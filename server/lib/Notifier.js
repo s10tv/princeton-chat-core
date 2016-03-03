@@ -3,10 +3,11 @@ export default class Notifier {
     this.Collections = Collections
   }
 
-  notifyMention ({ userId, postId }) {
+  notifyMention ({ userId, postId, lastActionTimestamp }) {
     const {Notifications} = this.Collections
     Notifications.upsert({ postId: postId, ownerId: userId }, { $set: {
       postId,
+      lastActionTimestamp,
       ownerId: userId,
       status: 'active',
       reason: 'mention'

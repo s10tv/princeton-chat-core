@@ -23,6 +23,7 @@
     "babel-preset-stage-2": "6.x.x",
     "babel-register": "^6.5.2",
     "chai": "^3.5.0",
+    "chai-datetime": "^1.4.1",
     "enzyme": "2.x.x",
     "eslint": "2.0.x",
     "eslint-plugin-react": "3.16.x",

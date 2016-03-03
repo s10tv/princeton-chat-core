@@ -2,7 +2,10 @@
   describe, beforeEach, Meteor, it, fail
 */
 import Collections from '../../../lib/collections'
-import {expect} from 'chai'
+import chai, {expect} from 'chai'
+import chaiTime from 'chai-datetime'
+
+chai.use(chaiTime)
 
 const {Topics, Messages, Posts, Users, Notifications} = Collections
 
@@ -350,6 +353,7 @@ describe('core methods', () => {
         Meteor.call('messages/insert', 'message-id', 'uber',
           'agree with that, @adilet? What about you, @john?'
         )
+        const dbMessage = Messages.findOne('message-id')
 
         const dbPost = Posts.findOne('uber')
         expect(dbPost.followers.length).to.equal(2)
@@ -360,9 +364,12 @@ describe('core methods', () => {
         const notifications = Notifications.find().fetch()
         expect(notifications.length).to.equal(2)
 
-        const [adiletNotif, johnNotif] = Notifications.find({}, {sort: {_id: 1}}).fetch()
+        const [adiletNotif, johnNotif] = Notifications.find({}, {sort: {ownerId: 1}}).fetch()
         expect(adiletNotif.ownerId).to.equal('adilet-id')
+        expect(adiletNotif.lastActionTimestamp).to.equalTime(dbMessage.createdAt)
+
         expect(johnNotif.ownerId).to.equal('john-id')
+        expect(johnNotif.lastActionTimestamp).to.equalTime(dbMessage.createdAt)
       })
       it('should handle one user mentioned multiple times', () => {
         Meteor.call('messages/insert', 'message-id', 'uber',

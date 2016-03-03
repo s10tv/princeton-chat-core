@@ -244,17 +244,25 @@ export default function (context) {
     'messages/insert': (_id, postId, commentText) => {
       Logger.log({ level: 'info', method: 'messages/insert', commentId: _id, postId })
       const user = currentUser()
-      Messages.insert({
+      const now = new Date()
+
+      // need to use direct here because we're setting createdAt programmatically
+      Messages.direct.insert({
         _id,
         postId,
         content: commentText,
-        ownerId: user._id
+        ownerId: user._id,
+        createdAt: now
       })
 
       // mentioned users follow the post
       MentionParser.fetchAllMentionedUsers(commentText).forEach((mentionedUser) => {
         PostManager.follow({user: mentionedUser, postId})
-        Notifier.notifyMention({ userId: mentionedUser._id, postId })
+        Notifier.notifyMention({
+          userId: mentionedUser._id,
+          lastActionTimestamp: now,
+          postId
+        })
       })
 
       if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {
@@ -277,8 +285,6 @@ export default function (context) {
     },
 
     'get/followers': ({followers = [], mentionedUsernames = [], excludeMyself = true}) => {
-      console.log('get/followers', followers, mentionedUsernames, excludeMyself)
-
       Logger.log({ level: 'info', method: 'get/followers' })
       const current = currentUser()
       return followers.map((user) => Users.findOne(user.userId))
