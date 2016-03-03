@@ -5,7 +5,7 @@ import Menu from '/client/modules/core/components/menu.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
 import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
-import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
 import color from '/client/configs/color'
 
 const s = {
@@ -98,12 +98,8 @@ const DirectorySerachItem = (props) => (
       padding: 10
     }}>
     <Flex>
-      {props.user.avatar.isDefaultAvatar
-        ? <LetterAvatar size={30} color='white'
-          backgroundColor={props.user.avatar.color}>
-          {props.user.avatarInitials}
-        </LetterAvatar>
-        : <CoverAvatar size={30} src={props.user.avatar.url} />}
+      <UserAvatar size={30} avatarInitials={props.user.avatarInitials}
+        avatar={props.user.avatar} />
 
       <Flex flexDirection='column' flexGrow={1} style={{marginLeft: 10}}>
         <Flex flexGrow={1} justifyContent='space-between'>

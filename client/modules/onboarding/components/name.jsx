@@ -4,13 +4,12 @@ import {TextField, FlatButton, LinearProgress, PageControl} from '/client/lib/ui
 import {color} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
 import {Flex} from 'jsxstyle'
 
 const Login = (props) => {
   const {fields: {fullName}, handleSubmit, error, submitting} = props
-  const {isDefaultAvatar, currentAvatarColor, currentAvatarUrl, avatarInitials,
-    changeAvatarToDefault, handleUpload} = props
+  const {user, changeAvatarToDefault, handleUpload} = props
 
   return (
     <StyleRoot>
@@ -23,13 +22,8 @@ const Login = (props) => {
             <h1 style={[style.h1, s.smallerHeading]}>Complete Your Profile</h1>
             <p>How would you like to appear to other tigers?</p>
             <form style={style.form} onSubmit={handleSubmit}>
-              {isDefaultAvatar
-                ? <LetterAvatar size={110} color='white' backgroundColor={currentAvatarColor}
-                  style={{alignSelf: 'center'}}>
-                  {avatarInitials}
-                </LetterAvatar>
-                : <CoverAvatar size={110} src={currentAvatarUrl} style={{alignSelf: 'center'}}/>
-              }
+              <UserAvatar size={110} avatar={user.avatar} avatarInitials={user.avatarInitials}
+                style={{alignSelf: 'center'}}/>
               <Flex flexShrink={0} style={s.avatarButtonContainer}>
                 <FlatButton label='Use Default'
                   backgroundColor={color.avatarButtons.dullGrey}

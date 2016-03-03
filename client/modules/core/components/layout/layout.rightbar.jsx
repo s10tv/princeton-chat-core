@@ -10,7 +10,7 @@ import MoreVertIcon from '../../../../../node_modules/material-ui/lib/svg-icons/
 import IconMenu from '../../../../../node_modules/material-ui/lib/menus/icon-menu'
 import MenuItem from '../../../../../node_modules/material-ui/lib/menus/menu-item'
 import { i18n } from '/client/configs/env'
-import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
+import {UserAvatar} from '/client/modules/core/components/helpers.jsx'
 import {FlatButton, Dialog} from '/client/lib/ui.jsx'
 import Radium from 'radium'
 
@@ -181,12 +181,14 @@ var FollowerListItem = ({follower, showUserProfile, removeFollower, currentUser,
     <a href='#' onClick={() => showUserProfile(follower)}>
       <Flex alignItems='center'>
         {follower.isFullMember
-          ? <UserAvatar user={follower} />
+          ? <UserAvatar size={40} avatarInitials={follower.avatarInitials}
+            avatar={follower.avatar} />
           : <Badge style={{padding: '15px 15px 0px 0px'}}
             badgeContent={
               <FontIcon className='material-icons' style={{fontSize: 20}}>language</FontIcon>
             }>
-            <UserAvatar user={follower} />
+            <UserAvatar size={40} avatarInitials={follower.avatarInitials}
+            avatar={follower.avatar} />
           </Badge>
         }
         <Flex flexDirection='column'
@@ -210,15 +212,5 @@ var FollowerListItem = ({follower, showUserProfile, removeFollower, currentUser,
 )
 
 FollowerListItem = Radium(FollowerListItem)
-
-var UserAvatar = ({user}) => (
-  user.avatar.isDefaultAvatar
-  ? <LetterAvatar size={40} color='white' backgroundColor={user.avatar.color}>
-    {user.avatarInitials}
-  </LetterAvatar>
-  : <CoverAvatar size={40} src={user.avatar.url} />
-)
-
-UserAvatar = Radium(UserAvatar)
 
 export default Radium(RightBar)

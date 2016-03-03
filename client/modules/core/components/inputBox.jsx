@@ -4,7 +4,7 @@ import keycode from 'keycode'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
 import Checkbox from '../../../../node_modules/material-ui/lib/checkbox'
 import linkState from 'react-link-state'
-import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
 import MyAutoComplete from '/client/lib/mention.textfield.jsx'
 
 export default React.createClass({
@@ -28,7 +28,9 @@ export default React.createClass({
     /**
      * The function called to create a message.
      */
-    create: React.PropTypes.func.isRequired
+    create: React.PropTypes.func.isRequired,
+    clearMentions: React.PropTypes.func.isRequired,
+    replaceWithMention: React.PropTypes.func.isRequired
   },
 
   getInitialState () {
@@ -104,18 +106,11 @@ export default React.createClass({
                 ? (this.props.followers.length > 1 ? 'Followers:' : 'Follower:')
                 : 'No followers'}
             </Inline>
-            {this.props.followers.map((user) => user.avatar.isDefaultAvatar
-              ? <LetterAvatar key={user._id} style={{
+            {this.props.followers.map((user) => <UserAvatar key={user._id} size={30}
+              avatar={user.avatar} avatarInitials={user.avatarInitials} style={{
                 marginRight: 3,
                 cursor: 'pointer'
-              }} size={30} color='white'
-                backgroundColor={user.avatar.color}>
-                {user.avatarInitials}
-              </LetterAvatar>
-              : <CoverAvatar key={user._id} style={{
-                marginRight: 3,
-                cursor: 'pointer'
-              }} size={30} src={user.avatar.url} />
+              }} />
             )}
           </span>
         </Flex>
@@ -137,12 +132,9 @@ export default React.createClass({
   renderInputControls () {
     return (
       <Flex alignItems='center' marginTop='12px' height={30}>
-        {this.props.followers.map((user) => user.avatar.isDefaultAvatar
-          ? <LetterAvatar key={user._id} size={30} style={{marginRight: 3}} color='white'
-            backgroundColor={user.avatar.color}>
-            {user.avatarInitials}
-          </LetterAvatar>
-          : <CoverAvatar key={user._id} style={{marginRight: 3}} size={30} src={user.avatar.url} />
+        {this.props.followers.map((user) => <UserAvatar key={user._id}
+          size={30} style={{marginRight: 3}} avatar={user.avatar}
+          avatarInitials={user.avatarInitials} />
         )}
         <Inline component='span' marginLeft='8px' marginRight='auto' fontWeight={300}>
           {this.props.followers.length > 0

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex } from 'jsxstyle'
-import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import {classYears} from '/lib/data'
 import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'
@@ -56,11 +56,8 @@ export default React.createClass({
     handleOldPasswordChange: React.PropTypes.func,
     handleNewPasswordChange: React.PropTypes.func,
     changePassword: React.PropTypes.func,
-    currentAvatarUrl: React.PropTypes.string,
     changeAvatarToFacebook: React.PropTypes.func,
     changeAvatarToDefault: React.PropTypes.func,
-    isDefaultAvatar: React.PropTypes.bool,
-    currentAvatarColor: React.PropTypes.string,
 
     fields: React.PropTypes.shape({
       firstName: React.PropTypes.object.isRequired,
@@ -88,12 +85,9 @@ export default React.createClass({
       handleOldPasswordChange,
       handleNewPasswordChange,
       changePassword,
-      currentAvatarUrl,
       changeAvatarToFacebook,
       changeAvatarToDefault,
-      currentAvatarColor,
-      fields: {firstName, lastName, displayName, username, classYear},
-      isDefaultAvatar } = this.props
+      fields: {firstName, lastName, displayName, username, classYear}} = this.props
 
     if (!user) {
       return null
@@ -109,12 +103,7 @@ export default React.createClass({
           <h1 style={s.header}>My Profile</h1>
           <Flex flexDirection='row' justifyContent='space-around' flexWrap='wrap'>
             <Flex flexDirection='column' alignItems='center' justifyContent='flex-start'>
-              {isDefaultAvatar
-                ? <LetterAvatar size={150} color='white' backgroundColor={currentAvatarColor}>
-                  {user.avatarInitials}
-                </LetterAvatar>
-                : <CoverAvatar size={150} src={currentAvatarUrl} />
-              }
+              <UserAvatar size={150} avatar={user.avatar} avatarInitials={user.avatarInitials} />
               <RaisedButton label='Use Default Avatar' primary
                 backgroundColor={color.gray}
                 onTouchTap={changeAvatarToDefault}

@@ -4,7 +4,7 @@ import LeftNav from '../../../../../node_modules/material-ui/lib/left-nav'
 import List from '../../../../../node_modules/material-ui/lib/lists/list'
 import ListItem from '../../../../../node_modules/material-ui/lib/lists/list-item'
 import Subheader from 'material-ui/lib/Subheader/Subheader'
-import {SmallListItem, MediumListItem, LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
+import {SmallListItem, MediumListItem, UserAvatar} from '/client/modules/core/components/helpers.jsx'
 import RaisedButton from '../../../../../node_modules/material-ui/lib/raised-button'
 import FontIcon from '../../../../../node_modules/material-ui/lib/font-icon'
 import ExitToApp from 'material-ui/lib/svg-icons/action/exit-to-app'
@@ -101,15 +101,8 @@ const SidebarHeader = React.createClass({
             paddingLeft: 8
           }} onTouchTap={this.onTapHeader}>
           <Flex>
-            {props.user.avatar.isDefaultAvatar
-              ? <LetterAvatar
-                color='white'
-                backgroundColor={props.user.avatar.color}
-                size={60}>
-                {props.user.avatarInitials}
-              </LetterAvatar>
-              : <CoverAvatar src={props.user.avatar.url} size={60} />
-            }
+            <UserAvatar size={60} avatar={props.user.avatar}
+              avatarInitials={props.user.avatarInitials} />
             <Flex
               flexGrow={1}
               marginLeft={8}

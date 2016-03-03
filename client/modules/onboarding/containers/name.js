@@ -19,14 +19,8 @@ export const composer = ({context}, onData) => {
   const { UserService } = context()
 
   const user = UserService.currentUser()
-  const isDefaultAvatar = user.avatar.isDefaultAvatar
-  const currentAvatarColor = user.avatar.color
-  const currentAvatarUrl = user.avatar.url
   onData(null, {
-    isDefaultAvatar,
-    currentAvatarColor,
-    currentAvatarUrl,
-    avatarInitials: user.avatarInitials
+    user
   })
 }
 

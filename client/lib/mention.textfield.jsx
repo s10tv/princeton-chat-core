@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import keycode from 'keycode'
 import Popover from 'material-ui/lib/popover/popover'
 import {Menu, MenuItem} from './ui.jsx'
-import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
 import TextField from 'material-ui/lib/text-field'
 
 function getStyles (props, state) {
@@ -164,12 +164,8 @@ export default React.createClass({
             style={Object.assign(styles.menu, menuStyle)}
           >
             {mentions.map((user) => {
-              const avatar = user.avatar.isDefaultAvatar
-                ? <LetterAvatar key={user._id} style={{marginRight: 3}} color='white'
-                  backgroundColor={user.avatar.color}>
-                  {user.avatarInitials}
-                </LetterAvatar>
-                : <CoverAvatar key={user._id} style={{marginRight: 3}} src={user.avatar.url} />
+              const avatar = <UserAvatar key={user._id} style={{marginRight: 3}}
+                avatarInitials={user.avatarInitials} avatar={user.avatar} />
 
               return <MenuItem
                 rightAvatar={avatar}

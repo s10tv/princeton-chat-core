@@ -3,7 +3,7 @@ import { Flex } from 'jsxstyle'
 import Paper from '../../../../node_modules/material-ui/lib/paper'
 import Dialog from '../../../../node_modules/material-ui/lib/dialog'
 import { i18n } from '/client/configs/env'
-import { LetterAvatar, CoverAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -43,12 +43,10 @@ export default React.createClass({
               justifyContent='center'
               position='relative'
               padding='36px'>
-              {this.props.user.avatar.isDefaultAvatar
-                ? <LetterAvatar size={150} color='white'
-                  backgroundColor={this.props.user.avatar.color}>
-                   {this.props.user.avatarInitials}
-                </LetterAvatar>
-                : <CoverAvatar size={150} src={this.props.user.avatar.url} />}
+              <UserAvatar
+                size={150}
+                avatarInitials={this.props.user.avatarInitials}
+                avatar={this.props.user.avatar} />
               <h1>{this.props.user.displayName}</h1>
               {this.props.user.displayUsername.length === 0
                 ? null

@@ -27,10 +27,6 @@ export const composer = ({context}, onData) => {
       LocalState.set('SETTINGS_EDIT_PROFILE_NEW_PASSWORD', event.target.value)
     }
 
-    var isDefaultAvatar = user.avatar.isDefaultAvatar
-    const currentAvatarColor = user.avatar.color
-    const currentAvatarUrl = user.avatar.url
-
     const changePassword = () => {
       Accounts.changePassword(oldPassword, newPassword, (err) => {
         if (err) {
@@ -56,11 +52,7 @@ export const composer = ({context}, onData) => {
 
       handleOldPasswordChange,
       handleNewPasswordChange,
-      changePassword,
-
-      isDefaultAvatar,
-      currentAvatarColor,
-      currentAvatarUrl
+      changePassword
     })
   }
 }

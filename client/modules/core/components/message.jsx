@@ -7,7 +7,7 @@ import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 import MoreHorizIcon from '../../../../node_modules/material-ui/lib/svg-icons/navigation/more-horiz'
 import Radium from 'radium'
 import { i18n } from '/client/configs/env'
-import {LetterAvatar, CoverAvatar} from '/client/modules/core/components/helpers.jsx'
+import {UserAvatar} from '/client/modules/core/components/helpers.jsx'
 import ContentTypeService from '/client/lib/contenttype.service'
 import {getFilenameFromURL, shortenFilename} from '/client/lib/url.util'
 import {FontIcon, FlatButton} from '/client/lib/ui.jsx'
@@ -113,15 +113,8 @@ class MessageGroupComponent extends React.Component {
           : null
         }
         <a href='#' onClick={props.showUserProfile}>
-          {props.owner.avatar.isDefaultAvatar
-            ? <LetterAvatar
-              size={50}
-              color='white'
-              backgroundColor={props.owner.avatar.color}>
-              {props.owner.avatarInitials}
-            </LetterAvatar>
-            : <CoverAvatar size={50} src={props.owner.avatar.url} />
-          }
+          <UserAvatar size={50} avatarInitials={props.owner.avatarInitials}
+            avatar={props.owner.avatar} />
         </a>
         <Block flex={1} marginLeft={8}>
           <header>

@@ -79,14 +79,14 @@ export const CoverAvatar = (props) => (
   </Avatar>
 )
 
-// requires {avatar, avatarInitials, size}, 40px default size
+// requires {avatar, avatarInitials}, 40px default size
 export const UserAvatar = (props) => (
   props.avatar.isDefaultAvatar
-  ? <LetterAvatar size={props.size || 40} color='white'
+  ? <LetterAvatar color='white'
     backgroundColor={props.avatar.color} {...props}>
     {props.avatarInitials}
   </LetterAvatar>
-  : <CoverAvatar size={props.size || 40} src={props.avatar.url} {...props}/>
+  : <CoverAvatar src={props.avatar.url} {...props}/>
 )
 
 export class ScrollingContainer extends React.Component {
