@@ -188,7 +188,7 @@ var FollowerListItem = ({follower, showUserProfile, removeFollower, currentUser,
               <FontIcon className='material-icons' style={{fontSize: 20}}>language</FontIcon>
             }>
             <UserAvatar size={40} avatarInitials={follower.avatarInitials}
-            avatar={follower.avatar} />
+              avatar={follower.avatar} />
           </Badge>
         }
         <Flex flexDirection='column'
