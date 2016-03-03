@@ -14,6 +14,7 @@ export default function ({ ServiceConfiguration, Meteor }) {
   Object.assign(Meteor.settings.public, {
     // Temporarily disable redux logger for now because redux chrome dev tools
     // has more than we need. Enable if need be
+    enableBrowserSync: process.env.BROWSER_SYNC || false,
     enableReduxLogger: false,
     rootUrl: stripTrailingSlash(process.env.ROOT_URL),
     audience: process.env.AUDIENCE || 'princeton',

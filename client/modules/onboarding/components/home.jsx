@@ -36,9 +36,9 @@ const Home = (props) => {
           <div style={[style.sidebarInner, {marginTop: spacing.x2}]}>
             <h1 style={s.mainLogo}>Princeton.Chat</h1>
             <p>is a private community that connects Princetonians based on shared interests and common needs.</p>
-            <p>
+            <div>
               <YouTube videoId='OXvWR4uIZC8' opts={opts} />
-            </p>
+            </div>
             <form style={style.form} onSubmit={handleSubmit}>
               <div style={s.emailContainer}>
                 <TextField hintText='netid' {...netid} style={s.netid} />
@@ -77,8 +77,7 @@ Home.propTypes = {
   ...reduxFormPropTypes,
   fields: PropTypes.shape({
     netid: fieldShape.isRequired,
-    domain: fieldShape.isRequired,
-    classYear: fieldShape.isRequired
+    domain: fieldShape.isRequired
   }).isRequired,
   domains: PropTypes.arrayOf(PropTypes.string).isRequired
 }
