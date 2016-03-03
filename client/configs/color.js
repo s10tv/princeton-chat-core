@@ -22,6 +22,7 @@ export default {
     lighterGrey: tinycolor('#404548').lighten(10).toString()
   },
   inbox: {
+    backgroundGray: '#F5F5F5',
     separatorGray: '#E1E2E4',
     hoverGray: '#F8F8F9',
     archiveBoxGray: '#EFF0F1',
