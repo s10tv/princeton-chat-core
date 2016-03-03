@@ -14,6 +14,7 @@ import SearchService from '/server/lib/SearchService'
 import Logger from '/server/lib/logger'
 import UserService from '/lib/user.service'
 import MentionParser from '/lib/mention.parser'
+import Notifier from '/server/lib/Notifier'
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slack = Meteor.npmRequire('slack-notify')(slackUrl)
 
@@ -43,6 +44,7 @@ export function initContext () {
     Logger,
     Collections,
     UserService,
+    Notifier: new Notifier({ Collections }),
     MentionParser: new MentionParser({ Collections }),
     SearchService: new SearchService({ Meteor, Collections }),
     OnboardManager: new OnboardManager({ Meteor, Accounts, Email, Random, Collections, slack, rootURL, HTTP }),

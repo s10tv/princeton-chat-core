@@ -1,10 +1,10 @@
 /*global
   describe, beforeEach, Meteor, it, fail
 */
-import Collections from '../../lib/collections'
+import Collections from '../../../lib/collections'
 import {expect} from 'chai'
 
-const {Topics, Messages, Posts, Users} = Collections
+const {Topics, Messages, Posts, Users, Notifications} = Collections
 
 describe('core methods', () => {
   let currentUser, currentUserId
@@ -14,6 +14,7 @@ describe('core methods', () => {
     Posts.remove({})
     Messages.remove({})
     Users.remove({})
+    Notifications.remove({})
 
     currentUserId = Users.insert({
       _id: 'current-user'
@@ -52,6 +53,34 @@ describe('core methods', () => {
         expect(post.topicIds).to.deep.equal(['startup'])
         expect(post.followers[0].userId).to.equal(currentUserId)
         expect(post.numMsgs).to.equal(0)
+      })
+
+      describe('posts with mentions', () => {
+        beforeEach(() => {
+          Users.insert({
+            _id: 'mentioned-user-id',
+            username: 'mentioneduser'
+          })
+        })
+
+        it('should generate a notification for this user', () => {
+          Meteor.call('post/insert', {
+            _id: 'mention-post-id',
+            title: 'post-title',
+            content: 'a mention to @mentioneduser',
+            topicIds: ['startup']
+          })
+
+          const notifications = Notifications.find().fetch()
+          expect(notifications.length).to.equal(1)
+
+          const [notification] = notifications
+          expect(notification.status).to.equal('active')
+          expect(notification.reason).to.equal('mention')
+          expect(notification.lastActionTimestamp).not.to.exist
+          expect(notification.ownerId).to.equal('mentioned-user-id')
+          expect(notification.postId).to.equal('mention-post-id')
+        })
       })
     })
 
@@ -327,6 +356,13 @@ describe('core methods', () => {
 
         var followersIds = dbPost.followers.map((follower) => (follower.userId))
         expect(followersIds.sort()).to.deep.equal(['adilet-id', 'john-id'].sort())
+
+        const notifications = Notifications.find().fetch()
+        expect(notifications.length).to.equal(2)
+
+        const [adiletNotif, johnNotif] = Notifications.find({}, {sort: {_id: 1}}).fetch()
+        expect(adiletNotif.ownerId).to.equal('adilet-id')
+        expect(johnNotif.ownerId).to.equal('john-id')
       })
       it('should handle one user mentioned multiple times', () => {
         Meteor.call('messages/insert', 'message-id', 'uber',

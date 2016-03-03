@@ -183,6 +183,18 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
     }
   })
 
+  FlowRouter.route('/t', {
+    name: 'test',
+    action () {
+      const BlankScreen = React.createClass({
+        render () {
+          return <div />
+        }
+      })
+      mount(BlankScreen)
+    }
+  })
+
   FlowRouter.notFound = {
     action () {
       mount(ErrorPage)

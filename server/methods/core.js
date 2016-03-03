@@ -8,7 +8,8 @@ function capitalizeFirstLetter (string) {
 
 export default function (context) {
   const {audience, currentUser, Meteor, Collections, PostManager, TopicManager,
-    AvatarService, Accounts, Logger, SearchService, UserService, MentionParser} = context
+    AvatarService, Accounts, Logger, SearchService, UserService, MentionParser,
+    Notifier} = context
   const {Topics, Posts, Messages, Users, Notifications} = Collections
 
   Meteor.methods({
@@ -53,11 +54,13 @@ export default function (context) {
       // mentioned users in title should follow the post
       MentionParser.fetchAllMentionedUsers(title).forEach((mentionedUser) => {
         PostManager.follow({user: mentionedUser, postId})
+        Notifier.notifyMention({ userId: mentionedUser._id, postId })
       })
 
       // mentioned users in content should follow the post
       MentionParser.fetchAllMentionedUsers(content).forEach((mentionedUser) => {
         PostManager.follow({user: mentionedUser, postId})
+        Notifier.notifyMention({ userId: mentionedUser._id, postId })
       })
 
       // The current user follows the current post they just posted
@@ -251,6 +254,7 @@ export default function (context) {
       // mentioned users follow the post
       MentionParser.fetchAllMentionedUsers(commentText).forEach((mentionedUser) => {
         PostManager.follow({user: mentionedUser, postId})
+        Notifier.notifyMention({ userId: mentionedUser._id, postId })
       })
 
       if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {
