@@ -191,7 +191,15 @@ export default function ({ Meteor, Collections, SearchService }) {
             {
               find: (post) => {
                 return Messages.find({postId: post._id})
-              }
+              },
+
+              children: [
+                {
+                  find: (message) => {
+                    return Users.find({ _id: message.ownerId })
+                  }
+                }
+              ]
             },
             {
               find: (post) => {
