@@ -214,7 +214,7 @@ const s = {
   messageTimestamp: {
     fontWeight: 300,
     marginLeft: 12,
-    color: color.inbox.archiveBoxGray
+    color: color.inbox.archiveIconGray
   },
   messageAuthor: {
     fontSize: 15
