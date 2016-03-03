@@ -3,6 +3,7 @@ import UserService from '/lib/user.service.js'
 import DateFormatter from '/client/lib/date.formatter.js'
 import PostDetails from '/client/modules/core/components/post.details.jsx'
 import {Loading} from '/client/modules/core/components/helpers.jsx'
+import truncate from 'truncate'
 
 export function processMessage ({UserService, Collections}, message) {
   const currentUser = UserService.currentUser()
@@ -10,6 +11,7 @@ export function processMessage ({UserService, Collections}, message) {
   return Object.assign({}, message, {
     owner: UserService.getUserView(Collections.Users.findOne(message.ownerId)),
     timestamp: DateFormatter.format(message),
+    truncatedContent: truncate(message.content, 300),
     canDelete: currentUser._id === message.ownerId
   })
 }
