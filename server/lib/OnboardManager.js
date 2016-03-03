@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOMServer from '../../node_modules/react-dom/server'
-import { studentVerifyValidator, facultyVerifyValidator, manualVerifyValidator } from '/lib/validation/onboarding'
+import { autoVerifyValidator, manualVerifyValidator,
+  enterNamesValidator } from '/lib/validation/onboarding'
 import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
@@ -33,16 +34,7 @@ export default class OnboardManager {
 
   verifyAlumni (options) {
     const {Users} = this.Collections
-    var errors
-    switch (options.affiliationType) {
-      case 'student':
-        errors = studentVerifyValidator(options)
-        break
-      case 'faculty': // intentional fallthrough
-      default:
-        errors = facultyVerifyValidator(options)
-        break
-    }
+    const errors = autoVerifyValidator()
     if (errors.length > 0) {
       throw new this.Meteor.Error(400, errors)
     }
@@ -117,6 +109,20 @@ export default class OnboardManager {
         })
       }
     })
+  }
+
+  handleEnterNames (user, options) {
+    const {Users} = this.Collections
+    const errors = enterNamesValidator(options)
+    if (errors.length > 0) {
+      throw new this.Meteor.Error(400, errors)
+    }
+
+    const { fullName } = options
+
+    Users.update(user._id, { $set: {
+      displayName: fullName
+    }})
   }
 
   sendRecoveryEmail (email) {

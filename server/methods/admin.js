@@ -1,3 +1,5 @@
+import {isAdmin} from '/lib/admin'
+
 export default function ({Meteor, OnboardManager, Collections}) {
   const {Invites} = Collections
 
@@ -7,7 +9,7 @@ export default function ({Meteor, OnboardManager, Collections}) {
       if (!user) {
         throw new Meteor.Error(401, 'Unauthorized - User not logged in')
       }
-      if (!user.topicAdmins || user.topicAdmins.indexOf('global') < 0) {
+      if (!isAdmin(user)) {
         throw new Meteor.Error(401, 'Unauthorized - Must be admin')
       }
       return user

@@ -62,7 +62,7 @@ export default {
   onboardingSignup: {
     createAccount: createOnSubmit('welcome/signup', ({ FlowRouter }) => {
       AmplitudeService.track('onboarding/createAccount', { type: 'password' })
-      FlowRouter.go('onboarding-subscribe-channels')
+      FlowRouter.go('onboarding-enter-names')
     }),
     linkWithFacebook ({Meteor, FlowRouter, sweetalert}) {
       Meteor.linkWithFacebook({}, (err) => {
@@ -75,10 +75,16 @@ export default {
             return sweetalert({ title: 'Problem linking Facebook', text: err.reason })
           }
           AmplitudeService.track('onboarding/createAccount', { type: 'facebook' })
-          return FlowRouter.go('onboarding-subscribe-channels')
+          return FlowRouter.go('onboarding-enter-names')
         })
       })
     }
+  },
+  onboardingEnterNames: {
+    submit: createOnSubmit('welcome/enternames', ({FlowRouter}) => {
+      AmplitudeService.track('onboarding/enternames')
+      FlowRouter.go('onboarding-subscribe-channels')
+    })
   },
   onboardingSubscribeChannels: {
     next ({FlowRouter, sweetalert, Meteor, LocalState}) {

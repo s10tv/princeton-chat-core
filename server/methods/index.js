@@ -4,6 +4,9 @@ import core from './core'
 import onboarding from './onboarding'
 import admin from './admin'
 
+// methods only available to environments where ENV === 'dev'
+import dev from './dev'
+
 export default function (context) {
   const {Accounts, Meteor} = context
 
@@ -17,6 +20,9 @@ export default function (context) {
   // Login related
   guestLogin(context)
   inviteLogin(context)
+
+  // dev
+  dev(context)
 
   Accounts.validateNewUser((user) => {
     if (user && user.services && user.services.facebook) {

@@ -6,9 +6,13 @@ import core from '/client/modules/core'
 import admin from '/client/modules/admin'
 import WebFontLoader from 'webfontloader'
 import onboarding from '/client/modules/onboarding'
+import filepicker from 'filepicker-js'
+import {Meteor} from 'meteor/meteor'
+import outdatedBrowser from 'outdated-browser-rework'
 
 injectTapEventPlugin()
 localize()
+outdatedBrowser()
 
 const context = initContext({onboarding, core, admin})
 
@@ -25,5 +29,7 @@ WebFontLoader.load({
     ]
   }
 })
+
+filepicker.setKey(Meteor.settings.public.filestackKey)
 
 app.init()

@@ -40,7 +40,7 @@ class InviteFriends extends React.Component {
                   backgroundColor={color.green} hoverColor={color.lightGreen} />
                 {submitting && <LinearProgress color={color.brand.primary} />}
                 <a style={s.skip} href='#' onClick={skipForNow} tabIndex={-1}>Or skip for now</a>
-                <PageControl total={3} current={2} />
+                <PageControl total={4} current={3} />
               </form>
             </div>
           </Layout.Sidebar>

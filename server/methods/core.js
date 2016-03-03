@@ -9,7 +9,7 @@ function capitalizeFirstLetter (string) {
 export default function (context) {
   const {audience, currentUser, Meteor, Collections, PostManager, TopicManager,
     AvatarService, Accounts, Logger, SearchService, UserService, MentionParser} = context
-  const {Topics, Posts, Messages, Users} = Collections
+  const {Topics, Posts, Messages, Users, Notifications} = Collections
 
   Meteor.methods({
     'post/insert': ({_id, title, content, topicIds}) => {
@@ -72,7 +72,7 @@ export default function (context) {
 
       if (process.env.IRON_MQ_TOKEN && process.env.IRON_MQ_PROJECT_ID) {
         new IronMQ('web-post').send({
-          payload: { postId }
+          payload: { postId, excludeUsers: [user._id] }
         })
       }
     },
@@ -292,6 +292,13 @@ export default function (context) {
       return SearchService.searchByUsername(text).map((user) => {
         return UserService.getUserView(user)
       })
+    },
+
+    'inbox/archive': (notificationId) => {
+      Notifications.update(notificationId, { $set: {
+        status: 'read',
+        lastActionTimestamp: new Date()
+      }})
     }
   })
 }

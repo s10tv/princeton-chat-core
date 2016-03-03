@@ -54,7 +54,7 @@ const Signup = (props) => {
               <TextField floatingLabelText='Password' type='password' fullWidth {...password} />
               <FlatButton type='submit' style={style.button} label='Signup'
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
-              <PageControl divStyle={{marginTop: 15, marginBottom: 20}} total={3} current={0} />
+              <PageControl divStyle={{marginTop: 15, marginBottom: 20}} total={4} current={0} />
             </form>
           </div>
         </Layout.Sidebar>

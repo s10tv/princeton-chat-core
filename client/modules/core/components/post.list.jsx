@@ -142,7 +142,7 @@ const EmptyPostListInFeed = ({ navigateToTopicListFn }) => (
   </Flex>
 )
 
-const PostList = (props) => (
+export const PostList = (props) => (
   <section className='post-list' style={{flexGrow: 1, overflowX: 'hidden'}}>
     <List style={{paddingTop: 0, paddingBottom: 0, paddingLeft: 10}}>
       {props.posts.map((post) =>
@@ -152,7 +152,7 @@ const PostList = (props) => (
   </section>
 )
 
-var PostListItem = (props) => (
+export const PostListItem = (props) => (
   <ListItem
     disabled
     style={{
@@ -224,9 +224,7 @@ var PostListItem = (props) => (
   </ListItem>
 )
 
-PostListItem = Radium(PostListItem)
-
-const FollowBtn = (props) => (
+export const FollowBtn = (props) => (
   props.post.isFollowingPost
     ? <FlatButton primary label='Unfollow'
       onTouchTap={() => props.unfollowPostFn(props.post._id)} />

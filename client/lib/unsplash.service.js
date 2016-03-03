@@ -183,3 +183,7 @@ export const SearchCoverPhoto = {
 export const CreateNewPostPhoto = {
   url: 'https://images.unsplash.com/photo-1448932133140-b4045783ed9e?crop=entropy&dpr=2&fit=crop&fm=jpg&h=825&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1425'
 }
+
+export const InboxCoverPhoto = {
+  url: 'https://images.unsplash.com/photo-1421882046699-09a0ff4ffb1b?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=84f02263bdcd78ad2311ec7169af6dd3'
+}

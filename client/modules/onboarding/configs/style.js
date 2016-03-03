@@ -52,8 +52,7 @@ export default {
   },
   h1: {
     fontWeight: 'lighter',
-    marginBottom: spacing.x2,
-    // fontSize: fontSize.h4,
+    marginBottom: spacing.x2
   },
   horizontalSpacer: {
     minWidth: spacing.x2,
