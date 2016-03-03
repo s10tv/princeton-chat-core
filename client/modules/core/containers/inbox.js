@@ -14,7 +14,7 @@ const composer = ({context, term}, onData) => {
       .map((notification) => {
         const post = Posts.findOne(notification.postId)
         const messages = Messages
-          .find({ postId: post._id, createdAt: {$gte: notification.lastMessageTime} })
+          .find({ postId: post._id, createdAt: {$gte: notification.lastActionTimestamp} })
           .map((message) => (
             Object.assign(message, {
               owner: UserService.getUserView(Users.findOne(message.ownerId))
@@ -23,7 +23,7 @@ const composer = ({context, term}, onData) => {
 
         return Object.assign(processPost(context(), post), {
           messages,
-          showPostDetails: !notification.lastMessageTime,
+          showPostDetails: !notification.lastActionTimestamp,
           _id: notification._id,
           notificationId: notification._id
         })

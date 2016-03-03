@@ -16,7 +16,7 @@ export default function ({Meteor, Collections, currentUser}) {
           Notifications.insert({
             ownerId: user._id,
             postId: post._id,
-            lastMessageTime: message.createdAt,
+            lastActionTimestamp: message.createdAt,
             status: 'active'
           })
         })
