@@ -5,7 +5,7 @@ import {InboxCoverPhoto} from '/client/lib/unsplash.service.js'
 import {processMessage} from './post.details.js'
 
 const composer = ({context, term}, onData) => {
-  const {Meteor, Collections, UserService} = context()
+  const {Meteor, Collections, UserService, FlowRouter} = context()
   const {Notifications, Posts, Messages} = Collections
 
   if (Meteor.subscribe('inbox', term).ready()) {
@@ -14,6 +14,7 @@ const composer = ({context, term}, onData) => {
       .find({}, {sort: { createdAt: -1 }})
       .map((notification) => {
         const post = Posts.findOne(notification.postId)
+
         const messages = Messages
           .find({ postId: post._id, createdAt: {$gte: notification.lastActionTimestamp} })
           .map((message) => processMessage(context(), message))
@@ -33,13 +34,15 @@ const composer = ({context, term}, onData) => {
         displayName: 'My Inbox',
         cover: InboxCoverPhoto,
         followers: []
-      }
+      },
+      navigateToUrl: (url) => FlowRouter.go(url)
     })
   }
 }
 
 const depsMapper = (context, actions) => ({
   archiveInboxItem: actions.inbox.archive,
+  showUserProfile: actions.profile.showUserProfile,
   context: () => context
 })
 
