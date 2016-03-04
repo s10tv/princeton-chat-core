@@ -96,6 +96,7 @@
   "private": true,
   "standard": {
     "ignore": [
+      "client/meteor.startup.js",
       "packages/**"
     ]
   }
