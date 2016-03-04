@@ -14,8 +14,8 @@
   "pre-commit": [
     "test"
   ],
-  "main": "src/server.js",
-  "browser": "src/client.js",
+  "main": "server.js",
+  "browser": "client.js",
   "devDependencies": {
     "babel-core": "6.x.x",
     "babel-plugin-react-require": "2.x.x",
