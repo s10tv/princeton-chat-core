@@ -3,6 +3,7 @@ import inviteLogin from './invite-login'
 import core from './core'
 import onboarding from './onboarding'
 import admin from './admin'
+import ama from './ama'
 
 // methods only available to environments where ENV === 'dev'
 import dev from './dev'
@@ -20,6 +21,9 @@ export default function (context) {
   // Login related
   guestLogin(context)
   inviteLogin(context)
+
+  // ask me anything
+  ama(context)
 
   // dev
   dev(context)
