@@ -114,7 +114,7 @@ const NotificationListItem = ({notification, archiveInboxItem, navigateToUrl, sh
         }
       }}>
         <IconButton tooltip='Archive'
-          iconStyle={s.archiveBtn}>
+          iconStyle={s.archiveBtn} tooltipPosition='top-center'>
           <FontIcon className='material-icons'>
             clear
           </FontIcon>
