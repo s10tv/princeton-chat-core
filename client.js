@@ -8,16 +8,18 @@ import {localize} from 'client/configs/env'
 import core from 'client/modules/core'
 import admin from 'client/modules/admin'
 import onboarding from 'client/modules/onboarding'
+import ama from 'client/modules/ama'
 
 injectTapEventPlugin()
 localize()
 
-const context = initContext({onboarding, core, admin})
+const context = initContext({onboarding, core, admin, ama})
 
 const app = createApp(context)
 app.loadModule(admin)
 app.loadModule(core)
 app.loadModule(onboarding)
+app.loadModule(ama)
 
 WebFontLoader.load({
   google: {
