@@ -14,6 +14,8 @@
   "pre-commit": [
     "test"
   ],
+  "main": "src/server.js",
+  "browser": "src/client.js",
   "devDependencies": {
     "babel-core": "6.x.x",
     "babel-plugin-react-require": "2.x.x",
@@ -33,7 +35,23 @@
     "react-addons-test-utils": "^0.14.7",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
-    "standard": "^6.0.5"
+    "standard": "^6.0.5",
+    "webpack": "^1.12.9",
+    "webpack-hot-middleware": "^2.4.1",
+    "url-loader": "^0.5.7",
+    "file-loader": "^0.8.5",
+    "style-loader": "^0.13.0",
+    "css-loader": "^0.23.0",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "babel": "^6.3.26",
+    "babel-loader": "^6.2.0",
+    "babel-preset-stage-0": "^6.3.13",
+    "babel-plugin-transform-decorators-legacy": "^1.3.2",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-react-transform": "^2.0.0",
+    "react-transform-hmr": "^1.0.1",
+    "react-transform-catch-errors": "^1.0.0",
+    "redbox-react": "^1.2.0"
   },
   "dependencies": {
     "component-raf": "1.2.0",
@@ -46,7 +64,6 @@
     "mantra-core": "1.2.0",
     "material-ui": "git+https://github.com/s10tv/material-ui.git",
     "moment": "2.11.2",
-    "outdated-browser-rework": "^1.0.0",
     "pluralize": "1.2.1",
     "radium": "0.16.6",
     "randomcolor": "0.4.3",
