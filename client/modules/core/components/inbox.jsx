@@ -67,7 +67,7 @@ const EmptyScreen = () => (
 )
 
 const InboxResults = (props) => (
-  <section className='post-list' style={{flexGrow: 1, overflowX: 'hidden'}}>
+  <section style={{flexGrow: 1, overflowX: 'hidden'}}>
     <List style={{paddingTop: 0, paddingBottom: 0}}>
       {props.notifications.map((notification) =>
         <NotificationListItem key={notification._id} notification={notification} {...props} />
@@ -183,9 +183,10 @@ const s = {
     fontWeight: 300
   },
   notificationTitle: {
+    fontWeight: 400,
     marginTop: 10,
     marginBottom: 0,
-    fontSize: 20,
+    fontSize: 17,
     lineHeight: '1em'
   },
   notificationListItem: {
@@ -235,7 +236,10 @@ const s = {
     fontSize: 15
   },
   messageContent: {
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 0,
+    fontWeight: 300,
+    fontSize: 15
   },
   messageMainContainer: {
     marginTop: 20
