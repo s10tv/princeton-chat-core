@@ -1,12 +1,13 @@
 import React from 'react'
 import {Flex as _Flex} from 'jsxstyle'
-import Menu from '/client/modules/core/components/menu.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
 import color from '/client/configs/color'
 import {Paper, IconButton, List, ListItem, FontIcon, MentionSvgIcon, ReplySvgIcon,
   NewPostSvgIcon} from '/client/lib/ui.jsx'
 import Radium from 'radium'
+import {InboxCoverPhoto} from '/client/lib/unsplash.service'
+
 const Flex = Radium(_Flex)
 const Inbox = React.createClass({
   propTypes: {
@@ -35,12 +36,8 @@ const Inbox = React.createClass({
         marginLeft: this.props.sidebarOpen ? 240 : 0,
         backgroundColor: color.inbox.backgroundGray
       })}>
-        <Flex flexDirection='column' flexGrow={1}>
-          <Menu
-            style={{
-              marginBottom: 40
-            }}
-            {...this.props} />
+        <Flex style={s.mainFlexContainer}>
+          <h1 style={s.myInboxTitle}>My Inbox</h1>
           <Paper style={{
             display: 'flex',
             alignSelf: 'center',
@@ -176,6 +173,22 @@ const s = {
   },
   lastMessage: {
     marginTop: 10
+  },
+  myInboxTitle: {
+    fontWeight: 300,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 20
+  },
+  mainFlexContainer: {
+    flexDirection: 'column',
+    flexGrow: 1,
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${InboxCoverPhoto.fullscreenUrl})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    backgroundSize: 'cover',
+    backgroundPosition: '0% 50%'
   },
   notificationTopicItem: {
     marginRight: 10,
