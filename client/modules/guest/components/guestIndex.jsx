@@ -4,9 +4,9 @@ import truncate from 'truncate'
 import pluralize from 'pluralize'
 import sweetalert from 'sweetalert'
 import {Flex, Block} from 'jsxstyle'
-import {postShape, topicShape} from '/client/lib/shapes.js'
+import {postShape, topicShape} from 'client/lib/shapes.js'
 
-import { i18n } from '/client/configs/env'
+import { i18n } from 'client/configs/env'
 
 const RED = 'red'
 

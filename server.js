@@ -1,8 +1,8 @@
-import {initContext} from './configs/context'
-import configs from './configs'
-import publications from './publications'
-import methods from './methods'
-import http from './http'
+import {initContext} from 'server/configs/context'
+import configs from 'server/configs'
+import publications from 'server/publications'
+import methods from 'server/methods'
+import http from 'server/http'
 const context = initContext()
 const {Meteor, Migrations} = context
 

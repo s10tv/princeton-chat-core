@@ -1,12 +1,12 @@
 import React from 'react'
 import { Flex } from 'jsxstyle'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
-import styles from '/client/modules/core/components/styles.jsx'
-import {classYears} from '/lib/data'
+import { UserAvatar } from 'client/modules/core/components/helpers.jsx'
+import styles from 'client/modules/core/components/styles.jsx'
+import {classYears} from 'lib/data'
 import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'
 import Divider from '../../../../node_modules/material-ui/lib/divider'
-import color from '/client/configs/color'
-import {TextField, RaisedButton, FlatButton, SelectField} from '/client/lib/ui.jsx'
+import color from 'client/configs/color'
+import {TextField, RaisedButton, FlatButton, SelectField} from 'client/lib/ui.jsx'
 
 const s = {
   header: {

@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
 import Radium, {StyleRoot} from 'radium'
-import {TextField, FlatButton, FontIcon, IconButton, PageControl, LinearProgress} from '/client/lib/ui.jsx'
-import {color, spacing, fontSize} from '/client/configs/theme'
+import {TextField, FlatButton, FontIcon, IconButton, PageControl, LinearProgress} from 'client/lib/ui.jsx'
+import {color, spacing, fontSize} from 'client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-import {i18n} from '/client/configs/env'
+import {i18n} from 'client/configs/env'
 // NOTE: addField / removeField provided by redux-form http://erikras.github.io/redux-form/#/examples/deep
 class InviteFriends extends React.Component {
 

@@ -1,8 +1,8 @@
-import SettingsModal from '/client/modules/core/components/settings.jsx'
+import SettingsModal from 'client/modules/core/components/settings.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import UserService from '../../../../lib/user.service.js'
-import {updateProfileValidator} from '/lib/validation/core'
-import {normalizeFullName} from '/lib/normalization'
+import UserService from 'lib/user.service.js'
+import {updateProfileValidator} from 'lib/validation/core'
+import {normalizeFullName} from 'lib/normalization'
 import {reduxForm} from 'redux-form'
 
 export const formConfig = {

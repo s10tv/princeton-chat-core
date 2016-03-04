@@ -2,9 +2,9 @@ import React from 'react'
 import Radium, {StyleRoot} from 'radium'
 import Layout from './layout'
 import style from '../configs/style'
-import {TextField, FlatButton, LinearProgress} from '/client/lib/ui.jsx'
-import {color} from '/client/configs/theme'
-import {i18n} from '/client/configs/env'
+import {TextField, FlatButton, LinearProgress} from 'client/lib/ui.jsx'
+import {color} from 'client/configs/theme'
+import {i18n} from 'client/configs/env'
 
 const ForgotPasswordChange = (props) => {
   const { fields: {newPassword, matchNewPassword}, handleSubmit, error, submitting } = props

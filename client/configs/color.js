@@ -1,5 +1,5 @@
 /*eslint-disable comma-dangle */
-import Colors from 'material-ui/lib/styles/colors'
+import Colors from '../../node_modules/material-ui/lib/styles/colors'
 import tinycolor from 'tinycolor2'
 
 export default {

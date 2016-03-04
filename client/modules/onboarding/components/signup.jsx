@@ -2,8 +2,8 @@
 /*eslint-disable comma-dangle */
 import React, {PropTypes} from 'react'
 import Radium, {StyleRoot} from 'radium'
-import {TextField, FlatButton, OrDivider, PageControl} from '/client/lib/ui.jsx'
-import {color, spacing, fontSize} from '/client/configs/theme'
+import {TextField, FlatButton, OrDivider, PageControl} from 'client/lib/ui.jsx'
+import {color, spacing, fontSize} from 'client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
 

@@ -1,8 +1,8 @@
-import CreatePost from '/client/modules/core/components/post.create.jsx'
+import CreatePost from 'client/modules/core/components/post.create.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import {newPostValidator} from '/lib/validation/core'
-import {CreateNewPostPhoto} from '/client/lib/unsplash.service.js'
+import {newPostValidator} from 'lib/validation/core'
+import {CreateNewPostPhoto} from 'client/lib/unsplash.service.js'
 
 export const formConfig = {
   form: 'post/create',

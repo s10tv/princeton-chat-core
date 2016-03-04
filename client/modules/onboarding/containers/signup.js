@@ -1,6 +1,6 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import {signupValidator} from '/lib/validation/onboarding'
+import {signupValidator} from 'lib/validation/onboarding'
 import Signup from '../components/signup.jsx'
 
 export const formConfig = {

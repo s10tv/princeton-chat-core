@@ -1,15 +1,13 @@
 import React from 'react'
 import {Flex as _Flex} from 'jsxstyle'
-import IconButton from 'material-ui/lib/icon-button'
-import FontIcon from 'material-ui/lib/font-icon'
-import List from 'material-ui/lib/lists/list'
-import ListItem from 'material-ui/lib/lists/list-item'
-import Menu from '/client/modules/core/components/menu.jsx'
-import styles from '/client/modules/core/components/styles.jsx'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
-import color from '/client/configs/color'
-import {Paper} from '/client/lib/ui.jsx'
 import Radium from 'radium'
+import styles from 'client/modules/core/components/styles.jsx'
+import { UserAvatar } from 'client/modules/core/components/helpers.jsx'
+import color from 'client/configs/color'
+import {InboxCoverPhoto} from 'client/lib/unsplash.service'
+import {Paper, IconButton, List, ListItem, FontIcon, MentionSvgIcon, ReplySvgIcon,
+  NewPostSvgIcon} from 'client/lib/ui.jsx'
+
 const Flex = Radium(_Flex)
 const Inbox = React.createClass({
   propTypes: {
@@ -27,7 +25,9 @@ const Inbox = React.createClass({
     /**
      * The function archives the notification item
      */
-    archiveInboxItem: React.PropTypes.func.isRequired
+    archiveInboxItem: React.PropTypes.func.isRequired,
+    navigateToUrl: React.PropTypes.func.isRequired,
+    showUserProfile: React.PropTypes.func.isRequired
   },
 
   render () {
@@ -36,16 +36,13 @@ const Inbox = React.createClass({
         marginLeft: this.props.sidebarOpen ? 240 : 0,
         backgroundColor: color.inbox.backgroundGray
       })}>
-        <Flex flexDirection='column' flexGrow={1}>
-          <Menu
-            style={{
-              marginBottom: 40
-            }}
-            {...this.props} />
+        <Flex style={s.mainFlexContainer}>
+          <h1 style={s.myInboxTitle}>My Inbox</h1>
           <Paper style={{
             display: 'flex',
             alignSelf: 'center',
-            maxWidth: 750
+            maxWidth: 750,
+            minWidth: 500
           }}>
             {this.props.isEmpty
               ? <EmptyScreen {...this.props} />
@@ -67,7 +64,7 @@ const EmptyScreen = () => (
 )
 
 const InboxResults = (props) => (
-  <section className='post-list' style={{flexGrow: 1, overflowX: 'hidden'}}>
+  <section style={{flexGrow: 1, overflowX: 'hidden'}}>
     <List style={{paddingTop: 0, paddingBottom: 0}}>
       {props.notifications.map((notification) =>
         <NotificationListItem key={notification._id} notification={notification} {...props} />
@@ -76,13 +73,20 @@ const InboxResults = (props) => (
   </section>
 )
 
-const NotificationListItem = ({notification, archiveInboxItem}) => (
+const NotificationListItem = ({notification, archiveInboxItem, navigateToUrl, showUserProfile}) => (
   <ListItem
     disabled
     style={s.notificationListItem}>
-    <Flex style={s.notificationListItemMainFlex}>
+    <Flex style={s.notificationListItemMainFlex} props={{
+      onClick: (e) => {
+        e.preventDefault()
+        navigateToUrl(notification.url)
+      }
+    }}>
       <Flex style={s.notificationTypeContainer}>
-        <Flex style={s.notificationTypeIcon(notificationTypeUrl(notification.reason))} />
+        <IconButton tooltip={notification.reasonExtended} tooltipPosition='top-right'>
+          {notificationTypeSvgIcon(notification.reason)}
+        </IconButton>
       </Flex>
       <Flex style={s.notificationContentContainer}>
         <Flex>
@@ -92,18 +96,22 @@ const NotificationListItem = ({notification, archiveInboxItem}) => (
         </Flex>
         <h2 style={s.notificationTitle}>{notification.title}</h2>
         {notification.reason === 'newpost'
-          ? <MessageItem message={notification} />
+          ? <MessageItem message={notification} showUserProfile={showUserProfile} />
           : null}
-        {notification.reason === 'reply'
+        {notification.reason === 'reply' || notification.reason === 'mention'
           ? notification.messages.map((message) =>
-            <MessageItem key={message._id} message={message} />)
+            <MessageItem key={message._id} message={message} showUserProfile={showUserProfile} />)
           : null
         }
       </Flex>
-      <Flex style={s.notificationArchiveContainer}>
+      <Flex style={s.notificationArchiveContainer} props={{
+        onClick: (e) => {
+          e.stopPropagation()
+          archiveInboxItem(notification.notificationId)
+        }
+      }}>
         <IconButton tooltip='Archive'
-          onTouchTap={() => archiveInboxItem(notification.notificationId)}
-          iconStyle={s.archiveBtn}>
+          iconStyle={s.archiveBtn} tooltipPosition='top-center'>
           <FontIcon className='material-icons'>
             clear
           </FontIcon>
@@ -113,13 +121,23 @@ const NotificationListItem = ({notification, archiveInboxItem}) => (
   </ListItem>
 )
 
-const MessageItem = ({ message }) => (
-  <Flex>
-    <UserAvatar avatar={message.owner.avatar} avatarInitials={message.owner.avatarInitials}
-      style={{flexShrink: 0}} />
+const MessageItem = ({ message, showUserProfile }) => (
+  <Flex style={s.messageMainContainer}>
+    <a href='#' onClick={(e) => {
+      e.stopPropagation()
+      showUserProfile(message.owner)
+    }} style={{display: 'table'}}>
+      <UserAvatar avatar={message.owner.avatar} avatarInitials={message.owner.avatarInitials}
+        style={{flexShrink: 0}} />
+    </a>
     <Flex flexDirection='column' style={s.messageContentContainer}>
       <Flex>
-        <span style={s.messageAuthor}>{message.owner.displayName}</span>
+        <a href='#' onClick={(e) => {
+          e.stopPropagation()
+          showUserProfile(message.owner)
+        }}>
+          <span style={s.messageAuthor}>{message.owner.displayName}</span>
+        </a>
         <span style={s.messageTimestamp}>{message.timestamp}</span>
       </Flex>
       <p style={s.messageContent}>{message.truncatedContent}</p>
@@ -127,12 +145,14 @@ const MessageItem = ({ message }) => (
   </Flex>
 )
 
-const notificationTypeUrl = (type) => {
+const notificationTypeSvgIcon = (type) => {
   switch (type) {
     case 'newpost':
-      return 'ic-newpost.svg'
+      return <NewPostSvgIcon />
     case 'reply':
-      return 'ic-reply.svg'
+      return <ReplySvgIcon />
+    case 'mention':
+      return <MentionSvgIcon />
   }
 }
 
@@ -154,15 +174,32 @@ const s = {
   lastMessage: {
     marginTop: 10
   },
+  myInboxTitle: {
+    fontWeight: 300,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 20
+  },
+  mainFlexContainer: {
+    flexDirection: 'column',
+    flexGrow: 1,
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${InboxCoverPhoto.fullscreenUrl})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    backgroundSize: 'cover',
+    backgroundPosition: '0% 50%'
+  },
   notificationTopicItem: {
     marginRight: 10,
     color: color.lightGray,
     fontWeight: 300
   },
   notificationTitle: {
+    fontWeight: 400,
     marginTop: 10,
-    marginBottom: 10,
-    fontSize: 20,
+    marginBottom: 0,
+    fontSize: 17,
     lineHeight: '1em'
   },
   notificationListItem: {
@@ -181,14 +218,6 @@ const s = {
     maxWidth: 50,
     borderRight: `1px solid ${color.inbox.separatorGray}`
   },
-  notificationTypeIcon: (url) => ({
-    width: 30,
-    height: 30,
-    backgroundSize: 'contain',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundImage: `url(/images/${url})`
-  }),
   notificationContentContainer: {
     flexGrow: 1,
     flexDirection: 'column',
@@ -220,7 +249,13 @@ const s = {
     fontSize: 15
   },
   messageContent: {
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 0,
+    fontWeight: 300,
+    fontSize: 15
+  },
+  messageMainContainer: {
+    marginTop: 20
   }
 }
 

@@ -8,8 +8,8 @@ import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
 import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 import TextField from '../../../../node_modules/material-ui/lib/text-field'
 import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
-import UnsplashService from '/client/lib/unsplash.service.js'
-import { UnsplashDefaultCoverPhotos } from '/client/lib/unsplash.service.js'
+import UnsplashService from 'client/lib/unsplash.service.js'
+import { UnsplashDefaultCoverPhotos } from 'client/lib/unsplash.service.js'
 
 const SearchPhoto = React.createClass({
   propTypes: {

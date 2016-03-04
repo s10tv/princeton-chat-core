@@ -1,5 +1,5 @@
-import {createOnSubmit} from '/client/lib/helpers'
-import FilePickerService from '/client/lib/filepicker.service'
+import {createOnSubmit} from 'client/lib/helpers'
+import FilePickerService from 'client/lib/filepicker.service'
 
 export default {
   logout ({ LocalState, Meteor, FlowRouter }) {

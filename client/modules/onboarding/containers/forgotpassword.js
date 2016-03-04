@@ -1,8 +1,8 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import ForgotPassword from '../components/forgotpassword.jsx'
-import {PageLoader} from '/client/lib/ui.jsx'
+import {PageLoader} from 'client/lib/ui.jsx'
 import {reduxForm} from 'redux-form'
-import {forgotPasswordEmailValidator} from '/lib/validation/onboarding'
+import {forgotPasswordEmailValidator} from 'lib/validation/onboarding'
 
 const formConfig = {
   form: 'forgot-password',

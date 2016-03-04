@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOMServer from '../../node_modules/react-dom/server'
 import { autoVerifyValidator, manualVerifyValidator,
-  enterNamesValidator } from '/lib/validation/onboarding'
-import { princeton } from '/lib/validation'
+  enterNamesValidator } from 'lib/validation/onboarding'
+import { princeton } from 'lib/validation'
 
-import { title } from '/imports/env'
+import { title } from 'imports/env'
 import emails from '../emails'
 
 const {

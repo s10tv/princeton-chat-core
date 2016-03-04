@@ -6,12 +6,12 @@ import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'
 import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 import MoreHorizIcon from '../../../../node_modules/material-ui/lib/svg-icons/navigation/more-horiz'
 import Radium from 'radium'
-import { i18n } from '/client/configs/env'
-import {UserAvatar} from '/client/modules/core/components/helpers.jsx'
-import ContentTypeService from '/client/lib/contenttype.service'
-import {getFilenameFromURL, shortenFilename} from '/client/lib/url.util'
-import {FontIcon, FlatButton} from '/client/lib/ui.jsx'
-import colors from '/client/configs/color'
+import { i18n } from 'client/configs/env'
+import {UserAvatar} from 'client/modules/core/components/helpers.jsx'
+import ContentTypeService from 'client/lib/contenttype.service'
+import {getFilenameFromURL, shortenFilename} from 'client/lib/url.util'
+import {FontIcon, FlatButton} from 'client/lib/ui.jsx'
+import colors from 'client/configs/color'
 
 const theme = i18n('secondaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color

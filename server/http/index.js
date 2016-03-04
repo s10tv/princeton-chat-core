@@ -1,5 +1,5 @@
 /*global HTTP*/
-import ReactDOMServer from 'react-dom/server'
+import ReactDOMServer from '../../node_modules/react-dom/server'
 import React from 'react'
 import emails from '../emails'
 

@@ -3,10 +3,10 @@
 /*eslint-disable comma-dangle */
 /*eslint-disable no-trailing-spaces */
 
-import darkRawTheme from 'material-ui/lib/styles/baseThemes/darkBaseTheme'
-import lightRawTheme from 'material-ui/lib/styles/baseThemes/lightBaseTheme'
-import getMuiTheme from 'material-ui/lib/styles/getMuiTheme'
-import Spacing from 'material-ui/lib/styles/spacing'
+import darkRawTheme from '../../node_modules/material-ui/lib/styles/baseThemes/darkBaseTheme'
+import lightRawTheme from '../../node_modules/material-ui/lib/styles/baseThemes/lightBaseTheme'
+import getMuiTheme from '../../node_modules/material-ui/lib/styles/getMuiTheme'
+import Spacing from '../../node_modules/material-ui/lib/styles/spacing'
 import _color from './color'
 import tinycolor from 'tinycolor2'
 

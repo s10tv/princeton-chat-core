@@ -1,8 +1,8 @@
 import React from 'react'
 
 import {Flex} from 'jsxstyle'
-import {FlatButton} from '/client/lib/ui.jsx'
-import styles from '/client/modules/core/components/styles.jsx'
+import {FlatButton} from 'client/lib/ui.jsx'
+import styles from 'client/modules/core/components/styles.jsx'
 
 export default React.createClass({
   propTypes: {

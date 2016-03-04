@@ -1,11 +1,11 @@
 import {_} from 'meteor/underscore'
 import { DocHead } from 'meteor/kadira:dochead'
 
-import env from '/imports/env'
+import env from 'imports/env'
 import {
     primaryMuiTheme,
     secondaryMuiTheme
-} from '/client/configs/theme'
+} from 'client/configs/theme'
 
 let Env = _.clone(env)
 _.extend(Env, {

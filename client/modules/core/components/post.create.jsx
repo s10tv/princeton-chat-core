@@ -3,10 +3,10 @@ import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button
 import Select from 'react-select'
 import {Flex} from 'jsxstyle'
 import LinearProgress from '../../../../node_modules/material-ui/lib/linear-progress'
-import {color} from '/client/configs/theme'
-import Menu from '/client/modules/core/components/menu.jsx'
+import {color} from 'client/configs/theme'
+import Menu from 'client/modules/core/components/menu.jsx'
 import styles from './styles.jsx'
-import MyAutoComplete from '/client/lib/mention.textfield.jsx'
+import MyAutoComplete from 'client/lib/mention.textfield.jsx'
 
 /**
  * https://github.com/erikras/redux-form/issues/82

@@ -1,6 +1,6 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import ToggleFollowing from '/client/modules/core/components/toggleFollowing.jsx'
-import {PageLoader} from '/client/lib/ui.jsx'
+import ToggleFollowing from 'client/modules/core/components/toggleFollowing.jsx'
+import {PageLoader} from 'client/lib/ui.jsx'
 
 export const composer = ({context, postId}, onData) => {
   const {Meteor, Collections, FlowRouter, UserService} = context()

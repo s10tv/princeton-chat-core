@@ -8,7 +8,7 @@ import Dialog from '../../../../node_modules/material-ui/lib/dialog'
 import {Flex} from 'jsxstyle'
 import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
 import TextField from '../../../../node_modules/material-ui/lib/text-field'
-import { i18n } from '/client/configs/env'
+import { i18n } from 'client/configs/env'
 
 export default React.createClass({
   propTypes: {

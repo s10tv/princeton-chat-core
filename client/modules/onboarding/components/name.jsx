@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react'
 import Radium, {StyleRoot} from 'radium'
-import {TextField, FlatButton, LinearProgress, PageControl} from '/client/lib/ui.jsx'
-import {color} from '/client/configs/theme'
+import {TextField, FlatButton, LinearProgress, PageControl} from 'client/lib/ui.jsx'
+import {color} from 'client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from 'client/modules/core/components/helpers.jsx'
 import {Flex} from 'jsxstyle'
 
 const Login = (props) => {

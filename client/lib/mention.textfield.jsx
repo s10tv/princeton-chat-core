@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import keycode from 'keycode'
-import Popover from 'material-ui/lib/popover/popover'
+import Popover from '../../node_modules/material-ui/lib/popover/popover'
 import {Menu, MenuItem} from './ui.jsx'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
-import TextField from 'material-ui/lib/text-field'
+import { UserAvatar } from 'client/modules/core/components/helpers.jsx'
+import TextField from '../../node_modules/material-ui/lib/text-field'
 
 function getStyles (props, state) {
   const {anchorEl} = state
