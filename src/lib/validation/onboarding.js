@@ -1,5 +1,5 @@
 import {createValidator, maxLength, required, email, classYear,
-  minLength, degree, dateFormat} from '/src/lib/validation'
+  minLength, degree, dateFormat} from 'lib/validation'
 
 export const autoVerifyValidator = createValidator({
   netid: [required, maxLength(100)],

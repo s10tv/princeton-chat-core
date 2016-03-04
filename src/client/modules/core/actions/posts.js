@@ -1,6 +1,6 @@
-import {createOnSubmit} from '/src/client/lib/helpers'
+import {createOnSubmit} from 'client/lib/helpers'
 import TopicActions from './topics.js'
-import AmplitudeService from '/src/client/lib/amplitude.service'
+import AmplitudeService from 'client/lib/amplitude.service'
 
 export default {
   create (context, info = {}) {

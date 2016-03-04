@@ -1,7 +1,7 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import InviteFriends from '../components/invite.friends.jsx'
-import { inviteFriendsValidator } from '/src/lib/validation/onboarding'
+import { inviteFriendsValidator } from 'lib/validation/onboarding'
 
 export const formConfig = {
   form: 'onboarding/invite-friends',

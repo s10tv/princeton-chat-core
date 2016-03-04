@@ -2,11 +2,11 @@
 /*eslint-disable comma-dangle */
 import React, {PropTypes} from 'react'
 import Radium, {StyleRoot} from 'radium'
-import {TextField, FlatButton, OrDivider, LinearProgress} from '/src/client/lib/ui.jsx'
-import {color, spacing} from '/src/client/configs/theme'
+import {TextField, FlatButton, OrDivider, LinearProgress} from 'client/lib/ui.jsx'
+import {color, spacing} from 'client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-import {i18n} from '/src/client/configs/env'
+import {i18n} from 'client/configs/env'
 
 const Login = (props) => {
   const {fields: {email, password}, handleSubmit, error, submitting} = props

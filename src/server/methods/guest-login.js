@@ -1,4 +1,4 @@
-import { isValidHash } from '/src/server/lib/Auth'
+import { isValidHash } from 'server/lib/Auth'
 
 export default function (context) {
   const {Accounts, Collections} = context

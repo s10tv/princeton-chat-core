@@ -1,5 +1,5 @@
 import React from 'react'
-import Snackbar from '../../../../node_modules/material-ui/lib/snackbar'
+import Snackbar from 'material-ui/lib/snackbar'
 
 export default React.createClass({
   propTypes: {

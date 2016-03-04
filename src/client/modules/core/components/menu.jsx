@@ -1,9 +1,9 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import { RaisedButton, FontIcon, IconButton } from '/src/client/lib/ui.jsx'
-import { color } from '/src/client/configs/theme'
+import { RaisedButton, FontIcon, IconButton } from 'client/lib/ui.jsx'
+import { color } from 'client/configs/theme'
 import Radium from 'radium'
-import SearchBox from '/src/client/modules/core/containers/search'
+import SearchBox from 'client/modules/core/containers/search'
 
 class Menu extends React.Component {
   render () {

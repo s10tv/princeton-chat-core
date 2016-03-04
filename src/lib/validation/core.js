@@ -1,4 +1,4 @@
-import {createValidator, maxLength, required, classYear} from '/src/lib/validation'
+import {createValidator, maxLength, required, classYear} from 'lib/validation'
 
 export const updateProfileValidator = createValidator({
   firstName: [required, maxLength(16)],

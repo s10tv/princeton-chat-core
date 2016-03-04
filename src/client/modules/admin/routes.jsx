@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {mount} from 'react-mounter'
-import LayoutMain from '/src/client/modules/core/containers/layout.js'
+import LayoutMain from 'client/modules/core/containers/layout.js'
 import AdminInvite from './containers/admin.invite.js'
 
 export default function (injectDeps, {FlowRouter, Meteor}) {

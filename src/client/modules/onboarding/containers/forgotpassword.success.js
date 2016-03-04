@@ -1,6 +1,6 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import ForgotPasswordSuccess from '../components/forgotpassword.success.jsx'
-import {PageLoader} from '/src/client/lib/ui.jsx'
+import {PageLoader} from 'client/lib/ui.jsx'
 
 export const composer = ({context}, onData) => {
   onData(null, {})

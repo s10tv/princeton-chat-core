@@ -1,17 +1,17 @@
 import React from 'react'
 import {mount} from 'react-mounter'
 
-import LayoutMain from './modules/core/containers/layout.js'
-import PostList from './modules/core/containers/post.list.js'
-import PostDetails from './modules/core/containers/post.details.js'
-import TopicList from './modules/core/containers/topic.list.js'
-import Settings from './modules/core/containers/settings.js'
-import AddFollowers from './modules/core/containers/add.followers.js'
-import DirectorySearch from './modules/core/containers/directory.search'
-import ErrorPage from './modules/core/components/error.jsx'
-import ToggleFollowing from './modules/core/containers/toggleFollowing'
-import CreateNewPost from './modules/core/containers/post.create'
-import Inbox from './modules/core/containers/inbox'
+import LayoutMain from 'client/modules/core/containers/layout.js'
+import PostList from 'client/modules/core/containers/post.list.js'
+import PostDetails from 'client/modules/core/containers/post.details.js'
+import TopicList from 'client/modules/core/containers/topic.list.js'
+import Settings from 'client/modules/core/containers/settings.js'
+import AddFollowers from 'client/modules/core/containers/add.followers.js'
+import DirectorySearch from 'client/modules/core/containers/directory.search'
+import ErrorPage from 'client/modules/core/components/error.jsx'
+import ToggleFollowing from 'client/modules/core/containers/toggleFollowing'
+import CreateNewPost from 'client/modules/core/containers/post.create'
+import Inbox from 'client/modules/core/containers/inbox'
 
 // This import has to be at the end for some reason else fails
 

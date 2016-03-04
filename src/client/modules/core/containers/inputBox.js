@@ -1,6 +1,6 @@
-import InputBox from '/src/client/modules/core/components/inputBox.jsx'
+import InputBox from 'client/modules/core/components/inputBox.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
-import AmplitudeService from '/src/client/lib/amplitude.service'
+import AmplitudeService from 'client/lib/amplitude.service'
 import {reduxForm} from 'redux-form'
 
 export const formConfig = {

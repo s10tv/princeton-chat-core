@@ -1,13 +1,13 @@
 import React from 'react'
-import Toolbar from '../../../../node_modules/material-ui/lib/toolbar/toolbar'
-import ToolbarGroup from '../../../../node_modules/material-ui/lib/toolbar/toolbar-group'
-import ToolbarTitle from '../../../../node_modules/material-ui/lib/toolbar/toolbar-title'
-import List from '../../../../node_modules/material-ui/lib/lists/list'
-import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
-import Dialog from '../../../../node_modules/material-ui/lib/dialog'
-import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
-import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
-import {UserAvatar} from '/src/client/modules/core/components/helpers.jsx'
+import Toolbar from 'material-ui/lib/toolbar/toolbar'
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
+import List from 'material-ui/lib/lists/list'
+import ListItem from 'material-ui/lib/lists/list-item'
+import Dialog from 'material-ui/lib/dialog'
+import IconButton from 'material-ui/lib/icon-button'
+import FontIcon from 'material-ui/lib/font-icon'
+import {UserAvatar} from 'client/modules/core/components/helpers.jsx'
 
 export default class PostFollowersModal extends React.Component {
   render () {

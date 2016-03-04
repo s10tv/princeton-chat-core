@@ -1,12 +1,12 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import List from '../../../../node_modules/material-ui/lib/lists/list'
-import Menu from '/src/client/modules/core/components/menu.jsx'
-import styles from '/src/client/modules/core/components/styles.jsx'
-import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
-import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
-import { UserAvatar } from '/src/client/modules/core/components/helpers.jsx'
-import color from '/src/client/configs/color'
+import List from 'material-ui/lib/lists/list'
+import Menu from 'client/modules/core/components/menu.jsx'
+import styles from 'client/modules/core/components/styles.jsx'
+import ListItem from 'material-ui/lib/lists/list-item'
+import FontIcon from 'material-ui/lib/font-icon'
+import { UserAvatar } from 'client/modules/core/components/helpers.jsx'
+import color from 'client/configs/color'
 
 const s = {
   searchResult: {

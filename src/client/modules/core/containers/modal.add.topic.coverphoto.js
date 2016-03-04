@@ -1,4 +1,4 @@
-import AddTopicModal from '/src/client/modules/core/components/modal.add.topic.coverphoto.jsx'
+import AddTopicModal from 'client/modules/core/components/modal.add.topic.coverphoto.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 
 const composer = ({context, postId, follow, unfollow}, onData) => {

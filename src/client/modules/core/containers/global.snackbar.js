@@ -1,4 +1,4 @@
-import GlobalSnackbar from '/src/client/modules/core/components/global.snackbar.jsx'
+import GlobalSnackbar from 'client/modules/core/components/global.snackbar.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 
 export const composer = ({context}, onData) => {

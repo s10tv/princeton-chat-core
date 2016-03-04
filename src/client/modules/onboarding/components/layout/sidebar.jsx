@@ -1,6 +1,6 @@
 import React from 'react'
-import {i18n} from '/src/client/configs/env'
-import {color} from '/src/client/configs/theme'
+import {i18n} from 'client/configs/env'
+import {color} from 'client/configs/theme'
 import Radium from 'radium'
 
 class Sidebar extends React.Component {

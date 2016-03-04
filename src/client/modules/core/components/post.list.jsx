@@ -1,14 +1,14 @@
 import React from 'react'
 import Radium from 'radium'
 import {Flex} from 'jsxstyle'
-import List from '../../../../node_modules/material-ui/lib/lists/list'
-import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
-import Menu from '/src/client/modules/core/components/menu.jsx'
-import styles from '/src/client/modules/core/components/styles.jsx'
-import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
-import RightBar from '/src/client/modules/core/components/layout/layout.rightbar.jsx'
-import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
-import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
+import List from 'material-ui/lib/lists/list'
+import RaisedButton from 'material-ui/lib/raised-button'
+import Menu from 'client/modules/core/components/menu.jsx'
+import styles from 'client/modules/core/components/styles.jsx'
+import ListItem from 'material-ui/lib/lists/list-item'
+import RightBar from 'client/modules/core/components/layout/layout.rightbar.jsx'
+import FlatButton from 'material-ui/lib/flat-button'
+import FontIcon from 'material-ui/lib/font-icon'
 
 const PostListScreen = React.createClass({
   propTypes: {

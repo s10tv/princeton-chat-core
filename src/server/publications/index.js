@@ -1,4 +1,4 @@
-import {isAdmin} from '/src/lib/admin'
+import {isAdmin} from 'lib/admin'
 
 export default function ({ Meteor, Collections, SearchService }) {
   const { Topics, Posts, Users, Messages, Invites, Notifications } = Collections

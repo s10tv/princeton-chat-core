@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import Radium from 'radium'
-import {i18n} from '/src/client/configs/env'
-import GlobalSnackbar from '/src/client/modules/core/containers/global.snackbar'
+import {i18n} from 'client/configs/env'
+import GlobalSnackbar from 'client/modules/core/containers/global.snackbar'
 
 class Main extends React.Component {
   getChildContext () {

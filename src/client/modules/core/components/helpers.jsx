@@ -1,7 +1,7 @@
 import React from 'react'
-import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
-import Avatar from '../../../../node_modules/material-ui/lib/avatar'
-import CircularProgress from '../../../../node_modules/material-ui/lib/circular-progress'
+import ListItem from 'material-ui/lib/lists/list-item'
+import Avatar from 'material-ui/lib/avatar'
+import CircularProgress from 'material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
 import Radium, {StyleRoot} from 'radium'
 

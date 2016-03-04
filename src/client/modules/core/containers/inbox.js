@@ -1,7 +1,7 @@
-import Inbox from '/src/client/modules/core/components/inbox.jsx'
+import Inbox from 'client/modules/core/components/inbox.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 import {processPost} from './post.list.js'
-import {InboxCoverPhoto} from '/src/client/lib/unsplash.service.js'
+import {InboxCoverPhoto} from 'client/lib/unsplash.service.js'
 import {processMessage} from './post.details.js'
 
 const composer = ({context, term}, onData) => {

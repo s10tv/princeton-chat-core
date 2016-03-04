@@ -1,7 +1,7 @@
 import React from 'react'
 import Radium from 'radium'
 import {Flex} from 'jsxstyle'
-import {CoverAvatar} from '/src/client/modules/core/components/helpers.jsx'
+import {CoverAvatar} from 'client/modules/core/components/helpers.jsx'
 
 const Profile = (props) => {
   const { avatarUrl, displayName, firstName } = props

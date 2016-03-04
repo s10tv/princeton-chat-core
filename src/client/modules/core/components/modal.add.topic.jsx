@@ -1,14 +1,14 @@
 import React from 'react'
-import Toolbar from '../../../../node_modules/material-ui/lib/toolbar/toolbar'
-import ToolbarGroup from '../../../../node_modules/material-ui/lib/toolbar/toolbar-group'
-import ToolbarTitle from '../../../../node_modules/material-ui/lib/toolbar/toolbar-title'
-import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
-import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
-import Dialog from '../../../../node_modules/material-ui/lib/dialog'
+import Toolbar from 'material-ui/lib/toolbar/toolbar'
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
+import IconButton from 'material-ui/lib/icon-button'
+import FontIcon from 'material-ui/lib/font-icon'
+import Dialog from 'material-ui/lib/dialog'
 import {Flex} from 'jsxstyle'
-import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
-import TextField from '../../../../node_modules/material-ui/lib/text-field'
-import { i18n } from '/src/client/configs/env'
+import RaisedButton from 'material-ui/lib/raised-button'
+import TextField from 'material-ui/lib/text-field'
+import { i18n } from 'client/configs/env'
 
 export default React.createClass({
   propTypes: {

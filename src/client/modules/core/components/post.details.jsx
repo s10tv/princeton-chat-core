@@ -1,12 +1,12 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import InputBox from '/src/client/modules/core/containers/inputBox.js'
-import {ScrollingContainer} from '/src/client/modules/core/components/helpers.jsx'
-import {MessageGroup} from '/src/client/modules/core/components/message.jsx'
-import styles from '/src/client/modules/core/components/styles.jsx'
+import InputBox from 'client/modules/core/containers/inputBox.js'
+import {ScrollingContainer} from 'client/modules/core/components/helpers.jsx'
+import {MessageGroup} from 'client/modules/core/components/message.jsx'
+import styles from 'client/modules/core/components/styles.jsx'
 import NavBar from './navbar.jsx'
-import {FlatButton, FontIcon, Dialog, IconButton} from '/src/client/lib/ui.jsx'
-import { color } from '/src/client/configs/theme'
+import {FlatButton, FontIcon, Dialog, IconButton} from 'client/lib/ui.jsx'
+import { color } from 'client/configs/theme'
 
 export default React.createClass({
 

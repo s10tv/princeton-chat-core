@@ -1,9 +1,9 @@
 /*eslint no-undef: 2*/
 
-import {createOnSubmit} from '/src/client/lib/helpers'
-import UserService from '/src/lib/user.service'
-import { i18n } from '/src/client/configs/env'
-import AmplitudeService from '/src/client/lib/amplitude.service'
+import {createOnSubmit} from 'client/lib/helpers'
+import UserService from 'lib/user.service'
+import { i18n } from 'client/configs/env'
+import AmplitudeService from 'client/lib/amplitude.service'
 
 export function redirectIfUrlFound (FlowRouter) {
   if (FlowRouter.current().queryParams.ol) {

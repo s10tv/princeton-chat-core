@@ -1,8 +1,8 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import ForgotPasswordChange from '../components/forgotpassword.change.jsx'
-import {PageLoader} from '/src/client/lib/ui.jsx'
+import {PageLoader} from 'client/lib/ui.jsx'
 import {reduxForm} from 'redux-form'
-import {forgotPasswordChangeValidator} from '/src/lib/validation/onboarding'
+import {forgotPasswordChangeValidator} from 'lib/validation/onboarding'
 
 const formConfig = {
   form: 'forgot-password-change',

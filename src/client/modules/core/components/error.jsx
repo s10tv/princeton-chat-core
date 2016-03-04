@@ -1,7 +1,7 @@
 import React from 'react'
-import { color } from '/src/client/configs/theme'
+import { color } from 'client/configs/theme'
 import { Flex } from 'jsxstyle'
-import { i18n } from '/src/client/configs/env'
+import { i18n } from 'client/configs/env'
 
 export default React.createClass({
   render () {

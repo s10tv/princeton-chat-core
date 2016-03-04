@@ -1,6 +1,6 @@
-import SearchBox from '/src/client/modules/core/components/search.jsx'
+import SearchBox from 'client/modules/core/components/search.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
-import AmplitudeService from '/src/client/lib/amplitude.service'
+import AmplitudeService from 'client/lib/amplitude.service'
 
 const composer = ({context}, onData) => {
   const {LocalState} = context()

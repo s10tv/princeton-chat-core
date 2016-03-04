@@ -1,13 +1,13 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import styles from '/src/client/modules/core/components/styles.jsx'
-import { i18n } from '/src/client/configs/env'
-import TextField from '../../../../node_modules/material-ui/lib/text-field'
-import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
+import styles from 'client/modules/core/components/styles.jsx'
+import { i18n } from 'client/configs/env'
+import TextField from 'material-ui/lib/text-field'
+import FlatButton from 'material-ui/lib/flat-button'
+import RaisedButton from 'material-ui/lib/raised-button'
+import FontIcon from 'material-ui/lib/font-icon'
+import IconButton from 'material-ui/lib/icon-button'
 import _ from 'underscore'
-import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
-import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
-import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color

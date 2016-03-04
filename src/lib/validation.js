@@ -1,8 +1,8 @@
 /*eslint-disable */
 // eslint validation is disabled because this file is copied from github
-// https://github.com/erikras/react-redux-universal-hot-example/blob/master/src/utils/validation.js
+// https://github.com/erikras/react-redux-universal-hot-example/blob/masterutils/validation.js
 
-import { degrees } from '/src/lib/data'
+import { degrees } from 'lib/data'
 import moment from 'moment'
 
 const isEmpty = value => value === undefined || value === null || value === ''

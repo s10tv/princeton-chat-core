@@ -2,9 +2,9 @@ import React from 'react'
 import Radium, {StyleRoot} from 'radium'
 import Layout from './layout'
 import style from '../configs/style'
-import {i18n} from '/src/client/configs/env'
-import {FlatButton} from '/src/client/lib/ui.jsx'
-import {color} from '/src/client/configs/theme'
+import {i18n} from 'client/configs/env'
+import {FlatButton} from 'client/lib/ui.jsx'
+import {color} from 'client/configs/theme'
 
 const ForgotPasswordSuccess = (props) => {
   return (

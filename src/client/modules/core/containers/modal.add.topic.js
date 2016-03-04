@@ -1,6 +1,6 @@
-import AddTopicModal from '/src/client/modules/core/components/modal.add.topic.jsx'
+import AddTopicModal from 'client/modules/core/components/modal.add.topic.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
-import NewTopicService from '/src/lib/newtopic.service.js'
+import NewTopicService from 'lib/newtopic.service.js'
 
 const composer = ({context, shouldRedirectToNewTopic}, onData) => {
   const {Meteor, LocalState} = context()

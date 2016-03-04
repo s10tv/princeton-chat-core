@@ -1,6 +1,6 @@
-import DirectorySearch from '/src/client/modules/core/components/directory.search.jsx'
+import DirectorySearch from 'client/modules/core/components/directory.search.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
-import { SearchCoverPhoto } from '/src/client/lib/unsplash.service.js'
+import { SearchCoverPhoto } from 'client/lib/unsplash.service.js'
 
 const composer = ({context, term}, onData) => {
   const {Meteor, Collections, UserService} = context()

@@ -1,11 +1,11 @@
 import React from 'react'
 import { Flex, Inline } from 'jsxstyle'
 import keycode from 'keycode'
-import RaisedButton from '../../../../node_modules/material-ui/lib/raised-button'
-import Checkbox from '../../../../node_modules/material-ui/lib/checkbox'
+import RaisedButton from 'material-ui/lib/raised-button'
+import Checkbox from 'material-ui/lib/checkbox'
 import linkState from 'react-link-state'
-import { UserAvatar } from '/src/client/modules/core/components/helpers.jsx'
-import MyAutoComplete from '/src/client/lib/mention.textfield.jsx'
+import { UserAvatar } from 'client/modules/core/components/helpers.jsx'
+import MyAutoComplete from 'client/lib/mention.textfield.jsx'
 
 export default React.createClass({
   propTypes: {

@@ -1,13 +1,13 @@
 import truncate from 'truncate'
-import {Loading} from '/src/client/modules/core/components/helpers.jsx'
-import PostList from '/src/client/modules/core/components/post.list.jsx'
+import {Loading} from 'client/modules/core/components/helpers.jsx'
+import PostList from 'client/modules/core/components/post.list.jsx'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import UserService from '/src/lib/user.service.js'
-import DateFormatter from '/src/client/lib/date.formatter.js'
-import { GenericCoverPhoto, SearchCoverPhoto } from '/src/client/lib/unsplash.service.js'
+import UserService from 'lib/user.service.js'
+import DateFormatter from 'client/lib/date.formatter.js'
+import { GenericCoverPhoto, SearchCoverPhoto } from 'client/lib/unsplash.service.js'
 import _ from 'underscore'
-import {isTopicAdmin, isAdmin} from '/src/lib/admin'
-import AmplitudeService from '/src/client/lib/amplitude.service'
+import {isTopicAdmin, isAdmin} from 'lib/admin'
+import AmplitudeService from 'client/lib/amplitude.service'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 

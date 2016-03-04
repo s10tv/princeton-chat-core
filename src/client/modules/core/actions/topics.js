@@ -1,6 +1,6 @@
 // import UnsplashService from '/imports/libs/unsplash.service'
 import { _ } from 'meteor/underscore'
-import AmplitudeService from '/src/client/lib/amplitude.service'
+import AmplitudeService from 'client/lib/amplitude.service'
 import postFollowers from './postfollowers'
 
 export default {

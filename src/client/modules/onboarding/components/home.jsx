@@ -3,13 +3,13 @@ import React, {PropTypes} from 'react'
 import Radium, {StyleRoot} from 'radium'
 import YouTube from 'react-youtube'
 import {propTypes as reduxFormPropTypes} from 'redux-form'
-import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from '/src/client/lib/ui.jsx'
-import {color, spacing, fontSize} from '/src/client/configs/theme'
-import {fieldShape} from '/src/client/lib/shapes'
+import {TextField, SelectField, MenuItem, FlatButton, LinearProgress} from 'client/lib/ui.jsx'
+import {color, spacing, fontSize} from 'client/configs/theme'
+import {fieldShape} from 'client/lib/shapes'
 import style from '../configs/style'
 import Layout from './layout'
-import TopicList from '/src/client/modules/core/containers/topic.list'
-import AddTopicModal from '/src/client/modules/core/containers/modal.add.topic'
+import TopicList from 'client/modules/core/containers/topic.list'
+import AddTopicModal from 'client/modules/core/containers/modal.add.topic'
 
 const Home = (props) => {
   const mainContent = props.mainContent

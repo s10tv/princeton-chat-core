@@ -1,8 +1,8 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import TopicList from '/src/client/modules/core/components/topic.list.jsx'
-import {PageLoader} from '/src/client/lib/ui.jsx'
+import TopicList from 'client/modules/core/components/topic.list.jsx'
+import {PageLoader} from 'client/lib/ui.jsx'
 import _ from 'underscore'
-import AmplitudeService from '/src/client/lib/amplitude.service'
+import AmplitudeService from 'client/lib/amplitude.service'
 
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context()

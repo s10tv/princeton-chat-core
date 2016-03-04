@@ -1,4 +1,4 @@
-import AvatarService from '/src/lib/avatar.service.js'
+import AvatarService from 'lib/avatar.service.js'
 
 export default function ({ Migrations, Collections }) {
   const {Users, Topics, Posts, Messages} = Collections

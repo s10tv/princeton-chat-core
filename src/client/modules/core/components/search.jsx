@@ -1,9 +1,9 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
 import keycode from 'keycode'
-import TextField from '../../../../../node_modules/material-ui/lib/text-field'
-import {FontIcon, IconButton} from '/src/client/lib/ui.jsx'
-import { i18n } from '/src/client/configs/env'
+import TextField from 'material-ui/lib/text-field'
+import {FontIcon, IconButton} from 'client/lib/ui.jsx'
+import { i18n } from 'client/configs/env'
 import Radium from 'radium'
 
 const theme = i18n('primaryMuiTheme')

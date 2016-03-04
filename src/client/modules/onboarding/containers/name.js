@@ -1,7 +1,7 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import {trimSpaces} from '/src/lib/normalization'
-import {enterNamesValidator} from '/src/lib/validation/onboarding'
+import {trimSpaces} from 'lib/normalization'
+import {enterNamesValidator} from 'lib/validation/onboarding'
 import EnterNames from '../components/name.jsx'
 
 export const formConfig = {

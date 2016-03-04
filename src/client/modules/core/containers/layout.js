@@ -1,4 +1,4 @@
-import Layout from '/src/client/modules/core/components/layout/layout.jsx'
+import Layout from 'client/modules/core/components/layout/layout.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 
 const composer = ({context}, onData) => {

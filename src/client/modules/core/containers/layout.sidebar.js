@@ -1,8 +1,8 @@
 /*global confirm*/
-import LayoutSidebar from '/src/client/modules/core/components/layout/layout.sidebar.jsx'
-import UserService from '/src/lib/user.service.js'
+import LayoutSidebar from 'client/modules/core/components/layout/layout.sidebar.jsx'
+import UserService from 'lib/user.service.js'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import {isAdmin} from '/src/lib/admin'
+import {isAdmin} from 'lib/admin'
 import {_} from 'underscore'
 
 export const composer = ({context}, onData) => {

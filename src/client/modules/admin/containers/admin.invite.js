@@ -1,6 +1,6 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import AdminInvite from '../components/admin.invite.jsx'
-import {isAdmin} from '/src/lib/admin'
+import {isAdmin} from 'lib/admin'
 
 export const composer = ({context}, onData) => {
   const {Meteor, FlowRouter, Collections, UserService} = context()

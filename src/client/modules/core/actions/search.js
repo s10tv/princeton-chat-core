@@ -1,4 +1,4 @@
-import AmplitudeService from '/src/client/lib/amplitude.service'
+import AmplitudeService from 'client/lib/amplitude.service'
 import postfollowers from './postfollowers'
 
 function arraysEqual (a, b) {

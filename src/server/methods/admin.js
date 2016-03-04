@@ -1,4 +1,4 @@
-import {isAdmin} from '/src/lib/admin'
+import {isAdmin} from 'lib/admin'
 
 export default function ({Meteor, OnboardManager, Collections}) {
   const {Invites} = Collections

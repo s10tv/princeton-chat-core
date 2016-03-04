@@ -2,13 +2,13 @@
 /*eslint-disable comma-dangle */
 import React, {PropTypes} from 'react'
 import Radium, {StyleRoot} from 'radium'
-import {FlatButton, PageControl} from '/src/client/lib/ui.jsx'
-import {color} from '/src/client/configs/theme'
+import {FlatButton, PageControl} from 'client/lib/ui.jsx'
+import {color} from 'client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-import TopicList from '/src/client/modules/core/containers/topic.list'
-import AddTopicModal from '/src/client/modules/core/containers/modal.add.topic.js'
-import AddTopicCoverPhotoModal from '/src/client/modules/core/containers/modal.add.topic.coverphoto.js'
+import TopicList from 'client/modules/core/containers/topic.list'
+import AddTopicModal from 'client/modules/core/containers/modal.add.topic.js'
+import AddTopicCoverPhotoModal from 'client/modules/core/containers/modal.add.topic.coverphoto.js'
 
 const SubscribeChannels = (props) => {
   const {channels, onNext, hasSelectedThreeChannels, isLoggedIn} = props

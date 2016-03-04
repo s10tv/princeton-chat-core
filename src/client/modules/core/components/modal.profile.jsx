@@ -1,9 +1,9 @@
 import React from 'react'
 import { Flex } from 'jsxstyle'
-import Paper from '../../../../node_modules/material-ui/lib/paper'
-import Dialog from '../../../../node_modules/material-ui/lib/dialog'
-import { i18n } from '/src/client/configs/env'
-import { UserAvatar } from '/src/client/modules/core/components/helpers.jsx'
+import Paper from 'material-ui/lib/paper'
+import Dialog from 'material-ui/lib/dialog'
+import { i18n } from 'client/configs/env'
+import { UserAvatar } from 'client/modules/core/components/helpers.jsx'
 
 const theme = i18n('primaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
