@@ -1,7 +1,8 @@
 import {isAdmin} from '/lib/admin'
 
 export default function ({ Meteor, Collections, SearchService }) {
-  const { Topics, Posts, Users, Messages, Invites, Notifications } = Collections
+  const { Topics, Posts, Users, Messages, Invites, Notifications,
+    AmaActivity} = Collections
 
   // guest index
   Meteor.publish('posts.mine', function () {
@@ -208,6 +209,18 @@ export default function ({ Meteor, Collections, SearchService }) {
           ]
         }
       ]
+    }
+  })
+
+  Meteor.publishComposite('ama', function (amaPostId) {
+    if (!amaPostId || !this.userId) {
+      return this.ready()
+    }
+
+    return {
+      find: function () {
+        return AmaActivity.find({ amaPostId })
+      }
     }
   })
 
