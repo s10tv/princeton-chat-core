@@ -4,7 +4,8 @@ import Menu from '/client/modules/core/components/menu.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
 import color from '/client/configs/color'
-import {Paper, IconButton, List, ListItem, FontIcon} from '/client/lib/ui.jsx'
+import {Paper, IconButton, List, ListItem, FontIcon, MentionSvgIcon, ReplySvgIcon,
+  NewPostSvgIcon} from '/client/lib/ui.jsx'
 import Radium from 'radium'
 const Flex = Radium(_Flex)
 const Inbox = React.createClass({
@@ -86,7 +87,9 @@ const NotificationListItem = ({notification, archiveInboxItem, navigateToUrl, sh
       }
     }}>
       <Flex style={s.notificationTypeContainer}>
-        <Flex style={s.notificationTypeIcon(notificationTypeUrl(notification.reason))} />
+        <IconButton tooltip={notification.reasonExtended} tooltipPosition='top-right'>
+          {notificationTypeSvgIcon(notification.reason)}
+        </IconButton>
       </Flex>
       <Flex style={s.notificationContentContainer}>
         <Flex>
@@ -145,14 +148,14 @@ const MessageItem = ({ message, showUserProfile }) => (
   </Flex>
 )
 
-const notificationTypeUrl = (type) => {
+const notificationTypeSvgIcon = (type) => {
   switch (type) {
     case 'newpost':
-      return 'ic-newpost.svg'
+      return <NewPostSvgIcon />
     case 'reply':
-      return 'ic-reply.svg'
+      return <ReplySvgIcon />
     case 'mention':
-      return 'ic-mention.svg'
+      return <MentionSvgIcon />
   }
 }
 
@@ -201,14 +204,6 @@ const s = {
     maxWidth: 50,
     borderRight: `1px solid ${color.inbox.separatorGray}`
   },
-  notificationTypeIcon: (url) => ({
-    width: 30,
-    height: 30,
-    backgroundSize: 'contain',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundImage: `url(/images/${url})`
-  }),
   notificationContentContainer: {
     flexGrow: 1,
     flexDirection: 'column',
