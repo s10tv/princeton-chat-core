@@ -4,6 +4,7 @@ import {initContext} from '/client/configs/context'
 import {localize} from '/client/configs/env'
 import core from '/client/modules/core'
 import admin from '/client/modules/admin'
+import ama from '/client/modules/ama'
 import WebFontLoader from 'webfontloader'
 import onboarding from '/client/modules/onboarding'
 import filepicker from 'filepicker-js'
@@ -14,12 +15,13 @@ injectTapEventPlugin()
 localize()
 outdatedBrowser()
 
-const context = initContext({onboarding, core, admin})
+const context = initContext({onboarding, core, admin, ama})
 
 const app = createApp(context)
 app.loadModule(admin)
 app.loadModule(core)
 app.loadModule(onboarding)
+app.loadModule(ama)
 
 WebFontLoader.load({
   google: {
