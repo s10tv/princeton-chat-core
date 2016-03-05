@@ -7,10 +7,11 @@ export default function (injectDeps, {FlowRouter}) {
     prefix: '/ama',
     name: 'ama'
   })
-  AmaRouter.route('/:id', {
+
+  AmaRouter.route('/:amaPostId', {
     name: 'ama-details',
-    action () {
-      mount(injectDeps(AmaDetails))
+    action ({amaPostId}) {
+      mount(injectDeps(AmaDetails), {amaPostId})
     }
   })
 }

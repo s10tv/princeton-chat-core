@@ -1,7 +1,7 @@
 import {isAdmin} from '/lib/admin'
 
 export default function ({ Meteor, Collections, SearchService }) {
-  const { Topics, Posts, Users, Messages, Invites, Notifications,
+  const { Topics, Posts, Users, Messages, Invites, Notifications, AmaPosts,
     AmaActivities, AmaMessages} = Collections
 
   // guest index
@@ -219,22 +219,35 @@ export default function ({ Meteor, Collections, SearchService }) {
 
     return {
       find: function () {
-        return AmaActivities.find({ amaPostId })
+        return AmaPosts.find({ _id: amaPostId })
       },
       children: [
         {
-          find: function (amaActivity) {
-            if (amaActivity.originatorUserId) {
-              return Users.find({_id: amaActivity.originatorUserId})
-            }
+          find: function () {
+            return AmaMessages.find({ amaPostId })
           }
         },
         {
-          find: function (amaActivity) {
-            if (amaActivity.amaMessageId) {
-              return AmaMessages.find({_id: amaActivity.amaMessageId})
+          find: function () {
+            return AmaActivities.find({ amaPostId })
+          },
+
+          children: [
+            {
+              find: function (amaActivity) {
+                if (amaActivity.originatorUserId) {
+                  return Users.find({_id: amaActivity.originatorUserId})
+                }
+              }
+            },
+            {
+              find: function (amaActivity) {
+                if (amaActivity.amaMessageId) {
+                  return AmaMessages.find({_id: amaActivity.amaMessageId})
+                }
+              }
             }
-          }
+          ]
         }
       ]
     }
