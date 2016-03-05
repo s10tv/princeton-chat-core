@@ -21,7 +21,8 @@ export default function ({ Migrations, Collections }) {
           displayName: topic.value,
           order: topic.order,
           followers: [],
-          numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topic._id }).count()
+          numPosts: Posts.find({ isDM: { $ne: true }, topicIds: topic._id }).count(),
+          type: 'postlist'
         }})
       })
     }
