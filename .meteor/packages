@@ -50,3 +50,4 @@ email
 meteorhacks:kadira
 avital:mocha
 logging
+webpack:reload
