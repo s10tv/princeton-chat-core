@@ -223,8 +223,17 @@ export default function ({ Meteor, Collections, SearchService }) {
       },
       children: [
         {
+          find: function (amaPost) {
+            return Users.find({_id: {$in: amaPost.followers.map((follower) => follower.userId)}})
+          }
+        },
+        {
           find: function () {
             return AmaMessages.find({ amaPostId })
+          },
+
+          children: function (amaMessage) {
+            return Users.find({ _id: amaMessage.ownerId })
           }
         },
         {

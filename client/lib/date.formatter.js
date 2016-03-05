@@ -6,4 +6,8 @@ export default class DateFormatter {
   static format (doc) {
     return moment(doc.createdAt).format('M/D h:mm a')
   }
+
+  static amaStartTime (createdAt) {
+    return moment(createdAt).format('MMM DDD h a')
+  }
 }

@@ -29,7 +29,8 @@ export default function ({Meteor, Collections, currentUser}) {
 
         Topics.upsert({ _id: 'ama' }, {$set: {
           displayName: 'AMA',
-          type: 'ama'
+          type: 'ama',
+          createdAt: new Date()
         }})
 
         AmaPosts.upsert({_id: 'qimingama'}, {$set: {
@@ -37,7 +38,12 @@ export default function ({Meteor, Collections, currentUser}) {
           speakerId: user._id,
           title: 'Qiming Fang: Talk about being B0$$',
           introText: 'Qiming is a boss. What can you say?',
-          startTime: new Date()
+          cover: {
+            url: 'http://gdb.voanews.com/DEC7023F-E583-4902-81CF-4002A702BB1E_cx0_cy4_cw0_mw1024_s_n_r1.jpg'
+          },
+          participants: [{ userId: user._id, unreadCount: 0 }],
+          startTime: new Date(),
+          createdAt: new Date()
         }})
 
         AmaMessages.upsert({_id: 'qimingama-msg1'}, { $set: {
@@ -47,7 +53,8 @@ export default function ({Meteor, Collections, currentUser}) {
           content: 'What is your favorite fruit?',
           childrenMessageIds: [
             'qimingama-msg-reply'
-          ]
+          ],
+          createdAt: new Date()
         }})
 
         AmaMessages.upsert({_id: 'qimingama-msg-reply'}, { $set: {
@@ -56,14 +63,16 @@ export default function ({Meteor, Collections, currentUser}) {
           amaPostId: 'qimingama',
           parentMessageId: 'qimingama-msg1',
           parentMessageOwner: user._id,
-          content: 'Banannas are my favorite fruit'
+          content: 'Banannas are my favorite fruit',
+          createdAt: new Date()
         }})
 
         AmaMessages.upsert({_id: 'qimingama-msg2'}, { $set: {
           _id: 'qimingama-msg2',
           ownerId: user._id,
           amaPostId: 'qimingama',
-          content: 'Why is my foot hurting?'
+          content: 'Why is my foot hurting?',
+          createdAt: new Date()
         }})
 
         AmaActivities.upsert({_id: 'qimingama-msg1-activity'}, { $set: {
@@ -72,7 +81,8 @@ export default function ({Meteor, Collections, currentUser}) {
           content: 'What is your favorite fruit?',
           originatorUserId: user._id,
           amaPostId: 'qimingama',
-          amaMessageId: 'qimingama-msg1'
+          amaMessageId: 'qimingama-msg1',
+          createdAt: new Date()
         }})
 
         AmaActivities.upsert({_id: 'qimingama-msg1-reply-activity'}, { $set: {
@@ -81,7 +91,8 @@ export default function ({Meteor, Collections, currentUser}) {
           content: 'Banannas are my favorite fruit',
           originatorUserId: user._id,
           amaPostId: 'qimingama',
-          amaMessageId: 'qimingama-msg-reply'
+          amaMessageId: 'qimingama-msg-reply',
+          createdAt: new Date()
         }})
       }
     })

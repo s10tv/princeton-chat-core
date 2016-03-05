@@ -8,6 +8,7 @@ import {FlowRouter} from 'meteor/kadira:flow-router'
 import {ReactiveDict} from 'meteor/reactive-dict'
 import {Tracker} from 'meteor/tracker'
 import {Accounts} from 'meteor/accounts-base'
+import DateFormatter from '/client/lib/date.formatter'
 import Collections from '/lib/collections/index'
 import UserService from '/lib/user.service'
 import MentionParser from '/lib/mention.parser'
@@ -72,6 +73,7 @@ export function initContext (modules = {}) {
     Accounts,
     sweetalert,
     UserService,
+    DateFormatter,
     MentionParser: new MentionParser(Collections),
     currentUser: Meteor.user(),
     LocalState: new ReactiveDict(),

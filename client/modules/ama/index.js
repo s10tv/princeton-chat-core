@@ -1,10 +1,11 @@
 import actions from './actions'
 import routes from './routes.jsx'
-import * as reducer from './reducers'
+import {combineReducers} from 'redux'
+import reducers from './reducers'
 
 export default {
   routes,
   actions,
-  reducer,
+  reducer: combineReducers(reducers),
   load (context) {}
 }

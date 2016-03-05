@@ -1,6 +1,21 @@
 import React from 'react'
 
-const {string, bool, number, shape, instanceOf, any, func} = React.PropTypes
+const {string, bool, number, array, shape, instanceOf, any, func} = React.PropTypes
+
+export const imageShape = shape({
+  url: string.isRequired
+})
+
+export const userShape = shape({
+  followingTopics: array.isRequired,
+  followingPosts: array.isRequired,
+  status: string.isRequired,
+  avatar: imageShape.isRequired,
+  displayUsername: string.isRequired,
+  avatarInitials: string.isRequired,
+  displayName: string.isRequired,
+  displayEmail: string.isRequired
+})
 
 export const postShape = shape({
   _id: string.isRequired,
