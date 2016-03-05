@@ -13,7 +13,7 @@ import {Meteor} from 'meteor/meteor'
 injectTapEventPlugin()
 localize()
 
-const context = initContext({onboarding, core, admin, ama})
+export const context = initContext({onboarding, core, admin, ama})
 
 const app = createApp(context)
 app.loadModule(admin)

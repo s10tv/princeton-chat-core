@@ -2,7 +2,7 @@ import {isAdmin} from '/lib/admin'
 
 export default function ({ Meteor, Collections, SearchService }) {
   const { Topics, Posts, Users, Messages, Invites, Notifications,
-    AmaActivity} = Collections
+    AmaActivities, AmaMessages} = Collections
 
   // guest index
   Meteor.publish('posts.mine', function () {
@@ -219,8 +219,24 @@ export default function ({ Meteor, Collections, SearchService }) {
 
     return {
       find: function () {
-        return AmaActivity.find({ amaPostId })
-      }
+        return AmaActivities.find({ amaPostId })
+      },
+      children: [
+        {
+          find: function (amaActivity) {
+            if (amaActivity.originatorUserId) {
+              return Users.find({_id: amaActivity.originatorUserId})
+            }
+          }
+        },
+        {
+          find: function (amaActivity) {
+            if (amaActivity.amaMessageId) {
+              return AmaMessages.find({_id: amaActivity.amaMessageId})
+            }
+          }
+        }
+      ]
     }
   })
 

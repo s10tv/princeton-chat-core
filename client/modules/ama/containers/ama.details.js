@@ -2,12 +2,12 @@ import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 
 const composer = ({context}, onData) => {
-  const {UserService} = context()
-
+  const {Meteor, UserService} = context()
   const user = UserService.currentUser()
-  onData(null, {
-    user
-  })
+
+  if (Meteor.subscribe('ama').ready()) {
+    onData(null, {user})
+  }
 }
 
 const depsMapper = (context, actions) => {
