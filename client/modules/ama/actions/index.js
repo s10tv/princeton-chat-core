@@ -1,7 +1,9 @@
 import {createOnSubmit} from '/client/lib/helpers'
 
 export default {
-  navigateBack ({FlowRouter}) {},
+  navigateBack ({FlowRouter}) {
+    console.error(new Error('Not Implemented Yet'))
+  },
   showMenu ({store}) {},
   fbShare ({Meteor}) {},
   twitterShare ({Meteor}) {},
@@ -23,8 +25,16 @@ export default {
     fbShare ({Meteor}, post) {
 
     },
-    upVote ({Meteor}, post) {
-
+    upVote ({Meteor, sweetalert}, message) {
+      return Meteor.call('ama/upvote', { messageId: message._id }, (err) => {
+        if (err) {
+          console.error(err)
+          return sweetalert({
+            title: 'Oops',
+            reason: `We're having some trouble adding your upvote to '${message.content}'.`
+          })
+        }
+      })
     }
   },
   feed: {

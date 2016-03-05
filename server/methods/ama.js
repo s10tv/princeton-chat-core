@@ -1,4 +1,4 @@
-export default function ({Meteor, OnboardManager, Collections}) {
+export default function ({Meteor, OnboardManager, Collections, currentUser}) {
   const {AmaMessages} = Collections
 
   Meteor.methods({
@@ -19,6 +19,18 @@ export default function ({Meteor, OnboardManager, Collections}) {
         numUpvotes: 0,
         childrenMessageIds: []
       })
+    },
+
+    'ama/upvote' ({ messageId }) {
+      const user = currentUser()
+      const message = AmaMessages.findOne(messageId)
+      if (!message) {
+        throw new Meteor.Error(400, 'The message doesn\'t exist!')
+      }
+
+      AmaMessages.update(messageId, { $addToSet: {
+        upvotedUsers: user._id
+      }})
     }
   })
 }

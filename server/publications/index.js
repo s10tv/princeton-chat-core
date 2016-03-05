@@ -224,17 +224,21 @@ export default function ({ Meteor, Collections, SearchService }) {
       children: [
         {
           find: function (amaPost) {
-            return Users.find({_id: {$in: amaPost.followers.map((follower) => follower.userId)}})
+            const followers = amaPost.followers || []
+            return Users.find({_id: {$in: followers.map((follower) => follower.userId)}})
           }
         },
         {
-          find: function () {
-            return AmaMessages.find({ amaPostId })
+          find: function (amaPost) {
+            return AmaMessages.find({ amaPostId: amaPost._id })
           },
-
-          children: function (amaMessage) {
-            return Users.find({ _id: amaMessage.ownerId })
-          }
+          children: [
+            {
+              find: function (amaMessage) {
+                return Users.find({ _id: amaMessage.ownerId })
+              }
+            }
+          ]
         },
         {
           find: function () {
