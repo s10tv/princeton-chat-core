@@ -1,4 +1,4 @@
-import AmaDetails from 'client/modules/ama/components/ama.details.jsx'
+import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 
 const composer = ({context}, onData) => {
