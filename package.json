@@ -54,6 +54,7 @@
   "dependencies": {
     "component-raf": "1.2.0",
     "component-tween": "1.2.0",
+    "crypto": "0.0.3",
     "domready": "1.0.8",
     "filepicker-js": "^2.4.5",
     "invariant": "2.2.0",

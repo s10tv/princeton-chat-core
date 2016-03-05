@@ -40,12 +40,23 @@ export default React.createClass({
     const sidebarOpen = this.props.clickedToShowSidebar || (isAtLeastTablet || isAtLeastDesktop)
     const rightbarOpen = isAtLeastTablet
     const content = this.props.content || (() => {})
+    const s = {
+      window: {
+        width: '100vw',
+        height: '100vh',
+        display: 'flex'
+      },
+      main: {
+      }
+    }
 
     return (
       <StyleRoot>
-        <div id='layout'>
+        <div id='layout' style={s.window}>
           <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
-          {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
+          <main style={s.main}>
+            {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
+          </main>
           <PostFollowersModal />
           <AddTopicModal />
           <AddTopicCoverPhotoModal />

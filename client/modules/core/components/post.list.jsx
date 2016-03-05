@@ -65,9 +65,7 @@ const PostListScreen = React.createClass({
 
   render () {
     return (
-      <main style={Object.assign({}, styles.main, {
-        marginLeft: this.props.sidebarOpen ? 240 : 0
-      })}>
+      <div style={styles.main}>
         <Flex flexDirection='column' flexGrow={1}>
           <Menu
             currentSearchValue={this.props.currentSearchValue}
@@ -83,7 +81,7 @@ const PostListScreen = React.createClass({
             <RightBar {...this.props} />
           </Flex>
         </Flex>
-      </main>
+      </div>
     )
   }
 })
