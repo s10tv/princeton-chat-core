@@ -49,7 +49,10 @@
     "babel-plugin-react-transform": "^2.0.0",
     "react-transform-hmr": "^1.0.1",
     "react-transform-catch-errors": "^1.0.0",
-    "redbox-react": "^1.2.0"
+    "redbox-react": "^1.2.0",
+    "autoprefixer": "^6.3.3",
+    "stylelint": "^4.4.0",
+    "postcss-reporter": "^1.3.3"
   },
   "dependencies": {
     "component-raf": "1.2.0",
@@ -98,5 +101,18 @@
     "ignore": [
       "packages/**"
     ]
+  },
+  "postcss": {
+      "plugins": {
+          "autoprefixer": {"browsers": ["last 2 versions"]},
+          "stylelint": {
+              "rules": {
+                  "selector-no-id": true,
+                  "selector-class-pattern": "[a-z]+"
+              },
+              "ignoreFiles": []
+          },
+          "postcss-reporter": {"clearMessages": true}
+      }
   }
 }
