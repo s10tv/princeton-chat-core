@@ -1,20 +1,26 @@
 import Layout from '/client/modules/core/components/layout/layout.jsx'
-import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
+import {useDeps, composeAll, compose} from 'mantra-core'
 
 const composer = ({context}, onData) => {
-  const {LocalState} = context()
+  const {store} = context()
+  const state = store.getState().core
   onData(null, {
-    clickedToShowSidebar: LocalState.get('SHOW_SIDE_BAR') || false
+    showSidebar: state.sidebar
+  })
+  return store.subscribe(() => {
+    const state = store.getState().core
+    onData(null, {
+      showSidebar: state.sidebar
+    })
   })
 }
 
 const depsMapper = (context, actions) => ({
-  showSidebar: actions.global.showSidebar,
-  toggleSidebar: actions.global.toggleSidebar,
+  toggleSidebar: actions.sidebar.toggle,
   context: () => context
 })
 
 export default composeAll(
-  composeWithTracker(composer),
+  compose(composer),
   useDeps(depsMapper)
 )(Layout)

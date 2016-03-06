@@ -31,30 +31,29 @@ export default React.createClass({
 
   propTypes: {
     content: React.PropTypes.func.isRequired,
-    clickedToShowSidebar: React.PropTypes.bool,
+    showSidebar: React.PropTypes.bool,
     toggleSidebar: React.PropTypes.func.isRequired
   },
 
   render () {
+    const {showSidebar} = this.props
     const isAtLeastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
     const isMobile = !isAtLeastTablet
-    const sidebarOpen = this.props.clickedToShowSidebar
     const rightbarOpen = isAtLeastTablet
     const content = this.props.content || (() => {})
-    console.log('Sidebar Open ', sidebarOpen)
     return (
       <StyleRoot>
         <div className='window'>
           <nav className='sidebar'>
-            <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
+            <Sidebar />
           </nav>
-          <main className={sidebarOpen ? 'content--extended' : 'content'}>
+          <main className={showSidebar ? 'content--extended' : 'content'}>
             <nav className='topbar'>
               <IconButton className='sidebar-toggle' onTouchTap={this.props.toggleSidebar}>
                 <FontIcon className='material-icons'>menu</FontIcon>
               </IconButton>
             </nav>
-            {content({ sidebarOpen, rightbarOpen, isMobile })}
+            {content({ rightbarOpen, isMobile })}
           </main>
           <PostFollowersModal />
           <AddTopicModal />

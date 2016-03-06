@@ -1,4 +1,17 @@
 export default {
+  // TODO: Is this way of using window legit?
+  sidebar (state = window.innerWidth > 768, action) {
+    switch (action.type) {
+      case 'SIDEBAR_TOGGLE':
+        return !state
+      case 'SIDEBAR_HIDE':
+        return false
+      case 'SIDEBAR_SHOW':
+        return true
+      default:
+        return state
+    }
+  },
   // Reducer that sets the default topic values of a new topic dropdown.
   newPostTopics (state = '', action) {
     switch (action.type) {

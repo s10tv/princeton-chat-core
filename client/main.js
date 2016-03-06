@@ -14,7 +14,6 @@ injectTapEventPlugin()
 localize()
 
 export const context = initContext({onboarding, core, admin, ama})
-context.LocalState.set('SHOW_SIDE_BAR', window.innerWidth > 768)
 
 const app = createApp(context)
 app.loadModule(admin)

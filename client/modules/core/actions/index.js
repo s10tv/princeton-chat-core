@@ -27,18 +27,17 @@ export default {
         text: "We'd give you access and treat you with hot chocolate. We'd even wrap you in a warm blanket. We have one slight problem though. You're not logged in :c",
         title: 'Please log in first'
       })
+    }
+  },
+  sidebar: {
+    show: ({store}) => {
+      store.dispatch({type: 'SIDEBAR_SHOW'})
     },
-    showSidebar: ({LocalState}) => {
-      LocalState.set('SHOW_SIDE_BAR', true)
+    hide: ({store}) => {
+      store.dispatch({type: 'SIDEBAR_HIDE'})
     },
-    hideSidebar: ({LocalState}) => {
-      LocalState.set('SHOW_SIDE_BAR', false)
-    },
-    toggleSidebar: ({LocalState}) => {
-      LocalState.set('SHOW_SIDE_BAR', !LocalState.get('SHOW_SIDE_BAR'))
-      // store.dispatch({
-      //   action: 'TOGGLE_SIDEBAR'
-      // })
+    toggle: ({store}) => {
+      store.dispatch({type: 'SIDEBAR_TOGGLE'})
     }
   }
 }
