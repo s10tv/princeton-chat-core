@@ -15,33 +15,41 @@
 }
 
 .sidebar {
-  height: 100%;
+  position: relative;
   overflow: scroll;
-  transition: margin-left .25s ease-out;
   flex-basis: 240px;
   min-width: 240px;
-  margin-left: -240px;
-  @media (min-width: 768px) {
-    margin-left: 0;
-  }
-}
-
-.sidebar--open {
-  margin-left: 0 !important;
+  background-color: #221E1F;
 }
 
 .content {
-  height: 100%;
+  position: relative;
   overflow: scroll;
   flex: 1;
+  background-color: white;
+  z-index: 1;
+  
+  transition: margin-left .25s ease-out;
+  margin-left: -240px;
+  box-shadow: -5px 0px 5px black;
+}
+
+.content--extended {
+  @extend .content;
+  margin-left: 0;
+}
+
+.topbar {
+  position: absolute;
+  width: 100%;
+  z-index: 10; // Avoid getting obscured
 }
 
 // sidebar-inner
 .sidebar-inner {
   @extend .flex-column;
-  min-height: 100%;
   flex: 1;
-  background-color: #221E1F;
+  
   color: white;
   overflow: hidden;
   

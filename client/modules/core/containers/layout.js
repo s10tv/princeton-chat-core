@@ -10,6 +10,7 @@ const composer = ({context}, onData) => {
 
 const depsMapper = (context, actions) => ({
   showSidebar: actions.global.showSidebar,
+  toggleSidebar: actions.global.toggleSidebar,
   context: () => context
 })
 

@@ -1,5 +1,7 @@
 import React from 'react'
 import {StyleResizable} from 'material-ui/lib/mixins'
+import FontIcon from 'material-ui/lib/font-icon'
+import IconButton from 'material-ui/lib/icon-button'
 import Sidebar from '/client/modules/core/containers/layout.sidebar.js'
 import Profile from '/client/modules/core/containers/modal.profile.js'
 import AddTopicModal from '/client/modules/core/containers/modal.add.topic.js'
@@ -30,24 +32,29 @@ export default React.createClass({
   propTypes: {
     content: React.PropTypes.func.isRequired,
     clickedToShowSidebar: React.PropTypes.bool,
-    showSidebar: React.PropTypes.func.isRequired
+    toggleSidebar: React.PropTypes.func.isRequired
   },
 
   render () {
-    const isAtLeastDesktop = this.isDeviceSize(StyleResizable.statics.Sizes.LARGE)
     const isAtLeastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
     const isMobile = !isAtLeastTablet
-    const sidebarOpen = this.props.clickedToShowSidebar || (isAtLeastTablet || isAtLeastDesktop)
+    const sidebarOpen = this.props.clickedToShowSidebar
     const rightbarOpen = isAtLeastTablet
     const content = this.props.content || (() => {})
+    console.log('Sidebar Open ', sidebarOpen)
     return (
       <StyleRoot>
         <div className='window'>
           <nav className='sidebar'>
             <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
           </nav>
-          <main className='content'>
-            {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
+          <main className={sidebarOpen ? 'content--extended' : 'content'}>
+            <nav className='topbar'>
+              <IconButton className='sidebar-toggle' onTouchTap={this.props.toggleSidebar}>
+                <FontIcon className='material-icons'>menu</FontIcon>
+              </IconButton>
+            </nav>
+            {content({ sidebarOpen, rightbarOpen, isMobile })}
           </main>
           <PostFollowersModal />
           <AddTopicModal />

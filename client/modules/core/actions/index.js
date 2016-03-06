@@ -33,6 +33,12 @@ export default {
     },
     hideSidebar: ({LocalState}) => {
       LocalState.set('SHOW_SIDE_BAR', false)
+    },
+    toggleSidebar: ({LocalState}) => {
+      LocalState.set('SHOW_SIDE_BAR', !LocalState.get('SHOW_SIDE_BAR'))
+      // store.dispatch({
+      //   action: 'TOGGLE_SIDEBAR'
+      // })
     }
   }
 }
