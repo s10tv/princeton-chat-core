@@ -3,7 +3,8 @@ import {useDeps, composeAll} from 'mantra-core'
 import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => ({
-  showSidebar: state.core.sidebar
+  showSidebar: state.core.sidebar,
+  isMobile: state.browser.lessThan.medium
 })
 
 const mapDispatchToProps = (dispatch) => ({
