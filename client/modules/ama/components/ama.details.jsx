@@ -73,10 +73,15 @@ const HeaderInnerDiv = (props) => {
 const HeaderOverlay = (props) => {
   return (
     <div className='ama-header-overlay'>
-      <div className='share-container'>
-        <span className='share-buttons-label'>Share</span>
-        <div >
-          <i className='fa fa-facebook'/>
+      <div className='overlay-container'>
+        <span className='overlay-row-label'>Share</span>
+        <div className='overlay-row share-buttons-row'>
+          <button type='button' className='btn btn-twitter ama-share-btn'>
+            <i className='fa fa-twitter'/>
+          </button>
+          <button type='button' className='btn btn-facebook ama-share-btn'>
+            <i className='fa fa-facebook'/>
+          </button>
         </div>
       </div>
     </div>

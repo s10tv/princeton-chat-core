@@ -1,4 +1,5 @@
 @import '{}/client/configs/pc-variables';
+@import '{}/client/vendor/bootstrap/_mixins.scss';
 
 $rightbar-width: 300px;
 $header-height: 240px;
@@ -81,22 +82,41 @@ $header-height: 240px;
   }
 }
 
+.ama-share-btn {
+  width: 100px;
+}
+
+.btn-twitter {
+  @include button-variant(white, $color-twitter, $color-twitter);
+}
+
+.btn-facebook {
+  @include button-variant(white, $color-facebook, $color-facebook);
+}
+
 .ama-header-overlay {
   display: flex;
   flex: 0 0 $rightbar-width;
   background-color: $color-translucent-black;
 
-  .share-container {
+  .overlay-row-label {
+    color: white;
+    font-size: $font-size-h6;
+  }
+
+  .overlay-row {
+    padding-top: $spacing-x2;
+  }
+
+  .overlay-container {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 100%;
     padding: $spacing-x4;
 
     .share-buttons-row {
       display: flex;
       justify-content: space-around;
-    }
-
-    .share-buttons-label {
-      color: white;
-      font-size: $font-size-h6;
     }
   }
 }
