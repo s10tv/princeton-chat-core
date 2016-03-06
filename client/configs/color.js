@@ -12,6 +12,8 @@ export default {
     warning: '#f0ad4e',
     danger: '#d9534f',
   },
+  translucentBlack: 'rgba(0, 0, 0, 0.4)',
+  dullRed: '#DC2D2D',
   black: '#292F33', // Near black
   white: 'white',
   green: '#2AB27B',

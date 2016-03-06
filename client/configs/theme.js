@@ -33,13 +33,25 @@ export const fontSize = {
 }
 
 export const spacing = {
-  x1: 8,
-  x2: 16,
-  x3: 24,
-  x4: 32,
-  x5: 40,
-  x6: 48,
+  x1: 5,
+  x15: 8,
+  x2: 10,
+  x25: 12,
+  x3: 15,
+  x35: 17,
+  x4: 20,
+  x45: 22,
+  x5: 25
 }
+
+// export const spacing = {
+//   x1: 8,
+//   x2: 16,
+//   x3: 24,
+//   x4: 32,
+//   x5: 40,
+//   x6: 48,
+// }
 
 export const primaryMuiTheme = getMuiTheme({
   spacing: Spacing,
