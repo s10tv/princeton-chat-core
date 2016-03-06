@@ -1,3 +1,4 @@
+import {compose} from 'mantra-core'
 
 /*
 Transform Meteor server errors into errors understood by redux form
@@ -37,4 +38,15 @@ export const createOnSubmit = (method, success) => {
       })
     })
   }
+}
+
+export const composeWithRedux = (fn, L, E, options) => {
+  const onPropsChange = (props, onData) => {
+    const store = props.context().store
+    onData(null, fn(props))
+    return store.subscribe(() => {
+      onData(null, fn(props))
+    })
+  }
+  return compose(onPropsChange, L, E, options)
 }

@@ -1,18 +1,13 @@
 import Layout from '/client/modules/core/components/layout/layout.jsx'
-import {useDeps, composeAll, compose} from 'mantra-core'
+import {useDeps, composeAll} from 'mantra-core'
+import {composeWithRedux} from '/client/lib/helpers'
 
-const composer = ({context}, onData) => {
+const composer = ({context}) => {
   const {store} = context()
   const state = store.getState().core
-  onData(null, {
+  return {
     showSidebar: state.sidebar
-  })
-  return store.subscribe(() => {
-    const state = store.getState().core
-    onData(null, {
-      showSidebar: state.sidebar
-    })
-  })
+  }
 }
 
 const depsMapper = (context, actions) => ({
@@ -21,6 +16,6 @@ const depsMapper = (context, actions) => ({
 })
 
 export default composeAll(
-  compose(composer),
+  composeWithRedux(composer),
   useDeps(depsMapper)
 )(Layout)
