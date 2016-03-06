@@ -30,6 +30,7 @@ AMADetails.propTypes = {
   speakerTagline: PropTypes.string,
   speaker: userShape.isRequired,
   participants: PropTypes.arrayOf(userShape).isRequired,
+  startTime: PropTypes.object.isRequired,
   activities: PropTypes.arrayOf(PropTypes.shape({
     isMine: PropTypes.bool.isRequired,
     owner: userShape.isRequired,
@@ -42,7 +43,7 @@ AMADetails.propTypes = {
 
 const Header = (props) => {
   return (
-    <div style={s.headerMainDiv(data.coverUrl)}>
+    <div style={s.headerMainDiv(props.cover.url)}>
       <HeaderInnerDiv {...props}/>
       <HeaderOverlay {...props}/>
     </div>
@@ -66,7 +67,7 @@ const HeaderInnerDiv = (props) => {
           </div>
           : null
         }
-        <span style={s.headerAmaDetailsConversationLabel}>{data.conversationLabel}</span>
+        <span style={s.headerAmaDetailsConversationLabel}>{props.title}</span>
       </div>
     </div>
   )
@@ -176,11 +177,6 @@ const s = {
     fontSize: 25,
     color: 'white'
   }
-}
-
-const data = {
-  coverUrl: 'https://images.unsplash.com/photo-1454678904372-2ca94103eca4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=dcc8a4008017a59eb862846cd4fdc34b',
-  conversationLabel: 'Conversation with Steve Schlafman \'99'
 }
 
 export default Radium(AMADetails)
