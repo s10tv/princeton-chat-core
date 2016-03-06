@@ -211,9 +211,24 @@ const AmaActivities = (props) => (
 )
 
 const AmaActivity = ({activity}) => (
-  <div key={activity._id}>
-    <div>{activity.owner.displayName}</div>
-    <div>{activity.content}</div>
+  <div className='ama-activity' key={activity._id}>
+    <div className='ama-activity-header'>
+      <div className='ama-activity-avatar'>
+        <UserAvatar
+          avatar={activity.owner.avatar}
+          avatarInitials={activity.owner.avatarInitials} />
+      </div>
+      <div className='ama-activity-owner-info'>
+        <span>{activity.owner.displayName}</span>
+
+        <div className='ama-activity-timestamp'>
+          <span>{moment(activity.createdAt).format('MMM D').toUpperCase()}</span>
+        </div>
+      </div>
+    </div>
+    <div className='ama-activity-content'>
+      {activity.content}
+    </div>
   </div>
 )
 

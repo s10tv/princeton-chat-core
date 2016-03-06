@@ -75,6 +75,46 @@ $header-height: 240px;
     flex-direction: column;
     flex: 0 0 $rightbar-width;
     padding: $spacing-x3;
+
+    .ama-activity {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: $spacing-x1;
+      border-bottom: 1px solid #EFEFEF;
+
+      .ama-activity-header {
+        margin-top: $spacing-x2;
+        display: flex;
+
+        .ama-activity-avatar {
+          display: flex;
+          margin-right: $spacing-x1;
+        }
+
+        .ama-activity-owner-info {
+          display: flex;
+          flex-grow: 1;
+          justify-content: space-between;
+
+          .ama-activity-owner-displayName {
+            display: flex
+          }
+
+          .ama-activity-timestamp {
+            display:flex;
+            width: 50px;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .ama-activity-content {
+        margin-top: $spacing-x1;
+        margin-bottom: $spacing-x2;
+        font-weight: 300;
+        font-style: italic;
+      }
+    }
   }
 }
 
