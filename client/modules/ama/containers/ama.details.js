@@ -56,11 +56,11 @@ const composer = ({context, amaPostId}, onData) => {
   if (Meteor.subscribe('ama', amaPostId).ready()) {
     const amaPost = processAmaPost(context, AmaPosts.findOne(amaPostId))
 
-    const actiityOptions = activityVisibility === 'mine'
+    const activityOptions = activityVisibility === 'mine'
       ? { originatorUserId: amaPost.speakerId }
       : {}
     const activities = processActivities(context, amaPost,
-      AmaActivities.find(actiityOptions, {sort: {createdAt: -1}}).fetch())
+      AmaActivities.find(activityOptions, {sort: {createdAt: -1}}).fetch())
 
     const messages = processMessages(context, AmaMessages.find().fetch())
     const participants = amaPost.participants.map((participant) => (
@@ -68,7 +68,7 @@ const composer = ({context, amaPostId}, onData) => {
     ))
 
     onData(null, Object.assign({}, amaPost, {
-      isLive: new Date() > amaPost.endTime || amaPost.type === 'past',
+      isLive: new Date() > amaPost.startTime || amaPost.type === 'past',
       participants,
       currentUser,
       activities,
