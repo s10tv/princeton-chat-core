@@ -14,7 +14,7 @@ export default class Sidebar extends React.Component {
   render () {
     const {user, onLogout, onTapSettings, isFullAdmin} = this.props
     return (
-      <nav className='sidebar'>
+      <div className='sidebar-inner'>
         <SidebarHeader
           user={user}
           onLogout={onLogout}
@@ -38,7 +38,7 @@ export default class Sidebar extends React.Component {
             </li>
           )}
         </ul>
-      </nav>
+      </div>
     )
   }
 }

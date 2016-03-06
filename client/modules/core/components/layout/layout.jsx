@@ -40,21 +40,13 @@ export default React.createClass({
     const sidebarOpen = this.props.clickedToShowSidebar || (isAtLeastTablet || isAtLeastDesktop)
     const rightbarOpen = isAtLeastTablet
     const content = this.props.content || (() => {})
-    const s = {
-      window: {
-        width: '100vw',
-        height: '100vh',
-        display: 'flex'
-      },
-      main: {
-      }
-    }
-
     return (
       <StyleRoot>
-        <div id='layout' style={s.window}>
-          <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
-          <main style={s.main}>
+        <div className='window'>
+          <nav className='sidebar'>
+            <Sidebar sidebarOpen={sidebarOpen} clickedToShowSidebar={this.props.clickedToShowSidebar} />
+          </nav>
+          <main className='content'>
             {content({ sidebarOpen, rightbarOpen, isMobile, showSidebar: this.props.showSidebar })}
           </main>
           <PostFollowersModal />
