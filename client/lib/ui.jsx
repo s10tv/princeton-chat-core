@@ -1,6 +1,6 @@
 import React from 'react'
 import {Style} from 'radium'
-import {color} from '/client/configs/theme'
+import {color, primaryMuiTheme, secondaryMuiTheme} from '/client/configs/theme'
 import _ from 'underscore'
 import _SelectField from 'material-ui/lib/select-field'
 import _TextField from 'material-ui/lib/text-field'
@@ -41,6 +41,25 @@ export const List = _List
 export const ListItem = _ListItem
 export const DropDownMenu = _DropDownMenu
 export const SvgIcon = _SvgIcon
+
+export class MuiTheme extends React.Component {
+  getChildContext () {
+    return {
+      muiTheme: this.props.theme === 'primary' ? primaryMuiTheme : secondaryMuiTheme
+    }
+  }
+  render () {
+    return this.props.children
+  }
+}
+MuiTheme.childContextTypes = {
+  muiTheme: React.PropTypes.object
+}
+
+MuiTheme.propTypes = {
+  theme: React.PropTypes.oneOf(['primary', 'secondary']).isRequired
+}
+
 /** Wrapping MUI components for use with react-redux **/
 export const TextField = (props) => (
   <_TextField {...props} errorText={props.touched && props.error}>

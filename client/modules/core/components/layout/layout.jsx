@@ -10,6 +10,9 @@ import PostFollowersModal from '/client/modules/core/containers/modal.post.follo
 import GlobalSnackbar from '/client/modules/core/containers/global.snackbar.js'
 import { i18n } from '/client/configs/env'
 import {StyleRoot} from 'radium'
+import LeftNav from 'material-ui/lib/left-nav'
+import {MuiTheme} from '/client/lib/ui.jsx'
+
 // TODO: Figure out a better way that does not involve using Mixin
 
 const primaryMuiTheme = i18n('primaryMuiTheme')
@@ -44,9 +47,12 @@ export default React.createClass({
     return (
       <StyleRoot>
         <div className='window'>
-          <nav className='sidebar'>
-            <Sidebar />
-          </nav>
+          <MuiTheme theme='secondary'>
+            <LeftNav width={240} docked={isAtLeastTablet} open={showSidebar}
+              containerClassName='sidebar'>
+              <Sidebar />
+            </LeftNav>
+          </MuiTheme>
           <main className={showSidebar ? 'content--extended' : 'content'}>
             <nav className='topbar'>
               <IconButton className='sidebar-toggle' onTouchTap={this.props.toggleSidebar}>
