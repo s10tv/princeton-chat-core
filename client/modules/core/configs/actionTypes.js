@@ -1,2 +1,0 @@
-export const SIDEBAR_TOGGLE = 'SIDEBAR_TOGGLE'
-export const SIDEBAR_UDPATE = 'SIDEBAR_UPDATE'

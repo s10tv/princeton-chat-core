@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Layout from '/client/modules/core/components/layout/layout.jsx'
 
 const mapStateToProps = (state) => ({
-  sidebarOpen: state.core.sidebar,
+  sidebarOpen: state.core.sidebar.open,
   isMobile: state.browser.lessThan.medium
 })
 

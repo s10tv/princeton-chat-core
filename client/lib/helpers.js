@@ -1,4 +1,5 @@
 import {compose} from 'mantra-core'
+import {createAction} from 'redux-act'
 
 /*
 Transform Meteor server errors into errors understood by redux form
@@ -38,6 +39,13 @@ export const createOnSubmit = (method, success) => {
       })
     })
   }
+}
+
+export const createBoundAction = (description, payloadReducer, metaReducer) => {
+  const actionCreator = createAction(description, payloadReducer, metaReducer)
+  const boundAction = ({store: {dispatch}}, ...data) => dispatch(actionCreator(...data))
+  boundAction.toString = actionCreator.toString
+  return boundAction
 }
 
 // In almost all cases use react-redux connect is a better choice

@@ -1,24 +1,31 @@
 import invariant from 'invariant'
-import {handleActions} from 'redux-actions'
-import * as types from '../configs/actionTypes'
+import {createReducer} from 'redux-act'
+import actions from '../actions'
 
 export default {
-  sidebar: handleActions({
-    [types.SIDEBAR_TOGGLE]: (state, action) => !state,
-    [types.SIDEBAR_UDPATE]: (state, {payload}) => {
+  sidebar: createReducer({
+    [actions.sidebar.toggle]: (state) => ({
+      ...state,
+      open: !state.open
+    }),
+    [actions.sidebar.update]: (state, payload) => {
       invariant(typeof payload === 'boolean', 'SIDEBAR_UPDATE must contain boolean payload')
-      return payload
-    }
-  }, window.innerWidth > 768),
+      return {...state, open: payload}
+    },
+    [actions.sidebar.toggleMenu]: (state, payload) => ({
+      ...state,
+      menuOpen: !state.menuOpen
+    })
+  }, {open: window.innerWidth > 768, menuOpen: false}),
   // TODO: Is this way of using window legit?
-  sidebarMenu (state = false, action) {
-    switch (action.type) {
-      case 'SIDEBAR_MENU_TOGGLE':
-        return !state
-      default:
-        return state
-    }
-  },
+  // sidebarMenu (state = false, action) {
+  //   switch (action.type) {
+  //     case 'SIDEBAR_MENU_TOGGLE':
+  //       return !state
+  //     default:
+  //       return state
+  //   }
+  // },
   // Reducer that sets the default topic values of a new topic dropdown.
   newPostTopics (state = '', action) {
     switch (action.type) {

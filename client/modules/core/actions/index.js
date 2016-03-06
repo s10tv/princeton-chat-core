@@ -1,5 +1,4 @@
-import {createAction} from 'redux-actions'
-import * as types from '../configs/actionTypes'
+import {createBoundAction} from '/client/lib/helpers'
 import posts from './posts'
 import topics from './topics'
 import messages from './messages'
@@ -32,14 +31,8 @@ export default {
     }
   },
   sidebar: {
-    toggleMenu: ({store}) => {
-      store.dispatch({type: 'SIDEBAR_MENU_TOGGLE'})
-    },
-    toggle: ({store}) => {
-      store.dispatch(createAction(types.SIDEBAR_TOGGLE)())
-    },
-    update: ({store}, open) => {
-      store.dispatch(createAction(types.SIDEBAR_UDPATE)(open))
-    }
+    toggle: createBoundAction('SIDEBAR_TOGGLE'),
+    update: createBoundAction('SIDEBAR_UPDATE'),
+    toggleMenu: createBoundAction('SIDEBAR_MENU_TOGGLE')
   }
 }
