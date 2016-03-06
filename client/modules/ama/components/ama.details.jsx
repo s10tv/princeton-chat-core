@@ -38,7 +38,16 @@ AMADetails.propTypes = {
       _id: PropTypes.string.isRequired
     }),
     createdAt: PropTypes.object.isRequired
-  }))
+  })),
+
+  // actions
+  showMenu: PropTypes.func.isRequired,
+  twitterShare: PropTypes.func.isRequired,
+  askQuestion: PropTypes.func.isRequired,
+  reply: PropTypes.func.isRequired,
+  fbShareMessage: PropTypes.func.isRequired,
+  upVote: PropTypes.func.isRequired,
+  toggleFeedFilter: PropTypes.func.isRequired
 }
 
 const Header = (props) => {

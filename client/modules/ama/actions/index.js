@@ -1,14 +1,15 @@
 import {createOnSubmit} from '/client/lib/helpers'
 
 export default {
-  navigateBack ({FlowRouter}) {
-    console.error(new Error('Not Implemented Yet'))
+  amaHeader: {
+    navigateBack ({FlowRouter}) {
+      console.error(new Error('Not Implemented Yet'))
+    },
+    showMenu ({store}) {},
+    fbShare ({Meteor}) {},
+    twitterShare ({Meteor}) {}
   },
-  showMenu ({store}) {},
-  fbShare ({Meteor}) {},
-  twitterShare ({Meteor}) {},
-
-  messages: {
+  amaMessages: {
     askQuestion (context, info) {
       const {FlowRouter} = context
       return createOnSubmit('ama/askquestion')(context, Object.assign({}, info, {
@@ -37,9 +38,11 @@ export default {
       })
     }
   },
-  feed: {
-    toggleFilter ({store}, newFilter) {
-
+  amaFeed: {
+    toggleFilter ({store}) {
+      return store.dispatch({
+        type: 'activityVisibility'
+      })
     }
   }
 }

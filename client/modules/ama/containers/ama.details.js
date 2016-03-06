@@ -78,11 +78,16 @@ const composer = ({context, amaPostId}, onData) => {
   }
 }
 
-const depsMapper = (context, actions) => {
-  return {
-    context
-  }
-}
+const depsMapper = (context, actions) => ({
+  showMenu: actions.amaHeader.fbShare,
+  twitterShare: actions.amaHeader.twitterShare,
+  askQuestion: actions.amaMessages.askQuestion,
+  reply: actions.amaMessages.reply,
+  fbShareMessage: actions.amaMessages.fbShare,
+  upVote: actions.amaMessages.upVote,
+  toggleFeedFilter: actions.amaFeed.toggleFilter,
+  context
+})
 
 export default composeAll(
   composeWithTracker(composer),
