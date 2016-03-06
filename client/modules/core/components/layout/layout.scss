@@ -1,28 +1,12 @@
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.window {
-  width: 100vw;
-  height: 100vh;
-}
-
 .sidebar {
+  position: relative;
   overflow: scroll;
 }
 
 .content {
-  height: 100%;
   position: relative;
   overflow: scroll;
-  background-color: white;
-  z-index: 1;
+  height: 100vh;
 }
 
 .content--extended {
