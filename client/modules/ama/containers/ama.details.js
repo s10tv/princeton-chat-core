@@ -63,8 +63,13 @@ const composer = ({context, amaPostId}, onData) => {
       AmaActivities.find(activityOptions, {sort: {createdAt: -1}}).fetch())
 
     const messages = processMessages(context, AmaMessages.find().fetch())
+
+    // temporary, to show 7 max in the list
+    if (amaPost.participants.length > 7) {
+      amaPost.participants.length = 7
+    }
     const participants = amaPost.participants.map((participant) => {
-      return UserService.getUserView(Users.findOne(participant.map))
+      return UserService.getUserView(Users.findOne(participant.userId))
     })
 
     onData(null, Object.assign({}, amaPost, {

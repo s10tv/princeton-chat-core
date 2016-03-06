@@ -94,10 +94,11 @@ const HeaderOverlay = (props) => {
       </div>
       <div className='overlay-row'>
         <span className='overlay-row-label'>Participants ({props.participants.length})</span>
-        <div className='overlay-content-row'>
-          {props.participants.map((user) => {
-            <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={10} />
-          })}
+        <div className='overlay-content-row participants-row'>
+          {props.participants.map((participant) =>
+            <UserAvatar avatar={participant.avatar} avatarInitials={participant.avatarInitials} size={30}
+              style={{marginRight: 6}}/>
+          )}
         </div>
       </div>
     </div>
