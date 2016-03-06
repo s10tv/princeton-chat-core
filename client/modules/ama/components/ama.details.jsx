@@ -12,7 +12,11 @@ class AMADetails extends React.Component {
       <StyleRoot>
         <div className='ama-page-wrapper'>
           <div className='ama-main'>
-            <Header {...this.props}/>
+            <Header {...this.props} />
+            <div className='ama-content'>
+              <AmaMain {...this.props} />
+              <AmaActivities {...this.props} />
+            </div>
           </div>
         </div>
       </StyleRoot>
@@ -51,7 +55,7 @@ AMADetails.propTypes = {
 
 const Header = (props) => {
   return (
-    <div className='ama-header' style={{backgroundImage: `url(${data.coverUrl})`}}>
+    <div className='ama-header' style={{backgroundImage: `url(${props.cover.url})`}}>
       <HeaderInnerDiv {...props}/>
       <HeaderOverlay {...props}/>
     </div>
@@ -107,9 +111,25 @@ const LiveNow = (props) => (
   </div>
 )
 
-const data = {
-  coverUrl: 'https://images.unsplash.com/photo-1454678904372-2ca94103eca4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=dcc8a4008017a59eb862846cd4fdc34b',
-  conversationLabel: 'Conversation with Steve Schlafman \'99'
-}
+const AmaMain = (props) => (
+  <div className='ama-activity-main-content'>
+
+  </div>
+)
+
+const AmaActivities = (props) => (
+  <div className='ama-activity-sidebar'>
+    {props.activities.map((activity) => (
+      <AmaActivity activity={activity} {...props} />
+    ))}
+  </div>
+)
+
+const AmaActivity = ({activity}) => (
+  <div key={activity._id}>
+    <div>{activity.owner.displayName}</div>
+    <div>{activity.content}</div>
+  </div>
+)
 
 export default Radium(AMADetails)

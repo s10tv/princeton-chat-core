@@ -12,6 +12,7 @@ $header-height: 240px;
 
 .ama-main {
   display: flex;
+  flex-direction: column;
   flex: 0 0 100%;
 }
 // ***
@@ -61,6 +62,27 @@ $header-height: 240px;
     }
   }
 }
+
+.ama-content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  flex-basis: 100%;
+
+  .ama-activity-main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .ama-activity-sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-x3;
+    width: $rightbar-width;
+  }
+}
+
 
 .ama-button-share {
   width: 110px;
