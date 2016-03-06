@@ -66,14 +66,7 @@ const HeaderInnerDiv = (props) => {
           <span>{moment(props.startTime).format('MMM D').toUpperCase()}</span>
           <span>{moment(props.startTime).format('ha')}</span>
         </div>
-        {
-          props.isLive
-          ? <div className='header-live-now-container'>
-            <div className='header-live-now-circle'/>
-            <span className='header-live-now-label'>LIVE NOW</span>
-          </div>
-          : null
-        }
+        {props.isLive ? <LiveNow /> : null}
         <span className='header-conversation-label'>{props.title}</span>
       </div>
     </div>
@@ -100,6 +93,13 @@ const HeaderOverlay = (props) => {
     </div>
   )
 }
+
+const LiveNow = (props) => (
+  <div className='ama-live-now-container'>
+    <div className='live-now-circle'/>
+    <span className='live-now-label'>LIVE NOW</span>
+  </div>
+)
 
 const data = {
   coverUrl: 'https://images.unsplash.com/photo-1454678904372-2ca94103eca4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=dcc8a4008017a59eb862846cd4fdc34b',

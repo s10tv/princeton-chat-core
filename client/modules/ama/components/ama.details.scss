@@ -54,26 +54,6 @@ $header-height: 240px;
       margin-right: $spacing-x4;
     }
 
-    .header-live-now-container {
-      display: flex;
-      align-items: center;
-      margin-right: $spacing-x4;
-
-      .header-live-now-label {
-        color: white;
-        font-weight: 300;
-      }
-
-      .header-live-now-circle {
-        border-radius: 50%;
-        width: 10px;
-        height: 10px;
-        background-color: $color-dull-red;
-        border: 1px solid $color-dull-red;
-        margin-right: $spacing-x1;
-      }
-    }
-
     .header-conversation-label {
       font-size: $font-size-h4;
       margin-bottom: $spacing-x1;
@@ -119,5 +99,25 @@ $header-height: 240px;
     .share-buttons-row {
       justify-content: space-around;
     }
+  }
+}
+
+.ama-live-now-container {
+  display: flex;
+  align-items: center;
+  margin-right: $spacing-x4;
+
+  .live-now-label {
+    color: white;
+    font-weight: 300;
+  }
+
+  .live-now-circle {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: $color-dull-red;
+    border: 1px solid $color-dull-red;
+    margin-right: $spacing-x1;
   }
 }
