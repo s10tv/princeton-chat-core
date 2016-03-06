@@ -1,4 +1,5 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
+import {responsiveStateReducer, responsiveStoreEnhancer} from 'redux-responsive'
 import {reducer as formReducer} from 'redux-form'
 import createLogger from 'redux-logger'
 import invariant from 'invariant'
@@ -42,7 +43,8 @@ const createReduxStore = (modules, enableLogger) => {
   // Let each module define its own reducer, we'll then combine them all together
   // for use with redux store
   let reducers = {
-    form: formReducer.normalize(formNormalizers)
+    form: formReducer.normalize(formNormalizers),
+    browser: responsiveStateReducer
   }
   for (const name of Object.keys(modules)) {
     invariant(!reducers[name], `Module of name '${name}' already exists`)
@@ -57,6 +59,7 @@ const createReduxStore = (modules, enableLogger) => {
     combineReducers(reducers),
     compose(
       logger ? applyMiddleware(logger) : (f) => f,
+      responsiveStoreEnhancer,
       // Install https://github.com/zalmoxisus/redux-devtools-extension for pure magic!
       typeof window === 'object' && window.devToolsExtension ? window.devToolsExtension() : (f) => f
     )

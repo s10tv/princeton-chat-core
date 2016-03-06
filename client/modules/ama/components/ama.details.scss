@@ -82,8 +82,8 @@ $header-height: 240px;
   }
 }
 
-.ama-share-btn {
-  width: 100px;
+.ama-button-share {
+  width: 110px;
 }
 
 .btn-twitter {
@@ -96,26 +96,27 @@ $header-height: 240px;
 
 .ama-header-overlay {
   display: flex;
+  flex-direction: column;
   flex: 0 0 $rightbar-width;
   background-color: $color-translucent-black;
-
-  .overlay-row-label {
-    color: white;
-    font-size: $font-size-h6;
-  }
+  padding: $spacing-x4;
 
   .overlay-row {
-    padding-top: $spacing-x2;
-  }
-
-  .overlay-container {
     display: flex;
     flex-direction: column;
     flex: 0 0 100%;
-    padding: $spacing-x4;
+
+    .overlay-row-label {
+      color: white;
+      font-size: $font-size-h6;
+    }
+
+    .overlay-content-row {
+      margin-top: $spacing-x1;
+      display: flex;
+    }
 
     .share-buttons-row {
-      display: flex;
       justify-content: space-around;
     }
   }

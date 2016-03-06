@@ -1,3 +1,4 @@
+import {createBoundAction} from '/client/lib/helpers'
 import posts from './posts'
 import topics from './topics'
 import messages from './messages'
@@ -30,14 +31,8 @@ export default {
     }
   },
   sidebar: {
-    show: ({store}) => {
-      store.dispatch({type: 'SIDEBAR_SHOW'})
-    },
-    hide: ({store}) => {
-      store.dispatch({type: 'SIDEBAR_HIDE'})
-    },
-    toggle: ({store}) => {
-      store.dispatch({type: 'SIDEBAR_TOGGLE'})
-    }
+    toggle: createBoundAction('SIDEBAR_TOGGLE'),
+    update: createBoundAction('SIDEBAR_UPDATE'),
+    toggleMenu: createBoundAction('SIDEBAR_MENU_TOGGLE')
   }
 }

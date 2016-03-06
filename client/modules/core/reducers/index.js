@@ -1,17 +1,21 @@
+import invariant from 'invariant'
+import {combineReducers} from 'redux'
+import {createReducer} from 'redux-act'
+import actions from '../actions'
+
 export default {
-  // TODO: Is this way of using window legit?
-  sidebar (state = window.innerWidth > 768, action) {
-    switch (action.type) {
-      case 'SIDEBAR_TOGGLE':
-        return !state
-      case 'SIDEBAR_HIDE':
-        return false
-      case 'SIDEBAR_SHOW':
-        return true
-      default:
-        return state
-    }
-  },
+  sidebar: combineReducers({
+    open: createReducer({
+      [actions.sidebar.toggle]: (state) => !state,
+      [actions.sidebar.update]: (state, payload) => {
+        invariant(typeof payload === 'boolean', 'SIDEBAR_UPDATE must contain boolean payload')
+        return payload
+      }
+    }, window.innerWidth > 768), // TODO: Is this way of using window legit?
+    menuOpen: createReducer({
+      [actions.sidebar.toggleMenu]: (state) => !state
+    }, false)
+  }),
   // Reducer that sets the default topic values of a new topic dropdown.
   newPostTopics (state = '', action) {
     switch (action.type) {

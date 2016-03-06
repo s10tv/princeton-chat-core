@@ -28,6 +28,7 @@ AMADetails.propTypes = {
   speakerTagline: PropTypes.string,
   speaker: userShape.isRequired,
   participants: PropTypes.arrayOf(userShape).isRequired,
+  startTime: PropTypes.object.isRequired,
   activities: PropTypes.arrayOf(PropTypes.shape({
     isMine: PropTypes.bool.isRequired,
     owner: userShape.isRequired,
@@ -35,7 +36,16 @@ AMADetails.propTypes = {
       _id: PropTypes.string.isRequired
     }),
     createdAt: PropTypes.object.isRequired
-  }))
+  })),
+
+  // actions
+  showMenu: PropTypes.func.isRequired,
+  twitterShare: PropTypes.func.isRequired,
+  askQuestion: PropTypes.func.isRequired,
+  reply: PropTypes.func.isRequired,
+  fbShareMessage: PropTypes.func.isRequired,
+  upVote: PropTypes.func.isRequired,
+  toggleFeedFilter: PropTypes.func.isRequired
 }
 
 const Header = (props) => {
@@ -64,7 +74,7 @@ const HeaderInnerDiv = (props) => {
           </div>
           : null
         }
-        <span className='header-conversation-label'>{data.conversationLabel}</span>
+        <span className='header-conversation-label'>{props.title}</span>
       </div>
     </div>
   )
@@ -73,16 +83,19 @@ const HeaderInnerDiv = (props) => {
 const HeaderOverlay = (props) => {
   return (
     <div className='ama-header-overlay'>
-      <div className='overlay-container'>
+      <div className='overlay-row'>
         <span className='overlay-row-label'>Share</span>
-        <div className='overlay-row share-buttons-row'>
-          <button type='button' className='btn btn-twitter ama-share-btn'>
+        <div className='overlay-content-row share-buttons-row'>
+          <button type='button' className='btn btn-twitter ama-button-share'>
             <i className='fa fa-twitter'/>
           </button>
-          <button type='button' className='btn btn-facebook ama-share-btn'>
+          <button type='button' className='btn btn-facebook ama-button-share'>
             <i className='fa fa-facebook'/>
           </button>
         </div>
+      </div>
+      <div className='overlay-row'>
+
       </div>
     </div>
   )
