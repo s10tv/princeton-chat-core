@@ -1,6 +1,6 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import GuestIndex from '../components/guestIndex.jsx'
-import {Loading} from '/client/modules/core/components/helpers.jsx'
+import {Loading} from '/client/lib/helpers.jsx'
 
 export const composer = ({context, followTopic, unfollowTopic}, onData) => {
   const { Collections, Meteor } = context()

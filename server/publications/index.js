@@ -224,8 +224,8 @@ export default function ({ Meteor, Collections, SearchService }) {
       children: [
         {
           find: function (amaPost) {
-            const followers = amaPost.followers || []
-            return Users.find({_id: {$in: followers.map((follower) => follower.userId)}})
+            const participants = amaPost.participants || []
+            return Users.find({_id: {$in: participants.map((participant) => participant.userId)}})
           }
         },
         {

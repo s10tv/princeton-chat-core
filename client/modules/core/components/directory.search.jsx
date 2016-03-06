@@ -5,7 +5,7 @@ import Menu from '/client/modules/core/components/menu.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
 import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/lib/helpers.jsx'
 import color from '/client/configs/color'
 
 const s = {

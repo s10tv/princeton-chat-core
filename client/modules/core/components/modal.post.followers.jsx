@@ -7,7 +7,7 @@ import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
 import Dialog from '../../../../node_modules/material-ui/lib/dialog'
 import IconButton from '../../../../node_modules/material-ui/lib/icon-button'
 import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
-import {UserAvatar} from '/client/modules/core/components/helpers.jsx'
+import {UserAvatar} from '/client/lib/helpers.jsx'
 
 export default class PostFollowersModal extends React.Component {
   render () {

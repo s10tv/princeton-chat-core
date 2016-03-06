@@ -10,7 +10,7 @@ import MoreVertIcon from '../../../../../node_modules/material-ui/lib/svg-icons/
 import IconMenu from '../../../../../node_modules/material-ui/lib/menus/icon-menu'
 import MenuItem from '../../../../../node_modules/material-ui/lib/menus/menu-item'
 import { i18n } from '/client/configs/env'
-import {UserAvatar} from '/client/modules/core/components/helpers.jsx'
+import {UserAvatar} from '/client/lib/helpers.jsx'
 import {FlatButton, Dialog} from '/client/lib/ui.jsx'
 import Radium from 'radium'
 

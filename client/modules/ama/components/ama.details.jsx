@@ -3,6 +3,7 @@ import {imageShape, userShape} from '/client/lib/shapes'
 import Radium, {StyleRoot} from 'radium'
 import {FontIcon} from '/client/lib/ui.jsx'
 import moment from 'moment'
+import {UserAvatar} from '/client/lib/helpers.jsx'
 
 class AMADetails extends React.Component {
   render () {
@@ -88,7 +89,12 @@ const HeaderOverlay = (props) => {
         </div>
       </div>
       <div className='overlay-row'>
-
+        <span className='overlay-row-label'>Participants ({props.participants.length})</span>
+        <div className='overlay-content-row'>
+          {props.participants.map((user) => {
+            <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={10} />
+          })}
+        </div>
       </div>
     </div>
   )

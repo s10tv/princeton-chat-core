@@ -4,7 +4,7 @@ import {TextField, FlatButton, LinearProgress, PageControl} from '/client/lib/ui
 import {color} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/lib/helpers.jsx'
 import {Flex} from 'jsxstyle'
 
 const Login = (props) => {

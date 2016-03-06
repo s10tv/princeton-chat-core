@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import keycode from 'keycode'
 import Popover from 'material-ui/lib/popover/popover'
 import {Menu, MenuItem} from './ui.jsx'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/lib/helpers.jsx'
 import TextField from 'material-ui/lib/text-field'
 
 function getStyles (props, state) {

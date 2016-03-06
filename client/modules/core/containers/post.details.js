@@ -2,7 +2,7 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import UserService from '/lib/user.service.js'
 import DateFormatter from '/client/lib/date.formatter.js'
 import PostDetails from '/client/modules/core/components/post.details.jsx'
-import {Loading} from '/client/modules/core/components/helpers.jsx'
+import {Loading} from '/client/lib/helpers.jsx'
 import truncate from 'truncate'
 
 export function processMessage ({UserService, Collections}, message) {

@@ -48,7 +48,7 @@ const processAmaPost = (context, post) => {
 
 const composer = ({context, amaPostId}, onData) => {
   const {Meteor, UserService, Collections, store} = context
-  const {AmaPosts, AmaMessages, AmaActivities} = Collections
+  const {AmaPosts, AmaMessages, AmaActivities, Users} = Collections
 
   const currentUser = UserService.currentUser()
   const {activityVisibility} = store.getState().ama
@@ -63,9 +63,9 @@ const composer = ({context, amaPostId}, onData) => {
       AmaActivities.find(activityOptions, {sort: {createdAt: -1}}).fetch())
 
     const messages = processMessages(context, AmaMessages.find().fetch())
-    const participants = amaPost.participants.map((participant) => (
-      UserService.getUserView(participant)
-    ))
+    const participants = amaPost.participants.map((participant) => {
+      return UserService.getUserView(Users.findOne(participant.map))
+    })
 
     onData(null, Object.assign({}, amaPost, {
       isLive: new Date() > amaPost.startTime || amaPost.type === 'past',

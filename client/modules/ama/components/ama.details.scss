@@ -77,6 +77,7 @@ $header-height: 240px;
 .ama-header-overlay {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   flex: 0 0 $rightbar-width;
   background-color: $color-translucent-black;
   padding: $spacing-x4;

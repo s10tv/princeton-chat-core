@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex } from 'jsxstyle'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/lib/helpers.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import {classYears} from '/lib/data'
 import MenuItem from '../../../../node_modules/material-ui/lib/menus/menu-item'

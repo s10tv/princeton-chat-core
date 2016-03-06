@@ -1,7 +1,7 @@
 import React from 'react'
 import {Flex as _Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
-import { UserAvatar } from '/client/modules/core/components/helpers.jsx'
+import { UserAvatar } from '/client/lib/helpers.jsx'
 import color from '/client/configs/color'
 import {Paper, IconButton, List, ListItem, FontIcon, MentionSvgIcon, ReplySvgIcon,
   NewPostSvgIcon} from '/client/lib/ui.jsx'
