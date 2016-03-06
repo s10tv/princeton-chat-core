@@ -64,7 +64,9 @@ const PopOverList = React.createClass({
 
 export default React.createClass({
   propTypes: {
-    user: React.PropTypes.object.isRequired
+    user: React.PropTypes.object.isRequired,
+    menuOpen: React.PropTypes.bool.isRequired,
+    toggleMenu: React.PropTypes.func.isRequired
   },
 
   getInitialState () {
@@ -78,6 +80,7 @@ export default React.createClass({
       open: true,
       anchorEl: event.currentTarget
     })
+    this.props.toggleMenu(true)
   },
 
   closePopover () {
@@ -120,11 +123,11 @@ export default React.createClass({
           </Flex>
         </ListItem>
         <Popover
-          open={this.state.open}
+          open={this.props.menuOpen}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'right', vertical: 'top'}}
-          onRequestClose={this.closePopover}
+          onRequestClose={this.props.toggleMenu}
           style={s.popover}
         >
           <PopOverList {...this.props} closePopover={this.closePopover} />

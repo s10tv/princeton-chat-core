@@ -13,6 +13,14 @@ export default {
         return state
     }
   },
+  sidebarMenu (state = false, action) {
+    switch (action.type) {
+      case 'SIDEBAR_MENU_TOGGLE':
+        return !state
+      default:
+        return state
+    }
+  },
   // Reducer that sets the default topic values of a new topic dropdown.
   newPostTopics (state = '', action) {
     switch (action.type) {

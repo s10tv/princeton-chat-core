@@ -17,16 +17,16 @@ const s = {
     transition: Transitions.easeOut(null, ['transform', 'margin-left'], null)
   }
 }
-const Layout = ({showSidebar, updateSidebar, isMobile, toggleSidebar, content}) => (
+const Layout = ({sidebarOpen, updateSidebar, isMobile, toggleSidebar, content}) => (
   <MuiTheme theme='primary'>
     <StyleRoot>
       <MuiTheme theme='secondary'>
         <LeftNav width={240} containerClassName='sidebar' docked={!isMobile}
-          open={showSidebar} onRequestChange={updateSidebar}>
+          open={sidebarOpen} onRequestChange={updateSidebar}>
           <Sidebar />
         </LeftNav>
       </MuiTheme>
-      <main className={showSidebar ? 'content--extended' : 'content'} style={s.main}>
+      <main className={sidebarOpen ? 'content--extended' : 'content'} style={s.main}>
         <nav className='topbar'>
           <IconButton className='sidebar-toggle' onTouchTap={toggleSidebar}>
             <FontIcon className='material-icons'>menu</FontIcon>
@@ -43,10 +43,10 @@ const Layout = ({showSidebar, updateSidebar, isMobile, toggleSidebar, content}) 
   </MuiTheme>
 )
 Layout.propTypes = {
-  content: React.PropTypes.func,
-  showSidebar: React.PropTypes.bool.isRequired,
+  sidebarOpen: React.PropTypes.bool.isRequired,
   toggleSidebar: React.PropTypes.func.isRequired,
   updateSidebar: React.PropTypes.func.isRequired,
-  isMobile: React.PropTypes.bool.isRequired
+  isMobile: React.PropTypes.bool.isRequired,
+  content: React.PropTypes.func
 }
 export default Layout

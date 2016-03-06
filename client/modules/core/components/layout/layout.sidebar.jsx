@@ -3,9 +3,11 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import SidebarHeader from './sidebarHeader.jsx'
 
-const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics}) => (
+const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, toggleMenu, menuOpen}) => (
   <div className='sidebar-inner'>
     <SidebarHeader
+      toggleMenu={toggleMenu}
+      menuOpen={menuOpen}
       user={user}
       onLogout={onLogout}
       onTapSettings={onTapSettings} />

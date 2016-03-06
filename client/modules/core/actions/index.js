@@ -30,6 +30,9 @@ export default {
     }
   },
   sidebar: {
+    toggleMenu: ({store}) => {
+      store.dispatch({type: 'SIDEBAR_MENU_TOGGLE'})
+    },
     toggle: ({store}) => {
       store.dispatch({type: 'SIDEBAR_TOGGLE'})
     },

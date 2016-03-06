@@ -1,9 +1,9 @@
-import Layout from '/client/modules/core/components/layout/layout.jsx'
 import {useDeps, composeAll} from 'mantra-core'
 import {connect} from 'react-redux'
+import Layout from '/client/modules/core/components/layout/layout.jsx'
 
 const mapStateToProps = (state) => ({
-  showSidebar: state.core.sidebar,
+  sidebarOpen: state.core.sidebar,
   isMobile: state.browser.lessThan.medium
 })
 
