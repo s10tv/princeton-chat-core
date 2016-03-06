@@ -20,11 +20,8 @@ var LoadingComponent = () => (
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '100vh',
-    marginLeft: 240,
-    '@media (max-width: 768px)': {
-      marginLeft: 0
-    }}}>
+    height: '100vh'
+  }}>
     <span style={{color: 'gray'}}>Loading...</span>
     <CircularProgress />
   </div>

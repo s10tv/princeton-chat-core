@@ -16,12 +16,6 @@ const Inbox = React.createClass({
      * True if there are no posts in this list
      */
     isEmpty: React.PropTypes.bool,
-
-    /**
-     * Boolean to show/hide sidebar
-     */
-    sidebarOpen: React.PropTypes.bool.isRequired,
-
     /**
      * The function archives the notification item
      */
@@ -33,7 +27,6 @@ const Inbox = React.createClass({
   render () {
     return (
       <main style={Object.assign({}, styles.main, {
-        marginLeft: this.props.sidebarOpen ? 240 : 0,
         backgroundColor: color.inbox.backgroundGray
       })}>
         <Flex style={s.mainFlexContainer}>

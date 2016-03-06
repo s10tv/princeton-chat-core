@@ -62,10 +62,8 @@ export default React.createClass({
     handleSubmit: React.PropTypes.func.isRequired,
     error: React.PropTypes.string,
     submitting: React.PropTypes.bool,
-    sidebarOpen: React.PropTypes.bool.isRequired,
     createPostTopicWrapper: React.PropTypes.object.isRequired,
     isMobile: React.PropTypes.bool.isRequired,
-    showSidebar: React.PropTypes.func.isRequired,
     parseAndFetchMentions: React.PropTypes.func.isRequired,
     replaceWithMention: React.PropTypes.func.isRequired,
     clearMentions: React.PropTypes.func.isRequired,
@@ -99,9 +97,7 @@ export default React.createClass({
       numFollowersNotified, mentions, clearMentions, replaceWithMention} = this.props
 
     return (
-      <main style={Object.assign({}, styles.main, {
-        marginLeft: this.props.sidebarOpen ? 240 : 0
-      })}>
+      <main style={styles.main}>
         <Flex className='no-scrollbar' flexDirection='column' flexGrow={1}>
           <Menu
             topic={this.props.createPostTopicWrapper}

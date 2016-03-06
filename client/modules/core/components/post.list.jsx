@@ -53,11 +53,6 @@ const PostListScreen = React.createClass({
     navigateToTopicListFn: React.PropTypes.func.isRequired,
 
     /**
-     * Boolean to show/hide sidebar
-     */
-    sidebarOpen: React.PropTypes.bool.isRequired,
-
-    /**
      * Initial serach box value
      */
     currentSearchValue: React.PropTypes.string

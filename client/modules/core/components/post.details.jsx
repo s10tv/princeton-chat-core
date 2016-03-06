@@ -5,8 +5,7 @@ import {ScrollingContainer} from '/client/modules/core/components/helpers.jsx'
 import {MessageGroup} from '/client/modules/core/components/message.jsx'
 import styles from '/client/modules/core/components/styles.jsx'
 import NavBar from './navbar.jsx'
-import {FlatButton, FontIcon, Dialog, IconButton} from '/client/lib/ui.jsx'
-import { color } from '/client/configs/theme'
+import {FlatButton, FontIcon, Dialog} from '/client/lib/ui.jsx'
 
 export default React.createClass({
 
@@ -26,11 +25,6 @@ export default React.createClass({
      * A list of messages for this post. Can be empty, but is required.
      */
     messages: React.PropTypes.array.isRequired,
-
-    /**
-     * Determines whether to expand the content to 100% or make room for sidebar.
-     */
-    sidebarOpen: React.PropTypes.bool.isRequired,
 
     /**
      * Determines whether this is a direct message or a post detail.
@@ -57,12 +51,8 @@ export default React.createClass({
      * Func to delete post
      */
     deletePost: React.PropTypes.func.isRequired,
-
-    /**
-     * Function to show sidebar
-     */
     isMobile: React.PropTypes.bool.isRequired,
-    showSidebar: React.PropTypes.func.isRequired
+    messageLinkOnClick: React.PropTypes.func.isRequired
   },
 
   getInitialState () {
@@ -84,28 +74,15 @@ export default React.createClass({
   },
 
   render () {
-    const { post, messages, showUserProfilePost, showUserProfileMessage, deleteMessage,
-      showSidebar, sidebarOpen, messageLinkOnClick} = this.props
+    const { post, messages, showUserProfilePost, showUserProfileMessage,
+      deleteMessage, messageLinkOnClick} = this.props
 
     return (
-      <Flex style={Object.assign({}, styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 })}>
+      <Flex style={styles.main}>
         <NavBar>
           <Flex alignSelf='stretch' justifyContent='space-between'>
             <Flex flexDirection='column'>
               <Flex flexDirection='row'>
-                {sidebarOpen
-                  ? null
-                  : <IconButton onTouchTap={showSidebar} style={{
-                    padding: 0, width: 'unset', height: 'unset',
-                    marginRight: 10,
-                    marginBottom: 'auto',
-                    marginTop: 5
-                  }} iconStyle={{ color: color.black }}>
-                    <FontIcon className='material-icons' style={{ color: color.black }}>
-                      menu
-                    </FontIcon>
-                  </IconButton>
-                }
                 <h1 style={{margin: 0, flex: 1, fontWeight: 400, fontSize: 24}}>
                   {this.props.title}
                 </h1>

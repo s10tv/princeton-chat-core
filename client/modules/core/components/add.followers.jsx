@@ -14,10 +14,6 @@ const accent1Color = theme.baseTheme.palette.accent1Color
 
 export default React.createClass({
   propTypes: {
-    /**
-     * Boolean to show/hide sidebar
-     */
-    sidebarOpen: React.PropTypes.bool.isRequired,
 
     /**
      * Topic to add followers to
@@ -98,7 +94,7 @@ export default React.createClass({
 
   render () {
     return (
-      <main style={Object.assign({}, styles.main, {marginLeft: this.props.sidebarOpen ? 240 : 0})}>
+      <main style={styles.main}>
         <Flex flexDirection='column' alignItems='center' className='add-followers' justifyContent='space-between' flexGrow={1}>
           <Flex flexDirection='column' alignItems='center'>
             <h1>Add followers</h1>

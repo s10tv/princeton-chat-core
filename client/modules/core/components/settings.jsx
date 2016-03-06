@@ -43,11 +43,6 @@ export default React.createClass({
     user: React.PropTypes.object,
 
     /**
-     * Boolean to show/hide sidebar
-     */
-    sidebarOpen: React.PropTypes.bool.isRequired,
-
-    /**
      * True if this modal is showing.
      */
     isOpen: React.PropTypes.bool,
@@ -95,7 +90,6 @@ export default React.createClass({
 
     return (
       <main className='no-scrollbar' style={Object.assign({}, styles.main, {
-        paddingLeft: this.props.sidebarOpen ? 240 : 0,
         maxWidth: 800,
         margin: '0 auto'
       })}>

@@ -1,7 +1,6 @@
 import React from 'react'
 import {Flex} from 'jsxstyle'
-import { RaisedButton, FontIcon, IconButton } from '/client/lib/ui.jsx'
-import { color } from '/client/configs/theme'
+import { RaisedButton } from '/client/lib/ui.jsx'
 import Radium from 'radium'
 import SearchBox from '/client/modules/core/containers/search'
 
@@ -44,12 +43,7 @@ Menu.propTypes = {
    */
   topic: React.PropTypes.object,
 
-  /**
-   * Whether the sidebar is open (to show or not to show menu icon)
-   */
-  sidebarOpen: React.PropTypes.bool.isRequired,
   isMobile: React.PropTypes.bool.isRequired,
-  showSidebar: React.PropTypes.func.isRequired,
 
   /**
    * Initial search box value
@@ -89,20 +83,7 @@ const numberOfFollowersText = (numFollowers) => {
 
 var CoverPhotoMenu = (props) => (
   <div style={[props.style, styles.coverPhoto(props.topic.cover.url)]} >
-    <Flex justifyContent='space-between' alignItems='center'>
-      {props.sidebarOpen
-        ? <Flex />
-        : <Flex>
-          <IconButton onTouchTap={props.showSidebar} iconStyle={{
-            color: color.white, padding: 0
-          }}>
-            <FontIcon className='material-icons' style={{ color: color.white,
-             padding: 0}}>
-              menu
-            </FontIcon>
-          </IconButton>
-        </Flex>
-      }
+    <Flex justifyContent='flex-end'>
 
       {props.shouldShowSearch
       ? <Flex>

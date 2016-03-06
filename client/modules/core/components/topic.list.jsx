@@ -8,10 +8,6 @@ import style from '/client/modules/onboarding/configs/style.js'
 
 const TopicList = React.createClass({
   propTypes: {
-    /**
-     * Boolean to show/hide siderbar
-     */
-    sidebarOpen: React.PropTypes.bool,
 
     /**
      * Boolean to make title/cover clickable
@@ -94,8 +90,7 @@ const TopicList = React.createClass({
 
   render () {
     return (
-      <main style={[styles.main, { marginLeft: this.props.sidebarOpen ? 240 : 0 },
-        localStyle.mainContainer, this.props.rootStyle]}>
+      <main style={[styles.main, localStyle.mainContainer, this.props.rootStyle]}>
         <div>
           {this.props.areTabsShown
           ? <Flex style={localStyle.tabFlexContainer}>

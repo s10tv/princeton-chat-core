@@ -33,11 +33,6 @@ const DirectorySearchScreen = React.createClass({
     showUserProfile: React.PropTypes.func.isRequired,
 
     /**
-     * Boolean to show/hide sidebar
-     */
-    sidebarOpen: React.PropTypes.bool.isRequired,
-
-    /**
      * Initial serach box value
      */
     currentSearchValue: React.PropTypes.string,
@@ -50,9 +45,7 @@ const DirectorySearchScreen = React.createClass({
 
   render () {
     return (
-      <main style={Object.assign({}, styles.main, {
-        marginLeft: this.props.sidebarOpen ? 240 : 0
-      })}>
+      <main style={styles.main}>
         <Flex flexDirection='column' flexGrow={1}>
           <Menu
             currentSearchValue={this.props.currentSearchValue}
