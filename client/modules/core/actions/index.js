@@ -1,4 +1,5 @@
 import {createAction} from 'redux-actions'
+import * as types from '../configs/actionTypes'
 import posts from './posts'
 import topics from './topics'
 import messages from './messages'
@@ -35,10 +36,10 @@ export default {
       store.dispatch({type: 'SIDEBAR_MENU_TOGGLE'})
     },
     toggle: ({store}) => {
-      store.dispatch(createAction('SIDEBAR_TOGGLE')())
+      store.dispatch(createAction(types.SIDEBAR_TOGGLE)())
     },
     update: ({store}, open) => {
-      store.dispatch(createAction('SIDEBAR_UPDATE')(open))
+      store.dispatch(createAction(types.SIDEBAR_UDPATE)(open))
     }
   }
 }

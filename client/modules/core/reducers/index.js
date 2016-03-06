@@ -1,10 +1,11 @@
 import invariant from 'invariant'
 import {handleActions} from 'redux-actions'
+import * as types from '../configs/actionTypes'
 
 export default {
   sidebar: handleActions({
-    SIDEBAR_TOGGLE: (state, action) => !state,
-    SIDEBAR_UPDATE: (state, {payload}) => {
+    [types.SIDEBAR_TOGGLE]: (state, action) => !state,
+    [types.SIDEBAR_UDPATE]: (state, {payload}) => {
       invariant(typeof payload === 'boolean', 'SIDEBAR_UPDATE must contain boolean payload')
       return payload
     }
