@@ -1,0 +1,102 @@
+@import '{}/client/configs/pc-variables';
+
+$rightbar-width: 300px;
+$header-height: 240px;
+
+// will be removed after Tony fixes routing
+.ama-page-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.ama-main {
+  display: flex;
+  flex: 0 0 100%;
+}
+// ***
+
+.ama-header {
+  display: flex;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  height: $header-height;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.ama-header-inner {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: $spacing-x3;
+
+  .header-details-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    bottom: $spacing-x3;
+    left: $spacing-x3;
+
+    .header-date-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      padding: $spacing-x1;
+      color: white;
+      border-radius: 5px;
+      border: 1px solid white;
+      background-color: $color-translucent-black;
+      margin-right: $spacing-x4;
+    }
+
+    .header-live-now-container {
+      display: flex;
+      align-items: center;
+      margin-right: $spacing-x4;
+
+      .header-live-now-label {
+        color: white;
+        font-weight: 300;
+      }
+
+      .header-live-now-circle {
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        background-color: $color-dull-red;
+        border: 1px solid $color-dull-red;
+        margin-right: $spacing-x1;
+      }
+    }
+
+    .header-conversation-label {
+      font-size: $font-size-h4;
+      margin-bottom: $spacing-x1;
+      color: white;
+    }
+  }
+}
+
+.ama-header-overlay {
+  display: flex;
+  flex: 0 0 $rightbar-width;
+  background-color: $color-translucent-black;
+
+  .share-container {
+    padding: $spacing-x4;
+
+    .share-buttons-row {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .share-buttons-label {
+      color: white;
+      font-size: $font-size-h6;
+    }
+  }
+}
