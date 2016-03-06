@@ -1,18 +1,15 @@
 import invariant from 'invariant'
+import {handleActions} from 'redux-actions'
 
 export default {
-  // TODO: Is this way of using window legit?
-  sidebar (state = window.innerWidth > 768, action) {
-    switch (action.type) {
-      case 'SIDEBAR_TOGGLE':
-        return !state
-      case 'SIDEBAR_UPDATE':
-        invariant(action.open != null, 'SIDEBAR_UPDATE must contain open')
-        return action.open
-      default:
-        return state
+  sidebar: handleActions({
+    SIDEBAR_TOGGLE: (state, action) => !state,
+    SIDEBAR_UPDATE: (state, {payload}) => {
+      invariant(typeof payload === 'boolean', 'SIDEBAR_UPDATE must contain boolean payload')
+      return payload
     }
-  },
+  }, window.innerWidth > 768),
+  // TODO: Is this way of using window legit?
   sidebarMenu (state = false, action) {
     switch (action.type) {
       case 'SIDEBAR_MENU_TOGGLE':
