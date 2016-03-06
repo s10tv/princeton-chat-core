@@ -4,17 +4,56 @@
   display: flex;  
 }
 
-// based on stylelint config - expected:
-// - double quotes
-// - [a-z]+ naming
-// Unexpected id selector
-.TEST {
-    color: green;
-    span {
-        text-align: 'right';
-    }
-}
-
-#my-id {
-  background: #000;
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: #221E1F;
+  color: white;
+  transition: 0.5s ease;
+  width: 0;
+  overflow: hidden;
+  
+  .new-post {
+    align-self: center;
+    margin: 16px;
+  }
+  .new-post-icon {
+    vertical-align: middle;
+    height: 100%;
+    margin-left: 8px;
+  }
+  
+  h3 {
+    font-size: 0.875rem;
+    color: #979797;
+    font-weight: normal;
+    padding-left: 16px;
+    padding-bottom: 4px
+  }
+  ul {
+    padding: 0;
+  }
+  li {
+    list-style: none;
+    margin-right: 24px
+  }
+  a {
+    padding-left: 24px;
+    display: block;
+    width: 100%;
+    color: white;
+    border-radius: 0 3px 3px 0;
+  }
+  a:hover {
+    background-color: #979797;
+    opacity: 1;
+  }
+  ul.medium a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  
+  @media (min-width: 768px) {
+    width: 240px;
+  }
 }
