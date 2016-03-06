@@ -15,7 +15,7 @@ export const composer = ({context}, onData) => {
   if (Meteor.subscribe('topics').ready()) {
     const user = UserService.currentUser()
 
-    const currentRouterPath = FlowRouter.current().path
+    const currentRouterPath = '' //FlowRouter.current().path
 
     if (user) {
       const followedTopics = user ? Collections.Topics.find({
@@ -28,7 +28,7 @@ export const composer = ({context}, onData) => {
         user,
         isFullAdmin,
         followedTopics,
-        FlowRouter,
+        // FlowRouter,
         currentRouterPath
       })
     }

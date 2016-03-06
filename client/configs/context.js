@@ -5,7 +5,6 @@ import createLogger from 'redux-logger'
 import invariant from 'invariant'
 import sweetalert from 'sweetalert'
 import {Meteor} from 'meteor/meteor'
-import {FlowRouter} from 'meteor/kadira:flow-router'
 import {ReactiveDict} from 'meteor/reactive-dict'
 import {Tracker} from 'meteor/tracker'
 import {Accounts} from 'meteor/accounts-base'
@@ -70,7 +69,6 @@ export function initContext (modules = {}) {
   const {settings: {public: settings}} = Meteor
   return {
     Meteor,
-    FlowRouter,
     Collections,
     Tracker,
     Accounts,

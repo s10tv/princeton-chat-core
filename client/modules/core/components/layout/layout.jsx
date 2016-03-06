@@ -17,7 +17,7 @@ const s = {
     transition: Transitions.easeOut(null, ['transform', 'margin-left'], null)
   }
 }
-const Layout = ({sidebarOpen, updateSidebar, isMobile, toggleSidebar, content}) => (
+const Layout = ({sidebarOpen, updateSidebar, isMobile, toggleSidebar, children}) => (
   <MuiTheme theme='primary'>
     <StyleRoot>
       <MuiTheme theme='secondary'>
@@ -32,7 +32,7 @@ const Layout = ({sidebarOpen, updateSidebar, isMobile, toggleSidebar, content}) 
             <FontIcon className='material-icons'>menu</FontIcon>
           </IconButton>
         </nav>
-        {content ? content({ rightbarOpen: !isMobile, isMobile }) : null}
+        {children}
       </main>
       <PostFollowersModal />
       <AddTopicModal />
@@ -42,11 +42,12 @@ const Layout = ({sidebarOpen, updateSidebar, isMobile, toggleSidebar, content}) 
     </StyleRoot>
   </MuiTheme>
 )
+// {content ? content({ rightbarOpen: !isMobile, isMobile }) : null}
 Layout.propTypes = {
   sidebarOpen: React.PropTypes.bool.isRequired,
   toggleSidebar: React.PropTypes.func.isRequired,
   updateSidebar: React.PropTypes.func.isRequired,
-  isMobile: React.PropTypes.bool.isRequired,
-  content: React.PropTypes.func
+  isMobile: React.PropTypes.bool.isRequired
+  // content: React.PropTypes.func
 }
 export default Layout

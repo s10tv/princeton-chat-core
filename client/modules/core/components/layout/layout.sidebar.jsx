@@ -2,6 +2,7 @@ import React from 'react'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import SidebarHeader from './sidebarHeader.jsx'
+import {Link} from 'react-router'
 
 const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, toggleMenu, menuOpen}) => (
   <div className='sidebar-inner'>
@@ -18,9 +19,15 @@ const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, to
     </RaisedButton>
     <ul className='medium'>
       {!isFullAdmin ? null : <li><a href='/admin/invite'>Admin</a></li>}
-      <li><a href='/all-mine'>My Inbox</a></li>
-      <li><a href='/all'>All Posts</a></li>
-      <li><a href='/choose-topics'>Explore Channels</a></li>
+      <li>
+        <Link to='/inbox'>My Inbox</Link>
+      </li>
+      <li>
+        <Link to='/all'>All</Link>
+      </li>
+      <li>
+        <Link to='/choose-topics'>Explore Channels</Link>
+      </li>
     </ul>
     <h3>CHANNELS</h3>
     <ul>

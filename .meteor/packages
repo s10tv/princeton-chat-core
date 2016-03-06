@@ -20,7 +20,6 @@ matb33:collection-hooks
 zimme:collection-timestampable
 reywood:publish-composite
 
-kadira:flow-router
 reactive-dict
 random
 percolate:migrations

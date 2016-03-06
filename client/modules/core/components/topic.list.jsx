@@ -4,7 +4,9 @@ import styles from '/client/modules/core/components/styles.jsx'
 import { FlatButton, FontIcon } from '/client/lib/ui.jsx'
 import { i18n } from '/client/configs/env'
 import Radium from 'radium'
-import style from '/client/modules/onboarding/configs/style.js'
+// import style from '/client/modules/onboarding/configs/style.js'
+// TODO: XXX
+const style = {}
 
 const TopicList = React.createClass({
   propTypes: {
