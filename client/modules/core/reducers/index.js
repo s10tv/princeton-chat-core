@@ -1,13 +1,14 @@
+import invariant from 'invariant'
+
 export default {
   // TODO: Is this way of using window legit?
   sidebar (state = window.innerWidth > 768, action) {
     switch (action.type) {
       case 'SIDEBAR_TOGGLE':
         return !state
-      case 'SIDEBAR_HIDE':
-        return false
-      case 'SIDEBAR_SHOW':
-        return true
+      case 'SIDEBAR_UPDATE':
+        invariant(action.open != null, 'SIDEBAR_UPDATE must contain open')
+        return action.open
       default:
         return state
     }

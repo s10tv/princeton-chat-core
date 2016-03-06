@@ -31,13 +31,10 @@ export default {
   },
   sidebar: {
     show: ({store}) => {
-      store.dispatch({type: 'SIDEBAR_SHOW'})
+      store.dispatch({type: 'SIDEBAR_UPDATE', open: true})
     },
     hide: ({store}) => {
-      store.dispatch({type: 'SIDEBAR_HIDE'})
-    },
-    toggle: ({store}) => {
-      store.dispatch({type: 'SIDEBAR_TOGGLE'})
+      store.dispatch({type: 'SIDEBAR_UPDATE', open: false})
     }
   }
 }

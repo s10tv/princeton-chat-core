@@ -9,6 +9,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   toggleSidebar: () => {
     dispatch({type: 'SIDEBAR_TOGGLE'})
+  },
+  updateSidebar: (open) => {
+    dispatch({type: 'SIDEBAR_UPDATE', open})
   }
 })
 

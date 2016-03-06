@@ -1,5 +1,6 @@
 import React from 'react'
 import {StyleResizable} from 'material-ui/lib/mixins'
+import Transitions from 'material-ui/lib/styles/transitions'
 import FontIcon from 'material-ui/lib/font-icon'
 import IconButton from 'material-ui/lib/icon-button'
 import Sidebar from '/client/modules/core/containers/layout.sidebar.js'
@@ -35,25 +36,31 @@ export default React.createClass({
   propTypes: {
     content: React.PropTypes.func.isRequired,
     showSidebar: React.PropTypes.bool,
-    toggleSidebar: React.PropTypes.func.isRequired
+    toggleSidebar: React.PropTypes.func.isRequired,
+    updateSidebar: React.PropTypes.func.isRequired
   },
 
   render () {
-    const {showSidebar} = this.props
+    const {showSidebar, updateSidebar} = this.props
     const isAtLeastTablet = this.isDeviceSize(StyleResizable.statics.Sizes.MEDIUM)
     const isMobile = !isAtLeastTablet
     const rightbarOpen = isAtLeastTablet
     const content = this.props.content || (() => {})
+    const s = {
+      main: {
+        transition: Transitions.easeOut(null, ['transform', 'margin-left'], null)
+      }
+    }
     return (
-      <StyleRoot>
-        <div className='window'>
+      <MuiTheme theme='primary'>
+        <StyleRoot>
           <MuiTheme theme='secondary'>
-            <LeftNav width={240} docked={isAtLeastTablet} open={showSidebar}
-              containerClassName='sidebar'>
+            <LeftNav width={240} containerClassName='sidebar' docked={isAtLeastTablet}
+              open={showSidebar} onRequestChange={updateSidebar}>
               <Sidebar />
             </LeftNav>
           </MuiTheme>
-          <main className={showSidebar ? 'content--extended' : 'content'}>
+          <main className={showSidebar ? 'content--extended' : 'content'} style={s.main}>
             <nav className='topbar'>
               <IconButton className='sidebar-toggle' onTouchTap={this.props.toggleSidebar}>
                 <FontIcon className='material-icons'>menu</FontIcon>
@@ -66,8 +73,8 @@ export default React.createClass({
           <AddTopicCoverPhotoModal />
           <Profile />
           <GlobalSnackbar />
-        </div>
-      </StyleRoot>
+        </StyleRoot>
+      </MuiTheme>
     )
   }
 })
