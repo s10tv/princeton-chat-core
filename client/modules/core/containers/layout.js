@@ -7,21 +7,13 @@ const mapStateToProps = (state) => ({
   isMobile: state.browser.lessThan.medium
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleSidebar: () => {
-    dispatch({type: 'SIDEBAR_TOGGLE'})
-  },
-  updateSidebar: (open) => {
-    dispatch({type: 'SIDEBAR_UPDATE', open})
-  }
-})
-
 const depsMapper = (context, actions) => ({
-  context: () => context,
+  toggleSidebar: actions.sidebar.toggle,
+  updateSidebar: actions.sidebar.update,
   store: context.store
 })
 
 export default composeAll(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps),
   useDeps(depsMapper)
 )(Layout)
