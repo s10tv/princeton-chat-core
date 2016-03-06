@@ -1,21 +1,23 @@
 import Layout from '/client/modules/core/components/layout/layout.jsx'
 import {useDeps, composeAll} from 'mantra-core'
-import {composeWithRedux} from '/client/lib/helpers'
+import {connect} from 'react-redux'
 
-const composer = ({context}) => {
-  const {store} = context()
-  const state = store.getState().core
-  return {
-    showSidebar: state.sidebar
+const mapStateToProps = (state) => ({
+  showSidebar: state.core.sidebar
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleSidebar: () => {
+    dispatch({type: 'SIDEBAR_TOGGLE'})
   }
-}
+})
 
 const depsMapper = (context, actions) => ({
-  toggleSidebar: actions.sidebar.toggle,
-  context: () => context
+  context: () => context,
+  store: context.store
 })
 
 export default composeAll(
-  composeWithRedux(composer),
+  connect(mapStateToProps, mapDispatchToProps),
   useDeps(depsMapper)
 )(Layout)

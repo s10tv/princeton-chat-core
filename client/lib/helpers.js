@@ -40,6 +40,7 @@ export const createOnSubmit = (method, success) => {
   }
 }
 
+// In almost all cases use react-redux connect is a better choice
 export const composeWithRedux = (fn, L, E, options) => {
   const onPropsChange = (props, onData) => {
     const store = props.context().store
