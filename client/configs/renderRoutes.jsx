@@ -4,11 +4,23 @@ import React from 'react'
 import LayoutMain from '/client/modules/core/containers/layout'
 import Inbox from '/client/modules/core/containers/inbox'
 import Settings from '/client/modules/core/containers/settings'
-import PostList from '/client/modules/core/containers/post.list'
 import TopicList from '/client/modules/core/containers/topic.list'
 import ErrorPage from '/client/modules/core/components/error.jsx'
+import {GroupChannel, AllPosts, Directory,
+  PostSearch} from '/client/modules/core/containers/temp.jsx'
 
-export default function (injectDeps) {
+function requireAuth (Meteor) {
+  return (nextState, replace) => {
+    if (!Meteor.userId()) {
+      replace({
+        pathname: '/login',
+        state: { nextPathname: nextState.location.pathname }
+      })
+    }
+  }
+}
+
+export default function (injectDeps, {Meteor}) {
   console.log('inject', injectDeps)
   const Component = () => (
     <div>
@@ -27,10 +39,14 @@ export default function (injectDeps) {
       <Route path='/hello' component={Component} />
       <Route path='/hello2' component={Component2} />
       <Route path='/main' component={LayoutMain} />
-      <Route path='/' component={LayoutMain}>
+      <Route path='/' component={LayoutMain} onEnter={requireAuth(Meteor)}>
         <Route path='inbox' component={Inbox} />
         <Route path='settings' component={Settings} />
-        <Route path='choose-topics' component={TopicList} />
+        <Route path='explore' component={TopicList} />
+        <Route path='all' component={AllPosts} />
+        <Route path='search' component={PostSearch} />
+        <Route path='directory' component={Directory} />
+        <Route path='channels/:channelId' component={GroupChannel} />
       </Route>
       <Route path='*' component={ErrorPage}/>
     </Router>

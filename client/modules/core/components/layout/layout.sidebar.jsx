@@ -18,22 +18,16 @@ const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, to
       </FontIcon>
     </RaisedButton>
     <ul className='medium'>
-      {!isFullAdmin ? null : <li><a href='/admin/invite'>Admin</a></li>}
-      <li>
-        <Link to='/inbox'>My Inbox</Link>
-      </li>
-      <li>
-        <Link to='/all'>All</Link>
-      </li>
-      <li>
-        <Link to='/choose-topics'>Explore Channels</Link>
-      </li>
+      {!isFullAdmin ? null : <li><Link to='/admin/invite'>Admin</Link></li>}
+      <li><Link to='/inbox'>My Inbox</Link></li>
+      <li><Link to='/all'>All</Link></li>
+      <li><Link to='/explore'>Explore Channels</Link></li>
     </ul>
     <h3>CHANNELS</h3>
     <ul>
       {followedTopics.map((topic) =>
         <li key={topic._id}>
-          <a href={`/topics/${topic._id}`}>{`# ${topic.displayName}`}</a>
+          <Link to={`/channels/${topic._id}`}>{`# ${topic.displayName}`}</Link>
         </li>
       )}
     </ul>
