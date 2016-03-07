@@ -80,10 +80,14 @@ export const CoverAvatar = (props) => (
 export const UserAvatar = (props) => (
   props.avatar.isDefaultAvatar
   ? <LetterAvatar color='white'
-    backgroundColor={props.avatar.color} {...props}>
+    backgroundColor={props.avatar.color} {...props} style={Object.assign({
+      flexShrink: 0
+    }, props.style)}>
     {props.avatarInitials}
   </LetterAvatar>
-  : <CoverAvatar src={props.avatar.url} {...props}/>
+  : <CoverAvatar src={props.avatar.url} {...props} style={Object.assign({
+    flexShrink: 0
+  }, props.style)}/>
 )
 
 export class ScrollingContainer extends React.Component {
