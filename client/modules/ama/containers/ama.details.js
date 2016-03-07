@@ -89,6 +89,7 @@ const composer = ({context, params: {amaPostId}}, onData) => {
       messages,
       speakerisTyping: amaPost.speakerisTyping,
       initialValues: {
+        content: '',
         amaPostId: amaPostId
       }
     }))

@@ -182,7 +182,8 @@ export const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form }) =>
 )
 
 const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
-  <div className={`ama-message-container ${isReply ? 'ama-message-container-reply' : ''}`}>
+  <div id={!isSpeaker ? message._id : null}
+    className={`ama-message-container ${isReply ? 'ama-message-container-reply' : ''}`}>
     <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={40} />
     <div className='message-content-container'>
       <div className='message-content-header'>

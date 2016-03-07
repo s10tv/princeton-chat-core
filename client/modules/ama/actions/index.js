@@ -1,5 +1,5 @@
 import {createOnSubmit} from '/client/lib/helpers'
-import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
+import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME} from '/client/configs/constants'
 import {reset} from 'redux-form'
 
 export default {
@@ -19,7 +19,9 @@ export default {
     },
     reply (context, info) {
       const {store} = context
-      return createOnSubmit('ama/reply')(context, Object.assign({}, info, {
+      return createOnSubmit('ama/reply', ({store}) => {
+        return store.dispatch(reset(AMA_REPLY_FORM_NAME))
+      })(context, Object.assign({}, info, {
         parentMessageId: store.getState().ama.replyingToPostId
       }))
     },
