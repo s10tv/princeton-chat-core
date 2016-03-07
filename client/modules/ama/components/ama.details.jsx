@@ -45,6 +45,7 @@ AMADetails.propTypes = {
   introText: PropTypes.string.isRequired,
   speakerTagline: PropTypes.string,
   speaker: userShape.isRequired,
+  speakerIsTyping: userShape.isRequired,
   participants: PropTypes.arrayOf(userShape).isRequired,
   startTime: PropTypes.object.isRequired,
   activities: PropTypes.arrayOf(PropTypes.shape({
@@ -204,11 +205,33 @@ const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
 
 const AmaActivities = (props) => (
   <div className='ama-activity-sidebar'>
+    {!props.speakerIsTyping ? null : (
+      <SpeakerIsTyping {...props} />
+    )}
+
     {props.activities.map((activity) => (
       <AmaActivity activity={activity} {...props} />
     ))}
   </div>
 )
+
+const SpeakerIsTyping = (props) => {
+  return (
+    <div className='ama-host-is-typing'>
+      <div className='ama-activity-avatar'>
+        <UserAvatar
+          avatar={props.speaker.avatar}
+          avatarInitials={props.speaker.avatarInitials} />
+      </div>
+      <div>
+        <span className='ama-highlighted-textbox'>
+          {props.speaker.firstName}
+        </span>
+        <span className='ama-speaker-is-typing'>is typing ... </span>
+      </div>
+    </div>
+  )
+}
 
 const AmaActivity = ({activity}) => (
   <div className='ama-activity' key={activity._id}>
@@ -219,7 +242,7 @@ const AmaActivity = ({activity}) => (
           avatarInitials={activity.owner.avatarInitials} />
       </div>
       <div className='ama-activity-owner-info'>
-        <span>{activity.owner.displayName}</span>
+        <div className='ama-activity-owner-displayName'>{activity.owner.displayName}</div>
 
         <div className='ama-activity-timestamp'>
           <span>{moment(activity.createdAt).format('MMM D').toUpperCase()}</span>

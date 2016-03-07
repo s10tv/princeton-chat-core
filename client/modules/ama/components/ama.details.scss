@@ -75,6 +75,23 @@ $header-height: 240px;
     flex-direction: column;
     flex: 0 0 $rightbar-width;
     padding: $spacing-x3;
+    background-color: $color-rightbar;
+
+    .ama-host-is-typing {
+      display: flex;
+      padding-bottom: $spacing-x2;
+      border-bottom: 1px solid #EFEFEF;
+
+      .ama-host-is-typing-content {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    .ama-activity-avatar {
+      display: flex;
+      margin-right: $spacing-x1;
+    }
 
     .ama-activity {
       display: flex;
@@ -85,11 +102,6 @@ $header-height: 240px;
       .ama-activity-header {
         margin-top: $spacing-x2;
         display: flex;
-
-        .ama-activity-avatar {
-          display: flex;
-          margin-right: $spacing-x1;
-        }
 
         .ama-activity-owner-info {
           display: flex;
@@ -115,6 +127,10 @@ $header-height: 240px;
         font-style: italic;
       }
     }
+  }
+
+  .ama-speaker-is-typing {
+    margin-left: $spacing-x1;
   }
 }
 
