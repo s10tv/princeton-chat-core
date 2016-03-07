@@ -1,6 +1,20 @@
 import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
+import {amaMessageValidator} from '/lib/validation/ama'
 import {_} from 'underscore'
+import {reduxForm} from 'redux-form'
+
+export const askQuestionFormConfig = {
+  form: 'ama/askquestion',
+  fields: ['content'],
+  validate: amaMessageValidator
+}
+
+export const replyFormConfig = {
+  form: 'ama/reply',
+  fields: ['content'],
+  validate: amaMessageValidator
+}
 
 const processActivities = (context, amaPost, activities) => {
   const {Collections, UserService} = context
@@ -91,10 +105,12 @@ const depsMapper = (context, actions) => ({
   fbShareMessage: actions.amaMessages.fbShare,
   upVote: actions.amaMessages.upVote,
   toggleFeedFilter: actions.amaFeed.toggleFilter,
+  store: context.store,
   context
 })
 
 export default composeAll(
+  reduxForm(askQuestionFormConfig),
   composeWithTracker(composer),
   useDeps(depsMapper)
 )(AmaDetails)

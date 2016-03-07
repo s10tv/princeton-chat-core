@@ -111,6 +111,7 @@ const HeaderOverlay = (props) => {
         <div className='overlay-content-row participants-row'>
           {props.participants.map((participant) =>
             <UserAvatar
+              key={participant._id}
               avatar={participant.avatar}
               avatarInitials={participant.avatarInitials}
               size={30}
@@ -135,7 +136,12 @@ const AmaMain = (props) => (
       <span className='top-label'>Discussion</span>
       <span className='top-label'>Top v</span>
     </div>
-    <PostMessage speaker={props.speaker} introText={props.introText}/>
+    <PostMessage speaker={props.speaker} introText={props.introText} form={{
+      handleSubmit: props.askQuestion,
+      submitting: props.submitting,
+      error: props.error,
+      fields: props.fields
+    }} />
     <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
         marginLeft: spacing.x3, marginRight: spacing.x3}} />
     {props.messages.map((message) =>
@@ -147,10 +153,11 @@ const AmaMain = (props) => (
   </div>
 )
 
-const PostMessage = ({ speaker, introText }) => (
+const PostMessage = ({ speaker, introText, form }) => (
   <MessageContainer message={{content: introText}} user={speaker} isSpeaker>
     <AvatarInputBox avatar={speaker.avatar} avatarInitials={speaker.avatarInitials}
-      placeholder={`Ask ${speaker.displayName} a question...`} />
+      placeholder={`Ask ${speaker.displayName} a question...`}
+      form={form} />
   </MessageContainer>
 )
 
@@ -177,11 +184,14 @@ const MessageFooter = ({ message }) => (
   </div>
 )
 
-const AvatarInputBox = ({ avatar, avatarInitials, placeholder }) => (
+const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form }) => (
   <div className='ama-avatar-inputbox-container'>
     <UserAvatar avatar={avatar} avatarInitials={avatarInitials} size={40} />
-    <TextareaAutosize type='text' maxRows={5}
-      className='form-control ama-inputbox' placeholder={placeholder} />
+    <form className='ama-inputbox-form' onSubmit={form.handleSubmit}>
+      <TextareaAutosize type='text' minRows={1} maxRows={5}
+        className='form-control ama-inputbox' placeholder={placeholder} {...form.fields.content}/>
+      <button type='submit' className='btn btn-primary ama-inputbox-submit'>Submit</button>
+    </form>
   </div>
 )
 

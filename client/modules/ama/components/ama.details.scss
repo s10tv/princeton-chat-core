@@ -219,9 +219,20 @@ $header-height: 240px;
   background-color: $gray-lighter;
   border-radius: 5px;
 
+  .ama-inputbox-form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 0px $spacing-x2;
+  }
+
   .ama-inputbox {
-    margin: 0px $spacing-x2;
     resize: none;
+  }
+
+  .ama-inputbox-submit {
+    margin-top: $spacing-x2;
+    align-self: flex-end;
   }
 }
 
