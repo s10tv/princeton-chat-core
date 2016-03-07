@@ -1,4 +1,4 @@
-import {Router, Route, browserHistory, IndexRoute} from 'react-router'
+import {Router, Route, browserHistory, IndexRoute, Redirect} from 'react-router'
 import {mount} from 'react-mounter'
 import React from 'react'
 import LayoutMain from '/client/modules/core/containers/layout'
@@ -40,7 +40,8 @@ export default function (injectDeps, {Meteor}) {
   const App = () => (
     <Router history={browserHistory}>
       <Route path='/' component={LayoutMain} onEnter={requireAuth(Meteor)}>
-        <Route path='inbox' component={Inbox} />
+        <IndexRoute component={Inbox} />
+        <Redirect from='inbox' to='/' />
         <Route path='settings' component={Settings} />
         <Route path='explore' component={TopicList} />
         <Route path='all' component={AllPosts} />
