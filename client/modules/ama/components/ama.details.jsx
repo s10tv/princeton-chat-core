@@ -145,8 +145,8 @@ const AmaMain = (props) => (
     <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
         marginLeft: spacing.x3, marginRight: spacing.x3}} />
     {props.messages.map((message) =>
-      <div>
-        <Message key={message._id} message={message} />
+      <div key={message._id}>
+        <Message message={message} {...props} />
         {message.replies.map((reply) => <Message key={reply._id} message={reply} isReply />)}
       </div>
     )}
@@ -161,17 +161,20 @@ const PostMessage = ({ speaker, introText, form }) => (
   </MessageContainer>
 )
 
-const Message = ({ message, isReply }) => (
+const Message = ({ message, isReply, upVote }) => (
   <MessageContainer message={message} user={message.owner} isReply={isReply}>
-    <MessageFooter message={message} />
+    <MessageFooter message={message} upVote={upVote} />
   </MessageContainer>
 )
 
-const MessageFooter = ({ message }) => (
+const MessageFooter = ({ message, upVote }) => (
   <div className='ama-message-footer'>
-    <a className='footer-component'>
+    <a className='footer-component' onClick={(event) => {
+      event.preventDefault()
+      upVote(message)
+    }}>
       <i className='fa fa-angle-up fa-lg footer-icon' />
-      <span className='footer-text'>5</span>
+      <span className='footer-text'>{message.upvotedUsers ? message.upvotedUsers.length : 0}</span>
     </a>
     <a className='footer-component'>
       <i className='fa fa-reply footer-icon' />
