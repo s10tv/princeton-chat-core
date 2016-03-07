@@ -6,7 +6,8 @@ import Inbox from '/client/modules/core/containers/inbox'
 import Settings from '/client/modules/core/containers/settings'
 import TopicList from '/client/modules/core/containers/topic.list'
 import ErrorPage from '/client/modules/core/components/error.jsx'
-import {GroupChannel, AllPosts, Directory,
+import CreateNewPost from '/client/modules/core/containers/post.create'
+import {GroupChannel, AllPosts, Directory, PostDetails, GroupChannelAddMembers,
   PostSearch} from '/client/modules/core/containers/temp.jsx'
 
 function requireAuth (Meteor) {
@@ -46,7 +47,10 @@ export default function (injectDeps, {Meteor}) {
         <Route path='all' component={AllPosts} />
         <Route path='search' component={PostSearch} />
         <Route path='directory' component={Directory} />
+        <Route path='add-post' component={CreateNewPost} />
         <Route path='channels/:channelId' component={GroupChannel} />
+        <Route path='channels/:channelId/add-subscribers' component={GroupChannelAddMembers} />
+        <Route path='channels/:channelId/:postId' component={PostDetails} />
       </Route>
       <Route path='*' component={ErrorPage}/>
     </Router>

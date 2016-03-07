@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 import Radium from 'radium'
 import {Flex} from 'jsxstyle'
 import List from '../../../../node_modules/material-ui/lib/lists/list'
@@ -155,19 +156,19 @@ export const PostListItem = (props) => (
     <Flex flexDirection='column'>
       <Flex flexDirection='row' justifyContent='space-between' alignItems='center'>
         <Flex alignItems='center'>
-          <a href={props.post.url} style={{color: 'black'}}>
+          <Link to={props.post.url} style={{color: 'black'}}>
             <h2 style={s.postTitle}>{props.post.title}</h2>
-          </a>
+          </Link>
         </Flex>
         {props.post.numMsgs === 0
           ? null
           : <Flex flexShrink={0} marginRight={16}>
-            <a href={props.post.url}>
+            <Link to={props.post.url}>
               <Flex alignItems='center'>
                 <span style={{color: '#999', marginRight: 10, fontWeight: 300}}>{props.post.numMsgs}</span>
                 <img src='/images/chat-bubble.svg' />
               </Flex>
-            </a>
+            </Link>
           </Flex>
         }
       </Flex>

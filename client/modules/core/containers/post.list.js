@@ -42,8 +42,8 @@ export function processPost ({UserService, Collections}, post, topicId = null, i
       : 0,
     isFollowingPost: currentUser.followingPosts.indexOf(post._id) >= 0,
     url: topicId
-      ? `/topics/${topicId}/${post._id}`
-      : `/topics/${post.topicIds[0]}/${post._id}`,
+      ? `/channels/${topicId}/${post._id}`
+      : `/channels/${post.topicIds[0]}/${post._id}`,
     followerAvatars: followerAvatars.length > NUM_MAX_DISPLAY_FOLLOWERS
       ? followerAvatars.slice(0, NUM_MAX_DISPLAY_FOLLOWERS)
       : followerAvatars
