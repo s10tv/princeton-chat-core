@@ -1,4 +1,3 @@
-import {push} from 'react-router-redux'
 import {createOnSubmit} from '/client/lib/helpers'
 import FilePickerService from '/client/lib/filepicker.service'
 
@@ -49,10 +48,10 @@ export default {
     })
   },
 
-  navigateToSettings ({LocalState, store}) {
+  navigateToSettings ({LocalState, history}) {
     // if we were in mobile mode, and showing sidebar, hide sidebar now
     LocalState.set('SHOW_SIDE_BAR', false)
-    store.dispatch(push('/settings'))
+    history.push('/settings')
   },
 
   showSettingsModal ({ LocalState }) {
