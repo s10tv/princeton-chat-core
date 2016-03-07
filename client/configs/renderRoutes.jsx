@@ -10,6 +10,7 @@ import CreateNewPost from '/client/modules/core/containers/post.create'
 import {GroupChannel, AllPosts, Directory, PostDetails, GroupChannelAddMembers,
   GuestToggleFollowing, PostSearch, requireAuth, redirectGuest} from './temp.jsx'
 import AdminInvite from '/client/modules/admin/containers/admin.invite'
+import AmaDetails from '/client/modules/ama/containers/ama.details'
 
 export default function (injectDeps, {Meteor}) {
   const App = () => (
@@ -26,6 +27,9 @@ export default function (injectDeps, {Meteor}) {
         <Route path='channels/:channelId' component={GroupChannel} />
         <Route path='channels/:channelId/add-subscribers' component={GroupChannelAddMembers} />
         <Route path='channels/:channelId/:postId' component={PostDetails} />
+      </Route>
+      <Route path='/ama' component={LayoutMain}>
+        <Route path=':amaPostId' component={AmaDetails} />
       </Route>
       <Route path='/admin' component={LayoutMain} onEnter={requireAuth(Meteor)}>
         <IndexRedirect to='invite' />

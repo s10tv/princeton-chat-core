@@ -80,7 +80,6 @@ const Header = (props) => {
 const HeaderInnerDiv = (props) => {
   return (
     <div className='ama-header-inner'>
-      <FontIcon className='material-icons' style={{fontSize: 25, color: 'white'}}>menu</FontIcon>
       <div className='header-details-container'>
         <div className='header-date-container'>
           <span>{moment(props.startTime).format('MMM D').toUpperCase()}</span>

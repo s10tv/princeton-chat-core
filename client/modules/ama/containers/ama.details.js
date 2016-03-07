@@ -55,7 +55,7 @@ const processAmaPost = (context, post) => {
   })
 }
 
-const composer = ({context, amaPostId}, onData) => {
+const composer = ({context, params: {amaPostId}}, onData) => {
   const {Meteor, UserService, Collections, store} = context
   const {AmaPosts, AmaMessages, AmaActivities, Users} = Collections
 

@@ -20,8 +20,8 @@ export const context = initContext({onboarding, core, admin, ama})
 const app = createApp(context)
 app.loadModule(core)
 app.loadModule(admin)
+app.loadModule(ama)
 // app.loadModule(onboarding)
-// app.loadModule(ama)
 
 WebFontLoader.load({
   google: {

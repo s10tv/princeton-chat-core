@@ -25,6 +25,7 @@ const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, to
     </ul>
     <h3>CHANNELS</h3>
     <ul>
+      <li><Link to='/ama/qimingama'># AMA</Link></li>
       {followedTopics.map((topic) =>
         <li key={topic._id}>
           <Link to={`/channels/${topic._id}`}>{`# ${topic.displayName}`}</Link>

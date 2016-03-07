@@ -32,7 +32,7 @@ $header-height: 240px;
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: $spacing-x3;
 
   .header-details-container {
