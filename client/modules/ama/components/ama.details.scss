@@ -1,4 +1,5 @@
 @import '{}/client/configs/pc-variables';
+@import '{}/client/configs/theme';
 @import '{}/client/vendor/bootstrap/_mixins.scss';
 
 $rightbar-width: 300px;
@@ -69,20 +70,112 @@ $header-height: 240px;
   flex-direction: row;
   flex-basis: 100%;
 
-  .ama-activity-main-content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-
   .ama-activity-sidebar {
     display: flex;
     flex-direction: column;
+    flex: 0 0 $rightbar-width;
     padding: $spacing-x3;
-    width: $rightbar-width;
   }
 }
 
+.ama-activity-main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: $spacing-x3;
+
+  .top-labels-container {
+    display: flex;
+    flex: 0 0 100%;
+    justify-content: space-between;
+
+    .top-label {
+      color: $gray;
+      font-weight: 300;
+    }
+  }
+}
+
+.ama-message-container-reply {
+  margin-left: 40px + $spacing-x4;
+}
+
+.ama-message-container {
+  display: flex;
+  flex-basis: 100%;
+  padding: $spacing-x3;
+
+  .message-content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+    margin-left: $spacing-x4;
+
+    .message-content-header {
+      display: flex;
+      justify-content: space-between;
+
+      .message-timestamp {
+        font-weight: 300;
+        color: $gray-light;
+      }
+    }
+
+    .message-author {
+      font-weight: 600;
+    }
+
+    .message-author-desc {
+      margin-left: $spacing-x2;
+      color: $gray-light;
+      font-weight: 300;
+    }
+
+    .message-content {
+      margin-top: $spacing-x15;
+      margin-bottom: $spacing-x15;
+    }
+  }
+}
+
+.ama-message-footer {
+  display: flex;
+  padding-left: $spacing-x3;
+
+  .footer-component {
+    margin-right: $spacing-x3;
+
+    .footer-icon {
+      margin-right: $spacing-x2;
+    }
+
+    .footer-text {
+      font-weight: 600;
+    }
+  }
+}
+
+.ama-avatar-inputbox-container {
+  display: flex;
+  justify-content: center;
+  max-width: 900px;
+  padding: $spacing-x2;
+  background-color: $gray-lighter;
+  border-radius: 5px;
+
+  .ama-inputbox {
+    margin: 0px $spacing-x2;
+    resize: none;
+  }
+}
+
+.ama-highlighted-textbox {
+  color: white;
+  background-color: $brand-primary;
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: $font-size-sm;
+}
 
 .ama-button-share {
   width: 110px;

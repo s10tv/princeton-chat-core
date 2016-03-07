@@ -24,7 +24,7 @@ app.loadModule(ama)
 WebFontLoader.load({
   google: {
     families: [
-      'Lato:300,400,700',
+      'Lato:300,400,500,600,700',
       'Quicksand'  // for ped & play home page
     ]
   }

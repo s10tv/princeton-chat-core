@@ -84,6 +84,7 @@
     "react-selectize": "0.8.1",
     "react-styling": "1.4.0",
     "react-tap-event-plugin": "0.2.2",
+    "react-textarea-autosize": "^3.3.0",
     "react-youtube": "5.1.0",
     "redux": "3.3.1",
     "redux-act": "^0.4.0",
