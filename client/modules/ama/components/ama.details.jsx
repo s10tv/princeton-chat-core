@@ -7,6 +7,7 @@ import {UserAvatar} from '/client/lib/helpers.jsx'
 import {spacing} from '/client/configs/theme'
 import TextareaAutosize from 'react-textarea-autosize'
 import Divider from 'material-ui/lib/divider'
+import Message from '/client/modules/ama/containers/ama.message'
 
 class AMADetails extends React.Component {
 
@@ -130,28 +131,38 @@ const LiveNow = (props) => (
   </div>
 )
 
-const AmaMain = (props) => (
-  <div className='ama-activity-main-content'>
-    <div className='top-labels-container'>
-      <span className='top-label'>Discussion</span>
-      <span className='top-label'>Top v</span>
-    </div>
-    <PostMessage speaker={props.speaker} introText={props.introText} form={{
-      handleSubmit: props.handleSubmit,
-      submitting: props.submitting,
-      error: props.error,
-      fields: props.fields
-    }} />
-    <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
-        marginLeft: spacing.x3, marginRight: spacing.x3}} />
-    {props.messages.map((message) =>
-      <div key={message._id}>
-        <Message message={message} {...props} />
-        {message.replies.map((reply) => <Message key={reply._id} message={reply} isReply />)}
+const AmaMain = (props) => {
+  const form = {
+    handleSubmit: props.handleSubmit,
+    submitting: props.submitting,
+    error: props.error,
+    fields: props.fields
+  }
+
+  return (
+    <div className='ama-activity-main-content'>
+      <div className='top-labels-container'>
+        <span className='top-label'>Discussion</span>
+        <span className='top-label'>Top v</span>
       </div>
-    )}
-  </div>
-)
+      <PostMessage speaker={props.speaker} introText={props.introText} form={{
+        handleSubmit: props.handleSubmit,
+        submitting: props.submitting,
+        error: props.error,
+        fields: props.fields
+      }} />
+      <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
+          marginLeft: spacing.x3, marginRight: spacing.x3}} />
+      {props.messages.map((message) =>
+        <div key={message._id}>
+          <Message message={message} {...props} form={form} />
+          {message.replies.map((reply) => <Message key={reply._id} message={reply}
+            isReply form={form} {...props} />)}
+        </div>
+      )}
+    </div>
+  )
+}
 
 const PostMessage = ({ speaker, introText, form }) => (
   <MessageContainer message={{content: introText}} user={speaker} isSpeaker>
@@ -161,33 +172,7 @@ const PostMessage = ({ speaker, introText, form }) => (
   </MessageContainer>
 )
 
-const Message = ({ message, isReply, upVote }) => (
-  <MessageContainer message={message} user={message.owner} isReply={isReply}>
-    <MessageFooter message={message} upVote={upVote} />
-  </MessageContainer>
-)
-
-const MessageFooter = ({ message, upVote }) => (
-  <div className='ama-message-footer'>
-    <a className='footer-component' onClick={(event) => {
-      event.preventDefault()
-      upVote(message)
-    }}>
-      <i className='fa fa-angle-up fa-lg footer-icon' />
-      <span className='footer-text'>{message.upvotedUsers ? message.upvotedUsers.length : 0}</span>
-    </a>
-    <a className='footer-component'>
-      <i className='fa fa-reply footer-icon' />
-      <span className='footer-text'>Reply</span>
-    </a>
-    <a className='footer-component'>
-      <i className='fa fa-facebook footer-icon' />
-      <span className='footer-text'>Share</span>
-    </a>
-  </div>
-)
-
-const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form }) => (
+export const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form }) => (
   <div className='ama-avatar-inputbox-container'>
     <UserAvatar avatar={avatar} avatarInitials={avatarInitials} size={40} />
     <form className='ama-inputbox-form' onSubmit={form.handleSubmit}>

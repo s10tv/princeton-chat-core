@@ -11,12 +11,6 @@ export const askQuestionFormConfig = {
   validate: amaMessageValidator
 }
 
-export const replyFormConfig = {
-  form: 'ama/reply',
-  fields: ['content'],
-  validate: amaMessageValidator
-}
-
 const processActivities = (context, amaPost, activities) => {
   const {Collections, UserService} = context
   const {Users, AmaMessages} = Collections
