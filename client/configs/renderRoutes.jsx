@@ -1,4 +1,4 @@
-import {Router, Route, browserHistory, Link} from 'react-router'
+import {Router, Route, browserHistory, IndexRoute} from 'react-router'
 import {mount} from 'react-mounter'
 import React from 'react'
 import LayoutMain from '/client/modules/core/containers/layout'
@@ -9,6 +9,11 @@ import ErrorPage from '/client/modules/core/components/error.jsx'
 import CreateNewPost from '/client/modules/core/containers/post.create'
 import {GroupChannel, AllPosts, Directory, PostDetails, GroupChannelAddMembers,
   PostSearch} from '/client/modules/core/containers/temp.jsx'
+import ToggleFollowing from '/client/modules/core/containers/toggleFollowing'
+
+const GuestToggleFollowing = ({params}) => (
+  <ToggleFollowing postId={params.postId} action={params.action} />
+)
 
 function requireAuth (Meteor) {
   return (nextState, replace) => {
@@ -21,25 +26,19 @@ function requireAuth (Meteor) {
   }
 }
 
+function redirectGuest (Meteor) {
+  return (nextState, replace) => {
+    if (!Meteor.userId()) {
+      replace({ pathname: '/explore' })
+    } else {
+      replace({ pathname: '/login' })
+    }
+  }
+}
+
 export default function (injectDeps, {Meteor}) {
-  console.log('inject', injectDeps)
-  const Component = () => (
-    <div>
-      <h1>Hello World</h1>
-      <Link to='hello2'>To 2</Link>
-    </div>
-  )
-  const Component2 = () => (
-    <div>
-      <h1>Hello it's me</h1>
-      <Link to='hello'>Back</Link>
-    </div>
-  )
   const App = () => (
     <Router history={browserHistory}>
-      <Route path='/hello' component={Component} />
-      <Route path='/hello2' component={Component2} />
-      <Route path='/main' component={LayoutMain} />
       <Route path='/' component={LayoutMain} onEnter={requireAuth(Meteor)}>
         <Route path='inbox' component={Inbox} />
         <Route path='settings' component={Settings} />
@@ -51,6 +50,10 @@ export default function (injectDeps, {Meteor}) {
         <Route path='channels/:channelId' component={GroupChannel} />
         <Route path='channels/:channelId/add-subscribers' component={GroupChannelAddMembers} />
         <Route path='channels/:channelId/:postId' component={PostDetails} />
+      </Route>
+      <Route path='/guest'>
+        <IndexRoute onEnter={redirectGuest(Meteor)} />
+        <Route path='posts/:postId/:action' component={GuestToggleFollowing} />
       </Route>
       <Route path='*' component={ErrorPage}/>
     </Router>
