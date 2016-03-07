@@ -7,6 +7,7 @@ import {Link} from 'react-router'
 const NavLink = (props) =>
   <Link activeClassName='active' {...props} />
 
+// <li><NavLink to='/' onlyActiveOnIndex>Home</NavLink></li>
 const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, toggleMenu, menuOpen}) => (
   <div className='sidebar-inner'>
     <SidebarHeader

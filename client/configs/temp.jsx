@@ -60,7 +60,7 @@ export const GuestToggleFollowing = ({params}) => (
   <ToggleFollowing postId={params.postId} action={params.action} />
 )
 
-export function requireAuth (Meteor) {
+export function requireAuth ({Meteor}) {
   return (nextState, replace) => {
     if (!Meteor.userId()) {
       replace({
@@ -71,7 +71,15 @@ export function requireAuth (Meteor) {
   }
 }
 
-export function redirectGuest (Meteor) {
+export function requireNoAuth ({Meteor}) {
+  return (nextState, replace) => {
+    if (Meteor.userId()) {
+      replace('/inbox')
+    }
+  }
+}
+
+export function redirectGuest ({Meteor}) {
   return (nextState, replace) => {
     if (!Meteor.userId()) {
       replace({ pathname: '/explore' })

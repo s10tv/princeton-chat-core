@@ -10,14 +10,14 @@ import ErrorPage from '/client/modules/core/components/error.jsx'
 import CreateNewPost from '/client/modules/core/containers/post.create'
 import {GroupChannel, AllPosts, Directory, PostDetails, GroupChannelAddMembers,
   TonyProfile, PoshakProfile, GuestToggleFollowing, PostSearch,
-  requireAuth, redirectGuest, redeemInvite} from './temp.jsx'
+  requireAuth, requireNoAuth, redirectGuest, redeemInvite} from './temp.jsx'
   // AMA
 import AdminInvite from '/client/modules/admin/containers/admin.invite'
 import AmaDetails from '/client/modules/ama/containers/ama.details'
 // Onboarding
 import Signup from '/client/modules/onboarding/containers/signup'
 import Login from '/client/modules/onboarding/containers/login'
-// import Home from '/client/modules/onboarding/containers/home'
+import Home from '/client/modules/onboarding/containers/home'
 import RequestInvite from '/client/modules/onboarding/containers/invite.request'
 import SubscribeChannels from '/client/modules/onboarding/containers/subscribe.channels'
 import InviteFriends from '/client/modules/onboarding/containers/invite.friends'
@@ -28,16 +28,16 @@ import ForgotPasswordSuccess from '/client/modules/onboarding/containers/forgotp
 import EnterNames from '/client/modules/onboarding/containers/name'
 
 export default function (injectDeps, context) {
-  const {Meteor, history} = context
   const App = () => (
-    <Router history={history}>
+    <Router history={context.history}>
       <Route path='tonyx' component={TonyProfile} />
       <Route path='poshak' component={PoshakProfile} />
       <Route path='/'>
+        <IndexRoute component={Home} onEnter={requireNoAuth(context)} />
         <Route path='login' component={Login} />
         <Route path='request-invite' component={RequestInvite} />
         <Route path='invite/:inviteId' onEnter={redeemInvite(context)} />
-        <Route path='welcome' onEnter={requireAuth(Meteor)}>
+        <Route path='welcome' onEnter={requireAuth(context)}>
           <Route path='signup' component={Signup} />
           <Route path='enter-names' component={EnterNames} />
           <Route path='subscribe-channels' component={SubscribeChannels} />
@@ -50,8 +50,7 @@ export default function (injectDeps, context) {
           <Route path=':token' component={ForgotPasswordChange} />
         </Route>
       </Route>
-      <Route path='/' component={LayoutMain} onEnter={requireAuth(Meteor)}>
-        <IndexRoute component={Inbox} />
+      <Route path='/' component={LayoutMain} onEnter={requireAuth(context)}>
         <Route path='inbox' component={Inbox} />
         <Route path='settings' component={Settings} />
         <Route path='explore' component={TopicList} />
@@ -66,12 +65,12 @@ export default function (injectDeps, context) {
       <Route path='/ama' component={LayoutMain}>
         <Route path=':amaPostId' component={AmaDetails} />
       </Route>
-      <Route path='/admin' component={LayoutMain} onEnter={requireAuth(Meteor)}>
+      <Route path='/admin' component={LayoutMain} onEnter={requireAuth(context)}>
         <IndexRedirect to='invite' />
         <Route path='invite' component={AdminInvite} />
       </Route>
       <Route path='/guest'>
-        <IndexRoute onEnter={redirectGuest(Meteor)} />
+        <IndexRoute onEnter={redirectGuest(context)} />
         <Route path='posts/:postId/:action' component={GuestToggleFollowing} />
       </Route>
       <Route path='*' component={ErrorPage}/>
