@@ -1,11 +1,12 @@
 import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 import {amaMessageValidator} from '/lib/validation/ama'
+import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
 import {_} from 'underscore'
 import {reduxForm} from 'redux-form'
 
 export const askQuestionFormConfig = {
-  form: 'ama/askquestion',
+  form: AMA_ASK_QUESTION_FORM_NAME,
   fields: ['content'],
   validate: amaMessageValidator
 }
@@ -98,9 +99,9 @@ const composer = ({context, amaPostId}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
+  onSubmit: actions.amaMessages.askQuestion,
   showMenu: actions.amaHeader.fbShare,
   twitterShare: actions.amaHeader.twitterShare,
-  askQuestion: actions.amaMessages.askQuestion,
   reply: actions.amaMessages.reply,
   fbShareMessage: actions.amaMessages.fbShare,
   upVote: actions.amaMessages.upVote,

@@ -1,4 +1,6 @@
 import {createOnSubmit} from '/client/lib/helpers'
+import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
+import {reset} from 'redux-form'
 
 export default {
   amaHeader: {
@@ -11,15 +13,18 @@ export default {
   },
   amaMessages: {
     askQuestion (context, info) {
+      console.log('calling askQuestion', info)
       const {FlowRouter} = context
-      return createOnSubmit('ama/askquestion')(context, Object.assign({}, info, {
-        postId: FlowRouter.current().params.amaPostId
+      return createOnSubmit('ama/askquestion', ({store}) => {
+        return store.dispatch(reset(AMA_ASK_QUESTION_FORM_NAME))
+      })(context, Object.assign({}, info, {
+        amaPostId: FlowRouter.current().params.amaPostId
       }))
     },
-    reply (context, info) {
+    reply (context, event, info) {
       const {FlowRouter, store} = context
       return createOnSubmit('ama/reply')(context, Object.assign({}, info, {
-        postId: FlowRouter.current().params.amaPostId,
+        amaPostId: FlowRouter.current().params.amaPostId,
         parentMessageId: store.getState().ama.replyingToPostId
       }))
     },

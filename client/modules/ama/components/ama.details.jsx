@@ -45,7 +45,7 @@ AMADetails.propTypes = {
   introText: PropTypes.string.isRequired,
   speakerTagline: PropTypes.string,
   speaker: userShape.isRequired,
-  speakerIsTyping: userShape.isRequired,
+  speakerIsTyping: PropTypes.bool.isRequired,
   participants: PropTypes.arrayOf(userShape).isRequired,
   startTime: PropTypes.object.isRequired,
   activities: PropTypes.arrayOf(PropTypes.shape({
@@ -58,9 +58,9 @@ AMADetails.propTypes = {
   })),
 
   // actions
+  handleSubmit: PropTypes.func.isRequired, // ask question
   showMenu: PropTypes.func.isRequired,
   twitterShare: PropTypes.func.isRequired,
-  askQuestion: PropTypes.func.isRequired,
   reply: PropTypes.func.isRequired,
   fbShareMessage: PropTypes.func.isRequired,
   upVote: PropTypes.func.isRequired,
@@ -137,7 +137,7 @@ const AmaMain = (props) => (
       <span className='top-label'>Top v</span>
     </div>
     <PostMessage speaker={props.speaker} introText={props.introText} form={{
-      handleSubmit: props.askQuestion,
+      handleSubmit: props.handleSubmit,
       submitting: props.submitting,
       error: props.error,
       fields: props.fields
@@ -220,14 +220,14 @@ const AmaActivities = (props) => (
     )}
 
     {props.activities.map((activity) => (
-      <AmaActivity activity={activity} {...props} />
+      <AmaActivity key={activity._id} activity={activity} {...props} />
     ))}
   </div>
 )
 
 const SpeakerIsTyping = (props) => {
   return (
-    <div className='ama-host-is-typing'>
+    <div className='ama-host-is-typing' key='speaker-typing'>
       <div className='ama-activity-avatar'>
         <UserAvatar
           avatar={props.speaker.avatar}
