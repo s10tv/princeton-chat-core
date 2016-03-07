@@ -13,6 +13,7 @@ export const replyFormConfig = {
 
 const composer = ({context, amaPostId, message}, onData) => {
   onData(null, {
+    formKey: message._id,
     initialValues: {
       amaPostId,
       content: ''
