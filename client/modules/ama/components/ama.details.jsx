@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react'
-import ReactDOM from 'react-dom'
 import {imageShape, userShape} from '/client/lib/shapes'
 import Radium, {StyleRoot} from 'radium'
 import moment from 'moment'
