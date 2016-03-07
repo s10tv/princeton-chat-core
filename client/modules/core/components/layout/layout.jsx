@@ -28,7 +28,8 @@ const Layout = ({sidebarOpen, updateSidebar, isMobile, toggleSidebar, children})
       </MuiTheme>
       <main className={sidebarOpen ? 'content--extended' : 'content'} style={s.main}>
         <nav className='topbar'>
-          <IconButton className='sidebar-toggle' onTouchTap={toggleSidebar}>
+          <IconButton className='sidebar-toggle' onTouchTap={toggleSidebar}
+            iconStyle={{color: 'white'}}>
             <FontIcon className='material-icons'>menu</FontIcon>
           </IconButton>
         </nav>
