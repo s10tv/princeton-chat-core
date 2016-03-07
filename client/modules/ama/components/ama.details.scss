@@ -249,6 +249,7 @@ $header-height: 240px;
   display: flex;
   flex-direction: column;
   flex: 0 0 $rightbar-width;
+  max-width: $rightbar-width;
   background-color: $color-translucent-black;
   padding: $spacing-x4;
 
@@ -269,7 +270,7 @@ $header-height: 240px;
     }
 
     .participants-row {
-      justify-content: center;
+      padding: 0px $spacing-x1;
     }
 
     .share-buttons-row {
