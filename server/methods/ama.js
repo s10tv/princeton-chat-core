@@ -57,7 +57,7 @@ export default function ({Meteor, Logger, OnboardManager, Collections, currentUs
         amaPostId,
         amaMessageId,
         originatorUserId: user._id,
-        title: `${user.firstName} replied to ${parentMessageName} post.`,
+        title: `${user.firstName} replied to ${parentMessageName} question.`,
         content: truncate(content, TRUNCATE_LENGTH)
       })
     },

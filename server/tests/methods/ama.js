@@ -71,7 +71,7 @@ describe('ama methods', () => {
 
       expect(AmaMessages.find().count()).to.equal(2)
 
-      const [message] = AmaMessages.findOne({ parentMessageId: messageId })
+      const message = AmaMessages.findOne({ parentMessageId: messageId })
       expect(message.amaPostId).to.equal('post-id')
       expect(message.content).to.equal('message')
       expect(message.ownerId).to.equal(currentUserId)
@@ -83,8 +83,35 @@ describe('ama methods', () => {
       expect(activity.amaPostId).to.equal('post-id')
       expect(activity.amaMessageId).to.equal(message._id)
       expect(activity.originatorUserId).to.equal(currentUserId)
-      expect(activity.title).to.equal('Starbucks replied to Starbucks\'s post.')
+      expect(activity.title).to.equal('Starbucks replied to their own question.')
       expect(activity.content).to.equal('message')
+    })
+  })
+
+  describe('ama/upvote', () => {
+    let messageId
+    beforeEach(() => {
+      messageId = AmaMessages.insert({
+        amaPostId: 'post-id',
+        content: 'content',
+        ownerId: currentUserId,
+        childrenMessageIds: [],
+        upvotedUsers: []
+      })
+    })
+
+    it('should upvote a message and insert an activity', () => {
+      Meteor.call('ama/upvote', { messageId })
+      const message = AmaMessages.findOne(messageId)
+      expect(message.upvotedUsers).to.deep.equal([currentUserId])
+
+      expect(AmaActivities.find().count()).to.equal(1)
+      const [activity] = AmaActivities.find().fetch()
+      expect(activity.amaPostId).to.equal('post-id')
+      expect(activity.amaMessageId).to.equal(message._id)
+      expect(activity.originatorUserId).to.equal(currentUserId)
+      expect(activity.title).to.equal('Starbucks upvoted a question.')
+      expect(activity.content).to.equal('content')
     })
   })
 })
