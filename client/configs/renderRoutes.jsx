@@ -17,7 +17,7 @@ import AmaDetails from '/client/modules/ama/containers/ama.details'
 // Onboarding
 import Signup from '/client/modules/onboarding/containers/signup'
 import Login from '/client/modules/onboarding/containers/login'
-import Home from '/client/modules/onboarding/containers/home'
+// import Home from '/client/modules/onboarding/containers/home'
 import RequestInvite from '/client/modules/onboarding/containers/invite.request'
 import SubscribeChannels from '/client/modules/onboarding/containers/subscribe.channels'
 import InviteFriends from '/client/modules/onboarding/containers/invite.friends'
