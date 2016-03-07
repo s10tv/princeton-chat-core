@@ -3,6 +3,7 @@ import {amaMessageValidator} from '/lib/validation/ama'
 import {composeAll, useDeps, composeWithTracker} from 'mantra-core'
 import {reduxForm} from 'redux-form'
 import {AMA_REPLY_FORM_NAME} from '/client/configs/constants'
+import {composeWithRedux} from '/client/lib/helpers'
 
 export const replyFormConfig = {
   form: AMA_REPLY_FORM_NAME,
@@ -10,7 +11,7 @@ export const replyFormConfig = {
   validate: amaMessageValidator
 }
 
-const composer = ({context, amaPostId}, onData) => {
+const composer = ({context, amaPostId, message}, onData) => {
   onData(null, {
     initialValues: {
       amaPostId,
@@ -20,13 +21,21 @@ const composer = ({context, amaPostId}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
-  onSubmit: actions.amaMessages.reply,
+  reply: actions.amaMessages.reply,
+  openReplyBox: actions.amaMessages.openReplyBox,
   store: context.store,
-  context: () => context
+  context: context
 })
+
+function onReduxPropsChange ({store, message}) {
+  return {
+    isReplyBoxOpen: store.getState().ama.openReplies[message._id] === true
+  }
+}
 
 export default composeAll(
   reduxForm(replyFormConfig),
   composeWithTracker(composer),
+  composeWithRedux(onReduxPropsChange),
   useDeps(depsMapper)
 )(Message)

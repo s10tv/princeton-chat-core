@@ -58,7 +58,7 @@ AMADetails.propTypes = {
   })),
 
   // actions
-  handleSubmit: PropTypes.func.isRequired, // ask question
+  askQuestion: PropTypes.func.isRequired,
   showMenu: PropTypes.func.isRequired,
   twitterShare: PropTypes.func.isRequired,
   reply: PropTypes.func.isRequired,
@@ -144,7 +144,10 @@ const AmaMain = (props) => {
         <span className='top-label'>Top v</span>
       </div>
       <PostMessage currentUser={props.currentUser}
-        speaker={props.speaker} introText={props.introText} form={form}
+        speaker={props.speaker}
+        introText={props.introText}
+        form={form}
+        handleNewMessage={props.askQuestion}
         scrollToBottom={props.scrollToBottom} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
@@ -160,18 +163,22 @@ const AmaMain = (props) => {
   )
 }
 
-const PostMessage = ({ currentUser, speaker, introText, form }) => (
+const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage }) => (
   <MessageContainer message={{content: introText}} user={speaker} isSpeaker>
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
+      handleNewMessage={handleNewMessage}
       form={form} />
   </MessageContainer>
 )
 
-export const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form }) => (
+export const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form,
+    handleNewMessage, messageOptions }) => (
   <div className='ama-avatar-inputbox-container'>
     <UserAvatar avatar={avatar} avatarInitials={avatarInitials} size={40} />
-    <form className='ama-inputbox-form' onSubmit={form.handleSubmit}>
+    <form className='ama-inputbox-form' onSubmit={form.handleSubmit((data) => {
+      handleNewMessage(data, messageOptions)
+    })}>
       <TextareaAutosize type='text' minRows={1} maxRows={5}
         className='form-control ama-inputbox' placeholder={placeholder} {...form.fields.content}/>
       {form.fields.content.value
@@ -181,7 +188,7 @@ export const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form }) =>
   </div>
 )
 
-const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
+export const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
   <div id={!isSpeaker ? message._id : null}
     className={`ama-message-container ${isReply ? 'ama-message-container-reply' : ''}`}>
     <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={40} />

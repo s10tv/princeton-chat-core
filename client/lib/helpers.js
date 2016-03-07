@@ -51,7 +51,7 @@ export const createBoundAction = (description, payloadReducer, metaReducer) => {
 // In almost all cases use react-redux connect is a better choice
 export const composeWithRedux = (fn, L, E, options) => {
   const onPropsChange = (props, onData) => {
-    const store = props.context().store
+    const store = props.context.store
     onData(null, fn(props))
     return store.subscribe(() => {
       onData(null, fn(props))

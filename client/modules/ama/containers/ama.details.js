@@ -97,13 +97,14 @@ const composer = ({context, params: {amaPostId}}, onData) => {
 }
 
 const depsMapper = (context, actions) => ({
-  onSubmit: actions.amaMessages.askQuestion,
+  askQuestion: actions.amaMessages.askQuestion,
   showMenu: actions.amaHeader.fbShare,
   twitterShare: actions.amaHeader.twitterShare,
   reply: actions.amaMessages.reply,
   fbShareMessage: actions.amaMessages.fbShare,
   upVote: actions.amaMessages.upVote,
   toggleFeedFilter: actions.amaFeed.toggleFilter,
+  setReplyToPost: actions.amaMessages.setReplyToPost,
   store: context.store,
   context
 })
