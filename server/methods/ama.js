@@ -1,29 +1,65 @@
-export default function ({Meteor, OnboardManager, Collections, currentUser}) {
-  const {AmaMessages} = Collections
+import truncate from 'truncate'
+
+const TRUNCATE_LENGTH = 140
+
+export default function ({Meteor, Logger, OnboardManager, Collections, currentUser}) {
+  const {Users, AmaMessages, AmaActivities} = Collections
 
   Meteor.methods({
     'ama/askquestion' (info) {
-      console.log(info)
       const user = currentUser()
       const { content, amaPostId } = info
-      AmaMessages.insert({
+      const amaMessageId = AmaMessages.insert({
         amaPostId,
         content,
         ownerId: user._id,
         childrenMessageIds: [],
-        numUpvotes: 0
+        upvotedUsers: []
+      })
+
+      AmaActivities.insert({
+        amaPostId,
+        amaMessageId,
+        originatorUserId: user._id,
+        title: `${user.firstName} asked a question.`,
+        content: truncate(content, TRUNCATE_LENGTH)
       })
     },
 
     'ama/reply' ({ content, amaPostId, parentMessageId }) {
       const user = currentUser()
-      AmaMessages.insert({
+      const parentMessage = AmaMessages.findOne(parentMessageId)
+
+      const amaMessageId = AmaMessages.insert({
         amaPostId,
         content,
         parentMessageId,
         ownerId: user._id,
-        numUpvotes: 0,
-        childrenMessageIds: []
+        childrenMessageIds: [],
+        upvotedUsers: []
+      })
+
+      if (!parentMessage) {
+        Logger.log({level: 'info', method: 'ama/reply', message: 'No parentMessageId was found'})
+        return
+      }
+
+      const parentMessageUser = Users.findOne(parentMessage.ownerId)
+      if (!parentMessageUser) {
+        Logger.log({level: 'info', method: 'ama/reply',
+          message: `Parent message ${parentMessageId} has no owner`})
+        return
+      }
+
+      const parentMessageName = parentMessageUser._id === user._id ? 'their own'
+        : `${parentMessageUser.firstName}'s'`
+
+      AmaActivities.insert({
+        amaPostId,
+        amaMessageId,
+        originatorUserId: user._id,
+        title: `${user.firstName} replied to ${parentMessageName} post.`,
+        content: truncate(content, TRUNCATE_LENGTH)
       })
     },
 
@@ -37,6 +73,16 @@ export default function ({Meteor, OnboardManager, Collections, currentUser}) {
       AmaMessages.update(messageId, { $addToSet: {
         upvotedUsers: user._id
       }})
+
+      const messageType = message.parentMessageId === undefined ? 'question' : 'reply'
+
+      AmaActivities.insert({
+        amaPostId: message.amaPostId,
+        amaMessageId: message._id,
+        originatorUserId: user._id,
+        title: `${user.firstName} upvoted a ${messageType}.`,
+        content: truncate(message.content, TRUNCATE_LENGTH)
+      })
     }
   })
 }
