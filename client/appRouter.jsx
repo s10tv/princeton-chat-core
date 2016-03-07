@@ -1,5 +1,6 @@
 import React from 'react'
 import {Router, Route, IndexRoute, IndexRedirect} from 'react-router'
+import {injectDeps} from 'react-simple-di'
 // Core
 import LayoutMain from '/client/modules/core/containers/layout'
 import Inbox from '/client/modules/core/containers/inbox'
@@ -27,51 +28,54 @@ import {GroupChannel, AllPosts, Directory, PostDetails, GroupChannelAddMembers,
   TonyProfile, PoshakProfile, GuestToggleFollowing, PostSearch,
   requireAuth, requireNoAuth, redirectGuest, redeemInvite} from './configs/temp.jsx'
 
-export default ({context}) => (
-  <Router history={context.history}>
-    <Route path='tonyx' component={TonyProfile} />
-    <Route path='poshak' component={PoshakProfile} />
-    <Route path='/'>
-      <IndexRoute component={Home} onEnter={requireNoAuth(context)} />
-      <Route path='login' component={Login} />
-      <Route path='request-invite' component={RequestInvite} />
-      <Route path='invite/:inviteId' onEnter={redeemInvite(context)} />
-      <Route path='welcome' onEnter={requireAuth(context)}>
-        <Route path='signup' component={Signup} />
-        <Route path='enter-names' component={EnterNames} />
-        <Route path='subscribe-channels' component={SubscribeChannels} />
-        <Route path='invite-friends' component={InviteFriends} />
+export default (context, actions) => {
+  const RouterWithCtx = injectDeps(context, actions)(Router)
+  return (
+    <RouterWithCtx history={context.history}>
+      <Route path='tonyx' component={TonyProfile} />
+      <Route path='poshak' component={PoshakProfile} />
+      <Route path='/'>
+        <IndexRoute component={Home} onEnter={requireNoAuth(context)} />
+        <Route path='login' component={Login} />
+        <Route path='request-invite' component={RequestInvite} />
+        <Route path='invite/:inviteId' onEnter={redeemInvite(context)} />
+        <Route path='welcome' onEnter={requireAuth(context)}>
+          <Route path='signup' component={Signup} />
+          <Route path='enter-names' component={EnterNames} />
+          <Route path='subscribe-channels' component={SubscribeChannels} />
+          <Route path='invite-friends' component={InviteFriends} />
+        </Route>
+        <Route path='forgot-password'>
+          <IndexRoute component={ForgotPassword} />
+          <Route path='email-sent' component={ForgotPasswordSent} />
+          <Route path='success' component={ForgotPasswordSuccess} />
+          <Route path=':token' component={ForgotPasswordChange} />
+        </Route>
       </Route>
-      <Route path='forgot-password'>
-        <IndexRoute component={ForgotPassword} />
-        <Route path='email-sent' component={ForgotPasswordSent} />
-        <Route path='success' component={ForgotPasswordSuccess} />
-        <Route path=':token' component={ForgotPasswordChange} />
+      <Route path='/' component={LayoutMain} onEnter={requireAuth(context)}>
+        <Route path='inbox' component={Inbox} />
+        <Route path='settings' component={Settings} />
+        <Route path='explore' component={TopicList} />
+        <Route path='all' component={AllPosts} />
+        <Route path='search' component={PostSearch} />
+        <Route path='directory' component={Directory} />
+        <Route path='add-post' component={CreateNewPost} />
+        <Route path='channels/:channelId' component={GroupChannel} />
+        <Route path='channels/:channelId/add-subscribers' component={GroupChannelAddMembers} />
+        <Route path='channels/:channelId/:postId' component={PostDetails} />
       </Route>
-    </Route>
-    <Route path='/' component={LayoutMain} onEnter={requireAuth(context)}>
-      <Route path='inbox' component={Inbox} />
-      <Route path='settings' component={Settings} />
-      <Route path='explore' component={TopicList} />
-      <Route path='all' component={AllPosts} />
-      <Route path='search' component={PostSearch} />
-      <Route path='directory' component={Directory} />
-      <Route path='add-post' component={CreateNewPost} />
-      <Route path='channels/:channelId' component={GroupChannel} />
-      <Route path='channels/:channelId/add-subscribers' component={GroupChannelAddMembers} />
-      <Route path='channels/:channelId/:postId' component={PostDetails} />
-    </Route>
-    <Route path='/ama' component={LayoutMain}>
-      <Route path=':amaPostId' component={AmaDetails} />
-    </Route>
-    <Route path='/admin' component={LayoutMain} onEnter={requireAuth(context)}>
-      <IndexRedirect to='invite' />
-      <Route path='invite' component={AdminInvite} />
-    </Route>
-    <Route path='/guest'>
-      <IndexRoute onEnter={redirectGuest(context)} />
-      <Route path='posts/:postId/:action' component={GuestToggleFollowing} />
-    </Route>
-    <Route path='*' component={ErrorPage}/>
-  </Router>
-)
+      <Route path='/ama' component={LayoutMain}>
+        <Route path=':amaPostId' component={AmaDetails} />
+      </Route>
+      <Route path='/admin' component={LayoutMain} onEnter={requireAuth(context)}>
+        <IndexRedirect to='invite' />
+        <Route path='invite' component={AdminInvite} />
+      </Route>
+      <Route path='/guest'>
+        <IndexRoute onEnter={redirectGuest(context)} />
+        <Route path='posts/:postId/:action' component={GuestToggleFollowing} />
+      </Route>
+      <Route path='*' component={ErrorPage}/>
+    </RouterWithCtx>
+  )
+}

@@ -9,10 +9,8 @@ import onboarding from '/client/modules/onboarding'
 import WebFontLoader from 'webfontloader'
 import filepicker from 'filepicker-js'
 import {Meteor} from 'meteor/meteor'
-import {injectDeps} from 'react-simple-di'
 import {mount} from 'react-mounter'
-import AppRouter from './appRouter.jsx'
-import React from 'react'
+import initRouter from './appRouter.jsx'
 
 injectTapEventPlugin()
 localize()
@@ -26,10 +24,8 @@ app.loadModule(ama)
 app.loadModule(onboarding)
 
 app.init()
-mount(() => React.createElement(
-  injectDeps(app.context, app.actions)(AppRouter),
-  {context}
-))
+
+mount(() => initRouter(app.context, app.actions))
 
 WebFontLoader.load({
   google: {
