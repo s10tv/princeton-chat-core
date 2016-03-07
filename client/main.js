@@ -21,7 +21,7 @@ const app = createApp(context)
 app.loadModule(core)
 app.loadModule(admin)
 app.loadModule(ama)
-// app.loadModule(onboarding)
+app.loadModule(onboarding)
 
 WebFontLoader.load({
   google: {

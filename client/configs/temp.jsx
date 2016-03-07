@@ -4,6 +4,15 @@ import DirectorySearch from '/client/modules/core/containers/directory.search'
 import _PostDetails from '/client/modules/core/containers/post.details'
 import AddFollowers from '/client/modules/core/containers/add.followers'
 import ToggleFollowing from '/client/modules/core/containers/toggleFollowing'
+import Profile from '/client/modules/onboarding/components/profile.jsx'
+
+export const TonyProfile = () =>
+  <Profile displayName="Tony Xiao '12" firstName='Tony'
+    avatarUrl='https://s10tv.blob.core.windows.net/s10tv-prod/tonyxiao.jpg' />
+
+export const PoshakProfile = () =>
+  <Profile displayName="Poshak Agrawal '13" firstName='Poshak'
+    avatarUrl='http://graph.facebook.com/560625167/picture?type=large' />
 
 export const GroupChannel = ({params}) => (
   <PostList topicId={params.channelId} />
