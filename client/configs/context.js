@@ -1,5 +1,5 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
-import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
+import {routerMiddleware, routerReducer, syncHistoryWithStore} from 'react-router-redux'
 import {browserHistory} from 'react-router'
 import {responsiveStateReducer, responsiveStoreEnhancer} from 'redux-responsive'
 import {reducer as formReducer} from 'redux-form'
@@ -56,15 +56,23 @@ const createReduxStore = (modules, enableLogger) => {
     }
   }
 
-  const logger = enableLogger ? createLogger() : null
+  let middlewares = [routerMiddleware(browserHistory)]
+  if (enableLogger) {
+    middlewares.push(createLogger())
+  }
+
+  let enhancers = [
+    applyMiddleware(...middlewares),
+    responsiveStoreEnhancer
+  ]
+  if (typeof window === 'object' && window.devToolsExtension) {
+    // Install https://github.com/zalmoxisus/redux-devtools-extension for pure magic!
+    enhancers.push(window.devToolsExtension())
+  }
+
   return createStore(
     combineReducers(reducers),
-    compose(
-      logger ? applyMiddleware(logger) : (f) => f,
-      responsiveStoreEnhancer,
-      // Install https://github.com/zalmoxisus/redux-devtools-extension for pure magic!
-      typeof window === 'object' && window.devToolsExtension ? window.devToolsExtension() : (f) => f
-    )
+    compose(...enhancers)
   )
 }
 

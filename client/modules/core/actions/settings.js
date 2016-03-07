@@ -1,3 +1,4 @@
+import {push} from 'react-router-redux'
 import {createOnSubmit} from '/client/lib/helpers'
 import FilePickerService from '/client/lib/filepicker.service'
 
@@ -48,11 +49,10 @@ export default {
     })
   },
 
-  navigateToSettings ({LocalState, FlowRouter}) {
+  navigateToSettings ({LocalState, store}) {
     // if we were in mobile mode, and showing sidebar, hide sidebar now
     LocalState.set('SHOW_SIDE_BAR', false)
-
-    return FlowRouter.go('settings')
+    store.dispatch(push('/settings'))
   },
 
   showSettingsModal ({ LocalState }) {
