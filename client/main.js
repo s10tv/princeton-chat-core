@@ -10,7 +10,9 @@ import WebFontLoader from 'webfontloader'
 import filepicker from 'filepicker-js'
 import {Meteor} from 'meteor/meteor'
 import {injectDeps} from 'react-simple-di'
-import renderRoutes from './configs/renderRoutes.jsx'
+import {mount} from 'react-mounter'
+import AppRouter from './appRouter.jsx'
+import React from 'react'
 
 injectTapEventPlugin()
 localize()
@@ -23,6 +25,12 @@ app.loadModule(admin)
 app.loadModule(ama)
 app.loadModule(onboarding)
 
+app.init()
+mount(() => React.createElement(
+  injectDeps(app.context, app.actions)(AppRouter),
+  {context}
+))
+
 WebFontLoader.load({
   google: {
     families: [
@@ -33,7 +41,3 @@ WebFontLoader.load({
 })
 
 filepicker.setKey(Meteor.settings.public.filestackKey)
-
-app.init()
-const inject = injectDeps(app.context, app.actions)
-renderRoutes(inject, context)
