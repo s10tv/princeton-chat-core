@@ -31,12 +31,13 @@ function updateMentionedUsers (context, message) {
 }
 
 export default {
-  search ({FlowRouter}, searchTerm, isSearchingPeople) {
+  search ({history}, searchTerm, isSearchingPeople) {
     AmplitudeService.track('success/search')
     if (isSearchingPeople) {
-      return FlowRouter.go('directory-search', {}, { term: searchTerm })
+      return history.push('directory-search', {}, { term: searchTerm })
+    } else {
+      history.push('search', {}, { term: searchTerm })
     }
-    return FlowRouter.go('search', {}, { term: searchTerm })
   },
 
   parseAndFetchMentions (context, field, message) {

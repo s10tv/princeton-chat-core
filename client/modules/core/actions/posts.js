@@ -1,5 +1,4 @@
 import {createOnSubmit} from '/client/lib/helpers'
-import TopicActions from './topics.js'
 import AmplitudeService from '/client/lib/amplitude.service'
 
 export default {
@@ -9,9 +8,9 @@ export default {
     info._id = Meteor.uuid()
     info.topicIds = info.topicIds.split(',')
 
-    return createOnSubmit('post/insert', ({FlowRouter, LocalState}) => {
+    return createOnSubmit('post/insert', ({history}) => {
       AmplitudeService.track('success/post/create')
-      FlowRouter.go(`/topics/${info.topicIds[0]}/${info._id}`)
+      history.push(`/channels/${info.topicIds[0]}/${info._id}`)
     })(context, info)
   },
 
@@ -34,26 +33,6 @@ export default {
     LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', error)
   },
 
-  showAddPostPopup (context) {
-    let {FlowRouter, LocalState, store} = context
-    const currentRouterPath = FlowRouter.current().path
-
-    var currentTopic = ''
-    if (/topics\/.+/.test(currentRouterPath)) {
-      const splitted = currentRouterPath.split('/')
-      currentTopic = splitted[splitted.indexOf('topics') + 1]
-    }
-
-    store.dispatch({
-      type: 'ADD_POST_TOPICS',
-      topics: currentTopic
-    })
-    TopicActions.updateTopicFollowers(context, [currentTopic])
-    LocalState.set('SHOW_SIDE_BAR', false)
-    FlowRouter.go('add-post')
-    AmplitudeService.track('start/post/create')
-  },
-
   hasInteractedWithCreatePost ({ sweetalert, store }) {
     const form = store.getState().form['post/create']
     return form && ((form.title && form.title.value) || (form.content && form.content.value))
@@ -71,13 +50,13 @@ export default {
     Meteor.call('post/unfollow', postId)
   },
 
-  deletePost ({ Meteor, FlowRouter, LocalState }, postId) {
+  deletePost ({ Meteor, history, LocalState }, postId) {
     Meteor.call('post/delete', postId, (err, redirectTopicUrl) => {
       if (err) {
         return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
       }
 
-      FlowRouter.go(redirectTopicUrl)
+      history.push(redirectTopicUrl)
     })
   }
 }

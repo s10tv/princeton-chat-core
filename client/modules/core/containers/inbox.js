@@ -18,7 +18,7 @@ function reasonExtended ({type, postTitle}) {
 }
 
 const composer = ({context, term}, onData) => {
-  const {Meteor, Collections, UserService, FlowRouter} = context()
+  const {Meteor, Collections, UserService} = context()
   const {Notifications, Posts, Messages} = Collections
 
   if (Meteor.subscribe('inbox', term).ready()) {
@@ -52,8 +52,7 @@ const composer = ({context, term}, onData) => {
         displayName: 'My Inbox',
         cover: InboxCoverPhoto,
         followers: []
-      },
-      navigateToUrl: (url) => FlowRouter.go(url)
+      }
     })
   }
 }
@@ -61,6 +60,7 @@ const composer = ({context, term}, onData) => {
 const depsMapper = (context, actions) => ({
   archiveInboxItem: actions.inbox.archive,
   showUserProfile: actions.profile.showUserProfile,
+  navigateToUrl: actions.global.navigateTo,
   context: () => context
 })
 

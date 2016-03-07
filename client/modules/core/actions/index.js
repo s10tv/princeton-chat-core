@@ -28,6 +28,9 @@ export default {
         text: "We'd give you access and treat you with hot chocolate. We'd even wrap you in a warm blanket. We have one slight problem though. You're not logged in :c",
         title: 'Please log in first'
       })
+    },
+    navigateTo ({history}, path) {
+      history.push(path)
     }
   },
   sidebar: {

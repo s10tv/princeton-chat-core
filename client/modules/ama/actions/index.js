@@ -4,8 +4,9 @@ import {reset} from 'redux-form'
 
 export default {
   amaHeader: {
-    navigateBack ({FlowRouter}) {
+    navigateBack ({history}) {
       console.error(new Error('Not Implemented Yet'))
+      history.pop()
     },
     showMenu ({store}) {},
     fbShare ({Meteor}) {},

@@ -4,7 +4,7 @@ import AmplitudeService from '/client/lib/amplitude.service'
 import postFollowers from './postfollowers'
 
 export default {
-  createTopic ({Meteor, LocalState, FlowRouter}, topicInfo, shouldRedirect) {
+  createTopic ({Meteor, LocalState, history}, topicInfo, shouldRedirect) {
     Meteor.call('topic/create', topicInfo, (err, topicId) => {
       if (err) {
         return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
@@ -13,7 +13,7 @@ export default {
       AmplitudeService.track('success/topic/create')
       LocalState.set('SHOW_ADD_TOPIC_MODAL', false)
       if (shouldRedirect) {
-        FlowRouter.go(`/topics/${topicId}`)
+        history.push(`/channels/${topicId}`)
       }
     })
   },
@@ -39,39 +39,39 @@ export default {
     LocalState.set('ADD_TOPIC_MODAL_CURRENT_COVER_PHOTO', photo)
   },
 
-  removeTopic ({ Meteor, LocalState, FlowRouter }, topicId) {
+  removeTopic ({ Meteor, LocalState, history }, topicId) {
     Meteor.call('topic/remove', topicId, (err, res) => {
       if (err) {
         return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
       }
     })
 
-    FlowRouter.go('all-mine')
+    history.push('/')
   },
 
   // begin sidebar methods (to navigate to differnet topics)
-  navigateToTopic ({ FlowRouter, LocalState }, topicId) {
+  navigateToTopic ({ history, LocalState }, topicId) {
     // if we were in mobile mode, and showing sidebar, hide sidebar now
     LocalState.set('SHOW_SIDE_BAR', false)
 
-    return FlowRouter.go(`/topics/${topicId}`)
+    return history.push(`/channels/${topicId}`)
   },
-  navigateToTopicList ({ FlowRouter, LocalState }) {
+  navigateToTopicList ({ history, LocalState }) {
     // if we were in mobile mode, and showing sidebar, hide sidebar now
     LocalState.set('SHOW_SIDE_BAR', false)
 
-    return FlowRouter.go('choose-topics')
+    return history.push('/explore')
   },
-  navigateTo ({ FlowRouter, LocalState }, url) {
+  navigateTo ({ history, LocalState }, url) {
     // if we were in mobile mode, and showing sidebar, hide sidebar now
     LocalState.set('SHOW_SIDE_BAR', false)
 
-    return FlowRouter.go(url)
+    return history.push(url)
   },
 
-  navigateToAddFollowers ({ FlowRouter }, topicId) {
+  navigateToAddFollowers ({ history }, topicId) {
     AmplitudeService.track('start/topic/addfollowers')
-    return FlowRouter.go(`/add-followers/${topicId}`)
+    return history.push(`/channels/${topicId}/add-followers`)
   },
 
   updateTopicFollowers (context, topicIds) {
@@ -117,7 +117,7 @@ export default {
     })
   },
 
-  addNewUsers ({Meteor, LocalState, FlowRouter}, topicId, userInfos) {
+  addNewUsers ({Meteor, LocalState, history}, topicId, userInfos) {
     Meteor.call('topics/users/import', topicId, userInfos, (err) => {
       if (err) {
         return LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', err.reason)
@@ -125,7 +125,7 @@ export default {
 
       LocalState.set('SHOW_GLOBAL_SNACKBAR_WITH_STRING', 'Followers successfully added!')
       AmplitudeService.track('success/topic/addfollowers')
-      FlowRouter.go(`/topics/${topicId}`)
+      history.push(`/channels/${topicId}`)
     })
   },
 

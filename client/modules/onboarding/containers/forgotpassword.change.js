@@ -1,18 +1,19 @@
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
+import {useDeps, composeAll} from 'mantra-core'
 import ForgotPasswordChange from '../components/forgotpassword.change.jsx'
-import {PageLoader} from '/client/lib/ui.jsx'
 import {reduxForm} from 'redux-form'
 import {forgotPasswordChangeValidator} from '/lib/validation/onboarding'
 
 const formConfig = {
   form: 'forgot-password-change',
-  fields: ['newPassword', 'matchNewPassword'],
+  fields: ['newPassword', 'matchNewPassword', 'token'],
   validate: forgotPasswordChangeValidator
 }
 
-export const composer = ({context}, onData) => {
-  onData(null, {})
-}
+const mapStateToProps = (state, ownProps) => ({
+  initialValues: {
+    token: ownProps.params.token
+  }
+})
 
 const depsMapper = (context, actions) => ({
   onSubmit: actions.forgotPassword.reset,
@@ -21,7 +22,6 @@ const depsMapper = (context, actions) => ({
 })
 
 export default composeAll(
-  reduxForm(formConfig),
-  composeWithTracker(composer, PageLoader),
+  reduxForm(formConfig, mapStateToProps),
   useDeps(depsMapper)
 )(ForgotPasswordChange)

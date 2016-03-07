@@ -2,10 +2,10 @@ import {createOnSubmit} from '/client/lib/helpers'
 import FilePickerService from '/client/lib/filepicker.service'
 
 export default {
-  logout ({ LocalState, Meteor, FlowRouter }) {
+  logout ({ LocalState, Meteor, history }) {
     LocalState.set('SETTINGS_DIALOG_SHOWING', false) // first close this
     Meteor.logout(() => {
-      FlowRouter.go('onboarding-login')
+      history.push('/login')
     })
   },
 

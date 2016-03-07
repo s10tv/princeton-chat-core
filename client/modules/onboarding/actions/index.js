@@ -5,14 +5,6 @@ import UserService from '/lib/user.service'
 import { i18n } from '/client/configs/env'
 import AmplitudeService from '/client/lib/amplitude.service'
 
-export function redirectIfUrlFound (FlowRouter) {
-  if (FlowRouter.current().queryParams.ol) {
-    return FlowRouter.go(decodeURIComponent(FlowRouter.current().queryParams.ol))
-  }
-
-  return FlowRouter.go('all-mine')
-}
-
 export default {
   onboardingManualVerify: {
     submit: createOnSubmit('signup/verifyAffiliation', ({sweetalert}) => {
@@ -31,7 +23,7 @@ export default {
     })
   },
   onboardingLogin: {
-    loginWithFacebook ({Meteor, FlowRouter, sweetalert}) {
+    loginWithFacebook ({Meteor, history, sweetalert}) {
       Meteor.loginWithFacebook({}, (err) => {
         if (err) {
           return sweetalert({
@@ -41,10 +33,10 @@ export default {
           })
         }
         AmplitudeService.track('home/login', { type: 'facebook' })
-        return redirectIfUrlFound(FlowRouter)
+        history.push('/')
       })
     },
-    loginWithPassword ({Meteor, FlowRouter}, info) {
+    loginWithPassword ({Meteor, history}, info) {
       return new Promise((resolve, reject) => {
         Meteor.loginWithPassword(info.email, info.password, (err) => {
           if (err) {
@@ -53,18 +45,18 @@ export default {
           } else {
             resolve()
             AmplitudeService.track('home/login', { type: 'password' })
-            return redirectIfUrlFound(FlowRouter)
+            history.push('/')
           }
         })
       })
     }
   },
   onboardingSignup: {
-    createAccount: createOnSubmit('welcome/signup', ({ FlowRouter }) => {
+    createAccount: createOnSubmit('welcome/signup', ({ history }) => {
       AmplitudeService.track('onboarding/createAccount', { type: 'password' })
-      FlowRouter.go('onboarding-enter-names')
+      history.push('/welcome/enter-names')
     }),
-    linkWithFacebook ({Meteor, FlowRouter, sweetalert}) {
+    linkWithFacebook ({Meteor, history, sweetalert}) {
       Meteor.linkWithFacebook({}, (err) => {
         if (err) {
           return sweetalert({ title: 'Problem linking Facebook', text: err.message })
@@ -75,19 +67,19 @@ export default {
             return sweetalert({ title: 'Problem linking Facebook', text: err.reason })
           }
           AmplitudeService.track('onboarding/createAccount', { type: 'facebook' })
-          return FlowRouter.go('onboarding-enter-names')
+          history.push('/welcome/enter-names')
         })
       })
     }
   },
   onboardingEnterNames: {
-    submit: createOnSubmit('welcome/enternames', ({FlowRouter}) => {
+    submit: createOnSubmit('welcome/enternames', ({history}) => {
       AmplitudeService.track('onboarding/enternames')
-      FlowRouter.go('onboarding-subscribe-channels')
+      history.push('/welcome/subscribe-channels')
     })
   },
   onboardingSubscribeChannels: {
-    next ({FlowRouter, sweetalert, Meteor, LocalState}) {
+    next ({history, sweetalert, Meteor, LocalState}) {
       // TODO: extract this into context
       const currentUser = UserService.currentUser()
 
@@ -105,34 +97,32 @@ export default {
         }
         AmplitudeService.track('onboarding/subscribeToChannels',
           { numChannels: currentUser.followingTopics.length })
-        return FlowRouter.go('onboarding-invite-friends')
+        return history.push('/welcome/invite-friends')
       })
     }
   },
   onboardingInviteFriends: {
-    submit: createOnSubmit('welcome/invite', ({FlowRouter}, invitees) => {
+    submit: createOnSubmit('welcome/invite', ({history}, invitees) => {
       AmplitudeService.track('onboarding/inviteFriends', { numInvites: invitees.length })
-      FlowRouter.go('all-mine')
+      history.push('/')
     }),
-    skipForNow ({FlowRouter}) {
+    skipForNow ({history}) {
       AmplitudeService.track('onboarding/inviteFriends', { numInvites: 0 })
-      FlowRouter.go('all-mine')
+      history.push('/')
     }
   },
   forgotPassword: {
-    recover: createOnSubmit('welcome/forgotPassword', ({FlowRouter}) => {
-      FlowRouter.go('/forgot-password/email-sent')
+    recover: createOnSubmit('welcome/forgotPassword', ({history}) => {
+      history.push('/forgot-password/email-sent')
     }),
     reset: (context, data) => {
-      const {FlowRouter, Accounts} = context
-      const token = FlowRouter.current().params.token
-      const newPass = data.newPassword
-      const matchNewPass = data.matchNewPassword
+      const {history, Accounts} = context
+      const {token, newPassword, matchNewPassword} = data
       return new Promise((resolve, reject) => {
-        if (newPass !== matchNewPass) {
+        if (newPassword !== matchNewPassword) {
           reject({ _error: 'Passwords do not match!' })
         } else {
-          Accounts.resetPassword(token, matchNewPass, (err) => {
+          Accounts.resetPassword(token, newPassword, (err) => {
             if (err) {
               reject({
                 ...(typeof err.details === 'object' ? err.details : {}),
@@ -141,7 +131,7 @@ export default {
               console.error('Failure calling method welcome/resetPassword', err)
             } else {
               resolve()
-              FlowRouter.go('/forgot-password/success')
+              history.push('/forgot-password/success')
             }
           })
         }
