@@ -43,8 +43,6 @@ Menu.propTypes = {
    */
   topic: React.PropTypes.object,
 
-  isMobile: React.PropTypes.bool.isRequired,
-
   /**
    * Initial search box value
    */
@@ -89,7 +87,7 @@ var CoverPhotoMenu = (props) => (
       ? <Flex>
         <h1>
           <SearchBox initialSearchPeopleIcon={props.initialIsSearchingPeople}
-            isMobile={props.isMobile} currentSearchValue={props.currentSearchValue} />
+            currentSearchValue={props.currentSearchValue} />
         </h1>
       </Flex>
       : <Flex />}

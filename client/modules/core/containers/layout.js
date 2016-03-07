@@ -4,7 +4,7 @@ import Layout from '/client/modules/core/components/layout/layout.jsx'
 
 const mapStateToProps = (state) => ({
   sidebarOpen: state.core.sidebar.open,
-  isMobile: state.browser.lessThan.medium
+  sidebarDocked: state.browser.greaterThan.small
 })
 
 export const composer = ({Meteor}, onData) => {

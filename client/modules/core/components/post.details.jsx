@@ -51,7 +51,6 @@ export default React.createClass({
      * Func to delete post
      */
     deletePost: React.PropTypes.func.isRequired,
-    isMobile: React.PropTypes.bool.isRequired,
     messageLinkOnClick: React.PropTypes.func.isRequired
   },
 
@@ -71,6 +70,40 @@ export default React.createClass({
     this.setState({
       isOpen: false
     })
+  },
+
+  renderEditControls () {
+    return (
+      <div>
+        <FlatButton
+          label='Delete Post'
+          labelPosition='after'
+          icon={<FontIcon className='material-icons'>remove</FontIcon>}
+          onTouchTap={this.openConfirmation}
+          style={{width: '100%', marginTop: 10, color: '#E0E0E0'}}/>
+
+        <Dialog
+          title={'Are you sure?'}
+          modal={false}
+          open={this.state.isOpen}
+          actions={[
+            <FlatButton
+              label='Cancel'
+              style={{ color: '#E0E0E0' }}
+              onTouchTap={this.closeConfirmation} />,
+            <FlatButton
+              label='Delete'
+              style={{ color: '#F44336' }}
+              onTouchTap={() => this.props.deletePost(this.props.post._id)} />
+          ]}
+          onRequestClose={this.closeConfirmation}>
+          <p>
+          Deleting a post cannot be undone. Users who have already gotten notifications
+          will not be able to view this post.
+          </p>
+        </Dialog>
+      </div>
+    )
   },
 
   render () {
@@ -102,38 +135,7 @@ export default React.createClass({
                 )}
               </Flex>
             </Flex>
-            {!this.props.isPostDeletable || this.props.isMobile
-              ? null
-              : <div>
-                <FlatButton
-                  label='Delete Post'
-                  labelPosition='after'
-                  icon={<FontIcon className='material-icons'>remove</FontIcon>}
-                  onTouchTap={this.openConfirmation}
-                  style={{width: '100%', marginTop: 10, color: '#E0E0E0'}}/>
-
-                <Dialog
-                  title={'Are you sure?'}
-                  modal={false}
-                  open={this.state.isOpen}
-                  actions={[
-                    <FlatButton
-                      label='Cancel'
-                      style={{ color: '#E0E0E0' }}
-                      onTouchTap={this.closeConfirmation} />,
-                    <FlatButton
-                      label='Delete'
-                      style={{ color: '#F44336' }}
-                      onTouchTap={() => this.props.deletePost(this.props.post._id)} />
-                  ]}
-                  onRequestClose={this.closeConfirmation}>
-                  <p>
-                  Deleting a post cannot be undone. Users who have already gotten notifications
-                  will not be able to view this post.
-                  </p>
-                </Dialog>
-              </div>
-            }
+            {!this.props.isPostDeletable ? null : this.renderEditControls()}
           </Flex>
         </NavBar>
         <ScrollingContainer child={

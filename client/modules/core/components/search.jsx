@@ -153,9 +153,7 @@ const FocusedTextField = React.createClass({
         <TextField
           ref='searchbox'
           hintStyle={s.text}
-          style={Object.assign({}, s.text, !this.props.isMobile ? {} : {
-            width: 150
-          })}
+          style={{width: 150, ...s.text}}
           onFocus={this.props.trackTextFieldFocus}
           inputStyle={Object.assign({}, s.text, s.textFocus)}
           underlineFocusStyle={{borderColor: accent1Color}}

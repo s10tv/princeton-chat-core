@@ -11,7 +11,7 @@ import AmplitudeService from '/client/lib/amplitude.service'
 
 const NUM_MAX_DISPLAY_FOLLOWERS = 3
 
-export function processPost ({UserService, Collections}, post, topicId = null, isMobile = false) {
+export function processPost ({UserService, Collections}, post, topicId = null) {
   const currentUser = UserService.currentUser()
 
   const followerAvatars = post.followers.map((follower) => {
@@ -33,7 +33,7 @@ export function processPost ({UserService, Collections}, post, topicId = null, i
 
   return Object.assign({}, post, {
     owner: UserService.getUserView(Collections.Users.findOne(post.ownerId)),
-    topics: topics.length > 1 && isMobile ? topics[0] : topics,
+    topics,
     timestamp: DateFormatter.format(post),
     truncatedContent: truncate(post.content, 300),
     numFollowers: post.followers.length,
@@ -50,7 +50,7 @@ export function processPost ({UserService, Collections}, post, topicId = null, i
   })
 }
 
-export const composer = ({context, topicId, term, postListType, rightbarOpen, isMobile}, onData) => {
+export const composer = ({context, topicId, term, postListType, rightbarOpen}, onData) => {
   const {Meteor, Collections} = context()
   const currentUser = UserService.currentUser()
 
@@ -107,7 +107,7 @@ export const composer = ({context, topicId, term, postListType, rightbarOpen, is
       _id: { $in: topic.followers.map((follower) => follower.userId) }
     }).map((user) => UserService.getUserView(user))
     const posts = Collections.Posts.find(options, {sort: { createdAt: -1 }}).map((post) => {
-      return processPost(context(), post, topicId, isMobile)
+      return processPost(context(), post, topicId)
     })
 
     const isMyTopic = isTopicAdmin(currentUser, topic)

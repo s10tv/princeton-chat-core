@@ -21,7 +21,6 @@ Main.childContextTypes = {
 }
 Main.propTypes = {
   backgroundUrl: PropTypes.string,
-  isMobile: React.PropTypes.bool,
   children: React.PropTypes.node
 }
 

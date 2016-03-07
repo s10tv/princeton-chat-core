@@ -46,7 +46,6 @@ export default React.createClass({
      * True if this modal is showing.
      */
     isOpen: React.PropTypes.bool,
-    isMobile: React.PropTypes.bool,
 
     handleOldPasswordChange: React.PropTypes.func,
     handleNewPasswordChange: React.PropTypes.func,

@@ -63,7 +63,6 @@ export default React.createClass({
     error: React.PropTypes.string,
     submitting: React.PropTypes.bool,
     createPostTopicWrapper: React.PropTypes.object.isRequired,
-    isMobile: React.PropTypes.bool.isRequired,
     parseAndFetchMentions: React.PropTypes.func.isRequired,
     replaceWithMention: React.PropTypes.func.isRequired,
     clearMentions: React.PropTypes.func.isRequired,
@@ -158,9 +157,8 @@ export default React.createClass({
                   marginTop: 15,
                   marginBottom: 0
                 }}>{error}</p>}
-
-                <Flex flexDirection={this.props.isMobile ? 'column' : 'row'}
-                  justifyContent={this.props.isMobile ? 'center' : 'space-between'}
+                {/* Check how well the following work on mobile, should use css to fix */}
+                <Flex flexDirection='row' justifyContent='space-between'
                   alignItems='center' marginTop={15} flexWrap='wrap'>
                   {!this.props.fields.topicIds ? <Flex />
                     : <a href='#' onClick={showTopicFollowers} style={{
@@ -169,14 +167,7 @@ export default React.createClass({
                       {numFollowersNotified} people will be notified
                     </a>}
 
-                  <RaisedButton
-                    label='Post'
-                    type='submit'
-                    style={Object.assign({
-                      width: 200
-                    }, this.props.isMobile && { marginTop: 10 })}
-                    primary
-                    disabled={submitting} />
+                  <RaisedButton label='Post' type='submit' style={{width: 200}} primary disabled={submitting} />
                 </Flex>
               </Flex>
             </form>
