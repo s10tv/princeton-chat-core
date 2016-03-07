@@ -1,5 +1,5 @@
 import React from 'react'
-import {Router, Route, IndexRoute, IndexRedirect, Redirect} from 'react-router'
+import {Router, Route, IndexRoute, IndexRedirect} from 'react-router'
 import {mount} from 'react-mounter'
 // Core
 import LayoutMain from '/client/modules/core/containers/layout'
@@ -9,8 +9,8 @@ import TopicList from '/client/modules/core/containers/topic.list'
 import ErrorPage from '/client/modules/core/components/error.jsx'
 import CreateNewPost from '/client/modules/core/containers/post.create'
 import {GroupChannel, AllPosts, Directory, PostDetails, GroupChannelAddMembers,
-  TonyProfile, PoshakProfile,
-  GuestToggleFollowing, PostSearch, requireAuth, redirectGuest} from './temp.jsx'
+  TonyProfile, PoshakProfile, GuestToggleFollowing, PostSearch,
+  requireAuth, redirectGuest, redeemInvite} from './temp.jsx'
   // AMA
 import AdminInvite from '/client/modules/admin/containers/admin.invite'
 import AmaDetails from '/client/modules/ama/containers/ama.details'
@@ -27,7 +27,8 @@ import ForgotPassword from '/client/modules/onboarding/containers/forgotpassword
 import ForgotPasswordSuccess from '/client/modules/onboarding/containers/forgotpassword.success'
 import EnterNames from '/client/modules/onboarding/containers/name'
 
-export default function (injectDeps, {Meteor, history}) {
+export default function (injectDeps, context) {
+  const {Meteor, history} = context
   const App = () => (
     <Router history={history}>
       <Route path='tonyx' component={TonyProfile} />
@@ -35,7 +36,8 @@ export default function (injectDeps, {Meteor, history}) {
       <Route path='/'>
         <Route path='login' component={Login} />
         <Route path='request-invite' component={RequestInvite} />
-        <Route path='welcome'>
+        <Route path='invite/:inviteId' onEnter={redeemInvite(context)} />
+        <Route path='welcome' onEnter={requireAuth(Meteor)}>
           <Route path='signup' component={Signup} />
           <Route path='enter-names' component={EnterNames} />
           <Route path='subscribe-channels' component={SubscribeChannels} />

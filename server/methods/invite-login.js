@@ -35,6 +35,7 @@ export default function (context) {
 
       return { userId }
     }
+    // TODO: Return better error
 
     return undefined
   })

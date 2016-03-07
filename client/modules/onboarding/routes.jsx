@@ -22,27 +22,4 @@ export default function (injectDeps, {Meteor, FlowRouter, Accounts, sweetalert})
       mount(injectDeps(Home))
     }
   })
-  FlowRouter.route('/invite/:inviteId', {
-    name: 'onboarding-redeem-invite',
-    action ({ inviteId }) {
-      Accounts.callLoginMethod({
-        methodArguments: [{ invite: inviteId }],
-        userCallback: (err) => {
-          if (err) {
-            sweetalert({
-              title: 'Invalid Invite',
-              text: 'Seems like your invite code is invalid or has already expired.\n' +
-                'If retrying the invite link still doesn\'t work, please reply to the invite\n' +
-                'email and we will investigate it.'
-            }, () => {
-              FlowRouter.go('onboarding-login')
-            })
-          } else {
-            AmplitudeService.setUpAfterSignup({Meteor})
-            FlowRouter.go('onboarding-signup')
-          }
-        }
-      })
-    }
-  })
 }

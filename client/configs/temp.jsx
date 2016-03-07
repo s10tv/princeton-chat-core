@@ -5,6 +5,7 @@ import _PostDetails from '/client/modules/core/containers/post.details'
 import AddFollowers from '/client/modules/core/containers/add.followers'
 import ToggleFollowing from '/client/modules/core/containers/toggleFollowing'
 import Profile from '/client/modules/onboarding/components/profile.jsx'
+import AmplitudeService from '/client/lib/amplitude.service'
 
 export const TonyProfile = () =>
   <Profile displayName="Tony Xiao '12" firstName='Tony'
@@ -77,5 +78,30 @@ export function redirectGuest (Meteor) {
     } else {
       replace({ pathname: '/login' })
     }
+  }
+}
+
+export function redeemInvite ({Accounts, sweetalert, Meteor}) {
+  return (nextState, replace, callback) => {
+    Accounts.callLoginMethod({
+      methodArguments: [{ invite: nextState.params.inviteId }],
+      userCallback: (err) => {
+        if (err) {
+          sweetalert({
+            title: 'Invalid Invite',
+            text: 'Seems like your invite code is invalid or has already expired.\n' +
+              'If retrying the invite link still doesn\'t work, please reply to the invite\n' +
+              'email and we will investigate it.'
+          }, () => {
+            replace('/login')
+            callback()
+          })
+        } else {
+          AmplitudeService.setUpAfterSignup({Meteor})
+          replace('/welcome/signup')
+          callback()
+        }
+      }
+    })
   }
 }
