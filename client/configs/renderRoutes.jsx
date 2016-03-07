@@ -1,6 +1,6 @@
-import {Router, Route, browserHistory, IndexRoute, Redirect} from 'react-router'
-import {mount} from 'react-mounter'
 import React from 'react'
+import {Router, Route, browserHistory, IndexRoute, IndexRedirect, Redirect} from 'react-router'
+import {mount} from 'react-mounter'
 import LayoutMain from '/client/modules/core/containers/layout'
 import Inbox from '/client/modules/core/containers/inbox'
 import Settings from '/client/modules/core/containers/settings'
@@ -8,33 +8,8 @@ import TopicList from '/client/modules/core/containers/topic.list'
 import ErrorPage from '/client/modules/core/components/error.jsx'
 import CreateNewPost from '/client/modules/core/containers/post.create'
 import {GroupChannel, AllPosts, Directory, PostDetails, GroupChannelAddMembers,
-  PostSearch} from '/client/modules/core/containers/temp.jsx'
-import ToggleFollowing from '/client/modules/core/containers/toggleFollowing'
-
-const GuestToggleFollowing = ({params}) => (
-  <ToggleFollowing postId={params.postId} action={params.action} />
-)
-
-function requireAuth (Meteor) {
-  return (nextState, replace) => {
-    if (!Meteor.userId()) {
-      replace({
-        pathname: '/login',
-        state: { nextPathname: nextState.location.pathname }
-      })
-    }
-  }
-}
-
-function redirectGuest (Meteor) {
-  return (nextState, replace) => {
-    if (!Meteor.userId()) {
-      replace({ pathname: '/explore' })
-    } else {
-      replace({ pathname: '/login' })
-    }
-  }
-}
+  GuestToggleFollowing, PostSearch, requireAuth, redirectGuest} from './temp.jsx'
+import AdminInvite from '/client/modules/admin/containers/admin.invite'
 
 export default function (injectDeps, {Meteor}) {
   const App = () => (
@@ -52,6 +27,10 @@ export default function (injectDeps, {Meteor}) {
         <Route path='channels/:channelId/add-subscribers' component={GroupChannelAddMembers} />
         <Route path='channels/:channelId/:postId' component={PostDetails} />
       </Route>
+      <Route path='/admin' component={LayoutMain} onEnter={requireAuth(Meteor)}>
+        <IndexRedirect to='invite' />
+        <Route path='invite' component={AdminInvite} />
+      </Route>
       <Route path='/guest'>
         <IndexRoute onEnter={redirectGuest(Meteor)} />
         <Route path='posts/:postId/:action' component={GuestToggleFollowing} />
@@ -61,7 +40,5 @@ export default function (injectDeps, {Meteor}) {
   )
   const AppWithCtx = injectDeps(App)
 
-  mount(() => (
-    <AppWithCtx />
-  ))
+  mount(() => <AppWithCtx />)
 }
