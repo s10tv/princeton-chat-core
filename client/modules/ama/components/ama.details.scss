@@ -216,8 +216,9 @@ $header-height: 240px;
   justify-content: center;
   max-width: 900px;
   padding: $spacing-x2;
-  background-color: $gray-lighter;
+  background-color: $gray-lightest;
   border-radius: 5px;
+  border: 1px solid $gray-lighter;
 
   .ama-inputbox-form {
     display: flex;

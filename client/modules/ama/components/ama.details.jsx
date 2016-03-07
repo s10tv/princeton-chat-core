@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+import ReactDOM from 'react-dom'
 import {imageShape, userShape} from '/client/lib/shapes'
 import Radium, {StyleRoot} from 'radium'
 import moment from 'moment'
@@ -26,7 +27,7 @@ class AMADetails extends React.Component {
           <div className='ama-main'>
             <Header {...this.props} />
             <div className='ama-content'>
-              <AmaMain {...this.props} />
+              <AmaMain {...this.props} scrollToBottom={this.scrollToBottom} />
               <AmaActivities {...this.props} />
             </div>
           </div>
@@ -143,7 +144,8 @@ const AmaMain = (props) => {
         <span className='top-label'>Top v</span>
       </div>
       <PostMessage currentUser={props.currentUser}
-        speaker={props.speaker} introText={props.introText} form={form} />
+        speaker={props.speaker} introText={props.introText} form={form}
+        scrollToBottom={props.scrollToBottom} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
       {props.messages.map((message) =>
@@ -172,7 +174,9 @@ export const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form }) =>
     <form className='ama-inputbox-form' onSubmit={form.handleSubmit}>
       <TextareaAutosize type='text' minRows={1} maxRows={5}
         className='form-control ama-inputbox' placeholder={placeholder} {...form.fields.content}/>
-      <button type='submit' className='btn btn-primary ama-inputbox-submit'>Submit</button>
+      {form.fields.content.value
+        ? <button type='submit' className='btn btn-primary ama-inputbox-submit'>Submit</button>
+        : null}
     </form>
   </div>
 )
