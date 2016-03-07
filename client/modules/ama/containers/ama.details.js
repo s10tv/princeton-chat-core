@@ -25,7 +25,7 @@ const processMessages = (context, messages) => {
     })
   })
 
-  const groupedBy = _.groupBy(messages, 'parentMessageId')
+  const groupedBy = _.groupBy(processedMessages, 'parentMessageId')
 
   return processedMessages.filter((message) => message.parentMessageId === undefined)
   .map((message) => {
