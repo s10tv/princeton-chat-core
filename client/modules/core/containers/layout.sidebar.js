@@ -11,11 +11,9 @@ const mapStateToProps = (state) => ({
 })
 
 export const composer = ({context}, onData) => {
-  const {Meteor, Collections, FlowRouter} = context()
+  const {Meteor, Collections} = context()
   if (Meteor.subscribe('topics').ready()) {
     const user = UserService.currentUser()
-
-    const currentRouterPath = '' //FlowRouter.current().path
 
     if (user) {
       const followedTopics = user ? Collections.Topics.find({
@@ -27,9 +25,7 @@ export const composer = ({context}, onData) => {
       onData(null, {
         user,
         isFullAdmin,
-        followedTopics,
-        // FlowRouter,
-        currentRouterPath
+        followedTopics
       })
     }
   }

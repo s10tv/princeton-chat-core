@@ -41,7 +41,6 @@ Sidebar.propTypes = {
   user: React.PropTypes.object.isRequired,
   onLogout: React.PropTypes.func.isRequired,
   followedTopics: React.PropTypes.array.isRequired,
-  currentRouterPath: React.PropTypes.string.isRequired,
   onTapSettings: React.PropTypes.func.isRequired,
   isFullAdmin: React.PropTypes.bool.isRequired
 }
