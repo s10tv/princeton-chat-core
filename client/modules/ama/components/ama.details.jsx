@@ -9,6 +9,16 @@ import TextareaAutosize from 'react-textarea-autosize'
 import Divider from 'material-ui/lib/divider'
 
 class AMADetails extends React.Component {
+
+  // temporary
+  componentWillMount () {
+    document.body.style.overflow = 'auto'
+  }
+
+  componentWillUnmount () {
+    document.body.style.overflow = 'hidden'
+  }
+
   render () {
     console.log(this.props)
     return (
@@ -190,10 +200,6 @@ const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
       {children}
     </div>
   </div>
-)
-
-const HighlightedTextBox = ({ text }) => (
-  <span className='ama-highlighted-textbox'>{text}</span>
 )
 
 const AmaActivities = (props) => (
