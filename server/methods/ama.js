@@ -29,7 +29,6 @@ export default function ({Meteor, Logger, OnboardManager, Collections, currentUs
     'ama/reply' ({ content, amaPostId, parentMessageId }) {
       const user = currentUser()
       const parentMessage = AmaMessages.findOne(parentMessageId)
-
       const amaMessageId = AmaMessages.insert({
         amaPostId,
         content,

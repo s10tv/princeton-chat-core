@@ -7,7 +7,7 @@ import {reduxForm} from 'redux-form'
 
 export const askQuestionFormConfig = {
   form: AMA_ASK_QUESTION_FORM_NAME,
-  fields: ['content'],
+  fields: ['content', 'amaPostId'],
   validate: amaMessageValidator
 }
 
@@ -87,7 +87,10 @@ const composer = ({context, params: {amaPostId}}, onData) => {
       currentUser,
       activities,
       messages,
-      speakerisTyping: amaPost.speakerisTyping
+      speakerisTyping: amaPost.speakerisTyping,
+      initialValues: {
+        amaPostId: amaPostId
+      }
     }))
   }
 }

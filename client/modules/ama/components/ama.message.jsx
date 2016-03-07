@@ -3,16 +3,26 @@ import moment from 'moment'
 import {AvatarInputBox} from './ama.details.jsx'
 import {UserAvatar} from '/client/lib/helpers.jsx'
 
-export const Message = ({ currentUser, message, isReply, upVote, form }) => (
-  <MessageContainer message={message} user={message.owner} isReply={isReply}>
-    <MessageFooter message={message} upVote={upVote} />
+export const Message = ({ currentUser, message, isReply, upVote, fields, handleSubmit,
+  submitting, error }) => {
+  const form = {
+    handleSubmit,
+    submitting,
+    error,
+    fields
+  }
 
-    <AvatarInputBox avatar={currentUser.avatar}
-      avatarInitials={currentUser.avatarInitials}
-      placeholder={`Ask ${currentUser.displayName} a question...`}
-      form={form} />
-  </MessageContainer>
-)
+  return (
+    <MessageContainer message={message} user={message.owner} isReply={isReply}>
+      <MessageFooter message={message} upVote={upVote} />
+
+      <AvatarInputBox avatar={currentUser.avatar}
+        avatarInitials={currentUser.avatarInitials}
+        placeholder={`Ask ${currentUser.displayName} a question...`}
+        form={form} />
+    </MessageContainer>
+  )
+}
 
 const MessageFooter = ({ message, upVote }) => (
   <div className='ama-message-footer'>

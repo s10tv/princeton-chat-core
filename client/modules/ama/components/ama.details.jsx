@@ -20,7 +20,6 @@ class AMADetails extends React.Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <StyleRoot>
         <div className='ama-page-wrapper'>
@@ -143,28 +142,25 @@ const AmaMain = (props) => {
         <span className='top-label'>Discussion</span>
         <span className='top-label'>Top v</span>
       </div>
-      <PostMessage speaker={props.speaker} introText={props.introText} form={{
-        handleSubmit: props.handleSubmit,
-        submitting: props.submitting,
-        error: props.error,
-        fields: props.fields
-      }} />
+      <PostMessage currentUser={props.currentUser}
+        speaker={props.speaker} introText={props.introText} form={form} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
       {props.messages.map((message) =>
         <div key={message._id}>
-          <Message message={message} {...props} form={form} />
+          <Message message={message} currentUser={props.currentUser}
+            amaPostId={props.params.amaPostId} />
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
-            isReply form={form} {...props} />)}
+            isReply currentUser={props.currentUser} amaPostId={props.params.amaPostId} />)}
         </div>
       )}
     </div>
   )
 }
 
-const PostMessage = ({ speaker, introText, form }) => (
+const PostMessage = ({ currentUser, speaker, introText, form }) => (
   <MessageContainer message={{content: introText}} user={speaker} isSpeaker>
-    <AvatarInputBox avatar={speaker.avatar} avatarInitials={speaker.avatarInitials}
+    <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
       form={form} />
   </MessageContainer>

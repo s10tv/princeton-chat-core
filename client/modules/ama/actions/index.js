@@ -13,18 +13,13 @@ export default {
   },
   amaMessages: {
     askQuestion (context, info) {
-      console.log('calling askQuestion', info)
-      const {FlowRouter} = context
       return createOnSubmit('ama/askquestion', ({store}) => {
         return store.dispatch(reset(AMA_ASK_QUESTION_FORM_NAME))
-      })(context, Object.assign({}, info, {
-        amaPostId: FlowRouter.current().params.amaPostId
-      }))
+      })(context, info)
     },
-    reply (context, event, info) {
-      const {FlowRouter, store} = context
+    reply (context, info) {
+      const {store} = context
       return createOnSubmit('ama/reply')(context, Object.assign({}, info, {
-        amaPostId: FlowRouter.current().params.amaPostId,
         parentMessageId: store.getState().ama.replyingToPostId
       }))
     },
