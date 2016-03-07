@@ -4,6 +4,9 @@ import FontIcon from 'material-ui/lib/font-icon'
 import SidebarHeader from './sidebarHeader.jsx'
 import {Link} from 'react-router'
 
+const NavLink = (props) =>
+  <Link activeClassName='active' {...props} />
+
 const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, toggleMenu, menuOpen}) => (
   <div className='sidebar-inner'>
     <SidebarHeader
@@ -18,17 +21,17 @@ const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, to
       </FontIcon>
     </RaisedButton>
     <ul className='medium'>
-      {!isFullAdmin ? null : <li><Link to='/admin/invite'>Admin</Link></li>}
-      <li><Link to='/inbox'>My Inbox</Link></li>
-      <li><Link to='/all'>All</Link></li>
-      <li><Link to='/explore'>Explore Channels</Link></li>
+      {!isFullAdmin ? null : <li><NavLink to='/admin/invite'>Admin</NavLink></li>}
+      <li><NavLink to='/inbox'>My Inbox</NavLink></li>
+      <li><NavLink to='/all'>All</NavLink></li>
+      <li><NavLink to='/explore'>Explore Channels</NavLink></li>
     </ul>
     <h3>CHANNELS</h3>
     <ul>
-      <li><Link to='/ama/qimingama'># AMA</Link></li>
+      <li><NavLink to='/ama/qimingama'># AMA</NavLink></li>
       {followedTopics.map((topic) =>
         <li key={topic._id}>
-          <Link to={`/channels/${topic._id}`}>{`# ${topic.displayName}`}</Link>
+          <NavLink to={`/channels/${topic._id}`}>{`# ${topic.displayName}`}</NavLink>
         </li>
       )}
     </ul>

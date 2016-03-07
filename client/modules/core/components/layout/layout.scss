@@ -1,6 +1,14 @@
 .sidebar {
   position: relative;
   overflow: scroll;
+  
+  a:hover, a:focus {
+    color: white;
+    outline: none;
+  }
+  .active {
+    background-color: orange; // TODO: Make this better
+  }
 }
 
 .content {
