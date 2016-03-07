@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react'
 import {imageShape, userShape} from '/client/lib/shapes'
 import Radium, {StyleRoot} from 'radium'
-import {FontIcon} from '/client/lib/ui.jsx'
 import moment from 'moment'
 import {UserAvatar} from '/client/lib/helpers.jsx'
 import {spacing} from '/client/configs/theme'

@@ -81,6 +81,7 @@
     "react-mounter": "1.1.0",
     "react-redux": "4.4.0",
     "react-router": "^2.0.0",
+    "react-router-redux": "^4.0.0",
     "react-select": "0.9.1",
     "react-selectize": "0.8.1",
     "react-styling": "1.4.0",

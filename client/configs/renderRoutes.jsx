@@ -1,5 +1,5 @@
 import React from 'react'
-import {Router, Route, browserHistory, IndexRoute, IndexRedirect, Redirect} from 'react-router'
+import {Router, Route, IndexRoute, IndexRedirect, Redirect} from 'react-router'
 import {mount} from 'react-mounter'
 import LayoutMain from '/client/modules/core/containers/layout'
 import Inbox from '/client/modules/core/containers/inbox'
@@ -12,9 +12,9 @@ import {GroupChannel, AllPosts, Directory, PostDetails, GroupChannelAddMembers,
 import AdminInvite from '/client/modules/admin/containers/admin.invite'
 import AmaDetails from '/client/modules/ama/containers/ama.details'
 
-export default function (injectDeps, {Meteor}) {
+export default function (injectDeps, {Meteor, history}) {
   const App = () => (
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Route path='/' component={LayoutMain} onEnter={requireAuth(Meteor)}>
         <IndexRoute component={Inbox} />
         <Redirect from='inbox' to='/' />

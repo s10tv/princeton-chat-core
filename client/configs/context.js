@@ -1,4 +1,6 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
+import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
+import {browserHistory} from 'react-router'
 import {responsiveStateReducer, responsiveStoreEnhancer} from 'redux-responsive'
 import {reducer as formReducer} from 'redux-form'
 import createLogger from 'redux-logger'
@@ -43,7 +45,8 @@ const createReduxStore = (modules, enableLogger) => {
   // for use with redux store
   let reducers = {
     form: formReducer.normalize(formNormalizers),
-    browser: responsiveStateReducer
+    browser: responsiveStateReducer,
+    routing: routerReducer
   }
   for (const name of Object.keys(modules)) {
     invariant(!reducers[name], `Module of name '${name}' already exists`)
@@ -67,18 +70,20 @@ const createReduxStore = (modules, enableLogger) => {
 
 export function initContext (modules = {}) {
   const {settings: {public: settings}} = Meteor
+  const store = createReduxStore(modules, settings.enableReduxLogger)
   return {
     Meteor,
     Collections,
     Tracker,
     Accounts,
+    history: syncHistoryWithStore(browserHistory, store),
     sweetalert,
     UserService,
     DateFormatter,
     MentionParser: new MentionParser(Collections),
     currentUser: Meteor.user(),
     LocalState: new ReactiveDict(),
-    store: createReduxStore(modules, settings.enableReduxLogger),
+    store: store,
     audience: Meteor.settings.public.audience,
     settings
   }
