@@ -4,10 +4,14 @@ import AvatarInputBox from '../containers/ama.avatarinputbox.js'
 import {AMA_REPLY_FORM_NAME} from '/client/configs/constants'
 
 export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
-  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted, amaPostId}) => {
+  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted, amaPostId, fbShare}) => {
   return (
     <MessageContainer message={message} user={message.owner} isReply={isReply}>
-      <MessageFooter isUpvoted={isUpvoted} message={message} upVote={upVote} openReplyBox={openReplyBox} />
+      <MessageFooter isUpvoted={isUpvoted}
+        message={message}
+        upVote={upVote}
+        fbShare={fbShare}
+        openReplyBox={openReplyBox} />
 
       {!isReplyBoxOpen
         ? null
@@ -24,7 +28,7 @@ export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
   )
 }
 
-const MessageFooter = ({ message, upVote, isUpvoted, openReplyBox }) => (
+const MessageFooter = ({ message, upVote, isUpvoted, openReplyBox, fbShare }) => (
   <div className='ama-message-footer'>
     <a className={`footer-component${isUpvoted ? ' upvoted' : ''}`} onClick={(event) => {
       event.preventDefault()
@@ -37,7 +41,7 @@ const MessageFooter = ({ message, upVote, isUpvoted, openReplyBox }) => (
       <i className='fa fa-reply footer-icon' />
       <span className='footer-text'>Reply</span>
     </a>
-    <a className='footer-component'>
+    <a className='footer-component' onClick={fbShare}>
       <i className='fa fa-facebook footer-icon' />
       <span className='footer-text'>Share</span>
     </a>

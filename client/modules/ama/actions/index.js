@@ -1,3 +1,6 @@
+/**
+ * global window
+ */
 import {createOnSubmit} from '/client/lib/helpers'
 import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME, AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
   AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING,
@@ -13,8 +16,16 @@ export default {
       history.pop()
     },
     showMenu ({store}) {},
-    fbShare ({Meteor}) {},
-    twitterShare ({Meteor}) {}
+    fbShare ({Meteor}, event) {
+      event.preventDefault()
+      window.open('http://www.facebook.com/sharer.php?src=sp&u=https%3A%2F%2Fprinceton.chat/',
+        'newwindow', 'width=600, height=480')
+    },
+    twitterShare ({Meteor}, event, title) {
+      event.preventDefault()
+      window.open(`http://twitter.com/intent/tweet?text=Tuning+in+to+@princetonchat+Ask+Me+Anything:+${title}`,
+        'newwindow', 'width=600, height=480')
+    }
   },
   amaMessages: {
     askQuestion (context, info) {

@@ -83,8 +83,8 @@ AMADetails.propTypes = {
   askQuestion: PropTypes.func.isRequired,
   showMenu: PropTypes.func.isRequired,
   twitterShare: PropTypes.func.isRequired,
+  fbShare: PropTypes.func.isRequired,
   reply: PropTypes.func.isRequired,
-  fbShareMessage: PropTypes.func.isRequired,
   toggleFeedFilter: PropTypes.func.isRequired
 }
 
@@ -118,10 +118,11 @@ const HeaderOverlay = (props) => {
       <div className='overlay-row'>
         <span className='overlay-row-label'>Share</span>
         <div className='overlay-content-row share-buttons-row'>
-          <button type='button' className='btn btn-twitter ama-button-share'>
+          <button type='button' className='btn btn-twitter ama-button-share'
+            onClick={(event) => props.twitterShare(event, props.title)}>
             <i className='fa fa-twitter fa-lg'/>
           </button>
-          <button type='button' className='btn btn-facebook ama-button-share'>
+          <button type='button' className='btn btn-facebook ama-button-share' onClick={props.fbShare}>
             <i className='fa fa-facebook fa-lg'/>
           </button>
         </div>
@@ -165,10 +166,14 @@ const AmaMain = (props) => {
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
       {props.messages.map((message) =>
         <div key={message._id}>
-          <Message message={message} currentUser={props.currentUser}
-            amaPostId={props.params.amaPostId} />
+          <Message message={message}
+            currentUser={props.currentUser}
+            amaPostId={props.params.amaPostId}
+            fbShare={props.fbShare} />
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
-            isReply currentUser={props.currentUser} amaPostId={props.params.amaPostId} />)}
+            isReply currentUser={props.currentUser}
+            fbShare={props.fbShare}
+            amaPostId={props.params.amaPostId} />)}
         </div>
       )}
     </div>
