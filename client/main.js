@@ -25,8 +25,6 @@ app.loadModule(onboarding)
 
 app.init()
 
-mount(() => initRouter(app.context, app.actions))
-
 WebFontLoader.load({
   google: {
     families: [
@@ -35,5 +33,6 @@ WebFontLoader.load({
     ]
   }
 })
-
 filepicker.setKey(Meteor.settings.public.filestackKey)
+
+mount(() => initRouter(app.context, app.actions))

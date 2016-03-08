@@ -60,32 +60,28 @@ export const GuestToggleFollowing = ({params}) => (
   <ToggleFollowing postId={params.postId} action={params.action} />
 )
 
-export function requireAuth ({Meteor}) {
-  return (nextState, replace) => {
-    if (!Meteor.userId()) {
-      replace({
-        pathname: '/login',
-        state: { nextPathname: nextState.location.pathname }
-      })
-    }
+const redirectUrlByStatus = (status) => {
+  switch (status) {
+    case 'active':
+      return '/inbox'
+    case 'pending':
+      return '/welcome/signup'
+    default:
+      return '/login'
   }
 }
 
-export function requireNoAuth ({Meteor}) {
-  return (nextState, replace) => {
-    if (Meteor.userId()) {
-      replace('/inbox')
-    }
-  }
-}
-
-export function redirectGuest ({Meteor}) {
-  return (nextState, replace) => {
-    if (!Meteor.userId()) {
-      replace({ pathname: '/explore' })
-    } else {
-      replace({ pathname: '/login' })
-    }
+export function requireStatus ({Meteor}, status) {
+  return (nextState, replace, callback) => {
+    // TODO: Optimize by checking Meteor.userId() prior to subscribing again?
+    Meteor.subscribe('userData', () => {
+      const userStatus = Meteor.user() ? Meteor.user().status : null
+      const statuses = Array.isArray(status) ? status : [status]
+      if (!statuses.some((status) => userStatus === status)) {
+        replace(redirectUrlByStatus(userStatus))
+      }
+      callback()
+    })
   }
 }
 
