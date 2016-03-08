@@ -46,11 +46,11 @@ export default {
     clearScrollToMsgId ({ store }) {
       store.dispatch({ type: AMA_CLEAR_SCROLL_TO_MSG })
     },
-    openReplyBox ({store}, messageId) {
-      if (store.getState().ama.openReplies[messageId] === true) {
-        return store.dispatch({ type: AMA_CLOSE_REPLY, messageId })
+    openReplyBox ({store}, message) {
+      if (store.getState().ama.openReplies[message._id] === true) {
+        return store.dispatch({ type: AMA_CLOSE_REPLY, messageId: message._id })
       } else {
-        return store.dispatch({ type: AMA_OPEN_REPLY, messageId })
+        return store.dispatch({ type: AMA_OPEN_REPLY, messageId: message._id })
       }
     },
     onSpeakerType ({Meteor}, {amaPostId, speaker}) {

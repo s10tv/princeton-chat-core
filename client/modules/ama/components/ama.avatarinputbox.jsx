@@ -11,7 +11,8 @@ export const AvatarInputBox = (props) => {
         props.handleNewMessage(data, props.messageOptions)
       })}>
         <TextareaAutosize type='text' minRows={1} maxRows={5}
-          className='form-control ama-inputbox' placeholder={placeholder} {...fields.content}/>
+          className='form-control ama-inputbox' placeholder={placeholder}
+          {...fields.content} />
         {fields.content.value
           ? <button type='submit' className='btn btn-primary ama-inputbox-submit'>Submit</button>
           : null}

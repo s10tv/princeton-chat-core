@@ -11,11 +11,21 @@ export const inputBoxFormConfig = {
 }
 
 const composer = ({context, formType, message, amaPostId, speaker, onSpeakerType}, onData) => {
-  const {store} = context
+  const {MentionParser, store} = context
+
+  const mentions = message && message.content
+    ? MentionParser.parseMentions(message.content)
+    : []
+  const mentionedContent = mentions.length > 0 ? `${mentions.join(' ')} ` : ''
+
+  const initialValue = message && message.owner && message.owner.firstName
+    ? `@${message.owner.firstName.toLowerCase()} ${mentionedContent}`
+    : ''
+
   const baseProps = {
     initialValues: {
       amaPostId,
-      content: ''
+      content: initialValue
     },
     form: formType,
     store: Object.assign({}, store, {

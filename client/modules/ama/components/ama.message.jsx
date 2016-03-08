@@ -22,6 +22,7 @@ export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
           amaPostId={amaPostId}
           message={message}
           speaker={speaker}
+          defaultValue={`@${message.owner.firstName}`}
           formType={AMA_REPLY_FORM_NAME}
           handleNewMessage={reply}
           messageOptions={{ parentMessageId: message._id }} />
@@ -39,7 +40,7 @@ const MessageFooter = ({ message, upVote, isUpvoted, openReplyBox, fbShare }) =>
       <i className='fa fa-angle-up fa-lg footer-icon' />
       <span className='footer-text'>{message.upvotedUsers ? message.upvotedUsers.length : 0}</span>
     </a>
-    <a className='footer-component' onClick={() => openReplyBox(message._id)}>
+    <a className='footer-component' onClick={() => openReplyBox(message)}>
       <i className='fa fa-reply footer-icon' />
       <span className='footer-text'>Reply</span>
     </a>
