@@ -78,7 +78,7 @@ $header-height: 240px;
 .splitview {
   display: flex;
   .main {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
   }
   .aside {
     flex: 0 0 $rightbar-width;
@@ -88,7 +88,7 @@ $header-height: 240px;
   @extend .splitview;
   @include media(mobile) {
     .main {
-      flex: 1 0 100%;
+      flex: 1 1 100%;
     }
     .aside {
       display: none !important;
@@ -109,7 +109,7 @@ $header-height: 240px;
 .splitview--aside-closed {
   @extend .splitview;
   .main {
-    flex: 1 0 100%;
+    flex: 1 1 100%;
   }
   .aside {
     display: none !important;
