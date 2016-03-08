@@ -1,5 +1,5 @@
 import {createOnSubmit} from '/client/lib/helpers'
-import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME, AMA_OPEN_REPLY,
+import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME, AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
   AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING,
   SPEAKER_STOP_TYPING} from '/client/configs/constants'
 import {reset} from 'redux-form'
@@ -35,7 +35,11 @@ export default {
       store.dispatch({ type: AMA_CLEAR_SCROLL_TO_MSG })
     },
     openReplyBox ({store}, messageId) {
-      return store.dispatch({ type: AMA_OPEN_REPLY, messageId })
+      if (store.getState().ama.openReplies[messageId] === true) {
+        return store.dispatch({ type: AMA_CLOSE_REPLY, messageId })
+      } else {
+        return store.dispatch({ type: AMA_OPEN_REPLY, messageId })
+      }
     },
     onSpeakerType ({Meteor}, {post}) {
       return (dispatch, getState) => {
