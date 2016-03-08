@@ -213,7 +213,7 @@ export const AvatarInputBox = React.createClass({
 
 export const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
   <div id={message._id}
-    className={`ama-message-container ${isReply ? 'ama-message-container-reply' : ''}`}>
+    className={`ama-message-container${isReply ? ' ama-message-container-reply' : ''}`}>
     <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={40} />
     <div className='message-content-container'>
       <div className='message-content-header'>
@@ -224,7 +224,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, isReply }
         {isSpeaker ? null
           : <span className='message-timestamp'>{moment(message.createdAt).format('h:mm a')}</span>}
       </div>
-      <p className='message-content'>{message.content}</p>
+      <p className={`message-content${isSpeaker ? ' message-content-no-bot-margin' : ''}`}>{message.content}</p>
       {children}
     </div>
   </div>

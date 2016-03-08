@@ -206,6 +206,10 @@ $header-height: 240px;
       margin-top: $spacing-x15;
       margin-bottom: $spacing-x15;
     }
+
+    .message-content-no-bot-margin {
+      margin-bottom: 0px
+    }
   }
 }
 
@@ -234,6 +238,7 @@ $header-height: 240px;
   background-color: $gray-lightest;
   border-radius: 5px;
   border: 1px solid $gray-lighter;
+  margin-top: $spacing-x2;
 
   .ama-inputbox-form {
     display: flex;
