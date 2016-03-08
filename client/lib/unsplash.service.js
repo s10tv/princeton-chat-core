@@ -186,5 +186,5 @@ export const CreateNewPostPhoto = {
 
 export const InboxCoverPhoto = {
   url: 'https://images.unsplash.com/photo-1452723312111-3a7d0db0e024?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=d2caa73026ef83d5701e1d6d3f1957a6',
-  fullscreenUrl: 'https://images.unsplash.com/photo-1452723312111-3a7d0db0e024/'
+  fullscreenUrl: 'https://images.unsplash.com/photo-1452723312111-3a7d0db0e024?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=d2caa73026ef83d5701e1d6d3f1957a6'
 }
