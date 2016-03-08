@@ -22,6 +22,8 @@ class AMADetails extends React.Component {
     if (this.props.scrollToMsgId && document.getElementById(this.props.scrollToMsgId)) {
       const msgDOM = document.getElementById(this.props.scrollToMsgId)
       msgDOM.scrollIntoView({behavior: 'auto', block: 'start'})
+      msgDOM.className = `${msgDOM.className} ama-message-container-animate`
+      console.log(msgDOM.className)
       this.props.clearScrollToMsgId()
     }
   }

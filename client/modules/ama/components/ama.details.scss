@@ -156,10 +156,25 @@ $header-height: 240px;
   margin-left: 40px + $spacing-x4;
 }
 
+@keyframes highlightOrange {
+  0% {background-color: white};
+  50% {background-color: $color-translucent-orange};
+  100% {background-color: white};
+}
+
+.ama-message-container-animate {
+  animation-play-state: running !important;
+}
+
 .ama-message-container {
   display: flex;
   flex-basis: 100%;
   padding: $spacing-x3;
+  border-radius: 5px;
+  animation-name: highlightOrange;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-play-state: paused;
 
   .message-content-container {
     display: flex;
