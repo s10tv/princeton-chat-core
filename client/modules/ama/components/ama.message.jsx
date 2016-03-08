@@ -1,15 +1,10 @@
 import React from 'react'
-import {AvatarInputBox, MessageContainer} from './ama.details.jsx'
+import {MessageContainer} from './ama.details.jsx'
+import AvatarInputBox from '../containers/ama.avatarinputbox.js'
+import {AMA_REPLY_FORM_NAME} from '/client/configs/constants'
 
 export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
-  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted}) => {
-  const form = {
-    handleSubmit,
-    submitting,
-    error,
-    fields
-  }
-
+  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted, amaPostId}) => {
   return (
     <MessageContainer message={message} user={message.owner} isReply={isReply}>
       <MessageFooter isUpvoted={isUpvoted} message={message} upVote={upVote} openReplyBox={openReplyBox} />
@@ -19,7 +14,9 @@ export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
         : <AvatarInputBox avatar={currentUser.avatar}
           avatarInitials={currentUser.avatarInitials}
           placeholder={`Reply to ${message.owner.displayName}...`}
-          form={form}
+          amaPostId={amaPostId}
+          message={message}
+          formType={AMA_REPLY_FORM_NAME}
           handleNewMessage={reply}
           messageOptions={{ parentMessageId: message._id }} />
       }

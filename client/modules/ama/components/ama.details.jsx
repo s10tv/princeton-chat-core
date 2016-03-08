@@ -9,6 +9,8 @@ import {spacing} from '/client/configs/theme'
 import TimeAgo from 'react-timeago'
 import Divider from 'material-ui/lib/divider'
 import Message from '/client/modules/ama/containers/ama.message'
+import AvatarInputBox from '/client/modules/ama/containers/ama.avatarinputbox'
+import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
 
 class AMADetails extends React.Component {
 
@@ -151,13 +153,6 @@ const LiveNow = (props) => (
 )
 
 const AmaMain = (props) => {
-  const form = {
-    handleSubmit: props.handleSubmit,
-    submitting: props.submitting,
-    error: props.error,
-    fields: props.fields
-  }
-
   return (
     <div className='ama-activity-main-content'>
       <div className='top-labels-container'>
@@ -166,9 +161,8 @@ const AmaMain = (props) => {
       <PostMessage currentUser={props.currentUser}
         speaker={props.speaker}
         introText={props.introText}
-        form={form}
-        handleNewMessage={props.askQuestion}
-        scrollToBottom={props.scrollToBottom} />
+        amaPostId={props.params.amaPostId}
+        handleNewMessage={props.askQuestion} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
       {props.messages.map((message) =>
@@ -183,43 +177,15 @@ const AmaMain = (props) => {
   )
 }
 
-const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage }) => (
+const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage,
+ amaPostId}) => (
   <MessageContainer message={{content: introText}} user={speaker} isSpeaker>
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
-      handleNewMessage={handleNewMessage}
-      form={form} />
+      handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
+       amaPostId={amaPostId}/>
   </MessageContainer>
 )
-
-export const AvatarInputBox = React.createClass({
-  propTypes: {
-    avatar: PropTypes.object.isRequired,
-    avatarInitials: PropTypes.string.isRequired,
-    placeholder: PropTypes.string.isRequired,
-    form: PropTypes.object.isRequired,
-    messageOptions: PropTypes.object,
-    handleNewMessage: PropTypes.func.isRequired
-  },
-
-  render () {
-    const { avatar, avatarInitials, placeholder, form } = this.props
-    return (
-      <div className='ama-avatar-inputbox-container'>
-        <UserAvatar avatar={avatar} avatarInitials={avatarInitials} size={40} />
-        <form className='ama-inputbox-form' onSubmit={form.handleSubmit((data) => {
-          this.props.handleNewMessage(data, this.props.messageOptions)
-        })}>
-          <TextareaAutosize type='text' minRows={1} maxRows={5}
-            className='form-control ama-inputbox' placeholder={placeholder} {...form.fields.content}/>
-          {form.fields.content.value
-            ? <button type='submit' className='btn btn-primary ama-inputbox-submit'>Submit</button>
-            : null}
-        </form>
-      </div>
-    )
-  }
-})
 
 export const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
   <div id={message._id}

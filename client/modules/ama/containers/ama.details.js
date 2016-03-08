@@ -91,10 +91,6 @@ const composer = ({context, params: {amaPostId}, onSpeakerType}, onData) => {
       messages,
       currentUserIsSpeaker: currentUser._id === amaPost.speaker._id,
       speakerisTyping: amaPost.speakerisTyping,
-      initialValues: {
-        content: '',
-        amaPostId: amaPostId
-      },
       store: Object.assign({}, store, {
         dispatch: (action) => {
           switch (action.type) {
@@ -130,7 +126,6 @@ const mapStateToProps = (state) => ({
 
 export default composeAll(
   connect(mapStateToProps),
-  reduxForm(askQuestionFormConfig),
   composeWithTracker(composer),
   useDeps(depsMapper)
 )(AmaDetails)
