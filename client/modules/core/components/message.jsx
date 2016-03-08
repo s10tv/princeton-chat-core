@@ -12,7 +12,7 @@ import ContentTypeService from '/client/lib/contenttype.service'
 import {getFilenameFromURL, shortenFilename} from '/client/lib/url.util'
 import {FontIcon, FlatButton} from '/client/lib/ui.jsx'
 import colors from '/client/configs/color'
-import {navigateViaRouter} from '/client/lib/helpers'
+import {muiLinkButton} from '/client/lib/helpers'
 
 const theme = i18n('secondaryMuiTheme')
 const accent1Color = theme.baseTheme.palette.accent1Color
@@ -67,7 +67,7 @@ export const Message = (props) => (
     {!props.attachments ? null
     : props.attachments.map((attachment) => (
       <FlatButton key={attachment.url} target='_blank' style={s.attachment}
-        linkButton href={attachment.url} onClick={navigateViaRouter}
+        {...muiLinkButton(attachment.url)}
         primary labelPosition='after' labelStyle={{
           paddingLeft: 8, paddingRight: 6
         }} label={(attachment.name && shortenFilename(attachment.name)) || shortenFilename(getFilenameFromURL(attachment.url))}>

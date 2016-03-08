@@ -68,3 +68,10 @@ export const navigateViaRouter = (event) => {
   event.preventDefault()
   browserHistory.push(event.currentTarget.href)
 }
+
+// Simpler helper, inteded to be used via spread
+export const muiLinkButton = (href) => ({
+  linkButton: true,
+  href: href,
+  onClick: navigateViaRouter
+})

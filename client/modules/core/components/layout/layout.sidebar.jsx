@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import SidebarHeader from './sidebarHeader.jsx'
-import {navigateViaRouter} from '/client/lib/helpers'
+import {muiLinkButton} from '/client/lib/helpers'
 
 const NavLink = (props) =>
   <Link activeClassName='active' {...props} />
@@ -18,7 +18,7 @@ const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, to
       onLogout={onLogout}
       onTapSettings={onTapSettings} />
     <RaisedButton primary label='New Post' labelPosition='after' className='new-post'
-       linkButton href='/add-post' onClick={navigateViaRouter}>
+      {...muiLinkButton('/add-post')}>
       <FontIcon className='material-icons new-post-icon' color='white'>
          add_circle
       </FontIcon>
