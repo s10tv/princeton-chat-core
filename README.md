@@ -20,7 +20,7 @@ In this app, every part of the client side is fully tested using the familiar to
 Run tests with:
 
 ```
-meteor test-app --integration --port 3100
+ENV=test meteor test-app --integration --port 3100
 ```
 
 **See package.json for more information about testing setup.**
