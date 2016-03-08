@@ -219,7 +219,11 @@ $header-height: 240px;
 
   .footer-component {
     margin-right: $spacing-x3;
-
+    &:hover {
+      color: $brand-primary;
+      opacity: 1;
+      cursor: pointer;
+    }
     .footer-icon {
       margin-right: $spacing-x2;
     }
