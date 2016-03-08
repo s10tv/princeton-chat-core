@@ -1,13 +1,15 @@
+@import '{}/client/configs/pc-variables';
+
 .sidebar {
   position: relative;
   overflow: scroll;
-  
+
   a:hover, a:focus {
     color: white;
     outline: none;
   }
   .active {
-    background-color: orange; // TODO: Make this better
+    background-color: $color-gray;
   }
 }
 
@@ -19,7 +21,7 @@
 
 .content--extended {
   @extend .content;
-  
+
   transform: translateX(240px);
   @media (min-width: 768px) {
     margin-left: 240px;
