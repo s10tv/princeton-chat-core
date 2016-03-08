@@ -1,4 +1,5 @@
-import {AMA_OPEN_REPLY, AMA_CLOSE_REPLY} from '/client/configs/constants'
+import {AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
+  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG} from '/client/configs/constants'
 
 function activityVisibility (state = 'all', action) {
   switch (action.type) {
@@ -24,7 +25,23 @@ function openReplies (state = {}, action) {
   }
 }
 
+function scrollToMsgId (state = {}, action) {
+  switch (action.type) {
+    case AMA_SCROLL_TO_MSG:
+      return Object.assign({}, state, {
+        scrollToMsgId: action.scrollToMsgId
+      })
+    case AMA_CLEAR_SCROLL_TO_MSG:
+      return Object.assign({}, state, {
+        scrollToMsgId: null
+      })
+    default:
+      return state
+  }
+}
+
 export default {
   activityVisibility,
-  openReplies
+  openReplies,
+  scrollToMsgId
 }

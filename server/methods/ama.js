@@ -24,6 +24,7 @@ export default function ({Meteor, Logger, OnboardManager, Collections, currentUs
         title: `${user.firstName} asked a question.`,
         content: truncate(content, TRUNCATE_LENGTH)
       })
+      return amaMessageId
     },
 
     'ama/reply' ({ content, amaPostId, parentMessageId }) {
@@ -63,6 +64,7 @@ export default function ({Meteor, Logger, OnboardManager, Collections, currentUs
         title: `${user.firstName} replied to ${parentMessageName} question.`,
         content: truncate(content, TRUNCATE_LENGTH)
       })
+      return amaMessageId
     },
 
     'ama/upvote' ({ messageId }) {

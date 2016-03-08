@@ -7,7 +7,6 @@ import {spacing} from '/client/configs/theme'
 import TextareaAutosize from 'react-textarea-autosize'
 import Divider from 'material-ui/lib/divider'
 import Message from '/client/modules/ama/containers/ama.message'
-
 class AMADetails extends React.Component {
 
   // temporary
@@ -19,6 +18,14 @@ class AMADetails extends React.Component {
     document.body.style.overflow = 'hidden'
   }
 
+  componentDidUpdate () {
+    if (this.props.scrollToMsgId && document.getElementById(this.props.scrollToMsgId)) {
+      const msgDOM = document.getElementById(this.props.scrollToMsgId)
+      msgDOM.scrollIntoView({behavior: 'auto', block: 'start'})
+      this.props.clearScrollToMsgId()
+    }
+  }
+
   render () {
     return (
       <StyleRoot>
@@ -26,7 +33,7 @@ class AMADetails extends React.Component {
           <div className='ama-main'>
             <Header {...this.props} />
             <div className='ama-content'>
-              <AmaMain {...this.props} scrollToBottom={this.scrollToBottom} />
+              <AmaMain {...this.props} />
               <AmaActivities {...this.props} />
             </div>
           </div>
@@ -55,6 +62,8 @@ AMADetails.propTypes = {
     }),
     createdAt: PropTypes.object.isRequired
   })),
+  scrollToMsgId: PropTypes.string,
+  clearScrollToMsgId: PropTypes.func.isRequired,
 
   // actions
   askQuestion: PropTypes.func.isRequired,
@@ -133,7 +142,8 @@ const AmaMain = (props) => {
     handleSubmit: props.handleSubmit,
     submitting: props.submitting,
     error: props.error,
-    fields: props.fields
+    fields: props.fields,
+    submit: props.submit
   }
 
   return (
@@ -171,24 +181,37 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage }
   </MessageContainer>
 )
 
-export const AvatarInputBox = ({ avatar, avatarInitials, placeholder, form,
-    handleNewMessage, messageOptions }) => (
-  <div className='ama-avatar-inputbox-container'>
-    <UserAvatar avatar={avatar} avatarInitials={avatarInitials} size={40} />
-    <form className='ama-inputbox-form' onSubmit={form.handleSubmit((data) => {
-      handleNewMessage(data, messageOptions)
-    })}>
-      <TextareaAutosize type='text' minRows={1} maxRows={5}
-        className='form-control ama-inputbox' placeholder={placeholder} {...form.fields.content}/>
-      {form.fields.content.value
-        ? <button type='submit' className='btn btn-primary ama-inputbox-submit'>Submit</button>
-        : null}
-    </form>
-  </div>
-)
+export const AvatarInputBox = React.createClass({
+  propTypes: {
+    avatar: PropTypes.object.isRequired,
+    avatarInitials: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    form: PropTypes.object.isRequired,
+    messageOptions: PropTypes.object,
+    handleNewMessage: PropTypes.func.isRequired
+  },
+
+  render () {
+    const { avatar, avatarInitials, placeholder, form } = this.props
+    return (
+      <div className='ama-avatar-inputbox-container'>
+        <UserAvatar avatar={avatar} avatarInitials={avatarInitials} size={40} />
+        <form className='ama-inputbox-form' onSubmit={form.handleSubmit((data) => {
+          this.props.handleNewMessage(data, this.props.messageOptions)
+        })}>
+          <TextareaAutosize type='text' minRows={1} maxRows={5}
+            className='form-control ama-inputbox' placeholder={placeholder} {...form.fields.content}/>
+          {form.fields.content.value
+            ? <button type='submit' className='btn btn-primary ama-inputbox-submit'>Submit</button>
+            : null}
+        </form>
+      </div>
+    )
+  }
+})
 
 export const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
-  <div id={!isSpeaker ? message._id : null}
+  <div id={message._id}
     className={`ama-message-container ${isReply ? 'ama-message-container-reply' : ''}`}>
     <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={40} />
     <div className='message-content-container'>

@@ -4,6 +4,7 @@ import {amaMessageValidator} from '/lib/validation/ama'
 import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
 import {_} from 'underscore'
 import {reduxForm} from 'redux-form'
+import {connect} from 'react-redux'
 
 export const askQuestionFormConfig = {
   form: AMA_ASK_QUESTION_FORM_NAME,
@@ -105,11 +106,17 @@ const depsMapper = (context, actions) => ({
   upVote: actions.amaMessages.upVote,
   toggleFeedFilter: actions.amaFeed.toggleFilter,
   setReplyToPost: actions.amaMessages.setReplyToPost,
+  clearScrollToMsgId: actions.amaMessages.clearScrollToMsgId,
   store: context.store,
   context
 })
 
+const mapStateToProps = (state) => ({
+  scrollToMsgId: state.ama.scrollToMsgId.scrollToMsgId
+})
+
 export default composeAll(
+  connect(mapStateToProps),
   reduxForm(askQuestionFormConfig),
   composeWithTracker(composer),
   useDeps(depsMapper)
