@@ -18,7 +18,7 @@ export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
         ? null
         : <AvatarInputBox avatar={currentUser.avatar}
           avatarInitials={currentUser.avatarInitials}
-          placeholder={`Ask ${currentUser.displayName} a question...`}
+          placeholder={`Reply to ${message.owner.displayName}...`}
           form={form}
           handleNewMessage={reply}
           messageOptions={{ parentMessageId: message._id }} />
