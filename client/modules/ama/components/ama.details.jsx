@@ -127,16 +127,14 @@ const HeaderOverlay = (props) => {
       <div className='overlay-row'>
         <span className='overlay-row-label'>Participants ({props.participantCount})</span>
         <div className='overlay-content-row participants-row'>
-          {props.participants.map((participant) => {
-            console.log(participant)
-            return (<UserAvatar
+          {props.participants.map((participant) =>
+            <UserAvatar
               key={participant._id}
               avatar={participant.avatar}
               avatarInitials={participant.avatarInitials}
               size={30}
               style={{marginRight: spacing.x2}}/>
-            )
-          })}
+          )}
         </div>
       </div>
     </div>
