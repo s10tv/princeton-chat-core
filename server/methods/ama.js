@@ -74,19 +74,25 @@ export default function ({Meteor, Logger, OnboardManager, Collections, currentUs
         throw new Meteor.Error(400, 'The message doesn\'t exist!')
       }
 
-      AmaMessages.update(messageId, { $addToSet: {
-        upvotedUsers: user._id
-      }})
+      if (message.upvotedUsers.indexOf(user._id) === -1) {
+        AmaMessages.update(messageId, { $addToSet: {
+          upvotedUsers: user._id
+        }})
 
-      const messageType = message.parentMessageId === undefined ? 'question' : 'reply'
+        const messageType = message.parentMessageId === undefined ? 'question' : 'reply'
 
-      AmaActivities.insert({
-        amaPostId: message.amaPostId,
-        amaMessageId: message._id,
-        originatorUserId: user._id,
-        title: `${user.firstName} upvoted a ${messageType}.`,
-        content: truncate(message.content, TRUNCATE_LENGTH)
-      })
+        AmaActivities.insert({
+          amaPostId: message.amaPostId,
+          amaMessageId: message._id,
+          originatorUserId: user._id,
+          title: `${user.firstName} upvoted a ${messageType}.`,
+          content: truncate(message.content, TRUNCATE_LENGTH)
+        })
+      } else {
+        AmaMessages.update(messageId, { $pull: {
+          upvotedUsers: user._id
+        }})
+      }
     }
   })
 }

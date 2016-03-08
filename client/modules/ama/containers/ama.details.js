@@ -103,7 +103,6 @@ const depsMapper = (context, actions) => ({
   twitterShare: actions.amaHeader.twitterShare,
   reply: actions.amaMessages.reply,
   fbShareMessage: actions.amaMessages.fbShare,
-  upVote: actions.amaMessages.upVote,
   toggleFeedFilter: actions.amaFeed.toggleFilter,
   setReplyToPost: actions.amaMessages.setReplyToPost,
   clearScrollToMsgId: actions.amaMessages.clearScrollToMsgId,

@@ -73,7 +73,6 @@ AMADetails.propTypes = {
   twitterShare: PropTypes.func.isRequired,
   reply: PropTypes.func.isRequired,
   fbShareMessage: PropTypes.func.isRequired,
-  upVote: PropTypes.func.isRequired,
   toggleFeedFilter: PropTypes.func.isRequired
 }
 
@@ -150,8 +149,7 @@ const AmaMain = (props) => {
   return (
     <div className='ama-activity-main-content'>
       <div className='top-labels-container'>
-        <span className='top-label'>Discussion</span>
-        <span className='top-label'>Top v</span>
+        <span className='top-label'>Discussion</span> // TODO: add top/recent afterwards
       </div>
       <PostMessage currentUser={props.currentUser}
         speaker={props.speaker}
