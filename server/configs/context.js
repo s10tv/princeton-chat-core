@@ -4,10 +4,11 @@ import {Migrations} from 'meteor/percolate:migrations'
 import {ServiceConfiguration} from 'meteor/service-configuration'
 import Collections from '/lib/collections'
 import {Random} from 'meteor/random'
-import {Email} from 'meteor/email'
 import {HTTP} from 'meteor/http'
+import {Email as _RealEmail} from 'meteor/email'
 import {isTest} from '/lib/test'
 import AvatarService from '/lib/avatar.service.js'
+import FakeEmail from '/server/lib/fakes/FakeEmail'
 import FakeSlack from '/server/lib/fakes/FakeSlack'
 import PostManager from '/server/lib/PostManager'
 import TopicManager from '/server/lib/TopicManager'
@@ -17,6 +18,9 @@ import Logger from '/server/lib/logger'
 import UserService from '/lib/user.service'
 import MentionParser from '/lib/mention.parser'
 import Notifier from '/server/lib/Notifier'
+
+// dependencies with fake alternatives
+const Email = !isTest() ? _RealEmail : new FakeEmail()
 
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
 const slack = !isTest() ? Meteor.npmRequire('slack-notify')(slackUrl) : new FakeSlack()
