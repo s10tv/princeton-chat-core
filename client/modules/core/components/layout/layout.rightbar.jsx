@@ -49,8 +49,7 @@ const RightBar = React.createClass({
      * Func to remove the topic.
      */
     removeTopic: React.PropTypes.func.isRequired,
-    isMyTopic: React.PropTypes.bool.isRequired,
-    isRightSidebarOpen: React.PropTypes.bool.isRequired
+    isMyTopic: React.PropTypes.bool.isRequired
   },
 
   getInitialState () {
@@ -73,11 +72,6 @@ const RightBar = React.createClass({
 
   render () {
     const props = this.props
-
-    // right bar is closed for small devices
-    if (!props.isRightSidebarOpen) {
-      return null
-    }
 
     return (
       <Flex width={320} minWidth={320} className='no-scrollbar'

@@ -44,7 +44,7 @@ AMADetails.propTypes = {
   introText: PropTypes.string.isRequired,
   speakerTagline: PropTypes.string,
   speaker: userShape.isRequired,
-  speakerIsTyping: PropTypes.bool.isRequired,
+  speakerIsTyping: PropTypes.bool,
   participants: PropTypes.arrayOf(userShape).isRequired,
   startTime: PropTypes.object.isRequired,
   activities: PropTypes.arrayOf(PropTypes.shape({

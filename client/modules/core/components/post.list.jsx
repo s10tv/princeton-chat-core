@@ -39,11 +39,6 @@ const PostListScreen = React.createClass({
     showPostFollowers: React.PropTypes.func.isRequired,
 
     /**
-     * The function to show a popup modal for adding new posts (in case of empty state).
-     */
-    showAddPostPopupFn: React.PropTypes.func.isRequired,
-
-    /**
      * The post list type is needed to show specific errors for empty screens
      */
     postListType: React.PropTypes.string,
@@ -102,15 +97,12 @@ const EmptyPostListSearch = ({ currentSearchValue }) => (
   </Flex>
 )
 
-const EmptyPostListNotInFeed = ({ showAddPostPopupFn }) => (
+const EmptyPostListNotInFeed = () => (
   <Flex className='post-list-empty' flexDirection='column' flex={1} padding={10} alignItems='center'>
     <Flex flexDirection='column' maxWidth={400} alignItems='center'>
       <h2 style={{fontWeight: 500}}>It's awfully quiet in here</h2>
       <h3 style={{fontWeight: 300}}>Let's break the ice</h3>
-      <RaisedButton
-        primary
-        onTouchTap={() => showAddPostPopupFn()}
-        label='Create a new post' />
+      <RaisedButton primary linkButton href='/add-post' label='Create a new post' />
     </Flex>
     <Flex marginTop={20} flexGrow={1}
       width='50%'

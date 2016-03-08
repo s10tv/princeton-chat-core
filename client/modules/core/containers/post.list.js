@@ -132,7 +132,6 @@ export const composer = ({context, topicId, term, postListType, rightbarOpen}, o
       disableClickToShowFollowers: topic._id === undefined,
       hideFollowerSection: topic._id === undefined,
       hideFollowActionSection: topic._id === undefined,
-      isRightSidebarOpen: topic._id !== undefined && rightbarOpen,
       currentSearchValue: term
     })
   } else {
