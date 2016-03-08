@@ -39,7 +39,6 @@ export default React.createClass({
     showTopicFollowers: React.PropTypes.func.isRequired,
 
     /**
-     console.log(mentionedUsernames)
      * Updates the list of followers whenever a new topic is selected.
      */
     updateTopicFollowers: React.PropTypes.func.isRequired,

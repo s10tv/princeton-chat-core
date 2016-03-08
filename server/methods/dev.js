@@ -52,6 +52,7 @@ export default function ({Meteor, Collections, currentUser}) {
             url: 'http://gdb.voanews.com/DEC7023F-E583-4902-81CF-4002A702BB1E_cx0_cy4_cw0_mw1024_s_n_r1.jpg'
           },
           participants: [{ userId: user._id, unreadCount: 0 }],
+          upvotedUsers: [],
           startTime: new Date(),
           createdAt: new Date()
         }})
@@ -61,6 +62,7 @@ export default function ({Meteor, Collections, currentUser}) {
           ownerId: user._id,
           amaPostId: 'qimingama',
           content: 'What is your favorite fruit?',
+          upvotedUsers: [],
           childrenMessageIds: [
             'qimingama-msg-reply'
           ],
@@ -74,6 +76,7 @@ export default function ({Meteor, Collections, currentUser}) {
           parentMessageId: 'qimingama-msg1',
           parentMessageOwner: user._id,
           content: 'Banannas are my favorite fruit',
+          upvotedUsers: [],
           createdAt: new Date()
         }})
 
@@ -82,6 +85,7 @@ export default function ({Meteor, Collections, currentUser}) {
           ownerId: user._id,
           amaPostId: 'qimingama',
           content: 'Why is my foot hurting?',
+          upvotedUsers: [],
           createdAt: new Date()
         }})
 
@@ -92,6 +96,7 @@ export default function ({Meteor, Collections, currentUser}) {
           originatorUserId: user._id,
           amaPostId: 'qimingama',
           amaMessageId: 'qimingama-msg1',
+          upvotedUsers: [],
           createdAt: new Date()
         }})
 
@@ -102,6 +107,7 @@ export default function ({Meteor, Collections, currentUser}) {
           originatorUserId: user._id,
           amaPostId: 'qimingama',
           amaMessageId: 'qimingama-msg-reply',
+          upvotedUsers: [],
           createdAt: new Date()
         }})
       }

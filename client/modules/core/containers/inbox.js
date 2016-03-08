@@ -44,7 +44,6 @@ const composer = ({context, term}, onData) => {
           })
         })
       })
-    console.log(notifications)
     onData(null, {
       notifications,
       currentUser,
