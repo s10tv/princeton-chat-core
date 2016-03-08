@@ -3,7 +3,7 @@
  */
 import {createOnSubmit} from '/client/lib/helpers'
 import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME, AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
-  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING,
+  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING, AMA_TOGGLE_ASIDE,
   SPEAKER_STOP_TYPING} from '/client/configs/constants'
 import {reset} from 'redux-form'
 
@@ -11,6 +11,12 @@ var intervalId = null
 
 export default {
   amaHeader: {
+    toggleAside ({store}) {
+      const overideAsideOpen = store.getState().ama.overideAsideOpen
+      const isMobile = store.getState().browser.lessThan.xl
+      const asideOpen = overideAsideOpen !== null ? overideAsideOpen : !isMobile
+      store.dispatch({type: AMA_TOGGLE_ASIDE, payload: !asideOpen})
+    },
     navigateBack ({history}) {
       console.error(new Error('Not Implemented Yet'))
       history.pop()

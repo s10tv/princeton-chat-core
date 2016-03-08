@@ -15,6 +15,10 @@ $header-height: 240px;
   display: flex;
   flex-direction: column;
   flex: 0 0 100%;
+  
+  .aside-toggle {
+    margin-left: auto;
+  }
 }
 // ***
 
@@ -71,22 +75,73 @@ $header-height: 240px;
   }
 }
 
-.ama-content {
+.splitview {
   display: flex;
+  .main {
+    flex: 1 0 auto;
+  }
+  .aside {
+    flex: 0 0 $rightbar-width;
+  }
+}
+.splitview--initial {
+  @extend .splitview;
+  @include media(mobile) {
+    .main {
+      flex: 1 0 100%;
+    }
+    .aside {
+      display: none !important;
+    }
+  }
+}
+.splitview--aside-open {
+  @extend .splitview;
+  @include media(mobile) {
+    .main {
+      display: none !important;
+    }
+    .aside {
+      flex: 1 0 100%;
+    }
+  }
+}
+.splitview--aside-closed {
+  @extend .splitview;
+  .main {
+    flex: 1 0 100%;
+  }
+  .aside {
+    display: none !important;
+  }
+}
+
+// Forced open
+// Desktop 
+//     sidebar open 
+//     sidebar closed
+// mobile
+//     sidebar open
+//     sidebar closed
+
+.ama-content {
+  // display: flex;
+  // flex-direction: row;
   flex-grow: 1;
-  flex-direction: row;
   flex-basis: 100%;
 
   .ama-activity-sidebar {
+    // @include media(mobile) {
+    //     // .ama-activity-main-content {
+    //     //   display: none;
+    //     // }
+    //       display: none;
+    // }
+    // flex: 0 0 $rightbar-width;
     display: flex;
     flex-direction: column;
-    flex: 0 0 $rightbar-width;
     padding: $spacing-x3;
     background-color: $color-rightbar;
-
-    @include media(mobile) {
-      background-color: red;
-    }
 
     .ama-host-is-typing {
       display: flex;
@@ -156,9 +211,9 @@ $header-height: 240px;
 }
 
 .ama-activity-main-content {
+  // flex-grow: 1;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   padding: $spacing-x3;
 
   .top-labels-container {

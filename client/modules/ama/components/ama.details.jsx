@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react'
 import Radium, {StyleRoot} from 'radium'
 import moment from 'moment'
+import FontIcon from 'material-ui/lib/font-icon'
+import IconButton from 'material-ui/lib/icon-button'
 import {imageShape, userShape} from '/client/lib/shapes'
 import {UserAvatar} from '/client/lib/helpers.jsx'
 import {spacing} from '/client/configs/theme'
@@ -10,6 +12,7 @@ import Message from '/client/modules/ama/containers/ama.message'
 import AvatarInputBox from '/client/modules/ama/containers/ama.avatarinputbox'
 import Linkify from 'react-linkify'
 import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
+
 
 class AMADetails extends React.Component {
 
@@ -38,6 +41,14 @@ class AMADetails extends React.Component {
       this.props.clearScrollToMsgId()
     }
   }
+  splitViewClass () {
+    switch (this.props.overideAsideOpen) {
+      case null: return 'splitview--initial'
+      case true: return 'splitview--aside-open'
+      case false: return 'splitview--aside-closed'
+    }
+    return ''
+  }
 
   render () {
     return (
@@ -45,7 +56,7 @@ class AMADetails extends React.Component {
         <div className='ama-page-wrapper'>
           <div className='ama-main'>
             <Header {...this.props} />
-            <div className='ama-content'>
+            <div className={`ama-content ${this.splitViewClass()}`}>
               <AmaMain {...this.props} />
               <AmaActivities {...this.props} />
             </div>
@@ -86,7 +97,8 @@ AMADetails.propTypes = {
   twitterShare: PropTypes.func.isRequired,
   fbShare: PropTypes.func.isRequired,
   reply: PropTypes.func.isRequired,
-  toggleFeedFilter: PropTypes.func.isRequired
+  toggleFeedFilter: PropTypes.func.isRequired,
+  toggleAside: PropTypes.func.isRequired
 }
 
 const Header = (props) => {
@@ -108,6 +120,10 @@ const HeaderInnerDiv = (props) => {
         </div>
         {props.isLive ? <LiveNow /> : null}
         <span className='header-conversation-label'>{props.title}</span>
+        <IconButton className='aside-toggle' onTouchTap={props.toggleAside}
+          iconStyle={{color: 'white'}}>
+          <FontIcon className='material-icons'>menu</FontIcon>
+        </IconButton>
       </div>
     </div>
   )
@@ -154,7 +170,7 @@ const LiveNow = (props) => (
 
 const AmaMain = (props) => {
   return (
-    <div className='ama-activity-main-content'>
+    <div className='ama-activity-main-content main'>
       <div className='top-labels-container'>
         <span className='top-label'>Discussion</span> {/* TODO: add top/recent afterwards */}
       </div>
@@ -223,7 +239,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
 )
 
 const AmaActivities = (props) => (
-  <div className='ama-activity-sidebar' style={props.style}>
+  <div className='ama-activity-sidebar aside' style={props.style}>
       {!props.speakerIsTyping ? null : (
         <SpeakerIsTyping key='speaker-typing' {...props} />
       )}

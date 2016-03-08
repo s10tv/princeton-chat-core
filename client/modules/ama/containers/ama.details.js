@@ -98,12 +98,14 @@ const depsMapper = (context, actions) => ({
   toggleFeedFilter: actions.amaFeed.toggleFilter,
   setReplyToPost: actions.amaMessages.setReplyToPost,
   clearScrollToMsgId: actions.amaMessages.clearScrollToMsgId,
+  toggleAside: actions.amaHeader.toggleAside,
   store: context.store,
   context
 })
 
 const mapStateToProps = (state) => ({
-  scrollToMsgId: state.ama.scrollToMsgId.scrollToMsgId
+  scrollToMsgId: state.ama.scrollToMsgId.scrollToMsgId,
+  overideAsideOpen: state.ama.overideAsideOpen
 })
 
 export default composeAll(

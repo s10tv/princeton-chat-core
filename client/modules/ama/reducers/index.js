@@ -1,11 +1,21 @@
 import {AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
-  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING, SPEAKER_STOP_TYPING
+  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING, SPEAKER_STOP_TYPING,
+  AMA_TOGGLE_ASIDE
 } from '/client/configs/constants'
 
 function activityVisibility (state = 'all', action) {
   switch (action.type) {
     case 'TOGGLE':
       return state === 'all' ? 'mine' : 'all'
+    default:
+      return state
+  }
+}
+
+function overideAsideOpen (state = null, action) {
+  switch (action.type) {
+    case AMA_TOGGLE_ASIDE:
+      return action.payload
     default:
       return state
   }
@@ -53,6 +63,7 @@ function speakerIsTyping (state = false, action) {
 }
 
 export default {
+  overideAsideOpen,
   activityVisibility,
   openReplies,
   scrollToMsgId,
