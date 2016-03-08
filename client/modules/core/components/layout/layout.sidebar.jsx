@@ -31,10 +31,9 @@ const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, to
     </ul>
     <h3>CHANNELS</h3>
     <ul>
-      <li><NavLink to='/ama/qimingama'># AMA</NavLink></li>
       {followedTopics.map((topic) =>
         <li key={topic._id}>
-        {topic.type === 'postlist'
+        {topic.type === 'ama'
           ? (<NavLink to={`/ama/${topic._id}`}>{`# ${topic.displayName}`}</NavLink>)
           : (<NavLink to={`/channels/${topic._id}`}>{`# ${topic.displayName}`}</NavLink>)
         }
