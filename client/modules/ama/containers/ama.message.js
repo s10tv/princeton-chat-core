@@ -3,7 +3,10 @@ import {composeAll, useDeps, composeWithTracker} from 'mantra-core'
 import {composeWithRedux} from '/client/lib/helpers'
 
 const composer = ({context, amaPostId, message}, onData) => {
-  onData(null, {})
+  const { Meteor } = context
+  onData(null, {
+    isUpvoted: message.upvotedUsers.indexOf(Meteor.userId()) !== -1
+  })
 }
 
 const depsMapper = (context, actions) => ({

@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react'
-// import Transition from 'react-motion-ui-pack'
 import Radium, {StyleRoot} from 'radium'
-import TextareaAutosize from 'react-textarea-autosize'
 import moment from 'moment'
 import {imageShape, userShape} from '/client/lib/shapes'
 import {UserAvatar} from '/client/lib/helpers.jsx'
@@ -183,7 +181,7 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage,
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
       handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
-       amaPostId={amaPostId}/>
+      amaPostId={amaPostId}/>
   </MessageContainer>
 )
 

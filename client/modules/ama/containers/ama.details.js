@@ -1,16 +1,7 @@
 import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
-import {amaMessageValidator} from '/lib/validation/ama'
-import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
 import {_} from 'underscore'
-import {reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
-
-export const askQuestionFormConfig = {
-  form: AMA_ASK_QUESTION_FORM_NAME,
-  fields: ['content', 'amaPostId'],
-  validate: amaMessageValidator
-}
 
 const processActivities = (context, amaPost, activities) => {
   const {Collections, UserService} = context

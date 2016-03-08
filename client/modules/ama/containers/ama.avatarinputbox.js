@@ -11,7 +11,6 @@ export const inputBoxFormConfig = {
 }
 
 const composer = ({context, formType, message, amaPostId}, onData) => {
-  const { Meteor } = context
   const baseProps = {
     initialValues: {
       amaPostId,
@@ -23,8 +22,7 @@ const composer = ({context, formType, message, amaPostId}, onData) => {
     case AMA_REPLY_FORM_NAME:
       onData(null, {
         ...baseProps,
-        formKey: message._id,
-        isUpvoted: message.upvotedUsers.indexOf(Meteor.userId()) !== -1
+        formKey: message._id
       })
       break
     case AMA_ASK_QUESTION_FORM_NAME:
