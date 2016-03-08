@@ -6,7 +6,9 @@ import Collections from '/lib/collections'
 import {Random} from 'meteor/random'
 import {Email} from 'meteor/email'
 import {HTTP} from 'meteor/http'
+import {isTest} from '/lib/test'
 import AvatarService from '/lib/avatar.service.js'
+import FakeSlack from '/server/lib/fakes/FakeSlack'
 import PostManager from '/server/lib/PostManager'
 import TopicManager from '/server/lib/TopicManager'
 import OnboardManager from '/server/lib/OnboardManager'
@@ -15,8 +17,9 @@ import Logger from '/server/lib/logger'
 import UserService from '/lib/user.service'
 import MentionParser from '/lib/mention.parser'
 import Notifier from '/server/lib/Notifier'
+
 const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
-const slack = Meteor.npmRequire('slack-notify')(slackUrl)
+const slack = !isTest() ? Meteor.npmRequire('slack-notify')(slackUrl) : new FakeSlack()
 
 const audience = process.env.AUDIENCE || 'princeton'
 

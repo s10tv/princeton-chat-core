@@ -4,7 +4,6 @@
 import Collections from '../../../lib/collections'
 import chai from 'chai'
 import chaiTime from 'chai-datetime'
-import {isTest} from '/lib/test'
 
 chai.use(chaiTime)
 
@@ -31,17 +30,14 @@ describe('onboarding methods', () => {
 
     describe('signup/verifyAffiliation', () => {
       it('should verify affiliation', () => {
-        if (isTest()) {
-          console.log('In the test mode')
-        }
-        /* Meteor.call('signup/verifyAffiliation', {
+        Meteor.call('signup/verifyAffiliation', {
           firstName: 'john',
-          lastName:  'smith',
+          lastName: 'smith',
           birthDate: '12/27/1981',
           classYear: '2016',
           degree: 'BS',
           email: 'john@smith.com'
-        })*/
+        })
       })
     })
   })
