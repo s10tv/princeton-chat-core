@@ -180,6 +180,10 @@ var TopicListItem = ({isLoggedIn, ifLoggedInExecute,
     return pluralizeTextForNumber('post', postCount)
   }
 
+  const getParticipantText = () => {
+    return pluralizeTextForNumber('participant', followerCount)
+  }
+
   return (
     <Flex style={localStyle.topicItemContainer}>
       <div style={localStyle.topicItemContainerUpperRow}>
@@ -204,23 +208,43 @@ var TopicListItem = ({isLoggedIn, ifLoggedInExecute,
             : <span>#{topic.displayName}</span>
             }
           </h3>
-          <h5 style={localStyle.textTopicEmail}>
-            {topic._id}@{i18n('topicMailServer')}
-          </h5>
-          <Flex marginTop={15} alignItems='center'>
-            {
-              topic.followersCount !== undefined
-              ? <Flex marginRight={25}>
-                <span style={localStyle.topicItemCountInfo}>{followerCount} {getFollowerText()}</span>
-              </Flex> : null
-            }
-            {
-              topic.numPosts !== undefined
-              ? <Flex>
-                <span style={localStyle.topicItemCountInfo}>{postCount} {getPostsText()}</span>
-              </Flex> : null
-            }
-          </Flex>
+
+          {topic.type === 'ama'
+            ? (
+            <div>
+              <h5 style={localStyle.textTopicEmail}>
+                Ask me anything
+              </h5>
+              {
+                topic.followersCount !== undefined
+                ? <div>
+                  <span style={localStyle.topicItemCountInfo}>{followerCount} {getParticipantText()}</span>
+                </div> : null
+              }
+            </div>
+            )
+            : (
+            <div>
+              <h5 style={localStyle.textTopicEmail}>
+                {topic._id}@{i18n('topicMailServer')}
+              </h5>
+              <Flex marginTop={15} alignItems='center'>
+                {
+                  topic.followersCount !== undefined
+                  ? <Flex marginRight={25}>
+                    <span style={localStyle.topicItemCountInfo}>{followerCount} {getFollowerText()}</span>
+                  </Flex> : null
+                }
+                {
+                  topic.numPosts !== undefined
+                  ? <Flex>
+                    <span style={localStyle.topicItemCountInfo}>{postCount} {getPostsText()}</span>
+                  </Flex> : null
+                }
+              </Flex>
+            </div>
+            )
+          }
           {
             topic.isFollowed
             ? <FlatButton

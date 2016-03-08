@@ -27,7 +27,7 @@ export default function ({Meteor, Collections, currentUser}) {
       'dev/ama/create': () => {
         const user = currentUser()
 
-        Topics.upsert({ _id: 'ama' }, {$set: {
+        Topics.upsert({ _id: 'qimingama' }, {$set: {
           displayName: 'AMA',
           type: 'ama',
           createdAt: new Date(),
