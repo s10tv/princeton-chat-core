@@ -26,9 +26,6 @@ describe('onboarding methods', () => {
   })
 
   describe('signup', () => {
-    beforeEach(() => {
-    })
-
     describe('signup/verifyAffiliation', () => {
       const userJohn = {
         firstName: 'john',
@@ -91,14 +88,32 @@ describe('onboarding methods', () => {
 
     describe('signup/alumni', () => {
       const userAdilet = {
-        netid: 'adilet', 
+        netid: 'adilet',
         domain: 'adilet.org',
-        classYear: 2016
+        classYear: '2016'
       }
-      it('should send signup email for alumni', () => {
+      const userMissingData = {
+        netid: 'missingdata'
+      }
+      it('should send signup email for alumni and generate invite', () => {
         Meteor.call('signup/alumni', userAdilet)
+
+        expect(Invites.find().count()).to.equal(1)
+        const dbInvite = Invites.find().fetch()[0]
+
+        expect(dbInvite.email).to.equal(userAdilet.netid + '@' + userAdilet.domain)
+        expect(dbInvite.classYear).to.equal(userAdilet.classYear)
+        expect(dbInvite.status).to.equal('sent')
       })
-      it('should not allow users already registered email', () => {
+      it('should detect incomplete data', () => {
+        try {
+          Meteor.call('signup/alumni', userMissingData)
+          fail('missing domain')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+      it('should not allow users with already registered email', () => {
         Users.insert({
           email: userAdilet.email
         })
@@ -108,6 +123,60 @@ describe('onboarding methods', () => {
         } catch (err) {
           expect(err).to.exist
         }
+      })
+    })
+  })
+
+  describe('profile', () => {
+    describe('profile/avatar/useFacebook', () => {
+      it('should use facebook avatar', () => {
+        const facebookId = 'facebook-id'
+        Users.update(currentUserId, { $set: {
+          services: {
+            facebook: {
+              id: facebookId
+            }
+          }
+        }})
+
+        console.log(Users.findOne(currentUserId))
+
+        Meteor.call('profile/avatar/useFacebook')
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.avatar.url).to.equal('https://graph.facebook.com/' + facebookId + '/picture?type=large')
+        expect(dbUser.avatar.isDefaultAvatar).to.equal(false)
+      })
+      it('should detect if facebook is not linked', () => {
+        try {
+          Meteor.call('profile/avatar/useFacebook')
+          fail('facebook is not linked')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+    })
+
+    describe('profile/avatar/useFilestack', () => {
+      it('should use url as avatar', () => {
+        const url = 'avatar-image-url'
+
+        Meteor.call('profile/avatar/useFilestack', url)
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.avatar.url).to.equal(url)
+        expect(dbUser.avatar.isDefaultAvatar).to.equal(false)
+      })
+    })
+
+    describe('profile/avatar/useDefault', () => {
+      it('should use default avatar', () => {
+        Meteor.call('profile/avatar/useDefault')
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.avatar).to.have.property('url')
+        expect(dbUser.avatar.isDefaultAvatar).to.equal(true)
+        expect(dbUser.avatar).to.have.property('color')
       })
     })
   })

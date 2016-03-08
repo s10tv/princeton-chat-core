@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOMServer from '../../node_modules/react-dom/server'
 import { autoVerifyValidator, manualVerifyValidator,
   enterNamesValidator } from '/lib/validation/onboarding'
+import {isTest} from '/lib/test'
 import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
@@ -46,19 +47,23 @@ export default class OnboardManager {
     }
 
     var res
-    try {
-      res = this.HTTP.get('https://api.mailgun.net/v3/address/validate', {
-        auth: `api:${this.Meteor.settings.public.mailgunPublicKey}`,
-        params: {
-          address: `${netid}@${domain}`
-        }
-      })
-    } catch (e) {
-      console.error(e)
-      throw new this.Meteor.Error(500, 'Sorry, an unknown error occurred.')
+
+    // Not doing mailgun validation in testing mode
+    if (!isTest()) {
+      try {
+        res = this.HTTP.get('https://api.mailgun.net/v3/address/validate', {
+          auth: `api:${this.Meteor.settings.public.mailgunPublicKey}`,
+          params: {
+            address: `${netid}@${domain}`
+          }
+        })
+      } catch (e) {
+        console.error(e)
+        throw new this.Meteor.Error(500, 'Sorry, an unknown error occurred.')
+      }
     }
 
-    if (res.data['is_valid']) {
+    if (isTest() || res.data['is_valid']) {
       const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear})
       this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
     } else {

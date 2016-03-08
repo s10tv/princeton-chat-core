@@ -18,6 +18,8 @@ export default function (context) {
       Logger.log({ level: 'info', method: 'profile/avatar/useFacebook' })
       const user = currentUser()
 
+      console.log(user)
+
       if (user.services.facebook) {
         Users.update(user._id, { $set: {
           avatar: {
