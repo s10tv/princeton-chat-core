@@ -78,6 +78,7 @@
     "react-dom": "0.14.x",
     "react-link-state": "0.1.1",
     "react-linkify": "git+https://git@github.com/s10tv/react-linkify.git",
+    "react-motion-ui-pack": "^0.6.0",
     "react-mounter": "1.1.0",
     "react-redux": "4.4.0",
     "react-router": "^2.0.0",

@@ -1,13 +1,15 @@
 import React, {PropTypes} from 'react'
-import {imageShape, userShape} from '/client/lib/shapes'
+import Transition from 'react-motion-ui-pack'
 import Radium, {StyleRoot} from 'radium'
+import TextareaAutosize from 'react-textarea-autosize'
 import moment from 'moment'
+import {imageShape, userShape} from '/client/lib/shapes'
 import {UserAvatar} from '/client/lib/helpers.jsx'
 import {spacing} from '/client/configs/theme'
-import TextareaAutosize from 'react-textarea-autosize'
 import TimeAgo from 'react-timeago'
 import Divider from 'material-ui/lib/divider'
 import Message from '/client/modules/ama/containers/ama.message'
+
 class AMADetails extends React.Component {
 
   // temporary
@@ -239,20 +241,29 @@ export const MessageContainer = ({ message, user, children, isSpeaker, isReply }
 )
 
 const AmaActivities = (props) => (
-  <div className='ama-activity-sidebar'>
-    {!props.speakerIsTyping ? null : (
-      <SpeakerIsTyping {...props} />
-    )}
-
-    {props.activities.map((activity) => (
-      <AmaActivity key={activity._id} activity={activity} {...props} />
-    ))}
+  <div className='ama-activity-sidebar' style={props.style}>
+    <Transition
+      enter={{
+        height: 'auto',
+        opacity: 1
+      }}
+      leave={{
+        height: 0,
+        opacity: 0
+      }}>
+      {!props.speakerIsTyping ? null : (
+        <SpeakerIsTyping key='speaker-typing' {...props} />
+      )}
+      {props.activities.map((activity) => (
+        <AmaActivity key={activity._id} activity={activity} {...props} />
+      ))}
+    </Transition>
   </div>
 )
 
 const SpeakerIsTyping = (props) => {
   return (
-    <div className='ama-host-is-typing' key='speaker-typing'>
+    <div className='ama-host-is-typing' style={props.style}>
       <div className='ama-activity-avatar'>
         <UserAvatar
           avatar={props.speaker.avatar}
@@ -268,8 +279,8 @@ const SpeakerIsTyping = (props) => {
   )
 }
 
-const AmaActivity = ({activity}) => (
-  <div className='ama-activity' key={activity._id}>
+const AmaActivity = ({activity, style}) => (
+  <div className='ama-activity' style={style}>
     <div className='ama-activity-header'>
       <div className='ama-activity-avatar'>
         <UserAvatar
