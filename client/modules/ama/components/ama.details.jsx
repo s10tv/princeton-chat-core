@@ -16,7 +16,6 @@ class AMADetails extends React.Component {
   // temporary
   componentWillMount () {
     document.body.style.overflow = 'auto'
-    console.log(this.props)
   }
 
   componentWillUnmount () {
