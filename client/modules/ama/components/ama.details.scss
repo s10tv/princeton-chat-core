@@ -84,6 +84,10 @@ $header-height: 240px;
     padding: $spacing-x3;
     background-color: $color-rightbar;
 
+    @include media(mobile) {
+      background-color: red;
+    }
+
     .ama-host-is-typing {
       display: flex;
       padding-bottom: $spacing-x2;

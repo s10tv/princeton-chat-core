@@ -8,13 +8,19 @@ $input-box-shadow-focus: $brand-primary;
 @import "../vendor/fontawesome/font-awesome";
 @import "../vendor/bootstrap/bootstrap";
 
+@mixin media($media) {
+  @if $media == mobile {
+    @media only screen and (max-width: map-get($grid-breakpoints, md)) { @content; }
+  }
+  @else if $media == desktop {
+    @media only screen and (min-width: map-get($grid-breakpoints, md) + 1) { @content; }
+  }
+}
+
 body {
   overflow: hidden;
   font-family: "Lato", sans-serif;
-}
-
-@media only screen and (max-width: 768px) {
-  body {
+  @include media(mobile) {
     overflow-y: scroll;
   }
 }
