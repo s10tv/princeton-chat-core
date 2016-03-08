@@ -2,17 +2,17 @@ import React from 'react'
 import {AvatarInputBox, MessageContainer} from './ama.details.jsx'
 
 export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
-  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error}) => {
+  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted}) => {
   const form = {
     handleSubmit,
     submitting,
     error,
     fields
   }
-
+  console.log(isUpvoted)
   return (
     <MessageContainer message={message} user={message.owner} isReply={isReply}>
-      <MessageFooter message={message} upVote={upVote} openReplyBox={openReplyBox} />
+      <MessageFooter isUpvoted={isUpvoted} message={message} upVote={upVote} openReplyBox={openReplyBox} />
 
       {!isReplyBoxOpen
         ? null
@@ -27,9 +27,9 @@ export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
   )
 }
 
-const MessageFooter = ({ message, upVote, openReplyBox }) => (
+const MessageFooter = ({ message, upVote, isUpvoted, openReplyBox }) => (
   <div className='ama-message-footer'>
-    <a className='footer-component' onClick={(event) => {
+    <a className={`footer-component${isUpvoted ? ' upvoted' : ''}`} onClick={(event) => {
       event.preventDefault()
       upVote(message)
     }}>

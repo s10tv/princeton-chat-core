@@ -12,12 +12,14 @@ export const replyFormConfig = {
 }
 
 const composer = ({context, amaPostId, message}, onData) => {
+  const { Meteor } = context
   onData(null, {
     formKey: message._id,
     initialValues: {
       amaPostId,
       content: ''
-    }
+    },
+    isUpvoted: message.upvotedUsers.indexOf(Meteor.userId()) !== -1
   })
 }
 

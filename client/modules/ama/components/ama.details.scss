@@ -232,6 +232,13 @@ $header-height: 240px;
       font-weight: 600;
     }
   }
+
+  .upvoted {
+    color: $brand-primary;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
 }
 
 .ama-avatar-inputbox-container {
