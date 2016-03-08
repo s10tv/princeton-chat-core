@@ -105,7 +105,7 @@ $header-height: 240px;
       flex-direction: column;
       padding-bottom: $spacing-x1;
       border-bottom: 1px solid #EFEFEF;
-      
+
       opacity: 0;
       transform: translateY(-100);
       animation: fadeIn .3s linear forwards;
@@ -340,6 +340,11 @@ $header-height: 240px;
   }
 }
 
+@keyframes blink {
+  0% { opacity: 1; transform: scale(0.6); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
 .ama-live-now-container {
   display: flex;
   align-items: center;
@@ -351,6 +356,10 @@ $header-height: 240px;
   }
 
   .live-now-circle {
+    animation-name: blink;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
     border-radius: 50%;
     width: 10px;
     height: 10px;
