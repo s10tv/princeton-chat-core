@@ -13,6 +13,7 @@ class AMADetails extends React.Component {
   // temporary
   componentWillMount () {
     document.body.style.overflow = 'auto'
+    console.log(this.props)
   }
 
   componentWillUnmount () {
@@ -63,6 +64,7 @@ AMADetails.propTypes = {
   speaker: userShape.isRequired,
   speakerIsTyping: PropTypes.bool,
   participants: PropTypes.arrayOf(userShape).isRequired,
+  participantCount: PropTypes.number.isRequired,
   startTime: PropTypes.object.isRequired,
   activities: PropTypes.arrayOf(PropTypes.shape({
     isMine: PropTypes.bool.isRequired,
@@ -123,16 +125,18 @@ const HeaderOverlay = (props) => {
         </div>
       </div>
       <div className='overlay-row'>
-        <span className='overlay-row-label'>Participants ({props.participants.length})</span>
+        <span className='overlay-row-label'>Participants ({props.participantCount})</span>
         <div className='overlay-content-row participants-row'>
-          {props.participants.map((participant) =>
-            <UserAvatar
+          {props.participants.map((participant) => {
+            console.log(participant)
+            return (<UserAvatar
               key={participant._id}
               avatar={participant.avatar}
               avatarInitials={participant.avatarInitials}
               size={30}
               style={{marginRight: spacing.x2}}/>
-          )}
+            )
+          })}
         </div>
       </div>
     </div>

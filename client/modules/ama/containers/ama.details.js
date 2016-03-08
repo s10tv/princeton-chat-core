@@ -77,17 +77,15 @@ const composer = ({context, params: {amaPostId}, onSpeakerType}, onData) => {
 
     const messages = processMessages(context, AmaMessages.find().fetch())
 
-    // temporary, to show 7 max in the list
-    if (amaPost.participants.length > 6) {
-      amaPost.participants.length = 6
-    }
-    const participants = amaPost.participants.map((participant) => {
+    const participantCount = amaPost.participants.length
+    const participants = amaPost.participants.slice(0, 6).map((participant) => {
       return UserService.getUserView(Users.findOne(participant.userId))
     })
 
     onData(null, Object.assign({}, amaPost, {
       isLive: new Date() > amaPost.startTime || amaPost.type === 'past',
       participants,
+      participantCount,
       currentUser,
       activities,
       messages,
