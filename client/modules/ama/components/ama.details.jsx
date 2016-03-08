@@ -5,6 +5,7 @@ import moment from 'moment'
 import {UserAvatar} from '/client/lib/helpers.jsx'
 import {spacing} from '/client/configs/theme'
 import TextareaAutosize from 'react-textarea-autosize'
+import TimeAgo from 'react-timeago'
 import Divider from 'material-ui/lib/divider'
 import Message from '/client/modules/ama/containers/ama.message'
 class AMADetails extends React.Component {
@@ -274,10 +275,11 @@ const AmaActivity = ({activity}) => (
           avatarInitials={activity.owner.avatarInitials} />
       </div>
       <div className='ama-activity-owner-info'>
-        <div className='ama-activity-owner-displayName'>{activity.owner.displayName}</div>
+        <div className='ama-activity-owner-displayName'>{activity.title}</div>
 
         <div className='ama-activity-timestamp'>
-          <span>{moment(activity.createdAt).format('MMM D').toUpperCase()}</span>
+          <TimeAgo date={activity.createdAt} live={false} formatter={(value, unit) =>
+              `${value} ${unit.charAt(0)}`} />
         </div>
       </div>
     </div>

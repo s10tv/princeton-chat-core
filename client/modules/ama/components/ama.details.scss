@@ -114,8 +114,14 @@ $header-height: 240px;
 
           .ama-activity-timestamp {
             display:flex;
-            width: 50px;
+            width: 60px;
+            text-align: right;
             font-size: 14px;
+
+            span {
+              flex-basis: 100%;
+              text-align: right;
+            }
           }
         }
       }
