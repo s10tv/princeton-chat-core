@@ -1,8 +1,9 @@
 import React from 'react'
+import {Link} from 'react-router'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 import SidebarHeader from './sidebarHeader.jsx'
-import {Link} from 'react-router'
+import {navigateViaRouter} from '/client/lib/helpers'
 
 const NavLink = (props) =>
   <Link activeClassName='active' {...props} />
@@ -16,7 +17,8 @@ const Sidebar = ({user, onLogout, onTapSettings, isFullAdmin, followedTopics, to
       user={user}
       onLogout={onLogout}
       onTapSettings={onTapSettings} />
-    <RaisedButton primary linkButton label='New Post' labelPosition='after' href='/add-post' className='new-post'>
+    <RaisedButton primary label='New Post' labelPosition='after' className='new-post'
+       linkButton href='/add-post' onClick={navigateViaRouter}>
       <FontIcon className='material-icons new-post-icon' color='white'>
          add_circle
       </FontIcon>

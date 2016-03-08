@@ -1,5 +1,6 @@
 import {compose} from 'mantra-core'
 import {createAction} from 'redux-act'
+import {browserHistory} from 'react-router'
 
 /*
 Transform Meteor server errors into errors understood by redux form
@@ -58,4 +59,12 @@ export const composeWithRedux = (fn, L, E, options) => {
     })
   }
   return compose(onPropsChange, L, E, options)
+}
+
+// Intended to be used with 3rd party anchor tags that would otherwise cause a
+// full page refresh. It's a bit of a hack so we should probably not use it too
+// often by avoiding those components in the first place
+export const navigateViaRouter = (event) => {
+  event.preventDefault()
+  browserHistory.push(event.currentTarget.href)
 }

@@ -10,6 +10,7 @@ import ListItem from '../../../../node_modules/material-ui/lib/lists/list-item'
 import RightBar from '/client/modules/core/components/layout/layout.rightbar.jsx'
 import FlatButton from '../../../../node_modules/material-ui/lib/flat-button'
 import FontIcon from '../../../../node_modules/material-ui/lib/font-icon'
+import {navigateViaRouter} from '/client/lib/helpers'
 
 const PostListScreen = React.createClass({
   propTypes: {
@@ -102,7 +103,8 @@ const EmptyPostListNotInFeed = () => (
     <Flex flexDirection='column' maxWidth={400} alignItems='center'>
       <h2 style={{fontWeight: 500}}>It's awfully quiet in here</h2>
       <h3 style={{fontWeight: 300}}>Let's break the ice</h3>
-      <RaisedButton primary linkButton href='/add-post' label='Create a new post' />
+      <RaisedButton primary label='Create a new post'
+        linkButton href='/add-post' onClick={navigateViaRouter} />
     </Flex>
     <Flex marginTop={20} flexGrow={1}
       width='50%'
