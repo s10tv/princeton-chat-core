@@ -113,7 +113,9 @@ export default React.createClass({
     return (
       <Flex style={styles.main}>
         <NavBar>
-          <Flex alignSelf='stretch' justifyContent='space-between'>
+          <Flex alignSelf='stretch' justifyContent='space-between' style={{
+            marginLeft: 35 // mobile menu
+          }}>
             <Flex flexDirection='column'>
               <Flex flexDirection='row'>
                 <h1 style={{margin: 0, flex: 1, fontWeight: 400, fontSize: 24}}>

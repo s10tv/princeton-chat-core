@@ -11,6 +11,7 @@ import GlobalSnackbar from '/client/modules/core/containers/global.snackbar.js'
 import {StyleRoot} from 'radium'
 import LeftNav from 'material-ui/lib/left-nav'
 import {MuiTheme} from '/client/lib/ui.jsx'
+import color from '/client/configs/color'
 
 const s = {
   main: {
@@ -29,7 +30,7 @@ const Layout = ({sidebarOpen, sidebarDocked, updateSidebar, toggleSidebar, child
       <main className={sidebarOpen ? 'content--extended' : 'content'} style={s.main}>
         <nav className='topbar'>
           <IconButton className='sidebar-toggle' onTouchTap={toggleSidebar}
-            iconStyle={{color: 'white'}}>
+            iconStyle={{color: color.lightGray}}>
             <FontIcon className='material-icons'>menu</FontIcon>
           </IconButton>
         </nav>
