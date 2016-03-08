@@ -47,6 +47,7 @@ const composer = ({context, term}, onData) => {
     onData(null, {
       notifications,
       currentUser,
+      isEmpty: notifications.length === 0,
       topic: {
         displayName: 'My Inbox',
         cover: InboxCoverPhoto,

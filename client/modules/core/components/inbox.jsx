@@ -31,11 +31,13 @@ const Inbox = React.createClass({
       })}>
         <Flex style={s.mainFlexContainer}>
           <h1 style={s.myInboxTitle}>My Inbox</h1>
-          <Paper style={{
+          <Paper zDepth={3} style={{
             display: 'flex',
+            flexGrow: 1,
             alignSelf: 'center',
             maxWidth: 750,
-            minWidth: 500
+            minWidth: 500,
+            marginTop: this.props.isEmpty ? 25 : 0
           }}>
             {this.props.isEmpty
               ? <EmptyScreen {...this.props} />
@@ -48,11 +50,14 @@ const Inbox = React.createClass({
 })
 
 const EmptyScreen = () => (
-  <Flex marginTop={50} flexGrow={1} flexDirection='column' justifyContent='center' alignItems='center'>
-    <FontIcon style={{fontSize: 50}} className='material-icons'>search</FontIcon>
-    <h2 style={{fontWeight: 500}}>
-      Your inbox is empty.
-    </h2>
+  <Flex marginTop={40} flexGrow={1} flexDirection='column' justifyContent='center' alignItems='center'>
+    <Flex flexDirection='column' alignItems='center'>
+      <h2 style={{fontWeight: 300, color: color.gray, marginBottom: 35, textAlign: 'center'}}>
+        Woot! You are up to date.
+      </h2>
+      <img src='/images/tiger.png' style={{ width: '200', height: '200' }}/>
+    </Flex>
+    <Flex flexGrow={1} />
   </Flex>
 )
 
