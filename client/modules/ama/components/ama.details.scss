@@ -64,6 +64,13 @@ $header-height: 240px;
   }
 }
 
+@keyframes fadeIn {
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
 .ama-content {
   display: flex;
   flex-grow: 1;
@@ -98,6 +105,10 @@ $header-height: 240px;
       flex-direction: column;
       padding-bottom: $spacing-x1;
       border-bottom: 1px solid #EFEFEF;
+      
+      opacity: 0;
+      transform: translateY(-100);
+      animation: fadeIn .3s linear forwards;
 
       .ama-activity-header {
         margin-top: $spacing-x2;

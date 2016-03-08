@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import Transition from 'react-motion-ui-pack'
+// import Transition from 'react-motion-ui-pack'
 import Radium, {StyleRoot} from 'radium'
 import TextareaAutosize from 'react-textarea-autosize'
 import moment from 'moment'
@@ -242,22 +242,12 @@ export const MessageContainer = ({ message, user, children, isSpeaker, isReply }
 
 const AmaActivities = (props) => (
   <div className='ama-activity-sidebar' style={props.style}>
-    <Transition
-      enter={{
-        height: 'auto',
-        opacity: 1
-      }}
-      leave={{
-        height: 0,
-        opacity: 0
-      }}>
       {!props.speakerIsTyping ? null : (
         <SpeakerIsTyping key='speaker-typing' {...props} />
       )}
       {props.activities.map((activity) => (
         <AmaActivity key={activity._id} activity={activity} {...props} />
       ))}
-    </Transition>
   </div>
 )
 
