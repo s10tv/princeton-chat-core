@@ -179,5 +179,36 @@ describe('onboarding methods', () => {
         expect(dbUser.avatar).to.have.property('color')
       })
     })
+
+    describe('profile/update', () => {
+      const userJohn = {
+        firstName: 'John',
+        lastName: 'Smith',
+        username: 'john',
+        displayName: 'Johnny',
+        classYear: '2017'
+      }
+      it('should update fields of current user', () => {
+        Meteor.call('profile/update', userJohn)
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.firstName).to.equal(userJohn.firstName)
+        expect(dbUser.lastName).to.equal(userJohn.lastName)
+        expect(dbUser.username).to.equal(userJohn.username)
+        expect(dbUser.displayName).to.equal(userJohn.displayName)
+        expect(dbUser.classYear).to.equal(userJohn.classYear)
+      })
+      it('should not allow duplicate usernames', () => {
+        Users.insert({
+          username: 'john'
+        })
+        try {
+          Meteor.call('profile/update', userJohn)
+          fail('username is already taken')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+    })
   })
 })
