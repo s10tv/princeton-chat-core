@@ -142,8 +142,7 @@ const AmaMain = (props) => {
     handleSubmit: props.handleSubmit,
     submitting: props.submitting,
     error: props.error,
-    fields: props.fields,
-    submit: props.submit
+    fields: props.fields
   }
 
   return (

@@ -2,13 +2,12 @@ import React from 'react'
 import {AvatarInputBox, MessageContainer} from './ama.details.jsx'
 
 export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
-  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, submit }) => {
+  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error}) => {
   const form = {
     handleSubmit,
     submitting,
     error,
-    fields,
-    submit
+    fields
   }
 
   return (
