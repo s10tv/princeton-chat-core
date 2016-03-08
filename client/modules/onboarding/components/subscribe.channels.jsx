@@ -11,7 +11,7 @@ import AddTopicModal from '/client/modules/core/containers/modal.add.topic.js'
 import AddTopicCoverPhotoModal from '/client/modules/core/containers/modal.add.topic.coverphoto.js'
 
 const SubscribeChannels = (props) => {
-  const {channels, onNext, hasSelectedThreeChannels, isLoggedIn} = props
+  const {channels, onNext, hasSelectedThreeChannels} = props
   return (
     <StyleRoot>
       <Layout.Window>
@@ -30,8 +30,7 @@ const SubscribeChannels = (props) => {
                 <li key={channel._id}>#{channel.displayName}</li>
               )}
             </ul>
-            <TopicList rootStyle={style.notShowOnDesktop} isLoggedIn={isLoggedIn}
-              areTabsShown={false} isTopicClickable={false} />
+            <TopicList rootStyle={style.notShowOnDesktop} areTabsShown={false} isTopicClickable={false} />
             <FlatButton
               style={style.button}
               disabled={!hasSelectedThreeChannels}
@@ -45,7 +44,7 @@ const SubscribeChannels = (props) => {
         <Layout.Main>
           <AddTopicModal shouldRedirectToNewTopic={false} />
           <AddTopicCoverPhotoModal />
-          <TopicList isLoggedIn={isLoggedIn} isTopicClickable={false} />
+          <TopicList isTopicClickable={false} />
         </Layout.Main>
       </Layout.Window>
     </StyleRoot>
@@ -55,8 +54,7 @@ const SubscribeChannels = (props) => {
 // TODO: Specify the shape of a field
 SubscribeChannels.propTypes = {
   channels: PropTypes.array.isRequired,
-  hasSelectedThreeChannels: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  hasSelectedThreeChannels: PropTypes.bool.isRequired
 }
 const s = {
   sidebarInner: {

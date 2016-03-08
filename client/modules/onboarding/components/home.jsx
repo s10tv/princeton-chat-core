@@ -14,7 +14,7 @@ import AddTopicModal from '/client/modules/core/containers/modal.add.topic'
 const Home = (props) => {
   const mainContent = props.mainContent
     ? props.mainContent
-    : <TopicList isLoggedIn={false} isTopicClickable />
+    : <TopicList isTopicClickable />
   const {domains} = props
   const {fields: {netid, domain}, handleSubmit, error, submitting} = props
 

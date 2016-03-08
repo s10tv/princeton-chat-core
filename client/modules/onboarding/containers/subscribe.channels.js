@@ -10,7 +10,6 @@ export const composer = ({context}, onData) => {
       _id: {$in: user.followingTopics}
     }).fetch() : []
     onData(null, {
-      isLoggedIn: true,
       isTopicClickable: false,
       hasSelectedThreeChannels: user ? user.followingTopics.length >= 3 : false,
       channels: channels

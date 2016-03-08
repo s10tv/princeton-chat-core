@@ -18,7 +18,12 @@ export const composer = ({context, followTopic, unfollowTopic}, onData) => {
 
     const topicsSortedByFollowers = _.sortBy(topics, (topic) => topic.followersCount).reverse()
     const topicsSortedByTime = _.sortBy(topics, (topic) => topic.createdAt).reverse()
-    onData(null, { topics, topicsSortedByFollowers, topicsSortedByTime })
+    onData(null, {
+      topics,
+      topicsSortedByFollowers,
+      topicsSortedByTime,
+      isLoggedIn: Meteor.userId() != null
+    })
   }
 }
 
