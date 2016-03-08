@@ -223,6 +223,7 @@ $header-height: 240px;
     .message-content {
       margin-top: $spacing-x15;
       margin-bottom: $spacing-x15;
+      white-space: pre-wrap;
     }
 
     .message-content-no-bot-margin {
