@@ -76,7 +76,7 @@ const composer = ({context, params: {amaPostId}, onSpeakerType}, onData) => {
     })
 
     onData(null, Object.assign({}, amaPost, {
-      isLive: new Date() > amaPost.startTime || amaPost.type === 'past',
+      isLive: new Date() > amaPost.startTime && amaPost.type !== 'past',
       participants,
       participantCount,
       currentUser,
