@@ -4,7 +4,8 @@ import AvatarInputBox from '../containers/ama.avatarinputbox.js'
 import {AMA_REPLY_FORM_NAME} from '/client/configs/constants'
 
 export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
-  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted, amaPostId, fbShare}) => {
+  openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted, amaPostId,
+  speaker, fbShare}) => {
   return (
     <MessageContainer message={message} user={message.owner} isReply={isReply}>
       <MessageFooter isUpvoted={isUpvoted}
@@ -20,6 +21,7 @@ export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
           placeholder={`Reply to ${message.owner.displayName}...`}
           amaPostId={amaPostId}
           message={message}
+          speaker={speaker}
           formType={AMA_REPLY_FORM_NAME}
           handleNewMessage={reply}
           messageOptions={{ parentMessageId: message._id }} />

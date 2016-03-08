@@ -53,14 +53,14 @@ export default {
         return store.dispatch({ type: AMA_OPEN_REPLY, messageId })
       }
     },
-    onSpeakerType ({Meteor}, {post}) {
+    onSpeakerType ({Meteor}, {amaPostId, speaker}) {
       return (dispatch, getState) => {
-        if (post.speakerId === Meteor.userId()) {
+        if (speaker._id === Meteor.userId()) {
           const startTypingPromise = getState().ama.speakerIsTyping
             ? Promise.resolve(true)
             : new Promise((resolve, reject) => {
               dispatch({ type: SPEAKER_START_TYPING })
-              Meteor.call('ama/speaker/typing', {amaPostId: post._id}, (err, res) => {
+              Meteor.call('ama/speaker/typing', {amaPostId}, (err, res) => {
                 if (err) { return reject(err) }
                 return resolve(res)
               })
@@ -71,7 +71,7 @@ export default {
             intervalId = setInterval(() => {
               // if this lasts 10 sec without being cleared, that means the user stopped
               // typing for 10s.
-              Meteor.call('ama/speaker/clear', {amaPostId: post._id}, (err, res) => {
+              Meteor.call('ama/speaker/clear', {amaPostId}, (err, res) => {
                 if (err) { console.log(err) }
                 return dispatch({ type: SPEAKER_STOP_TYPING })
               })

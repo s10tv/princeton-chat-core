@@ -10,13 +10,25 @@ export const inputBoxFormConfig = {
   validate: amaMessageValidator
 }
 
-const composer = ({context, formType, message, amaPostId}, onData) => {
+const composer = ({context, formType, message, amaPostId, speaker, onSpeakerType}, onData) => {
+  const {store} = context
   const baseProps = {
     initialValues: {
       amaPostId,
       content: ''
     },
-    form: formType
+    form: formType,
+    store: Object.assign({}, store, {
+      dispatch: (action) => {
+        switch (action.type) {
+          case 'redux-form/CHANGE':
+          case 'redux-form/RESET':
+            store.dispatch(onSpeakerType({amaPostId, speaker}))
+            break
+        }
+        store.dispatch(action)
+      }
+    })
   }
   switch (formType) {
     case AMA_REPLY_FORM_NAME:
@@ -35,6 +47,7 @@ const composer = ({context, formType, message, amaPostId}, onData) => {
 
 const depsMapper = (context, actions) => ({
   store: context.store,
+  onSpeakerType: actions.amaMessages.onSpeakerType,
   context: context
 })
 

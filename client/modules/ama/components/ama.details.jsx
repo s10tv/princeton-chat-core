@@ -169,10 +169,12 @@ const AmaMain = (props) => {
           <Message message={message}
             currentUser={props.currentUser}
             amaPostId={props.params.amaPostId}
+            speaker={props.speaker}
             fbShare={props.fbShare} />
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
             isReply currentUser={props.currentUser}
             fbShare={props.fbShare}
+            speaker={props.speaker}
             amaPostId={props.params.amaPostId} />)}
         </div>
       )}
@@ -186,6 +188,7 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage,
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
       handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
+      speaker={speaker}
       amaPostId={amaPostId}/>
   </MessageContainer>
 )

@@ -84,17 +84,7 @@ const composer = ({context, params: {amaPostId}, onSpeakerType}, onData) => {
       messages,
       currentUserIsSpeaker: currentUser._id === amaPost.speaker._id,
       speakerisTyping: amaPost.speakerisTyping,
-      store: Object.assign({}, store, {
-        dispatch: (action) => {
-          switch (action.type) {
-            case 'redux-form/CHANGE':
-            case 'redux-form/RESET':
-              store.dispatch(onSpeakerType({post: amaPost}))
-              break
-          }
-          store.dispatch(action)
-        }
-      })
+      store: context.store
     }))
   }
 }
@@ -105,7 +95,6 @@ const depsMapper = (context, actions) => ({
   twitterShare: actions.amaHeader.twitterShare,
   fbShare: actions.amaHeader.fbShare,
   reply: actions.amaMessages.reply,
-  onSpeakerType: actions.amaMessages.onSpeakerType,
   toggleFeedFilter: actions.amaFeed.toggleFilter,
   setReplyToPost: actions.amaMessages.setReplyToPost,
   clearScrollToMsgId: actions.amaMessages.clearScrollToMsgId,
