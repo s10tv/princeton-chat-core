@@ -85,6 +85,7 @@
     "react-router-redux": "^4.0.0",
     "react-select": "0.9.1",
     "react-selectize": "0.8.1",
+    "react-simple-di": "^1.0.1",
     "react-styling": "1.4.0",
     "react-tap-event-plugin": "0.2.2",
     "react-textarea-autosize": "^3.3.0",
