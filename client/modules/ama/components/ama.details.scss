@@ -175,6 +175,7 @@ $header-height: 240px;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
   animation-play-state: paused;
+  animation-iteration-count: 1;
 
   .message-content-container {
     display: flex;

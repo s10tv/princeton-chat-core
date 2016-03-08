@@ -21,9 +21,16 @@ class AMADetails extends React.Component {
   componentDidUpdate () {
     if (this.props.scrollToMsgId && document.getElementById(this.props.scrollToMsgId)) {
       const msgDOM = document.getElementById(this.props.scrollToMsgId)
-      msgDOM.scrollIntoView({behavior: 'auto', block: 'start'})
+      msgDOM.scrollIntoView(true)
       msgDOM.className = `${msgDOM.className} ama-message-container-animate`
-      console.log(msgDOM.className)
+
+      const removeAnimationClass = () => {
+        msgDOM.className = msgDOM.className.replace(' ama-message-container-animate', '')
+      }
+      // http://stackoverflow.com/questions/6186454/is-there-a-callback-on-completion-of-a-css3-animation
+      msgDOM.addEventListener('webkitAnimationEnd', removeAnimationClass)
+      msgDOM.addEventListener('animationEnd', removeAnimationClass)
+      msgDOM.addEventListener('oanimationEnd', removeAnimationClass)
       this.props.clearScrollToMsgId()
     }
   }
@@ -149,7 +156,7 @@ const AmaMain = (props) => {
   return (
     <div className='ama-activity-main-content'>
       <div className='top-labels-container'>
-        <span className='top-label'>Discussion</span> // TODO: add top/recent afterwards
+        <span className='top-label'>Discussion</span> {/* TODO: add top/recent afterwards */}
       </div>
       <PostMessage currentUser={props.currentUser}
         speaker={props.speaker}

@@ -35,9 +35,13 @@ const processMessages = (context, messages) => {
     })
   })
 
-  const groupedBy = _.groupBy(processedMessages, 'parentMessageId')
+  const sortedMessages = _.sortBy(processedMessages, (msg) => {
+    return msg.upvotedUsers.length
+  }).reverse()
 
-  return processedMessages.filter((message) => message.parentMessageId === undefined)
+  const groupedBy = _.groupBy(sortedMessages, 'parentMessageId')
+
+  return sortedMessages.filter((message) => message.parentMessageId === undefined)
   .map((message) => {
     return Object.assign(message, {
       replies: groupedBy[message._id] || []

@@ -9,7 +9,7 @@ export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
     error,
     fields
   }
-  console.log(isUpvoted)
+
   return (
     <MessageContainer message={message} user={message.owner} isReply={isReply}>
       <MessageFooter isUpvoted={isUpvoted} message={message} upVote={upVote} openReplyBox={openReplyBox} />
