@@ -34,8 +34,10 @@ const processMessages = (context, messages) => {
 
   return sortedMessages.filter((message) => message.parentMessageId === undefined)
   .map((message) => {
+    const replies = groupedBy[message._id] || []
+
     return Object.assign(message, {
-      replies: groupedBy[message._id] || []
+      replies: _.sortBy(replies, (reply) => reply.createdAt)
     })
   })
 }

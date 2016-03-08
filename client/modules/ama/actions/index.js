@@ -27,6 +27,7 @@ export default {
       return createOnSubmit('ama/reply', ({store}, newMsgId) => {
         store.dispatch(reset(AMA_REPLY_FORM_NAME))
         store.dispatch({ type: AMA_SCROLL_TO_MSG, scrollToMsgId: newMsgId })
+        store.dispatch({ type: AMA_CLOSE_REPLY, messageId: parentMessageId })
       })(context, Object.assign({}, info, {
         parentMessageId
       }))
