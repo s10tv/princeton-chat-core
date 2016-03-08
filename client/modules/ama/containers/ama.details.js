@@ -36,7 +36,7 @@ const processMessages = (context, messages) => {
   })
 
   const sortedMessages = _.sortBy(processedMessages, (msg) => {
-    return msg.upvotedUsers.length
+    return msg.upvotedUsers && msg.upvotedUsers.length
   }).reverse()
 
   const groupedBy = _.groupBy(sortedMessages, 'parentMessageId')
