@@ -3,10 +3,11 @@ import truncate from 'truncate'
 const TRUNCATE_LENGTH = 140
 
 export default function ({Meteor, Logger, OnboardManager, Collections, currentUser}) {
-  const {Users, AmaMessages, AmaActivities} = Collections
+  const {Users, AmaPosts, AmaMessages, AmaActivities} = Collections
 
   Meteor.methods({
     'ama/askquestion' (info) {
+      Logger.log({level: 'info', method: 'ama/askquestion', info})
       const user = currentUser()
       const { content, amaPostId } = info
       const amaMessageId = AmaMessages.insert({
@@ -28,6 +29,7 @@ export default function ({Meteor, Logger, OnboardManager, Collections, currentUs
     },
 
     'ama/reply' ({ content, amaPostId, parentMessageId }) {
+      Logger.log({level: 'info', method: 'ama/reply', content, amaPostId, parentMessageId})
       const user = currentUser()
       const parentMessage = AmaMessages.findOne(parentMessageId)
 
@@ -68,6 +70,7 @@ export default function ({Meteor, Logger, OnboardManager, Collections, currentUs
     },
 
     'ama/upvote' ({ messageId }) {
+      Logger.log({level: 'info', method: 'ama/upvote', messageId})
       const user = currentUser()
       const message = AmaMessages.findOne(messageId)
       if (!message) {
@@ -93,6 +96,42 @@ export default function ({Meteor, Logger, OnboardManager, Collections, currentUs
           upvotedUsers: user._id
         }})
       }
+    },
+
+    'ama/speaker/typing' ({amaPostId}) {
+      Logger.log({level: 'info', method: 'ama/speaker/typing', amaPostId})
+      const user = currentUser()
+      const post = AmaPosts.findOne(amaPostId)
+
+      if (!post) {
+        throw new Meteor.Error(400, `Post with id =${amaPostId} not found.`)
+      }
+
+      if (post.speakerId !== user._id) {
+        throw new Meteor.Error(400, 'Only speakers are allowed to set isTyping.')
+      }
+
+      AmaPosts.update(post._id, {$set: {
+        speakerIsTyping: true
+      }})
+    },
+
+    'ama/speaker/clear' ({amaPostId}) {
+      Logger.log({level: 'info', method: 'ama/speaker/clear', amaPostId})
+      const user = currentUser()
+      const post = AmaPosts.findOne(amaPostId)
+
+      if (!post) {
+        throw new Meteor.Error(400, `Post with id =${amaPostId} not found.`)
+      }
+
+      if (post.speakerId !== user._id) {
+        throw new Meteor.Error(400, 'Only speakers are allowed to clear isTyping.')
+      }
+
+      AmaPosts.update(post._id, {$set: {
+        speakerIsTyping: false
+      }})
     }
   })
 }

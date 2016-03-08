@@ -7,6 +7,7 @@ import createLogger from 'redux-logger'
 import invariant from 'invariant'
 import sweetalert from 'sweetalert'
 import {Meteor} from 'meteor/meteor'
+import thunk from 'redux-thunk'
 import {ReactiveDict} from 'meteor/reactive-dict'
 import {Tracker} from 'meteor/tracker'
 import {Accounts} from 'meteor/accounts-base'
@@ -72,7 +73,8 @@ const createReduxStore = (modules, enableLogger) => {
 
   return createStore(
     combineReducers(reducers),
-    compose(...enhancers)
+    compose(...enhancers),
+    applyMiddleware(thunk)
   )
 }
 

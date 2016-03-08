@@ -24,6 +24,7 @@ const composer = ({context, amaPostId, message}, onData) => {
 const depsMapper = (context, actions) => ({
   reply: actions.amaMessages.reply,
   openReplyBox: actions.amaMessages.openReplyBox,
+  onSpeakerType: actions.amaMessages.onSpeakerType,
   store: context.store,
   upVote: actions.amaMessages.upVote,
   context: context

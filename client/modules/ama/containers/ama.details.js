@@ -56,7 +56,7 @@ const processAmaPost = (context, post) => {
   })
 }
 
-const composer = ({context, params: {amaPostId}}, onData) => {
+const composer = ({context, params: {amaPostId}, onSpeakerType}, onData) => {
   const {Meteor, UserService, Collections, store} = context
   const {AmaPosts, AmaMessages, AmaActivities, Users} = Collections
 
@@ -65,7 +65,6 @@ const composer = ({context, params: {amaPostId}}, onData) => {
 
   if (Meteor.subscribe('ama', amaPostId).ready()) {
     const amaPost = processAmaPost(context, AmaPosts.findOne(amaPostId))
-
     const activityOptions = activityVisibility === 'mine'
       ? { originatorUserId: amaPost.speakerId }
       : {}
@@ -88,11 +87,23 @@ const composer = ({context, params: {amaPostId}}, onData) => {
       currentUser,
       activities,
       messages,
+      currentUserIsSpeaker: currentUser._id === amaPost.speaker._id,
       speakerisTyping: amaPost.speakerisTyping,
       initialValues: {
         content: '',
         amaPostId: amaPostId
-      }
+      },
+      store: Object.assign({}, store, {
+        dispatch: (action) => {
+          switch (action.type) {
+            case 'redux-form/CHANGE':
+            case 'redux-form/RESET':
+              store.dispatch(onSpeakerType({post: amaPost}))
+              break
+          }
+          store.dispatch(action)
+        }
+      })
     }))
   }
 }
@@ -103,6 +114,7 @@ const depsMapper = (context, actions) => ({
   twitterShare: actions.amaHeader.twitterShare,
   reply: actions.amaMessages.reply,
   fbShareMessage: actions.amaMessages.fbShare,
+  onSpeakerType: actions.amaMessages.onSpeakerType,
   toggleFeedFilter: actions.amaFeed.toggleFilter,
   setReplyToPost: actions.amaMessages.setReplyToPost,
   clearScrollToMsgId: actions.amaMessages.clearScrollToMsgId,

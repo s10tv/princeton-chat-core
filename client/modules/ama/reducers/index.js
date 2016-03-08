@@ -1,5 +1,6 @@
 import {AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
-  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG} from '/client/configs/constants'
+  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING, SPEAKER_STOP_TYPING
+} from '/client/configs/constants'
 
 function activityVisibility (state = 'all', action) {
   switch (action.type) {
@@ -40,8 +41,20 @@ function scrollToMsgId (state = {}, action) {
   }
 }
 
+function speakerIsTyping (state = false, action) {
+  switch (action.type) {
+    case SPEAKER_START_TYPING:
+      return true
+    case SPEAKER_STOP_TYPING:
+      return false
+    default:
+      return state
+  }
+}
+
 export default {
   activityVisibility,
   openReplies,
-  scrollToMsgId
+  scrollToMsgId,
+  speakerIsTyping
 }
