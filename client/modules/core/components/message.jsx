@@ -25,7 +25,7 @@ const s = {
     marginBottom: 4,
     fontSize: 15,
     whiteSpace: 'pre-wrap',
-    wordWrap: 'break-work'
+    wordWrap: 'break-word'
   },
   messageGroup: {
     ':hover': {
