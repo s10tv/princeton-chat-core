@@ -30,7 +30,17 @@ export default function ({Meteor, Collections, currentUser}) {
         Topics.upsert({ _id: 'ama' }, {$set: {
           displayName: 'AMA',
           type: 'ama',
-          createdAt: new Date()
+          createdAt: new Date(),
+          followers: [],
+          numPosts: 0,
+          updatedAt: new Date(),
+          updatedBy: '0',
+          description: 'This topic needs a description.',
+          cover: {
+            url: 'https://images.unsplash.com/photo-1436407886995-41f8f5ee43ad?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=6f2e9aea816890a2eff88bc302840266&w=1200&h=800',
+            width: 1200,
+            height: 800
+          }
         }})
 
         AmaPosts.upsert({_id: 'qimingama'}, {$set: {
