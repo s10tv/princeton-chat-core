@@ -224,6 +224,10 @@ $header-height: 240px;
       margin-top: $spacing-x15;
       margin-bottom: $spacing-x15;
       white-space: pre-wrap;
+
+      .Linkify a {
+        color: $brand-primary;
+      }
     }
 
     .message-content-no-bot-margin {

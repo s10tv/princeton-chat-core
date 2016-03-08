@@ -8,6 +8,7 @@ import TimeAgo from 'react-timeago'
 import Divider from 'material-ui/lib/divider'
 import Message from '/client/modules/ama/containers/ama.message'
 import AvatarInputBox from '/client/modules/ama/containers/ama.avatarinputbox'
+import Linkify from 'react-linkify'
 import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
 
 class AMADetails extends React.Component {
@@ -206,7 +207,11 @@ export const MessageContainer = ({ message, user, children, isSpeaker, isReply }
         {isSpeaker ? null
           : <span className='message-timestamp'>{moment(message.createdAt).format('h:mm a')}</span>}
       </div>
-      <p className={`message-content${isSpeaker ? ' message-content-no-bot-margin' : ''}`}>{message.content}</p>
+      <p className={`message-content${isSpeaker ? ' message-content-no-bot-margin' : ''}`}>
+        <Linkify>
+          {message.content}
+        </Linkify>
+      </p>
       {children}
     </div>
   </div>
