@@ -7,6 +7,7 @@ import {color, spacing} from '/client/configs/theme'
 import style from '../configs/style'
 import Layout from './layout'
 import {i18n} from '/client/configs/env'
+import {Link} from 'react-router'
 
 const Login = (props) => {
   const {fields: {email, password}, handleSubmit, error, submitting} = props
@@ -17,7 +18,7 @@ const Login = (props) => {
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
             <span style={style.sidebarLogo}>Princeton.Chat</span>
-            <a style={style.sidebarLink} href='/'>Sign up</a>
+            <Link style={style.sidebarLink} href='/'>Sign up</Link>
           </header>
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Welcome Back Tiger</h1>
@@ -37,7 +38,7 @@ const Login = (props) => {
               <FlatButton type='submit' style={style.button} label='Login' disabled={submitting}
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
-              <a href='/forgot-password' style={style.forgotPassword}>Forgot Password?</a>
+              <Link href='/forgot-password' style={style.forgotPassword}>Forgot Password?</Link>
             </form>
           </div>
         </Layout.Sidebar>

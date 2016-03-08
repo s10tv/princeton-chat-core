@@ -8,6 +8,7 @@ import {fieldShape} from '/client/lib/shapes'
 import {i18n} from '/client/configs/env'
 import Layout from './layout'
 import style from '../configs/style'
+import {Link} from 'react-router'
 
 class RequestInvite extends React.Component {
   render () {
@@ -20,7 +21,7 @@ class RequestInvite extends React.Component {
           <Layout.Sidebar>
             <header style={style.sidebarHeader}>
               <span style={style.sidebarLogo}>Princeton.Chat</span>
-              <a style={style.sidebarLink} href='/'>Back</a>
+              <Link style={style.sidebarLink} href='/'>Back</Link>
             </header>
             <div style={style.sidebarInner}>
               <h2>Verify Affiliation</h2>

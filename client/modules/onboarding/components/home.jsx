@@ -10,6 +10,7 @@ import style from '../configs/style'
 import Layout from './layout'
 import TopicList from '/client/modules/core/containers/topic.list'
 import AddTopicModal from '/client/modules/core/containers/modal.add.topic'
+import {Link} from 'react-router'
 
 const Home = (props) => {
   const mainContent = props.mainContent
@@ -31,7 +32,7 @@ const Home = (props) => {
       <Layout.Window>
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
-            <a style={style.sidebarLink} href='/login'>Log in</a>
+            <Link style={style.sidebarLink} href='/login'>Log in</Link>
           </header>
           <div style={[style.sidebarInner, {marginTop: spacing.x2}]}>
             <h1 style={s.mainLogo}>Princeton.Chat</h1>
@@ -49,9 +50,9 @@ const Home = (props) => {
                   )}
                 </SelectField>
               </div>
-              <a style={s.manualInvite} href='/request-invite'>
+              <Link style={s.manualInvite} href='/request-invite'>
                 Don't have access to your Princeton email?
-              </a>
+              </Link>
               {error && <p style={style.error}>{error}</p>}
               <FlatButton type='submit' style={style.button} label='Get Invited' disabled={submitting}
                 backgroundColor={submitting ? color.gray : color.green} hoverColor={color.lightGreen} />
