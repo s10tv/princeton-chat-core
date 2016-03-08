@@ -16,6 +16,7 @@ class AMADetails extends React.Component {
   // temporary
   componentWillMount () {
     document.body.style.overflow = 'auto'
+    console.log(this.props)
   }
 
   componentWillUnmount () {
@@ -62,12 +63,13 @@ AMADetails.propTypes = {
   cover: imageShape.isRequired,
   title: PropTypes.string.isRequired,
   introText: PropTypes.string.isRequired,
-  speakerTagline: PropTypes.string,
+  speakerTagLine: PropTypes.string,
   speaker: userShape.isRequired,
   speakerIsTyping: PropTypes.bool,
   participants: PropTypes.arrayOf(userShape).isRequired,
   participantCount: PropTypes.number.isRequired,
   startTime: PropTypes.object.isRequired,
+  isSpeaker: PropTypes.bool.isRequired,
   activities: PropTypes.arrayOf(PropTypes.shape({
     isMine: PropTypes.bool.isRequired,
     owner: userShape.isRequired,
@@ -161,6 +163,7 @@ const AmaMain = (props) => {
         speaker={props.speaker}
         introText={props.introText}
         amaPostId={props.params.amaPostId}
+        speakerTagLine={props.speakerTagLine}
         handleNewMessage={props.askQuestion} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
@@ -170,11 +173,15 @@ const AmaMain = (props) => {
             currentUser={props.currentUser}
             amaPostId={props.params.amaPostId}
             speaker={props.speaker}
+            isSpeaker={props.isSpeaker}
+            speakerTagLine={props.speakerTagLine}
             fbShare={props.fbShare} />
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
             isReply currentUser={props.currentUser}
             fbShare={props.fbShare}
             speaker={props.speaker}
+            isSpeaker={props.isSpeaker}
+            speakerTagLine={props.speakerTagLine}
             amaPostId={props.params.amaPostId} />)}
         </div>
       )}
@@ -182,9 +189,9 @@ const AmaMain = (props) => {
   )
 }
 
-const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage,
+const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, speakerTagLine,
  amaPostId}) => (
-  <MessageContainer message={{content: introText}} user={speaker} isSpeaker>
+  <MessageContainer message={{content: introText}} user={speaker} speakerTagLine={speakerTagLine} isSpeaker>
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
       handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
@@ -193,7 +200,7 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage,
   </MessageContainer>
 )
 
-export const MessageContainer = ({ message, user, children, isSpeaker, isReply }) => (
+export const MessageContainer = ({ message, user, children, isSpeaker, speakerTagLine, isReply }) => (
   <div id={message._id}
     className={`ama-message-container${isReply ? ' ama-message-container-reply' : ''}`}>
     <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={40} />
@@ -201,7 +208,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, isReply }
       <div className='message-content-header'>
         <div>
           <span className={isSpeaker ? 'ama-highlighted-textbox' : 'message-author'}>{user.displayName}</span>
-          <span className='message-author-desc'>-vc at rre ventures</span>
+          {isSpeaker ? <span className='message-author-desc'>-{speakerTagLine}</span> : null}
         </div>
         {isSpeaker ? null
           : <span className='message-timestamp'>{moment(message.createdAt).format('h:mm a')}</span>}

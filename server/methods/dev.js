@@ -102,7 +102,7 @@ export default function ({Meteor, Collections, currentUser}) {
 
         AmaActivities.upsert({_id: 'qimingama-msg1-reply-activity'}, { $set: {
           _id: 'qimingama-msg1-reply-activity',
-          title: `${user.firstName} replied to ${user.firstName}'s question'`,
+          title: `${user.firstName} replied to ${user.firstName}'s question`,
           content: 'Banannas are my favorite fruit',
           originatorUserId: user._id,
           amaPostId: 'qimingama',

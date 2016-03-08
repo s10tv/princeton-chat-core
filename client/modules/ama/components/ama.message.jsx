@@ -5,9 +5,10 @@ import {AMA_REPLY_FORM_NAME} from '/client/configs/constants'
 
 export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
   openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted, amaPostId,
-  speaker, fbShare}) => {
+  speaker, fbShare, isSpeaker, speakerTagLine}) => {
   return (
-    <MessageContainer message={message} user={message.owner} isReply={isReply}>
+    <MessageContainer message={message} user={message.owner} isReply={isReply}
+      speakerTagLine={speakerTagLine} isSpeaker={isSpeaker}>
       <MessageFooter isUpvoted={isUpvoted}
         message={message}
         upVote={upVote}

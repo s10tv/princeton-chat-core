@@ -82,7 +82,7 @@ const composer = ({context, params: {amaPostId}, onSpeakerType}, onData) => {
       currentUser,
       activities,
       messages,
-      currentUserIsSpeaker: currentUser._id === amaPost.speaker._id,
+      isSpeaker: currentUser._id === amaPost.speaker._id,
       speakerisTyping: amaPost.speakerisTyping,
       store: context.store
     }))
