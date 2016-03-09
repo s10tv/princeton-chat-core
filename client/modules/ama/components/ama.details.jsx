@@ -221,7 +221,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
           {isSpeaker ? <span className='message-author-desc'>-{speakerTagLine}</span> : null}
         </div>
         {isPostMessage ? null
-          : <span className='message-timestamp'>{moment(message.createdAt).format('h:mm a')}</span>}
+          : <span className='message-timestamp'>{moment(message.createdAt).format('M/D h:mm a')}</span>}
       </div>
       <p className={`message-content${message.nobottommargin ? ' message-content-no-bot-margin' : ''}`}>
         <Linkify properties={{onClick: messageLinkOnClick}}>
