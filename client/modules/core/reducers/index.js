@@ -1,4 +1,4 @@
-import {createReducer} from 'redux-immutablejs'
+import {createReducer} from '/client/lib/helpers'
 import {CALCULATE_RESPONSIVE_STATE, responsiveStateReducer} from 'redux-responsive'
 import {LOCATION_CHANGE} from 'react-router-redux'
 import actions from '../actions'
@@ -22,7 +22,7 @@ export default {
   }),
   sidebarMenuOpen: createReducer(false, {
     [actions.sidebar.toggleMenu]: (state) => !state
-  }, false),
+  }),
   // Reducer that sets the default topic values of a new topic dropdown.
   newPostTopics (state = '', action) {
     switch (action.type) {

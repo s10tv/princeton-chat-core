@@ -1,5 +1,7 @@
+import Immutable from 'immutable'
 import {compose} from 'mantra-core'
-import {createAction as createActionCreator} from 'redux-actions'
+import {createAction as _createAction} from 'redux-actions'
+import {createReducer as _createReducer} from 'redux-immutablejs'
 import {browserHistory} from 'react-router'
 
 /*
@@ -42,8 +44,13 @@ export const createOnSubmit = (method, success) => {
   }
 }
 
+export const createReducer = (initialState, handlers, constructor) => {
+  const enforceImmutable = Immutable.Iterable.isIterable(initialState)
+  return _createReducer(initialState, handlers, enforceImmutable, constructor)
+}
+
 export const createAction = (type, payloadCreator, metaCreator) => {
-  const actionCreator = createActionCreator(type, payloadCreator, metaCreator)
+  const actionCreator = _createAction(type, payloadCreator, metaCreator)
   actionCreator.toString = () => type
   return actionCreator
 }
