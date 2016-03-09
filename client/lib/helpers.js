@@ -4,6 +4,35 @@ import {createAction as _createAction} from 'redux-actions'
 import {createReducer as _createReducer} from 'redux-immutablejs'
 import {browserHistory} from 'react-router'
 
+export const createReducer = (initialState, handlers, constructor) => {
+  const enforceImmutable = Immutable.Iterable.isIterable(initialState)
+  return _createReducer(initialState, handlers, enforceImmutable, constructor)
+}
+
+export const createAction = (type, payloadCreator, metaCreator) => {
+  const actionCreator = _createAction(type, payloadCreator, metaCreator)
+  actionCreator.toString = () => type
+  return actionCreator
+}
+
+export const bindContext = (actionCreator) => {
+  const boundAction = ({store: {dispatch}}, ...data) => dispatch(actionCreator(...data))
+  boundAction.toString = actionCreator.toString
+  return boundAction
+}
+
+// In almost all cases use react-redux connect is a better choice
+export const composeWithRedux = (fn, L, E, options) => {
+  const onPropsChange = (props, onData) => {
+    const store = props.context.store
+    onData(null, fn(props))
+    return store.subscribe(() => {
+      onData(null, fn(props))
+    })
+  }
+  return compose(onPropsChange, L, E, options)
+}
+
 /*
 Transform Meteor server errors into errors understood by redux form
 http://erikras.github.io/redux-form/#/api/reduxForm
@@ -42,36 +71,6 @@ export const createOnSubmit = (method, success) => {
       })
     })
   }
-}
-
-export const createReducer = (initialState, handlers, constructor) => {
-  const enforceImmutable = Immutable.Iterable.isIterable(initialState)
-  return _createReducer(initialState, handlers, enforceImmutable, constructor)
-}
-
-export const createAction = (type, payloadCreator, metaCreator) => {
-  const actionCreator = _createAction(type, payloadCreator, metaCreator)
-  actionCreator.toString = () => type
-  return actionCreator
-}
-
-export const createBoundAction = (type, payloadCreator, metaCreator) => {
-  const actionCreator = createAction(type, payloadCreator, metaCreator)
-  const boundAction = ({store: {dispatch}}, ...data) => dispatch(actionCreator(...data))
-  boundAction.toString = actionCreator.toString
-  return boundAction
-}
-
-// In almost all cases use react-redux connect is a better choice
-export const composeWithRedux = (fn, L, E, options) => {
-  const onPropsChange = (props, onData) => {
-    const store = props.context.store
-    onData(null, fn(props))
-    return store.subscribe(() => {
-      onData(null, fn(props))
-    })
-  }
-  return compose(onPropsChange, L, E, options)
 }
 
 // Intended to be used with 3rd party anchor tags that would otherwise cause a

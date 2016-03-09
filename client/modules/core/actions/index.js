@@ -1,4 +1,5 @@
-import {createBoundAction} from '/client/lib/helpers'
+import {bindContext} from '/client/lib/helpers'
+import * as Types from '../configs/actionTypes'
 import posts from './posts'
 import topics from './topics'
 import messages from './messages'
@@ -34,10 +35,10 @@ export default {
     }
   },
   sidebar: {
-    toggle: createBoundAction('SIDEBAR_TOGGLE', () => undefined),
-    open: createBoundAction('SIDEBAR_OPEN'),
-    close: createBoundAction('SIDEBAR_CLOSE'),
-    onRequestChange: createBoundAction('SIDEBAR_UPDATE'),
-    toggleMenu: createBoundAction('SIDEBAR_MENU_TOGGLE', () => undefined)
+    toggle: bindContext(Types.sidebarToggle),
+    open: bindContext(Types.sidebarOpen),
+    close: bindContext(Types.sidebarClose),
+    onRequestChange: bindContext(Types.sidebarOnRequestChange),
+    toggleMenu: bindContext(Types.sidebarToggleMenu)
   }
 }
