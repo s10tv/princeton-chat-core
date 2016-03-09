@@ -180,6 +180,7 @@ const AmaMain = (props) => {
         amaPostId={props.params.amaPostId}
         speakerTagLine={props.speakerTagLine}
         messageLinkOnClick={props.messageLinkOnClick}
+        showUserProfile={props.showUserProfile}
         handleNewMessage={props.askQuestion} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
@@ -190,6 +191,7 @@ const AmaMain = (props) => {
             amaPostId={props.params.amaPostId}
             speaker={props.speaker}
             isSpeaker={props.isSpeaker}
+            showUserProfile={props.showUserProfile}
             messageLinkOnClick={props.messageLinkOnClick}
             speakerTagLine={props.speakerTagLine}
             fbShare={props.fbShare} />
@@ -197,6 +199,7 @@ const AmaMain = (props) => {
             isReply currentUser={props.currentUser}
             fbShare={props.fbShare}
             speaker={props.speaker}
+            showUserProfile={props.showUserProfile}
             messageLinkOnClick={props.messageLinkOnClick}
             isSpeaker={props.isSpeaker}
             speakerTagLine={props.speakerTagLine}
@@ -208,9 +211,9 @@ const AmaMain = (props) => {
 }
 
 const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, speakerTagLine,
- amaPostId, messageLinkOnClick }) => (
+ amaPostId, messageLinkOnClick, showUserProfile }) => (
   <MessageContainer message={{content: introText, nobottommargin: true}} user={speaker} speakerTagLine={speakerTagLine} isSpeaker
-    messageLinkOnClick={messageLinkOnClick}>
+    messageLinkOnClick={messageLinkOnClick} showUserProfile={showUserProfile}>
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
       handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
@@ -220,10 +223,15 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, 
 )
 
 export const MessageContainer = ({ message, user, children, isSpeaker, speakerTagLine, isReply,
-  messageLinkOnClick }) => (
+  messageLinkOnClick, showUserProfile }) => (
   <div id={message._id}
     className={`ama-message-container${isReply ? ' ama-message-container-reply' : ''}`}>
-    <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={40} />
+    <a href='#' onClick={(e) => {
+      e.preventDefault()
+      showUserProfile(user)
+    }}>
+      <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={40} />
+    </a>
     <div className='message-content-container'>
       <div className='message-content-header'>
         <div>

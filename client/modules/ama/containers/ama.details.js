@@ -100,6 +100,7 @@ const depsMapper = (context, actions) => ({
   clearScrollToMsgId: actions.amaMessages.clearScrollToMsgId,
   toggleAside: actions.amaHeader.toggleAside,
   messageLinkOnClick: actions.messages.messageLinkOnClick,
+  showUserProfile: actions.profile.showUserProfile,
   store: context.store,
   context
 })
