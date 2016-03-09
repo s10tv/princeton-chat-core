@@ -32,7 +32,7 @@ const Home = (props) => {
       <Layout.Window>
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
-            <Link style={style.sidebarLink} href='/login'>Log in</Link>
+            <Link style={style.sidebarLink} to='/login'>Log in</Link>
           </header>
           <div style={[style.sidebarInner, {marginTop: spacing.x2}]}>
             <h1 style={s.mainLogo}>Princeton.Chat</h1>
@@ -50,7 +50,7 @@ const Home = (props) => {
                   )}
                 </SelectField>
               </div>
-              <Link style={s.manualInvite} href='/request-invite'>
+              <Link style={s.manualInvite} to='/request-invite'>
                 Don't have access to your Princeton email?
               </Link>
               {error && <p style={style.error}>{error}</p>}
