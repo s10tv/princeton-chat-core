@@ -18,7 +18,7 @@ const Login = (props) => {
         <Layout.Sidebar>
           <header style={style.sidebarHeader}>
             <span style={style.sidebarLogo}>Princeton.Chat</span>
-            <Link style={style.sidebarLink} href='/'>Sign up</Link>
+            <Link style={style.sidebarLink} to='/'>Sign up</Link>
           </header>
           <div style={style.sidebarInner}>
             <h1 style={style.h1}>Welcome Back Tiger</h1>
@@ -38,7 +38,7 @@ const Login = (props) => {
               <FlatButton type='submit' style={style.button} label='Login' disabled={submitting}
                 backgroundColor={color.green} hoverColor={color.lightGreen} />
               {submitting && <LinearProgress color={color.brand.primary} />}
-              <Link href='/forgot-password' style={style.forgotPassword}>Forgot Password?</Link>
+              <Link to='/forgot-password' style={style.forgotPassword}>Forgot Password?</Link>
             </form>
           </div>
         </Layout.Sidebar>

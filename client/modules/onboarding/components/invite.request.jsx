@@ -21,7 +21,7 @@ class RequestInvite extends React.Component {
           <Layout.Sidebar>
             <header style={style.sidebarHeader}>
               <span style={style.sidebarLogo}>Princeton.Chat</span>
-              <Link style={style.sidebarLink} href='/'>Back</Link>
+              <Link style={style.sidebarLink} to='/'>Back</Link>
             </header>
             <div style={style.sidebarInner}>
               <h2>Verify Affiliation</h2>
