@@ -159,6 +159,7 @@ $header-height: 240px;
 
     .ama-host-is-typing {
       display: flex;
+      flex-shrink: 0;
       padding-bottom: $spacing-x2;
       border-bottom: 1px solid #EFEFEF;
 
