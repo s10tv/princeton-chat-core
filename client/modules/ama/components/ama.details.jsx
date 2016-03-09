@@ -281,7 +281,8 @@ const SpeakerIsTyping = (props) => {
 }
 
 const AmaActivity = ({activity, style}) => (
-  <Link to={activity.amaMessageId} smooth duration={400} style={{cursor: 'pointer'}}>
+  <Link className='ama-activity-link'
+    to={activity.amaMessageId} smooth duration={400} style={{cursor: 'pointer'}}>
     <div className='ama-activity' style={style}>
       <div className='ama-activity-header'>
         <div className='ama-activity-avatar'>

@@ -15,7 +15,7 @@ $header-height: 240px;
   display: flex;
   flex-direction: column;
   flex: 0 0 100%;
-  
+
   .aside-toggle {
     margin-left: auto;
   }
@@ -117,8 +117,8 @@ $header-height: 240px;
 }
 
 // Forced open
-// Desktop 
-//     sidebar open 
+// Desktop
+//     sidebar open
 //     sidebar closed
 // mobile
 //     sidebar open
@@ -140,7 +140,6 @@ $header-height: 240px;
     // flex: 0 0 $rightbar-width;
     display: flex;
     flex-direction: column;
-    padding: $spacing-x3;
     background-color: $color-rightbar;
 
     .ama-host-is-typing {
@@ -159,11 +158,20 @@ $header-height: 240px;
       margin-right: $spacing-x1;
     }
 
+    .ama-activity-link {
+      &:hover {
+        opacity: 1;
+        background-color: #e6e6e6;
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+
     .ama-activity {
       display: flex;
       flex-direction: column;
       padding-bottom: $spacing-x1;
       border-bottom: 1px solid #EFEFEF;
+      padding: $spacing-x2;
 
       opacity: 0;
       transform: translateY(-100);
