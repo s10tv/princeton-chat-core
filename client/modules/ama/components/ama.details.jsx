@@ -14,7 +14,6 @@ import Linkify from 'react-linkify'
 import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
 import {Link} from 'react-scroll'
 
-
 class AMADetails extends React.Component {
 
   // temporary
@@ -91,7 +90,7 @@ AMADetails.propTypes = {
   })),
   scrollToMsgId: PropTypes.string,
   clearScrollToMsgId: PropTypes.func.isRequired,
-
+  overideAsideOpen: PropTypes.bool,
   // actions
   askQuestion: PropTypes.func.isRequired,
   showMenu: PropTypes.func.isRequired,
@@ -207,7 +206,7 @@ const AmaMain = (props) => {
 
 const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, speakerTagLine,
  amaPostId}) => (
-  <MessageContainer message={{content: introText}} user={speaker} speakerTagLine={speakerTagLine} isSpeaker>
+  <MessageContainer message={{content: introText, nobottommargin: true}} user={speaker} speakerTagLine={speakerTagLine} isSpeaker>
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
       handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
@@ -229,7 +228,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
         {isSpeaker ? null
           : <span className='message-timestamp'>{moment(message.createdAt).format('h:mm a')}</span>}
       </div>
-      <p className={`message-content${isSpeaker ? ' message-content-no-bot-margin' : ''}`}>
+      <p className={`message-content${message.nobottommargin ? ' message-content-no-bot-margin' : ''}`}>
         <Linkify>
           {message.content}
         </Linkify>
