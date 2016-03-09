@@ -179,6 +179,7 @@ const AmaMain = (props) => {
         introText={props.introText}
         amaPostId={props.params.amaPostId}
         speakerTagLine={props.speakerTagLine}
+        messageLinkOnClick={props.messageLinkOnClick}
         handleNewMessage={props.askQuestion} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
@@ -189,12 +190,14 @@ const AmaMain = (props) => {
             amaPostId={props.params.amaPostId}
             speaker={props.speaker}
             isSpeaker={props.isSpeaker}
+            messageLinkOnClick={props.messageLinkOnClick}
             speakerTagLine={props.speakerTagLine}
             fbShare={props.fbShare} />
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
             isReply currentUser={props.currentUser}
             fbShare={props.fbShare}
             speaker={props.speaker}
+            messageLinkOnClick={props.messageLinkOnClick}
             isSpeaker={props.isSpeaker}
             speakerTagLine={props.speakerTagLine}
             amaPostId={props.params.amaPostId} />)}
@@ -205,8 +208,9 @@ const AmaMain = (props) => {
 }
 
 const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, speakerTagLine,
- amaPostId}) => (
-  <MessageContainer message={{content: introText, nobottommargin: true}} user={speaker} speakerTagLine={speakerTagLine} isSpeaker>
+ amaPostId, messageLinkOnClick }) => (
+  <MessageContainer message={{content: introText, nobottommargin: true}} user={speaker} speakerTagLine={speakerTagLine} isSpeaker
+    messageLinkOnClick={messageLinkOnClick}>
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
       placeholder={`Ask ${speaker.displayName} a question...`}
       handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
@@ -215,7 +219,8 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, 
   </MessageContainer>
 )
 
-export const MessageContainer = ({ message, user, children, isSpeaker, speakerTagLine, isReply }) => (
+export const MessageContainer = ({ message, user, children, isSpeaker, speakerTagLine, isReply,
+  messageLinkOnClick }) => (
   <div id={message._id}
     className={`ama-message-container${isReply ? ' ama-message-container-reply' : ''}`}>
     <UserAvatar avatar={user.avatar} avatarInitials={user.avatarInitials} size={40} />
@@ -229,7 +234,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
           : <span className='message-timestamp'>{moment(message.createdAt).format('h:mm a')}</span>}
       </div>
       <p className={`message-content${message.nobottommargin ? ' message-content-no-bot-margin' : ''}`}>
-        <Linkify>
+        <Linkify properties={{onClick: messageLinkOnClick}}>
           {message.content}
         </Linkify>
       </p>

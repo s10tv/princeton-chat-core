@@ -99,6 +99,7 @@ const depsMapper = (context, actions) => ({
   setReplyToPost: actions.amaMessages.setReplyToPost,
   clearScrollToMsgId: actions.amaMessages.clearScrollToMsgId,
   toggleAside: actions.amaHeader.toggleAside,
+  messageLinkOnClick: actions.messages.messageLinkOnClick,
   store: context.store,
   context
 })

@@ -27,6 +27,8 @@ export default {
       event.preventDefault()
       const username = event.target.href.replace('tc://users/', '')
       const user = Collections.Users.findOne({username})
+      console.log('im calld')
+      console.log(user)
       if (user) {
         LocalState.set('PROFILE_USER', UserService.getUserView(user))
       }
