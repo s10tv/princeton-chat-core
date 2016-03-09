@@ -1,3 +1,4 @@
+import Immutable from 'immutable'
 import {createReducer} from '/client/lib/helpers'
 import * as Types from '../configs/actionTypes'
 
@@ -8,8 +9,8 @@ export default {
   activityVisibility: createReducer('all', {
     [Types.toggleActivityFilter]: (state) => 'all' ? 'mine' : 'all'
   }),
-  openReplies: createReducer({}, {
-    [Types.openReply]: (state, action) => state.set(action.payload, true),
+  openReplies: createReducer(Immutable.Set(), {
+    [Types.openReply]: (state, action) => state.add(action.payload),
     [Types.closeReply]: (state, action) => state.delete(action.payload)
   }),
   scrollToMsgId: createReducer(null, {

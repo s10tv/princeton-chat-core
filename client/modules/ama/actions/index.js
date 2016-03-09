@@ -50,7 +50,7 @@ export default {
     },
     clearScrollToMsgId: bindContext(Types.clearScrollToMsg),
     openReplyBox ({store}, message) {
-      if (store.getState().ama.openReplies.get(message._id) === true) {
+      if (store.getState().ama.openReplies.includes(message._id)) {
         return store.dispatch(Types.closeReply(message._id))
       } else {
         return store.dispatch(Types.openReply(message._id))

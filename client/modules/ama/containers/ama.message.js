@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Message} from '/client/modules/ama/components/ama.message.jsx'
 
 const mapStateToProps = (state, ownProps) => ({
-  isReplyBoxOpen: state.ama.openReplies.get(ownProps.message._id) === true
+  isReplyBoxOpen: state.ama.openReplies.includes(ownProps.message._id)
 })
 
 const composer = ({context, amaPostId, message}, onData) => {
