@@ -1,7 +1,4 @@
-import {AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
-  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING, SPEAKER_STOP_TYPING,
-  AMA_TOGGLE_ASIDE
-} from '../configs/actionTypes'
+import * as Types from '../configs/actionTypes'
 
 function activityVisibility (state = 'all', action) {
   switch (action.type) {
@@ -14,7 +11,7 @@ function activityVisibility (state = 'all', action) {
 
 function overideAsideOpen (state = null, action) {
   switch (action.type) {
-    case AMA_TOGGLE_ASIDE:
+    case Types.AMA_TOGGLE_ASIDE:
       return action.payload
     default:
       return state
@@ -23,11 +20,11 @@ function overideAsideOpen (state = null, action) {
 
 function openReplies (state = {}, action) {
   switch (action.type) {
-    case AMA_OPEN_REPLY:
+    case Types.AMA_OPEN_REPLY:
       return Object.assign({}, state, {
         [action.messageId]: true
       })
-    case AMA_CLOSE_REPLY:
+    case Types.AMA_CLOSE_REPLY:
       return Object.assign({}, state, {
         [action.messageId]: undefined
       })
@@ -38,11 +35,11 @@ function openReplies (state = {}, action) {
 
 function scrollToMsgId (state = {}, action) {
   switch (action.type) {
-    case AMA_SCROLL_TO_MSG:
+    case Types.AMA_SCROLL_TO_MSG:
       return Object.assign({}, state, {
         scrollToMsgId: action.scrollToMsgId
       })
-    case AMA_CLEAR_SCROLL_TO_MSG:
+    case Types.AMA_CLEAR_SCROLL_TO_MSG:
       return Object.assign({}, state, {
         scrollToMsgId: null
       })
@@ -53,9 +50,9 @@ function scrollToMsgId (state = {}, action) {
 
 function speakerIsTyping (state = false, action) {
   switch (action.type) {
-    case SPEAKER_START_TYPING:
+    case Types.SPEAKER_START_TYPING:
       return true
-    case SPEAKER_STOP_TYPING:
+    case Types.SPEAKER_STOP_TYPING:
       return false
     default:
       return state

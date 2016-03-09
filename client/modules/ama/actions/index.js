@@ -2,9 +2,7 @@
  * global window
  */
 import {createOnSubmit} from '/client/lib/helpers'
-import {AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
-  AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING, AMA_TOGGLE_ASIDE,
-  SPEAKER_STOP_TYPING} from '../configs/actionTypes'
+import * as Types from '../configs/actionTypes'
 import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME} from '../configs/formNames'
 import {reset} from 'redux-form'
 
@@ -16,7 +14,7 @@ export default {
       const overideAsideOpen = store.getState().ama.overideAsideOpen
       const isMobile = store.getState().browser.lessThan.xl
       const asideOpen = overideAsideOpen !== null ? overideAsideOpen : !isMobile
-      store.dispatch({type: AMA_TOGGLE_ASIDE, payload: !asideOpen})
+      store.dispatch({type: Types.AMA_TOGGLE_ASIDE, payload: !asideOpen})
     },
     navigateBack ({history}) {
       console.error(new Error('Not Implemented Yet'))
@@ -38,26 +36,26 @@ export default {
     askQuestion (context, info) {
       return createOnSubmit('ama/askquestion', ({store}, newMsgId) => {
         store.dispatch(reset(AMA_ASK_QUESTION_FORM_NAME))
-        store.dispatch({ type: AMA_SCROLL_TO_MSG, scrollToMsgId: newMsgId })
+        store.dispatch({ type: Types.AMA_SCROLL_TO_MSG, scrollToMsgId: newMsgId })
       })(context, info)
     },
     reply (context, info, {parentMessageId}) {
       return createOnSubmit('ama/reply', ({store}, newMsgId) => {
         store.dispatch(reset(AMA_REPLY_FORM_NAME))
-        store.dispatch({ type: AMA_SCROLL_TO_MSG, scrollToMsgId: newMsgId })
-        store.dispatch({ type: AMA_CLOSE_REPLY, messageId: parentMessageId })
+        store.dispatch({ type: Types.AMA_SCROLL_TO_MSG, scrollToMsgId: newMsgId })
+        store.dispatch({ type: Types.AMA_CLOSE_REPLY, messageId: parentMessageId })
       })(context, Object.assign({}, info, {
         parentMessageId
       }))
     },
     clearScrollToMsgId ({ store }) {
-      store.dispatch({ type: AMA_CLEAR_SCROLL_TO_MSG })
+      store.dispatch({ type: Types.AMA_CLEAR_SCROLL_TO_MSG })
     },
     openReplyBox ({store}, message) {
       if (store.getState().ama.openReplies[message._id] === true) {
-        return store.dispatch({ type: AMA_CLOSE_REPLY, messageId: message._id })
+        return store.dispatch({ type: Types.AMA_CLOSE_REPLY, messageId: message._id })
       } else {
-        return store.dispatch({ type: AMA_OPEN_REPLY, messageId: message._id })
+        return store.dispatch({ type: Types.AMA_OPEN_REPLY, messageId: message._id })
       }
     },
     onSpeakerType ({Meteor}, {amaPostId, speaker}) {
@@ -66,7 +64,7 @@ export default {
           const startTypingPromise = getState().ama.speakerIsTyping
             ? Promise.resolve(true)
             : new Promise((resolve, reject) => {
-              dispatch({ type: SPEAKER_START_TYPING })
+              dispatch({ type: Types.SPEAKER_START_TYPING })
               Meteor.call('ama/speaker/typing', {amaPostId}, (err, res) => {
                 if (err) { return reject(err) }
                 return resolve(res)
@@ -80,7 +78,7 @@ export default {
               // typing for 10s.
               Meteor.call('ama/speaker/clear', {amaPostId}, (err, res) => {
                 if (err) { console.log(err) }
-                return dispatch({ type: SPEAKER_STOP_TYPING })
+                return dispatch({ type: Types.SPEAKER_STOP_TYPING })
               })
             }, 3000)
           })

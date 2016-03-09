@@ -16,7 +16,7 @@ export default {
       state.get('docked') ? state : state.set('open', false)
     ),
     [actions.sidebar.onRequestChange]: (state, action) => state.set('open', action.payload),
-    [actions.sidebar.toggle]: (state) => state.update('open', v => !v),
+    [actions.sidebar.toggle]: (state) => state.update('open', (v) => !v),
     [actions.sidebar.open.toString()]: (state) => state.set('open', true),
     [actions.sidebar.close.toString()]: (state) => state.set('open', false)
   }),
