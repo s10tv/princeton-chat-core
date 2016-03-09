@@ -1,8 +1,8 @@
-import {AvatarInputBox} from '/client/modules/ama/components/ama.avatarinputbox.jsx'
-import {amaMessageValidator} from '/lib/validation/ama'
 import {composeAll, useDeps, composeWithTracker} from 'mantra-core'
-import {reduxForm} from 'redux-form'
+import {reduxForm, actionTypes} from 'redux-form'
 import {AMA_REPLY_FORM_NAME, AMA_ASK_QUESTION_FORM_NAME} from '../configs/formNames'
+import {amaMessageValidator} from '/lib/validation/ama'
+import {AvatarInputBox} from '/client/modules/ama/components/ama.avatarinputbox.jsx'
 
 export const inputBoxFormConfig = {
   form: AMA_REPLY_FORM_NAME,
@@ -31,8 +31,8 @@ const composer = ({context, formType, message, amaPostId, speaker, onSpeakerType
     store: Object.assign({}, store, {
       dispatch: (action) => {
         switch (action.type) {
-          case 'redux-form/CHANGE':
-          case 'redux-form/RESET':
+          case actionTypes.CHANGE:
+          case actionTypes.RESET:
             store.dispatch(onSpeakerType({amaPostId, speaker}))
             break
         }
