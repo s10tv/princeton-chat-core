@@ -1,6 +1,10 @@
-import {Message} from '/client/modules/ama/components/ama.message.jsx'
 import {composeAll, useDeps, composeWithTracker} from 'mantra-core'
-import {composeWithRedux} from '/client/lib/helpers'
+import {connect} from 'react-redux'
+import {Message} from '/client/modules/ama/components/ama.message.jsx'
+
+const mapStateToProps = (state, ownProps) => ({
+  isReplyBoxOpen: state.ama.openReplies.get(ownProps.message._id) === true
+})
 
 const composer = ({context, amaPostId, message}, onData) => {
   const { Meteor } = context
@@ -18,14 +22,8 @@ const depsMapper = (context, actions) => ({
   context: context
 })
 
-function onReduxPropsChange ({store, message}) {
-  return {
-    isReplyBoxOpen: store.getState().ama.openReplies[message._id] === true
-  }
-}
-
 export default composeAll(
+  connect(mapStateToProps),
   composeWithTracker(composer),
-  composeWithRedux(onReduxPropsChange),
   useDeps(depsMapper)
 )(Message)

@@ -14,7 +14,7 @@ export default {
       const overideAsideOpen = store.getState().ama.overideAsideOpen
       const isMobile = store.getState().browser.lessThan.xl
       const asideOpen = overideAsideOpen !== null ? overideAsideOpen : !isMobile
-      store.dispatch({type: Types.AMA_TOGGLE_ASIDE, payload: !asideOpen})
+      store.dispatch(Types.toggleAside(!asideOpen))
     },
     navigateBack ({history}) {
       console.error(new Error('Not Implemented Yet'))
@@ -43,7 +43,7 @@ export default {
       return createOnSubmit('ama/reply', ({store}, newMsgId) => {
         store.dispatch(reset(AMA_REPLY_FORM_NAME))
         store.dispatch(Types.scrollToMsg(newMsgId))
-        store.dispatch({ type: Types.AMA_CLOSE_REPLY, messageId: parentMessageId })
+        store.dispatch(Types.closeReply(parentMessageId))
       })(context, Object.assign({}, info, {
         parentMessageId
       }))
@@ -52,10 +52,10 @@ export default {
       store.dispatch(Types.clearScrollToMsg())
     },
     openReplyBox ({store}, message) {
-      if (store.getState().ama.openReplies[message._id] === true) {
-        return store.dispatch({ type: Types.AMA_CLOSE_REPLY, messageId: message._id })
+      if (store.getState().ama.openReplies.get(message._id) === true) {
+        return store.dispatch(Types.closeReply(message._id))
       } else {
-        return store.dispatch({ type: Types.AMA_OPEN_REPLY, messageId: message._id })
+        return store.dispatch(Types.openReply(message._id))
       }
     },
     onSpeakerType ({Meteor}, {amaPostId, speaker}) {
@@ -64,7 +64,7 @@ export default {
           const startTypingPromise = getState().ama.speakerIsTyping
             ? Promise.resolve(true)
             : new Promise((resolve, reject) => {
-              dispatch({ type: Types.SPEAKER_START_TYPING })
+              dispatch(Types.speakerStartTyping())
               Meteor.call('ama/speaker/typing', {amaPostId}, (err, res) => {
                 if (err) { return reject(err) }
                 return resolve(res)
@@ -78,7 +78,7 @@ export default {
               // typing for 10s.
               Meteor.call('ama/speaker/clear', {amaPostId}, (err, res) => {
                 if (err) { console.log(err) }
-                return dispatch({ type: Types.SPEAKER_STOP_TYPING })
+                return dispatch(Types.speakerStopTyping())
               })
             }, 3000)
           })
@@ -102,9 +102,7 @@ export default {
   },
   amaFeed: {
     toggleFilter ({store}) {
-      return store.dispatch({
-        type: 'activityVisibility'
-      })
+      return store.dispatch(Types.setActivityFilter())
     }
   }
 }
