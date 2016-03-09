@@ -12,6 +12,7 @@ import Message from '/client/modules/ama/containers/ama.message'
 import AvatarInputBox from '/client/modules/ama/containers/ama.avatarinputbox'
 import Linkify from 'react-linkify'
 import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
+import {Link} from 'react-scroll'
 
 
 class AMADetails extends React.Component {
@@ -268,26 +269,28 @@ const SpeakerIsTyping = (props) => {
 }
 
 const AmaActivity = ({activity, style}) => (
-  <div className='ama-activity' style={style}>
-    <div className='ama-activity-header'>
-      <div className='ama-activity-avatar'>
-        <UserAvatar
-          avatar={activity.owner.avatar}
-          avatarInitials={activity.owner.avatarInitials} />
-      </div>
-      <div className='ama-activity-owner-info'>
-        <div className='ama-activity-owner-displayName'>{activity.title}</div>
+  <Link to={activity.amaMessageId} smooth duration={400} style={{cursor: 'pointer'}}>
+    <div className='ama-activity' style={style}>
+      <div className='ama-activity-header'>
+        <div className='ama-activity-avatar'>
+          <UserAvatar
+            avatar={activity.owner.avatar}
+            avatarInitials={activity.owner.avatarInitials} />
+        </div>
+        <div className='ama-activity-owner-info'>
+          <div className='ama-activity-owner-displayName'>{activity.title}</div>
 
-        <div className='ama-activity-timestamp'>
-          <TimeAgo date={activity.createdAt} live={false} formatter={(value, unit) =>
-              `${value} ${unit.charAt(0)}`} />
+          <div className='ama-activity-timestamp'>
+            <TimeAgo date={activity.createdAt} live={false} formatter={(value, unit) =>
+                `${value} ${unit.charAt(0)}`} />
+          </div>
         </div>
       </div>
+      <div className='ama-activity-content'>
+        {activity.content}
+      </div>
     </div>
-    <div className='ama-activity-content'>
-      {activity.content}
-    </div>
-  </div>
+  </Link>
 )
 
 export default Radium(AMADetails)

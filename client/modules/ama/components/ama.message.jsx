@@ -2,33 +2,36 @@ import React from 'react'
 import {MessageContainer} from './ama.details.jsx'
 import AvatarInputBox from '../containers/ama.avatarinputbox.js'
 import {AMA_REPLY_FORM_NAME} from '/client/configs/constants'
+import {Element} from 'react-scroll'
 
 export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
   openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted, amaPostId,
   speaker, fbShare, isSpeaker, speakerTagLine}) => {
   return (
-    <MessageContainer message={message} user={message.owner} isReply={isReply}
-      speakerTagLine={speakerTagLine} isSpeaker={isSpeaker}>
-      <MessageFooter isUpvoted={isUpvoted}
-        message={message}
-        upVote={upVote}
-        fbShare={fbShare}
-        openReplyBox={openReplyBox} />
-
-      {!isReplyBoxOpen
-        ? null
-        : <AvatarInputBox avatar={currentUser.avatar}
-          avatarInitials={currentUser.avatarInitials}
-          placeholder={`Reply to ${message.owner.displayName}...`}
-          amaPostId={amaPostId}
+    <Element name={message._id}>
+      <MessageContainer message={message} user={message.owner} isReply={isReply}
+        speakerTagLine={speakerTagLine} isSpeaker={isSpeaker}>
+        <MessageFooter isUpvoted={isUpvoted}
           message={message}
-          speaker={speaker}
-          defaultValue={`@${message.owner.firstName}`}
-          formType={AMA_REPLY_FORM_NAME}
-          handleNewMessage={reply}
-          messageOptions={{ parentMessageId: message._id }} />
-      }
-    </MessageContainer>
+          upVote={upVote}
+          fbShare={fbShare}
+          openReplyBox={openReplyBox} />
+
+        {!isReplyBoxOpen
+          ? null
+          : <AvatarInputBox avatar={currentUser.avatar}
+            avatarInitials={currentUser.avatarInitials}
+            placeholder={`Reply to ${message.owner.displayName}...`}
+            amaPostId={amaPostId}
+            message={message}
+            speaker={speaker}
+            defaultValue={`@${message.owner.firstName}`}
+            formType={AMA_REPLY_FORM_NAME}
+            handleNewMessage={reply}
+            messageOptions={{ parentMessageId: message._id }} />
+        }
+      </MessageContainer>
+    </Element>
   )
 }
 
