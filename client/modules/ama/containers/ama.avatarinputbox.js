@@ -13,13 +13,20 @@ export const inputBoxFormConfig = {
 const composer = ({context, formType, message, amaPostId, speaker, onSpeakerType}, onData) => {
   const {MentionParser, store} = context
 
-  const mentions = message && message.content
-    ? MentionParser.parseMentions(message.content)
-    : []
-  const mentionedContent = mentions.length > 0 ? `${mentions.join(' ')} ` : ''
+  let mentions = []
+  if (message && message.owner && message.owner.firstName) {
+    mentions = message && message.content
+      ? MentionParser.parseMentions(message.content).concat(`@${message.owner.firstName.toLowerCase()}`)
+      : [`@${message.owner.firstName.toLowerCase()}`]
 
+    mentions = mentions.filter((mention, pos) => {
+      return mentions.indexOf(mention) === pos
+    })
+  }
+
+  const mentionedContent = mentions.length > 0 ? `${mentions.join(' ')} ` : ''
   const initialValue = message && message.owner && message.owner.firstName
-    ? `@${message.owner.firstName.toLowerCase()} ${mentionedContent}`
+    ? `${mentionedContent}`
     : ''
 
   const baseProps = {
