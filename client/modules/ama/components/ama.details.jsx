@@ -41,6 +41,7 @@ class AMADetails extends React.Component {
       this.props.clearScrollToMsgId()
     }
   }
+
   splitViewClass () {
     switch (this.props.overideAsideOpen) {
       case null: return 'splitview--initial'
@@ -54,9 +55,9 @@ class AMADetails extends React.Component {
     return (
       <StyleRoot>
         <div className='ama-page-wrapper'>
-          <div className='ama-main'>
+          <div className={`ama-main ${this.splitViewClass()}`}>
             <Header {...this.props} />
-            <div className={`ama-content ${this.splitViewClass()}`}>
+            <div className='ama-content'>
               <AmaMain {...this.props} />
               <AmaActivities {...this.props} />
             </div>
@@ -120,10 +121,6 @@ const HeaderInnerDiv = (props) => {
         </div>
         {props.isLive ? <LiveNow /> : null}
         <span className='header-conversation-label'>{props.title}</span>
-        <IconButton className='aside-toggle' onTouchTap={props.toggleAside}
-          iconStyle={{color: 'white'}}>
-          <FontIcon className='material-icons'>menu</FontIcon>
-        </IconButton>
       </div>
     </div>
   )
@@ -131,7 +128,11 @@ const HeaderInnerDiv = (props) => {
 
 const HeaderOverlay = (props) => {
   return (
-    <div className='ama-header-overlay'>
+    <div className='ama-header-overlay overlay'>
+      <IconButton className='aside-toggle' onTouchTap={props.toggleAside}
+        iconStyle={{color: 'white', fontSize: 30}}>
+        <FontIcon className='material-icons'>keyboard_arrow_right</FontIcon>
+      </IconButton>
       <div className='overlay-row'>
         <span className='overlay-row-label'>Share</span>
         <div className='overlay-content-row share-buttons-row'>

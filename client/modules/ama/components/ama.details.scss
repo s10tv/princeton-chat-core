@@ -17,7 +17,10 @@ $header-height: 240px;
   flex: 0 0 100%;
 
   .aside-toggle {
-    margin-left: auto;
+    position: absolute !important;
+    top: 0;
+    left: -48px;
+    z-index: 10;
   }
 }
 // ***
@@ -93,6 +96,9 @@ $header-height: 240px;
     .aside {
       display: none !important;
     }
+    .overlay {
+      margin-right: -$rightbar-width;
+    }
   }
 }
 .splitview--aside-open {
@@ -104,6 +110,9 @@ $header-height: 240px;
     .aside {
       flex: 1 0 100%;
     }
+    .overlay {
+      margin-right: 0px;
+    }
   }
 }
 .splitview--aside-closed {
@@ -113,6 +122,12 @@ $header-height: 240px;
   }
   .aside {
     display: none !important;
+  }
+  .overlay {
+    margin-right: -$rightbar-width;
+  }
+  .aside-toggle {
+    transform: rotateY(180deg) !important;
   }
 }
 
@@ -125,7 +140,7 @@ $header-height: 240px;
 //     sidebar closed
 
 .ama-content {
-  // display: flex;
+  display: flex;
   // flex-direction: row;
   flex-grow: 1;
   flex-basis: 100%;
@@ -385,6 +400,7 @@ $header-height: 240px;
   max-width: $rightbar-width;
   background-color: $color-translucent-black;
   padding: $spacing-x4;
+  position: relative;
 
   .overlay-row {
     display: flex;
