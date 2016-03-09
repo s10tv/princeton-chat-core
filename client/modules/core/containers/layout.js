@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import Layout from '/client/modules/core/components/layout/layout.jsx'
 
 const mapStateToProps = (state) => ({
-  sidebarOpen: state.core.sidebar.open,
-  sidebarDocked: state.core.sidebar.docked
+  sidebarOpen: state.core.sidebar.get('open'),
+  sidebarDocked: state.core.sidebar.get('docked')
 })
 
 const depsMapper = (context, actions) => ({
