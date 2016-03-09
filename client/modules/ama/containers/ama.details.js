@@ -1,59 +1,9 @@
-import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
-import {_} from 'underscore'
 import {connect} from 'react-redux'
+import {processActivities, processAmaPost, processMessages} from '../lib/processCollections'
+import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
 
-const processActivities = (context, amaPost, activities) => {
-  const {Collections, UserService} = context
-  const {Users, AmaMessages} = Collections
-  return activities.map((activity) => {
-    return Object.assign({}, activity, {
-      isMine: activity.originatorUserId === amaPost.speakerId,
-      owner: UserService.getUserView(Users.findOne(activity.originatorUserId)),
-      message: AmaMessages.findOne(activity.amaMessageId)
-    })
-  })
-}
-
-const processMessages = (context, messages) => {
-  const {Collections, UserService} = context
-  const {Users} = Collections
-
-  const processedMessages = messages
-  .map((message) => {
-    return Object.assign({}, message, {
-      owner: UserService.getUserView(Users.findOne(message.ownerId))
-    })
-  })
-
-  const sortedMessages = _.sortBy(processedMessages, (msg) => {
-    return msg.upvotedUsers && msg.upvotedUsers.length
-  }).reverse()
-
-  const groupedBy = _.groupBy(sortedMessages, 'parentMessageId')
-
-  return sortedMessages.filter((message) => message.parentMessageId === undefined)
-  .map((message) => {
-    const replies = groupedBy[message._id] || []
-
-    return Object.assign(message, {
-      replies: _.sortBy(replies, (reply) => reply.createdAt)
-    })
-  })
-}
-
-const processAmaPost = (context, post) => {
-  if (!post) {
-    return {}
-  }
-  const {Collections, UserService} = context
-  const {Users} = Collections
-  return Object.assign({}, post, {
-    speaker: UserService.getUserView(Users.findOne(post.speakerId))
-  })
-}
-
-const composer = ({context, params: {amaPostId}, onSpeakerType}, onData) => {
+const composer = ({context, params: {amaPostId}}, onData) => {
   const {Meteor, UserService, Collections, store} = context
   const {AmaPosts, AmaMessages, AmaActivities, Users} = Collections
 
@@ -83,8 +33,7 @@ const composer = ({context, params: {amaPostId}, onSpeakerType}, onData) => {
       activities,
       messages,
       isSpeaker: currentUser._id === amaPost.speaker._id,
-      speakerisTyping: amaPost.speakerisTyping,
-      store: context.store
+      speakerisTyping: amaPost.speakerisTyping
     }))
   }
 }
