@@ -2,7 +2,7 @@ import {AvatarInputBox} from '/client/modules/ama/components/ama.avatarinputbox.
 import {amaMessageValidator} from '/lib/validation/ama'
 import {composeAll, useDeps, composeWithTracker} from 'mantra-core'
 import {reduxForm} from 'redux-form'
-import {AMA_REPLY_FORM_NAME, AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
+import {AMA_REPLY_FORM_NAME, AMA_ASK_QUESTION_FORM_NAME} from '../configs/formNames'
 
 export const inputBoxFormConfig = {
   form: AMA_REPLY_FORM_NAME,

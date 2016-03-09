@@ -1,7 +1,7 @@
 import {AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
   AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING, SPEAKER_STOP_TYPING,
   AMA_TOGGLE_ASIDE
-} from '/client/configs/constants'
+} from '../configs/actionTypes'
 
 function activityVisibility (state = 'all', action) {
   switch (action.type) {

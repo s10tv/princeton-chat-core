@@ -2,9 +2,10 @@
  * global window
  */
 import {createOnSubmit} from '/client/lib/helpers'
-import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME, AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
+import {AMA_OPEN_REPLY, AMA_CLOSE_REPLY,
   AMA_SCROLL_TO_MSG, AMA_CLEAR_SCROLL_TO_MSG, SPEAKER_START_TYPING, AMA_TOGGLE_ASIDE,
-  SPEAKER_STOP_TYPING} from '/client/configs/constants'
+  SPEAKER_STOP_TYPING} from '../configs/actionTypes'
+import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME} from '../configs/formNames'
 import {reset} from 'redux-form'
 
 var intervalId = null

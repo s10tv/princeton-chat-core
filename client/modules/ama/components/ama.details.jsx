@@ -11,7 +11,7 @@ import Divider from 'material-ui/lib/divider'
 import Message from '/client/modules/ama/containers/ama.message'
 import AvatarInputBox from '/client/modules/ama/containers/ama.avatarinputbox'
 import Linkify from 'react-linkify'
-import {AMA_ASK_QUESTION_FORM_NAME} from '/client/configs/constants'
+import {AMA_ASK_QUESTION_FORM_NAME} from '../configs/formNames'
 import {Link} from 'react-scroll'
 
 class AMADetails extends React.Component {
