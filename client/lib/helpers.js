@@ -1,5 +1,5 @@
 import {compose} from 'mantra-core'
-import {createAction, createReducer} from 'redux-act'
+import {createAction as createActionCreator} from 'redux-actions'
 import {browserHistory} from 'react-router'
 
 /*
@@ -42,17 +42,17 @@ export const createOnSubmit = (method, success) => {
   }
 }
 
-export const createBoundAction = (description, payloadReducer, metaReducer) => {
-  const actionCreator = createAction(description, payloadReducer, metaReducer)
+export const createAction = (type, payloadCreator, metaCreator) => {
+  const actionCreator = createActionCreator(type, payloadCreator, metaCreator)
+  actionCreator.toString = () => type
+  return actionCreator
+}
+
+export const createBoundAction = (type, payloadCreator, metaCreator) => {
+  const actionCreator = createAction(type, payloadCreator, metaCreator)
   const boundAction = ({store: {dispatch}}, ...data) => dispatch(actionCreator(...data))
   boundAction.toString = actionCreator.toString
   return boundAction
-}
-
-export const createReducerWithOptions = (handlers, defaultValue, options) => {
-  const reducer = createReducer(handlers, defaultValue)
-  reducer.options(options)
-  return reducer
 }
 
 // In almost all cases use react-redux connect is a better choice
