@@ -77,6 +77,7 @@
     "react-addons-shallow-compare": "0.14.7",
     "react-css-modules": "3.7.4",
     "react-dom": "0.14.x",
+    "react-helmet": "^2.3.1",
     "react-link-state": "0.1.1",
     "react-linkify": "git+https://git@github.com/s10tv/react-linkify.git",
     "react-motion-ui-pack": "^0.6.0",

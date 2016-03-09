@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+import Helmet from 'react-helmet'
 import Radium, {StyleRoot} from 'radium'
 import moment from 'moment'
 import FontIcon from 'material-ui/lib/font-icon'
@@ -56,6 +57,7 @@ class AMADetails extends React.Component {
       <StyleRoot>
         <div className='ama-page-wrapper'>
           <div className={`ama-main ${this.splitViewClass()}`}>
+            <Helmet title={this.props.title} />
             <Header {...this.props} />
             <div className='ama-content'>
               <AmaMain {...this.props} />

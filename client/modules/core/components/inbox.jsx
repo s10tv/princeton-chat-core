@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import {Flex as _Flex} from 'jsxstyle'
 import styles from '/client/modules/core/components/styles.jsx'
 import { UserAvatar } from '/client/lib/helpers.jsx'
@@ -29,6 +30,7 @@ const Inbox = React.createClass({
       <main style={Object.assign({}, styles.main, {
         backgroundColor: color.inbox.backgroundGray
       })}>
+        <Helmet title='Inbox' />
         <Flex style={s.mainFlexContainer}>
           <h1 style={s.myInboxTitle}>My Inbox</h1>
           <Paper zDepth={3} style={{
