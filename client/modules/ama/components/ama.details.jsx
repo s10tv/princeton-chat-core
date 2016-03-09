@@ -174,14 +174,14 @@ const AmaMain = (props) => {
       <div className='top-labels-container'>
         <span className='top-label'>Discussion</span> {/* TODO: add top/recent afterwards */}
       </div>
-      <PostMessage {...props} />
+      <PostMessage handleNewMessage={props.askQuestion} amaPostId={props.params.amaPostId} {...props} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
       {props.messages.map((message) =>
         <div key={message._id}>
-          <Message message={message} {...props}/>
+          <Message message={message} amaPostId={props.params.amaPostId} {...props}/>
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
-            isReply {...props} />)}
+            amaPostId={props.params.amaPostId} isReply {...props} />)}
         </div>
       )}
     </div>

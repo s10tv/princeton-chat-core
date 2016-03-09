@@ -52,7 +52,6 @@ export default function ({Meteor, Collections, currentUser}) {
             url: 'http://gdb.voanews.com/DEC7023F-E583-4902-81CF-4002A702BB1E_cx0_cy4_cw0_mw1024_s_n_r1.jpg'
           },
           participants: [{ userId: user._id, unreadCount: 0 }],
-          upvotedUsers: [],
           startTime: new Date(),
           createdAt: new Date()
         }})
