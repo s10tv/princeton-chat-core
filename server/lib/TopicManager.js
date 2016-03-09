@@ -6,7 +6,7 @@ export default class TopicManager {
   }
 
   follow ({ topicId, user }) {
-    const {Topics, Users} = this.Collections
+    const {Topics, Users, AmaPosts} = this.Collections
 
     Users.update(user._id, { $addToSet: {
       followingTopics: topicId
@@ -18,10 +18,19 @@ export default class TopicManager {
         followers: { userId: user._id, unreadCount: 0 }
       }})
     }
+
+    if (topic.type === 'ama') {
+      const post = AmaPosts.findOne(topic._id)
+      if (post) {
+        AmaPosts.update(post._id, {$addToSet: {
+          participants: { userId: user._id, unreadCount: 0 }
+        }})
+      }
+    }
   }
 
   unfollow ({ topicId, user }) {
-    const {Topics, Users} = this.Collections
+    const {Topics, Users, AmaPosts} = this.Collections
     Users.update(user._id, { $pull: {
       followingTopics: topicId
     }})
@@ -29,6 +38,18 @@ export default class TopicManager {
     Topics.update(topicId, { $pull: {
       followers: { userId: user._id }
     }})
+
+    const topic = Topics.findOne(topicId)
+    if (topic.type === 'ama') {
+      const post = AmaPosts.findOne(topic._id)
+      if (post) {
+        AmaPosts.update(post._id, {$pull: {
+          participants: {
+            userId: user._id
+          }
+        }})
+      }
+    }
   }
 
   remove ({ topicId, user }) {
