@@ -34,9 +34,9 @@ export default {
   search ({history}, searchTerm, isSearchingPeople) {
     AmplitudeService.track('success/search')
     if (isSearchingPeople) {
-      return history.push('directory-search', {}, { term: searchTerm })
+      return history.push({ pathname: 'directory-search', query: {term: searchTerm} })
     } else {
-      history.push('search', {}, { term: searchTerm })
+      history.push({ pathname: 'search', query: {term: searchTerm} })
     }
   },
 

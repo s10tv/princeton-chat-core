@@ -4,10 +4,16 @@ import { SearchCoverPhoto } from '/client/lib/unsplash.service.js'
 
 const composer = ({context, term}, onData) => {
   const {Meteor, Collections, UserService} = context()
+  const {Users, Topics} = Collections
 
-  if (Meteor.subscribe('directory.search', term).ready()) {
-    const users = Collections.Users.find({ _id: { $ne: Meteor.userId() } }).map((user) => {
-      return UserService.getUserView(user)
+  if (Meteor.subscribe('topics').ready() && Meteor.subscribe('directory.search', term).ready()) {
+    const users = Users.find({}).map((user) => {
+      const userView = UserService.getUserView(user)
+      return Object.assign({}, userView, {
+        followingTopics: userView.followingTopics.map((topicId) => {
+          return Topics.findOne(topicId)
+        }).filter((topic) => !!topic)
+      })
     })
 
     const menuHeader = {
@@ -28,7 +34,7 @@ const composer = ({context, term}, onData) => {
 const depsMapper = (context, actions) => {
   return {
     showUserProfile: actions.profile.showUserProfile,
-    navigateToTopic: actions.topics.navigateToTopic,
+    navigateToTopic: actions.topics.navigateToChannel,
     context: () => context
   }
 }

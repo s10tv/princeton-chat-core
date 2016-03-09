@@ -122,7 +122,7 @@ const DirectorySerachItem = (props) => (
               <a href='#' style={s.subTitle} onClick={(event) => {
                 event.preventDefault()
                 props.navigateToTopic(topic)
-              }}>#{topic}</a>
+              }}>#{topic._id}</a>
             )}
           </span>}
       </Flex>

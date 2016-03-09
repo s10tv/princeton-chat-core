@@ -58,7 +58,7 @@ export default (context, actions) => {
         <Route path='explore' component={TopicList} />
         <Route path='all' component={AllPosts} />
         <Route path='search' component={PostSearch} />
-        <Route path='directory' component={Directory} />
+        <Route path='directory-search' component={Directory} />
         <Route path='add-post' component={CreateNewPost} />
         <Route path='channels/:channelId' component={GroupChannel} />
         <Route path='channels/:channelId/add-subscribers' component={GroupChannelAddMembers} />

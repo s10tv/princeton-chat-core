@@ -20,6 +20,7 @@ const accent1Color = theme.baseTheme.palette.accent1Color
 const RightBar = React.createClass({
   propTypes: {
     // FOR POST LIST SCREEN
+    hidden: React.PropTypes.bool.isRequired,
     /**
      * Topic to render
      */
@@ -72,6 +73,10 @@ const RightBar = React.createClass({
 
   render () {
     const props = this.props
+
+    if (this.props.hidden) {
+      return null
+    }
 
     return (
       <Flex width={320} minWidth={320} className='no-scrollbar'

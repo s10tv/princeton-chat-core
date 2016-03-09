@@ -52,7 +52,9 @@ const PostListScreen = React.createClass({
     /**
      * Initial serach box value
      */
-    currentSearchValue: React.PropTypes.string
+    currentSearchValue: React.PropTypes.string,
+
+    rightBarHidden: React.PropTypes.bool.isRequired
   },
 
   render () {
@@ -70,7 +72,7 @@ const PostListScreen = React.createClass({
             {this.props.isEmpty
               ? <EmptyPostList {...this.props} />
               : <PostList {...this.props} />}
-            <RightBar {...this.props} />
+            <RightBar hidden={this.props.rightBarHidden} {...this.props} />
           </Flex>
         </Flex>
       </div>

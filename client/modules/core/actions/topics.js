@@ -50,6 +50,22 @@ export default {
   },
 
   // begin sidebar methods (to navigate to differnet topics)
+  navigateToChannel ({ history, LocalState }, topic) {
+    if (!topic) {
+      return
+    }
+
+    switch (topic.type) {
+      case 'ama':
+        return history.push(`/ama/${topic._id}`)
+
+      case 'postlist':
+      default:
+        return history.push(`/channels/${topic._id}`)
+    }
+  },
+
+  // BEING DEPRECATED. Use navigateToChannel
   navigateToTopic ({ history, LocalState }, topicId) {
     // if we were in mobile mode, and showing sidebar, hide sidebar now
     LocalState.set('SHOW_SIDE_BAR', false)
