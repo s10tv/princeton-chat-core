@@ -57,7 +57,7 @@ const createReduxStore = (modules, enableLogger) => {
     }
   }
 
-  let middlewares = [routerMiddleware(browserHistory)]
+  let middlewares = [routerMiddleware(browserHistory), thunk]
   if (enableLogger) {
     middlewares.push(createLogger())
   }
@@ -73,8 +73,7 @@ const createReduxStore = (modules, enableLogger) => {
 
   return createStore(
     combineReducers(reducers),
-    compose(...enhancers),
-    applyMiddleware(thunk)
+    compose(...enhancers)
   )
 }
 
