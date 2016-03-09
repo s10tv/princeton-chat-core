@@ -184,7 +184,7 @@ const AmaMain = (props) => {
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
       {props.messages.map((message) =>
-        <div key={message._id}>
+        <div className='ama-message-container-wrapper' key={message._id}>
           <Message message={message} amaPostId={props.params.amaPostId} {...props}/>
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
             amaPostId={props.params.amaPostId} isReply {...props} />)}

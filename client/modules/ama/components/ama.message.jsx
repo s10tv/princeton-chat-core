@@ -8,7 +8,7 @@ export const Message = ({ currentUser, message, isReply, upVote, fields, reply,
   openReplyBox, isReplyBoxOpen, submitting, handleSubmit, error, isUpvoted, amaPostId,
   speaker, fbShare, isSpeaker, speakerTagLine, messageLinkOnClick, showUserProfile }) => {
   return (
-    <Element name={message._id}>
+    <Element className='ama-message-container-wrapper' name={message._id}>
       <MessageContainer message={message} user={message.owner} isReply={isReply}
         speakerTagLine={speakerTagLine} isSpeaker={isSpeaker}
         messageLinkOnClick={messageLinkOnClick} showUserProfile={showUserProfile}>

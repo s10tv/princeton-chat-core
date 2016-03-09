@@ -29,7 +29,8 @@ $header-height: 240px;
   display: flex;
   flex-shrink: 0;
   flex-basis: 100%;
-  height: $header-height;
+  min-height: $header-height;
+  max-height: $header-height;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -155,7 +156,6 @@ $header-height: 240px;
     // flex: 0 0 $rightbar-width;
     display: flex;
     flex-direction: column;
-    background-color: $color-rightbar;
 
     .ama-host-is-typing {
       display: flex;
@@ -170,10 +170,13 @@ $header-height: 240px;
 
     .ama-activity-avatar {
       display: flex;
+      flex-shrink: 0;
       margin-right: $spacing-x1;
     }
 
     .ama-activity-link {
+      display: flex;
+      flex-shrink: 0;
       &:hover {
         opacity: 1;
         background-color: #e6e6e6;
@@ -183,6 +186,7 @@ $header-height: 240px;
 
     .ama-activity {
       display: flex;
+      background-color: $color-rightbar;
       flex-direction: column;
       padding-bottom: $spacing-x1;
       border-bottom: 1px solid #EFEFEF;
@@ -241,7 +245,7 @@ $header-height: 240px;
 
   .top-labels-container {
     display: flex;
-    flex: 0 0 100%;
+    flex-shrink: 0;
     justify-content: space-between;
 
     .top-label {
@@ -265,9 +269,15 @@ $header-height: 240px;
   animation-play-state: running !important;
 }
 
+.ama-message-container-wrapper {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
 .ama-message-container {
   display: flex;
-  flex-basis: 100%;
+  flex-shrink: 0;
   padding: $spacing-x3;
   border-radius: 5px;
   animation-name: highlightOrange;
@@ -405,7 +415,6 @@ $header-height: 240px;
   .overlay-row {
     display: flex;
     flex-direction: column;
-    flex: 0 0 100%;
     margin-bottom: $spacing-x4;
 
     .overlay-row-label {
