@@ -17,8 +17,8 @@ export default {
     ),
     [actions.sidebar.onRequestChange]: (state, action) => state.set('open', action.payload),
     [actions.sidebar.toggle]: (state) => state.update('open', (v) => !v),
-    [actions.sidebar.open.toString()]: (state) => state.set('open', true),
-    [actions.sidebar.close.toString()]: (state) => state.set('open', false)
+    [actions.sidebar.open]: (state) => state.set('open', true),
+    [actions.sidebar.close]: (state) => state.set('open', false)
   }),
   sidebarMenuOpen: createReducer(false, {
     [actions.sidebar.toggleMenu]: (state) => !state

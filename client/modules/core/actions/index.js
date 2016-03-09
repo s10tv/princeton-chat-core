@@ -34,10 +34,10 @@ export default {
     }
   },
   sidebar: {
-    toggle: createBoundAction('SIDEBAR_TOGGLE'),
+    toggle: createBoundAction('SIDEBAR_TOGGLE', () => undefined),
     open: createBoundAction('SIDEBAR_OPEN'),
     close: createBoundAction('SIDEBAR_CLOSE'),
     onRequestChange: createBoundAction('SIDEBAR_UPDATE'),
-    toggleMenu: createBoundAction('SIDEBAR_MENU_TOGGLE')
+    toggleMenu: createBoundAction('SIDEBAR_MENU_TOGGLE', () => undefined)
   }
 }
