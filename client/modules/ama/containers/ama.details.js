@@ -2,14 +2,11 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core'
 import {connect} from 'react-redux'
 import {processActivities, processAmaPost, processMessages} from '../lib/processCollections'
 import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
-import {sidebarClose} from '/client/modules/core/configs/actionTypes'
-import {bindContext} from '/client/lib/helpers'
 
 const composer = ({context, params: {amaPostId}}, onData) => {
   const {Meteor, UserService, Collections, store} = context
   const {AmaPosts, AmaMessages, AmaActivities, Users} = Collections
 
-  bindContext(sidebarClose)(context)
   const currentUser = UserService.currentUser()
   const {activityVisibility} = store.getState().ama
 
@@ -53,6 +50,7 @@ const depsMapper = (context, actions) => ({
   toggleAside: actions.amaHeader.toggleAside,
   messageLinkOnClick: actions.messages.messageLinkOnClick,
   showUserProfile: actions.profile.showUserProfile,
+  closeSidebar: actions.sidebar.close,
   store: context.store,
   context
 })

@@ -19,6 +19,7 @@ class AMADetails extends React.Component {
 
   // temporary
   componentWillMount () {
+    this.props.closeSidebar()
     document.body.style.overflow = 'auto'
   }
 
@@ -90,6 +91,7 @@ AMADetails.propTypes = {
   scrollToMsgId: PropTypes.string,
   clearScrollToMsgId: PropTypes.func.isRequired,
   overideAsideOpen: PropTypes.bool,
+  closeSidebar: PropTypes.func.isRequired,
   // actions
   askQuestion: PropTypes.func.isRequired,
   showMenu: PropTypes.func.isRequired,
