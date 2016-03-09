@@ -35,7 +35,9 @@ export default {
   },
   sidebar: {
     toggle: createBoundAction('SIDEBAR_TOGGLE'),
-    update: createBoundAction('SIDEBAR_UPDATE'),
+    open: createBoundAction('SIDEBAR_OPEN'),
+    close: createBoundAction('SIDEBAR_CLOSE'),
+    onRequestChange: createBoundAction('SIDEBAR_UPDATE'),
     toggleMenu: createBoundAction('SIDEBAR_MENU_TOGGLE')
   }
 }

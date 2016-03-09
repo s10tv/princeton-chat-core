@@ -18,12 +18,12 @@ const s = {
     transition: Transitions.easeOut(null, ['transform', 'margin-left'], null)
   }
 }
-const Layout = ({sidebarOpen, sidebarDocked, updateSidebar, toggleSidebar, children}) => (
+const Layout = ({sidebarOpen, sidebarDocked, onRequestChange, toggleSidebar, children}) => (
   <MuiTheme theme='primary'>
     <StyleRoot>
       <MuiTheme theme='secondary'>
         <LeftNav width={240} containerClassName='sidebar' docked={sidebarDocked}
-          open={sidebarOpen} onRequestChange={updateSidebar}>
+          open={sidebarOpen} onRequestChange={onRequestChange}>
           <Sidebar />
         </LeftNav>
       </MuiTheme>
@@ -48,6 +48,6 @@ Layout.propTypes = {
   sidebarOpen: React.PropTypes.bool.isRequired,
   sidebarDocked: React.PropTypes.bool.isRequired,
   toggleSidebar: React.PropTypes.func.isRequired,
-  updateSidebar: React.PropTypes.func.isRequired
+  onRequestChange: React.PropTypes.func.isRequired
 }
 export default Layout

@@ -9,8 +9,9 @@ const mapStateToProps = (state) => ({
 
 const depsMapper = (context, actions) => ({
   toggleSidebar: actions.sidebar.toggle,
-  updateSidebar: actions.sidebar.update,
+  onRequestChange: actions.sidebar.close,
   store: context.store,
+  context: context,
   Meteor: context.Meteor
 })
 
