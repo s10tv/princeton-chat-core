@@ -1,3 +1,4 @@
+import {createReducer} from 'redux-immutablejs'
 import * as Types from '../configs/actionTypes'
 
 function activityVisibility (state = 'all', action) {
@@ -33,20 +34,10 @@ function openReplies (state = {}, action) {
   }
 }
 
-function scrollToMsgId (state = {}, action) {
-  switch (action.type) {
-    case Types.AMA_SCROLL_TO_MSG:
-      return Object.assign({}, state, {
-        scrollToMsgId: action.scrollToMsgId
-      })
-    case Types.AMA_CLEAR_SCROLL_TO_MSG:
-      return Object.assign({}, state, {
-        scrollToMsgId: null
-      })
-    default:
-      return state
-  }
-}
+const scrollToMsgId = createReducer(null, {
+  [Types.scrollToMsg]: (state, action) => action.payload,
+  [Types.clearScrollToMsg]: () => null
+}, false)
 
 function speakerIsTyping (state = false, action) {
   switch (action.type) {

@@ -36,20 +36,20 @@ export default {
     askQuestion (context, info) {
       return createOnSubmit('ama/askquestion', ({store}, newMsgId) => {
         store.dispatch(reset(AMA_ASK_QUESTION_FORM_NAME))
-        store.dispatch({ type: Types.AMA_SCROLL_TO_MSG, scrollToMsgId: newMsgId })
+        store.dispatch(Types.scrollToMsg(newMsgId))
       })(context, info)
     },
     reply (context, info, {parentMessageId}) {
       return createOnSubmit('ama/reply', ({store}, newMsgId) => {
         store.dispatch(reset(AMA_REPLY_FORM_NAME))
-        store.dispatch({ type: Types.AMA_SCROLL_TO_MSG, scrollToMsgId: newMsgId })
+        store.dispatch(Types.scrollToMsg(newMsgId))
         store.dispatch({ type: Types.AMA_CLOSE_REPLY, messageId: parentMessageId })
       })(context, Object.assign({}, info, {
         parentMessageId
       }))
     },
     clearScrollToMsgId ({ store }) {
-      store.dispatch({ type: Types.AMA_CLEAR_SCROLL_TO_MSG })
+      store.dispatch(Types.clearScrollToMsg())
     },
     openReplyBox ({store}, message) {
       if (store.getState().ama.openReplies[message._id] === true) {

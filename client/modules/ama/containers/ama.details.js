@@ -106,7 +106,7 @@ const depsMapper = (context, actions) => ({
 })
 
 const mapStateToProps = (state) => ({
-  scrollToMsgId: state.ama.scrollToMsgId.scrollToMsgId,
+  scrollToMsgId: state.ama.scrollToMsgId,
   overideAsideOpen: state.ama.overideAsideOpen
 })
 
