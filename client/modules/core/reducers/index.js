@@ -1,13 +1,10 @@
-import Immutable from 'immutable'
-import {createReducer} from 'redux-act'
-import {createReducer as createImmutableReducer} from 'redux-immutablejs'
+import {createReducer} from 'redux-immutablejs'
 import {CALCULATE_RESPONSIVE_STATE, responsiveStateReducer} from 'redux-responsive'
 import {LOCATION_CHANGE} from 'react-router-redux'
-// import {createReducerWithOptions} from '/client/lib/helpers'
 import actions from '../actions'
 
 export default {
-  sidebar: createImmutableReducer(Immutable.fromJS({docked: false, open: false}), {
+  sidebar: createReducer({docked: false, open: false}, {
     // Adjust sidebar open state based on browser size
     [CALCULATE_RESPONSIVE_STATE]: (state, action) => {
       const browser = responsiveStateReducer(undefined, action)
@@ -18,13 +15,12 @@ export default {
     [LOCATION_CHANGE]: (state) => (
       state.get('docked') ? state : state.set('open', false)
     ),
-    [actions.sidebar.onRequestChange.toString()]: (state, action) => state.set('open', action.payload),
-    [actions.sidebar.toggle.toString()]: (state) => state.set('open', !state.get('open')),
+    [actions.sidebar.onRequestChange]: (state, action) => state.set('open', action.payload),
+    [actions.sidebar.toggle]: (state) => state.update('open', v => !v),
     [actions.sidebar.open.toString()]: (state) => state.set('open', true),
     [actions.sidebar.close.toString()]: (state) => state.set('open', false)
   }),
-
-  sidebarMenuOpen: createReducer({
+  sidebarMenuOpen: createReducer(false, {
     [actions.sidebar.toggleMenu]: (state) => !state
   }, false),
   // Reducer that sets the default topic values of a new topic dropdown.
