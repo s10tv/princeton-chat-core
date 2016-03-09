@@ -1,7 +1,7 @@
 import {createReducer} from '/client/lib/helpers'
 import {CALCULATE_RESPONSIVE_STATE, responsiveStateReducer} from 'redux-responsive'
 import {LOCATION_CHANGE} from 'react-router-redux'
-import actions from '../actions'
+import * as Types from '../configs/actionTypes'
 
 export default {
   sidebar: createReducer({docked: false, open: false}, {
@@ -15,13 +15,13 @@ export default {
     [LOCATION_CHANGE]: (state) => (
       state.get('docked') ? state : state.set('open', false)
     ),
-    [actions.sidebar.onRequestChange]: (state, action) => state.set('open', action.payload),
-    [actions.sidebar.toggle]: (state) => state.update('open', (v) => !v),
-    [actions.sidebar.open]: (state) => state.set('open', true),
-    [actions.sidebar.close]: (state) => state.set('open', false)
+    [Types.sidebarOnRequestChange]: (state, action) => state.set('open', action.payload),
+    [Types.sidebarToggle]: (state) => state.update('open', (v) => !v),
+    [Types.sidebarOpen]: (state) => state.set('open', true),
+    [Types.sidebarClose]: (state) => state.set('open', false)
   }),
   sidebarMenuOpen: createReducer(false, {
-    [actions.sidebar.toggleMenu]: (state) => !state
+    [Types.sidebarToggleMenu]: (state) => !state
   }),
   // Reducer that sets the default topic values of a new topic dropdown.
   newPostTopics (state = '', action) {

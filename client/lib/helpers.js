@@ -1,4 +1,5 @@
 import Immutable from 'immutable'
+import invariant from 'invariant'
 import {compose} from 'mantra-core'
 import {createAction as _createAction} from 'redux-actions'
 import {createReducer as _createReducer} from 'redux-immutablejs'
@@ -15,8 +16,14 @@ export const createAction = (type, payloadCreator, metaCreator) => {
   return actionCreator
 }
 
-export const bindContext = (actionCreator) => {
-  const boundAction = ({store: {dispatch}}, ...data) => dispatch(actionCreator(...data))
+export const bindContext = (actionCreator, defaultContext) => {
+  let boundAction = (context, ...args) => {
+    invariant(context.store, 'context.store must not be null')
+    context.store.dispatch(actionCreator(...args))
+  }
+  if (defaultContext !== undefined) {
+    boundAction = boundAction.bind(null, defaultContext)
+  }
   boundAction.toString = actionCreator.toString
   return boundAction
 }
