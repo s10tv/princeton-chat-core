@@ -6,7 +6,7 @@ export default {
     [Types.toggleAside]: (state, action) => action.payload
   }),
   activityVisibility: createReducer('all', {
-    [Types.setActivityFilter]: (state) => 'all' ? 'mine' : 'all'
+    [Types.toggleActivityFilter]: (state) => 'all' ? 'mine' : 'all'
   }),
   openReplies: createReducer({}, {
     [Types.openReply]: (state, action) => state.set(action.payload, true),

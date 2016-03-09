@@ -1,7 +1,7 @@
 /**
  * global window
  */
-import {createOnSubmit} from '/client/lib/helpers'
+import {createOnSubmit, bindContext} from '/client/lib/helpers'
 import * as Types from '../configs/actionTypes'
 import {AMA_ASK_QUESTION_FORM_NAME, AMA_REPLY_FORM_NAME} from '../configs/formNames'
 import {reset} from 'redux-form'
@@ -48,9 +48,7 @@ export default {
         parentMessageId
       }))
     },
-    clearScrollToMsgId ({ store }) {
-      store.dispatch(Types.clearScrollToMsg())
-    },
+    clearScrollToMsgId: bindContext(Types.clearScrollToMsg),
     openReplyBox ({store}, message) {
       if (store.getState().ama.openReplies.get(message._id) === true) {
         return store.dispatch(Types.closeReply(message._id))
@@ -101,8 +99,6 @@ export default {
     }
   },
   amaFeed: {
-    toggleFilter ({store}) {
-      return store.dispatch(Types.setActivityFilter())
-    }
+    toggleFilter: bindContext(Types.toggleActivityFilter)
   }
 }
