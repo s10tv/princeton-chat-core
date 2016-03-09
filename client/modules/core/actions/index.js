@@ -1,3 +1,5 @@
+import {bindContext} from '/client/lib/helpers'
+import * as Types from '../configs/actionTypes'
 import posts from './posts'
 import topics from './topics'
 import messages from './messages'
@@ -31,5 +33,12 @@ export default {
     navigateTo ({history}, path) {
       history.push(path)
     }
+  },
+  sidebar: {
+    toggle: bindContext(Types.sidebarToggle),
+    open: bindContext(Types.sidebarOpen),
+    close: bindContext(Types.sidebarClose),
+    onRequestChange: bindContext(Types.sidebarOnRequestChange),
+    toggleMenu: bindContext(Types.sidebarToggleMenu)
   }
 }

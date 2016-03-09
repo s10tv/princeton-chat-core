@@ -5,8 +5,6 @@ import {connect} from 'react-redux'
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 import {isAdmin} from '/lib/admin'
 import {_} from 'underscore'
-import * as Types from '../configs/actionTypes'
-import {bindContext} from '/client/lib/helpers'
 
 const mapStateToProps = (state) => ({
   menuOpen: state.core.sidebarMenuOpen
@@ -56,7 +54,7 @@ const depsMapper = (context, actions) => {
   return {
     ...c,
     showAddPostPopupFn: actions.posts.showAddPostPopup,
-    toggleMenu: bindContext(Types.sidebarToggleMenu, context),
+    toggleMenu: actions.sidebar.toggleMenu,
     store: context.store,
     context: () => context
   }
