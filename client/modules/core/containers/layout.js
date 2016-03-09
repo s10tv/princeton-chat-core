@@ -4,7 +4,7 @@ import Layout from '/client/modules/core/components/layout/layout.jsx'
 
 const mapStateToProps = (state) => ({
   sidebarOpen: state.core.sidebar.open,
-  sidebarDocked: state.browser.greaterThan.small
+  sidebarDocked: state.core.sidebar.docked
 })
 
 const depsMapper = (context, actions) => ({

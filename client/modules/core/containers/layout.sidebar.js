@@ -7,7 +7,7 @@ import {isAdmin} from '/lib/admin'
 import {_} from 'underscore'
 
 const mapStateToProps = (state) => ({
-  menuOpen: state.core.sidebar.menuOpen
+  menuOpen: state.core.sidebarMenuOpen
 })
 
 export const composer = ({context}, onData) => {

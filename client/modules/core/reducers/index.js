@@ -1,25 +1,32 @@
-import {combineReducers} from 'redux'
 import {createReducer} from 'redux-act'
 import {CALCULATE_RESPONSIVE_STATE, responsiveStateReducer} from 'redux-responsive'
+import {LOCATION_CHANGE} from 'react-router-redux'
 import {createReducerWithOptions} from '/client/lib/helpers'
 import actions from '../actions'
 
 export default {
-  sidebar: combineReducers({
-    open: createReducerWithOptions({
-      [CALCULATE_RESPONSIVE_STATE]: (state, action) => {
-        const browser = responsiveStateReducer(undefined, action)
-        return browser.greaterThan.small
-      },
-      [actions.sidebar.toggle]: (state) => !state,
-      [actions.sidebar.open]: () => true,
-      [actions.sidebar.close]: () => false,
-      [actions.sidebar.onRequestChange]: (state) => state
-    }, false, {payload: false}),
-    menuOpen: createReducer({
-      [actions.sidebar.toggleMenu]: (state) => !state
-    }, false)
-  }),
+  sidebar: createReducerWithOptions({
+    // Adjust sidebar open state based on browser size
+    [CALCULATE_RESPONSIVE_STATE]: (state, action) => {
+      const browser = responsiveStateReducer(undefined, action)
+      const isDesktop = browser.greaterThan.small
+      return {docked: isDesktop, open: isDesktop}
+    },
+    // Close the sidebar on navigation unless we are docked
+    [LOCATION_CHANGE]: (state) => (
+      state.docked ? state : {...state, open: false}
+    ),
+    [actions.sidebar.onRequestChange]: (state, action) => ({
+      ...state, open: action.payload
+    }),
+    [actions.sidebar.toggle]: (state) => ({...state, open: !state.open}),
+    [actions.sidebar.open]: (state) => ({...state, open: true}),
+    [actions.sidebar.close]: (state) => ({...state, open: false})
+  }, {docked: false, open: false}, {payload: false}),
+
+  sidebarMenuOpen: createReducer({
+    [actions.sidebar.toggleMenu]: (state) => !state
+  }, false),
   // Reducer that sets the default topic values of a new topic dropdown.
   newPostTopics (state = '', action) {
     switch (action.type) {
