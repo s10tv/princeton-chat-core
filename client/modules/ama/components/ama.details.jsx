@@ -174,36 +174,14 @@ const AmaMain = (props) => {
       <div className='top-labels-container'>
         <span className='top-label'>Discussion</span> {/* TODO: add top/recent afterwards */}
       </div>
-      <PostMessage currentUser={props.currentUser}
-        speaker={props.speaker}
-        introText={props.introText}
-        amaPostId={props.params.amaPostId}
-        speakerTagLine={props.speakerTagLine}
-        messageLinkOnClick={props.messageLinkOnClick}
-        showUserProfile={props.showUserProfile}
-        handleNewMessage={props.askQuestion} />
+      <PostMessage {...props} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
           marginLeft: spacing.x3, marginRight: spacing.x3}} />
       {props.messages.map((message) =>
         <div key={message._id}>
-          <Message message={message}
-            currentUser={props.currentUser}
-            amaPostId={props.params.amaPostId}
-            speaker={props.speaker}
-            isSpeaker={props.isSpeaker}
-            showUserProfile={props.showUserProfile}
-            messageLinkOnClick={props.messageLinkOnClick}
-            speakerTagLine={props.speakerTagLine}
-            fbShare={props.fbShare} />
+          <Message message={message} {...props}/>
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
-            isReply currentUser={props.currentUser}
-            fbShare={props.fbShare}
-            speaker={props.speaker}
-            showUserProfile={props.showUserProfile}
-            messageLinkOnClick={props.messageLinkOnClick}
-            isSpeaker={props.isSpeaker}
-            speakerTagLine={props.speakerTagLine}
-            amaPostId={props.params.amaPostId} />)}
+            isReply {...props} />)}
         </div>
       )}
     </div>
@@ -218,12 +196,12 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, 
       placeholder={`Ask ${speaker.displayName} a question...`}
       handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
       speaker={speaker}
-      amaPostId={amaPostId}/>
+      amaPostId={amaPostId} isPostMessage/>
   </MessageContainer>
 )
 
 export const MessageContainer = ({ message, user, children, isSpeaker, speakerTagLine, isReply,
-  messageLinkOnClick, showUserProfile }) => (
+  messageLinkOnClick, showUserProfile, isPostMessage }) => (
   <div id={message._id}
     className={`ama-message-container${isReply ? ' ama-message-container-reply' : ''}`}>
     <a href='#' onClick={(e) => {
@@ -238,7 +216,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
           <span className={isSpeaker ? 'ama-highlighted-textbox' : 'message-author'}>{user.displayName}</span>
           {isSpeaker ? <span className='message-author-desc'>-{speakerTagLine}</span> : null}
         </div>
-        {isSpeaker ? null
+        {isPostMessage ? null
           : <span className='message-timestamp'>{moment(message.createdAt).format('h:mm a')}</span>}
       </div>
       <p className={`message-content${message.nobottommargin ? ' message-content-no-bot-margin' : ''}`}>
