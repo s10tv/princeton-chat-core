@@ -224,6 +224,11 @@ export default function ({ Meteor, Collections, SearchService }) {
       children: [
         {
           find: function (amaPost) {
+            return Users.find({ _id: amaPost.speakerId })
+          }
+        },
+        {
+          find: function (amaPost) {
             const participants = amaPost.participants || []
             return Users.find({_id: {$in: participants.map((participant) => participant.userId)}})
           }
