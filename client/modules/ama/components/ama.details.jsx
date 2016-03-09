@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import Helmet from 'react-helmet'
-import Radium, {StyleRoot} from 'radium'
+import Radium from 'radium'
 import moment from 'moment'
 import FontIcon from 'material-ui/lib/font-icon'
 import IconButton from 'material-ui/lib/icon-button'
@@ -54,18 +54,14 @@ class AMADetails extends React.Component {
 
   render () {
     return (
-      <StyleRoot>
-        <div className='ama-page-wrapper'>
-          <div className={`ama-main ${this.splitViewClass()}`}>
-            <Helmet title={this.props.title} />
-            <Header {...this.props} />
-            <div className='ama-content'>
-              <AmaMain {...this.props} />
-              <AmaActivities {...this.props} />
-            </div>
-          </div>
+      <div className={`ama-main ${this.splitViewClass()}`}>
+        <Helmet title={this.props.title} />
+        <Header {...this.props} />
+        <div className='ama-content'>
+          <AmaMain {...this.props} />
+          <AmaActivities {...this.props} />
         </div>
-      </StyleRoot>
+      </div>
     )
   }
 }
@@ -184,7 +180,7 @@ const AmaMain = (props) => {
       </div>
       <PostMessage handleNewMessage={props.askQuestion} amaPostId={props.params.amaPostId} {...props} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
-          marginLeft: spacing.x3, marginRight: spacing.x3}} />
+          marginLeft: spacing.x3, marginRight: spacing.x3, minHeight: 1}} />
       {props.messages.map((message) =>
         <div className='ama-message-container-wrapper' key={message._id}>
           <Message message={message} amaPostId={props.params.amaPostId} {...props}/>

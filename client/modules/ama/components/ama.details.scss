@@ -28,7 +28,6 @@ $header-height: 240px;
 .ama-header {
   display: flex;
   flex-shrink: 0;
-  flex-basis: 100%;
   min-height: $header-height;
   max-height: $header-height;
   background-position: center;
@@ -144,7 +143,6 @@ $header-height: 240px;
   display: flex;
   // flex-direction: row;
   flex-grow: 1;
-  flex-basis: 100%;
 
   .ama-activity-sidebar {
     // @include media(mobile) {
@@ -156,6 +154,7 @@ $header-height: 240px;
     // flex: 0 0 $rightbar-width;
     display: flex;
     flex-direction: column;
+    background-color: $color-rightbar;
 
     .ama-host-is-typing {
       display: flex;
@@ -187,7 +186,6 @@ $header-height: 240px;
 
     .ama-activity {
       display: flex;
-      background-color: $color-rightbar;
       flex-direction: column;
       padding-bottom: $spacing-x1;
       border-bottom: 1px solid #EFEFEF;
