@@ -104,7 +104,10 @@ AMADetails.propTypes = {
 
 const Header = (props) => {
   return (
-    <div className='ama-header' style={{backgroundImage: `url(${props.cover.url})`}}>
+    <div className='ama-header' style={{
+      backgroundPosition: '50% 40%',
+      backgroundImage: `url(${props.cover.url})`
+    }}>
       <HeaderInnerDiv {...props}/>
       <HeaderOverlay {...props}/>
     </div>
