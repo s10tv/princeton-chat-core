@@ -4,6 +4,8 @@ import styles from '/client/modules/core/components/styles.jsx'
 import { FlatButton, FontIcon } from '/client/lib/ui.jsx'
 import { i18n } from '/client/configs/env'
 import Radium from 'radium'
+import _ from 'underscore'
+
 // import style from '/client/modules/onboarding/configs/style.js'
 // TODO: XXX
 const style = {}
@@ -56,7 +58,9 @@ const TopicList = React.createClass({
     /**
      * Bool to hide tabs, true by default
      */
-    areTabsShown: React.PropTypes.bool
+    areTabsShown: React.PropTypes.bool,
+
+    topics: React.PropTypes.object.isRequired
   },
 
   componentWillMount () {
@@ -120,7 +124,7 @@ const TopicList = React.createClass({
           <div className='no-scrollbar' style={{marginTop: 50}}>
           {this.state.value === 'Top'
           ? <Flex flexDirection='column' justifyContent='center'>
-              {this.props.topicsSortedByFollowers.map((topic) =>
+              {sortTopicsByFollowers(this.props.topics).map((topic) =>
                 <TopicListItem
                   key={topic._id}
                   isLoggedIn={this.props.isLoggedIn}
@@ -137,7 +141,7 @@ const TopicList = React.createClass({
           }
           {this.state.value === 'Recent'
           ? <Flex flexDirection='column' justifyContent='center'>
-                {this.props.topicsSortedByTime.map((topic) =>
+                {sortTopicsByTime(this.props.topicsSortedByTime).map((topic) =>
                   <TopicListItem
                     ifLoggedInExecute={this.ifLoggedInExecute}
                     isLoggedIn={this.props.isLoggedIn}
@@ -294,6 +298,14 @@ var NewTopicButton = ({ showAddTopicModal }) => {
 }
 
 NewTopicButton = Radium(NewTopicButton)
+
+const sortTopicsByAma = (topics) => {
+  const amaTopics = _.where(topics, { type: 'ama' })
+  const filteredTopics = _.filter(topics, (topic) => topic.type !== 'ama')
+  return amaTopics.concat(filteredTopics)
+}
+const sortTopicsByTime = (topics) => sortTopicsByAma(_.sortBy(topics, (topic) => topic.createdAt).reverse())
+const sortTopicsByFollowers = (topics) => sortTopicsByAma(_.sortBy(topics, (topic) => topic.followersCount).reverse())
 
 const coverPhotoDimensions = {
   flex: '0 0 220px',
