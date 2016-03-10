@@ -29,7 +29,7 @@ class AMADetails extends React.Component {
   componentDidUpdate () {
     if (this.props.scrollToMsgId && document.getElementById(this.props.scrollToMsgId)) {
       const msgDOM = document.getElementById(this.props.scrollToMsgId)
-      msgDOM.scrollIntoView(true)
+      msgDOM.scrollIntoView(false)
       msgDOM.className = `${msgDOM.className} ama-message-container-animate`
 
       const removeAnimationClass = () => {
