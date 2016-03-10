@@ -1,5 +1,4 @@
 import actions from './actions'
-import methodStubs from './configs/method_stubs'
 import routes from './routes.jsx'
 import {combineReducers} from 'redux'
 import reducers from './reducers'
@@ -10,7 +9,5 @@ export default {
   routes,
   actions,
   reducer: combineReducers(reducers),
-  load (context) {
-    methodStubs(context)
-  }
+  load (context) {}
 }
