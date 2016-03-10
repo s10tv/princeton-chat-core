@@ -9,7 +9,6 @@ const composer = ({context, params: {amaPostId}}, onData) => {
 
   const currentUser = UserService.currentUser()
   const {activityVisibility} = store.getState().ama
-
   if (Meteor.subscribe('ama', amaPostId).ready()) {
     const amaPost = processAmaPost(context, AmaPosts.findOne(amaPostId))
     const activityOptions = activityVisibility === 'mine'
@@ -50,7 +49,6 @@ const depsMapper = (context, actions) => ({
   toggleAside: actions.amaHeader.toggleAside,
   messageLinkOnClick: actions.messages.messageLinkOnClick,
   showUserProfile: actions.profile.showUserProfile,
-  closeSidebar: actions.sidebar.close,
   store: context.store,
   context
 })

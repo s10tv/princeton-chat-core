@@ -19,7 +19,6 @@ class AMADetails extends React.Component {
 
   // temporary
   componentWillMount () {
-    this.props.closeSidebar()
     document.body.style.overflow = 'auto'
   }
 
@@ -152,12 +151,11 @@ const HeaderOverlay = (props) => {
         <span className='overlay-row-label'>Participants ({props.participantCount})</span>
         <div className='overlay-content-row participants-row'>
           {props.participants.map((participant) =>
-            <a href='#' onClick={(e) => {
+            <a href='#' key={participant._id} onClick={(e) => {
               e.preventDefault()
               props.showUserProfile(participant)
             }}>
               <UserAvatar
-                key={participant._id}
                 avatar={participant.avatar}
                 avatarInitials={participant.avatarInitials}
                 size={30}
@@ -240,12 +238,12 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
 
 const AmaActivities = (props) => (
   <div className='ama-activity-sidebar aside' style={props.style}>
-      {!props.speakerIsTyping ? null : (
-        <SpeakerIsTyping key='speaker-typing' {...props} />
-      )}
-      {props.activities.map((activity) => (
-        <AmaActivity key={activity._id} activity={activity} {...props} />
-      ))}
+    {!props.speakerIsTyping ? null : (
+      <SpeakerIsTyping key='speaker-typing' {...props} />
+    )}
+    {props.activities.map((activity) => (
+      <AmaActivity key={activity._id} activity={activity} {...props} />
+    ))}
   </div>
 )
 
