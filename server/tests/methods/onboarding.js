@@ -211,4 +211,60 @@ describe('onboarding methods', () => {
       })
     })
   })
+
+  describe('welcome', () => {
+    const userJohn = {
+      firstName: 'John',
+      lastName: 'Smith',
+      email: 'john@smith.com',
+      password: '12345'
+    }
+    describe('welcome/forgotPassword', () => {
+      it('should detect if there is no user with such email', () => {
+        try {
+          Meteor.call('welcome/forgotPassword', {email: 'some-nonexistent-email-7579@example.com'})
+          fail('there is no user with such email')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+      it('should send recovery email', () => {
+        Meteor.call('welcome/signup', userJohn)
+        Meteor.call('welcome/forgotPassword', {email: userJohn.email})
+      })
+    })
+    describe('welcome/signup', () => {
+      it('should signup current user', () => {
+        Meteor.call('welcome/signup', userJohn)
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.firstName).to.equal(userJohn.firstName)
+        expect(dbUser.lastName).to.equal(userJohn.lastName)
+      })
+    })
+    describe('welcome/linkfacebook', () => {
+      it('should link facebook to current user', () => {
+        const facebookId = 'facebook-id'
+        const facebookFirstName = 'Eric'
+        const facebookLastName = 'Clapton'
+        Users.update(currentUserId, { $set: {
+          services: {
+            facebook: {
+              id: facebookId,
+              first_name: facebookFirstName,
+              last_name: facebookLastName
+            }
+          }
+        }})
+
+        Meteor.call('welcome/linkfacebook')
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.firstName).to.equal(facebookFirstName)
+        expect(dbUser.lastName).to.equal(facebookLastName)
+        expect(dbUser.avatar.url).to.equal('https://graph.facebook.com/' + facebookId + '/picture?type=large')
+        expect(dbUser.avatar.isDefaultAvatar).to.equal(false)
+      })
+    })
+  })
 })

@@ -154,7 +154,12 @@ export default class OnboardManager {
       )
     }
 
-    return this.Accounts.sendResetPasswordEmail(userId, email)
+    if (!isTest) {
+      return this.Accounts.sendResetPasswordEmail(userId, email)
+    } else {
+      console.log('Sent recovery email to ' + email)
+      return null
+    }
   }
 
   handleSignup (user, { firstName, lastName, password, email }) {
