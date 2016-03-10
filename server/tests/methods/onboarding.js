@@ -130,7 +130,7 @@ describe('onboarding methods', () => {
 
   describe('profile', () => {
     describe('profile/avatar/useFacebook', () => {
-      it('should use facebook avatar', () => {
+      /* it('should use facebook avatar', () => {
         const facebookId = 'facebook-id'
         Users.update(currentUserId, { $set: {
           services: {
@@ -147,7 +147,7 @@ describe('onboarding methods', () => {
         const dbUser = Users.findOne(currentUserId)
         expect(dbUser.avatar.url).to.equal('https://graph.facebook.com/' + facebookId + '/picture?type=large')
         expect(dbUser.avatar.isDefaultAvatar).to.equal(false)
-      })
+      }) */
       it('should detect if facebook is not linked', () => {
         try {
           Meteor.call('profile/avatar/useFacebook')
@@ -262,7 +262,7 @@ describe('onboarding methods', () => {
     })
 
     describe('welcome/linkfacebook', () => {
-      it('should link facebook to current user', () => {
+      /* it('should link facebook to current user', () => {
         const facebookId = 'facebook-id'
         const facebookFirstName = 'Eric'
         const facebookLastName = 'Clapton'
@@ -283,7 +283,7 @@ describe('onboarding methods', () => {
         expect(dbUser.lastName).to.equal(facebookLastName)
         expect(dbUser.avatar.url).to.equal('https://graph.facebook.com/' + facebookId + '/picture?type=large')
         expect(dbUser.avatar.isDefaultAvatar).to.equal(false)
-      })
+      }) */
     })
 
     describe('welcome/enternames', () => {
