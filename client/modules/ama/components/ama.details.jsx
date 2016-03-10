@@ -14,6 +14,7 @@ import AvatarInputBox from '/client/modules/ama/containers/ama.avatarinputbox'
 import Linkify from 'react-linkify'
 import {AMA_ASK_QUESTION_FORM_NAME} from '../configs/formNames'
 import {Link} from 'react-scroll'
+import Sticky from 'react-sticky'
 
 class AMADetails extends React.Component {
 
@@ -57,10 +58,11 @@ class AMADetails extends React.Component {
       <div className={`ama-main ${this.splitViewClass()}`}>
         <Helmet title={this.props.title} />
         <Header {...this.props} />
-        <div className='ama-content'>
+        <Sticky stickyClass='ama-content-fixed-sidebar' className='ama-content'
+          stickyStyle={{}}>
           <AmaMain {...this.props} />
           <AmaActivities {...this.props} />
-        </div>
+        </Sticky>
       </div>
     )
   }

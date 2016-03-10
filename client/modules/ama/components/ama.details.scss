@@ -139,6 +139,22 @@ $header-height: 240px;
 //     sidebar open
 //     sidebar closed
 
+.ama-content-fixed-sidebar {
+
+  .ama-activity-sidebar {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: $rightbar-width;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .ama-activity-main-content {
+    margin-right: $rightbar-width;
+  }
+}
+
 .ama-content {
   display: flex;
   // flex-direction: row;
