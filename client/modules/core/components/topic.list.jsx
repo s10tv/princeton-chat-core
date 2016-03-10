@@ -368,7 +368,7 @@ const localStyle = {
     alignSelf: 'stretch',
     marginBottom: 10,
     width: '100%',
-    zIndex: 2,
+    zIndex: 15,
     position: 'fixed',
     backgroundColor: 'white',
     maxWidth: 600,
