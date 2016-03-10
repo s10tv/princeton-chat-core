@@ -4,6 +4,7 @@
 import Collections from '../../../lib/collections'
 import chai, {expect} from 'chai'
 import chaiTime from 'chai-datetime'
+import { princeton } from '/lib/validation'
 
 chai.use(chaiTime)
 
@@ -219,6 +220,22 @@ describe('onboarding methods', () => {
       email: 'john@smith.com',
       password: '12345'
     }
+    const invitedPrincetonian = {
+      firstName: 'adilet',
+      lastName: 'zhaxybay',
+      email: 'adilet.zhaxybay@alumni.princeton.edu'
+    }
+    const invitedNonPrincetonian1 = {
+      firstName: 'jackie',
+      lastName: 'chan',
+      email: 'jackie@chan.com'
+    }
+    const invitedNonPrincetonian2 = {
+      firstName: 'bruce',
+      lastName: 'lee',
+      email: 'bruce@lee.com'
+    }
+
     describe('welcome/forgotPassword', () => {
       it('should detect if there is no user with such email', () => {
         try {
@@ -233,6 +250,7 @@ describe('onboarding methods', () => {
         Meteor.call('welcome/forgotPassword', {email: userJohn.email})
       })
     })
+
     describe('welcome/signup', () => {
       it('should signup current user', () => {
         Meteor.call('welcome/signup', userJohn)
@@ -242,6 +260,7 @@ describe('onboarding methods', () => {
         expect(dbUser.lastName).to.equal(userJohn.lastName)
       })
     })
+
     describe('welcome/linkfacebook', () => {
       it('should link facebook to current user', () => {
         const facebookId = 'facebook-id'
@@ -264,6 +283,108 @@ describe('onboarding methods', () => {
         expect(dbUser.lastName).to.equal(facebookLastName)
         expect(dbUser.avatar.url).to.equal('https://graph.facebook.com/' + facebookId + '/picture?type=large')
         expect(dbUser.avatar.isDefaultAvatar).to.equal(false)
+      })
+    })
+
+    describe('welcome/enternames', () => {
+      it('should set display name to user', () => {
+        const fullName = 'John Smith'
+        Meteor.call('welcome/enternames', {
+          fullName: fullName
+        })
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.displayName).to.equal(fullName)
+      })
+      it('should detect that full name is missing in function call', () => {
+        try {
+          Meteor.call('welcome/enternames', {
+            name: 'john'
+          })
+          fail('missing full name in function call')
+        } catch (err) {
+          expect(err).to.exist
+        }
+      })
+    })
+
+    describe('welcome/invite', () => {
+      it('should generate invites for all invited people', () => {
+        var invitees = [invitedPrincetonian, invitedNonPrincetonian1, invitedNonPrincetonian2]
+        Meteor.call('welcome/invite', {
+          invitees: invitees
+        })
+
+        expect(Invites.find().count()).to.equal(3)
+        const dbInvites = Invites.find().fetch()
+
+        dbInvites.forEach((invite) => {
+          expect(invite.referredBy).to.equal(currentUserId)
+          var currentEmail = invite.email
+          var emailWasInvited = false
+          for (var i = 0; i < invitees.length; i++) {
+            if (invitees[i].email === currentEmail) {
+              emailWasInvited = true
+              break
+            }
+          }
+          expect(emailWasInvited).to.equal(true)
+          expect(invite.status).to.equal(princeton(currentEmail) === undefined ? 'sent' : 'pending-onboard')
+        })
+      })
+
+      it('should not sent invites for already registered princetonians', () => {
+        var invitees = [invitedPrincetonian, invitedNonPrincetonian1, invitedNonPrincetonian2]
+        var inviteesNonPrincetonians = [invitedNonPrincetonian1, invitedNonPrincetonian2]
+
+        var newUser = invitedPrincetonian
+        newUser.password = '123'
+        Meteor.call('welcome/signup', newUser)
+
+        Meteor.call('welcome/invite', {
+          invitees: invitees
+        })
+
+        expect(Invites.find().count()).to.equal(2)
+        const dbInvites = Invites.find().fetch()
+
+        dbInvites.forEach((invite) => {
+          expect(invite.referredBy).to.equal(currentUserId)
+          var currentEmail = invite.email
+          var emailWasInvited = false
+          for (var i = 0; i < inviteesNonPrincetonians.length; i++) {
+            if (inviteesNonPrincetonians[i].email === currentEmail) {
+              emailWasInvited = true
+              break
+            }
+          }
+          expect(emailWasInvited).to.equal(true)
+          expect(invite.status).to.equal(princeton(currentEmail) === undefined ? 'sent' : 'pending-onboard')
+        })
+      })
+    })
+
+    describe('welcome/setLoginService', () => {
+      it('should set login service', () => {
+        Meteor.call('welcome/setLoginService', {
+          serviceName: 'serviceName'
+        })
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.emailPreference).to.equal('all')
+        expect(dbUser.status).to.equal('active')
+      })
+    })
+  })
+
+  describe('user', () => {
+    describe('user/setStatusActive', () => {
+      it('should set status active', () => {
+        Meteor.call('user/setStatusActive')
+
+        const dbUser = Users.findOne(currentUserId)
+        expect(dbUser.isFullMember).to.equal(true)
+        expect(dbUser.status).to.equal('active')
       })
     })
   })
