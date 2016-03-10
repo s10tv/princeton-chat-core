@@ -1,3 +1,4 @@
+/* @flow */
 import Immutable from 'immutable'
 import invariant from 'invariant'
 import {compose} from 'mantra-core'
@@ -29,7 +30,7 @@ export const bindContext = (actionCreator, defaultContext) => {
 }
 
 // In almost all cases use react-redux connect is a better choice
-export const composeWithRedux = (fn, L, E, options) => {
+export const composeWithRedux = (fn: Function, L: any, E: any, options: Object) : Function => {
   const onPropsChange = (props, onData) => {
     const store = props.context.store
     onData(null, fn(props))
@@ -59,7 +60,7 @@ and set the `err.details` field to be field-specific description of errors. e.g.
 throw new Meteor.Error('invalid-input', 'Your input is invalid', {email: 'This is not a valid email'})
 ```
 */
-export const createOnSubmit = (method, success) => {
+export const createOnSubmit = (method: string, success: () => void) : Function => {
   // Creates an action passed as onSubmit property into redux form
   return (context, data) => {
     const {Meteor} = context
@@ -83,13 +84,13 @@ export const createOnSubmit = (method, success) => {
 // Intended to be used with 3rd party anchor tags that would otherwise cause a
 // full page refresh. It's a bit of a hack so we should probably not use it too
 // often by avoiding those components in the first place
-export const navigateViaRouter = (event) => {
+export const navigateViaRouter = (event: any) : void => {
   event.preventDefault()
   browserHistory.push(event.currentTarget.href)
 }
 
 // Simpler helper, inteded to be used via spread
-export const muiLinkButton = (href) => ({
+export const muiLinkButton = (href: string) : Object => ({
   linkButton: true,
   href: href,
   onClick: navigateViaRouter

@@ -113,7 +113,8 @@
   "private": true,
   "standard": {
     "ignore": [
-      "packages/**"
+      "packages/**",
+      "client/lib/helpers.js"
     ]
   },
   "postcss": {
