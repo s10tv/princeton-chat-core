@@ -13,7 +13,7 @@ import Message from '/client/modules/ama/containers/ama.message'
 import AvatarInputBox from '/client/modules/ama/containers/ama.avatarinputbox'
 import Linkify from 'react-linkify'
 import {AMA_ASK_QUESTION_FORM_NAME} from '../configs/formNames'
-import {Link} from 'react-scroll'
+import {Link, Events, Element} from 'react-scroll'
 import Sticky from 'react-sticky'
 
 class AMADetails extends React.Component {
@@ -21,27 +21,35 @@ class AMADetails extends React.Component {
   // temporary
   componentWillMount () {
     document.body.style.overflow = 'auto'
+    Events.scrollEvent.register('end', (to, elem) => {
+      this.highlightMessage(elem)
+    })
   }
 
   componentWillUnmount () {
     document.body.style.overflow = 'hidden'
+    Events.scrollEvent.remove('end')
   }
 
   componentDidUpdate () {
     if (this.props.scrollToMsgId && document.getElementById(this.props.scrollToMsgId)) {
       const msgDOM = document.getElementById(this.props.scrollToMsgId)
       msgDOM.scrollIntoView(false)
-      msgDOM.className = `${msgDOM.className} ama-message-container-animate`
-
-      const removeAnimationClass = () => {
-        msgDOM.className = msgDOM.className.replace(' ama-message-container-animate', '')
-      }
-      // http://stackoverflow.com/questions/6186454/is-there-a-callback-on-completion-of-a-css3-animation
-      msgDOM.addEventListener('webkitAnimationEnd', removeAnimationClass)
-      msgDOM.addEventListener('animationEnd', removeAnimationClass)
-      msgDOM.addEventListener('oanimationEnd', removeAnimationClass)
+      this.highlightMessage(msgDOM)
       this.props.clearScrollToMsgId()
     }
+  }
+
+  highlightMessage (elem) {
+    elem.className = `${elem.className} ama-message-container-animate`
+
+    const removeAnimationClass = () => {
+      elem.className = elem.className.replace(' ama-message-container-animate', '')
+    }
+    // http://stackoverflow.com/questions/6186454/is-there-a-callback-on-completion-of-a-css3-animation
+    elem.addEventListener('webkitAnimationEnd', removeAnimationClass)
+    elem.addEventListener('animationEnd', removeAnimationClass)
+    elem.addEventListener('oanimationEnd', removeAnimationClass)
   }
 
   splitViewClass () {
@@ -94,7 +102,6 @@ AMADetails.propTypes = {
   scrollToMsgId: PropTypes.string,
   clearScrollToMsgId: PropTypes.func.isRequired,
   overideAsideOpen: PropTypes.bool,
-  closeSidebar: PropTypes.func.isRequired,
   // actions
   askQuestion: PropTypes.func.isRequired,
   showMenu: PropTypes.func.isRequired,
@@ -214,7 +221,7 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, 
 
 export const MessageContainer = ({ message, user, children, isSpeaker, speakerTagLine, isReply,
   messageLinkOnClick, showUserProfile, isPostMessage }) => (
-  <div id={message._id}
+  <Element id={message._id} name={message._id}
     className={`ama-message-container${isReply ? ' ama-message-container-reply' : ''}`}>
     <a href='#' onClick={(e) => {
       e.preventDefault()
@@ -238,7 +245,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
       </p>
       {children}
     </div>
-  </div>
+  </Element>
 )
 
 const AmaActivities = (props) => (

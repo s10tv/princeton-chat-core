@@ -296,7 +296,10 @@ $header-height: 240px;
 }
 
 .ama-message-container-animate {
-  animation-play-state: running !important;
+  animation-name: highlightOrange;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
 }
 
 .ama-message-container-wrapper {
@@ -310,11 +313,6 @@ $header-height: 240px;
   flex-shrink: 0;
   padding: $spacing-x3;
   border-radius: 5px;
-  animation-name: highlightOrange;
-  animation-duration: 1s;
-  animation-timing-function: ease-in-out;
-  animation-play-state: paused;
-  animation-iteration-count: 1;
 
   .message-content-container {
     display: flex;
