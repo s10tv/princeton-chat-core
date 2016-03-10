@@ -178,6 +178,7 @@ $header-height: 240px;
       padding: $spacing-x2;
       align-items: center;
       border-bottom: 1px solid #EFEFEF;
+      color: $gray;
 
       .ama-host-is-typing-content {
         display: flex;
@@ -201,12 +202,19 @@ $header-height: 240px;
       }
     }
 
+    .ama-activity-speaker {
+      display: flex;
+      flex: 0 0 3px;
+      background-color: $brand-primary;
+    }
+
     .ama-activity {
       display: flex;
       flex-direction: column;
       padding-bottom: $spacing-x1;
       border-bottom: 1px solid #EFEFEF;
-      padding: $spacing-x2;
+      flex-grow: 1;
+      padding: $spacing-x1 $spacing-x2;
 
       opacity: 0;
       transform: translateY(-100);
@@ -220,6 +228,7 @@ $header-height: 240px;
           display: flex;
           flex-grow: 1;
           justify-content: space-between;
+          color: $gray;
 
           .ama-activity-owner-displayName {
             display: flex
@@ -246,6 +255,11 @@ $header-height: 240px;
         font-style: italic;
       }
     }
+  }
+
+  .ama-flex {
+    display: flex;
+    flex-shrink: 0;
   }
 
   .ama-speaker-is-typing {

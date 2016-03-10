@@ -59,7 +59,9 @@ class AMADetails extends React.Component {
         <Helmet title={this.props.title} />
         <Header {...this.props} />
         <Sticky stickyClass='ama-content-fixed-sidebar' className='ama-content'
-          stickyStyle={{}}>
+          stickyStyle={{}} onStickyStateChange={() => {
+            document.getElementById('activities').scrollTop = 0
+          }}>
           <AmaMain {...this.props} />
           <AmaActivities {...this.props} />
         </Sticky>
@@ -80,7 +82,7 @@ AMADetails.propTypes = {
   participants: PropTypes.arrayOf(userShape).isRequired,
   participantCount: PropTypes.number.isRequired,
   startTime: PropTypes.object.isRequired,
-  isSpeaker: PropTypes.bool.isRequired,
+  speakerId: PropTypes.string.isRequired,
   activities: PropTypes.arrayOf(PropTypes.shape({
     isMine: PropTypes.bool.isRequired,
     owner: userShape.isRequired,
@@ -202,7 +204,8 @@ const PostMessage = ({ currentUser, speaker, introText, form, handleNewMessage, 
   <MessageContainer message={{content: introText, nobottommargin: true}} user={speaker} speakerTagLine={speakerTagLine} isSpeaker
     messageLinkOnClick={messageLinkOnClick} showUserProfile={showUserProfile}>
     <AvatarInputBox avatar={currentUser.avatar} avatarInitials={currentUser.avatarInitials}
-      placeholder={`Ask ${speaker.displayName} a question...`}
+      placeholder={currentUser._id === speaker._id ? 'Add a comment...'
+        : `Ask ${speaker.displayName} a question...`}
       handleNewMessage={handleNewMessage} formType={AMA_ASK_QUESTION_FORM_NAME}
       speaker={speaker}
       amaPostId={amaPostId} isPostMessage/>
@@ -239,10 +242,8 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
 )
 
 const AmaActivities = (props) => (
-  <div className='ama-activity-sidebar aside' style={props.style}>
-    {!props.speakerIsTyping ? null : (
-      <SpeakerIsTyping key='speaker-typing' {...props} />
-    )}
+  <div id='activities' className='ama-activity-sidebar aside' style={props.style}>
+    <SpeakerIsTyping key='speaker-typing' {...props} />
     {props.activities.map((activity) => (
       <AmaActivity key={activity._id} activity={activity} {...props} />
     ))}
@@ -251,29 +252,38 @@ const AmaActivities = (props) => (
 
 const SpeakerIsTyping = (props) => {
   return (
-    <div className='ama-host-is-typing' style={props.style}>
-      <div className='ama-activity-avatar'>
-        <UserAvatar
-          avatar={props.speaker.avatar}
-          avatarInitials={props.speaker.avatarInitials} />
-      </div>
-      <div>
-        <span className='ama-highlighted-textbox'>
-          {props.speaker.firstName}
-        </span>
-        <span className='ama-speaker-is-typing'>is typing ... </span>
+    <div className='ama-flex'>
+      <div className='ama-activity-speaker' />
+      <div className='ama-host-is-typing' style={props.style}>
+        <div className='ama-activity-avatar'>
+          <UserAvatar
+            size={25}
+            avatar={props.speaker.avatar}
+            avatarInitials={props.speaker.avatarInitials} />
+        </div>
+        <div className='ama-flex'>
+          <span className='ama-highlighted-textbox'>
+            {props.speaker.firstName}
+          </span>
+          <span className='ama-speaker-is-typing'>is typing ... </span>
+        </div>
       </div>
     </div>
   )
 }
 
-const AmaActivity = ({activity, style}) => (
+const AmaActivity = ({activity, style, speakerId}) => (
   <Link className='ama-activity-link'
     to={activity.amaMessageId} smooth duration={400} style={{cursor: 'pointer'}}>
+    {speakerId === activity.originatorUserId
+      ? <div className='ama-activity-speaker' />
+      : null
+    }
     <div className='ama-activity' style={style}>
       <div className='ama-activity-header'>
         <div className='ama-activity-avatar'>
           <UserAvatar
+            size={25}
             avatar={activity.owner.avatar}
             avatarInitials={activity.owner.avatarInitials} />
         </div>
