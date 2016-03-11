@@ -49,7 +49,6 @@ $header-height: 240px;
     bottom: $spacing-x3;
     left: $spacing-x3;
 
-    @extend .header-details-container;
     @include media(mobile) {
       flex-direction: column;
     }
