@@ -8,7 +8,7 @@ export default {
     // Adjust sidebar open state based on browser size
     [CALCULATE_RESPONSIVE_STATE]: (state, action) => {
       const browser = responsiveStateReducer(undefined, action)
-      const isDesktop = browser.greaterThan.small
+      const isDesktop = browser.greaterThan.medium
       return state.merge({docked: isDesktop, open: isDesktop})
     },
     // Close the sidebar on navigation unless we are docked

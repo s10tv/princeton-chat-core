@@ -11,6 +11,9 @@ $input-box-shadow-focus: $brand-primary;
   @if $media == mobile {
     @media only screen and (max-width: map-get($grid-breakpoints, md)) { @content; }
   }
+  @else if $media == medium {
+    @media only screen and (min-width: map-get($grid-breakpoints, md) + 1) and (max-width: map-get($grid-breakpoints, lg)) { @content; }
+  }
   @else if $media == desktop {
     @media only screen and (min-width: map-get($grid-breakpoints, md) + 1) { @content; }
   }
