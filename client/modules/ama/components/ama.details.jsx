@@ -250,7 +250,8 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
 
 const AmaActivities = (props) => (
   <div id='activities' className='ama-activity-sidebar aside' style={props.style}>
-    <SpeakerIsTyping key='speaker-typing' {...props} />
+    {!props.speakerIsTyping ? null
+      : <SpeakerIsTyping key='speaker-typing' {...props} />}
     {props.activities.map((activity) => (
       <AmaActivity key={activity._id} activity={activity} {...props} />
     ))}
