@@ -66,7 +66,7 @@ class AMADetails extends React.Component {
       <div className={`ama-main ${this.splitViewClass()}`}>
         <Helmet title={this.props.title} />
         <Header {...this.props} />
-        {this.props.overideAsideOpen === true || (this.props.overideAsideOpen === null && !this.props.isMobile)
+        {!this.props.isMobile && (this.props.overideAsideOpen === true || this.props.overideAsideOpen === null)
           ? <Sticky stickyClass='ama-content-fixed-sidebar' className='ama-content'
             stickyStyle={{}} onStickyStateChange={() => {
               document.getElementById('activities').scrollTop = 0
@@ -134,6 +134,10 @@ const Header = (props) => {
 const HeaderInnerDiv = (props) => {
   return (
     <div className='ama-header-inner'>
+      <IconButton className='aside-toggle' onTouchTap={props.toggleAside}
+        iconStyle={{color: 'white', fontSize: 30}}>
+        <FontIcon className='material-icons'>keyboard_arrow_right</FontIcon>
+      </IconButton>
       <div className='header-details-container'>
         <div className='header-date-container'>
           <span>{moment(props.startTime).format('MMM D').toUpperCase()}</span>
@@ -149,10 +153,6 @@ const HeaderInnerDiv = (props) => {
 const HeaderOverlay = (props) => {
   return (
     <div className='ama-header-overlay overlay'>
-      <IconButton className='aside-toggle' onTouchTap={props.toggleAside}
-        iconStyle={{color: 'white', fontSize: 30}}>
-        <FontIcon className='material-icons'>keyboard_arrow_right</FontIcon>
-      </IconButton>
       <div className='overlay-row'>
         <span className='overlay-row-label'>Share</span>
         <div className='overlay-content-row share-buttons-row'>

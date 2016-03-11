@@ -4,6 +4,7 @@
 
 $rightbar-width: 300px;
 $header-height: 240px;
+$live-now-circle-size: 10px;
 
 // will be removed after Tony fixes routing
 .ama-page-wrapper {
@@ -20,7 +21,7 @@ $header-height: 240px;
   .aside-toggle {
     position: absolute !important;
     top: 0;
-    left: -48px;
+    right: 0;
     z-index: 10;
   }
 }
@@ -42,6 +43,7 @@ $header-height: 240px;
   flex-direction: column;
   justify-content: flex-end;
   padding: $spacing-x3;
+  position: relative;
 
   .header-details-container {
     display: flex;
@@ -52,6 +54,22 @@ $header-height: 240px;
 
     @include media(mobile) {
       flex-direction: column;
+
+      .header-date-container {
+        margin-right: 0px !important;
+      }
+
+      .header-conversation-label {
+        margin-bottom: 0px !important;
+        text-align: center;
+      }
+
+      .ama-live-now-container {
+        margin: $spacing-x1;
+        margin-top: $spacing-x1;
+        margin-bottom: $spacing-x1;
+        margin-right: $live-now-circle-size + $spacing-x1;
+      }
     }
 
     .header-date-container {
@@ -102,7 +120,13 @@ $header-height: 240px;
       display: none !important;
     }
     .overlay {
-      margin-right: -$rightbar-width;
+      display: none !important;
+    }
+    .aside-toggle {
+      top: initial;
+      bottom: 0px;
+      right: 0px;
+      transform: rotateY(180deg) !important;
     }
   }
 }
@@ -116,7 +140,13 @@ $header-height: 240px;
       flex: 1 0 100%;
     }
     .overlay {
-      margin-right: 0px;
+      display: none !important;
+    }
+    .aside-toggle {
+      top: initial;
+      right: initial;
+      bottom: 0px;
+      left: 0px;
     }
   }
 }
@@ -129,10 +159,17 @@ $header-height: 240px;
     display: none !important;
   }
   .overlay {
-    margin-right: -$rightbar-width;
+    display: none !important;
   }
   .aside-toggle {
+    right: 0px;
     transform: rotateY(180deg) !important;
+  }
+  @include media(mobile) {
+    .aside-toggle {
+      top: initial;
+      bottom: 0px;
+    }
   }
 }
 
@@ -491,8 +528,8 @@ $header-height: 240px;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
     border-radius: 50%;
-    width: 10px;
-    height: 10px;
+    width: $live-now-circle-size;
+    height: $live-now-circle-size;
     background-color: $color-dull-red;
     border: 1px solid $color-dull-red;
     margin-right: $spacing-x1;
