@@ -66,13 +66,19 @@ class AMADetails extends React.Component {
       <div className={`ama-main ${this.splitViewClass()}`}>
         <Helmet title={this.props.title} />
         <Header {...this.props} />
-        <Sticky stickyClass='ama-content-fixed-sidebar' className='ama-content'
-          stickyStyle={{}} onStickyStateChange={() => {
-            document.getElementById('activities').scrollTop = 0
-          }}>
-          <AmaMain {...this.props} />
-          <AmaActivities {...this.props} />
-        </Sticky>
+        {this.props.overideAsideOpen === true || (this.props.overideAsideOpen === null && !this.props.isMobile)
+          ? <Sticky stickyClass='ama-content-fixed-sidebar' className='ama-content'
+            stickyStyle={{}} onStickyStateChange={() => {
+              document.getElementById('activities').scrollTop = 0
+            }}>
+            <AmaMain {...this.props} />
+            <AmaActivities {...this.props} />
+          </Sticky>
+          : <div className='ama-content'>
+            <AmaMain {...this.props} />
+            <AmaActivities {...this.props} />
+          </div>
+        }
       </div>
     )
   }
@@ -102,6 +108,7 @@ AMADetails.propTypes = {
   scrollToMsgId: PropTypes.string,
   clearScrollToMsgId: PropTypes.func.isRequired,
   overideAsideOpen: PropTypes.bool,
+  isMobile: PropTypes.bool.isRequired,
   // actions
   askQuestion: PropTypes.func.isRequired,
   showMenu: PropTypes.func.isRequired,

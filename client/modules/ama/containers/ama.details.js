@@ -55,7 +55,8 @@ const depsMapper = (context, actions) => ({
 
 const mapStateToProps = (state) => ({
   scrollToMsgId: state.ama.scrollToMsgId,
-  overideAsideOpen: state.ama.overideAsideOpen
+  overideAsideOpen: state.ama.overideAsideOpen,
+  isMobile: state.browser.lessThan.medium
 })
 
 export default composeAll(

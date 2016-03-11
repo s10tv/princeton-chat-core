@@ -12,7 +12,7 @@ export default {
   amaHeader: {
     toggleAside ({store}) {
       const overideAsideOpen = store.getState().ama.overideAsideOpen
-      const isMobile = store.getState().browser.lessThan.xl
+      const isMobile = store.getState().browser.lessThan.medium
       const asideOpen = overideAsideOpen !== null ? overideAsideOpen : !isMobile
       store.dispatch(Types.toggleAside(!asideOpen))
     },

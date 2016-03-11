@@ -15,6 +15,7 @@ $header-height: 240px;
   display: flex;
   flex-direction: column;
   flex: 0 0 100%;
+  overflow-x: hidden;
 
   .aside-toggle {
     position: absolute !important;
