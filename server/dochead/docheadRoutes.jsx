@@ -7,18 +7,16 @@ const wrap = (Component) => (location, cb) => {
 }
 
 const makeHelmet = (info) => {
-  const {title, description, image, url} = {
+  const {title, description, image} = {
     title: 'Princeton.chat',
     description: 'A private community that connects Princetonians based on shared interests and common needs.',
     image: 'https://s10tv.blob.core.windows.net/s10tv-prod/princetonchat.jpg',
-    url: 'https://princeton.chat',
     ...info
   }
   return <Helmet
     title={title}
     meta={[
       {property: 'fb:app_id', content: '942109702548809'},
-      {property: 'og:url', content: url},
       {property: 'og:title', content: title},
       {property: 'og:type', content: 'website'},
       {property: 'og:description', content: description},
