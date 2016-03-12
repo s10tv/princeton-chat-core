@@ -35,7 +35,7 @@ export default function ({Collections}) {
         const channel = Collections.Topics.findOne(params.channelId)
         return channel ? makeHelmet({
           title: channel.displayName,
-          url: channel.cover && channel.cover.url,
+          image: channel.cover && channel.cover.url,
           description: channel.description
         }) : <noscript />
       })} />
