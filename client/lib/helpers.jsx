@@ -83,7 +83,7 @@ export const UserAvatar = (props) => (
     backgroundColor={props.avatar.color} {...props} style={Object.assign({
       flexShrink: 0
     }, props.style)}>
-    {props.avatarInitials}
+    {props.avatarInitials.toUpperCase()}
   </LetterAvatar>
   : <CoverAvatar src={props.avatar.url} {...props} style={Object.assign({
     flexShrink: 0
