@@ -4,6 +4,7 @@ import Avatar from 'material-ui/lib/avatar'
 import CircularProgress from 'material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
 import Radium, {StyleRoot} from 'radium'
+import TextareaAutosize from 'react-textarea-autosize'
 
 // Helpers
 
@@ -118,4 +119,26 @@ export class ScrollingContainer extends React.Component {
   render () {
     return this.props.child
   }
+}
+
+export class TextareaAutosizeWrapper extends React.Component {
+  componentDidMount () {
+    if (this.props.autoFocusCursorAtEnd) {
+      this.refs.input.focus()
+      const val = this.refs.input.value
+      if (val) {
+        // this ensures that the cursor is in the end when focues
+        this.refs.input.value = ''
+        this.refs.input.value = val
+      }
+    }
+  }
+
+  render () {
+    return <TextareaAutosize {...this.props} ref='input' />
+  }
+}
+
+TextareaAutosizeWrapper.propTypes = {
+  autoFocusCursorAtEnd: React.PropTypes.bool
 }
