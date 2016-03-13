@@ -197,7 +197,7 @@ const AmaMain = (props) => {
   return (
     <div className='ama-activity-main-content main'>
       <div className='top-labels-container'>
-        <span className='top-label'>Discussion</span> {/* TODO: add top/recent afterwards */}
+        <span className='ama-activity-top-label'>Discussion</span> {/* TODO: add top/recent afterwards */}
       </div>
       <PostMessage handleNewMessage={props.askQuestion} amaPostId={props.params.amaPostId} {...props} />
       <Divider style={{marginTop: spacing.x15, marginBottom: spacing.x15,
@@ -257,6 +257,9 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
 
 const AmaActivities = (props) => (
   <div id='activities' className='ama-activity-sidebar aside' style={props.style}>
+    <div className='activity-top-label-container'>
+      <span className='ama-activity-top-label'>Activity Feed</span>
+    </div>
     {!props.speakerIsTyping ? null
       : <SpeakerIsTyping key='speaker-typing' {...props} />}
     {props.activities.map((activity) => (

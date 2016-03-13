@@ -228,6 +228,12 @@ $live-now-circle-size: 10px;
       }
     }
 
+    .activity-top-label-container {
+      display: flex;
+      flex-shrink: 0;
+      padding: $spacing-x3;
+    }
+
     .ama-activity-avatar {
       display: flex;
       flex-shrink: 0;
@@ -319,12 +325,12 @@ $live-now-circle-size: 10px;
     display: flex;
     flex-shrink: 0;
     justify-content: space-between;
-
-    .top-label {
-      color: $gray;
-      font-weight: 300;
-    }
   }
+}
+
+.ama-activity-top-label {
+  color: $gray;
+  font-weight: 300;
 }
 
 .ama-message-container-reply {
