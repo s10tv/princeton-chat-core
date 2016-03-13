@@ -204,9 +204,11 @@ const AmaMain = (props) => {
           marginLeft: spacing.x3, marginRight: spacing.x3, minHeight: 1}} />
       {props.messages.map((message) =>
         <div className='ama-message-container-wrapper' key={message._id}>
-          <Message message={message} amaPostId={props.params.amaPostId} {...props}/>
+          <Message message={message} amaPostId={props.params.amaPostId} {...props}
+            isSpeaker={message.owner._id === props.speakerId}/>
           {message.replies.map((reply) => <Message key={reply._id} message={reply}
-            amaPostId={props.params.amaPostId} isReply {...props} />)}
+            amaPostId={props.params.amaPostId} isReply {...props}
+            isSpeaker={reply.owner._id === props.speakerId}/>)}
         </div>
       )}
     </div>
