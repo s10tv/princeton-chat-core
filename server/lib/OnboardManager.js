@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOMServer from '../../node_modules/react-dom/server'
 import { autoVerifyValidator, manualVerifyValidator,
   enterNamesValidator } from '/lib/validation/onboarding'
-import {isTest} from '/lib/test'
 import { princeton } from '/lib/validation'
 
 import { title } from '/imports/env'
@@ -18,6 +17,7 @@ const {
 
 const slackUsername = process.env.ENV || 'dev'
 const slackEmoji = process.env.ENV === 'prod' ? ':beer:' : ':poop:'
+const isTest = process.env.ENV === 'test'
 
 export default class OnboardManager {
 
@@ -49,7 +49,7 @@ export default class OnboardManager {
     var res
 
     // Not doing mailgun validation in testing mode
-    if (!isTest()) {
+    if (!isTest) {
       try {
         res = this.HTTP.get('https://api.mailgun.net/v3/address/validate', {
           auth: `api:${this.Meteor.settings.public.mailgunPublicKey}`,
@@ -63,7 +63,7 @@ export default class OnboardManager {
       }
     }
 
-    if (isTest() || res.data['is_valid']) {
+    if (isTest || res.data['is_valid']) {
       const invite = this.__generateInvite({email: `${netid}@${domain}`, status: 'sent', classYear})
       this.__sendSignupEmail({ email: invite.email, inviteCode: invite.inviteCode })
     } else {
