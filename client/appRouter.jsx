@@ -11,6 +11,7 @@ import CreateNewPost from '/client/modules/core/containers/post.create'
 // AMA
 import AdminInvite from '/client/modules/admin/containers/admin.invite'
 import AmaDetails from '/client/modules/ama/containers/ama.details'
+import AmaUpcoming from '/client/modules/ama/containers/ama.upcoming'
 // Onboarding
 import Signup from '/client/modules/onboarding/containers/signup'
 import Login from '/client/modules/onboarding/containers/login'
@@ -32,6 +33,7 @@ export default (context, actions) => {
   const RouterWithCtx = injectDeps(context, actions)(Router)
   return (
     <RouterWithCtx history={context.history}>
+      <Route path='ama-upcoming' component={AmaUpcoming} />
       <Route path='tonyx' component={TonyProfile} />
       <Route path='poshak' component={PoshakProfile} />
       <Route path='/'>
