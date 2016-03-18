@@ -4,7 +4,19 @@ import React from 'react'
 
 const fixtureProps = {
   user: 'Adilet',
-  timestamp: new Date()
+  timestamp: new Date(),
+  topics: [
+    {displayName: 'Software'},
+    {displayName: 'Product'},
+    {displayName: 'Design'},
+    {displayName: 'Hardware'},
+    {displayName: 'Science'}
+  ],
+  contacts: [
+    {name: 'armansu'},
+    {name: 'minqij'},
+    {name: 'musk'}
+  ]
 }
 
 const fakeProps = (props) =>
