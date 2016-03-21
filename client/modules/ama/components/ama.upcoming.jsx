@@ -1,4 +1,5 @@
 import React from 'react'
+import Avatar from 'material-ui/lib/avatar'
 import {Link} from 'react-router'
 import {Flex} from 'jsxstyle'
 import RaisedButton from 'material-ui/lib/raised-button'
@@ -9,8 +10,11 @@ const NavLink = (props) => (
 
 const TopicsList = ({topics}) => (
   <Flex flexDirection='column' >
-    <h4>Topics</h4>
-    <ul>
+    <Flex flexDirection='row'>
+      <span style={{width: '80%'}}>Topics</span>
+      <NavLink to='#'>more</NavLink>
+    </Flex>
+    <ul style={s.topicsList}>
       {topics.map((topic) =>
         <li>
           <NavLink to='#'>{`#${topic.displayName}`}</NavLink>
@@ -22,8 +26,11 @@ const TopicsList = ({topics}) => (
 
 const DirectMessagesList = ({contacts}) => (
   <Flex flexDirection='column' >
-    <h4>Direct Messages</h4>
-    <ul>
+    <Flex flexDirection='row'>
+      <span style={{width: '80%'}}>Direct Messages</span>
+      <NavLink to='#'>more</NavLink>
+    </Flex>
+    <ul style={s.dmList}>
       {contacts.map((contact) =>
         <li>
           <NavLink to='#'>{`@${contact.name}`}</NavLink>
@@ -51,36 +58,84 @@ const Sidebar = ({user, topics, contacts}) => (
   </Flex>
 )
 
-const AmaGuestList = () => (
-  <Flex flexDirection='row'>
-    <a href='#'>
-      <h3>Top</h3>
-    </a>
-    <a href='#'>
-      <h3>Recent</h3>
-    </a>
-    <a href='#'>
-      <h3>Create New</h3>
-    </a>
-  </Flex>
-)
-
-const Content = () => (
-  <Flex style={s.content}>
-    <h2>#AMA Ask Me Anything</h2>
-    <Flex style={s.amalist}>
-      <AmaGuestList />
+const AmaGuest = ({guest}) => {
+  const capitalize = (s) => {
+    return s.toUpperCase()
+  }
+  return (
+    <Flex flexDirection='row' style={s.guestRow}>
+      <Flex style={s.dateOutsideBox}>
+        <Flex flexDirection='column' style={s.dateBox}>
+          <span>{capitalize(guest.date)}</span>
+          <span>{capitalize(guest.time)}</span>
+        </Flex>
+      </Flex>
+      <Flex style={s.guestAvatarBox}>
+        <Avatar src={guest.avatarUrl} style={s.guestAvatar}/>
+      </Flex>
+      <Flex flexDirection='column'>
+        <b>{guest.name}</b>
+        <p>{guest.description}</p>
+      </Flex>
     </Flex>
-  </Flex>
-)
+  )
+}
+
+const AmaGuestList = ({guests}) => {
+  return (
+    <Flex flexDirection='column'>
+      {guests.map((guest) =>
+        <AmaGuest guest={guest}/>
+      )}
+    </Flex>
+  )
+}
 
 export default React.createClass({
+  getInitialState: function () {
+    return {
+      tab: 'Upcoming'
+    }
+  },
+
+  tabItemClicked (e) {
+    this.setState({
+      tab: e.currentTarget.text
+    })
+  },
+
   render: function () {
     return (
       <div style={s.main}>
         <Flex flexDirection='row'>
           <Sidebar user={this.props.user} topics={this.props.topics} contacts={this.props.contacts}/>
-          <Content />
+          <Flex style={s.content}>
+            <h2>#AMA Ask Me Anything</h2>
+            <Flex style={s.amalist}>
+              <Flex flexDirection='column'>
+                <Flex flexDirection='row'>
+                  <a href='#' onClick={this.tabItemClicked}>
+                    <h3>Wanted</h3>
+                  </a>
+                  <a href='#' onClick={this.tabItemClicked}>
+                    <h3>Upcoming</h3>
+                  </a>
+                  <a href='#' onClick={this.tabItemClicked}>
+                    <h3>Past</h3>
+                  </a>
+                </Flex>
+                {this.state.tab === 'Wanted'
+                  ? <AmaGuestList guests={this.props.guests.wanted} />
+                : null}
+                {this.state.tab === 'Upcoming'
+                  ? <AmaGuestList guests={this.props.guests.upcoming} />
+                : null}
+                {this.state.tab === 'Past'
+                  ? <AmaGuestList guests={this.props.guests.past} />
+                : null}
+              </Flex>
+            </Flex>
+          </Flex>
         </Flex>
       </div>
     )
@@ -110,6 +165,13 @@ const s = {
     marginTop: '10px',
     listStyle: 'none'
   },
+  topicsList: {
+    listStyle: 'none',
+    textAlign: 'left'
+  },
+  dmList: {
+    listStyle: 'none'
+  },
   sidebarUsername: {
     paddingLeft: '20px',
     paddingTop: '15px',
@@ -121,6 +183,14 @@ const s = {
     paddingLeft: '20px',
     paddingRight: '20px',
     paddingTop: '15px'
+  },
+  guestAvatarBox: {
+    marginLeft: '10px',
+    marginRight: '10px'
+  },
+  guestAvatar: {
+    height: '100px',
+    width: '100px'
   },
   content: {
     width: '100%',
@@ -135,5 +205,26 @@ const s = {
     width: '70%',
     height: '80vh',
     backgroundColor: '#FFFFFF'
+  },
+  dateOutsideBox: {
+    borderRightColor: '#333333',
+    borderRightStyle: 'solid',
+    borderRightWidth: 1,
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    paddingTop: '20px',
+    paddingBottom: '20px'
+  },
+  guestRow: {
+  },
+  dateBox: {
+    borderRadius: '5px',
+    borderColor: '#333333',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    padding: '5px',
+    width: '70px',
+    height: '70px',
+    textAlign: 'center'
   }
 }
