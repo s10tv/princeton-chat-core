@@ -3,7 +3,7 @@ import AmaUpcoming from '/client/modules/ama/components/ama.upcoming.jsx'
 import React from 'react'
 
 const fixtureProps = {
-  user: 'Adilet',
+  user: 'adilet',
   timestamp: new Date(),
   topics: [
     {displayName: 'Software'},
@@ -25,7 +25,10 @@ const fixtureProps = {
         description: 'Solo guitarist and a member of Cream',
         date: 'Mar 3',
         time: '5pm',
-        avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Eric_%22slowhand%22_Clapton.jpg'
+        avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Eric_%22slowhand%22_Clapton.jpg',
+        commentsNum: '32',
+        attending: '123',
+        remind: 'true'
       },
       {
         name: 'Mark Knopfler',
@@ -33,7 +36,34 @@ const fixtureProps = {
         description: 'Lead Guitarist of Dire Straits',
         date: 'Mar 19',
         time: '7pm',
-        avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Mark_Knopfler_en_Bilbao.jpg'
+        avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Mark_Knopfler_en_Bilbao.jpg',
+        remind: 'true'
+      },
+      {
+        name: 'Steve Vai',
+        classYear: '89',
+        description: 'Solo Guitarist',
+        date: 'Apr 23',
+        time: '7:30pm',
+        avatarUrl: 'http://img.guitar-muse.com/wp-content/uploads/2012/07/steve-vai-brownvelvetjacket.jpg',
+        commentsNum: '15'
+      },
+      {
+        name: 'Joe Satriani',
+        classYear: '79',
+        description: 'Solo Guitarist',
+        date: 'Apr 29',
+        time: '8:30pm',
+        avatarUrl: 'http://emertainmentmonthly.com/wp-content/uploads/2016/02/Joe-Satriani-Net-Worth.jpg',
+        attending: '147'
+      },
+      {
+        name: 'Slash',
+        classYear: '83',
+        description: 'Lead Guitarist of Guns\'n\'Roses',
+        date: 'May 15',
+        time: '7:pm',
+        avatarUrl: 'http://bigread.mojo4music.com/2014/01/slash/img/slash-portrait.jpg'
       }
     ],
     wanted: [
