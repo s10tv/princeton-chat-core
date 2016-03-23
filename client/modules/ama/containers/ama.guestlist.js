@@ -1,5 +1,5 @@
 import {composeAll} from 'mantra-core'
-import AmaUpcoming from '/client/modules/ama/components/ama.upcoming.jsx'
+import AmaGuestList from '/client/modules/ama/components/ama.guestlist.jsx'
 import React from 'react'
 
 const fixtureProps = {
@@ -62,7 +62,7 @@ const fixtureProps = {
         classYear: '83',
         description: 'Lead Guitarist of Guns\'n\'Roses',
         date: 'May 15',
-        time: '7:pm',
+        time: '7:12pm',
         avatarUrl: 'http://bigread.mojo4music.com/2014/01/slash/img/slash-portrait.jpg'
       }
     ],
@@ -71,9 +71,20 @@ const fixtureProps = {
         name: 'James Hetfield',
         classYear: '80',
         description: 'Guitarist of Metallica',
-        date: 'Mar 27',
-        time: '5pm',
-        avatarUrl: 'http://nineriverswellness.com/wp-content/uploads/2014/10/James-Hetfield-happy.jpg'
+        votes: '1045',
+        avatarUrl: 'http://nineriverswellness.com/wp-content/uploads/2014/10/James-Hetfield-happy.jpg',
+        submittedTime: '7pm 15Jan',
+        submittedUser: {
+          avatarUrl: 'http://ultimateclassicrock.com/files/2012/05/Lars-Ulrich.jpg'
+        }
+      },
+      {
+        name: 'Kirt Hammett',
+        classYear: '80',
+        description: 'Lead Guitarist of Metallica',
+        votes: '985',
+        avatarUrl: 'https://pbs.twimg.com/profile_images/560460418070507520/7bOgE8jT.jpeg',
+        commentsNum: '31'
       }
     ],
     past: [
@@ -83,7 +94,19 @@ const fixtureProps = {
         description: 'Guitarist of Dream Theater',
         date: 'Feb 29',
         time: '9pm',
-        avatarUrl: 'http://www.metalsucks.net/wp-content/uploads/2013/09/john_petrucci_live_4.jpg'
+        avatarUrl: 'http://www.metalsucks.net/wp-content/uploads/2013/09/john_petrucci_live_4.jpg',
+        attending: '521',
+        commentsNum: '353'
+      },
+      {
+        name: 'John Myung',
+        classYear: '85',
+        description: 'Bass Guitarist of Dream Theater',
+        date: 'Feb 27',
+        time: '5pm',
+        avatarUrl: 'https://c1.staticflickr.com/7/6170/6224388245_782f012aeb_b.jpg',
+        attending: '478',
+        commentsNum: '289'
       }
     ]
   }
@@ -95,4 +118,4 @@ const fakeProps = (props) =>
 
 export default composeAll(
   fakeProps(fixtureProps)
-)(AmaUpcoming)
+)(AmaGuestList)

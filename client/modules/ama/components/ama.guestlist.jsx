@@ -92,7 +92,7 @@ const Sidebar = ({user, topics, contacts}) => (
   </Flex>
 )
 
-const AmaGuest = ({guest}) => {
+const AmaGuest = ({guest, type}) => {
   const capitalize = (s) => {
     return s.toUpperCase()
   }
@@ -100,13 +100,23 @@ const AmaGuest = ({guest}) => {
     <Flex flexDirection='row' style={s.guestRow}>
       <Flex flexDirection='row' style={{width: '90%', height: '100%'}}>
         <Flex style={s.dateOutsideBox}>
-          <Flex flexDirection='column' style={s.dateBox}>
-            <span style={s.date}>
-              {capitalize(guest.date)}
-              <br/>
-              {capitalize(guest.time)}
-            </span>
-          </Flex>
+          {type === 'Wanted'
+            ? <Flex flexDirection='column' style={s.votesBox}>
+              <FontIcon className='material-icons new-post-icon' color='black' style={s.voteArrowUpIcon}>
+                 arrow_drop_up
+              </FontIcon>
+              <span>{guest.votes}</span>
+            </Flex>
+          : null}
+          {type === 'Upcoming' || type === 'Past'
+            ? <Flex flexDirection='column' style={s.dateBox}>
+              <span style={s.date}>
+                {capitalize(guest.date)}
+                <br/>
+                {capitalize(guest.time)}
+              </span>
+            </Flex>
+          : null}
         </Flex>
         <Flex flexDirection='row' style={s.guestInfo}>
           <Flex style={s.guestAvatarBox}>
@@ -116,8 +126,25 @@ const AmaGuest = ({guest}) => {
             <b>{guest.name + ' \'' + guest.classYear}</b>
             <span style={s.guestDescription}>{guest.description}</span>
             <Flex flexDirection='row'>
-              {guest.remind === 'true' ? <span style={s.guestRemind}>Remind Me</span> : null}
-              {guest.attending !== undefined ? <span style={s.guestAttending}>{guest.attending + ' ATTENDING'}</span> : null}
+              {type === 'Wanted'
+                ? [
+                  guest.submittedTime !== undefined ? <span style={s.guestSubmittedTime}>{'Submitted at ' + guest.submittedTime}</span> : null,
+                  guest.submittedUser !== undefined && guest.submittedUser.avatarUrl !== undefined
+                    ? <Avatar src={guest.submittedUser.avatarUrl} style={s.guestSubmittedUserAvatar}/>
+                  : null
+                ]
+              : null}
+              {type === 'Upcoming'
+                ? [
+                  guest.remind === 'true' ? <span style={s.guestRemind}>Remind Me</span> : null,
+                  guest.attending !== undefined ? <span style={s.guestAttending}>{guest.attending + ' ATTENDING'}</span> : null
+                ]
+              : null}
+              {type === 'Past'
+                ? [
+                  guest.attending !== undefined ? <span style={s.guestAttending}>{guest.attending + ' ATTENDED'}</span> : null
+                ]
+              : null}
             </Flex>
           </Flex>
         </Flex>
@@ -134,11 +161,11 @@ const AmaGuest = ({guest}) => {
   )
 }
 
-const AmaGuestList = ({guests}) => {
+const AmaGuestList = ({guests, type}) => {
   return (
     <Flex flexDirection='column' style={s.guestList}>
       {guests.map((guest) =>
-        <AmaGuest guest={guest}/>
+        <AmaGuest guest={guest} type={type}/>
       )}
     </Flex>
   )
@@ -189,13 +216,27 @@ export default React.createClass({
                 </span>
               </Flex>
               {this.state.tab === 'Wanted'
-                ? <AmaGuestList guests={this.props.guests.wanted} />
+                ? [
+                  <Flex flexDirection='column' style={{flexShrink: 0}}>
+                    <span style={s.voteForText}>
+                      Vote for the tiger you want to hear from the most. If there is someone you'd love to hear
+                      but not on this list, you can
+                    </span>
+                    <Flex flexDirection='row' style={s.suggestNewAMA}>
+                      <FontIcon className='material-icons' color='#CCCCCC' style={s.suggestNewAMAIcon}>
+                         add
+                      </FontIcon>
+                      <span>Suggest New AMA</span>
+                    </Flex>
+                  </Flex>,
+                  <AmaGuestList guests={this.props.guests.wanted} type='Wanted' />
+                ]
               : null}
               {this.state.tab === 'Upcoming'
-                ? <AmaGuestList guests={this.props.guests.upcoming} />
+                ? <AmaGuestList guests={this.props.guests.upcoming} type='Upcoming' />
               : null}
               {this.state.tab === 'Past'
-                ? <AmaGuestList guests={this.props.guests.past} />
+                ? <AmaGuestList guests={this.props.guests.past} type='Past' />
               : null}
             </Flex>
           </Flex>
@@ -211,12 +252,12 @@ const s = {
     verticalAlign: 'middle'
   },
   amalist: {
-    marginTop: '5vh',
+    marginTop: '3vh',
     marginLeft: 'auto',
     marginRight: 'auto',
     paddingLeft: '20px',
     width: '70%',
-    height: '80vh',
+    height: '87vh',
     backgroundColor: '#FFFFFF',
     borderColor: '#F2F2F2',
     borderWidth: 1,
@@ -274,6 +315,7 @@ const s = {
   },
   guestAttending: {
     marginTop: '3px',
+    marginRight: '5px',
     color: '#CCCCCC',
     fontWeight: '300',
     fontSize: '0.9rem'
@@ -304,7 +346,7 @@ const s = {
   },
   guestList: {
     overflowY: 'scroll',
-    marginTop: '10px'
+    paddingTop: '10px'
   },
   guestRemind: {
     backgroundColor: '#EC7C60',
@@ -320,6 +362,20 @@ const s = {
   guestRow: {
     height: '110px',
     flexShrink: '0'
+  },
+  guestSubmittedTime: {
+    marginTop: '10px',
+    marginRight: '5px',
+    color: '#CCCCCC',
+    fontWeight: '300',
+    fontSize: '0.9rem'
+  },
+  guestSubmittedUserAvatar: {
+    height: '25px',
+    width: '25px',
+    marginTop: '10px',
+    marginLeft: '5px',
+    marginRight: '5px'
   },
   main: {
     height: '100vh',
@@ -385,6 +441,18 @@ const s = {
     borderBottomStyle: 'solid',
     borderBottomWidth: 1
   },
+  suggestNewAMA: {
+    color: '#CCCCCC',
+    fontWeight: '300',
+    marginTop: '5px',
+    marginBottom: '5px',
+    marginLeft: '5px'
+  },
+  suggestNewAMAIcon: {
+    fontSize: '18px',
+    lineHeight: '24px',
+    marginRight: '5px'
+  },
   tabHeader: {
     borderBottomColor: '#F2F2F2',
     borderBottomWidth: 1,
@@ -430,5 +498,20 @@ const s = {
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     color: '#646464'
+  },
+  voteArrowUpIcon: {
+    fontSize: '42px',
+    marginBottom: '-15px'
+  },
+  voteForText: {
+    marginTop: '5px',
+    marginLeft: '10px',
+    marginRight: '20px'
+  },
+  votesBox: {
+    padding: '5px',
+    width: '70px',
+    height: '70px',
+    textAlign: 'center'
   }
 }
