@@ -258,7 +258,7 @@ export const MessageContainer = ({ message, user, children, isSpeaker, speakerTa
 )
 
 const AmaActivities = (props) => (
-  <div id='activities' className='ama-activity-sidebar aside' style={props.style}>
+  <div id='activities' className='ama-activity-sidebar aside no-scrollbar' style={props.style}>
     <div className='activity-top-label-container'>
       <span className='ama-activity-top-label'>Activity Feed</span>
     </div>

@@ -108,6 +108,8 @@ $live-now-circle-size: 10px;
   }
   .aside {
     flex: 0 0 $rightbar-width;
+    min-width: $rightbar-width;
+    max-width: $rightbar-width;
   }
 }
 .splitview--initial {
@@ -435,7 +437,7 @@ $live-now-circle-size: 10px;
 .ama-avatar-inputbox-container {
   display: flex;
   justify-content: center;
-  max-width: 900px;
+  max-width: 1200px;
   padding: $spacing-x2;
   background-color: $gray-lightest;
   border-radius: 5px;
