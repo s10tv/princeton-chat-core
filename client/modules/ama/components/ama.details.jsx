@@ -62,6 +62,7 @@ class AMADetails extends React.Component {
   }
 
   render () {
+    console.log(this.props)
     return (
       <div className={`ama-main ${this.splitViewClass()}`}>
         <Helmet title={this.props.title} />
@@ -144,6 +145,7 @@ const HeaderInnerDiv = (props) => {
           <span>{moment(props.startTime).format('ha')}</span>
         </div>
         {props.isLive ? <LiveNow /> : null}
+        {!props.isLive && !props.isPast ? <LiveIn {...props}/> : null}
         <span className='header-conversation-label'>{props.title}</span>
       </div>
     </div>
@@ -182,6 +184,15 @@ const HeaderOverlay = (props) => {
           )}
         </div>
       </div>
+    </div>
+  )
+}
+
+const LiveIn = (props) => {
+  console.log(props)
+  return (
+    <div className='ama-live-now-container'>
+      <span className='live-now-label'>LIVE {moment().to(props.startTime).toUpperCase()}</span>
     </div>
   )
 }

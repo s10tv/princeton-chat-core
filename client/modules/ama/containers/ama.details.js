@@ -3,16 +3,7 @@ import {connect} from 'react-redux'
 import {processActivities, processAmaPost, processMessages} from '../lib/processCollections'
 import AmaDetails from '/client/modules/ama/components/ama.details.jsx'
 
-// closing sidebar on a component level causes
-// meteor to lose reasctivity, so we close the sidebar on a container level
-var sidebarClosed = false
-
 const composer = ({context, params: {amaPostId}, closeSidebar}, onData) => {
-  if (!sidebarClosed) {
-    closeSidebar()
-    sidebarClosed = true
-  }
-
   const {Meteor, UserService, Collections, store} = context
   const {AmaPosts, AmaMessages, AmaActivities, Users} = Collections
 
@@ -35,6 +26,7 @@ const composer = ({context, params: {amaPostId}, closeSidebar}, onData) => {
 
     onData(null, Object.assign({}, amaPost, {
       isLive: new Date() > amaPost.startTime && amaPost.type !== 'past',
+      isPast: amaPost.type === 'past',
       participants,
       participantCount,
       currentUser,
