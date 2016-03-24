@@ -6,6 +6,7 @@ export default {
   main: {
     height: '100vh',
     display: 'flex',
+    flex: '1 0 100%',
     flexDirection: 'column',
     '@media (max-width: 768px)': {
       height: 'initial',

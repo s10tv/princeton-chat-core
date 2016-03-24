@@ -96,21 +96,25 @@ const EmptyPostList = (props) => {
 const EmptyPostListSearch = ({ currentSearchValue }) => (
   <Flex marginTop={50} flexGrow={1} flexDirection='column' justifyContent='center' alignItems='center'>
     <FontIcon style={{fontSize: 50}} className='material-icons'>search</FontIcon>
-    <h2 style={{fontWeight: 500}}>Sorry, we couldn't find any posts matching '{currentSearchValue}'</h2>
+    <h2 style={{fontWeight: 500}}>{"Sorry, we couldn't find any posts matching '{currentSearchValue}'"}</h2>
   </Flex>
 )
 
 const EmptyPostListNotInFeed = () => (
   <Flex className='post-list-empty' flexDirection='column' flex={1} padding={10} alignItems='center'>
     <Flex flexDirection='column' maxWidth={400} alignItems='center'>
-      <h2 style={{fontWeight: 500}}>It's awfully quiet in here</h2>
-      <h3 style={{fontWeight: 300}}>Let's break the ice</h3>
-      <RaisedButton primary label='Create a new post' {...muiLinkButton('/add-post')} />
+      <h2 style={{fontWeight: 500}}>{"It's awfully quiet in here"}</h2>
+      <h3 style={{fontWeight: 300, marginTop: 5}}>{"Let's break the ice"}</h3>
+      <RaisedButton primary label='Create a new post' {...muiLinkButton('/add-post')}
+        style={{marginTop: 5}}/>
     </Flex>
     <Flex marginTop={20} flexGrow={1}
-      width='50%'
+      width='60%'
       backgroundImage='url(/images/bg-empty-feed.png)'
-      backgroundSize='cover' />
+      backgroundRepeat='no-repeat'
+      backgroundPosition='50% 0%'
+      maxHeight={350}
+      backgroundSize='contain' />
   </Flex>
 )
 

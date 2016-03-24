@@ -3,18 +3,11 @@ import ListItem from 'material-ui/lib/lists/list-item'
 import Avatar from 'material-ui/lib/avatar'
 import CircularProgress from 'material-ui/lib/circular-progress'
 import ReactDOM from 'react-dom'
-import Radium, {StyleRoot} from 'radium'
+import Radium from 'radium'
 import TextareaAutosize from 'react-textarea-autosize'
 
 // Helpers
-
-const LoadingWrapper = () => (
-  <StyleRoot>
-    <LoadingComponent />
-  </StyleRoot>
-)
-
-var LoadingComponent = () => (
+const LoadingComponent = () => (
   <div style={{
     display: 'flex',
     flexGrow: 1,
@@ -28,9 +21,7 @@ var LoadingComponent = () => (
   </div>
 )
 
-LoadingComponent = Radium(LoadingComponent)
-
-export const Loading = Radium(LoadingWrapper)
+export const Loading = Radium(LoadingComponent)
 
 export const NoPaddingListItem = (props) => (
   <ListItem innerDivStyle={{
