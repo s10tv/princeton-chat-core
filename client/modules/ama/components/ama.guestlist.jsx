@@ -1,7 +1,6 @@
 import React from 'react'
 import Avatar from 'material-ui/lib/avatar'
 import {Link} from 'react-router'
-import {Flex} from 'jsxstyle'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FontIcon from 'material-ui/lib/font-icon'
 
@@ -10,86 +9,86 @@ const NavLink = (props) => (
 )
 
 const TopicsList = ({topics}) => (
-  <Flex flexDirection='column' >
-    <Flex flexDirection='row'>
-      <span style={{width: '90%', color: '#646464'}}>Topics</span>
-      <span style={{height: '100%', verticalAlign: 'middle'}}>
-        <NavLink to='#' style={s.smallGreyLink}>more</NavLink>
+  <div className='flex-column'>
+    <div className='flex-row'>
+      <span className='topics-header'>Topics</span>
+      <span className='topics-more'>
+        <NavLink to='#' className='small-grey-link'>more</NavLink>
       </span>
-    </Flex>
-    <ul style={s.topicsList}>
+    </div>
+    <ul className='topics-list'>
       {topics.map((topic) =>
         <li>
-          <NavLink to='#' style={s.greyLink}>{`#${topic.displayName}`}</NavLink>
+          <NavLink to='#' className='grey-link'>{`#${topic.displayName}`}</NavLink>
         </li>
       )}
     </ul>
-  </Flex>
+  </div>
 )
 
 const DirectMessagesList = ({contacts}) => (
-  <Flex flexDirection='column' >
-    <Flex flexDirection='row'>
-      <span style={{width: '90%', color: '#646464'}}>Direct Messages</span>
-      <span style={{height: '100%', verticalAlign: 'middle'}}>
-        <NavLink to='#' style={s.smallGreyLink}>more</NavLink>
+  <div className='flex-column'>
+    <div className='flex-row'>
+      <span className='dm-header'>Direct Messages</span>
+      <span className='dm-more'>
+        <NavLink to='#' className='small-grey-link'>more</NavLink>
       </span>
-    </Flex>
-    <ul style={s.dmList}>
+    </div>
+    <ul className='dm-list'>
       {contacts.map((contact) =>
         <li>
-          <NavLink to='#' style={s.greyLink}>{`@${contact.name}`}</NavLink>
+          <NavLink to='#' className='grey-link'>{`@${contact.name}`}</NavLink>
         </li>
       )}
     </ul>
-  </Flex>
+  </div>
 )
 
 const Sidebar = ({user, topics, contacts}) => (
-  <Flex style={s.sidebar}>
-    <Flex flexDirection='row' style={s.sidebarUsername}>
-      <Flex>
-        <Avatar style={s.userAvatar}/>
-      </Flex>
-      <Flex flexDirection='column'>
-        <span style={s.princetonChat}>princeton.chat</span>
-        <Flex flexDirection='row'>
-          <div style={s.onlineCircle}></div>
-          <span style={s.username}>{user}</span>
-        </Flex>
-      </Flex>
-    </Flex>
-    <Flex flexDirection='column' style={s.sidebarContent}>
+  <div className='sidebar'>
+    <div className='sidebar-username'>
+      <div className='flex'>
+        <Avatar size={50} className='user-avatar'/>
+      </div>
+      <div className='flex-column'>
+        <span className='princeton-chat'>princeton.chat</span>
+        <div className='flex-row'>
+          <div className='online-circle'></div>
+          <span className='username'>{user}</span>
+        </div>
+      </div>
+    </div>
+    <div className='sidebar-content'>
       <RaisedButton
         secondary
         label='Post'
         labelPosition='after'>
-        <FontIcon className='material-icons new-post-icon' color='white' style={s.addIcon}>
+        <FontIcon className='material-icons new-post-icon add-icon' color='white'>
            add
         </FontIcon>
       </RaisedButton>
-      <ul style={s.navigationLinks}>
+      <ul className='navigation-links'>
         <li>
-          <Flex flexDirection='row'>
-            <FontIcon className='material-icons' color='black' style={s.navLinkIcon}>
+          <div className='flex-row'>
+            <FontIcon className='material-icons nav-link-icon' color='black'>
                view_headline
             </FontIcon>
-            <NavLink to='#' style={s.greyLink}>My Feed</NavLink>
-          </Flex>
+            <NavLink to='#' className='grey-link'>My Feed</NavLink>
+          </div>
         </li>
         <li>
-          <Flex flexDirection='row'>
-            <FontIcon className='material-icons' color='black' style={s.navLinkIcon}>
+          <div className='flex-row'>
+            <FontIcon className='material-icons nav-link-icon' color='black'>
                view_headline
             </FontIcon>
-            <NavLink to='#' style={s.greyLink}>All Posts</NavLink>
-          </Flex>
+            <NavLink to='#' className='grey-link'>All Posts</NavLink>
+          </div>
         </li>
       </ul>
       <TopicsList topics={topics}/>
       <DirectMessagesList contacts={contacts}/>
-    </Flex>
-  </Flex>
+    </div>
+  </div>
 )
 
 const AmaGuest = ({guest, type}) => {
@@ -97,77 +96,77 @@ const AmaGuest = ({guest, type}) => {
     return s.toUpperCase()
   }
   return (
-    <Flex flexDirection='row' style={s.guestRow}>
-      <Flex flexDirection='row' style={{width: '90%', height: '100%'}}>
-        <Flex style={s.dateOutsideBox}>
+    <div className='guest-row'>
+      <div className='flex-row' style={{width: '90%', height: '100%'}}>
+        <div className='date-outside-box'>
           {type === 'Wanted'
-            ? <Flex flexDirection='column' style={s.votesBox}>
-              <FontIcon className='material-icons new-post-icon' color='black' style={s.voteArrowUpIcon}>
+            ? <div className='votes-box'>
+              <FontIcon className='material-icons vote-arrow-up-icon' color='black'>
                  arrow_drop_up
               </FontIcon>
               <span>{guest.votes}</span>
-            </Flex>
+            </div>
           : null}
           {type === 'Upcoming' || type === 'Past'
-            ? <Flex flexDirection='column' style={s.dateBox}>
-              <span style={s.date}>
+            ? <div className='date-box'>
+              <span className='date'>
                 {capitalize(guest.date)}
                 <br/>
                 {capitalize(guest.time)}
               </span>
-            </Flex>
+            </div>
           : null}
-        </Flex>
-        <Flex flexDirection='row' style={s.guestInfo}>
-          <Flex style={s.guestAvatarBox}>
-            <Avatar src={guest.avatarUrl} style={s.guestAvatar}/>
-          </Flex>
-          <Flex flexDirection='column'>
+        </div>
+        <div className='guest-info'>
+          <div className='guest-avatar-box'>
+            <Avatar src={guest.avatarUrl} size={100} className='guest-avatar'/>
+          </div>
+          <div className='flex-column'>
             <b>{guest.name + ' \'' + guest.classYear}</b>
-            <span style={s.guestDescription}>{guest.description}</span>
-            <Flex flexDirection='row'>
+            <span className='guest-description'>{guest.description}</span>
+            <div className='flex-row'>
               {type === 'Wanted'
                 ? [
-                  guest.submittedTime !== undefined ? <span style={s.guestSubmittedTime}>{'Submitted at ' + guest.submittedTime}</span> : null,
+                  guest.submittedTime !== undefined ? <span className='guest-submitted-time'>{'Submitted at ' + guest.submittedTime}</span> : null,
                   guest.submittedUser !== undefined && guest.submittedUser.avatarUrl !== undefined
-                    ? <Avatar src={guest.submittedUser.avatarUrl} style={s.guestSubmittedUserAvatar}/>
+                    ? <Avatar src={guest.submittedUser.avatarUrl} size={25} className='guest-submitted-user-avatar'/>
                   : null
                 ]
               : null}
               {type === 'Upcoming'
                 ? [
-                  guest.remind === 'true' ? <span style={s.guestRemind}>Remind Me</span> : null,
-                  guest.attending !== undefined ? <span style={s.guestAttending}>{guest.attending + ' ATTENDING'}</span> : null
+                  guest.remind === 'true' ? <span className='guest-remind'>Remind Me</span> : null,
+                  guest.attending !== undefined ? <span className='guest-attending'>{guest.attending + ' ATTENDING'}</span> : null
                 ]
               : null}
               {type === 'Past'
                 ? [
-                  guest.attending !== undefined ? <span style={s.guestAttending}>{guest.attending + ' ATTENDED'}</span> : null
+                  guest.attending !== undefined ? <span className='guest-attending'>{guest.attending + ' ATTENDED'}</span> : null
                 ]
               : null}
-            </Flex>
-          </Flex>
-        </Flex>
-      </Flex>
-      <Flex>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='flex'>
         {guest.commentsNum !== undefined
-          ? <Flex flexDirection='row' style={{marginTop: '30px'}}>
-            <img src='/images/chat-bubble.svg' style={s.commentsIcon}/>
-            <span style={s.guestCommentNum}>{guest.commentsNum}</span>
-          </Flex>
+          ? <div className='flex-row' style={{marginTop: '30px'}}>
+            <img src='/images/chat-bubble.svg' className='comments-icon'/>
+            <span className='guest-comment-num'>{guest.commentsNum}</span>
+          </div>
         : null}
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   )
 }
 
 const AmaGuestList = ({guests, type}) => {
   return (
-    <Flex flexDirection='column' style={s.guestList}>
+    <div className='guest-list'>
       {guests.map((guest) =>
         <AmaGuest guest={guest} type={type}/>
       )}
-    </Flex>
+    </div>
   )
 }
 
@@ -186,49 +185,49 @@ export default React.createClass({
 
   render: function () {
     return (
-      <div style={s.main}>
-        <Flex flexDirection='row'>
+      <div className='main'>
+        <div className='flex-row'>
           <Sidebar user={this.props.user} topics={this.props.topics} contacts={this.props.contacts}/>
-          <Flex style={s.content}>
-            <h3 style={s.contentHeader}>#AMA &nbsp; Ask Me Anything</h3>
-            <Flex flexDirection='column' style={s.amalist}>
-              <Flex flexDirection='row' style={s.tabHeader}>
-                <span style={s.tabLinkBox}>
+          <div className='content'>
+            <h3 className='content-header'>#AMA &nbsp; Ask Me Anything</h3>
+            <div className='ama-list'>
+              <div className='tab-header'>
+                <span className='tab-link-box'>
                   <a href='#'
-                    style={this.state.tab === 'Wanted' ? s.tabSelectedLink : s.tabLink}
+                    className={this.state.tab === 'Wanted' ? 'tab-selected-link' : 'tab-link'}
                     onClick={this.tabItemClicked}>
                     Wanted
                   </a>
                 </span>
-                <span style={s.tabLinkMiddleBox}>
+                <span className='tab-link-middle-box'>
                   <a href='#'
-                    style={this.state.tab === 'Upcoming' ? s.tabSelectedLink : s.tabLink}
+                    className={this.state.tab === 'Upcoming' ? 'tab-selected-link' : 'tab-link'}
                     onClick={this.tabItemClicked}>
                     Upcoming
                   </a>
                 </span>
-                <span style={s.tabLinkBox}>
+                <span className='tab-link-box'>
                   <a href='#'
-                    style={this.state.tab === 'Past' ? s.tabSelectedLink : s.tabLink}
+                    className={this.state.tab === 'Past' ? 'tab-selected-link' : 'tab-link'}
                     onClick={this.tabItemClicked}>
                     Past
                   </a>
                 </span>
-              </Flex>
+              </div>
               {this.state.tab === 'Wanted'
                 ? [
-                  <Flex flexDirection='column' style={{flexShrink: 0}}>
-                    <span style={s.voteForText}>
+                  <div className='flex-column' style={{flexShrink: 0}}>
+                    <span className='vote-for-text'>
                       Vote for the tiger you want to hear from the most. If there is someone you'd love to hear
                       but not on this list, you can
                     </span>
-                    <Flex flexDirection='row' style={s.suggestNewAMA}>
-                      <FontIcon className='material-icons' color='#CCCCCC' style={s.suggestNewAMAIcon}>
+                    <div className='suggest-new-ama'>
+                      <FontIcon className='material-icons suggest-new-ama-icon' color='#CCCCCC'>
                          add
                       </FontIcon>
                       <span>Suggest New AMA</span>
-                    </Flex>
-                  </Flex>,
+                    </div>
+                  </div>,
                   <AmaGuestList guests={this.props.guests.wanted} type='Wanted' />
                 ]
               : null}
@@ -238,280 +237,10 @@ export default React.createClass({
               {this.state.tab === 'Past'
                 ? <AmaGuestList guests={this.props.guests.past} type='Past' />
               : null}
-            </Flex>
-          </Flex>
-        </Flex>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
 })
-
-const s = {
-  addIcon: {
-    height: '100%',
-    verticalAlign: 'middle'
-  },
-  amalist: {
-    marginTop: '3vh',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    paddingLeft: '20px',
-    width: '70%',
-    height: '87vh',
-    backgroundColor: '#FFFFFF',
-    borderColor: '#F2F2F2',
-    borderWidth: 1,
-    borderStyle: 'solid'
-  },
-  commentsIcon: {
-    marginRight: '5px',
-    width: '15px',
-    height: '15px',
-    opacity: '0.5'
-  },
-  content: {
-    width: '100%',
-    paddingLeft: '20px',
-    paddingTop: '15px',
-    flexDirection: 'column'
-  },
-  contentHeader: {
-    color: '#646464'
-  },
-  date: {
-    lineHeight: '20px',
-    paddingTop: '10px',
-    height: '100%',
-    verticalAlign: 'middle',
-    fontWeight: '700',
-    fontSize: '0.9rem'
-  },
-  dateBox: {
-    borderRadius: '5px',
-    borderColor: '#9D9D9D',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    padding: '5px',
-    width: '70px',
-    height: '70px',
-    textAlign: 'center'
-  },
-  dateOutsideBox: {
-    borderRightColor: '#9D9D9D',
-    borderRightStyle: 'solid',
-    borderRightWidth: 1,
-    paddingRight: '10px',
-    paddingTop: '20px',
-    height: '100%'
-  },
-  dmList: {
-    listStyle: 'none',
-    textAlign: 'left',
-    paddingLeft: '15px',
-    color: '#646464'
-  },
-  greyLink: {
-    color: '#646464'
-  },
-  guestAttending: {
-    marginTop: '3px',
-    marginRight: '5px',
-    color: '#CCCCCC',
-    fontWeight: '300',
-    fontSize: '0.9rem'
-  },
-  guestAvatar: {
-    height: '100px',
-    width: '100px'
-  },
-  guestAvatarBox: {
-    marginLeft: '10px',
-    marginRight: '10px',
-    height: '100%'
-  },
-  guestCommentNum: {
-    fontSize: '0.9rem',
-    color: '#CCCCCC',
-    fontWeight: '300',
-    lineHeight: '15px'
-  },
-  guestDescription: {
-    color: '#CCCCCC',
-    fontWeight: '300'
-  },
-  guestInfo: {
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    height: '100%'
-  },
-  guestList: {
-    overflowY: 'scroll',
-    paddingTop: '10px'
-  },
-  guestRemind: {
-    backgroundColor: '#EC7C60',
-    color: '#FFFFFF',
-    padding: '3px',
-    lineHeight: '12px',
-    marginTop: '5px',
-    marginRight: '5px',
-    fontWeight: '300',
-    fontSize: '0.9rem',
-    height: '18px'
-  },
-  guestRow: {
-    height: '110px',
-    flexShrink: '0'
-  },
-  guestSubmittedTime: {
-    marginTop: '10px',
-    marginRight: '5px',
-    color: '#CCCCCC',
-    fontWeight: '300',
-    fontSize: '0.9rem'
-  },
-  guestSubmittedUserAvatar: {
-    height: '25px',
-    width: '25px',
-    marginTop: '10px',
-    marginLeft: '5px',
-    marginRight: '5px'
-  },
-  main: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#F7F7F7'
-  },
-  navLinkIcon: {
-    fontSize: '30px',
-    marginRight: '5px'
-  },
-  navigationLinks: {
-    marginTop: '10px',
-    listStyle: 'none',
-    paddingLeft: '0px',
-    color: '#646464'
-  },
-  onlineCircle: {
-    width: '10px',
-    height: '10px',
-    backgroundColor: '#D8D8D8',
-    borderRadius: '5px',
-    borderColor: '#A1A1A1',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    marginTop: '8px',
-    marginRight: '5px',
-    marginLeft: '3px',
-    marginBottom: '3px'
-  },
-  postButton: {
-    backgroundColor: '#4E92DF'
-  },
-  princetonChat: {
-    lineHeight: '24px',
-    fontSize: '1.25rem',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    color: '#646464'
-  },
-  smallGreyLink: {
-    fontSize: '12px',
-    color: '#646464'
-  },
-  sidebar: {
-    width: '20%',
-    height: '100vh',
-    flexDirection: 'column',
-    borderRightColor: '#9D9D9D',
-    borderRightStyle: 'solid',
-    borderRightWidth: 1
-  },
-  sidebarContent: {
-    paddingLeft: '20px',
-    paddingRight: '20px',
-    paddingTop: '15px'
-  },
-  sidebarUsername: {
-    paddingLeft: '5px',
-    paddingTop: '7px',
-    paddingBottom: '7px',
-    borderBottomColor: '#9D9D9D',
-    borderBottomStyle: 'solid',
-    borderBottomWidth: 1
-  },
-  suggestNewAMA: {
-    color: '#CCCCCC',
-    fontWeight: '300',
-    marginTop: '5px',
-    marginBottom: '5px',
-    marginLeft: '5px'
-  },
-  suggestNewAMAIcon: {
-    fontSize: '18px',
-    lineHeight: '24px',
-    marginRight: '5px'
-  },
-  tabHeader: {
-    borderBottomColor: '#F2F2F2',
-    borderBottomWidth: 1,
-    borderBottomStyle: 'solid',
-    paddingBottom: '10px',
-    paddingTop: '10px',
-    width: '100%',
-    flexShrink: '0'
-  },
-  tabLink: {
-    color: '#CCCCCC'
-  },
-  tabLinkBox: {
-    paddingLeft: '5px',
-    paddingRight: '5px'
-  },
-  tabLinkMiddleBox: {
-    paddingLeft: '5px',
-    paddingRight: '5px',
-    borderLeftColor: '#F2F2F2',
-    borderLeftWidth: 1,
-    borderLeftStyle: 'solid',
-    borderRightColor: '#F2F2F2',
-    borderRightWidth: 1,
-    borderRightStyle: 'solid'
-  },
-  tabSelectedLink: {
-    color: '#000000'
-  },
-  topicsList: {
-    listStyle: 'none',
-    textAlign: 'left',
-    paddingLeft: '15px',
-    color: '#646464'
-  },
-  userAvatar: {
-    height: '50px',
-    width: '50px',
-    marginRight: '7px'
-  },
-  username: {
-    lineHeight: '24px',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    color: '#646464'
-  },
-  voteArrowUpIcon: {
-    fontSize: '42px',
-    marginBottom: '-15px'
-  },
-  voteForText: {
-    marginTop: '5px',
-    marginLeft: '10px',
-    marginRight: '20px'
-  },
-  votesBox: {
-    padding: '5px',
-    width: '70px',
-    height: '70px',
-    textAlign: 'center'
-  }
-}
