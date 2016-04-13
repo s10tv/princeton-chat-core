@@ -5,7 +5,7 @@ import crypto from 'crypto'
  * It should not be changed under any circumstances, otherwise things wong be backwards
  * compatible anymore.
  */
-const SALT = 'A8xu2aeHxVduuHWJgnBuUFoWZMQ(cacr'
+const SALT = ''
 
 export function isValidHash (user, hash) {
   const userIdWithSalt = `${user._id}${SALT}`
