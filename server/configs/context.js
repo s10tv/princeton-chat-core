@@ -23,7 +23,7 @@ const isTest = process.env.ENV === 'test'
 // dependencies with fake alternatives
 const Email = !isTest ? _RealEmail : new FakeEmail()
 
-const slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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'
+const slackUrl = process.env.SLACK_URL || ''
 const slack = !isTest ? Meteor.npmRequire('slack-notify')(slackUrl) : new FakeSlack()
 
 const audience = process.env.AUDIENCE || 'princeton'
